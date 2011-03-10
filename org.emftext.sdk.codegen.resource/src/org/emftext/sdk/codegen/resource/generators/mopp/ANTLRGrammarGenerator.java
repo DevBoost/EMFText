@@ -379,7 +379,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText + \"}?\";");
 		sc.add("}");
 		
-		sc.addComment("the resource may be null if the parse is used for code completion");
+		sc.addComment("the resource may be null if the parser is used for code completion");
 		sc.add("final String finalMessage = message;");
 		
 		sc.add("if (e.token instanceof " + COMMON_TOKEN + ") {");
@@ -2053,19 +2053,21 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				//Expression slices are formed over a common abstract superclass
 				//TODO handle genClass prefixes too
 				boolean isCommonExpressionMetaClass = !concreteSyntax.getOperatorRuleSubset(referencedClass.getName()).isEmpty(); 
-				if(printImplicitChoiceRule(sc,referencedClass, isCommonExpressionMetaClass))
+				if (printImplicitChoiceRule(sc, referencedClass, isCommonExpressionMetaClass)) {
 					eClassesWithSyntax.add(referencedClass);
+				}
 			}
 		}
 		
-		//We check if there are start symbols referencing an expression meta class which has not 
-		//a grammar rule yet
+		// We check if there are start symbols referencing an expression metaclass which has not 
+		// a grammar rule yet
 		for (GenClass referencedClass : concreteSyntax.getStartSymbols()){
 			boolean isCommonExpressionMetaClass = !concreteSyntax.getOperatorRuleSubset(referencedClass.getName()).isEmpty(); 
-			//TODO handle genClass prefixes too
-			if(isCommonExpressionMetaClass&&!genClassCache.containsEqualByName(eClassesWithSyntax, referencedClass)){
-				if(printImplicitChoiceRule(sc,referencedClass, isCommonExpressionMetaClass))
+			// TODO handle genClass prefixes too
+			if (isCommonExpressionMetaClass && !genClassCache.containsEqualByName(eClassesWithSyntax, referencedClass)) {
+				if (printImplicitChoiceRule(sc, referencedClass, isCommonExpressionMetaClass)) {
 					eClassesWithSyntax.add(referencedClass);
+				}
 			}
 		}
 	}
@@ -2076,18 +2078,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				.getSubClassesWithSyntax(referencedClass,
 						true);
 
-		if (!subClasses.isEmpty()||isCommonExpressionMetaClass) {
+		if (!subClasses.isEmpty() || isCommonExpressionMetaClass) {
 			sc.add(getRuleName(referencedClass));
-			sc.add(" returns ["
-					+ genClassCache
-							.getQualifiedInterfaceName(referencedClass)
-					+ " element = null]");
+			String metaclassName = genClassCache.getQualifiedInterfaceName(referencedClass);
+			sc.add(" returns [" + metaclassName + " element = null]");
 			sc.add(":");
 			if (!isCommonExpressionMetaClass) {
 				printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 			} else {
 				List<Rule> slice = concreteSyntax.getOperatorRuleSubset(referencedClass.getName());
-				sc.add("c = " + getExpressionSliceRuleName(slice.get(0))+"{ element = c; /* this rule is an expression root */ }");
+				sc.add("c = " + getExpressionSliceRuleName(slice.get(0)) + "{ element = c; /* this rule is an expression root */ }");
 			}
 				
 			sc.addLineBreak();
@@ -2102,7 +2102,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void printSubClassOrPrimitiveOperatorChoices(StringComposite sc,
 			Collection<GenClass> subClasses) {
 		int count = 0;
-		for (Iterator<GenClass> subClassIterator = subClasses.iterator(); subClassIterator.hasNext();) {
+		Iterator<GenClass> subClassIterator = subClasses.iterator();
+		while (subClassIterator.hasNext()) {
 			GenClass subRef = subClassIterator.next();
 			String identifier = "c" + count;
 			sc.add(identifier + " = " + getRuleName(subRef) + "{ element = " + identifier + "; /* this is a subclass or primitive expression choice */ }");
