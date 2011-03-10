@@ -29,7 +29,10 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		// TODO add documentation
 		sc.add("public String getHoverText(" + E_OBJECT + " object);");
+		// TODO add documentation
+		sc.add("public String getHoverText(" + E_OBJECT + " container, " + E_OBJECT + " referencedObject);");
 		sc.add("}");
 	}
 }

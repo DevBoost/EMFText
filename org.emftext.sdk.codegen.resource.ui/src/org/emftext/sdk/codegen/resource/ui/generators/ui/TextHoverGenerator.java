@@ -93,6 +93,8 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		addGetStyleSheetMethod(sc);
 		addLoadStyleSheetMethod(sc);
 		addGetFirstProxyMethod(sc);
+		addGetFirstNonProxyMethod(sc);
+		addGetFirstObjectMethod(sc);
 	}
 
 	private void addInnerClasses(JavaComposite sc) {
@@ -236,6 +238,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("private " + docBrowserInformationControlInputClassName + " getHoverInfo(" + LIST + "<" + E_OBJECT + "> elements, " + I_TEXT_VIEWER + " textViewer, " + docBrowserInformationControlInputClassName + " previousInput) {");
 		sc.add("StringBuffer buffer = new StringBuffer();");
 		sc.add(E_OBJECT + " proxyObject = getFirstProxy(elements);");
+		sc.add(E_OBJECT + " containerObject = getFirstNonProxy(elements);");
 		sc.add(E_OBJECT + " declarationObject = null;");
 		sc.addComment("get the token text, which is hovered. It is needed to jump to the declaration.");
 		sc.add("String tokenText = \"\";");
@@ -250,7 +253,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("}");
 		sc.add("declarationObject = " + ECORE_UTIL + ".resolve(proxyObject, editor.getResource());");
 		sc.add("if (declarationObject != null) {");
-		sc.add(htmlPrinterClassName + ".addParagraph(buffer, hoverTextProvider.getHoverText(declarationObject));");
+		sc.add(htmlPrinterClassName + ".addParagraph(buffer, hoverTextProvider.getHoverText(containerObject, declarationObject));");
 		sc.add("}");
 		sc.add("} else {");
 		sc.add(htmlPrinterClassName + ".addParagraph(buffer, hoverTextProvider.getHoverText(elements.get(0)));");
@@ -289,8 +292,20 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addGetFirstProxyMethod(StringComposite sc) {
 		sc.add("private static " + E_OBJECT + " getFirstProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
+		sc.add("return getFirstObject(elements, false);");
+		sc.add("}");
+	}
+
+	private void addGetFirstNonProxyMethod(StringComposite sc) {
+		sc.add("private static " + E_OBJECT + " getFirstNonProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
+		sc.add("return getFirstObject(elements, false);");
+		sc.add("}");
+	}
+
+	private void addGetFirstObjectMethod(StringComposite sc) {
+		sc.add("private static " + E_OBJECT + " getFirstObject(" + LIST + "<" + E_OBJECT + "> elements, boolean proxy) {");
 		sc.add("for (" + E_OBJECT + " object : elements) {");
-		sc.add("if (object.eIsProxy()) {");
+		sc.add("if (proxy == object.eIsProxy()) {");
 		sc.add("return object;");
 		sc.add("}");
 		sc.add("}");

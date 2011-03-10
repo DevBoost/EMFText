@@ -32,11 +32,19 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<Artif
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iHoverTextProviderClassName + " {");
 		sc.addLineBreak();
-		addGetHoverTextMethod(sc);
+		addGetHoverTextMethod1(sc);
+		addGetHoverTextMethod2(sc);
 		sc.add("}");
 	}
 
-	private void addGetHoverTextMethod(JavaComposite sc) {
+	private void addGetHoverTextMethod1(JavaComposite sc) {
+		sc.add("public String getHoverText(" + E_OBJECT + " container, " + E_OBJECT + " referencedObject) {");
+		sc.add("return getHoverText(referencedObject);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetHoverTextMethod2(JavaComposite sc) {
 		sc.add("public String getHoverText(" + E_OBJECT + " object) {");
 		sc.add("if (object == null) {");
 		sc.add("return null;");

@@ -32,7 +32,8 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("public class " + getResourceClassName() + " implements " + iHoverTextProviderClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
-		addGetHoverTextMethod(sc);
+		addGetHoverTextMethod1(sc);
+		addGetHoverTextMethod2(sc);
 		sc.add("}");
 	}
 
@@ -41,7 +42,18 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverTextMethod(JavaComposite sc) {
+	private void addGetHoverTextMethod1(JavaComposite sc) {
+		sc.add("public String getHoverText(" + E_OBJECT + " container, " + E_OBJECT + " referencedObject) {");
+		sc.addComment(
+			"Set option " + OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER.getLiteral() + " to false and customize this method to obtain " +
+			"custom hover texts."
+		);
+		sc.add("return defaultProvider.getHoverText(referencedObject);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetHoverTextMethod2(JavaComposite sc) {
 		sc.add("public String getHoverText(" + E_OBJECT + " object) {");
 		sc.addComment(
 			"Set option " + OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER.getLiteral() + " to false and customize this method to obtain " +
@@ -51,7 +63,4 @@ public class HoverTextProviderGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
-
 }
