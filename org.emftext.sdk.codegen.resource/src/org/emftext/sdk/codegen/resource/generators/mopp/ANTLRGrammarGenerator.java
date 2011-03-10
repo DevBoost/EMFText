@@ -1701,7 +1701,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			assert ((EReference) eFeature).isContainment();
 			Containment containment = (Containment) terminal;
 
-			EList<GenClass> types = containment.getAllowedSubTypes();
+			List<GenClass> types = containment.getAllowedSubTypes();
 
 			int internalCount = 0;
 			for (GenClass type : types) {
