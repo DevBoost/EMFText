@@ -265,6 +265,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput getHoverInfo(java.util.List<org.eclipse.emf.ecore.EObject> elements, org.eclipse.jface.text.ITextViewer textViewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput previousInput) {
 		StringBuffer buffer = new StringBuffer();
 		org.eclipse.emf.ecore.EObject proxyObject = getFirstProxy(elements);
+		org.eclipse.emf.ecore.EObject containerObject = getFirstNonProxy(elements);
 		org.eclipse.emf.ecore.EObject declarationObject = null;
 		// get the token text, which is hovered. It is needed to jump to the declaration.
 		String tokenText = "";
@@ -279,7 +280,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 			}
 			declarationObject = org.eclipse.emf.ecore.util.EcoreUtil.resolve(proxyObject, editor.getResource());
 			if (declarationObject != null) {
-				org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(declarationObject));
+				org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(containerObject, declarationObject));
 			}
 		} else {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(elements.get(0)));
@@ -349,8 +350,14 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	}
 	
 	private static org.eclipse.emf.ecore.EObject getFirstProxy(java.util.List<org.eclipse.emf.ecore.EObject> elements) {
+		return getFirstObject(elements, false);
+	}
+	private static org.eclipse.emf.ecore.EObject getFirstNonProxy(java.util.List<org.eclipse.emf.ecore.EObject> elements) {
+		return getFirstObject(elements, false);
+	}
+	private static org.eclipse.emf.ecore.EObject getFirstObject(java.util.List<org.eclipse.emf.ecore.EObject> elements, boolean proxy) {
 		for (org.eclipse.emf.ecore.EObject object : elements) {
-			if (object.eIsProxy()) {
+			if (proxy == object.eIsProxy()) {
 				return object;
 			}
 		}

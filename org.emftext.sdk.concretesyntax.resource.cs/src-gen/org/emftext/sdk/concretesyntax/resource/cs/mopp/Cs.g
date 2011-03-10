@@ -484,7 +484,7 @@ options {
 			org.antlr.runtime3_3_0.FailedPredicateException fpe = (org.antlr.runtime3_3_0.FailedPredicateException) e;
 			message = "rule " + fpe.ruleName + " failed predicate: {" +  fpe.predicateText + "}?";
 		}
-		// the resource may be null if the parse is used for code completion
+		// the resource may be null if the parser is used for code completion
 		final String finalMessage = message;
 		if (e.token instanceof org.antlr.runtime3_3_0.CommonToken) {
 			final org.antlr.runtime3_3_0.CommonToken ct = (org.antlr.runtime3_3_0.CommonToken) e.token;

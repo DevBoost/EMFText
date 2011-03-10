@@ -41,6 +41,10 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil;
  * types.
  */
 public class CsHoverTextProvider implements ICsHoverTextProvider {
+
+	public String getHoverText(EObject container, EObject referencedObject) {
+		return getHoverText(referencedObject);
+	}
 	
 	public String getHoverText(EObject eObject) {
 		if (eObject == null) {

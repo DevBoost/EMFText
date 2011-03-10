@@ -16,6 +16,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 public class CsDefaultHoverTextProvider implements org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider {
 	
+	public String getHoverText(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EObject referencedObject) {
+		return getHoverText(referencedObject);
+	}
+	
 	public String getHoverText(org.eclipse.emf.ecore.EObject object) {
 		if (object == null) {
 			return null;
