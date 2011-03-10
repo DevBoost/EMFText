@@ -350,7 +350,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	}
 	
 	private static org.eclipse.emf.ecore.EObject getFirstProxy(java.util.List<org.eclipse.emf.ecore.EObject> elements) {
-		return getFirstObject(elements, false);
+		return getFirstObject(elements, true);
 	}
 	private static org.eclipse.emf.ecore.EObject getFirstNonProxy(java.util.List<org.eclipse.emf.ecore.EObject> elements) {
 		return getFirstObject(elements, false);
