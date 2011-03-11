@@ -24,7 +24,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostPro
 public class CyclicImportAnalyser extends AbstractPostProcessor {
 
 	private static final String CYCLIC_SYNTAX_IMPORT_IS_NOT_ALLOWED = 
-		"The syntax %s is imported cyclic.";
+		"The syntax with name %s is imported cyclic or the name is used multiple times.";
 
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
