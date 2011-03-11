@@ -15,7 +15,7 @@ package org.emftext.sdk.codegen.composites;
 
 /**
  * A StringComponent is a part of a StringComposite. By
- * default all StringComponens are disabled and do thus 
+ * default all StringComponents are disabled and do thus 
  * not appear when the containing StringComposite is 
  * converted to a String.
  */
