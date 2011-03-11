@@ -247,8 +247,9 @@ public class StringComposite {
 	}
 
 	protected boolean isLineBreaker(Component component) {
+		String componentString = component.toString();
 		for (String starter : lineBreakers) {
-			if (component.toString().endsWith(starter)) {
+			if (componentString.endsWith(starter)) {
 				return true;
 			}
 		}
@@ -256,8 +257,9 @@ public class StringComposite {
 	}
 
 	protected boolean isIndendationStarter(Component component) {
+		String componentString = component.toString();
 		for (String starter : indentationStarters) {
-			if (component.toString().endsWith(starter)) {
+			if (componentString.endsWith(starter)) {
 				return true;
 			}
 		}
@@ -265,8 +267,9 @@ public class StringComposite {
 	}
 
 	protected boolean isIndendationStopper(Component component) {
+		String componentString = component.toString();
 		for (String stopper : indentationStoppers) {
-			if (component.toString().startsWith(stopper)) {
+			if (componentString.startsWith(stopper)) {
 				return true;
 			}
 		}
