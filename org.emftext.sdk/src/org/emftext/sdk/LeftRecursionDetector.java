@@ -14,11 +14,11 @@
 package org.emftext.sdk;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -37,12 +37,12 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
 public class LeftRecursionDetector {
 
 	private final Map<String, Collection<String>> genClassNames2superNames;
-	private final ConcreteSyntax grammar;
+	private final ConcreteSyntax syntax;
 
 	public LeftRecursionDetector(
-			Map<String, Collection<String>> genClassNames2superNames, ConcreteSyntax concreteSyntax) {
+			Map<String, Collection<String>> genClassNames2superNames, ConcreteSyntax syntax) {
 		this.genClassNames2superNames = genClassNames2superNames;
-		this.grammar = concreteSyntax;
+		this.syntax = syntax;
 	}
 
 	public Rule findLeftRecursion(Rule rule) {
@@ -86,7 +86,7 @@ public class LeftRecursionDetector {
 					return currentRule;
 				} else {
 					Rule featureRule = null;
-					EList<Rule> allRules = this.grammar.getAllRules();
+					List<Rule> allRules = syntax.getAllRules();
 					for (Rule rule : allRules) {
 						if (featureTypes.contains(rule.getMetaclass())) {
 							featureRule = rule;
@@ -127,9 +127,13 @@ public class LeftRecursionDetector {
 	}
 
 	private boolean isSubtypeofOneOf(GenClass metaclass, Collection<GenClass> featureTypes, GenClassCache genClassCache) {
-		Collection<String> superNames = genClassNames2superNames.get(genClassCache.getQualifiedInterfaceName(metaclass));
+		String metaclassName = genClassCache.getQualifiedInterfaceName(metaclass);
+		Collection<String> superNames = genClassNames2superNames.get(metaclassName);
 		for (GenClass featureType : featureTypes) {
-			if (superNames.contains(genClassCache.getQualifiedInterfaceName(featureType))) return true;
+			String featureTypeName = genClassCache.getQualifiedInterfaceName(featureType);
+			if (superNames.contains(featureTypeName)) {
+				return true;
+			}
 		}
 	
 		return false;
@@ -139,7 +143,7 @@ public class LeftRecursionDetector {
 		GenClassCache genClassCache = rule.getSyntax().getGenClassCache();
 		boolean isDirectLeftRecursive = false;
 		GenClass metaclass = rule.getMetaclass();
-		EList<Sequence> options = rule.getDefinition().getOptions();
+		List<Sequence> options = rule.getDefinition().getOptions();
 		GenFeature recursiveFeature = null;
 		for (Sequence sequence : options) {
 			Rule leftProducingRule = findLeftProducingRule(metaclass, sequence, rule);
