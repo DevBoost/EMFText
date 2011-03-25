@@ -63,6 +63,22 @@
       </objectContribution>
    </extension>
 
+   <extension  
+            point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.emftext.ui.generatecustomstylecontributor"
+            nameFilter="*.genmodel*"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.emftext.sdk.ui.actions.GenerateCustomSyntaxAction"
+               enablesFor="1"
+               id="org.emftext.ui.actions.generatecustomstylecontributor"
+               label="Custom Syntax"
+               menubarPath="org.emftext.ui.generatesyntaxactions/additions"/>
+      </objectContribution>
+   </extension>
+
    <extension
          point="org.eclipse.ui.newWizards">
       <category

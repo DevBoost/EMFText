@@ -1,0 +1,53 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2011
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0 
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Software Technology Group - TU Dresden, Germany 
+ *      - initial API and implementation
+ ******************************************************************************/
+package org.emftext.sdk.ui.wizards;
+
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.ui.AbstractSyntaxGenerator;
+
+public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
+
+	private CustomSyntaxConfiguration configuration;
+
+	public CustomSyntaxGenerator(CustomSyntaxConfiguration configuration) {
+		super();
+		this.configuration = configuration;
+	}
+	
+	@Override
+	protected void addKeyword(GenClass genClass, Sequence ruleSequence) {
+		if (configuration.isUseKeywords()) {
+			super.addKeyword(genClass, ruleSequence);
+		}
+	}
+
+	@Override
+	public void addOpening(GenClass genClass, Sequence ruleSequence) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addClosing(GenClass genClass, Sequence ruleSequence) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createFeaturePrefix(GenFeature genFeature, Sequence sequence) {
+		// TODO Auto-generated method stub
+	}
+}

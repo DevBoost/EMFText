@@ -44,7 +44,9 @@ public abstract class AbstractGenerateSyntaxAction implements IObjectActionDeleg
                 Object o = i.next();
                 if (o instanceof IFile) {
                     IFile file = (IFile) o;                   
-                    if (file.getFileExtension().startsWith("genmodel")) process(file);
+                    if (file.getFileExtension().startsWith("genmodel")) {
+                    	process(file);
+                    }
                 }
             }
 		}
