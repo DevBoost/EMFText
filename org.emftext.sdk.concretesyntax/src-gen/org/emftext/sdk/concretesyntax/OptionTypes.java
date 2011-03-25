@@ -5558,6 +5558,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the IResourceProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IRESOURCE_PROVIDER
 	 * @model name="OVERRIDE_I_RESOURCE_PROVIDER" literal="overrideIResourceProvider"
 	 * @generated
@@ -5572,6 +5575,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the IBracketHandlerProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IBRACKET_HANDLER_PROVIDER
 	 * @model name="OVERRIDE_I_BRACKET_HANDLER_PROVIDER" literal="overrideIBracketHandlerProvider"
 	 * @generated
@@ -5586,6 +5592,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the IAnnotationModelProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IANNOTATION_MODEL_PROVIDER
 	 * @model name="OVERRIDE_I_ANNOTATION_MODEL_PROVIDER" literal="overrideIAnnotationModelProvider"
 	 * @generated

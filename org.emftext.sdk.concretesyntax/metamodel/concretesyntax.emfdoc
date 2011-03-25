@@ -524,6 +524,12 @@ OptionTypes.OVERRIDE_EPROBLEM_SEVERITY : "If set to <code>false</code>, the EPro
 
 OptionTypes.OVERRIDE_RESOURCE_POST_PROCESSOR : "If set to <code>false</code>, the ResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_I_ANNOTATION_MODEL_PROVIDER : "If set to <code>false</code>, the IAnnotationModelProvider class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_BRACKET_HANDLER_PROVIDER : "If set to <code>false</code>, the IBracketHandlerProvider class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_RESOURCE_PROVIDER : "If set to <code>false</code>, the IResourceProvider class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

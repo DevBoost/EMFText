@@ -58,7 +58,7 @@
     <eOperations name="isImportedRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="&#xD;&#xA;&#x9;&#x9;return rule.getSyntax() != this;&#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Returns true if the given rule was defined in the given syntax.&#xD;&#xA; If the rule is defined in an imported syntax, this method returns&#xD;&#xA; false.&#xD;&#xA; &#xD;&#xA; @param syntax the syntax that refers to the rule&#xD;&#xA; @param rule the rule to check&#xD;&#xA; @return true if the rule is contained, false if it is imported&#xD;&#xA;"/>
+        <details key="documentation" value="Returns true if the given rule was defined in the given syntax.&#xD;&#xA;If the rule is defined in an imported syntax, this method returns false.&#xD;&#xA; &#xD;&#xA;@param syntax the syntax that refers to the rule&#xD;&#xA;@param rule the rule to check&#xD;&#xA;@return true if the rule is contained, false if it is imported"/>
       </eAnnotations>
       <eParameters name="rule" eType="#//Rule"/>
     </eOperations>
@@ -71,14 +71,14 @@
     <eOperations name="getClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="&#xD;&#xA;&#x9;&#x9; java.util.Collection&lt; org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.emftext.sdk.concretesyntax.Rule rule : rules) {&#xD;&#xA;&#x9;&#x9;&#x9;if (excludeOperatorRules &amp;&amp; rule.getOperatorAnnotation() != null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;continue;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9; org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();&#xD;&#xA;&#x9;&#x9;&#x9;foundGenClasses.add(subClassCand);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return foundGenClasses;&#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
+        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
       </eAnnotations>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     </eOperations>
     <eOperations name="getSubClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9; org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {&#xD;&#xA;&#x9;&#x9;&#x9;if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;subClasses.add(subClassCand);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return subClasses;&#xD;&#xA;"/>
-        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
+        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
       </eAnnotations>
       <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
@@ -1673,9 +1673,21 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ResourcePostProcessor class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_I_RESOURCE_PROVIDER" value="224" literal="overrideIResourceProvider"/>
-    <eLiterals name="OVERRIDE_I_BRACKET_HANDLER_PROVIDER" value="225" literal="overrideIBracketHandlerProvider"/>
-    <eLiterals name="OVERRIDE_I_ANNOTATION_MODEL_PROVIDER" value="226" literal="overrideIAnnotationModelProvider"/>
+    <eLiterals name="OVERRIDE_I_RESOURCE_PROVIDER" value="224" literal="overrideIResourceProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IResourceProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_BRACKET_HANDLER_PROVIDER" value="225" literal="overrideIBracketHandlerProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IBracketHandlerProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_ANNOTATION_MODEL_PROVIDER" value="226" literal="overrideIAnnotationModelProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IAnnotationModelProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
