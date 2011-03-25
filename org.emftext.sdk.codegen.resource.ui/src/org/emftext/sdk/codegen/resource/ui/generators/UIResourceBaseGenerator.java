@@ -42,7 +42,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String htmlPrinterClassName;
 	protected String hyperlinkClassName;
 	protected String hyperlinkDetectorClassName;
+	protected String iAnnotationModelProviderClassName;
 	protected String iBracketHandlerClassName;
+	protected String iBracketHandlerProviderClassName;
 	protected String imageProviderClassName;
 	protected String markerAnnotationClassName;
 	protected String markerResolutionGeneratorClassName;
@@ -96,7 +98,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		htmlPrinterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.HTML_PRINTER);
 		hyperlinkClassName = context.getQualifiedClassName(TextResourceUIArtifacts.HYPERLINK);
 		hyperlinkDetectorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.HYPERLINK_DETECTOR);
+		iAnnotationModelProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_ANNOTATION_MODEL_PROVIDER);
 		iBracketHandlerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER);
+		iBracketHandlerProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER_PROVIDER);
 		imageProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.IMAGE_PROVIDER);
 		markerAnnotationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_ANNOTATION);
 		markerResolutionGeneratorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);

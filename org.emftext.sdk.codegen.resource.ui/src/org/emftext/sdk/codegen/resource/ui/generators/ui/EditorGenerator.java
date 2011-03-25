@@ -36,6 +36,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_ACCESS_EXTENSION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_OUTLINE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT_LISTENER;
@@ -94,7 +95,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc("A text editor for '" + getContext().getConcreteSyntax().getName() + "' models.");
-		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
 		sc.addLineBreak();
 		
 		addFields(sc);
@@ -130,6 +131,14 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addGetBracketHandlerMethod(sc);
 		addSetBracketHandlerMethod(sc);
 		addCreateActionsMethod(sc);
+		addGetAnnotationModelMethod(sc);
+	}
+
+	private void addGetAnnotationModelMethod(JavaComposite sc) {
+		sc.add("public " + I_ANNOTATION_MODEL + " getAnnotationModel() {");
+		sc.add("return getDocumentProvider().getAnnotationModel(getEditorInput());");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetBracketHandlerMethod(JavaComposite sc) {
@@ -473,7 +482,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
-		sc.add("setSourceViewerConfiguration(new " + editorConfigurationClassName + "(this, colorManager));");
+		sc.add("setSourceViewerConfiguration(new " + editorConfigurationClassName + "(this, this, this, colorManager));");
 		sc.add("initializeEditingDomain();");
 		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
 		sc.add("}");

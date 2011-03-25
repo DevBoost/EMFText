@@ -116,6 +116,7 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.IReferenceResolver
 import org.emftext.sdk.codegen.resource.generators.interfaces.IReferenceResolverSwitchGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IResourcePostProcessorGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IResourcePostProcessorProviderGenerator;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IResourceProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.ITextDiagnosticGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.ITextParserGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.ITextPrinterGenerator;
@@ -253,6 +254,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceResolver", IReferenceResolverGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_RESOLVER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceResolveResult", IReferenceResolveResultGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_RESOLVE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_RESOLVER_SWITCH = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceResolverSwitch", IReferenceResolverSwitchGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_RESOLVER_SWITCH);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_RESOURCE_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ResourceProvider", IResourceProviderGenerator.class, OptionTypes.OVERRIDE_IRESOURCE_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_TEXT_DIAGNOSTIC = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "TextDiagnostic", ITextDiagnosticGenerator.class, OptionTypes.OVERRIDE_ITEXT_DIAGNOSTIC);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_TEXT_PARSER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "TextParser", ITextParserGenerator.class, OptionTypes.OVERRIDE_ITEXT_PARSER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_TEXT_PRINTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "TextPrinter", ITextPrinterGenerator.class, OptionTypes.OVERRIDE_ITEXT_PRINTER);

@@ -42,8 +42,8 @@ public class QuickAssistAssistantGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + editorClassName  + " editor) {");
-		sc.add("setQuickAssistProcessor(new " + quickAssistProcessorClassName + "(editor));");
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iAnnotationModelProviderClassName + " annotationModelProvider) {");
+		sc.add("setQuickAssistProcessor(new " + quickAssistProcessorClassName + "(resourceProvider, annotationModelProvider));");
 		sc.add("setInformationControlCreator(new " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + "() {");
 		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
 		sc.add("return new " + DEFAULT_INFORMATION_CONTROL + "(parent, (" + I_INFORMATION_PRESENTER + ") null);");

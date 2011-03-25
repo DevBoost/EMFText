@@ -155,7 +155,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.COMPLETION_PROPOSAL);
 	    add(creators, TextResourceUIArtifacts.UI_META_INFORMATION);
 	    add(creators, TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
+	    add(creators, TextResourceUIArtifacts.I_ANNOTATION_MODEL_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.I_BACKET_HANDLER);
+	    add(creators, TextResourceUIArtifacts.I_BACKET_HANDLER_PROVIDER);
 
 	    add(creators, TextResourceUIArtifacts.ANNOTATION_MODEL);
 	    add(creators, TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);

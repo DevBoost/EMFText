@@ -25,7 +25,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTEX
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTEXT_INFORMATION_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -50,7 +49,8 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + editorClassName + " editor;");
+		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
+		sc.add("private " + iBracketHandlerProviderClassName + " bracketHandlerProvider;");
 		sc.addLineBreak();
 	}
 
@@ -99,9 +99,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 
 	private void addComputeCompletionProposalsMethod(JavaComposite sc) {
 		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeCompletionProposals(" + I_TEXT_VIEWER + " viewer, int offset) {");
-		sc.addLineBreak();
-		sc.add(RESOURCE + " resource = editor.getResource();");
-		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
+		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
 		sc.add("String content = viewer.getDocument().get();");
 		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
 		sc.add(completionProposalClassName + "[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);");
@@ -135,7 +133,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 			"if a closing bracket was automatically inserted right before, " +
 			"we enlarge the replacement length in order to overwrite the bracket."
 		);
-		sc.add(iBracketHandlerClassName + " bracketHandler = editor.getBracketHandler();");
+		sc.add(iBracketHandlerClassName + " bracketHandler = bracketHandlerProvider.getBracketHandler();");
 		sc.add("String closingBracket = bracketHandler.getClosingBracket();");
 		sc.add("if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {");
 		sc.add("replacementLength += closingBracket.length();");
@@ -148,8 +146,9 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor) {");
-		sc.add("this.editor = editor;");
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iBracketHandlerProviderClassName + " bracketHandlerProvider) {");
+		sc.add("this.resourceProvider = resourceProvider;");
+		sc.add("this.bracketHandlerProvider = bracketHandlerProvider;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

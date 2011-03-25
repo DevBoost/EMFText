@@ -67,7 +67,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 	private void addGetQuickAssistAssistantMethod(JavaComposite sc) {
 		sc.add("public " + I_QUICK_ASSIST_ASSISTANT + " getQuickAssistAssistant(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.add("if (quickAssistAssistant == null) {");
-		sc.add("quickAssistAssistant = new " + quickAssistAssistantClassName + "(theEditor);");
+		sc.add("quickAssistAssistant = new " + quickAssistAssistantClassName + "(resourceProvider, annotationModelProvider);");
 		sc.add("}");
 		sc.add("return quickAssistAssistant;");
 		sc.add("}");
@@ -79,14 +79,14 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("if (sourceViewer == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("return new " + I_HYPERLINK_DETECTOR + "[] { new " + hyperlinkDetectorClassName + "(theEditor.getResource()) };");
+		sc.add("return new " + I_HYPERLINK_DETECTOR + "[] { new " + hyperlinkDetectorClassName + "(resourceProvider.getResource()) };");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetTextHoverMethod(StringComposite sc) {
 		sc.add("public " + I_TEXT_HOVER + " getTextHover(" + I_SOURCE_VIEWER + " sourceViewer, String contentType) {");
-		sc.add("return new " + textHoverClassName + "(theEditor);");
+		sc.add("return new " + textHoverClassName + "(resourceProvider);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -102,9 +102,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("public " + I_PRESENTATION_RECONCILER + " getPresentationReconciler(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.addLineBreak();
 		sc.add(PRESENTATION_RECONCILER + " reconciler = new " + PRESENTATION_RECONCILER + "();");
-		sc.add("String fileName = theEditor.getEditorInput().getName();");
-		sc.addLineBreak();
-		sc.add(DEFAULT_DAMAGER_REPAIRER + " repairer = new " + DEFAULT_DAMAGER_REPAIRER + "(getScanner(fileName));");
+		sc.add(DEFAULT_DAMAGER_REPAIRER + " repairer = new " + DEFAULT_DAMAGER_REPAIRER + "(getScanner());");
 		sc.add("reconciler.setDamager(repairer, " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
 		sc.add("reconciler.setRepairer(repairer, " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
 		sc.addLineBreak();
@@ -114,8 +112,8 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 	}
 
 	private void addGetScannerMethod(JavaComposite sc) {
-		sc.add("protected " + I_TOKEN_SCANNER + " getScanner(String fileName) {");
-		sc.add("return new " + tokenScannerClassName + "(theEditor.getResource(), colorManager);");
+		sc.add("protected " + I_TOKEN_SCANNER + " getScanner() {");
+		sc.add("return new " + tokenScannerClassName + "(resourceProvider.getResource(), colorManager);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -133,7 +131,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("public " + I_CONTENT_ASSISTANT + " getContentAssistant(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.addLineBreak();
 		sc.add(CONTENT_ASSISTANT + " assistant = new " + CONTENT_ASSISTANT + "();");
-		sc.add("assistant.setContentAssistProcessor(new " + completionProcessorClassName + "(theEditor), " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
+		sc.add("assistant.setContentAssistProcessor(new " + completionProcessorClassName + "(resourceProvider, bracketHandlerProvider), " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
 		sc.add("assistant.enableAutoActivation(true);");
 		sc.add("assistant.setAutoActivationDelay(500);");
 		sc.add("assistant.setProposalPopupOrientation(" + I_CONTENT_ASSISTANT + ".PROPOSAL_OVERLAY);");
@@ -147,11 +145,13 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
 			"Creates a new editor configuration.",
-			"@param editor the editor to configure",
+			"@param resourceProvider the provider for the resource (usually this is the editor)",
 			"@param colorManager the color manager to use"
 		);
-		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor, " + colorManagerClassName + " colorManager) {");
-		sc.add("this.theEditor = editor;");
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iAnnotationModelProviderClassName + " annotationModelProvider, " + iBracketHandlerProviderClassName + " bracketHandlerProvider, " + colorManagerClassName + " colorManager) {");
+		sc.add("this.resourceProvider = resourceProvider;");
+		sc.add("this.annotationModelProvider = annotationModelProvider;");
+		sc.add("this.bracketHandlerProvider = bracketHandlerProvider;");
 		sc.add("this.colorManager = colorManager;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -159,7 +159,9 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + colorManagerClassName + " colorManager;");
-		sc.add("private " + editorClassName + " theEditor;");
+		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
+		sc.add("private " + iAnnotationModelProviderClassName + " annotationModelProvider;");
+		sc.add("private " + iBracketHandlerProviderClassName + " bracketHandlerProvider;");
 		sc.add("private " + quickAssistAssistantClassName + " quickAssistAssistant;");
 		sc.addLineBreak();
 	}

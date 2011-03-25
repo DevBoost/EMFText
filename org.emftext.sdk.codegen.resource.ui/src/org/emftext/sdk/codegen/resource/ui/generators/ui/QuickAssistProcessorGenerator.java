@@ -56,19 +56,20 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		addCreateCompletionProposalMethod(sc);
 		addGetQuickFixesMethod1(sc);
 		addGetQuickFixesMethod2(sc);
-		addGetAnnotationModelMethod(sc);
 		addGetErrorMessageMethod(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + editorClassName + " editor;");
+		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
+		sc.add("private " + iAnnotationModelProviderClassName + " annotationModelProvider;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor) {");
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iAnnotationModelProviderClassName + " annotationModelProvider) {");
 		sc.add("super();");
-		sc.add("this.editor = editor;");
+		sc.add("this.resourceProvider = resourceProvider;");
+		sc.add("this.annotationModelProvider = annotationModelProvider;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -148,7 +149,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 	private void addGetQuickFixesMethod1(JavaComposite sc) {
 		sc.add("private " + LIST + "<" + iQuickFixClassName + "> getQuickFixes(" + I_SOURCE_VIEWER + " sourceViewer, int offset, int length) {");
 		sc.add(LIST + "<" + iQuickFixClassName + "> foundFixes = new " + ARRAY_LIST + "<" + iQuickFixClassName + ">();");
-		sc.add(I_ANNOTATION_MODEL + " model = getAnnotationModel();");
+		sc.add(I_ANNOTATION_MODEL + " model = annotationModelProvider.getAnnotationModel();");
 		sc.addLineBreak();
 		sc.add("if (model == null) {");
 		sc.add("return foundFixes;");
@@ -173,13 +174,6 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetAnnotationModelMethod(JavaComposite sc) {
-		sc.add("private " + I_ANNOTATION_MODEL + " getAnnotationModel() {");
-		sc.add("return editor.getDocumentProvider().getAnnotationModel(editor.getEditorInput());");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addGetQuickFixesMethod2(JavaComposite sc) {
 		sc.add("private " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes(" + ANNOTATION + " annotation) {");
 		sc.addLineBreak();
@@ -191,7 +185,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (annotation instanceof " + markerAnnotationClassName + ") {");
 		sc.add(markerAnnotationClassName + " markerAnnotation = (" + markerAnnotationClassName + ") annotation;");
 		sc.add(I_MARKER + " marker = markerAnnotation.getMarker();");
-		sc.add("foundQuickFixes.addAll(new " + markerResolutionGeneratorClassName + "().getQuickFixes(editor.getResource(), marker));");
+		sc.add("foundQuickFixes.addAll(new " + markerResolutionGeneratorClassName + "().getQuickFixes(resourceProvider.getResource(), marker));");
 		sc.add("}");
 		sc.add("return foundQuickFixes;");
 		sc.add("}");

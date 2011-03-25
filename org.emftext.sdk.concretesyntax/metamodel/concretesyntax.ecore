@@ -1673,6 +1673,9 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ResourcePostProcessor class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_I_RESOURCE_PROVIDER" value="224" literal="overrideIResourceProvider"/>
+    <eLiterals name="OVERRIDE_I_BRACKET_HANDLER_PROVIDER" value="225" literal="overrideIBracketHandlerProvider"/>
+    <eLiterals name="OVERRIDE_I_ANNOTATION_MODEL_PROVIDER" value="226" literal="overrideIAnnotationModelProvider"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

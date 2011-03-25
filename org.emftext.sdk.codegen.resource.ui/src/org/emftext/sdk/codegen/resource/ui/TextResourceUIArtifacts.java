@@ -50,7 +50,9 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.HighlightingGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkDetectorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.IAnnotationModelProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ImageProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerAnnotationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerResolutionGeneratorGenerator;
@@ -129,7 +131,9 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SYNTAX_COLORING_PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "SyntaxColoringPreferencePage", SyntaxColoringPreferencePageGenerator.class, OptionTypes.OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> NEW_FILE_WIZARD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "NewFileWizard", NewFileWizardGenerator.class, OptionTypes.OVERRIDE_NEW_FILE_WIZARD);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> NEW_FILE_WIZARD_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "NewFileWizardPage", NewFileWizardPageGenerator.class, OptionTypes.OVERRIDE_NEW_FILE_WIZARD_PAGE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_ANNOTATION_MODEL_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "I", "AnnotationModelProvider", IAnnotationModelProviderGenerator.class, OptionTypes.OVERRIDE_IANNOTATION_MODEL_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_BACKET_HANDLER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "I", "BracketHandler", IBracketHandlerGenerator.class, OptionTypes.OVERRIDE_IBRACKET_HANDLER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_BACKET_HANDLER_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "I", "BracketHandlerProvider", IBracketHandlerProviderGenerator.class, OptionTypes.OVERRIDE_IBRACKET_HANDLER_PROVIDER);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UI_META_INFORMATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "UIMetaInformation", UIMetaInformationGenerator.class, OptionTypes.OVERRIDE_UI_META_INFORMATION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UI_PLUGIN_ACTIVATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "UIPlugin", UIPluginActivatorGenerator.class, OptionTypes.OVERRIDE_UI_PLUGIN_ACTIVATOR);

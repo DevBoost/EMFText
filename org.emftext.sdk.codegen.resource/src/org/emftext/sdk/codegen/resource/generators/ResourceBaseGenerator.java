@@ -96,6 +96,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String iReferenceResolverSwitchClassName;
 	protected String iResourcePostProcessorClassName;
 	protected String iResourcePostProcessorProviderClassName;
+	protected String iResourceProviderClassName;
 	protected String iTextDiagnosticClassName;
 	protected String iTextParserClassName;
 	protected String iTextPrinterClassName;
@@ -232,6 +233,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		iReferenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH);
 		iResourcePostProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR);
 		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER);
+		iResourceProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_PROVIDER);
 		iTextDiagnosticClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_DIAGNOSTIC);
 		iTextParserClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_PARSER);
 		iTextPrinterClassName = context.getQualifiedClassName(TextResourceArtifacts.I_TEXT_PRINTER);

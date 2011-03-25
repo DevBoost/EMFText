@@ -234,6 +234,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.I_REFERENCE_RESOLVER);
 	    add(creators, TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
 	    add(creators, TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH);
+	    add(creators, TextResourceArtifacts.I_RESOURCE_PROVIDER);
 	    add(creators, TextResourceArtifacts.I_TEXT_DIAGNOSTIC);
 	    add(creators, TextResourceArtifacts.I_TEXT_PARSER);
 	    add(creators, TextResourceArtifacts.I_TEXT_PRINTER);

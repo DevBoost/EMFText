@@ -170,7 +170,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addFields(JavaComposite sc) {
 		sc.add("private static final String FONT = " + J_FACE_RESOURCES + ".DIALOG_FONT;");
-		sc.add("private " + editorClassName + " editor;");
+		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
 		sc.add("private " + iHoverTextProviderClassName + " hoverTextProvider;");
 		
 		sc.addJavadoc("The style sheet (css).");
@@ -216,7 +216,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addInternalGetHoverInfoMethod(StringComposite sc) {
 		sc.add("private " + docBrowserInformationControlInputClassName + " internalGetHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
-		sc.add(iTextResourceClassName + " textResource = editor.getResource();");
+		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());");
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() == 0) {");
@@ -243,7 +243,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.addComment("get the token text, which is hovered. It is needed to jump to the declaration.");
 		sc.add("String tokenText = \"\";");
 		sc.add("if (proxyObject != null) {");
-		sc.add(iTextResourceClassName + " textResource = editor.getResource();");
+		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add("int offset = locationMap.getCharStart(proxyObject);");
 		sc.add("int length = locationMap.getCharEnd(proxyObject) + 1 - offset;");
@@ -251,7 +251,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("tokenText = textViewer.getDocument().get(offset, length);");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
 		sc.add("}");
-		sc.add("declarationObject = " + ECORE_UTIL + ".resolve(proxyObject, editor.getResource());");
+		sc.add("declarationObject = " + ECORE_UTIL + ".resolve(proxyObject, resourceProvider.getResource());");
 		sc.add("if (declarationObject != null) {");
 		sc.add(htmlPrinterClassName + ".addParagraph(buffer, hoverTextProvider.getHoverText(containerObject, declarationObject));");
 		sc.add("}");
@@ -261,7 +261,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("if (buffer.length() > 0) {");
 		sc.add(htmlPrinterClassName + ".insertPageProlog(buffer, 0, " + textHoverClassName + ".getStyleSheet());");
 		sc.add(htmlPrinterClassName + ".addPageEpilog(buffer);");
-		sc.add("return new " + docBrowserInformationControlInputClassName + "(previousInput, declarationObject, editor.getResource(), buffer.toString(), tokenText);");
+		sc.add("return new " + docBrowserInformationControlInputClassName + "(previousInput, declarationObject, resourceProvider.getResource(), buffer.toString(), tokenText);");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
@@ -442,10 +442,10 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 			"Creates a new TextHover to collect the information about the hovered " +
 			"element."
 		);
-		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor) {");
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider) {");
 		sc.add("super();");
-		sc.add("this.editor = editor;");
-		sc.add("hoverTextProvider = new " + uiMetaInformationClassName + "().getHoverTextProvider();");
+		sc.add("this.resourceProvider = resourceProvider;");
+		sc.add("this.hoverTextProvider = new " + uiMetaInformationClassName + "().getHoverTextProvider();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

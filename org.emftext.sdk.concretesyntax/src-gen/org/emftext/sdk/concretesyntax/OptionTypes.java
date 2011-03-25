@@ -1792,7 +1792,31 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_RESOURCE_POST_PROCESSOR(223, "OVERRIDE_RESOURCE_POST_PROCESSOR", "overrideResourcePostProcessor");
+	OVERRIDE_RESOURCE_POST_PROCESSOR(223, "OVERRIDE_RESOURCE_POST_PROCESSOR", "overrideResourcePostProcessor"), /**
+	 * The '<em><b>OVERRIDE IRESOURCE PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IRESOURCE_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IRESOURCE_PROVIDER(224, "OVERRIDE_I_RESOURCE_PROVIDER", "overrideIResourceProvider"), /**
+	 * The '<em><b>OVERRIDE IBRACKET HANDLER PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBRACKET_HANDLER_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IBRACKET_HANDLER_PROVIDER(225, "OVERRIDE_I_BRACKET_HANDLER_PROVIDER", "overrideIBracketHandlerProvider"), /**
+	 * The '<em><b>OVERRIDE IANNOTATION MODEL PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IANNOTATION_MODEL_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IANNOTATION_MODEL_PROVIDER(226, "OVERRIDE_I_ANNOTATION_MODEL_PROVIDER", "overrideIAnnotationModelProvider");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5527,6 +5551,48 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_RESOURCE_POST_PROCESSOR_VALUE = 223;
 /**
+	 * The '<em><b>OVERRIDE IRESOURCE PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IRESOURCE PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IRESOURCE_PROVIDER
+	 * @model name="OVERRIDE_I_RESOURCE_PROVIDER" literal="overrideIResourceProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IRESOURCE_PROVIDER_VALUE = 224;
+/**
+	 * The '<em><b>OVERRIDE IBRACKET HANDLER PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IBRACKET HANDLER PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBRACKET_HANDLER_PROVIDER
+	 * @model name="OVERRIDE_I_BRACKET_HANDLER_PROVIDER" literal="overrideIBracketHandlerProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IBRACKET_HANDLER_PROVIDER_VALUE = 225;
+/**
+	 * The '<em><b>OVERRIDE IANNOTATION MODEL PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IANNOTATION MODEL PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IANNOTATION_MODEL_PROVIDER
+	 * @model name="OVERRIDE_I_ANNOTATION_MODEL_PROVIDER" literal="overrideIAnnotationModelProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IANNOTATION_MODEL_PROVIDER_VALUE = 226;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5754,6 +5820,9 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_CHANGE_REFERENCE_QUICK_FIX,
 			OVERRIDE_EPROBLEM_SEVERITY,
 			OVERRIDE_RESOURCE_POST_PROCESSOR,
+			OVERRIDE_IRESOURCE_PROVIDER,
+			OVERRIDE_IBRACKET_HANDLER_PROVIDER,
+			OVERRIDE_IANNOTATION_MODEL_PROVIDER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6022,6 +6091,9 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_CHANGE_REFERENCE_QUICK_FIX_VALUE: return OVERRIDE_CHANGE_REFERENCE_QUICK_FIX;
 			case OVERRIDE_EPROBLEM_SEVERITY_VALUE: return OVERRIDE_EPROBLEM_SEVERITY;
 			case OVERRIDE_RESOURCE_POST_PROCESSOR_VALUE: return OVERRIDE_RESOURCE_POST_PROCESSOR;
+			case OVERRIDE_IRESOURCE_PROVIDER_VALUE: return OVERRIDE_IRESOURCE_PROVIDER;
+			case OVERRIDE_IBRACKET_HANDLER_PROVIDER_VALUE: return OVERRIDE_IBRACKET_HANDLER_PROVIDER;
+			case OVERRIDE_IANNOTATION_MODEL_PROVIDER_VALUE: return OVERRIDE_IANNOTATION_MODEL_PROVIDER;
 		}
 		return null;
 	}
