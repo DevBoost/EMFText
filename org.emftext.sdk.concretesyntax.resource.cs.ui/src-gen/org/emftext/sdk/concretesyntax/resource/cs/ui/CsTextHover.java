@@ -21,7 +21,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclipse.jface.text.ITextHoverExtension, org.eclipse.jface.text.ITextHoverExtension2{
 	
 	private static final String FONT = org.eclipse.jface.resource.JFaceResources.DIALOG_FONT;
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider hoverTextProvider;
 	/**
 	 * The style sheet (css).
@@ -205,10 +205,10 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	/**
 	 * Creates a new TextHover to collect the information about the hovered element.
 	 */
-	public CsTextHover(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+	public CsTextHover(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider) {
 		super();
-		this.editor = editor;
-		hoverTextProvider = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().getHoverTextProvider();
+		this.resourceProvider = resourceProvider;
+		this.hoverTextProvider = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().getHoverTextProvider();
 	}
 	
 	public String getHoverInfo(org.eclipse.jface.text.ITextViewer textViewer, org.eclipse.jface.text.IRegion hoverRegion) {
@@ -242,7 +242,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	}
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput internalGetHoverInfo(org.eclipse.jface.text.ITextViewer textViewer, org.eclipse.jface.text.IRegion hoverRegion) {
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = editor.getResource();
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = resourceProvider.getResource();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 		java.util.List<org.eclipse.emf.ecore.EObject> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());
 		if (elementsAtOffset == null || elementsAtOffset.size() == 0) {
@@ -270,7 +270,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		// get the token text, which is hovered. It is needed to jump to the declaration.
 		String tokenText = "";
 		if (proxyObject != null) {
-			org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = editor.getResource();
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = resourceProvider.getResource();
 			org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 			int offset = locationMap.getCharStart(proxyObject);
 			int length = locationMap.getCharEnd(proxyObject) + 1 - offset;
@@ -278,7 +278,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 				tokenText = textViewer.getDocument().get(offset, length);
 			} catch (org.eclipse.jface.text.BadLocationException e) {
 			}
-			declarationObject = org.eclipse.emf.ecore.util.EcoreUtil.resolve(proxyObject, editor.getResource());
+			declarationObject = org.eclipse.emf.ecore.util.EcoreUtil.resolve(proxyObject, resourceProvider.getResource());
 			if (declarationObject != null) {
 				org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(containerObject, declarationObject));
 			}
@@ -288,7 +288,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		if (buffer.length() > 0) {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.insertPageProlog(buffer, 0, org.emftext.sdk.concretesyntax.resource.cs.ui.CsTextHover.getStyleSheet());
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.addPageEpilog(buffer);
-			return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput(previousInput, declarationObject, editor.getResource(), buffer.toString(), tokenText);
+			return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput(previousInput, declarationObject, resourceProvider.getResource(), buffer.toString(), tokenText);
 		}
 		return null;
 	}

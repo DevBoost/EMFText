@@ -16,16 +16,16 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 public class CsCompletionProcessor implements org.eclipse.jface.text.contentassist.IContentAssistProcessor {
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider bracketHandlerProvider;
 	
-	public CsCompletionProcessor(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
-		this.editor = editor;
+	public CsCompletionProcessor(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider bracketHandlerProvider) {
+		this.resourceProvider = resourceProvider;
+		this.bracketHandlerProvider = bracketHandlerProvider;
 	}
 	
 	public org.eclipse.jface.text.contentassist.ICompletionProposal[] computeCompletionProposals(org.eclipse.jface.text.ITextViewer viewer, int offset) {
-		
-		org.eclipse.emf.ecore.resource.Resource resource = editor.getResource();
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = resourceProvider.getResource();
 		String content = viewer.getDocument().get();
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper();
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);
@@ -56,7 +56,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 			int replacementLength = prefix.length();
 			// if a closing bracket was automatically inserted right before, we enlarge the
 			// replacement length in order to overwrite the bracket.
-			org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler = editor.getBracketHandler();
+			org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler = bracketHandlerProvider.getBracketHandler();
 			String closingBracket = bracketHandler.getClosingBracket();
 			if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {
 				replacementLength += closingBracket.length();

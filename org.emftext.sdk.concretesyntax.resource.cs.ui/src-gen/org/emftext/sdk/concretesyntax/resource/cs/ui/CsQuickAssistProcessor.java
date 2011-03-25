@@ -16,11 +16,13 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassist.IQuickAssistProcessor {
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider;
 	
-	public CsQuickAssistProcessor(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+	public CsQuickAssistProcessor(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider) {
 		super();
-		this.editor = editor;
+		this.resourceProvider = resourceProvider;
+		this.annotationModelProvider = annotationModelProvider;
 	}
 	
 	public boolean canAssist(org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext invocationContext) {
@@ -84,7 +86,7 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 	
 	private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes(org.eclipse.jface.text.source.ISourceViewer sourceViewer, int offset, int length) {
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> foundFixes = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
-		org.eclipse.jface.text.source.IAnnotationModel model = getAnnotationModel();
+		org.eclipse.jface.text.source.IAnnotationModel model = annotationModelProvider.getAnnotationModel();
 		
 		if (model == null) {
 			return foundFixes;
@@ -117,13 +119,9 @@ public class CsQuickAssistProcessor implements org.eclipse.jface.text.quickassis
 		if (annotation instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation) {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation markerAnnotation = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation) annotation;
 			org.eclipse.core.resources.IMarker marker = markerAnnotation.getMarker();
-			foundQuickFixes.addAll(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator().getQuickFixes(editor.getResource(), marker));
+			foundQuickFixes.addAll(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerResolutionGenerator().getQuickFixes(resourceProvider.getResource(), marker));
 		}
 		return foundQuickFixes;
-	}
-	
-	private org.eclipse.jface.text.source.IAnnotationModel getAnnotationModel() {
-		return editor.getDocumentProvider().getAnnotationModel(editor.getEditorInput());
 	}
 	
 	public String getErrorMessage() {

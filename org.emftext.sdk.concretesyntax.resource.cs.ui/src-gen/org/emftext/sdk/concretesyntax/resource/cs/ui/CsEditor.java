@@ -17,7 +17,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 /**
  * A text editor for 'cs' models.
  */
-public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements org.eclipse.emf.edit.domain.IEditingDomainProvider {
+public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements org.eclipse.emf.edit.domain.IEditingDomainProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsHighlighting highlighting;
 	private org.eclipse.jface.text.source.projection.ProjectionSupport projectionSupport;
@@ -35,7 +35,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public CsEditor() {
 		super();
-		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorConfiguration(this, colorManager));
+		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorConfiguration(this, this, this, colorManager));
 		initializeEditingDomain();
 		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
 	}
@@ -441,6 +441,10 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			}
 			
 		});
+	}
+	
+	public org.eclipse.jface.text.source.IAnnotationModel getAnnotationModel() {
+		return getDocumentProvider().getAnnotationModel(getEditorInput());
 	}
 	
 }

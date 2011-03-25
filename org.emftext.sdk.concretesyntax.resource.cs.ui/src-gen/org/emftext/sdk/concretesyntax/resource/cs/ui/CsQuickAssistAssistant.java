@@ -16,8 +16,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 public class CsQuickAssistAssistant extends org.eclipse.jface.text.quickassist.QuickAssistAssistant implements org.eclipse.jface.text.quickassist.IQuickAssistAssistant {
 	
-	public CsQuickAssistAssistant(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
-		setQuickAssistProcessor(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistProcessor(editor));
+	public CsQuickAssistAssistant(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider) {
+		setQuickAssistProcessor(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistProcessor(resourceProvider, annotationModelProvider));
 		setInformationControlCreator(new org.eclipse.jface.text.AbstractReusableInformationControlCreator() {
 			public org.eclipse.jface.text.IInformationControl doCreateInformationControl(org.eclipse.swt.widgets.Shell parent) {
 				return new org.eclipse.jface.text.DefaultInformationControl(parent, (org.eclipse.jface.text.DefaultInformationControl.IInformationPresenter) null);

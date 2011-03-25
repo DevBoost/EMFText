@@ -12,24 +12,16 @@
  *      - initial API and implementation
  ******************************************************************************/
 
-package org.emftext.sdk.concretesyntax.resource.cs.ui;
+package org.emftext.sdk.concretesyntax.resource.cs;
 
 /**
- * The BracketHandler is responsible for handling the input of brackets. It
- * automatically adds closing brackets, if the opening counterpart is entered in
- * editors. It does also ignore the input of closing brackets, if these were
- * automatically inserted right before.
+ * Implementors of this interface provide an EMF resource.
  */
-public interface ICsBracketHandler {
+public interface ICsResourceProvider {
 	
 	/**
-	 * If a closing bracket was added right before, this method returns true.
+	 * Returns the resource.
 	 */
-	public boolean addedClosingBracket();
-	
-	/**
-	 * Returns the last closing bracket that was added automatically.
-	 */
-	public String getClosingBracket();
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource getResource();
 	
 }
