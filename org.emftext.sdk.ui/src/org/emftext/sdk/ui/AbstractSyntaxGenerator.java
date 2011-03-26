@@ -14,7 +14,6 @@
 package org.emftext.sdk.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -64,38 +63,38 @@ public abstract class AbstractSyntaxGenerator {
 
 	public static final ConcretesyntaxFactory CS_FACTORY = ConcretesyntaxFactory.eINSTANCE;
 
-	public void fillSyntax(ConcreteSyntax cSyntax, GenModel genModel) {
-		GenClassCache genClassCache = cSyntax.getGenClassCache();
+	public void fillSyntax(ConcreteSyntax syntax, GenModel genModel) {
+		GenClassCache genClassCache = syntax.getGenClassCache();
 		
 		Map<String, Rule>  genClass2RuleCache = new LinkedHashMap<String, Rule>(); 
-		for (Rule rule : cSyntax.getRules()) {
+		for (Rule rule : syntax.getRules()) {
 			genClass2RuleCache.put(genClassCache.getQualifiedInterfaceName(rule.getMetaclass()), rule);
 		}
 		
 		List<GenPackage> allGenPackagesWithClassifiers = genModel.getAllGenAndUsedGenPackagesWithClassifiers();
 		
-		cSyntax.setPackage(allGenPackagesWithClassifiers.get(0));
-		cSyntax.setName(cSyntax.getPackage().getNSName());
-		generateRules(cSyntax, genClass2RuleCache, cSyntax.getPackage(), "", genClassCache);
+		syntax.setPackage(allGenPackagesWithClassifiers.get(0));
+		syntax.setName(syntax.getPackage().getNSName());
+		generateRules(syntax, genClass2RuleCache, syntax.getPackage(), "", genClassCache);
 		
 		for (int i = 1; i < allGenPackagesWithClassifiers.size(); i++) {
 			GenPackage currentPkg = allGenPackagesWithClassifiers.get(i);
 			
 			Import imp = CS_FACTORY.createImport();
-			cSyntax.getImports().add(imp);
+			syntax.getImports().add(imp);
 			imp.setPackage(currentPkg);
 			String prefix = currentPkg.getQualifiedPackageName();
 			imp.setPrefix(prefix);
 			
-			generateRules(cSyntax, genClass2RuleCache, currentPkg, prefix, genClassCache);
+			generateRules(syntax, genClass2RuleCache, currentPkg, prefix, genClassCache);
 		}
-		generateTokenstyles(cSyntax);
+		generateTokenStyles(syntax);
 	}
 
-	private void generateTokenstyles(ConcreteSyntax cSyntax) {
-		TreeIterator<EObject> allContents = cSyntax.eAllContents();
-		HashMap<String, TokenStyle> cachedStyles = new HashMap<String, TokenStyle>();
-		for (TokenStyle style : cSyntax.getTokenStyles()) {
+	protected void generateTokenStyles(ConcreteSyntax syntax) {
+		TreeIterator<EObject> allContents = syntax.eAllContents();
+		Map<String, TokenStyle> cachedStyles = new LinkedHashMap<String, TokenStyle>();
+		for (TokenStyle style : syntax.getTokenStyles()) {
 			for (String tokenName : style.getTokenNames()) {
 				cachedStyles.put(tokenName, style);
 			}
@@ -113,7 +112,7 @@ public abstract class AbstractSyntaxGenerator {
 				tokenStyle.setRgb(KEYWORD_VIOLETT);
 				tokenStyle.getFontStyles().add(FontStyle.BOLD);
 				
-				cSyntax.getTokenStyles().add(tokenStyle);
+				syntax.getTokenStyles().add(tokenStyle);
 				cachedStyles.put(s.getValue(), tokenStyle);
 			}
 		}
@@ -198,9 +197,13 @@ public abstract class AbstractSyntaxGenerator {
 	}
 
 	protected void addKeyword(GenClass genClass, Sequence ruleSequence) {
+		String name = genClass.getName();
+		addKeyword(ruleSequence, name);
+	}
+
+	protected void addKeyword(Sequence ruleSequence, String name) {
 		CsString newDefinition = CS_FACTORY.createCsString();
-		newDefinition.setValue(genClass.getName());
-		
+		newDefinition.setValue(name);
 		ruleSequence.getChildren().add(newDefinition);
 	}
 
@@ -212,7 +215,7 @@ public abstract class AbstractSyntaxGenerator {
 
 	private void generateStandardTokens(ConcreteSyntax cSyntax) {
 		List<CompleteTokenDefinition> toRemove = new ArrayList<CompleteTokenDefinition>();
-		EList<TokenDirective> existing = cSyntax.getTokens();
+		List<TokenDirective> existing = cSyntax.getTokens();
 		for (TokenDirective tokenDirective : existing) {
 			if (tokenDirective instanceof CompleteTokenDefinition) {
 				CompleteTokenDefinition def = (CompleteTokenDefinition) tokenDirective;
@@ -234,7 +237,7 @@ public abstract class AbstractSyntaxGenerator {
 		cSyntax.getTokens().add(floatToken);
 	}
 
-	private NormalTokenDefinition createToken(String name, String expression) {
+	protected NormalTokenDefinition createToken(String name, String expression) {
 		NormalTokenDefinition newToken = CS_FACTORY.createNormalTokenDefinition();
 		newToken.setName(name);
 		AtomicRegex regex = CS_FACTORY.createAtomicRegex();
@@ -320,23 +323,17 @@ public abstract class AbstractSyntaxGenerator {
 	}
 
 	protected void addOpeningBracket(Sequence sequence) {
-		CsString openBracket = CS_FACTORY.createCsString();
-		openBracket.setValue("{");
-		sequence.getChildren().add(openBracket);
+		addKeyword(sequence, "{");
 	}
 
 	protected void addClosingBracket(Sequence sequence) {
-		CsString closeBracket = CS_FACTORY.createCsString();
-		closeBracket.setValue("}");
-		sequence.getChildren().add(closeBracket);
+		addKeyword(sequence, "}");
 	}
 
 	protected void addFeatureNameColon(GenFeature genFeature, Sequence sequence) {
 		String name = genFeature.getEcoreFeature().getName();
 		
-		CsString nameKeyword = CS_FACTORY.createCsString();
-		nameKeyword.setValue(name);
-		sequence.getChildren().add(nameKeyword);
+		addKeyword(sequence, name);
 		
 		CsString colon = CS_FACTORY.createCsString();
 		colon.setValue(":");
