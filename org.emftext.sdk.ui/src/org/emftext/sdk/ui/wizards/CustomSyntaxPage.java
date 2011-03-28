@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
@@ -336,9 +337,8 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		try {
 			csResource.save(outputStream, null);
 		} catch (IOException e) {
-			e.printStackTrace();
+			EMFTextSDKPlugin.logError("Exception while printing syntax for preview.", e);
 		}
-		
 		sourceViewer.getDocument().set(outputStream.toString());
 	}
 
