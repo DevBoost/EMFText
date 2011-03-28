@@ -31,6 +31,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
@@ -87,6 +88,16 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 	private Button qualifyCrossReferences;
 
 	private Text qualificationDelimiter;
+
+	private Button terminateTerminalElements;
+
+	private Text terminator;
+
+	private Combo stringQuote;
+
+	private Button booleanAttributesFirst;
+
+	private Button quoteStringAttributes;
 
 	public CustomSyntaxPage(IWorkbench workbench, IFile genModelFile) {
 		super("Syntax customization");
@@ -180,6 +191,16 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		encloseFeatureEnd.addListener(SWT.Modify, changeListener);
 		encloseFeatures.setSelection(false);
 
+		terminateTerminalElements = new Button(containmentComposite, SWT.CHECK);
+		terminateTerminalElements.setText("Terminate terminal elements");
+		terminateTerminalElements.addListener(SWT.Selection, changeListener);
+		Label terminatorLabel = new Label(containmentComposite, SWT.NONE);
+		terminatorLabel.setText("Terminator");
+		terminator = new Text(containmentComposite, SWT.BORDER);
+		terminator.setText(";");
+		terminator.addListener(SWT.Modify, changeListener);
+		terminateTerminalElements.setSelection(false);
+		
 		Group qualificationComposite = createGroup(composite, "Feature Qualification", 5);
 		qualifyAttributes = new Button(qualificationComposite, SWT.CHECK);
 		qualifyAttributes.setText("Attributes");
@@ -190,16 +211,28 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		qualifyCrossReferences = new Button(qualificationComposite, SWT.CHECK);
 		qualifyCrossReferences.setText("Non-containment references");
 		qualifyCrossReferences.addListener(SWT.Selection, changeListener);
-		Label delimiterLabel = new Label(containmentComposite, SWT.NONE);
+		Label delimiterLabel = new Label(qualificationComposite, SWT.NONE);
 		delimiterLabel.setText("Delimiter");
 		qualificationDelimiter = new Text(qualificationComposite, SWT.BORDER);
 		qualificationDelimiter.setText(":");
 		qualificationDelimiter.addListener(SWT.Modify, changeListener);
 
+		Group attributeComposite = createGroup(composite, "Attributes", 5);
+		booleanAttributesFirst = new Button(attributeComposite, SWT.CHECK);
+		booleanAttributesFirst.setText("Modifier style for boolean attributes");
+		booleanAttributesFirst.addListener(SWT.Selection, changeListener);
+		quoteStringAttributes = new Button(attributeComposite, SWT.CHECK);
+		quoteStringAttributes.setText("Quote string attributes");
+		quoteStringAttributes.addListener(SWT.Selection, changeListener);
+		stringQuote = new Combo(attributeComposite, SWT.DROP_DOWN | SWT.BORDER);
+		stringQuote.setItems(new String[] {"Double quotes", "Single quotes"});
+		stringQuote.select(0);
+		stringQuote.addListener(SWT.Selection, changeListener);
+
 		setControl(composite);
 		setPageComplete(true);
 
-		regenerateSyntax();
+		update();
 	}
 
 	protected void update() {
@@ -210,10 +243,14 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		encloseFeatureStart.setEnabled(encloseFeatures.getSelection());
 		encloseFeatureEnd.setEnabled(encloseFeatures.getSelection());
 		
+		terminator.setEnabled(terminateTerminalElements.getSelection());
+		
 		qualificationDelimiter.setEnabled(
 				qualifyAttributes.getSelection() ||
 				qualifyContainments.getSelection() ||
 				qualifyCrossReferences.getSelection());
+		
+		stringQuote.setEnabled(quoteStringAttributes.getSelection());
 		regenerateSyntax();
 	}
 
@@ -264,6 +301,17 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		configuration.setQualifyCrossReferences(qualifyCrossReferences.getSelection());
 		configuration.setQualificationDelimiter(qualificationDelimiter.getText());
 		
+		configuration.setTerminateTerminalElements(terminateTerminalElements.getSelection());
+		configuration.setTerminatingKeyword(terminator.getText());
+		
+		configuration.setSeparateBooleanAttributes(booleanAttributesFirst.getSelection());
+		configuration.setQuoteStringAttributes(quoteStringAttributes.getSelection());
+		if (stringQuote.getSelectionIndex() == 0) {
+			configuration.setStringAttributeQuote("\"");
+		}
+		if (stringQuote.getSelectionIndex() == 1) {
+			configuration.setStringAttributeQuote("'");
+		}
 		return configuration;
 	}
 

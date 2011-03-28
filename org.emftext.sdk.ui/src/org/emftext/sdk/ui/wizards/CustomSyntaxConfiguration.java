@@ -27,18 +27,47 @@ public class CustomSyntaxConfiguration {
 	private boolean qualifyCrossReferences;
 	private String qualificationDelimiter;
 	
+	private boolean terminateTerminalElements; // add keyword after elements that do not have containments
+	private String terminatingKeyword;
+
+	private boolean separateBooleanAttributes;
+	private boolean quoteStringAttributes;
+	private String stringAttributeQuote;
+	
+	public boolean isQuoteStringAttributes() {
+		return quoteStringAttributes;
+	}
+
+	public void setQuoteStringAttributes(boolean quoteStringAttributes) {
+		this.quoteStringAttributes = quoteStringAttributes;
+	}
+
+	public String getStringAttributeQuote() {
+		return stringAttributeQuote;
+	}
+
+	public void setStringAttributeQuote(String stringAttributeQuote) {
+		this.stringAttributeQuote = stringAttributeQuote;
+	}
+
 	// TODO implement GUI and syntax generation for subsequent attributes
 	// identifier style
 	private boolean identifiersWithUnderscore;
 	private boolean identifiersWithDash;
 	private boolean identifiersWithDigitsFirst;
 	
-	private boolean terminateTerminalElements; // add keyword after elements that do not have containments
-	private String terminatingKeyword;
-
 	private boolean separateIdentifyingAttributes;
-	private boolean separateBooleanAttributes;
 	
+	private boolean overrideExistingRules;
+	
+	public boolean isOverrideExistingRules() {
+		return overrideExistingRules;
+	}
+
+	public void setOverrideExistingRules(boolean overrideExistingRules) {
+		this.overrideExistingRules = overrideExistingRules;
+	}
+
 	public KeywordStyle getKeywordStyle() {
 		return keywordStyle;
 	}

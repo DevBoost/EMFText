@@ -19,6 +19,8 @@ package org.emftext.sdk.ui.jobs;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Sequence;
 
 /**
@@ -32,15 +34,26 @@ public class HUTNGenerationProcess extends AbstractSyntaxGenerationProcess {
 		super(file);
 	}
 
+	@Override
 	public void addOpening(GenClass genClass, Sequence sequence) {
 		addOpeningBracket(sequence);
 	}
 
+	@Override
 	public void addClosing(GenClass genClass, Sequence sequence) {
 		addClosingBracket(sequence);
 	}
 
+	@Override
 	public void createFeaturePrefix(GenFeature genFeature, Sequence sequence) {
 		addFeatureNameColon(genFeature, sequence);
+	}
+
+	@Override
+	protected void generateFeatureSyntax(ConcreteSyntax syntax,
+			Choice choice, GenFeature genFeature) {
+		if (!isModifierFeature(genFeature)) {
+			super.generateFeatureSyntax(syntax, choice, genFeature);
+		}
 	}
 }

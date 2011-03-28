@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -28,9 +29,13 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.AtomicRegex;
+import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -38,6 +43,8 @@ import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
+import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
@@ -167,21 +174,13 @@ public abstract class AbstractSyntaxGenerator {
 		
 		List<GenFeature> allGenFeatures = genClass.getAllGenFeatures();
 		
-		for (GenFeature genFeature : allGenFeatures) {
-			if (genFeature.isBooleanType()) {
-				addBooleanModifier(ruleSequence, genFeature);
-			}
-		}
-		
+		addBooleanModifiers(ruleSequence, allGenFeatures);
 		addKeyword(genClass, ruleSequence);
-		
 		addOpening(genClass, ruleSequence);
 		
 		Choice featureSyntaxChoice = CS_FACTORY.createChoice();
 		for (GenFeature genFeature : allGenFeatures) {
-			if (!genFeature.isBooleanType() || genFeature.getEcoreFeature().getUpperBound() == -1) {
-				generateFeatureSyntax(cSyntax, featureSyntaxChoice, genFeature);
-			}
+			generateFeatureSyntax(cSyntax, featureSyntaxChoice, genFeature);
 		}
 		
 		if (featureSyntaxChoice.getOptions().size() > 0) {
@@ -196,6 +195,14 @@ public abstract class AbstractSyntaxGenerator {
 		addClosing(genClass, ruleSequence);
 	}
 
+	protected void addBooleanModifiers(Sequence sequence, List<GenFeature> allGenFeatures) {
+		for (GenFeature genFeature : allGenFeatures) {
+			if (genFeature.isBooleanType()) {
+				addBooleanModifier(sequence, genFeature);
+			}
+		}
+	}
+
 	protected void addKeyword(GenClass genClass, Sequence ruleSequence) {
 		String name = genClass.getName();
 		addKeyword(ruleSequence, name);
@@ -207,9 +214,9 @@ public abstract class AbstractSyntaxGenerator {
 		ruleSequence.getChildren().add(newDefinition);
 	}
 
-	public abstract void addOpening(GenClass genClass, Sequence ruleSequence);
+	public abstract void addOpening(GenClass genClass, Sequence sequence);
 
-	public abstract void addClosing(GenClass genClass, Sequence ruleSequence);
+	public abstract void addClosing(GenClass genClass, Sequence sequence);
 
 	public abstract void createFeaturePrefix(GenFeature genFeature, Sequence sequence);
 
@@ -246,45 +253,56 @@ public abstract class AbstractSyntaxGenerator {
 		return newToken;
 	}
 
-	private void generateFeatureSyntax(ConcreteSyntax cSyntax, Choice featureSyntaxChoice,
+	protected void generateFeatureSyntax(ConcreteSyntax syntax, Choice featureSyntaxChoice,
 			GenFeature genFeature) {
 		Sequence innerSequence = CS_FACTORY.createSequence();
 
 		createFeaturePrefix(genFeature, innerSequence);
 		
 		Terminal content = null;
-		if (genFeature.getEcoreFeature() instanceof EReference && ((EReference)genFeature.getEcoreFeature()).isContainment() ) {
+		if (genFeature.getEcoreFeature() instanceof EReference && ((EReference)genFeature.getEcoreFeature()).isContainment()) {
 			content = CS_FACTORY.createContainment();
 		}
 		else{
 			String typeName = genFeature.getEcoreFeature().getEType().getInstanceClassName();
 			if (genFeature.isStringType()) {
-				PlaceholderInQuotes placeholder = CS_FACTORY.createPlaceholderInQuotes();
-				placeholder.setPrefix("\"");
-				placeholder.setSuffix("\"");
-				content = placeholder;
+				content = createStringAttributeSyntax();
+			}
+			else if (genFeature.getTypeGenEnum() != null) {
+				EnumTerminal terminal = CS_FACTORY.createEnumTerminal();
+				GenEnum genEnum = genFeature.getTypeGenEnum();
+				EEnum ecoreEnum = genEnum.getEcoreEnum();
+				EList<EnumLiteralTerminal> literalTerminals = terminal.getLiterals();
+				for (EEnumLiteral literal : ecoreEnum.getELiterals()) {
+					EnumLiteralTerminal literalTerminal = CS_FACTORY.createEnumLiteralTerminal();
+					literalTerminal.setLiteral(literal);
+					literalTerminal.setText(literal.getLiteral());
+					literalTerminals.add(literalTerminal);
+				}
+				content = terminal;
 			}
 			else if (typeName == null) {
 				content = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
 			}
 			else if (typeName.equals("String")) {
-				PlaceholderInQuotes placeholder = CS_FACTORY.createPlaceholderInQuotes();
-				placeholder.setPrefix("\"");
-				placeholder.setSuffix("\"");
-				content = placeholder;
+				content = createStringAttributeSyntax();
 			}
-			
 			else if (typeName.equals("int") || typeName.equals("long") || typeName.equals("short")) {
 				PlaceholderUsingSpecifiedToken placeholder = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
-				placeholder.setToken(getTokenByName(cSyntax, INTEGER_TOKEN_NAME));
+				placeholder.setToken(getTokenByName(syntax, INTEGER_TOKEN_NAME));
 				content = placeholder;
 			}
-			
 			else if (typeName.equals("float") || typeName.equals("double")) {
 				PlaceholderUsingSpecifiedToken placeholder = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
-				placeholder.setToken(getTokenByName(cSyntax, FLOAT_TOKEN_NAME));
+				placeholder.setToken(getTokenByName(syntax, FLOAT_TOKEN_NAME));
 				content = placeholder;
-			}										
+			}
+			else if (genFeature.isBooleanType()) {
+				BooleanTerminal terminal = CS_FACTORY.createBooleanTerminal();
+				terminal.setTrueLiteral(genFeature.getEcoreFeature().getName());
+				terminal.setFalseLiteral("");
+				content = terminal;
+			}
 			else {
 				content = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
 			}
@@ -293,6 +311,13 @@ public abstract class AbstractSyntaxGenerator {
 		
 		innerSequence.getChildren().add(content);
 		featureSyntaxChoice.getChildren().add(innerSequence);
+	}
+
+	protected Terminal createStringAttributeSyntax() {
+		PlaceholderInQuotes placeholder = CS_FACTORY.createPlaceholderInQuotes();
+		placeholder.setPrefix("\"");
+		placeholder.setSuffix("\"");
+		return placeholder;
 	}
 
 	private CompleteTokenDefinition getTokenByName(ConcreteSyntax cSyntax, String tokenName) {
@@ -307,11 +332,12 @@ public abstract class AbstractSyntaxGenerator {
 		return null;
 	}
 
-	private void addBooleanModifier(Sequence ruleSequence, GenFeature genFeature) {
-		PlaceholderUsingSpecifiedToken adjective = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
-		adjective.setCardinality(Cardinality.QUESTIONMARK);
-		adjective.setFeature(genFeature);
-		ruleSequence.getChildren().add(adjective);
+	private void addBooleanModifier(Sequence sequence, GenFeature genFeature) {
+		BooleanTerminal terminal = CS_FACTORY.createBooleanTerminal();
+		terminal.setFeature(genFeature);
+		terminal.setTrueLiteral(genFeature.getEcoreFeature().getName());
+		terminal.setFalseLiteral("");
+		sequence.getChildren().add(terminal);
 	}
 
 	private boolean containsSelfOfSuper(Set<EClassifier> containedClasses, EClass ecoreClass) {
@@ -338,5 +364,23 @@ public abstract class AbstractSyntaxGenerator {
 		CsString colon = CS_FACTORY.createCsString();
 		colon.setValue(":");
 		sequence.getChildren().add(colon);
+	}
+
+	protected boolean hasContainmentFeatures(GenClass genClass) {
+		List<GenFeature> allGenFeatures = genClass.getAllGenFeatures();
+		for (GenFeature genFeature : allGenFeatures) {
+			EStructuralFeature eFeature = genFeature.getEcoreFeature();
+			if (eFeature instanceof EReference) {
+				EReference eReference = (EReference) eFeature;
+				if (eReference.isContainment()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	protected boolean isModifierFeature(GenFeature genFeature) {
+		return genFeature.isBooleanType() && genFeature.getEcoreFeature().getUpperBound() == 1;
 	}
 }

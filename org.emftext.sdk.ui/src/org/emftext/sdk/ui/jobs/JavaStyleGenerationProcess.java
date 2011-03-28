@@ -21,8 +21,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Sequence;
 
@@ -45,6 +46,14 @@ public class JavaStyleGenerationProcess extends AbstractSyntaxGenerationProcess 
 			addClosingBracket(sequence);
 		} else {
 			addSemicolon(sequence);
+		}
+	}
+
+	@Override
+	public void generateFeatureSyntax(ConcreteSyntax cSyntax, Choice featureSyntaxChoice,
+			GenFeature genFeature) {
+		if (!isModifierFeature(genFeature)) {
+			super.generateFeatureSyntax(cSyntax, featureSyntaxChoice, genFeature);
 		}
 	}
 
@@ -77,20 +86,6 @@ public class JavaStyleGenerationProcess extends AbstractSyntaxGenerationProcess 
 			EList<EClass> allSuperTypes = nextEClass.getEAllSuperTypes();
 			if (nextEType == eType || allSuperTypes.contains(eType)) {
 				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean hasContainmentFeatures(GenClass genClass) {
-		List<GenFeature> allGenFeatures = genClass.getAllGenFeatures();
-		for (GenFeature genFeature : allGenFeatures) {
-			EStructuralFeature eFeature = genFeature.getEcoreFeature();
-			if (eFeature instanceof EReference) {
-				EReference eReference = (EReference) eFeature;
-				if (eReference.isContainment()) {
-					return true;
-				}
 			}
 		}
 		return false;

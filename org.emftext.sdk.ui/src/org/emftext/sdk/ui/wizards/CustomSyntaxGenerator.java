@@ -13,14 +13,19 @@
  ******************************************************************************/
 package org.emftext.sdk.ui.wizards;
 
+import java.util.List;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.ui.AbstractSyntaxGenerator;
 import org.emftext.sdk.ui.wizards.CustomSyntaxConfiguration.KeywordStyle;
@@ -42,12 +47,13 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 	}
 
 	private void addTokens(ConcreteSyntax syntax) {
+		// TODO escape prefixes and suffixes
 		if (configuration.isUseSingleLineComments()) {
-			TokenDirective singleLineCommentToken = createToken("SL_COMMENT", configuration.getSingleLineCommentPrefix() + "(.*)(\\n|\\r|\\n\\r)");
+			TokenDirective singleLineCommentToken = createToken("SL_COMMENT", "'" + configuration.getSingleLineCommentPrefix() + "'(.*)(\\n|\\r|\\n\\r)");
 			syntax.getTokens().add(singleLineCommentToken);
 		}
 		if (configuration.isUseMultiLineComments()) {
-			TokenDirective multiLineCommentToken = createToken("ML_COMMENT", configuration.getMultiLineCommentPrefix() + "(.*)" + configuration.getMultiLineCommentSuffix());
+			TokenDirective multiLineCommentToken = createToken("ML_COMMENT", "'" + configuration.getMultiLineCommentPrefix() + "'(.*)'" + configuration.getMultiLineCommentSuffix() + "'");
 			syntax.getTokens().add(multiLineCommentToken);
 		}
 	}
@@ -72,7 +78,37 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 	protected void generateTokenStyles(ConcreteSyntax syntax) {
 		// do nothing
 	}
+	
+	@Override
+	protected void generateFeatureSyntax(ConcreteSyntax syntax,
+			Choice featureSyntaxChoice, GenFeature genFeature) {
+		if (isModifierFeature(genFeature) && configuration.isSeparateBooleanAttributes()) {
+			return;
+		}
+		super.generateFeatureSyntax(syntax, featureSyntaxChoice, genFeature);
+	}
 
+	@Override
+	public void addBooleanModifiers(Sequence sequence, List<GenFeature> allGenFeatures) {
+		if (configuration.isSeparateBooleanAttributes()) {
+			super.addBooleanModifiers(sequence, allGenFeatures);
+		}
+	}
+
+	@Override
+	public Terminal createStringAttributeSyntax() {
+		if (configuration.isQuoteStringAttributes()) {
+			String quoteString = configuration.getStringAttributeQuote();
+			PlaceholderInQuotes placeholder = CS_FACTORY.createPlaceholderInQuotes();
+			placeholder.setPrefix(quoteString);
+			placeholder.setSuffix(quoteString);
+			return placeholder;
+		} else {
+			Terminal placeholder = CS_FACTORY.createPlaceholderUsingDefaultToken();
+			return placeholder;
+		}
+	}
+	
 	@Override
 	public void addOpening(GenClass genClass, Sequence sequence) {
 		String opener = configuration.getContainmentOpener();
@@ -86,6 +122,14 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 		String closer = configuration.getContainmentCloser();
 		if (configuration.isEncloseContainments() && closer != null) {
 			addKeyword(sequence, closer);
+		}
+		
+		String terminatingKeyword = configuration.getTerminatingKeyword();
+		if (!hasContainmentFeatures(genClass) && 
+			configuration.isTerminateTerminalElements() &&
+			terminatingKeyword != null && 
+			terminatingKeyword.length() > 0) {
+			addKeyword(sequence, terminatingKeyword);
 		}
 	}
 
