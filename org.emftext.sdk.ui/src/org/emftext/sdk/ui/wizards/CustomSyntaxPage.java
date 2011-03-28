@@ -59,46 +59,33 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 	// UI elements
 	private SourceViewer sourceViewer;
 	private Button buttonNoKeywords;
-
 	private Button buttonLowerKeywords;
-
 	private Button buttonUpperKeywords;
-
 	private Button buttonCapitalizedKeywords;
 
 	private Button useSingleLineComments;
-
 	private Text singleLineCommentPrefix;
 
 	private Button useMultiLineComments;
-
 	private Text multiLineCommentPrefix;
-
-	private Button encloseFeatures;
-
-	private Text encloseFeatureStart;
-
-	private Text encloseFeatureEnd;
-
 	private Text multiLineCommentSuffix;
 
+	private Button encloseFeatures;
+	private Text encloseFeatureStart;
+	private Text encloseFeatureEnd;
+
 	private Button qualifyAttributes;
-
 	private Button qualifyContainments;
-
 	private Button qualifyCrossReferences;
-
 	private Text qualificationDelimiter;
 
 	private Button terminateTerminalElements;
-
 	private Text terminator;
 
+	private Button quoteStringAttributes;
 	private Combo stringQuote;
 
 	private Button booleanAttributesFirst;
-
-	private Button quoteStringAttributes;
 
 	public CustomSyntaxPage(IWorkbench workbench, IFile genModelFile) {
 		super("Syntax customization");
