@@ -50,9 +50,14 @@ public class JavaStyleGenerationProcess extends AbstractSyntaxGenerationProcess 
 	}
 
 	@Override
+	protected void addEnumModifiers(Sequence sequence, List<GenFeature> allGenFeatures) {
+		// do nothing
+	}
+	
+	@Override
 	public void generateFeatureSyntax(ConcreteSyntax cSyntax, Choice featureSyntaxChoice,
 			GenFeature genFeature) {
-		if (!isModifierFeature(genFeature)) {
+		if (!isBooleanModifierFeature(genFeature)) {
 			super.generateFeatureSyntax(cSyntax, featureSyntaxChoice, genFeature);
 		}
 	}

@@ -126,7 +126,7 @@ public abstract class AbstractSyntaxGenerator {
 	}
 
 	private void generateRules(ConcreteSyntax cSyntax, Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix, GenClassCache genClassCache) {
-		EList<GenClass> genClasses = pkg.getGenClasses();
+		List<GenClass> genClasses = pkg.getGenClasses();
 		Set<EClassifier> containedClasses = new LinkedHashSet<EClassifier>();
 		for (GenClass genClass : genClasses) {
 			List<GenFeature> allChildrenFeatures = genClass.getAllChildrenFeatures();
@@ -154,7 +154,7 @@ public abstract class AbstractSyntaxGenerator {
 			}
 		}
 		if (newRuleGenerated) {
-			generateStandardTokens(cSyntax);
+			addStandardTokens(cSyntax, true);
 		}
 	}
 
@@ -175,6 +175,7 @@ public abstract class AbstractSyntaxGenerator {
 		List<GenFeature> allGenFeatures = genClass.getAllGenFeatures();
 		
 		addBooleanModifiers(ruleSequence, allGenFeatures);
+		addEnumModifiers(ruleSequence, allGenFeatures);
 		addKeyword(genClass, ruleSequence);
 		addOpening(genClass, ruleSequence);
 		
@@ -193,6 +194,15 @@ public abstract class AbstractSyntaxGenerator {
 		}
 
 		addClosing(genClass, ruleSequence);
+	}
+
+	protected void addEnumModifiers(Sequence sequence,
+			List<GenFeature> allGenFeatures) {
+		for (GenFeature genFeature : allGenFeatures) {
+			if (genFeature.isEnumType()) {
+				sequence.getChildren().add(createEnumModifier(genFeature));
+			}
+		}
 	}
 
 	protected void addBooleanModifiers(Sequence sequence, List<GenFeature> allGenFeatures) {
@@ -220,9 +230,10 @@ public abstract class AbstractSyntaxGenerator {
 
 	public abstract void createFeaturePrefix(GenFeature genFeature, Sequence sequence);
 
-	private void generateStandardTokens(ConcreteSyntax cSyntax) {
+	protected void addStandardTokens(ConcreteSyntax syntax, boolean addCommentToken) {
 		List<CompleteTokenDefinition> toRemove = new ArrayList<CompleteTokenDefinition>();
-		List<TokenDirective> existing = cSyntax.getTokens();
+		List<TokenDirective> tokens = syntax.getTokens();
+		List<TokenDirective> existing = tokens;
 		for (TokenDirective tokenDirective : existing) {
 			if (tokenDirective instanceof CompleteTokenDefinition) {
 				CompleteTokenDefinition def = (CompleteTokenDefinition) tokenDirective;
@@ -234,14 +245,16 @@ public abstract class AbstractSyntaxGenerator {
 			}
 		}
 		
-		cSyntax.getTokens().removeAll(toRemove);
+		tokens.removeAll(toRemove);
 		NormalTokenDefinition intToken = createToken(INTEGER_TOKEN_NAME, "('-')?('1'..'9')('0'..'9')*|'0'");
 		NormalTokenDefinition floatToken = createToken(FLOAT_TOKEN_NAME, "('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
-		NormalTokenDefinition comment = createToken("COMMENT", "'//'(~('\\n'|'\\r'|'\\uffff'))*");
 		
-		cSyntax.getTokens().add(comment);
-		cSyntax.getTokens().add(intToken);
-		cSyntax.getTokens().add(floatToken);
+		if (addCommentToken) {
+			NormalTokenDefinition comment = createToken("COMMENT", "'//'(~('\\n'|'\\r'|'\\uffff'))*");
+			tokens.add(comment);
+		}
+		tokens.add(intToken);
+		tokens.add(floatToken);
 	}
 
 	protected NormalTokenDefinition createToken(String name, String expression) {
@@ -265,21 +278,14 @@ public abstract class AbstractSyntaxGenerator {
 		}
 		else{
 			String typeName = genFeature.getEcoreFeature().getEType().getInstanceClassName();
-			if (genFeature.isStringType()) {
+			if (isIdentifierFeature(genFeature)) {
+				content = createIdentifierAttributeSyntax();
+			}
+			else if (genFeature.isStringType()) {
 				content = createStringAttributeSyntax();
 			}
 			else if (genFeature.getTypeGenEnum() != null) {
-				EnumTerminal terminal = CS_FACTORY.createEnumTerminal();
-				GenEnum genEnum = genFeature.getTypeGenEnum();
-				EEnum ecoreEnum = genEnum.getEcoreEnum();
-				EList<EnumLiteralTerminal> literalTerminals = terminal.getLiterals();
-				for (EEnumLiteral literal : ecoreEnum.getELiterals()) {
-					EnumLiteralTerminal literalTerminal = CS_FACTORY.createEnumLiteralTerminal();
-					literalTerminal.setLiteral(literal);
-					literalTerminal.setText(literal.getLiteral());
-					literalTerminals.add(literalTerminal);
-				}
-				content = terminal;
+				content = createEnumModifier(genFeature);
 			}
 			else if (typeName == null) {
 				content = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
@@ -311,6 +317,35 @@ public abstract class AbstractSyntaxGenerator {
 		
 		innerSequence.getChildren().add(content);
 		featureSyntaxChoice.getChildren().add(innerSequence);
+	}
+
+	private boolean isIdentifierFeature(GenFeature genFeature) {
+		if (genFeature.isID()) {
+			return true;
+		}
+		if ("name".equals(genFeature.getName()) && genFeature.isStringType()) {
+			return true;
+		}
+		return false;
+	}
+
+	protected Terminal createIdentifierAttributeSyntax() {
+		return createStringAttributeSyntax();
+	}
+
+	private Terminal createEnumModifier(GenFeature genFeature) {
+		EnumTerminal terminal = CS_FACTORY.createEnumTerminal();
+		GenEnum genEnum = genFeature.getTypeGenEnum();
+		EEnum ecoreEnum = genEnum.getEcoreEnum();
+		EList<EnumLiteralTerminal> literalTerminals = terminal.getLiterals();
+		for (EEnumLiteral literal : ecoreEnum.getELiterals()) {
+			EnumLiteralTerminal literalTerminal = CS_FACTORY.createEnumLiteralTerminal();
+			literalTerminal.setLiteral(literal);
+			literalTerminal.setText(literal.getLiteral());
+			literalTerminals.add(literalTerminal);
+		}
+		terminal.setFeature(genFeature);
+		return terminal;
 	}
 
 	protected Terminal createStringAttributeSyntax() {
@@ -380,7 +415,11 @@ public abstract class AbstractSyntaxGenerator {
 		return false;
 	}
 
-	protected boolean isModifierFeature(GenFeature genFeature) {
+	protected boolean isBooleanModifierFeature(GenFeature genFeature) {
 		return genFeature.isBooleanType() && genFeature.getEcoreFeature().getUpperBound() == 1;
+	}
+
+	protected boolean isEnumModifierFeature(GenFeature genFeature) {
+		return genFeature.isEnumType() && genFeature.getEcoreFeature().getUpperBound() == 1;
 	}
 }

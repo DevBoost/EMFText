@@ -1,5 +1,8 @@
 package org.emftext.sdk.ui.wizards;
 
+/**
+ * This class can be used to parameterize the CustomSyntaxGenerator.
+ */
 public class CustomSyntaxConfiguration {
 
 	// keyword options
@@ -30,9 +33,22 @@ public class CustomSyntaxConfiguration {
 	private boolean terminateTerminalElements; // add keyword after elements that do not have containments
 	private String terminatingKeyword;
 
-	private boolean separateBooleanAttributes;
+	private boolean modifierStyleForBooleanAttributes;
+	private boolean modifierStyleForEnumAttributes;
 	private boolean quoteStringAttributes;
 	private String stringAttributeQuote;
+	private boolean quoteIdentifierAttributes;
+	private String identifierAttributeQuote;
+	
+	// TODO implement GUI and syntax generation for subsequent attributes
+	// identifier style
+	private boolean identifiersWithUnderscore;
+	private boolean identifiersWithDash;
+	private boolean identifiersWithDigitsFirst;
+	
+	private boolean separateIdentifyingAttributes;
+	
+	private boolean overrideExistingRules;
 	
 	public boolean isQuoteStringAttributes() {
 		return quoteStringAttributes;
@@ -50,16 +66,6 @@ public class CustomSyntaxConfiguration {
 		this.stringAttributeQuote = stringAttributeQuote;
 	}
 
-	// TODO implement GUI and syntax generation for subsequent attributes
-	// identifier style
-	private boolean identifiersWithUnderscore;
-	private boolean identifiersWithDash;
-	private boolean identifiersWithDigitsFirst;
-	
-	private boolean separateIdentifyingAttributes;
-	
-	private boolean overrideExistingRules;
-	
 	public boolean isOverrideExistingRules() {
 		return overrideExistingRules;
 	}
@@ -221,11 +227,37 @@ public class CustomSyntaxConfiguration {
 		this.separateIdentifyingAttributes = separateIdentifyingAttributes;
 	}
 
-	public boolean isSeparateBooleanAttributes() {
-		return separateBooleanAttributes;
+	public boolean isModifierStyleForBooleanAttributes() {
+		return modifierStyleForBooleanAttributes;
 	}
 
-	public void setSeparateBooleanAttributes(boolean separateBooleanAttributes) {
-		this.separateBooleanAttributes = separateBooleanAttributes;
+	public void setModifierStyleForBooleanAttributes(
+			boolean modifierStyleForBooleanAttributes) {
+		this.modifierStyleForBooleanAttributes = modifierStyleForBooleanAttributes;
+	}
+
+	public boolean isModifierStyleForEnumAttributes() {
+		return modifierStyleForEnumAttributes;
+	}
+
+	public void setModifierStyleForEnumAttributes(
+			boolean modifierStyleForEnumAttributes) {
+		this.modifierStyleForEnumAttributes = modifierStyleForEnumAttributes;
+	}
+
+	public boolean isQuoteIdentifierAttributes() {
+		return quoteIdentifierAttributes;
+	}
+
+	public void setQuoteIdentifierAttributes(boolean quoteIdentifierAttributes) {
+		this.quoteIdentifierAttributes = quoteIdentifierAttributes;
+	}
+
+	public String getIdentifierAttributeQuote() {
+		return identifierAttributeQuote;
+	}
+
+	public void setIdentifierAttributeQuote(String identifierAttributeQuote) {
+		this.identifierAttributeQuote = identifierAttributeQuote;
 	}
 }

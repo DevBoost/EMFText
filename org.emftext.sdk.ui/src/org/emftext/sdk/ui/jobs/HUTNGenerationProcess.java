@@ -16,6 +16,8 @@
  */
 package org.emftext.sdk.ui.jobs;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -50,9 +52,14 @@ public class HUTNGenerationProcess extends AbstractSyntaxGenerationProcess {
 	}
 
 	@Override
+	protected void addEnumModifiers(Sequence sequence, List<GenFeature> allGenFeatures) {
+		// do nothing
+	}
+	
+	@Override
 	protected void generateFeatureSyntax(ConcreteSyntax syntax,
 			Choice choice, GenFeature genFeature) {
-		if (!isModifierFeature(genFeature)) {
+		if (!isBooleanModifierFeature(genFeature)) {
 			super.generateFeatureSyntax(syntax, choice, genFeature);
 		}
 	}

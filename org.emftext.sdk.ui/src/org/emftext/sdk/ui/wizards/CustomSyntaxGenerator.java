@@ -21,8 +21,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.EPredefinedTokens;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
+import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -49,7 +53,7 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 	private void addTokens(ConcreteSyntax syntax) {
 		// TODO escape prefixes and suffixes
 		if (configuration.isUseSingleLineComments()) {
-			TokenDirective singleLineCommentToken = createToken("SL_COMMENT", "'" + configuration.getSingleLineCommentPrefix() + "'(.*)(\\n|\\r|\\n\\r)");
+			TokenDirective singleLineCommentToken = createToken("SL_COMMENT", "'" + configuration.getSingleLineCommentPrefix() + "'(~('\\n'|'\\r'|'\\uffff'))*");
 			syntax.getTokens().add(singleLineCommentToken);
 		}
 		if (configuration.isUseMultiLineComments()) {
@@ -75,6 +79,53 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 		}
 	}
 	
+	@Override
+	protected void addStandardTokens(ConcreteSyntax syntax, boolean addCommentToken) {
+		// add IDENTIFIER token if required
+		if (!configuration.isIdentifiersWithDash() ||
+			!configuration.isIdentifiersWithUnderscore() ||
+			!configuration.isIdentifiersWithDigitsFirst()) {
+			
+			String alternatives = "";
+			if (configuration.isIdentifiersWithDash()) {
+				alternatives += "| '-'";
+			}
+			if (configuration.isIdentifiersWithUnderscore()) {
+				alternatives += "| '_'";
+			}
+			String regex = "('A'..'Z' | 'a'..'z' | '0'..'9' " + alternatives + ")";
+			if (configuration.isIdentifiersWithDigitsFirst()) {
+				regex = regex + "+";
+			} else {
+				regex = "('A'..'Z' | 'a'..'z' " + alternatives + ")" + regex + "*";
+			}
+			
+			// disable predefined tokens
+			Option option = CS_FACTORY.createOption();
+			option.setType(OptionTypes.USE_PREDEFINED_TOKENS);
+			option.setValue("false");
+			syntax.getOptions().add(option);
+			
+			// add custom identifier token
+			String tokenName = "IDENTIFIER";
+			NormalTokenDefinition identifierToken = createToken(tokenName, regex);
+			syntax.getTokens().add(identifierToken);
+			
+			// add whitespace and line break tokens
+			syntax.getTokens().add(createToken(EPredefinedTokens.WHITESPACE.getTokenName(), EPredefinedTokens.WHITESPACE.getExpression()));
+			syntax.getTokens().add(createToken(EPredefinedTokens.LINEBREAK.getTokenName(), EPredefinedTokens.LINEBREAK.getExpression()));
+			
+			// set IDENTIFIER as default token
+			Option option2 = CS_FACTORY.createOption();
+			option2.setType(OptionTypes.DEFAULT_TOKEN_NAME);
+			option2.setValue(tokenName);
+			syntax.getOptions().add(option2);
+		}
+		
+		super.addStandardTokens(syntax, false);
+	}
+	
+	@Override
 	protected void generateTokenStyles(ConcreteSyntax syntax) {
 		// do nothing
 	}
@@ -82,7 +133,10 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 	@Override
 	protected void generateFeatureSyntax(ConcreteSyntax syntax,
 			Choice featureSyntaxChoice, GenFeature genFeature) {
-		if (isModifierFeature(genFeature) && configuration.isSeparateBooleanAttributes()) {
+		if (isBooleanModifierFeature(genFeature) && configuration.isModifierStyleForBooleanAttributes()) {
+			return;
+		}
+		if (isEnumModifierFeature(genFeature) && configuration.isModifierStyleForEnumAttributes()) {
 			return;
 		}
 		super.generateFeatureSyntax(syntax, featureSyntaxChoice, genFeature);
@@ -90,15 +144,35 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 
 	@Override
 	public void addBooleanModifiers(Sequence sequence, List<GenFeature> allGenFeatures) {
-		if (configuration.isSeparateBooleanAttributes()) {
+		if (configuration.isModifierStyleForBooleanAttributes()) {
 			super.addBooleanModifiers(sequence, allGenFeatures);
 		}
 	}
 
 	@Override
-	public Terminal createStringAttributeSyntax() {
-		if (configuration.isQuoteStringAttributes()) {
-			String quoteString = configuration.getStringAttributeQuote();
+	protected void addEnumModifiers(Sequence sequence,
+			List<GenFeature> allGenFeatures) {
+		if (configuration.isModifierStyleForEnumAttributes()) {
+			super.addEnumModifiers(sequence, allGenFeatures);
+		}
+	}
+
+	@Override
+	protected Terminal createStringAttributeSyntax() {
+		boolean doQuote = configuration.isQuoteStringAttributes();
+		String quoteString = configuration.getStringAttributeQuote();
+		return createPlaceholder(doQuote, quoteString);
+	}
+
+	@Override
+	protected Terminal createIdentifierAttributeSyntax() {
+		boolean doQuote = configuration.isQuoteIdentifierAttributes();
+		String quoteString = configuration.getIdentifierAttributeQuote();
+		return createPlaceholder(doQuote, quoteString);
+	}
+
+	private Terminal createPlaceholder(boolean doQuote, String quoteString) {
+		if (doQuote) {
 			PlaceholderInQuotes placeholder = CS_FACTORY.createPlaceholderInQuotes();
 			placeholder.setPrefix(quoteString);
 			placeholder.setSuffix(quoteString);
@@ -108,7 +182,7 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 			return placeholder;
 		}
 	}
-	
+
 	@Override
 	public void addOpening(GenClass genClass, Sequence sequence) {
 		String opener = configuration.getContainmentOpener();
