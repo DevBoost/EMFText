@@ -75,7 +75,7 @@ RULES {
 
 	Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
  
-	Option 	       ::= type[] "=" value[STRING];
+	Option 	       ::= type[] #1 "=" #1 value[STRING];
  
 	@Foldable
 	Rule           ::= (annotations !0)* metaclass[] #1 "::=" #1 children : Choice ";";
