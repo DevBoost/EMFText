@@ -251,7 +251,7 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		quoteStringAttributes = new Button(attributeComposite, SWT.CHECK);
 		quoteStringAttributes.setText("Quote string attributes");
 		quoteStringAttributes.addListener(SWT.Selection, changeListener);
-		stringQuote = new Combo(attributeComposite, SWT.DROP_DOWN | SWT.BORDER);
+		stringQuote = new Combo(attributeComposite, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
 		stringQuote.setItems(new String[] {"Double quotes", "Single quotes"});
 		stringQuote.select(0);
 		stringQuote.addListener(SWT.Selection, changeListener);
@@ -280,7 +280,7 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		quoteIdentifierAttributes = new Button(identifierComposite, SWT.CHECK);
 		quoteIdentifierAttributes.setText("Quote identifiers");
 		quoteIdentifierAttributes.addListener(SWT.Selection, changeListener);
-		identifierQuote = new Combo(identifierComposite, SWT.DROP_DOWN | SWT.BORDER);
+		identifierQuote = new Combo(identifierComposite, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
 		identifierQuote.setItems(new String[] {"Double quotes", "Single quotes"});
 		identifierQuote.select(0);
 		identifierQuote.addListener(SWT.Selection, changeListener);
