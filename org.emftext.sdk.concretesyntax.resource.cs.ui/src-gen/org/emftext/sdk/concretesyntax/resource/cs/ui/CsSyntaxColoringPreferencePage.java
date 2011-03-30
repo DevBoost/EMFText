@@ -277,10 +277,10 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		}
 		org.eclipse.swt.graphics.RGB rgb = org.eclipse.jface.preference.PreferenceConverter.getColor(getPreferenceStore(), item.getColorKey());
 		fSyntaxForegroundColorEditor.setColorValue(rgb);
-		fBoldCheckBox.setSelection(getPreferenceStore().getBoolean(		item.getBoldKey()));
-		fItalicCheckBox.setSelection(getPreferenceStore().getBoolean(		item.getItalicKey()));
-		fStrikethroughCheckBox.setSelection(getPreferenceStore().getBoolean(		item.getStrikethroughKey()));
-		fUnderlineCheckBox.setSelection(getPreferenceStore().getBoolean(		item.getUnderlineKey()));
+		fBoldCheckBox.setSelection(getPreferenceStore().getBoolean(item.getBoldKey()));
+		fItalicCheckBox.setSelection(getPreferenceStore().getBoolean(item.getItalicKey()));
+		fStrikethroughCheckBox.setSelection(getPreferenceStore().getBoolean(item.getStrikethroughKey()));
+		fUnderlineCheckBox.setSelection(getPreferenceStore().getBoolean(item.getUnderlineKey()));
 		
 		fEnableCheckbox.setEnabled(true);
 		boolean enable = getPreferenceStore().getBoolean(item.getEnableKey());
@@ -339,7 +339,7 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		org.eclipse.swt.layout.GridData gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL, org.eclipse.swt.layout.GridData.FILL, true, true);
 		gd.heightHint = convertHeightInCharsToPixels(26);
 		int maxWidth = 0;
-		for (java.util.Iterator<java.util.List<HighlightingColorListItem>> it = content.values()		.iterator(); it.hasNext();) {
+		for (java.util.Iterator<java.util.List<HighlightingColorListItem>> it = content.values().iterator(); it.hasNext();) {
 			for (java.util.Iterator<HighlightingColorListItem> j = it.next().iterator(); j.hasNext();) {
 				HighlightingColorListItem item = j.next();
 				maxWidth = Math.max(maxWidth, convertWidthInCharsToPixels(item.getDisplayName().length()));
@@ -617,7 +617,7 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 	
 	private void updateActiveEditor() {
 		org.eclipse.ui.IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
-		org.eclipse.ui.IEditorPart editor = workbench.getActiveWorkbenchWindow()		.getActivePage().getActiveEditor();
+		org.eclipse.ui.IEditorPart editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if (editor != null && editor instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor emfTextEditor = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) editor;
 			emfTextEditor.invalidateTextRepresentation();
