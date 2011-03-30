@@ -72,10 +72,10 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 			addKeyword(ruleSequence, StringUtil.firstToLower(name));
 		}
 		if (configuration.getKeywordStyle() == KeywordStyle.UPPER) {
-			addKeyword(ruleSequence, StringUtil.capitalize(name));
+			addKeyword(ruleSequence, name.toUpperCase());
 		}
 		if (configuration.getKeywordStyle() == KeywordStyle.CAPITALIZED) {
-			addKeyword(ruleSequence, name.toUpperCase());
+			addKeyword(ruleSequence, StringUtil.capitalize(name));
 		}
 	}
 	
