@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -94,6 +96,19 @@ public class CreateNewEMFTextProjectJob extends AbstractCreatePluginJob {
 			project.create(new NullProgressMonitor());
 		}
 		project.open(new NullProgressMonitor());
+		if (!project.hasNature(JavaCore.NATURE_ID)) {
+			try {
+				IProjectDescription descriptions = project.getDescription();
+				String[] oldIds = descriptions.getNatureIds();
+				String[] newIds = new String[oldIds.length + 1];
+				System.arraycopy(oldIds, 0, newIds, 0, oldIds.length);
+				newIds[oldIds.length] = JavaCore.NATURE_ID;
+				descriptions.setNatureIds(newIds);
+				project.setDescription(descriptions, null);
+			} catch (CoreException e) {
+				EMFTextSDKPlugin.logWarning("Could not add Java nature to project " + project, e);
+			}
+		}
 		progress.worked(1);
 		JavaCore.create(project);
 		progress.worked(1);

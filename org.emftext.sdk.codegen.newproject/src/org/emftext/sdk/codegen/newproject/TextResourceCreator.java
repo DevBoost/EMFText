@@ -14,7 +14,9 @@
 package org.emftext.sdk.codegen.newproject;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -22,6 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jdt.core.JavaCore;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -78,6 +81,19 @@ public class TextResourceCreator implements IArtifactCreator<NewProjectGeneratio
 						project.create(new NullProgressMonitor());
 					}
 					project.open(new NullProgressMonitor());
+					if (!project.hasNature(JavaCore.NATURE_ID)) {
+						try {
+							IProjectDescription descriptions = project.getDescription();
+							String[] oldIds = descriptions.getNatureIds();
+							String[] newIds = new String[oldIds.length + 1];
+							System.arraycopy(oldIds, 0, newIds, 0, oldIds.length);
+							newIds[oldIds.length] = JavaCore.NATURE_ID;
+							descriptions.setNatureIds(newIds);
+							project.setDescription(descriptions, null);
+						} catch (CoreException e) {
+							EMFTextSDKPlugin.logWarning("Could not add Java nature to project " + project, e);
+						}
+					}
 					JavaCore.create(project);
 				}
 			}.run(genContext, context.getResourceMarker(), context.getMonitor());
