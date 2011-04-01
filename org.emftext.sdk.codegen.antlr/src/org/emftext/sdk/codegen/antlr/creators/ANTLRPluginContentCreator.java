@@ -184,7 +184,7 @@ public class ANTLRPluginContentCreator {
 		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().getName(context));
 
 		manifestParameters.setPlugin(antlrPlugin);
-		manifestParameters.setBundleName("ANTLR 3.2.0 Runtime Classes");
+		manifestParameters.setBundleName("ANTLR 3.3.0 Runtime Classes");
 		creators.add(new ManifestCreator<ANTLRGenerationContext>(manifestParameters, true));
 
 	    // add copiers for ANTLR source files
