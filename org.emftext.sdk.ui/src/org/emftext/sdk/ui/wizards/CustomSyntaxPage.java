@@ -225,7 +225,7 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 
 	private void createFeatureQualificationGroup(Composite composite,
 			Listener changeListener) {
-		Group qualificationComposite = createGroup(composite, "Feature Qualification", 5);
+		Group qualificationComposite = createGroup(composite, "Keywords for Features", 5);
 		qualifyAttributes = new Button(qualificationComposite, SWT.CHECK);
 		qualifyAttributes.setText("Attributes");
 		qualifyAttributes.addListener(SWT.Selection, changeListener);

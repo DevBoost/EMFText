@@ -13,11 +13,20 @@
  ******************************************************************************/
 package org.emftext.sdk.ui.wizards;
 
+import java.io.IOException;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.emftext.sdk.EMFTextSDKPlugin;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation;
 
 public class CustomizeSyntaxWizard extends Wizard implements INewWizard {
 
@@ -40,6 +49,17 @@ public class CustomizeSyntaxWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-		return false;
+		EList<EObject> contents = page.getResource().getContents();
+		URI uri = URI.createPlatformResourceURI(genModelFile.getFullPath().toString(), true);
+		uri = uri.trimFileExtension().appendFileExtension(new CsMetaInformation().getSyntaxName());
+		Resource syntaxResource = new ResourceSetImpl().createResource(uri);
+		syntaxResource.getContents().addAll(contents);
+		try {
+			syntaxResource.save(null);
+		} catch (IOException e) {
+			EMFTextSDKPlugin.logError("Exception while saving customized syntax.", e);
+		}
+		page.regenerateSyntax();
+		return true;
 	}
 }
