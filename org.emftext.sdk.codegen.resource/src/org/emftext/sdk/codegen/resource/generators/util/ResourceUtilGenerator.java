@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -31,10 +32,14 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import java.util.List;
+
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -64,6 +69,8 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod2(sc);
 		addGetResourceMethod3(sc);
 		addGetResourceMethod4(sc);
+		addGetResourceContentMethod1(sc);
+		addGetResourceContentMethod2(sc);
 		addSaveResourceMethod(sc);
 		addContainsErrorsMethod(sc);
 		addContainsWarningsMethod(sc);
@@ -190,6 +197,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	
 	private void addGetResourceMethod4(JavaComposite sc) {
 		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri, " + MAP + "<?,?> options) {");
 		sc.add("new " + metaInformationClassName + "().registerResourceFactory();");
@@ -201,5 +209,44 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("return (" + textResourceClassName + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetResourceContentMethod1(JavaComposite sc) {
+		String returnType = getRootElementType();
+		sc.addJavadoc("Returns the root element of the resource with the given URI.");
+		sc.add("public static " + returnType + " getResourceContent(" + URI + " uri) {");
+		sc.add("return getResourceContent(uri, null);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetResourceContentMethod2(JavaComposite sc) {
+		String returnType = getRootElementType();
+		sc.addJavadoc("Returns the root element of the resource with the given URI.");
+		sc.add("public static " + returnType + " getResourceContent(" + URI + " uri, " + MAP + "<?,?> options) {");
+		sc.add(RESOURCE + " resource = getResource(uri, options);");
+		sc.add("if (resource == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
+		sc.add("if (contents == null || contents.isEmpty()) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(E_OBJECT + " root = contents.get(0);");
+		sc.add("return (" + returnType + ") root;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private String getRootElementType() {
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
+		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
+		String returnType;
+		if (startSymbols.size() == 1) {
+			returnType = startSymbols.get(0).getQualifiedInterfaceName();
+		} else {
+			returnType = E_OBJECT;
+		}
+		return returnType;
 	}
 }
