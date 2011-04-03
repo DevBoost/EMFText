@@ -46,7 +46,7 @@ public class GenModelGenerator extends ModelGenerator {
 		List<EPackage> ePackages = new ArrayList<EPackage>();
 		ePackages.add(getContext().getEPackage());
 		genModel.initialize(ePackages);
-		genModel.setModelDirectory(parameters.getProjectName() + "/" + parameters.getSrcFolder());
+		genModel.setModelDirectory("/" + parameters.getProjectName() + "/" + parameters.getSrcFolder());
 		genModel.setModelPluginID(parameters.getProjectName());
 		genModel.setComplianceLevel(GenJDKLevel.JDK50_LITERAL);
 
