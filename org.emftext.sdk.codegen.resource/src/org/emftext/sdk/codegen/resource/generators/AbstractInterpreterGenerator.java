@@ -13,6 +13,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STACK;
 
@@ -87,6 +91,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		addDoSwitchMethod(sc);
 		addInterpreteTypeMethods(sc);
 		addAddObjectToInterpreteMethod(sc);
+		addAddObjectsToInterpreteMethod(sc);
+		addAddObjectsToInterpreteInReverseOrderMethod(sc);
 	}
 
 	private void addContinueInterpretationMethod(JavaComposite sc) {
@@ -196,9 +202,39 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addAddObjectToInterpreteMethod(StringComposite sc) {
+	private void addAddObjectToInterpreteMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Adds the given object to the interpretation stack. Attention: " +
+			"Objects that are added first, are interpret last."
+		);
 		sc.add("public void addObjectToInterprete(" + E_OBJECT + " object) {");
 		sc.add("interpretationStack.push(object);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddObjectsToInterpreteMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Adds the given collection of objects to the interpretation stack. Attention: " +
+			"Collections that are added first, are interpret last."
+		);
+		sc.add("public void addObjectsToInterprete(" + COLLECTION + "<? extends " + E_OBJECT + "> objects) {");
+		sc.add("for (" + E_OBJECT + " object : objects) {");
+		sc.add("addObjectToInterprete(object);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddObjectsToInterpreteInReverseOrderMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Adds the given collection of objects in reverse order to the interpretation stack."
+		);
+		sc.add("public void addObjectsToInterpreteInReverseOrder(" + COLLECTION + "<? extends " + E_OBJECT + "> objects) {");
+		sc.add(LIST + "<" + E_OBJECT + "> reverse = new " + ARRAY_LIST + "<" + E_OBJECT + ">(objects.size());");
+		sc.add("reverse.addAll(objects);");
+		sc.add(COLLECTIONS + ".reverse(reverse);");
+		sc.add("addObjectsToInterprete(reverse);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
