@@ -30,6 +30,12 @@ public class NewProjectParameters {
 	private String metamodelFolder;
 	private String syntaxName;
 	private String srcFolder;
+	
+	private boolean generateModelCode;
+	private boolean generateEditCode;
+	private boolean generateEditorCode;
+	private boolean generateTestCode;
+	private boolean generateResourceCode;
 
 	public NewProjectParameters(String metamodelName, String namespaceUri,
 			String namespacePrefix, String projectName, String basePackage,
@@ -131,5 +137,45 @@ public class NewProjectParameters {
 
 	public String getProjectName() {
 		return projectName;
+	}
+
+	public boolean isGenerateModelCode() {
+		return generateModelCode;
+	}
+
+	public void setGenerateModelCode(boolean generateModelCode) {
+		this.generateModelCode = generateModelCode;
+	}
+
+	public boolean isGenerateEditCode() {
+		return generateEditCode;
+	}
+
+	public void setGenerateEditCode(boolean generateEditCode) {
+		this.generateEditCode = generateEditCode;
+	}
+
+	public boolean isGenerateEditorCode() {
+		return generateEditorCode;
+	}
+
+	public void setGenerateEditorCode(boolean generateEditorCode) {
+		this.generateEditorCode = generateEditorCode;
+	}
+
+	public boolean isGenerateTestCode() {
+		return generateTestCode;
+	}
+
+	public void setGenerateTestCode(boolean generateTestCode) {
+		this.generateTestCode = generateTestCode;
+	}
+
+	public boolean isGenerateResourceCode() {
+		return generateResourceCode;
+	}
+
+	public void setGenerateResourceCode(boolean generateResourceCode) {
+		this.generateResourceCode = generateResourceCode;
 	}
 }

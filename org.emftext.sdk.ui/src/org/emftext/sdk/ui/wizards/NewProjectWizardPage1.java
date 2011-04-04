@@ -14,7 +14,6 @@
 package org.emftext.sdk.ui.wizards;
 
 import org.eclipse.jface.dialogs.IDialogPage;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -29,7 +28,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 
-public class NewProjectWizardPage extends WizardPage {
+public class NewProjectWizardPage1 extends WizardPage {
 	
 	private Text namespaceUriText;
 	private Text basePackageText;
@@ -47,8 +46,8 @@ public class NewProjectWizardPage extends WizardPage {
 
 	private boolean isChanging;
 
-	public NewProjectWizardPage(IStructuredSelection selection) {
-		super("wizardPage");
+	public NewProjectWizardPage1() {
+		super("wizardPage1");
 		setTitle("Create EMFText project");
 		setDescription("This wizard creates a new EMFText project.");
 	}
@@ -167,15 +166,15 @@ public class NewProjectWizardPage extends WizardPage {
 			pluginNameText.setText(basePackageText.getText() + "." + metaModelName);
 		}
 		setEnabled(
-				!enabled,
-				syntaxNameText,
-				namespacePrefixText,
-				namespaceUriText,
-				ecoreFileText,
-				genmodelFileText,
-				syntaxFileText,
-				pluginNameText
-			);
+			!enabled,
+			syntaxNameText,
+			namespacePrefixText,
+			namespaceUriText,
+			ecoreFileText,
+			genmodelFileText,
+			syntaxFileText,
+			pluginNameText
+		);
 		checkNotEmpty(syntaxNameText, "Syntax name must be specified");
 		updateStatus(null);
 		isChanging = false;

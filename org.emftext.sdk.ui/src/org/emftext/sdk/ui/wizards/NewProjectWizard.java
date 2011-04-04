@@ -29,8 +29,8 @@ import org.emftext.sdk.ui.jobs.WorkspaceMarker;
 
 public class NewProjectWizard extends Wizard implements INewWizard {
 
-	private IStructuredSelection selection;
-	private NewProjectWizardPage page;
+	private NewProjectWizardPage1 page1;
+	private NewProjectWizardPage2 page2;
 
 	public NewProjectWizard() {
 		super();
@@ -39,7 +39,8 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-		final NewProjectParameters parameters = page.getParameters();
+		final NewProjectParameters parameters = page1.getParameters();
+		page2.updateParameters(parameters);
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
@@ -70,11 +71,13 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 	}
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		this.selection = selection;
+		// do nothing
 	}
 
 	public void addPages() {
-		page = new NewProjectWizardPage(selection);
-		addPage(page);
+		page1 = new NewProjectWizardPage1();
+		page2 = new NewProjectWizardPage2();
+		addPage(page1);
+		addPage(page2);
 	}
 }

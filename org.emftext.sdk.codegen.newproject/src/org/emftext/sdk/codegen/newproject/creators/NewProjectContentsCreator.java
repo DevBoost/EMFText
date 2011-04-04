@@ -98,8 +98,10 @@ public class NewProjectContentsCreator implements IPluginCreator<NewProjectGener
     	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(metamodel, parameters.getEcoreFile())));
     	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(genModel, parameters.getGenmodelFile())));
     	creators.add(new OverridingArtifactCreator<NewProjectGenerationContext, SimpleParameter<NewProjectGenerationContext, String>>(new SimpleParameter<NewProjectGenerationContext, String>(syntax, parameters.getSyntaxFile())));
-    	creators.add(new GenerateCodeCreator());
-    	creators.add(new TextResourceCreator());
+       	creators.add(new GenerateCodeCreator());
+    	if (parameters.isGenerateResourceCode()) {
+        	creators.add(new TextResourceCreator());
+		}
     	
     	ClassPathParameters<NewProjectGenerationContext> cpp = new ClassPathParameters<NewProjectGenerationContext>(NewProjectArtifacts.DOT_CLASSPATH, context.getPluginDescriptor());
     	cpp.getSourceFolders().add(parameters.getSrcFolder());

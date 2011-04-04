@@ -184,7 +184,7 @@ public abstract class CreateResourcePluginsJob extends AbstractCreatePluginJob {
 		boolean generateModelCodeEnabled = context.getGeneratorModelCode();
 		if (generateModelCodeOptionSet && generateModelCodeEnabled) {
 			new GenModelUtil().generateMetaModelCode(cSyntax.getPackage(), progress
-					.newChild(TICKS_GENERATE_METAMODEL_CODE));
+					.newChild(TICKS_GENERATE_METAMODEL_CODE), GenModelUtil.ProjectType.MODEL);
 		} else {
 			progress.internalWorked(TICKS_GENERATE_METAMODEL_CODE);
 		}

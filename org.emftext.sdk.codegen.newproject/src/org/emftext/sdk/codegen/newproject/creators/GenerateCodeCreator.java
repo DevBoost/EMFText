@@ -13,9 +13,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.newproject.creators;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.newproject.NewProjectGenerationContext;
+import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.codegen.util.GenModelUtil;
 
 /**
@@ -29,7 +32,23 @@ public class GenerateCodeCreator implements IArtifactCreator<NewProjectGeneratio
 	}
 
 	public void createArtifacts(IPluginDescriptor plugin, NewProjectGenerationContext context) {
-		new GenModelUtil().generateMetaModelCode(context.getGenPackage(), context.getMonitor());
+		GenModelUtil util = new GenModelUtil();
+		GenPackage genPackage = context.getGenPackage();
+		IProgressMonitor monitor = context.getMonitor();
+
+		NewProjectParameters parameters = context.getParameters();
+		if (parameters.isGenerateModelCode()) {
+			util.generateMetaModelCode(genPackage, monitor, GenModelUtil.ProjectType.MODEL);
+		}
+		if (parameters.isGenerateEditCode()) {
+			util.generateMetaModelCode(genPackage, monitor, GenModelUtil.ProjectType.EDIT);
+		}
+		if (parameters.isGenerateEditorCode()) {
+			util.generateMetaModelCode(genPackage, monitor, GenModelUtil.ProjectType.EDITOR);
+		}
+		if (parameters.isGenerateTestCode()) {
+			util.generateMetaModelCode(genPackage, monitor, GenModelUtil.ProjectType.TESTS);
+		}
 	}
 
 	public String getArtifactTypeDescription() {

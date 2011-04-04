@@ -21,6 +21,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 
 public class GenModelUtil {
+	
+	public enum ProjectType {
+		MODEL, EDIT, EDITOR, TESTS
+	}
 
 	/**
 	 * Runs the EMF code generation for the given generator
@@ -31,7 +35,8 @@ public class GenModelUtil {
 	 */
 	public void generateMetaModelCode(
 			GenPackage genPackage,
-			IProgressMonitor monitor) {
+			IProgressMonitor monitor,
+			ProjectType projectType) {
 		monitor.setTaskName("generating metamodel code...");
 			
 		GenModel genModel = genPackage.getGenModel();
@@ -40,8 +45,18 @@ public class GenModelUtil {
 		// generate the code
 		Generator generator = new Generator();
 		generator.setInput(genModel);
+		String type = GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE;
+		if (projectType == ProjectType.EDIT) {
+			type = GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE;
+		}
+		if (projectType == ProjectType.EDITOR) {
+			type = GenBaseGeneratorAdapter.EDITOR_PROJECT_TYPE;
+		}
+		if (projectType == ProjectType.TESTS) {
+			type = GenBaseGeneratorAdapter.TESTS_PROJECT_TYPE;
+		}
 		generator.generate(genModel,
-				GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE,
+				type,
 				new BasicMonitor.EclipseSubProgress(monitor, 100));
 	}
 }
