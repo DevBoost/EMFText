@@ -14,20 +14,25 @@
 package org.emftext.sdk.ui.wizards;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.EPredefinedTokens;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.GenClassCache;
+import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.NormalTokenDefinition;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
+import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDirective;
@@ -43,7 +48,7 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 		super();
 		this.configuration = configuration;
 	}
-	
+
 	@Override
 	public void fillSyntax(ConcreteSyntax syntax, GenModel genModel) {
 		super.fillSyntax(syntax, genModel);
@@ -78,14 +83,14 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 			addKeyword(ruleSequence, StringUtil.capitalize(name));
 		}
 	}
-	
+
 	@Override
 	protected void addStandardTokens(ConcreteSyntax syntax, boolean addCommentToken) {
 		// add IDENTIFIER token if required
 		if (!configuration.isIdentifiersWithDash() ||
-			!configuration.isIdentifiersWithUnderscore() ||
-			!configuration.isIdentifiersWithDigitsFirst()) {
-			
+				!configuration.isIdentifiersWithUnderscore() ||
+				!configuration.isIdentifiersWithDigitsFirst()) {
+
 			String alternatives = "";
 			if (configuration.isIdentifiersWithDash()) {
 				alternatives += "| '-'";
@@ -99,37 +104,37 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 			} else {
 				regex = "('A'..'Z' | 'a'..'z' " + alternatives + ")" + regex + "*";
 			}
-			
+
 			// disable predefined tokens
 			Option option = CS_FACTORY.createOption();
 			option.setType(OptionTypes.USE_PREDEFINED_TOKENS);
 			option.setValue("false");
 			syntax.getOptions().add(option);
-			
+
 			// add custom identifier token
 			String tokenName = "IDENTIFIER";
 			NormalTokenDefinition identifierToken = createToken(tokenName, regex);
 			syntax.getTokens().add(identifierToken);
-			
+
 			// add whitespace and line break tokens
 			syntax.getTokens().add(createToken(EPredefinedTokens.WHITESPACE.getTokenName(), EPredefinedTokens.WHITESPACE.getExpression()));
 			syntax.getTokens().add(createToken(EPredefinedTokens.LINEBREAK.getTokenName(), EPredefinedTokens.LINEBREAK.getExpression()));
-			
+
 			// set IDENTIFIER as default token
 			Option option2 = CS_FACTORY.createOption();
 			option2.setType(OptionTypes.DEFAULT_TOKEN_NAME);
 			option2.setValue(tokenName);
 			syntax.getOptions().add(option2);
 		}
-		
+
 		super.addStandardTokens(syntax, false);
 	}
-	
+
 	@Override
 	protected void generateTokenStyles(ConcreteSyntax syntax) {
 		// do nothing
 	}
-	
+
 	@Override
 	protected void generateFeatureSyntax(ConcreteSyntax syntax,
 			Choice featureSyntaxChoice, GenFeature genFeature) {
@@ -197,12 +202,12 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 		if (configuration.isEncloseContainments() && closer != null) {
 			addKeyword(sequence, closer);
 		}
-		
+
 		String terminatingKeyword = configuration.getTerminatingKeyword();
 		if (!hasContainmentFeatures(genClass) && 
-			configuration.isTerminateTerminalElements() &&
-			terminatingKeyword != null && 
-			terminatingKeyword.length() > 0) {
+				configuration.isTerminateTerminalElements() &&
+				terminatingKeyword != null && 
+				terminatingKeyword.length() > 0) {
 			addKeyword(sequence, terminatingKeyword);
 		}
 	}
@@ -228,6 +233,25 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 			String delimiter = configuration.getQualificationDelimiter();
 			if (delimiter != null && delimiter.length() > 0) {
 				addKeyword(sequence, delimiter);
+			}
+		}
+	}
+
+	@Override
+	protected void generateRulesForImports(ConcreteSyntax syntax,
+			GenClassCache genClassCache, Map<String, Rule> genClass2RuleCache,
+			List<GenPackage> allGenPackagesWithClassifiers) {
+		if(configuration.isGenerateRulesForImportedModels()){
+			for (int i = 1; i < allGenPackagesWithClassifiers.size(); i++) {
+				GenPackage currentPkg = allGenPackagesWithClassifiers.get(i);
+
+				Import imp = CS_FACTORY.createImport();
+				syntax.getImports().add(imp);
+				imp.setPackage(currentPkg);
+				String prefix = currentPkg.getQualifiedPackageName();
+				imp.setPrefix(prefix);
+
+				generateRules(syntax, genClass2RuleCache, currentPkg, prefix, genClassCache);
 			}
 		}
 	}

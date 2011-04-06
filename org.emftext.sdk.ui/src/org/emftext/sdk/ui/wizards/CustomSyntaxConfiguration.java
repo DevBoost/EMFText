@@ -50,6 +50,8 @@ public class CustomSyntaxConfiguration {
 	
 	private boolean overrideExistingRules;
 	
+	private boolean generateRulesForImportedModels;
+	
 	public boolean isQuoteStringAttributes() {
 		return quoteStringAttributes;
 	}
@@ -259,5 +261,14 @@ public class CustomSyntaxConfiguration {
 
 	public void setIdentifierAttributeQuote(String identifierAttributeQuote) {
 		this.identifierAttributeQuote = identifierAttributeQuote;
+	}
+
+	public void setGenerateRulesForImportedModels(
+			boolean generateRulesForImportedModels) {
+		this.generateRulesForImportedModels = generateRulesForImportedModels;
+	}
+
+	public boolean isGenerateRulesForImportedModels() {
+		return generateRulesForImportedModels;
 	}
 }

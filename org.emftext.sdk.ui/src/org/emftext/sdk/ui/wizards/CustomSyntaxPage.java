@@ -97,6 +97,8 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 	private Button allowUnderscoreInIdentifiers;
 
 	private Button allowIdentifiersStartingWithDigits;
+	
+	private Button generateRulesForImports;
 
 	public CustomSyntaxPage(IWorkbench workbench, IFile genModelFile) {
 		super("Syntax customization");
@@ -139,11 +141,20 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		createFeatureOptionsGroup(composite, changeListener);
 		createAttributeGroup(composite, changeListener);
 		createIdentifiersGroup(composite, changeListener);
+		createImportsGroup(composite, changeListener);
 
 		setControl(composite);
 		setPageComplete(true);
 
 		update();
+	}
+
+	private void createImportsGroup(Composite composite, Listener changeListener) {
+		Group importsGroup = createGroup(composite, "Imports", 2);
+		generateRulesForImports = new Button(importsGroup, SWT.CHECK);
+		generateRulesForImports.setText("Generate syntax rules for imported packages");
+		generateRulesForImports.addListener(SWT.Selection, changeListener);
+		generateRulesForImports.setSelection(true);
 	}
 
 	private void createKeywordsGroup(Composite composite,
@@ -340,6 +351,8 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		}
 		configuration.setUseSingleLineComments(useSingleLineComments.getSelection());
 		configuration.setSingleLineCommentPrefix(singleLineCommentPrefix.getText());
+		
+		configuration.setGenerateRulesForImportedModels(generateRulesForImports.getSelection());
 		
 		configuration.setUseMultiLineComments(useMultiLineComments.getSelection());
 		configuration.setMultiLineCommentPrefix(multiLineCommentPrefix.getText());

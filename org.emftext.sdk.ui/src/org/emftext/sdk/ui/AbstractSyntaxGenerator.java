@@ -84,6 +84,14 @@ public abstract class AbstractSyntaxGenerator {
 		syntax.setName(syntax.getPackage().getNSName());
 		generateRules(syntax, genClass2RuleCache, syntax.getPackage(), "", genClassCache);
 		
+		generateRulesForImports(syntax, genClassCache, genClass2RuleCache, allGenPackagesWithClassifiers);
+
+		generateTokenStyles(syntax);
+	}
+
+	protected void generateRulesForImports(ConcreteSyntax syntax,
+			GenClassCache genClassCache, Map<String, Rule> genClass2RuleCache,
+			List<GenPackage> allGenPackagesWithClassifiers){
 		for (int i = 1; i < allGenPackagesWithClassifiers.size(); i++) {
 			GenPackage currentPkg = allGenPackagesWithClassifiers.get(i);
 			
@@ -95,7 +103,6 @@ public abstract class AbstractSyntaxGenerator {
 			
 			generateRules(syntax, genClass2RuleCache, currentPkg, prefix, genClassCache);
 		}
-		generateTokenStyles(syntax);
 	}
 
 	protected void generateTokenStyles(ConcreteSyntax syntax) {
@@ -125,7 +132,7 @@ public abstract class AbstractSyntaxGenerator {
 		}
 	}
 
-	private void generateRules(ConcreteSyntax cSyntax, Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix, GenClassCache genClassCache) {
+	protected void generateRules(ConcreteSyntax cSyntax, Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix, GenClassCache genClassCache) {
 		List<GenClass> genClasses = pkg.getGenClasses();
 		Set<EClassifier> containedClasses = new LinkedHashSet<EClassifier>();
 		for (GenClass genClass : genClasses) {
