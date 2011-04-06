@@ -20,6 +20,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -109,25 +110,56 @@ public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 			Option option = CS_FACTORY.createOption();
 			option.setType(OptionTypes.USE_PREDEFINED_TOKENS);
 			option.setValue("false");
-			syntax.getOptions().add(option);
+			addOption(syntax, option);
 
 			// add custom identifier token
 			String tokenName = "IDENTIFIER";
 			NormalTokenDefinition identifierToken = createToken(tokenName, regex);
-			syntax.getTokens().add(identifierToken);
+			addToken(syntax, identifierToken);
 
 			// add whitespace and line break tokens
-			syntax.getTokens().add(createToken(EPredefinedTokens.WHITESPACE.getTokenName(), EPredefinedTokens.WHITESPACE.getExpression()));
-			syntax.getTokens().add(createToken(EPredefinedTokens.LINEBREAK.getTokenName(), EPredefinedTokens.LINEBREAK.getExpression()));
+			addToken(syntax, createToken(EPredefinedTokens.WHITESPACE.getTokenName(), EPredefinedTokens.WHITESPACE.getExpression()));
+			addToken(syntax, createToken(EPredefinedTokens.LINEBREAK.getTokenName(), EPredefinedTokens.LINEBREAK.getExpression()));
+//			syntax.getTokens().add(createToken(EPredefinedTokens.WHITESPACE.getTokenName(), EPredefinedTokens.WHITESPACE.getExpression()));
+//			syntax.getTokens().add(createToken(EPredefinedTokens.LINEBREAK.getTokenName(), EPredefinedTokens.LINEBREAK.getExpression()));
 
 			// set IDENTIFIER as default token
 			Option option2 = CS_FACTORY.createOption();
 			option2.setType(OptionTypes.DEFAULT_TOKEN_NAME);
 			option2.setValue(tokenName);
-			syntax.getOptions().add(option2);
+			addOption(syntax, option2);
 		}
 
 		super.addStandardTokens(syntax, false);
+	}
+
+	private void addToken(ConcreteSyntax syntax, NormalTokenDefinition token2add) {
+		List<TokenDirective> tokens = syntax.getTokens();
+		boolean tokenAlreadyExists = false;
+		for (TokenDirective token : tokens) {
+			if(token instanceof NormalTokenDefinition){
+				NormalTokenDefinition existingToken = (NormalTokenDefinition) token;
+				if(existingToken.getName().equals(token2add.getName())){
+					tokenAlreadyExists = true;
+				}
+			}
+		}
+		if(!tokenAlreadyExists){
+			tokens.add(token2add);
+		}
+	}
+
+	private void addOption(ConcreteSyntax syntax, Option option2add) {
+		List<Option> options = syntax.getOptions();
+		boolean optionExistsAlready = false;
+		for (Option existentOption : options) {
+			if(existentOption.getType() == option2add.getType()){
+				optionExistsAlready = true;
+			}
+		}
+		if(!optionExistsAlready){
+			syntax.getOptions().add(option2add);
+		}
 	}
 
 	@Override
