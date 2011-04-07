@@ -86,7 +86,7 @@ public class CreateNewEMFTextProjectJob extends AbstractCreatePluginJob {
 			refresh(progress.newChild(2), getProject(resourceUIPluginName), "resource UI plug-in");
 		}
 		String antrlPluginName = generationContext.getAntlrPlugin().getName();
-		if (resourceUIPluginName != null) {
+		if (antrlPluginName != null) {
 			refresh(progress.newChild(2), getProject(antrlPluginName), "ANTLR plug-in");
 		}
 		
