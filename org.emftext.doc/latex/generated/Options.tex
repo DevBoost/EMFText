@@ -1,4 +1,4 @@
-EMFText currently supports 223 code generation options. However, most of them (189) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
+EMFText currently supports 229 code generation options. However, most of them (194) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
 
 \vspace{1cm}\noindent\texttt{additionalDependencies}
 \begin{myindentpar}{1cm}
@@ -63,6 +63,11 @@ If set to \texttt{true}, constraint validation using the EMF Validation Framewor
 \noindent\texttt{disableEValidators}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, constraint validation using registered EValidators will be enabled. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{disableLaunchSupport}
+\begin{myindentpar}{1cm}
+If set to \texttt{true}, code that is required to support launching of DSL models is not generated. The default value for this option is \texttt{false}.
 \end{myindentpar}
 
 \noindent\texttt{disableTokenSorting}
@@ -640,6 +645,26 @@ If set to \texttt{false}, the InputStreamProcessor class will not be overridden.
 If set to \texttt{false}, the Keyword class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideLaunchConfigurationDelegate}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the LaunchConfigurationDelegate class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLaunchConfigurationMainTab}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the LaunchConfigurationMainTab class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLaunchConfigurationTabGroup}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the LaunchConfigurationTabGroup class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLaunchShortcut}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the LaunchShortcurt class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideLayoutInformation}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the LayoutInformation class will not be overridden. The default value for this option is \texttt{true}.
@@ -828,6 +853,11 @@ If set to \texttt{false}, the .project file of the resource plug-in will not be 
 \noindent\texttt{overridePropertySheetPage}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the PropertySheetPage class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overridePropertyTester}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the PropertyTester class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideProposalPostProcessor}
