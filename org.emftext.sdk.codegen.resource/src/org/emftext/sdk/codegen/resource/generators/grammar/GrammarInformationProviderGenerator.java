@@ -18,9 +18,8 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -72,6 +71,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		concreteSyntax = getContext().getConcreteSyntax();
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
@@ -79,16 +79,16 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		addStaticConstants(sc);
 		addInnerClasses(sc);
 		addConstantsForSyntaxElements(sc);
-		
+		addGetKeywordsMethod(sc);
 		sc.add("}");
 	}
 
 	private void addConstantsForSyntaxElements(StringComposite sc) {
-		Map<EObject, String> objectToFieldNameMap = new LinkedHashMap<EObject, String>();
 		List<Rule> allRules = concreteSyntax.getAllRules();
 		for (Rule rule : allRules) {
-			addConstants(sc, objectToFieldNameMap, rule);
+			addConstants(sc, rule);
 		}
+		sc.addLineBreak();
 	}
 
 	private void addStaticConstants(StringComposite sc) {
@@ -126,12 +126,12 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.addLineBreak();
 	}
 
-	private void addConstants(StringComposite sc, Map<EObject, String> objectToFieldNameMap, Rule rule) {
-		addConstant(sc, objectToFieldNameMap, rule, rule.getDefinition());
-		addConstant(sc, objectToFieldNameMap, rule, rule);
+	private void addConstants(StringComposite sc, Rule rule) {
+		addConstant(sc, rule, rule.getDefinition());
+		addConstant(sc, rule, rule);
 	}
 
-	private void addConstant(StringComposite sc, Map<EObject, String> objectToFieldNameMap, Rule rule, EObject next) {
+	private void addConstant(StringComposite sc, Rule rule, EObject next) {
 		if (next instanceof CsString) {
 			CsString csString = (CsString) next;
 			String value = csString.getValue();
@@ -160,7 +160,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			List<String> elements = new ArrayList<String>();
 			List<Definition> parts = sequence.getParts();
 			for (Definition part : parts) {
-				addConstant(sc, objectToFieldNameMap, rule, part);
+				addConstant(sc, rule, part);
 				elements.add(nameUtil.getFieldName(part));
 			}
 			String fieldName = nameUtil.getFieldName(sequence);
@@ -170,7 +170,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			List<String> elements = new ArrayList<String>();
 			List<Sequence> parts = choice.getOptions();
 			for (Sequence part : parts) {
-				addConstant(sc, objectToFieldNameMap, rule, part);
+				addConstant(sc, rule, part);
 				elements.add(nameUtil.getFieldName(part));
 			}
 			String fieldName = nameUtil.getFieldName(choice);
@@ -185,7 +185,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		} else if (next instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) next;
 			Choice choice = compound.getDefinition();
-			addConstant(sc, objectToFieldNameMap, rule, choice);
+			addConstant(sc, rule, choice);
 			String choiceFieldName = nameUtil.getFieldName(choice);
 			String fieldName = nameUtil.getFieldName(compound);
 			sc.add("public final static " + compoundClassName + " " + fieldName + " = new " + compoundClassName + "(" + choiceFieldName + ", " + getCardinality(next) + ");");
@@ -248,5 +248,21 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		} else {
 			return generatorUtil.getFeatureAccessor(genClass, genFeature);
 		}
+	}
+
+	private void addGetKeywordsMethod(JavaComposite sc) {
+		sc.add("public final static " + keywordClassName + "[] KEYWORDS = new " + keywordClassName + "[] {");
+		for (Rule rule : concreteSyntax.getAllRules()) {
+			Iterator<EObject> ruleContents = rule.eAllContents();
+			while (ruleContents.hasNext()) {
+				EObject next = ruleContents.next();
+				if (next instanceof CsString) {
+					String fieldName = nameUtil.getFieldName((CsString) next);
+					sc.add(fieldName + ",");
+				}
+			}
+		}
+		sc.add("};");
+		sc.addLineBreak();
 	}
 }
