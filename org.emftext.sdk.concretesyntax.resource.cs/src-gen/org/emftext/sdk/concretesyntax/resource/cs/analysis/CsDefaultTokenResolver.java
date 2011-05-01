@@ -21,15 +21,43 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver {
 	
 	private java.util.Map<?, ?> options;
+	private boolean escapeKeywords = true;
 	
 	public String deResolve(Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
 		if (value == null) {
 			return "null";
 		}
-		return value.toString();
+		String text = value.toString();
+		if (escapeKeywords) {
+			// Escape keywords if required
+			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.KEYWORDS) {
+				String keywordValue = keyword.getValue();
+				if (text.endsWith(keywordValue)) {
+					String prefix = text.substring(0, text.length() - keywordValue.length());
+					if (prefix.matches("_*")) {
+						text = "_" + text;
+						break;
+					}
+				}
+			}
+		}
+		return text;
 	}
 	
 	public void resolve(String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result) {
+		if (escapeKeywords && lexem.startsWith("_")) {
+			// Unescape keywords if required
+			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.KEYWORDS) {
+				String keywordValue = keyword.getValue();
+				if (lexem.endsWith(keywordValue)) {
+					String prefix = lexem.substring(0, lexem.length() - keywordValue.length());
+					if (prefix.matches("_+")) {
+						lexem = lexem.substring(1);
+						break;
+					}
+				}
+			}
+		}
 		
 		if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
 			if (feature.getEType() instanceof org.eclipse.emf.ecore.EEnum) {
@@ -66,6 +94,14 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 		}
 	}
 	
+	/**
+	 * This method can be used to disable automatic escaping and unescaping of tokens
+	 * that match keywords of the syntax.
+	 */
+	public void setEscapeKeywords(boolean escapeKeywords) {
+		this.escapeKeywords = escapeKeywords;
+	}
+	
 	public void setOptions(java.util.Map<?, ?> options) {
 		this.options = options;
 	}
@@ -73,4 +109,5 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 	public java.util.Map<?, ?> getOptions() {
 		return options;
 	}
+	
 }

@@ -21,6 +21,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclipse.jface.text.ITextHoverExtension, org.eclipse.jface.text.ITextHoverExtension2{
 	
 	private static final String FONT = org.eclipse.jface.resource.JFaceResources.DIALOG_FONT;
+	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider hoverTextProvider;
 	/**
@@ -352,9 +353,11 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	private static org.eclipse.emf.ecore.EObject getFirstProxy(java.util.List<org.eclipse.emf.ecore.EObject> elements) {
 		return getFirstObject(elements, true);
 	}
+	
 	private static org.eclipse.emf.ecore.EObject getFirstNonProxy(java.util.List<org.eclipse.emf.ecore.EObject> elements) {
 		return getFirstObject(elements, false);
 	}
+	
 	private static org.eclipse.emf.ecore.EObject getFirstObject(java.util.List<org.eclipse.emf.ecore.EObject> elements, boolean proxy) {
 		for (org.eclipse.emf.ecore.EObject object : elements) {
 			if (proxy == object.eIsProxy()) {
@@ -363,4 +366,5 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		}
 		return null;
 	}
+	
 }
