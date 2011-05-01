@@ -113,9 +113,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_occurrence_icon.gif"), getOccurrenceIconFile(resourceUIPlugin, context), false));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_shortcut_icon.gif"), getLaunchShortcutIconFile(resourceUIPlugin, context), false));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_tab_main_icon.gif"), getLaunchTabMainIconFile(resourceUIPlugin, context), false));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_type_icon.gif"), getLaunchConfigurationTypeIconFile(resourceUIPlugin, context), false));
+	    if (context.isLaunchSupportEnabled()) {
+		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_shortcut_icon.gif"), getLaunchShortcutIconFile(resourceUIPlugin, context), false));
+		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_tab_main_icon.gif"), getLaunchTabMainIconFile(resourceUIPlugin, context), false));
+		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_type_icon.gif"), getLaunchConfigurationTypeIconFile(resourceUIPlugin, context), false));
+		}
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
 	    // add UI generators
