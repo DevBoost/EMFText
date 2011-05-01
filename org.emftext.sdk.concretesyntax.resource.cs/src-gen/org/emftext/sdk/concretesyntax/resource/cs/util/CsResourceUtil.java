@@ -107,6 +107,29 @@ public class CsResourceUtil {
 		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) resource;
 	}
 	
+	/**
+	 * Returns the root element of the resource with the given URI.
+	 */
+	public static org.emftext.sdk.concretesyntax.ConcreteSyntax getResourceContent(org.eclipse.emf.common.util.URI uri) {
+		return getResourceContent(uri, null);
+	}
+	
+	/**
+	 * Returns the root element of the resource with the given URI.
+	 */
+	public static org.emftext.sdk.concretesyntax.ConcreteSyntax getResourceContent(org.eclipse.emf.common.util.URI uri, java.util.Map<?,?> options) {
+		org.eclipse.emf.ecore.resource.Resource resource = getResource(uri, options);
+		if (resource == null) {
+			return null;
+		}
+		java.util.List<org.eclipse.emf.ecore.EObject> contents = resource.getContents();
+		if (contents == null || contents.isEmpty()) {
+			return null;
+		}
+		org.eclipse.emf.ecore.EObject root = contents.get(0);
+		return (org.emftext.sdk.concretesyntax.ConcreteSyntax) root;
+	}
+	
 	public static void saveResource(java.io.File file, org.eclipse.emf.ecore.resource.Resource resource) throws java.io.IOException {
 		java.util.Map<?, ?> options = java.util.Collections.EMPTY_MAP;
 		java.io.OutputStream outputStream = new java.io.FileOutputStream(file);

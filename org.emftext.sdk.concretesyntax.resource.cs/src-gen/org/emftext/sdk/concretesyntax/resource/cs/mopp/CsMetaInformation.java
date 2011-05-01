@@ -104,4 +104,8 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return getSyntaxName() + "_" + "RESOURCE_POSTPROCESSOR_PROVIDER";
 	}
 	
+	public String getLaunchConfigurationType() {
+		return "org.emftext.sdk.concretesyntax.resource.cs.ui.launchConfigurationType";
+	}
+	
 }

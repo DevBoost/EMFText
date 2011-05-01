@@ -525,8 +525,33 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
+	/**
+	 * Adds the given object to the interpretation stack. Attention: Objects that are
+	 * added first, are interpret last.
+	 */
 	public void addObjectToInterprete(org.eclipse.emf.ecore.EObject object) {
 		interpretationStack.push(object);
+	}
+	
+	/**
+	 * Adds the given collection of objects to the interpretation stack. Attention:
+	 * Collections that are added first, are interpret last.
+	 */
+	public void addObjectsToInterprete(java.util.Collection<? extends org.eclipse.emf.ecore.EObject> objects) {
+		for (org.eclipse.emf.ecore.EObject object : objects) {
+			addObjectToInterprete(object);
+		}
+	}
+	
+	/**
+	 * Adds the given collection of objects in reverse order to the interpretation
+	 * stack.
+	 */
+	public void addObjectsToInterpreteInReverseOrder(java.util.Collection<? extends org.eclipse.emf.ecore.EObject> objects) {
+		java.util.List<org.eclipse.emf.ecore.EObject> reverse = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>(objects.size());
+		reverse.addAll(objects);
+		java.util.Collections.reverse(reverse);
+		addObjectsToInterprete(reverse);
 	}
 	
 }

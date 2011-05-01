@@ -23,6 +23,7 @@ OPTIONS {
 	disableEValidators = "true";
 	additionalUIDependencies = "org.emftext.sdk";
 	resolveProxyElementsAfterParsing = "false";
+	disableLaunchSupport = "true";
 }
 
 TOKENS {
