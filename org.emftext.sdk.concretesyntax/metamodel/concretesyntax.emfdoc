@@ -534,6 +534,8 @@ OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE : "If set to <code>false</cod
 
 OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB : "If set to <code>false</code>, the LaunchConfigurationMainTab class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP : "If set to <code>false</code>, the LaunchConfigurationTabGroup class will not be overridden. The default value for this option is <code>true</code>."
+
 OptionTypes.OVERRIDE_LAUNCH_SHORTCUT : "If set to <code>false</code>, the LaunchShortcurt class will not be overridden. The default value for this option is <code>true</code>."
 
 OptionTypes.OVERRIDE_PROPERTY_TESTER : "If set to <code>false</code>, the PropertyTester class will not be overridden. The default value for this option is <code>true</code>."

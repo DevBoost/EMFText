@@ -4301,6 +4301,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>false</code>, the LaunchConfigurationDelegate class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(224), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the LaunchConfigurationTabGroup class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(225), 
 		   source, 
 		   new String[] {
