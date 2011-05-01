@@ -23,6 +23,12 @@ public class UIConstants {
 	
 	public static final String DEFAULT_OCCURRENCE_ICON_NAME = "occurrence_icon.gif";
 
+	public static final String DEFAULT_LAUNCH_SHORTCUT_ICON_NAME = "launch_shortcut_icon.gif";
+
+	public static final String DEFAULT_LAUNCH_TAB_MAIN_ICON_NAME = "launch_tab_main_icon.gif";
+
+	public static final String DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON_NAME = "launch_type_icon.gif";
+	
 	public static final String HOVER_STYLE_FILENAME = "hover_style.css";
 
 	public static final String DEFAULT_CSS_DIR = "css";

@@ -54,6 +54,10 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.IAnnotationModelProvide
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ImageProviderGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchConfigurationDelegateGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchConfigurationMainTabGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchConfigurationTabGroupGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchShortcutGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerAnnotationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerResolutionGeneratorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.NewFileWizardGenerator;
@@ -69,6 +73,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferenceConstantsGene
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferenceInitializerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.PropertySheetPageGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.PropertyTesterGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ProposalPostProcessorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.QuickAssistAssistantGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.QuickAssistProcessorGenerator;
@@ -145,4 +150,10 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_ASSISTANT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistAssistant", QuickAssistAssistantGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_ASSISTANT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistProcessor", QuickAssistProcessorGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_PROCESSOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> IMAGE_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ImageProvider", ImageProviderGenerator.class, OptionTypes.OVERRIDE_IMAGE_PROVIDER);
+
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchConfigurationDelegate", LaunchConfigurationDelegateGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_MAIN_TAB = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchConfigurationMainTab", LaunchConfigurationMainTabGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_TAB_GROUP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchConfigurationTabGroup", LaunchConfigurationTabGroupGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_SHORTCUT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchShortcut", LaunchShortcutGenerator.class, OptionTypes.OVERRIDE_LAUNCH_SHORTCUT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PROPERTY_TESTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PropertyTester", PropertyTesterGenerator.class, OptionTypes.OVERRIDE_PROPERTY_TESTER);
 }

@@ -112,7 +112,7 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		// TODO instead of checking whether this is an editor of the same kind, 
 		//      we should rather change the selection of the editorPart to the
 		//      target EObject. This way, the code would not only work for all
-		//      kinds of EMFText editors, but also for other EMF-base editors.
+		//      kinds of EMFText editors, but also for other EMF-based editors.
 		sc.add("if (editorPart instanceof " + editorClassName + ") {");
 		sc.add(editorClassName + " emftEditor = (" + editorClassName + ") editorPart;");
 		sc.add("emftEditor.setCaret(linkTarget, text);");

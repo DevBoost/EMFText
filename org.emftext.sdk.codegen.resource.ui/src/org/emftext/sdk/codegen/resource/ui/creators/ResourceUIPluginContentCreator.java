@@ -31,6 +31,7 @@ import org.emftext.sdk.codegen.creators.DotProjectCreator;
 import org.emftext.sdk.codegen.creators.FileCopier;
 import org.emftext.sdk.codegen.creators.FoldersCreator;
 import org.emftext.sdk.codegen.creators.ManifestCreator;
+import org.emftext.sdk.codegen.creators.PluginXMLCreator;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
 import org.emftext.sdk.codegen.parameters.ClassPathParameters;
@@ -112,6 +113,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_occurrence_icon.gif"), getOccurrenceIconFile(resourceUIPlugin, context), false));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_shortcut_icon.gif"), getLaunchShortcutIconFile(resourceUIPlugin, context), false));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_tab_main_icon.gif"), getLaunchTabMainIconFile(resourceUIPlugin, context), false));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_type_icon.gif"), getLaunchConfigurationTypeIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
 	    // add UI generators
@@ -166,8 +170,15 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_ASSISTANT);
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);
 	    add(creators, TextResourceUIArtifacts.IMAGE_PROVIDER);
+	    
+	    add(creators, TextResourceUIArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
+	    add(creators, TextResourceUIArtifacts.LAUNCH_CONFIGURATION_MAIN_TAB);
+	    add(creators, TextResourceUIArtifacts.LAUNCH_CONFIGURATION_TAB_GROUP);
+	    add(creators, TextResourceUIArtifacts.LAUNCH_SHORTCUT);
+	    add(creators, TextResourceUIArtifacts.PROPERTY_TESTER);
+	    
 		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceUIArtifacts.PLUGIN_XML;
-	    creators.add(new org.emftext.sdk.codegen.creators.PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
+	    creators.add(new PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
 	    return creators;
 	}
 	
@@ -337,6 +348,14 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 			root.addChild(generateTestActionExtension(context));
 		}
 
+		if (context.isLaunchSupportEnabled()) {
+			root.addChild(generateLaunchTypeExtension(context));
+			root.addChild(generateLaunchConfigurationTypeImageExtension(context));
+			root.addChild(generateLaunchTabGroup(context));
+			root.addChild(generateLaunchShortcutExtension(context));
+			root.addChild(generatePropertyTesterExtension(context));
+		}
+
 		XMLParameters<GenerationContext> parameters = new XMLParameters<GenerationContext>(TextResourceArtifacts.PLUGIN_XML, resourceUIPlugin, root);
 		return parameters;
 	}
@@ -354,11 +373,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		final String concreteSyntaxName = concreteSyntax.getName();
-		final GenPackage concreteSyntaxPackage = concreteSyntax.getPackage();
-		final String concreteSyntaxBasePackage = concreteSyntaxPackage.getBasePackage();
-		final String baseId = (concreteSyntaxBasePackage == null ? ""
-				: concreteSyntaxBasePackage + ".")
-				+ concreteSyntaxName;
+		final String baseId = getBaseID(concreteSyntax);
 
 		XMLElement popupMenuExtension = new XMLElement("extension");
 		popupMenuExtension.setAttribute("point", "org.eclipse.ui.popupMenus");
@@ -375,10 +390,161 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		return popupMenuExtension;
 	}
 
+	private String getBaseID(final ConcreteSyntax concreteSyntax) {
+		final String concreteSyntaxName = concreteSyntax.getName();
+		final GenPackage concreteSyntaxPackage = concreteSyntax.getPackage();
+		final String concreteSyntaxBasePackage = concreteSyntaxPackage.getBasePackage();
+		final String baseId = (concreteSyntaxBasePackage == null ? ""
+				: concreteSyntaxBasePackage + ".")
+				+ concreteSyntaxName;
+		return baseId;
+	}
+
+	private XMLElement generateLaunchTypeExtension(GenerationContext context) {
+		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final String concreteSyntaxName = concreteSyntax.getName();
+		final String launchConfigurationDelegateClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
+		final String launchConfigurationID = context.getLaunchConfigurationTypeID();
+
+		XMLElement launchTypeExtension = new XMLElement("extension");
+		launchTypeExtension.setAttribute("point", "org.eclipse.debug.core.launchConfigurationTypes");
+		
+		XMLElement launchConfigurationTypeExtension = launchTypeExtension.createChild("launchConfigurationType");
+		launchConfigurationTypeExtension.setAttribute("id", launchConfigurationID);
+		launchConfigurationTypeExtension.setAttribute("delegate", launchConfigurationDelegateClassName);
+		launchConfigurationTypeExtension.setAttribute("modes", "run,debug");
+		launchConfigurationTypeExtension.setAttribute("name", concreteSyntaxName + " Application");
+		//launchConfigurationTypeExtension.setAttribute("migrationDelegate", "com.example.migrationDelegate");
+		//launchConfigurationTypeExtension.setAttribute("sourceLocatorId", "com.example.sourceLookupDirector");
+		//launchConfigurationTypeExtension.setAttribute("sourcePathComputerId", "com.example.sourcePathComputer");
+		launchConfigurationTypeExtension.setAttribute("delegateName", concreteSyntaxName + " Launch Tooling");
+		launchConfigurationTypeExtension.setAttribute("delegateDescription", "This will run or debug ." + concreteSyntaxName + " files.");
+	
+		return launchTypeExtension;
+	}
+
+	private XMLElement generateLaunchShortcutExtension(GenerationContext context) {
+		final ConcreteSyntax syntax = context.getConcreteSyntax();
+		final String launchShortcutClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_SHORTCUT);
+		final String baseId = getBaseID(syntax);
+		final String syntaxName = syntax.getName();
+
+		XMLElement shortCutExtension = new XMLElement("extension");
+		shortCutExtension.setAttribute("point", "org.eclipse.debug.ui.launchShortcuts");
+		
+		XMLElement shortCut = shortCutExtension.createChild("shortcut");
+		// TODO use %key to allow localization of description
+	    shortCut.setAttribute("label", syntaxName + " Application");
+	    shortCut.setAttribute("icon", getProjectRelativeLaunchShortcutIconPath());
+	    shortCut.setAttribute("helpContextId", baseId + ".launch");
+	    shortCut.setAttribute("modes", "run,debug");
+		shortCut.setAttribute("class", launchShortcutClassName);
+	    shortCut.setAttribute("description", "Launch a " + syntaxName + " model");
+	    shortCut.setAttribute("id", baseId + ".launchShortcut");
+	    
+		XMLElement runDescription = shortCut.createChild("description");
+		runDescription.setAttribute("description", "Run " + syntaxName + " model");
+		runDescription.setAttribute("mode", "run");
+
+		XMLElement debugDescription = shortCut.createChild("description");
+		debugDescription.setAttribute("description", "Debug " + syntaxName + " model");
+		debugDescription.setAttribute("mode", "debug");
+		
+		XMLElement contextualLaunch = shortCut.createChild("contextualLaunch");
+		XMLElement enablement = contextualLaunch.createChild("enablement");
+		XMLElement with = enablement.createChild("with");
+		with.setAttribute("variable", "selection");
+		XMLElement count = with.createChild("count");
+		count.setAttribute("value", "1");
+
+		XMLElement iterate = with.createChild("iterate");
+		XMLElement test = iterate.createChild("test");
+		test.setAttribute("property", baseId + ".isLaunchable");
+
+		XMLElement configurationType = shortCut.createChild("configurationType");
+		configurationType.setAttribute("id", context.getLaunchConfigurationTypeID());
+
+		return shortCutExtension;
+	}
+	
+	private XMLElement generateLaunchConfigurationTypeImageExtension(GenerationContext context) {
+		final ConcreteSyntax syntax = context.getConcreteSyntax();
+
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.debug.ui.launchConfigurationTypeImages");
+		
+		XMLElement image = extension.createChild("launchConfigurationTypeImage");
+		image.setAttribute("icon", getProjectRelativeLaunchConfigurationTypeIconPath());
+		image.setAttribute("configTypeID", context.getLaunchConfigurationTypeID());
+		image.setAttribute("id", getBaseID(syntax) + ".launchImage");
+		
+		return extension;
+	}
+	
+	private XMLElement generatePropertyTesterExtension(GenerationContext context) {
+		final ConcreteSyntax syntax = context.getConcreteSyntax();
+		final String baseId = getBaseID(syntax);
+		final String propertyTesterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPERTY_TESTER);
+
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.core.expressions.propertyTesters");
+		
+		XMLElement propertyTester = extension.createChild("propertyTester");
+	    propertyTester.setAttribute("id", baseId + ".PropertyTester");
+	    propertyTester.setAttribute("type", "java.lang.Object");
+	    propertyTester.setAttribute("namespace", baseId);
+	    propertyTester.setAttribute("properties", "isLaunchable");
+		propertyTester.setAttribute("class", propertyTesterClassName);
+	    
+	    return extension;
+	}
+
+	private XMLElement generateLaunchTabGroup(GenerationContext context) {
+		final ConcreteSyntax syntax = context.getConcreteSyntax();
+		final String launchConfigurationID = context.getLaunchConfigurationTypeID();
+		final String baseId = getBaseID(syntax);
+		final String launchConfigurationTabGroupClassname = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_TAB_GROUP);
+		final String syntaxName = syntax.getName();
+
+		XMLElement launchTabGroupExtension = new XMLElement("extension");
+		launchTabGroupExtension.setAttribute("point", "org.eclipse.debug.ui.launchConfigurationTabGroups");
+
+		XMLElement launchConfigurationTabGroup = launchTabGroupExtension.createChild("launchConfigurationTabGroup");
+		launchConfigurationTabGroup.setAttribute("type", launchConfigurationID);
+		launchConfigurationTabGroup.setAttribute("class", launchConfigurationTabGroupClassname);
+		launchConfigurationTabGroup.setAttribute("id", baseId  + ".launchConfigurationTabGroup");
+		launchConfigurationTabGroup.setAttribute("helpContextId", baseId + ".launchConfigHelpContext");
+		
+		XMLElement debugMode = launchConfigurationTabGroup.createChild("launchMode");
+		debugMode.setAttribute("mode", "debug");
+		debugMode.setAttribute("perspective", "org.eclipse.debug.ui.DebugPerspective");
+		// TODO use %key to allow localization of description
+		debugMode.setAttribute("description", "Debug " + syntaxName + " model.");
+
+		XMLElement runMode = launchConfigurationTabGroup.createChild("launchMode");
+		runMode.setAttribute("mode", "run");
+		// TODO use %key to allow localization of description
+		runMode.setAttribute("description", "Run " + syntaxName + " model.");
+		
+		return launchTabGroupExtension;
+	}
+
 	private String getProjectRelativeNewIconPath() {
 		// it is OK to use slashes here, because this path is put into
 		// the plugin.xml
 		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_NEW_ICON_NAME;
+	}
+	
+	private String getProjectRelativeLaunchShortcutIconPath() {
+		// it is OK to use slashes here, because this path is put into
+		// the plugin.xml
+		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_LAUNCH_SHORTCUT_ICON_NAME;
+	}
+	
+	private String getProjectRelativeLaunchConfigurationTypeIconPath() {
+		// it is OK to use slashes here, because this path is put into
+		// the plugin.xml
+		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON_NAME;
 	}
 	
 	private void add(
@@ -399,6 +565,13 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		Set<String> imports = new LinkedHashSet<String>();
 		imports.add("org.eclipse.core.resources");
 		imports.add("org.emftext.access;resolution:=optional");
+
+		if (context.isLaunchSupportEnabled()) {
+			imports.add("org.eclipse.core.expressions");
+			imports.add("org.eclipse.debug.core");
+			imports.add("org.eclipse.debug.ui");
+		}
+		
 		imports.add("org.eclipse.emf");
 		imports.add("org.eclipse.emf.codegen.ecore");
 		imports.add("org.eclipse.emf.ecore");
@@ -451,6 +624,18 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 
 	private File getOccurrenceIconFile(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_OCCURRENCE_ICON_NAME);
+	}
+
+	private File getLaunchShortcutIconFile(IPluginDescriptor plugin, GenerationContext context) {
+		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_LAUNCH_SHORTCUT_ICON_NAME);
+	}
+
+	private File getLaunchTabMainIconFile(IPluginDescriptor plugin, GenerationContext context) {
+		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_LAUNCH_TAB_MAIN_ICON_NAME);
+	}
+
+	private File getLaunchConfigurationTypeIconFile(IPluginDescriptor plugin, GenerationContext context) {
+		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON_NAME);
 	}
 
 	private File getCSSDir(IPluginDescriptor plugin, GenerationContext context) {

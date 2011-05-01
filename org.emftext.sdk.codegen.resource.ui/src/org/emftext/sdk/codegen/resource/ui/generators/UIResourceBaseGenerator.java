@@ -46,6 +46,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String iBracketHandlerClassName;
 	protected String iBracketHandlerProviderClassName;
 	protected String imageProviderClassName;
+	protected String launchConfigurationDelegateClassName;
+	protected String launchConfigurationMainTabClassName;
+	protected String launchConfigurationTabGroupClassName;
 	protected String markerAnnotationClassName;
 	protected String markerResolutionGeneratorClassName;
 	protected String newFileWizardClassName;
@@ -61,6 +64,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String preferenceInitializerClassName;
 	protected String preferencePageClassName;
 	protected String propertySheetPageClassName;
+	protected String propertyTesterClassName;
 	protected String proposalPostProcessorClassName;
 	protected String quickAssistAssistantClassName;
 	protected String quickAssistProcessorClassName;
@@ -102,6 +106,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		iBracketHandlerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER);
 		iBracketHandlerProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER_PROVIDER);
 		imageProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.IMAGE_PROVIDER);
+		launchConfigurationDelegateClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
+		launchConfigurationMainTabClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_MAIN_TAB);
+		launchConfigurationTabGroupClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_TAB_GROUP);
 		markerAnnotationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_ANNOTATION);
 		markerResolutionGeneratorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
 		newFileWizardClassName = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD);
@@ -117,6 +124,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		preferenceInitializerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_INITIALIZER);
 		preferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE);
 		propertySheetPageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
+		propertyTesterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPERTY_TESTER);
 		proposalPostProcessorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR);
 		quickAssistAssistantClassName = context.getQualifiedClassName(TextResourceUIArtifacts.QUICK_ASSIST_ASSISTANT);
 		quickAssistProcessorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);

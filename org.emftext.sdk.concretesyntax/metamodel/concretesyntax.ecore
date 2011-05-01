@@ -1688,6 +1688,12 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IAnnotationModelProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE" value="227" literal="overrideLaunchConfigurationDelegate"/>
+    <eLiterals name="OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP" value="228" literal="overrideLaunchConfigurationTabGroup"/>
+    <eLiterals name="OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB" value="229" literal="overrideLaunchConfigurationMainTab"/>
+    <eLiterals name="OVERRIDE_LAUNCH_SHORTCUT" value="230" literal="overrideLaunchShortcut"/>
+    <eLiterals name="OVERRIDE_PROPERTY_TESTER" value="231" literal="overridePropertyTester"/>
+    <eLiterals name="DISABLE_LAUNCH_SUPPORT" value="232" literal="disableLaunchSupport"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

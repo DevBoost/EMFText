@@ -1816,7 +1816,55 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IANNOTATION_MODEL_PROVIDER(226, "OVERRIDE_I_ANNOTATION_MODEL_PROVIDER", "overrideIAnnotationModelProvider");
+	OVERRIDE_IANNOTATION_MODEL_PROVIDER(226, "OVERRIDE_I_ANNOTATION_MODEL_PROVIDER", "overrideIAnnotationModelProvider"), /**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION DELEGATE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE(227, "OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE", "overrideLaunchConfigurationDelegate"), /**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION TAB GROUP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP(228, "OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP", "overrideLaunchConfigurationTabGroup"), /**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION MAIN TAB</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB(229, "OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB", "overrideLaunchConfigurationMainTab"), /**
+	 * The '<em><b>OVERRIDE LAUNCH SHORTCUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_SHORTCUT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAUNCH_SHORTCUT(230, "OVERRIDE_LAUNCH_SHORTCUT", "overrideLaunchShortcut"), /**
+	 * The '<em><b>OVERRIDE PROPERTY TESTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROPERTY_TESTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PROPERTY_TESTER(231, "OVERRIDE_PROPERTY_TESTER", "overridePropertyTester"), /**
+	 * The '<em><b>DISABLE LAUNCH SUPPORT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_LAUNCH_SUPPORT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISABLE_LAUNCH_SUPPORT(232, "DISABLE_LAUNCH_SUPPORT", "disableLaunchSupport");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5602,6 +5650,90 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_IANNOTATION_MODEL_PROVIDER_VALUE = 226;
 /**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION DELEGATE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LAUNCH CONFIGURATION DELEGATE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE
+	 * @model literal="overrideLaunchConfigurationDelegate"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE_VALUE = 227;
+/**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION TAB GROUP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LAUNCH CONFIGURATION TAB GROUP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP
+	 * @model literal="overrideLaunchConfigurationTabGroup"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP_VALUE = 228;
+/**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION MAIN TAB</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LAUNCH CONFIGURATION MAIN TAB</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB
+	 * @model literal="overrideLaunchConfigurationMainTab"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB_VALUE = 229;
+/**
+	 * The '<em><b>OVERRIDE LAUNCH SHORTCUT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LAUNCH SHORTCUT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_SHORTCUT
+	 * @model literal="overrideLaunchShortcut"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAUNCH_SHORTCUT_VALUE = 230;
+/**
+	 * The '<em><b>OVERRIDE PROPERTY TESTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PROPERTY TESTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROPERTY_TESTER
+	 * @model literal="overridePropertyTester"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PROPERTY_TESTER_VALUE = 231;
+/**
+	 * The '<em><b>DISABLE LAUNCH SUPPORT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DISABLE LAUNCH SUPPORT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_LAUNCH_SUPPORT
+	 * @model literal="disableLaunchSupport"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISABLE_LAUNCH_SUPPORT_VALUE = 232;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5832,6 +5964,12 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_IRESOURCE_PROVIDER,
 			OVERRIDE_IBRACKET_HANDLER_PROVIDER,
 			OVERRIDE_IANNOTATION_MODEL_PROVIDER,
+			OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE,
+			OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP,
+			OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB,
+			OVERRIDE_LAUNCH_SHORTCUT,
+			OVERRIDE_PROPERTY_TESTER,
+			DISABLE_LAUNCH_SUPPORT,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6103,6 +6241,12 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_IRESOURCE_PROVIDER_VALUE: return OVERRIDE_IRESOURCE_PROVIDER;
 			case OVERRIDE_IBRACKET_HANDLER_PROVIDER_VALUE: return OVERRIDE_IBRACKET_HANDLER_PROVIDER;
 			case OVERRIDE_IANNOTATION_MODEL_PROVIDER_VALUE: return OVERRIDE_IANNOTATION_MODEL_PROVIDER;
+			case OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE_VALUE: return OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE;
+			case OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP_VALUE: return OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP;
+			case OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB_VALUE: return OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB;
+			case OVERRIDE_LAUNCH_SHORTCUT_VALUE: return OVERRIDE_LAUNCH_SHORTCUT;
+			case OVERRIDE_PROPERTY_TESTER_VALUE: return OVERRIDE_PROPERTY_TESTER;
+			case DISABLE_LAUNCH_SUPPORT_VALUE: return DISABLE_LAUNCH_SUPPORT;
 		}
 		return null;
 	}

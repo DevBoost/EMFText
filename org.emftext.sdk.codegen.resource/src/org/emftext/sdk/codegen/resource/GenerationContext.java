@@ -383,4 +383,12 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	public boolean getGeneratorModelCode() {
 		return true;
 	}
+
+	public String getLaunchConfigurationTypeID() {
+		return getResourceUIPlugin().getName() + ".launchConfigurationType";
+	}
+
+	public boolean isLaunchSupportEnabled() {
+		return !OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.DISABLE_LAUNCH_SUPPORT);
+	}
 }

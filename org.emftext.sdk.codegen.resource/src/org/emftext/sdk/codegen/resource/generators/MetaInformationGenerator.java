@@ -60,7 +60,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addGetConcreteSyntaxName(sc);
+		addGetConcreteSyntaxNameMethod(sc);
     	addGetURIMethod(sc);
     	addCreateLexerMethod(sc);
 		addCreateParserMethod(sc);
@@ -77,8 +77,16 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         addCreateResourceFactoryMethod(sc);
         addGetNewFileContentProviderMethod(sc);
         addRegisterResourceFactoryMethod(sc);
-        addGetInputStreamPreprocessorProviderOptionKey(sc);
-        addGetResourcePostProcessorProviderOptionKey(sc);
+        addGetInputStreamPreprocessorProviderOptionKeyMethod(sc);
+        addGetResourcePostProcessorProviderOptionKeyMethod(sc);
+        addGetLaunchConfigurationTypeMethod(sc);
+	}
+
+	private void addGetLaunchConfigurationTypeMethod(JavaComposite sc) {
+		sc.add("public String getLaunchConfigurationType() {");
+		sc.add("return \"" + getContext().getLaunchConfigurationTypeID() + "\";");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addRegisterResourceFactoryMethod(JavaComposite sc) {
@@ -173,7 +181,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         sc.addLineBreak();
 	}
 
-	private void addGetConcreteSyntaxName(StringComposite sc) {
+	private void addGetConcreteSyntaxNameMethod(StringComposite sc) {
 		sc.add("public String getSyntaxName() {");
     	sc.add("return \"" + getContext().getConcreteSyntax().getName() + "\";");
     	sc.add("}");
@@ -221,7 +229,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         sc.addLineBreak();
 	}
 
-	private void addGetInputStreamPreprocessorProviderOptionKey(JavaComposite sc) {
+	private void addGetInputStreamPreprocessorProviderOptionKeyMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns the key of the option that can be used to register a preprocessor that " +
 			"is used as a pipe when loading resources. This key is language-specific. To " +
@@ -234,7 +242,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         sc.addLineBreak();
 	}
 
-	private void addGetResourcePostProcessorProviderOptionKey(JavaComposite sc) {
+	private void addGetResourcePostProcessorProviderOptionKeyMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns the key of the option that can be used to register a post-processors that " +
 			"are invoked after loading resources. This key is language-specific. To " +

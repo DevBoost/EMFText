@@ -74,6 +74,7 @@ import org.antlr.runtime3_3_0.MismatchedTreeNodeException;
 import org.antlr.runtime3_3_0.NoViableAltException;
 import org.antlr.runtime3_3_0.RecognitionException;
 import org.antlr.runtime3_3_0.Token;
+import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -285,6 +286,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String PLUGIN = Plugin.class.getName();
 	public static String POSITION_BASED_TEXT_DIAGNOSTIC = "PositionBasedTextDiagnostic";
 	public static String PRINTER_WRITER = PrintWriter.class.getName();
+	public static String PROPERTY_TESTER = PropertyTester.class.getName();
 	public static String PROXY = Proxy.class.getName();
 	public static String PUSHBACK_READER = PushbackReader.class.getName();
 	public static String READER = Reader.class.getName();

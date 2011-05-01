@@ -82,6 +82,7 @@ public class OptionManager {
 		booleanOptions.add(OptionTypes.DISABLE_BUILDER);
 		booleanOptions.add(OptionTypes.DISABLE_EVALIDATORS);
 		booleanOptions.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
+		booleanOptions.add(OptionTypes.DISABLE_LAUNCH_SUPPORT);
 		booleanOptions.add(OptionTypes.DISABLE_TOKEN_SORTING);
 		booleanOptions.add(OptionTypes.GENERATE_UI_PLUGIN);
 		booleanOptions.add(OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
@@ -218,6 +219,9 @@ public class OptionManager {
 			return false;
 		}
 		if (option == OptionTypes.DISABLE_TOKEN_SORTING) {
+			return false;
+		}
+		if (option == OptionTypes.DISABLE_LAUNCH_SUPPORT) {
 			return false;
 		}
 		return true;
