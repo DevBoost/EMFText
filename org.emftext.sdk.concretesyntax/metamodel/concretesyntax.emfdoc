@@ -530,6 +530,16 @@ OptionTypes.OVERRIDE_I_BRACKET_HANDLER_PROVIDER : "If set to <code>false</code>,
 
 OptionTypes.OVERRIDE_I_RESOURCE_PROVIDER : "If set to <code>false</code>, the IResourceProvider class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE : "If set to <code>false</code>, the LaunchConfigurationDelegate class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB : "If set to <code>false</code>, the LaunchConfigurationMainTab class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LAUNCH_SHORTCUT : "If set to <code>false</code>, the LaunchShortcurt class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_PROPERTY_TESTER : "If set to <code>false</code>, the PropertyTester class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.DISABLE_LAUNCH_SUPPORT : "If set to <code>true</code>, code that is required to support launching of DSL models is not generated. The default value for this option is <code>false</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

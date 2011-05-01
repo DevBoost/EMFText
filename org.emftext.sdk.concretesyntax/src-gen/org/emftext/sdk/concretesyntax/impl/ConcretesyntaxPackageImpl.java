@@ -4295,6 +4295,36 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>false</code>, the IAnnotationModelProvider class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(223), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the LaunchConfigurationDelegate class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(225), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the LaunchConfigurationMainTab class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(226), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the LaunchShortcurt class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(227), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the PropertyTester class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(228), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>true</code>, code that is required to support launching of DSL models is not generated. The default value for this option is <code>false</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {

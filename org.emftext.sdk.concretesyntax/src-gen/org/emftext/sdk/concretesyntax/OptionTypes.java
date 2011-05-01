@@ -5657,6 +5657,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LaunchConfigurationDelegate class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE
 	 * @model literal="overrideLaunchConfigurationDelegate"
 	 * @generated
@@ -5685,6 +5688,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LaunchConfigurationMainTab class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB
 	 * @model literal="overrideLaunchConfigurationMainTab"
 	 * @generated
@@ -5699,6 +5705,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LaunchShortcurt class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LAUNCH_SHORTCUT
 	 * @model literal="overrideLaunchShortcut"
 	 * @generated
@@ -5713,6 +5722,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the PropertyTester class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_PROPERTY_TESTER
 	 * @model literal="overridePropertyTester"
 	 * @generated
@@ -5727,6 +5739,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>true</code>, code that is required to support launching of DSL models is not generated. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DISABLE_LAUNCH_SUPPORT
 	 * @model literal="disableLaunchSupport"
 	 * @generated
