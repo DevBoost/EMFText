@@ -654,7 +654,7 @@ By default, EMFText generates a New File Wizard for your DSL. The content of the
 file that is created by this wizard, is automatically obtained by creating a
 minimal model that conforms to your metamodel and by printing this minimal
 model. However, if you would like to provide a different content for the files
-that are created by this wizard, you can simple create a text file with a
+that are created by this wizard, you can simply create a text file with a
 different content. Assuming your syntax definition is stored in a file called
 \texttt{xyzsyntax.cs} and the file extension of your syntax if
 \texttt{xyz}, this text file must be called \texttt{xyzsyntax.newfile.xyz} and
@@ -685,4 +685,7 @@ executed.
 
 For an example on how to implement a launch configuration consider the
 SimpleMath language in the EMFText Syntax
-Zoo\footnote{\url{http://www.emftext.org/language/simplemath}}.
+Zoo\footnote{\url{http://www.emftext.org/language/simplemath}}. If you do not
+need launch support for your DSL and you want to get rid of the generated code
+for this feature, set the option \texttt{disableLaunchSupport} to
+\texttt{true}.
