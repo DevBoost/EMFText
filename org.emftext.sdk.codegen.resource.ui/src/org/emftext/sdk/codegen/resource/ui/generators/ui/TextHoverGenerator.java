@@ -170,6 +170,8 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addFields(JavaComposite sc) {
 		sc.add("private static final String FONT = " + J_FACE_RESOURCES + ".DIALOG_FONT;");
+		sc.addLineBreak();
+
 		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
 		sc.add("private " + iHoverTextProviderClassName + " hoverTextProvider;");
 		
@@ -294,12 +296,14 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("private static " + E_OBJECT + " getFirstProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
 		sc.add("return getFirstObject(elements, true);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetFirstNonProxyMethod(StringComposite sc) {
 		sc.add("private static " + E_OBJECT + " getFirstNonProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
 		sc.add("return getFirstObject(elements, false);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetFirstObjectMethod(StringComposite sc) {
@@ -311,6 +315,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addLoadStyleSheetMethod(JavaComposite sc) {
@@ -490,6 +495,4 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }
