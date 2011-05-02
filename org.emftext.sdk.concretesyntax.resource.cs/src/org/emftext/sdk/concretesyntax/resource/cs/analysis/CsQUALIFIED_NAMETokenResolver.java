@@ -15,19 +15,21 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
 
 public class CsQUALIFIED_NAMETokenResolver implements ICsTokenResolver {
 	
-	private CsDefaultTokenResolver defaultResolver = new CsDefaultTokenResolver();
+	private CsDefaultTokenResolver defaultResolver = new CsDefaultTokenResolver(true);
 	
-	public java.lang.String deResolve(java.lang.Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
-		java.lang.String result = defaultResolver.deResolve(value, feature, container);
+	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
+		String result = defaultResolver.deResolve(value, feature, container);
 		return result;
 	}
 
-	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, ICsTokenResolveResult result) {
+	public void resolve(String lexem, EStructuralFeature feature, ICsTokenResolveResult result) {
 		defaultResolver.resolve(lexem, feature, result);
 	}
 
