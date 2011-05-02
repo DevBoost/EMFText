@@ -41,35 +41,18 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 		this.escapeKeywords = escapeKeywords;
 	}
 	
-	public String deResolve(Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
-		if (value == null) {
-			return "null";
-		}
-		String text = value.toString();
-		if (escapeKeywords) {
-			// Escape keywords if required
-			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.KEYWORDS) {
-				String keywordValue = keyword.getValue();
-				if (text.endsWith(keywordValue)) {
-					String prefix = text.substring(0, text.length() - keywordValue.length());
-					if (prefix.matches("_*")) {
-						text = "_" + text;
-						break;
-					}
-				}
-			}
-		}
-		return text;
+	public void resolve(String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result) {
+		resolve(lexem, feature, result, null, null, null);
 	}
 	
-	public void resolve(String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result) {
+	public void resolve(String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result, String suffix, String prefix, String escapeCharacter) {
+		// Step 1: unescape keywords if required
 		if (escapeKeywords && lexem.startsWith("_")) {
-			// Unescape keywords if required
 			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.KEYWORDS) {
 				String keywordValue = keyword.getValue();
 				if (lexem.endsWith(keywordValue)) {
-					String prefix = lexem.substring(0, lexem.length() - keywordValue.length());
-					if (prefix.matches("_+")) {
+					String keywordPrefix = lexem.substring(0, lexem.length() - keywordValue.length());
+					if (keywordPrefix.matches("_+")) {
 						lexem = lexem.substring(1);
 						break;
 					}
@@ -77,6 +60,25 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 			}
 		}
 		
+		// Step 2: remove prefix, suffix and unescape excaped suffixes
+		// Step 2a: remove prefix
+		if (prefix != null) {
+			int count = prefix.length();
+			lexem = lexem.substring(count);
+		}
+		// Step 2b: remove suffix
+		if (suffix != null) {
+			int count = suffix.length();
+			lexem = lexem.substring(0, lexem.length() - count );
+			// take care of the escape character (may be null)
+			// Step 2c: replaced escaped suffixes and escaped escape sequences
+			if (escapeCharacter != null) {
+				lexem = lexem.replace(escapeCharacter + suffix, suffix);
+				lexem = lexem.replace(escapeCharacter + escapeCharacter, escapeCharacter);
+			}
+		}
+		
+		// Step 3: convert text to Java object
 		if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
 			if (feature.getEType() instanceof org.eclipse.emf.ecore.EEnum) {
 				org.eclipse.emf.ecore.EEnumLiteral literal = ((org.eclipse.emf.ecore.EEnum) feature.getEType()).getEEnumLiteralByLiteral(lexem);
@@ -110,6 +112,50 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 			result.setResolvedToken(lexem);
 			return;
 		}
+	}
+	
+	public String deResolve(Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
+		return deResolve(value, feature, container, null, null, null);
+	}
+	
+	public String deResolve(Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container, String prefix, String suffix, String escapeCharacter) {
+		// Step 1: convert Java object to text
+		String result = null;
+		if (value != null) {
+			result = value.toString();
+		}
+		
+		// Step 2: escape suffixes, add prefix and suffix
+		// Step 2a: escaped suffix
+		if (suffix != null) {
+			// take care of the escape character (may be null)
+			if (escapeCharacter != null) {
+				result = result.replace(escapeCharacter, escapeCharacter + escapeCharacter);
+				result = result.replace(suffix, escapeCharacter + suffix);
+			}
+			// Step 2b: append suffix
+			result += suffix;
+		}
+		// Step 2c: prepend prefix
+		if (prefix != null) {
+			result = prefix + result;
+		}
+		
+		// Step 3: escape keywords if required
+		if (escapeKeywords) {
+			// Escape keywords if required
+			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.KEYWORDS) {
+				String keywordValue = keyword.getValue();
+				if (result.endsWith(keywordValue)) {
+					String keywordPrefix = result.substring(0, result.length() - keywordValue.length());
+					if (keywordPrefix.matches("_*")) {
+						result = "_" + result;
+						break;
+					}
+				}
+			}
+		}
+		return result;
 	}
 	
 	/**
