@@ -21,7 +21,25 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver {
 	
 	private java.util.Map<?, ?> options;
-	private boolean escapeKeywords = true;
+	private boolean escapeKeywords;
+	
+	/**
+	 * This constructor is used by token resolvers that were generated before EMFText
+	 * 1.3.5. It does not enable automatic escaping and unescaping of keywords.
+	 */
+	public CsDefaultTokenResolver() {
+		this(false);
+	}
+	
+	/**
+	 * This constructor is used by token resolvers that were generated with EMFText
+	 * 1.3.5 and later releases. It can optionally enable automatic escaping and
+	 * unescaping of keywords.
+	 */
+	public CsDefaultTokenResolver(boolean escapeKeywords) {
+		super();
+		this.escapeKeywords = escapeKeywords;
+	}
 	
 	public String deResolve(Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
 		if (value == null) {
