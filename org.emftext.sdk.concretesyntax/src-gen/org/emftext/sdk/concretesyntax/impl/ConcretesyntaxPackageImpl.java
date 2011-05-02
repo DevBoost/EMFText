@@ -4332,6 +4332,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>true</code>, code that is required to support launching of DSL models is not generated. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(229), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the Rule class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {

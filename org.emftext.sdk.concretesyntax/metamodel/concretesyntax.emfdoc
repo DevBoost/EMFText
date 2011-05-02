@@ -542,6 +542,8 @@ OptionTypes.OVERRIDE_PROPERTY_TESTER : "If set to <code>false</code>, the Proper
 
 OptionTypes.DISABLE_LAUNCH_SUPPORT : "If set to <code>true</code>, code that is required to support launching of DSL models is not generated. The default value for this option is <code>false</code>."
 
+OptionTypes.OVERRIDE_RULE : "If set to <code>false</code>, the Rule class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
