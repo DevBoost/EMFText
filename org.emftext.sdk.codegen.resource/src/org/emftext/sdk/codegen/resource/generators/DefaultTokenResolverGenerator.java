@@ -117,7 +117,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.addComment("Step 2: remove prefix, suffix and unescape excaped suffixes");
+		sc.addComment("Step 2: remove prefix, suffix and unescape escaped suffixes");
 		sc.addComment("Step 2a: remove prefix");
 		sc.add("if (prefix != null) {");
 		sc.add("int count = prefix.length();");
