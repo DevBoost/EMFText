@@ -70,8 +70,10 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addDeResolveMethod(sc);
-		addResolveMethod(sc);
+		addResolveMethod1(sc);
+		addResolveMethod2(sc);
+		addDeResolveMethod1(sc);
+		addDeResolveMethod2(sc);
 		addSetEscapeKeywordsMethod(sc);
 		addSetOptionsMethod(sc);
 		addGetOptionsMethod(sc);
@@ -91,15 +93,23 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.addLineBreak();
 	}
 
-	private void addResolveMethod(JavaComposite sc) {
+	private void addResolveMethod1(JavaComposite sc) {
 		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
+		sc.add("resolve(lexem, feature, result, null, null, null);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+		
+	private void addResolveMethod2(JavaComposite sc) {
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result, String suffix, String prefix, String escapeCharacter) {");
+		
+		sc.addComment("Step 1: unescape keywords if required");
 		sc.add("if (escapeKeywords && lexem.startsWith(\"_\")) {");
-		sc.addComment("Unescape keywords if required");
 		sc.add("for (" + keywordClassName + " keyword : " + grammarInformationProviderClassName + ".KEYWORDS) {");
 		sc.add("String keywordValue = keyword.getValue();");
 		sc.add("if (lexem.endsWith(keywordValue)) {");
-		sc.add("String prefix = lexem.substring(0, lexem.length() - keywordValue.length());");
-		sc.add("if (prefix.matches(\"_+\")) {");
+		sc.add("String keywordPrefix = lexem.substring(0, lexem.length() - keywordValue.length());");
+		sc.add("if (keywordPrefix.matches(\"_+\")) {");
 		sc.add("lexem = lexem.substring(1);");
 		sc.add("break;");
 		sc.add("}");
@@ -107,6 +117,25 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+		sc.addComment("Step 2: remove prefix, suffix and unescape excaped suffixes");
+		sc.addComment("Step 2a: remove prefix");
+		sc.add("if (prefix != null) {");
+		sc.add("int count = prefix.length();");
+		sc.add("lexem = lexem.substring(count);");		
+		sc.add("}");
+		sc.addComment("Step 2b: remove suffix");
+		sc.add("if (suffix != null) {");
+		sc.add("int count = suffix.length();");
+		sc.add("lexem = lexem.substring(0, lexem.length() - count );");
+		sc.addComment("take care of the escape character (may be null)");
+		sc.addComment("Step 2c: replaced escaped suffixes and escaped escape sequences");
+		sc.add("if (escapeCharacter != null) {");
+		sc.add("lexem = lexem.replace(escapeCharacter + suffix, suffix);");
+		sc.add("lexem = lexem.replace(escapeCharacter + escapeCharacter, escapeCharacter);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.addComment("Step 3: convert text to Java object");
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("if (feature.getEType() instanceof " + E_ENUM + ") {");
 		sc.add(E_ENUM_LITERAL + " literal = ((" + E_ENUM + ") feature.getEType()).getEEnumLiteralByLiteral(lexem);");
@@ -144,26 +173,54 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.addLineBreak();
 	}
 
-	private void addDeResolveMethod(JavaComposite sc) {
+	private void addDeResolveMethod1(JavaComposite sc) {
 		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
-		sc.add("if (value == null) {");
-		sc.add("return \"null\";");
+		sc.add("return deResolve(value, feature, container, null, null, null);");
 		sc.add("}");
-		sc.add("String text = value.toString();");
+		sc.addLineBreak();
+	}
+		
+	private void addDeResolveMethod2(JavaComposite sc) {
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container, String prefix, String suffix, String escapeCharacter) {");
+		sc.addComment("Step 1: convert Java object to text");
+		sc.add("String result = null;");
+		sc.add("if (value != null) {");
+		sc.add("result = value.toString();");
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.addComment("Step 2: escape suffixes, add prefix and suffix");
+		sc.addComment("Step 2a: escaped suffix");
+		sc.add("if (suffix != null) {");
+		sc.addComment("take care of the escape character (may be null)");
+		sc.add("if (escapeCharacter != null) {");
+		sc.add("result = result.replace(escapeCharacter, escapeCharacter + escapeCharacter);");
+		sc.add("result = result.replace(suffix, escapeCharacter + suffix);");
+		sc.add("}");
+		sc.addComment("Step 2b: append suffix");
+		sc.add("result += suffix;");
+		sc.add("}");
+		sc.addComment("Step 2c: prepend prefix");
+		sc.add("if (prefix != null) {");
+		sc.add("result = prefix + result;");
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.addComment("Step 3: escape keywords if required");
 		sc.add("if (escapeKeywords) {");
 		sc.addComment("Escape keywords if required");
 		sc.add("for (" + keywordClassName + " keyword : " + grammarInformationProviderClassName + ".KEYWORDS) {");
 		sc.add("String keywordValue = keyword.getValue();");
-		sc.add("if (text.endsWith(keywordValue)) {");
-		sc.add("String prefix = text.substring(0, text.length() - keywordValue.length());");
-		sc.add("if (prefix.matches(\"_*\")) {");
-		sc.add("text = \"_\" + text;");
+		sc.add("if (result.endsWith(keywordValue)) {");
+		sc.add("String keywordPrefix = result.substring(0, result.length() - keywordValue.length());");
+		sc.add("if (keywordPrefix.matches(\"_*\")) {");
+		sc.add("result = \"_\" + result;");
 		sc.add("break;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return text;");
+		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

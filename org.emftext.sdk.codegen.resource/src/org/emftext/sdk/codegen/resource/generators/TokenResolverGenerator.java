@@ -59,20 +59,20 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		
 		// do not generate a resolver for imported tokens
 		boolean isImportedToken = definition.isImported(syntax);
+		String escapeKeywords = "false";
+		if (getPrefix() == null) {
+			escapeKeywords = "true";
+		}
 
 		if (isImportedToken) {
 			String importedTokenResolverClassName = nameUtil.getQualifiedTokenResolverClassName(syntax, definition, true);
 
-			sc.add("private " + importedTokenResolverClassName + " importedResolver = new " + importedTokenResolverClassName + "();");
+			sc.add("private " + importedTokenResolverClassName + " importedResolver = new " + importedTokenResolverClassName + "(" + escapeKeywords + ");");
 			sc.addLineBreak();
 			generateDeResolveMethod2(sc);
 			generateResolveMethod2(sc);
 		    generatorUtil.addSetOptionsMethod(sc, "importedResolver.setOptions(options);", null);
 		} else {
-			String escapeKeywords = "false";
-			if (getPrefix() == null) {
-				escapeKeywords = "true";
-			}
 			sc.add("private " + defaultTokenResolverClassName + " defaultTokenResolver = new " + defaultTokenResolverClassName + "(" + escapeKeywords + ");");
 			sc.addLineBreak();
 			generateDeResolveMethod1(sc);
@@ -82,27 +82,18 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		sc.add("}");
 	}
 
-	private void generateDeResolveMethod1(StringComposite sc) {
-		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
-		sc.add("String result = defaultTokenResolver.deResolve(value, feature, container);");
-		String suffix = getSuffix();
+	private void generateDeResolveMethod1(JavaComposite sc) {
 		String prefix = getPrefix();
-		
-		if (suffix != null) {
-			String javaSourceSuffix = StringUtil.escapeToJavaString(suffix);
-			// take care of the escape character (may be null)
-			String escapeCharacter = getEscapeCharacter();
-			if (escapeCharacter != null) {
-				String javaSourceEscapeCharacter = StringUtil.escapeToJavaString(escapeCharacter);
-				sc.add("result = result.replace(\"" + javaSourceEscapeCharacter + "\", \"" + javaSourceEscapeCharacter + javaSourceEscapeCharacter + "\");");
-				sc.add("result = result.replace(\"" + javaSourceSuffix + "\", \"" + javaSourceEscapeCharacter + javaSourceSuffix + "\");");
-			}
-			sc.add("result += \"" + javaSourceSuffix + "\";");
-		}	
-		
-		if (prefix != null) {
-			sc.add("result = \"" + StringUtil.escapeToJavaString(prefix) + "\" + result;");
-		}
+		String suffix = getSuffix();
+		String escapeCharacter = getEscapeCharacter();
+
+		String javaSourcePrefix = escape(prefix);
+		String javaSourceSuffix = escape(suffix);
+		String javaSourceEscapeCharacter = escape(escapeCharacter);
+
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.addComment("By default token de-resolving is delegated to the DefaultTokenResolver.");
+		sc.add("String result = defaultTokenResolver.deResolve(value, feature, container, " + javaSourcePrefix + ", " + javaSourceSuffix + ", " + javaSourceEscapeCharacter + ");");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -116,31 +107,28 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		sc.addLineBreak();
 	}
 
-	private void generateResolveMethod1(StringComposite sc) {
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
-
-		String suffix = getSuffix();
+	private void generateResolveMethod1(JavaComposite sc) {
 		String prefix = getPrefix();
+		String suffix = getSuffix();
+		String escapeCharacter = getEscapeCharacter();
 		
-		if (prefix != null) {
-			int count = prefix.length();
-			sc.add("lexem = lexem.substring(" + count + ");");			
-		}
-		if (suffix != null) {
-			int count = suffix.length();
-			sc.add("lexem = lexem.substring(0, lexem.length() - " + count + ");");
-			String javaSourceSuffix = StringUtil.escapeToJavaString(suffix);
-			// take care of the escape character (may be null)
-			String escapeCharacter = getEscapeCharacter();
-			if (escapeCharacter != null) {
-				String javaSourceEscapeCharacter = StringUtil.escapeToJavaString(escapeCharacter);
-				sc.add("lexem = lexem.replace(\"" + javaSourceEscapeCharacter + javaSourceSuffix + "\", \"" + javaSourceSuffix + "\");");
-				sc.add("lexem = lexem.replace(\"" + javaSourceEscapeCharacter + javaSourceEscapeCharacter + "\", \"" + javaSourceEscapeCharacter + "\");");
-			}
-		}
-		sc.add("defaultTokenResolver.resolve(lexem, feature, result);");
+		String javaSourcePrefix = escape(prefix);
+		String javaSourceSuffix = escape(suffix);
+		String javaSourceEscapeCharacter = escape(escapeCharacter);
+
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
+		sc.addComment("By default token resolving is delegated to the DefaultTokenResolver.");
+		sc.add("defaultTokenResolver.resolve(lexem, feature, result, " + javaSourcePrefix + ", " + javaSourceSuffix + ", " + javaSourceEscapeCharacter + ");");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private String escape(String prefix) {
+		String javaSourcePrefix = StringUtil.escapeToJavaString(prefix);
+		if (javaSourcePrefix != null) {
+			javaSourcePrefix = "\"" + javaSourcePrefix + "\"";
+		}
+		return javaSourcePrefix;
 	}
 	
 	private void generateResolveMethod2(StringComposite sc) {
