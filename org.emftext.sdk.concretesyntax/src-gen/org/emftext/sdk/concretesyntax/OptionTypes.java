@@ -1864,7 +1864,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISABLE_LAUNCH_SUPPORT(232, "DISABLE_LAUNCH_SUPPORT", "disableLaunchSupport");
+	DISABLE_LAUNCH_SUPPORT(232, "DISABLE_LAUNCH_SUPPORT", "disableLaunchSupport"), /**
+	 * The '<em><b>OVERRIDE RULE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RULE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_RULE(233, "OVERRIDE_RULE", "overrideRule");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5752,6 +5760,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int DISABLE_LAUNCH_SUPPORT_VALUE = 232;
 /**
+	 * The '<em><b>OVERRIDE RULE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE RULE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RULE
+	 * @model literal="overrideRule"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_RULE_VALUE = 233;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5988,6 +6010,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_LAUNCH_SHORTCUT,
 			OVERRIDE_PROPERTY_TESTER,
 			DISABLE_LAUNCH_SUPPORT,
+			OVERRIDE_RULE,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6265,6 +6288,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_LAUNCH_SHORTCUT_VALUE: return OVERRIDE_LAUNCH_SHORTCUT;
 			case OVERRIDE_PROPERTY_TESTER_VALUE: return OVERRIDE_PROPERTY_TESTER;
 			case DISABLE_LAUNCH_SUPPORT_VALUE: return DISABLE_LAUNCH_SUPPORT;
+			case OVERRIDE_RULE_VALUE: return OVERRIDE_RULE;
 		}
 		return null;
 	}

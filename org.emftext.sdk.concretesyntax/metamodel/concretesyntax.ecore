@@ -1718,6 +1718,7 @@
         <details key="documentation" value="If set to &lt;code>true&lt;/code>, code that is required to support launching of DSL models is not generated. The default value for this option is &lt;code>false&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_RULE" value="233" literal="overrideRule"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

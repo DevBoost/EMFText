@@ -196,6 +196,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    // add grammar information generators
 	    add(creators, TextResourceArtifacts.CARDINALITY);
 	    add(creators, TextResourceArtifacts.SYNTAX_ELEMENT);
+	    add(creators, TextResourceArtifacts.RULE);
 	    add(creators, TextResourceArtifacts.KEYWORD);
 	    add(creators, TextResourceArtifacts.TERMINAL);
 	    add(creators, TextResourceArtifacts.PLACEHOLDER);
@@ -210,7 +211,6 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.FORMATTING_ELEMENT);
 	    add(creators, TextResourceArtifacts.GRAMMAR_INFORMATION_PROVIDER);
 	    add(creators, TextResourceArtifacts.FOLLOW_SET_PROVIDER);
-	    
 	    
 	    add(creators, TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
 	    add(creators, TextResourceArtifacts.INPUT_STREAM_PROCESSOR);

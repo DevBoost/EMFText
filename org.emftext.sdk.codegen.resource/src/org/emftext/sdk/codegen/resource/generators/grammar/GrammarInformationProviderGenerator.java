@@ -14,11 +14,11 @@
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_FACTORY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -77,10 +77,16 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addStaticConstants(sc);
-		addInnerClasses(sc);
+		addFields(sc);
 		addConstantsForSyntaxElements(sc);
-		addGetKeywordsMethod(sc);
+		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetRulesMethod(sc);
+		addGetKeywordsMethod(sc);
+		addFindKeywordsMethod(sc);
 	}
 
 	private void addConstantsForSyntaxElements(StringComposite sc) {
@@ -97,32 +103,12 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.add("ANONYMOUS_FEATURE.setName(\"_\");");
 		sc.add("}");
 		sc.addLineBreak();
+		sc.add("public final static " + getResourceClassName() + " INSTANCE = new " + getResourceClassName() + "();");
+		sc.addLineBreak();
 	}
 
-	private void addInnerClasses(StringComposite sc) {
-		addRuleClass(sc);
-	}
-
-	private void addRuleClass(StringComposite sc) {
-		// TODO this should rather be generated as a non-static top level class instead of an
-		// inner type
-		sc.add("public static class Rule extends " + syntaxElementClassName + " {");
-		sc.addLineBreak();
-		sc.add("private final " + E_CLASS + " metaclass;"); 
-		sc.addLineBreak();
-		sc.add("public Rule(" + E_CLASS + " metaclass, " + choiceClassName + " choice, " + cardinalityClassName + " cardinality) {");
-		sc.add("super(cardinality, new " + syntaxElementClassName + "[] {choice});"); 
-		sc.add("this.metaclass = metaclass;");
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public " + E_CLASS + " getMetaclass() {"); 
-		sc.add("return metaclass;"); 
-		sc.add("}"); 
-		sc.addLineBreak();
-		sc.add("public " + choiceClassName + " getDefinition() {"); 
-		sc.add("return (" + choiceClassName + ") getChildren()[0];"); 
-		sc.add("}"); 
-		sc.add("}"); 
+	private void addFields(StringComposite sc) {
+		sc.add("private " + SET + "<String> keywords;");
 		sc.addLineBreak();
 	}
 
@@ -194,7 +180,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			String definitionFieldName = nameUtil.getFieldName(nextAsRule.getDefinition());
 			String metaClassAccessor = generatorUtil.getClassifierAccessor(nextAsRule.getMetaclass());
 			String fieldName = nameUtil.getFieldName(nextAsRule);
-			sc.add("public final static Rule " + fieldName + " = new Rule(" + metaClassAccessor + ", " + definitionFieldName + ", " + getCardinality(next) + ");");
+			sc.add("public final static " + ruleClassName + " " + fieldName + " = new " + ruleClassName + "(" + metaClassAccessor + ", " + definitionFieldName + ", " + getCardinality(next) + ");");
 		} else if (next instanceof BooleanTerminal) {
 			BooleanTerminal booleanTerminal = (BooleanTerminal) next;
 			GenFeature genFeature = booleanTerminal.getFeature();
@@ -250,19 +236,55 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		}
 	}
 
-	private void addGetKeywordsMethod(JavaComposite sc) {
-		sc.add("public final static " + keywordClassName + "[] KEYWORDS = new " + keywordClassName + "[] {");
+	private void addGetRulesMethod(JavaComposite sc) {
+		sc.add("public final static " + ruleClassName + "[] RULES = new " + ruleClassName + "[] {");
 		for (Rule rule : concreteSyntax.getAllRules()) {
-			Iterator<EObject> ruleContents = rule.eAllContents();
-			while (ruleContents.hasNext()) {
-				EObject next = ruleContents.next();
-				if (next instanceof CsString) {
-					String fieldName = nameUtil.getFieldName((CsString) next);
-					sc.add(fieldName + ",");
-				}
-			}
+			String fieldName = nameUtil.getFieldName(rule);
+			sc.add(fieldName + ",");
 		}
 		sc.add("};");
+		sc.addLineBreak();
+	}
+
+	
+	private void addGetKeywordsMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns all keywords of the grammar. This includes all literals for boolean and enumeration terminals."
+		);
+		sc.add("public " + SET + "<String> getKeywords() {");
+		sc.add("if (this.keywords == null) {");
+		sc.add("this.keywords = new " + LINKED_HASH_SET + "<String>();");
+		
+		sc.add("for (" + ruleClassName + " rule : RULES) {");
+		sc.add("findKeywords(rule, this.keywords);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return keywords;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	
+	private void addFindKeywordsMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Finds all keywords in the given element and its children and adds them to the set. This includes all literals for boolean and enumeration terminals."
+		);
+		sc.add("private void findKeywords(" + syntaxElementClassName + " element, " + SET + "<String> keywords) {");
+		sc.add("if (element instanceof " + keywordClassName + ") {");
+		sc.add("keywords.add(((" + keywordClassName + ") element).getValue());");
+		sc.add("} else if (element instanceof " + booleanTerminalClassName + ") {");
+		sc.add("keywords.add(((" + booleanTerminalClassName + ") element).getTrueLiteral());");
+		sc.add("keywords.add(((" + booleanTerminalClassName + ") element).getFalseLiteral());");
+		sc.add("} else if (element instanceof " + enumerationTerminalClassName + ") {");
+		sc.add(enumerationTerminalClassName + " terminal = (" + enumerationTerminalClassName + ") element;");
+		sc.add("for (String key : terminal.getLiteralMapping().keySet()) {");
+		sc.add("keywords.add(key);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + syntaxElementClassName + " child : element.getChildren()) {");
+		sc.add("findKeywords(child, this.keywords);");
+		sc.add("}");
+		sc.add("}");
 		sc.addLineBreak();
 	}
 }

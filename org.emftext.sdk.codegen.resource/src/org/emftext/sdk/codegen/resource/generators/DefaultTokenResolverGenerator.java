@@ -105,10 +105,9 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		
 		sc.addComment("Step 1: unescape keywords if required");
 		sc.add("if (escapeKeywords && lexem.startsWith(\"_\")) {");
-		sc.add("for (" + keywordClassName + " keyword : " + grammarInformationProviderClassName + ".KEYWORDS) {");
-		sc.add("String keywordValue = keyword.getValue();");
-		sc.add("if (lexem.endsWith(keywordValue)) {");
-		sc.add("String keywordPrefix = lexem.substring(0, lexem.length() - keywordValue.length());");
+		sc.add("for (String keyword : " + grammarInformationProviderClassName + ".INSTANCE.getKeywords()) {");
+		sc.add("if (lexem.endsWith(keyword)) {");
+		sc.add("String keywordPrefix = lexem.substring(0, lexem.length() - keyword.length());");
 		sc.add("if (keywordPrefix.matches(\"_+\")) {");
 		sc.add("lexem = lexem.substring(1);");
 		sc.add("break;");
@@ -209,10 +208,9 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.addComment("Step 3: escape keywords if required");
 		sc.add("if (escapeKeywords) {");
 		sc.addComment("Escape keywords if required");
-		sc.add("for (" + keywordClassName + " keyword : " + grammarInformationProviderClassName + ".KEYWORDS) {");
-		sc.add("String keywordValue = keyword.getValue();");
-		sc.add("if (result.endsWith(keywordValue)) {");
-		sc.add("String keywordPrefix = result.substring(0, result.length() - keywordValue.length());");
+		sc.add("for (String keyword : " + grammarInformationProviderClassName + ".INSTANCE.getKeywords()) {");
+		sc.add("if (result.endsWith(keyword)) {");
+		sc.add("String keywordPrefix = result.substring(0, result.length() - keyword.length());");
 		sc.add("if (keywordPrefix.matches(\"_*\")) {");
 		sc.add("result = \"_\" + result;");
 		sc.add("break;");

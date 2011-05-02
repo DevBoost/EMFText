@@ -87,6 +87,7 @@ import org.emftext.sdk.codegen.resource.generators.grammar.GrammarInformationPro
 import org.emftext.sdk.codegen.resource.generators.grammar.KeywordGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.LineBreakGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.PlaceholderGenerator;
+import org.emftext.sdk.codegen.resource.generators.grammar.RuleGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.SequenceGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.SyntaxElementGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.TerminalGenerator;
@@ -295,6 +296,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FORMATTING_ELEMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "FormattingElement", FormattingElementGenerator.class, OptionTypes.OVERRIDE_FORMATTING_ELEMENT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BOOLEAN_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "BooleanTerminal", BooleanTerminalGenerator.class, OptionTypes.OVERRIDE_BOOLEAN_TERMINAL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ENUMERATION_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "EnumerationTerminal", EnumerationTerminalGenerator.class, OptionTypes.OVERRIDE_ENUMERATION_TERMINAL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RULE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "Rule", RuleGenerator.class, OptionTypes.OVERRIDE_RULE);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> GRAMMAR_INFORMATION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "GrammarInformationProvider", GrammarInformationProviderGenerator.class, OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FOLLOW_SET_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "FollowSetProvider", FollowSetProviderGenerator.class, OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER);

@@ -135,6 +135,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String resourceFactoryDelegatorClassName;
 	protected String resourcePostProcessorClassName;
 	protected String resourceUtilClassName;
+	protected String ruleClassName;
 	protected String scannerlessParserClassName;
 	protected String scannerlessScannerClassName;
 	protected String sequenceClassName;
@@ -272,6 +273,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		resourceFactoryDelegatorClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
 		resourcePostProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_POST_PROCESSOR);
 		resourceUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_UTIL);
+		ruleClassName = context.getQualifiedClassName(TextResourceArtifacts.RULE);
 		scannerlessParserClassName = context.getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_PARSER);
 		scannerlessScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_SCANNER);
 		sequenceClassName = context.getQualifiedClassName(TextResourceArtifacts.SEQUENCE);
