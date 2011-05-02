@@ -38,8 +38,35 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("public class " + getResourceClassName() + " implements " + iTokenResolverClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
+		addConstructors(sc);
 		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addConstructors(JavaComposite sc) {
+		addConstructor1(sc);
+		addConstructor2(sc);
+	}
+
+	private void addConstructor1(JavaComposite sc) {
+		sc.addJavadoc(
+			"This constructor is used by token resolvers that were generated before EMFText 1.3.5. " +
+			"It does not enable automatic esacaping and unescaping of keywords.");
+		sc.add("public " + getResourceClassName() + "() {");
+		sc.add("this(false);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor2(JavaComposite sc) {
+		sc.addJavadoc(
+			"This constructor is used by token resolvers that were generated with EMFText 1.3.5 and later releases. " +
+			"It can optionally enable automatic esacaping and unescaping of keywords.");
+		sc.add("public " + getResourceClassName() + "(boolean escapeKeywords) {");
+		sc.add("super();");
+		sc.add("this.escapeKeywords = escapeKeywords;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -143,7 +170,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + MAP + "<?, ?> options;");
-		sc.add("private boolean escapeKeywords = true;");
+		sc.add("private boolean escapeKeywords;");
 		sc.addLineBreak();
 	}
 	
