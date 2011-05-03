@@ -47,7 +47,7 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 	
 	public void resolve(String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result, String suffix, String prefix, String escapeCharacter) {
 		// Step 1: unescape keywords if required
-		if (escapeKeywords && lexem.startsWith("_") && !"_".equals(lexem)) {
+		if (escapeKeywords && lexem.startsWith("_")) {
 			for (String keyword : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.INSTANCE.getKeywords()) {
 				if (lexem.endsWith(keyword)) {
 					String keywordPrefix = lexem.substring(0, lexem.length() - keyword.length());

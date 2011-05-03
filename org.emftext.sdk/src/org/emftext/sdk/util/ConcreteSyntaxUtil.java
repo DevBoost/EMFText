@@ -61,12 +61,13 @@ public class ConcreteSyntaxUtil {
 
 	/**
 	 * This feature is connected to all placeholders that are anonymous (denoted
-	 * by the name '_').
+	 * by a single underscore. The name of the anonymous feature is the empty string,
+	 * but to refer to this feature syntax definition must use an underscore.
 	 */
 	public final static GenFeature ANONYMOUS_GEN_FEATURE = GenModelFactory.eINSTANCE.createGenFeature();
 	private final static EAttribute ANONYMOUS_EATTRIBUTE = EcoreFactory.eINSTANCE.createEAttribute();
 	static {
-		ANONYMOUS_EATTRIBUTE.setName("_");
+		ANONYMOUS_EATTRIBUTE.setName("");
 		ANONYMOUS_GEN_FEATURE.setEcoreFeature(ANONYMOUS_EATTRIBUTE);
 	}
 	
