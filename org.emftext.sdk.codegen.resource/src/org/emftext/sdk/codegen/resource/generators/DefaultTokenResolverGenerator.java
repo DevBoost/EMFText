@@ -104,7 +104,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result, String suffix, String prefix, String escapeCharacter) {");
 		
 		sc.addComment("Step 1: unescape keywords if required");
-		sc.add("if (escapeKeywords && lexem.startsWith(\"_\")) {");
+		sc.add("if (escapeKeywords && lexem.startsWith(\"_\") && !\"_\".equals(lexem)) {");
 		sc.add("for (String keyword : " + grammarInformationProviderClassName + ".INSTANCE.getKeywords()) {");
 		sc.add("if (lexem.endsWith(keyword)) {");
 		sc.add("String keywordPrefix = lexem.substring(0, lexem.length() - keyword.length());");

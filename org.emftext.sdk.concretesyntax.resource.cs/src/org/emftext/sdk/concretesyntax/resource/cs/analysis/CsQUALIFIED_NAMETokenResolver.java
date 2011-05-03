@@ -19,12 +19,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 public class CsQUALIFIED_NAMETokenResolver implements ICsTokenResolver {
 	
 	private CsDefaultTokenResolver defaultResolver = new CsDefaultTokenResolver(true);
 	
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
+		if (value == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+			return "_";
+		}
 		String result = defaultResolver.deResolve(value, feature, container);
 		return result;
 	}

@@ -176,7 +176,7 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 		}
 	}
 
-	public String deResolve(GenFeature feature, Terminal container, EReference reference){
+	public String deResolve(GenFeature feature, Terminal container, EReference reference) {
 		return feature.getName();
 	}
 
