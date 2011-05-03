@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
+	// TODO split this method and add missing curly braces to generated code
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");

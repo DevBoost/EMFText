@@ -78,7 +78,7 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addUpdateActiveEditorMethod(JavaComposite sc) {
-		sc.addJavadoc("Sets the chosen options to the preference store and refreshs it in the editor.");
+		sc.addJavadoc("Sets the chosen options to the preference store and refreshes it in the editor.");
 		sc.add("private void updateActiveEditor() {");
 		sc.addComment("set the values after ok or apply");
 		sc.add(PREFERENCE_CONVERTER + ".setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());");
@@ -114,12 +114,10 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 	private void addPerformDefaultsMethod(JavaComposite sc) {
 		sc.addJavadoc("Sets the default values for this preference page.");
 		sc.add("protected void performDefaults() {");
-		sc.add("enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(");
-		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
+		sc.add("enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
 		sc.add("matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());");
 		sc.add("matchingBracketsColorEditor.setColorValue(" + PREFERENCE_CONVERTER + ".getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));");
-		sc.add("bracketSetTemp.put(language, getPreferenceStore().getDefaultString(");
-		sc.add("language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
+		sc.add("bracketSetTemp.put(language, getPreferenceStore().getDefaultString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
 		sc.add("bracketsTmp.setBrackets(bracketSetTemp.get(language));");
 		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
 		sc.add("enableClosingInside.setSelection(false);");

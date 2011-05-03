@@ -422,7 +422,7 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 
 	private void addUpdateCodefoldingMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the given postition are in the <code>" + PROJECTION_ANNOTATION_MODEL + "</code> or in " +
+			"Checks whether the given positions are in the <code>" + PROJECTION_ANNOTATION_MODEL + "</code> or in " +
 			"the addition set. If not it tries to add into <code>additions</code>. " +
 			"Deletes old " + PROJECTION_ANNOTATION + " with line count less than 2.",
 			"@param positions a list of available foldable positions"

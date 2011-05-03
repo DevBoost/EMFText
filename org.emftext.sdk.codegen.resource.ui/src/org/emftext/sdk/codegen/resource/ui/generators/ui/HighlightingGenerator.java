@@ -144,9 +144,10 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addFields(StringComposite sc) {
+		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
+		sc.addLineBreak();
 		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + ARRAY_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
 		sc.add("private " + I_SELECTION + " selection = null;");
-		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.add("private boolean isHighlightBrackets = true;");
 		sc.add("private " + tokenScannerClassName + " scanner;");
 		sc.add("private " + colorManagerClassName + " colorManager;");

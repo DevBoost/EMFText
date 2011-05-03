@@ -76,6 +76,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		addChangedRGBPreferenceClass(sc);
 		addHighlightingColorListItemClass(sc);
 		addColorListLabelProviderClass(sc);
+		// TODO finish splitting of this method
 		sc.addJavadoc("Color list content provider.");
 		sc.add("private class ColorListContentProvider implements " + I_TREE_CONTENT_PROVIDER + " {");
 		sc.addLineBreak();
@@ -659,8 +660,8 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 
 	private void addFields(StringComposite sc) {
 		sc.add("private final static " + antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
-		sc.add("private static final " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
-		sc.add("private static final " + COLLECTION + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST + "<IChangedPreference>();");
+		sc.add("private final static " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
+		sc.add("private final static " + COLLECTION + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST + "<IChangedPreference>();");
 		sc.addLineBreak();
 	}
 }

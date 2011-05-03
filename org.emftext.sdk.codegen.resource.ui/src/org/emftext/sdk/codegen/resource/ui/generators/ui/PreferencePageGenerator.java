@@ -53,7 +53,7 @@ public class PreferencePageGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	private void addInitMethod(JavaComposite sc) {
 		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
 		sc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
-		sc.add("setDescription(\" " + getContext().getCapitalizedConcreteSyntaxName() + " Text Editor Preferences\");");
+		sc.add("setDescription(\"" + getContext().getCapitalizedConcreteSyntaxName() + " Text Editor Preferences\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

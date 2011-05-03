@@ -191,8 +191,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 	private void addGetHoverControlCreatorMethod(StringComposite sc) {
 		sc.add("public " + I_INFORMATION_CONTROL_CREATOR + " getHoverControlCreator() {");
 		sc.add("if (hoverControlCreator == null) {");
-		sc.add("hoverControlCreator = new HoverControlCreator(");
-		sc.add("getInformationPresenterControlCreator());");
+		sc.add("hoverControlCreator = new HoverControlCreator(getInformationPresenterControlCreator());");
 		sc.add("}");
 		sc.add("return hoverControlCreator;");
 		sc.add("}");

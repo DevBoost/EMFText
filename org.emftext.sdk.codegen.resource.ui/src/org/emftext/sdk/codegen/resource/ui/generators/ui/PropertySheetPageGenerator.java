@@ -54,9 +54,9 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	private void addSelectionChangedMethod2(JavaComposite sc) {
 		sc.add("public void selectionChanged(" + I_WORKBENCH_PART + " part, " + I_SELECTION + " iSelection) {");
 		sc.addComment(
-			"this is a workaround for a bug in EMF " +
-			"see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301" +
-			"unfortunately Ed Merks refuses to fix it, so we need to solve it here"
+			"This is a workaround for a bug in EMF " +
+			"(see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301)." +
+			"Unfortunately Ed Merks refuses to fix it, so we need to solve it here."
 		);
 		sc.add("if (iSelection instanceof " + eObjectSelectionClassName + ") {");
 		sc.add("final " + eObjectSelectionClassName + " selection = (" + eObjectSelectionClassName + ") iSelection;");

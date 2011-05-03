@@ -80,6 +80,7 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("}");
 		sc.add("return status;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addShowErrorMethod(StringComposite sc) {
@@ -94,6 +95,7 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("}");
 		sc.add("});");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetDefaultMethod(StringComposite sc) {
@@ -137,7 +139,4 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("private static " + getResourceClassName() + " plugin;");
 		sc.addLineBreak();
 	}
-
-	
-
 }

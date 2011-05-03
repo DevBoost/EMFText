@@ -58,6 +58,7 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("list.add(selectedObject);");
 		sc.add("return list;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addToArrayMethod(StringComposite sc) {

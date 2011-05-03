@@ -39,8 +39,7 @@ public class MarkerAnnotationGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("boolean quickFixableState;");
-		sc.add("boolean isQuickFixable;");
+		sc.addComment("private boolean isQuickFixable;");
 		sc.addLineBreak();
 	}
 
@@ -53,8 +52,7 @@ public class MarkerAnnotationGenerator extends UIJavaBaseGenerator<ArtifactParam
 
 	private void addSetQuickFixableMethod(JavaComposite sc) {
 		sc.add("public void setQuickFixable(boolean state) {");
-		sc.add("isQuickFixable = state;");
-		sc.add("quickFixableState = true;");
+		sc.addComment("this.isQuickFixable = state;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -62,7 +60,6 @@ public class MarkerAnnotationGenerator extends UIJavaBaseGenerator<ArtifactParam
 	private void addIsQuickFixableStateSetMethod(JavaComposite sc) {
 		sc.add("public boolean isQuickFixableStateSet() {");
 		sc.add("return true;");
-		sc.add("//return quickFixableState;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

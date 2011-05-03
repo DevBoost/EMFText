@@ -38,7 +38,7 @@ public class PixelConverterGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("public " + getResourceClassName() + "(" + CONTROL + " control) {");
 		sc.add(GC + " gc = new " + GC + "(control);");
 		sc.add("gc.setFont(control.getFont());");
-		sc.add("fFontMetrics= gc.getFontMetrics();");
+		sc.add("fFontMetrics = gc.getFontMetrics();");
 		sc.add("gc.dispose();");
 		sc.add("}");
 		sc.addLineBreak();
