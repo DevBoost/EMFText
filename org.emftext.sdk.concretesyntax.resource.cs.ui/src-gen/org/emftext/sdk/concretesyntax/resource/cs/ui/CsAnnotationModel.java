@@ -14,7 +14,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-public class CsAnnotationModel extends org.eclipse.ui.texteditor.ResourceMarkerAnnotationModel implements org.eclipse.jface.text.source.IAnnotationModel {
+public class CsAnnotationModel extends org.eclipse.ui.texteditor.ResourceMarkerAnnotationModel {
 	
 	public CsAnnotationModel(org.eclipse.core.resources.IResource resource) {
 		super(resource);

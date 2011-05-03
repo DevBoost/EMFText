@@ -19,9 +19,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener {
 	
+	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
+	
 	private java.util.List<org.eclipse.jface.viewers.ISelectionChangedListener> selectionChangedListeners = new java.util.ArrayList<org.eclipse.jface.viewers.ISelectionChangedListener>();
 	private org.eclipse.jface.viewers.ISelection selection = null;
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
 	private boolean isHighlightBrackets = true;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner scanner;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;

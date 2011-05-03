@@ -73,4 +73,5 @@ public class CsEObjectSelection implements org.eclipse.jface.viewers.IStructured
 		list.add(selectedObject);
 		return list;
 	}
+	
 }

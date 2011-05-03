@@ -226,7 +226,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	
 	public org.eclipse.jface.text.IInformationControlCreator getHoverControlCreator() {
 		if (hoverControlCreator == null) {
-			hoverControlCreator = new HoverControlCreator(			getInformationPresenterControlCreator());
+			hoverControlCreator = new HoverControlCreator(getInformationPresenterControlCreator());
 		}
 		return hoverControlCreator;
 	}

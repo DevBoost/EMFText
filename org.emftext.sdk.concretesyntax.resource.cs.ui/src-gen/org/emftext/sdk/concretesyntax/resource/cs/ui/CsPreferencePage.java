@@ -21,7 +21,7 @@ public class CsPreferencePage extends org.eclipse.jface.preference.PreferencePag
 	
 	public void init(org.eclipse.ui.IWorkbench workbench) {
 		setPreferenceStore(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
-		setDescription(" Cs Text Editor Preferences");
+		setDescription("Cs Text Editor Preferences");
 	}
 	
 	@Override	

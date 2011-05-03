@@ -116,7 +116,7 @@ public class CsCodeFoldingManager {
 	}
 	
 	/**
-	 * Checks whether the given postition are in the
+	 * Checks whether the given positions are in the
 	 * <code>org.eclipse.jface.text.source.projection.ProjectionAnnotationModel</code>
 	 * or in the addition set. If not it tries to add into <code>additions</code>.
 	 * Deletes old org.eclipse.jface.text.source.projection.ProjectionAnnotation with

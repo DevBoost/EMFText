@@ -278,10 +278,10 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	 * Sets the default values for this preference page.
 	 */
 	protected void performDefaults() {
-		enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(		org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
+		enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
 		matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());
 		matchingBracketsColorEditor.setColorValue(org.eclipse.jface.preference.PreferenceConverter.getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));
-		bracketSetTemp.put(language, getPreferenceStore().getDefaultString(		language + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX));
+		bracketSetTemp.put(language, getPreferenceStore().getDefaultString(language + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX));
 		bracketsTmp.setBrackets(bracketSetTemp.get(language));
 		bracketsList.setItems(bracketsTmp.getBracketArray());
 		enableClosingInside.setSelection(false);
@@ -300,7 +300,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	}
 	
 	/**
-	 * Sets the chosen options to the preference store and refreshs it in the editor.
+	 * Sets the chosen options to the preference store and refreshes it in the editor.
 	 */
 	private void updateActiveEditor() {
 		// set the values after ok or apply

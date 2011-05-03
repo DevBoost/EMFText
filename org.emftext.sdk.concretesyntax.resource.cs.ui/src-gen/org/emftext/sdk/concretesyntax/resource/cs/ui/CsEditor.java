@@ -418,17 +418,25 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 				org.eclipse.jface.text.source.IAnnotationAccessExtension  annotationAccess = getAnnotationAccessExtension();
 				
 				org.eclipse.jface.text.IDocument document = getDocument();
-				if (model == null)				return null;
+				if (model == null) {
+					return null;
+				}
 				
 				java.util.Iterator<?> iter = model.getAnnotationIterator();
 				int layer = Integer.MIN_VALUE;
 				
 				while (iter.hasNext()) {
 					org.eclipse.jface.text.source.Annotation annotation = (org.eclipse.jface.text.source.Annotation) iter.next();
-					if (annotation.isMarkedDeleted())					continue;
+					if (annotation.isMarkedDeleted()) {
+						continue;
+					}
 					
 					int annotationLayer = annotationAccess.getLayer(annotation);
-					if (annotationAccess != null)					if (annotationLayer < layer)					continue;
+					if (annotationAccess != null) {
+						if (annotationLayer < layer) {
+							continue;
+						}
+					}
 					
 					org.eclipse.jface.text.Position position = model.getPosition(annotation);
 					if (!includesRulerLine(position, document)) {

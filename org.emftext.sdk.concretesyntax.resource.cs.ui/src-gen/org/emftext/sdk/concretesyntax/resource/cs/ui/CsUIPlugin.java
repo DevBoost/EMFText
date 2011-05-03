@@ -55,6 +55,7 @@ public class CsUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin {
 			}
 		});
 	}
+	
 	/**
 	 * Helper method for error logging.
 	 * 
@@ -81,4 +82,5 @@ public class CsUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin {
 		}
 		return status;
 	}
+	
 }
