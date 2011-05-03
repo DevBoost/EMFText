@@ -147,7 +147,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	private void addAddMappingMethod2(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>();");
+		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>(1);");
 		sc.add("}");
 		sc.add("mappings.add(new " + elementMappingClassName + "<ReferenceType>(identifier, target, warning));");
 		sc.add("errorMessage = null;");
@@ -165,7 +165,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	private void addAddMappingMethod4(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>();");
+		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>(1);");
 		sc.add("}");
 		sc.add("mappings.add(new " + uriMappingClassName + "<ReferenceType>(identifier, uri, warning));");
 		sc.add("}");
