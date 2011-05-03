@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MARKER_ANNOTATION;
@@ -29,7 +28,7 @@ public class AnnotationModelGenerator extends UIJavaBaseGenerator<ArtifactParame
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + RESOURCE_MARKER_ANNOTATION_MODEL + " implements " + I_ANNOTATION_MODEL + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + RESOURCE_MARKER_ANNOTATION_MODEL + " {");
 		sc.addLineBreak();
 		addConstructor(sc);
 		addCreateMarkerAnnotationMethod(sc);
