@@ -81,7 +81,7 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 	
 	public void addMapping(String identifier, ReferenceType target, String warning) {
 		if (mappings == null) {
-			mappings = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>();
+			mappings = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>(1);
 		}
 		mappings.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<ReferenceType>(identifier, target, warning));
 		errorMessage = null;
@@ -93,7 +93,7 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 	
 	public void addMapping(String identifier, org.eclipse.emf.common.util.URI uri, String warning) {
 		if (mappings == null) {
-			mappings = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>();
+			mappings = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>(1);
 		}
 		mappings.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsURIMapping<ReferenceType>(identifier, uri, warning));
 	}
