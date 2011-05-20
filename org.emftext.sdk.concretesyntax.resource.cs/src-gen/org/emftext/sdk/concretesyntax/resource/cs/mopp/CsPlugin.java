@@ -30,6 +30,7 @@ public class CsPlugin extends org.eclipse.core.runtime.Plugin {
 	 */
 	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + ".default_load_options";
 	public static final String EP_ADDITIONAL_EXTENSION_PARSER_ID = PLUGIN_ID + ".additional_extension_parser";
+	public static final String DEBUG_MODEL_ID = PLUGIN_ID + ".debugModel";
 	
 	private static CsPlugin plugin;
 	

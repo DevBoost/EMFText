@@ -29,16 +29,23 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 public class AbstractCsInterpreter<ResultType, ContextType> {
 	
 	private java.util.Stack<org.eclipse.emf.ecore.EObject> interpretationStack = new java.util.Stack<org.eclipse.emf.ecore.EObject>();
+	private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener> listeners = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener>();
+	private org.eclipse.emf.ecore.EObject nextObjectToInterprete;
+	private Object currentContext;
 	
 	public ResultType interprete(ContextType context) {
 		ResultType result = null;
+		currentContext = context;
 		while (!interpretationStack.empty()) {
 			org.eclipse.emf.ecore.EObject next = interpretationStack.pop();
+			nextObjectToInterprete = next;
+			notifyListeners(next);
 			result = interprete(next, context);
 			if (!continueInterpretation(result)) {
 				break;
 			}
 		}
+		currentContext = null;
 		return result;
 	}
 	
@@ -525,6 +532,11 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return null;
 	}
 	
+	private void notifyListeners(org.eclipse.emf.ecore.EObject element) {
+		for (org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener listener : listeners) {
+			listener.handleInterpreteObject(element);
+		}
+	}
 	/**
 	 * Adds the given object to the interpretation stack. Attention: Objects that are
 	 * added first, are interpret last.
@@ -552,6 +564,43 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		reverse.addAll(objects);
 		java.util.Collections.reverse(reverse);
 		addObjectsToInterprete(reverse);
+	}
+	
+	/**
+	 * Adds the given object and all its children to the interpretation stack such
+	 * that they are interpret in top down order.
+	 */
+	public void addObjectTreeToInterpreteTopDown(org.eclipse.emf.ecore.EObject root) {
+		java.util.List<org.eclipse.emf.ecore.EObject> objects = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
+		objects.add(root);
+		java.util.Iterator<org.eclipse.emf.ecore.EObject> it = root.eAllContents();
+		while (it.hasNext()) {
+			org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) it.next();
+			objects.add(eObject);
+		}
+		addObjectsToInterpreteInReverseOrder(objects);
+	}
+	
+	public void addListener(org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener newListener) {
+		listeners.add(newListener);
+	}
+	public boolean removeListener(org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener listener) {
+		return listeners.remove(listener);
+	}
+	public org.eclipse.emf.ecore.EObject getNextObjectToInterprete() {
+		return nextObjectToInterprete;
+	}
+	
+	public java.util.Stack<org.eclipse.emf.ecore.EObject> getInterpretationStack() {
+		return interpretationStack;
+	}
+	
+	public void terminate() {
+		interpretationStack.clear();
+	}
+	
+	public Object getCurrentContext() {
+		return currentContext;
 	}
 	
 }

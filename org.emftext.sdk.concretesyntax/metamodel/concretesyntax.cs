@@ -24,6 +24,7 @@ OPTIONS {
 	additionalUIDependencies = "org.emftext.sdk";
 	resolveProxyElementsAfterParsing = "false";
 	disableLaunchSupport = "true";
+	disableDebugSupport = "true";
 }
 
 TOKENS {
