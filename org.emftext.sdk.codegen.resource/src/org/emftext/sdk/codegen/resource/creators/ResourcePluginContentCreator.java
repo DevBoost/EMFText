@@ -420,25 +420,27 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 			parser.setAttribute("type", secondaryConcreteSyntaxName);
 		}
 		
-		String lineBreakPointMarkerID = context.getLineBreakpointMarkerID();
-
-		XMLElement breakPointsExtension = root.createChild("extension");
-		breakPointsExtension.setAttribute("point", "org.eclipse.debug.core.breakpoints");
-		XMLElement breakpoint = breakPointsExtension.createChild("breakpoint");
-		breakpoint.setAttribute("class", lineBreakPointClassName);
-		breakpoint.setAttribute("id", pluginID + ".debug.breakpoint");
-		breakpoint.setAttribute("markerType", lineBreakPointMarkerID);
-		breakpoint.setAttribute("name", concreteSyntax.getName() + " Breakpoint");
-
-		XMLElement breakPointMarkerExtension = root.createChild("extension");
-		breakPointMarkerExtension.setAttribute("id", lineBreakPointMarkerID);
-		breakPointMarkerExtension.setAttribute("point", "org.eclipse.core.resources.markers");
-		XMLElement super1 = breakPointMarkerExtension.createChild("super");
-		super1.setAttribute("type", "org.eclipse.debug.core.lineBreakpointMarker");
-		XMLElement super2 = breakPointMarkerExtension.createChild("super");
-		super2.setAttribute("type", "org.eclipse.core.resources.textmarker");
-		XMLElement persistentMarker = breakPointMarkerExtension.createChild("persistent");
-		persistentMarker.setAttribute("value", "true");
+		if (context.isDebugSupportEnabled()) {
+			String lineBreakPointMarkerID = context.getLineBreakpointMarkerID();
+	
+			XMLElement breakPointsExtension = root.createChild("extension");
+			breakPointsExtension.setAttribute("point", "org.eclipse.debug.core.breakpoints");
+			XMLElement breakpoint = breakPointsExtension.createChild("breakpoint");
+			breakpoint.setAttribute("class", lineBreakPointClassName);
+			breakpoint.setAttribute("id", pluginID + ".debug.breakpoint");
+			breakpoint.setAttribute("markerType", lineBreakPointMarkerID);
+			breakpoint.setAttribute("name", concreteSyntax.getName() + " Breakpoint");
+	
+			XMLElement breakPointMarkerExtension = root.createChild("extension");
+			breakPointMarkerExtension.setAttribute("id", lineBreakPointMarkerID);
+			breakPointMarkerExtension.setAttribute("point", "org.eclipse.core.resources.markers");
+			XMLElement super1 = breakPointMarkerExtension.createChild("super");
+			super1.setAttribute("type", "org.eclipse.debug.core.lineBreakpointMarker");
+			XMLElement super2 = breakPointMarkerExtension.createChild("super");
+			super2.setAttribute("type", "org.eclipse.core.resources.textmarker");
+			XMLElement persistentMarker = breakPointMarkerExtension.createChild("persistent");
+			persistentMarker.setAttribute("value", "true");
+		}
 
 		if (context.isLaunchSupportEnabled()) {
 			root.addChild(generateLaunchConfigurationTypeExtension(context));
