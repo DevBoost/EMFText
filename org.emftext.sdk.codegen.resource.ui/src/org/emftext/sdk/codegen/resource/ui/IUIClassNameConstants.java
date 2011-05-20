@@ -387,21 +387,6 @@ import org.osgi.framework.BundleContext;
 @SuppressWarnings("restriction")
 public interface IUIClassNameConstants extends IClassNameConstants {
 	
-	public static String I_TEXT_EDITOR = ITextEditor.class.getName();
-	public static String I_ELEMENT_LABEL_PROVIDER = IElementLabelProvider.class.getName();
-	public static String I_ELEMENT_CONTENT_PROVIDER = IElementContentProvider.class.getName();
-	
-	public static String I_DEBUG_MODEL_PRESENTATION = IDebugModelPresentation.class.getName();
-	public static String I_LABEL_UPDATE = ILabelUpdate.class.getName();
-	public static String I_CHILDREN_COUNT_UPDATE = IChildrenCountUpdate.class.getName();
-	public static String I_CHILDREN_UPDATE = IChildrenUpdate.class.getName();
-	public static String I_HAS_CHILDREN_UPDATE = IHasChildrenUpdate.class.getName();
-	public static String I_TOGGLE_BREAKPOINTS_TARGET = IToggleBreakpointsTarget.class.getName();
-	public static String I_LABEL_PROVIDER_LISTENER = ILabelProviderListener.class.getName();
-	public static String I_LINE_BREAKPOINT = ILineBreakpoint.class.getName();
-	public static String I_VALUE_DETAIL_LISTENER = IValueDetailListener.class.getName();
-	public static String I_TEXT_SELECTION = ITextSelection.class.getName();
-	
 	public static String ABSTRACT_INFORMATION_CONTROL = AbstractInformationControl.class.getName();
 	public static String ABSTRACT_LAUNCH_CONFIGURATION_TAB = AbstractLaunchConfigurationTab.class.getName();
 	public static String ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP = AbstractLaunchConfigurationTabGroup.class.getName();
@@ -477,6 +462,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String EDITOR = Editor.class.getName();
 	public static String EDITORS_UI = EditorsUI.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
+	public static String ELEMENT_TREE_SELECTION_DIALOG = ElementTreeSelectionDialog.class.getName();
 	public static String ENUMERATION = Enumeration.class.getName();
 	public static String EVALUATION_MODE = EvaluationMode.class.getName();
 	public static String EVENT = Event.class.getName();
@@ -494,7 +480,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String E_PACKAGE = EPackage.class.getName();
 	public static String E_REFERENCE = EReference.class.getName();
 	public static String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
-	public static String ELEMENT_TREE_SELECTION_DIALOG = ElementTreeSelectionDialog.class.getName();
 	public static String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
 	public static String FILE = File.class.getName();
 	public static String FILE_DIALOG = FileDialog.class.getName();
@@ -537,6 +522,8 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_ANNOTATION_MODEL = IAnnotationModel.class.getName();
 	public static String I_ANNOTATION_MODEL_FACTORY = IAnnotationModelFactory.class.getName();
 	public static String I_BATCH_VALIDATOR = IBatchValidator.class.getName();
+	public static String I_CHILDREN_COUNT_UPDATE = IChildrenCountUpdate.class.getName();
+	public static String I_CHILDREN_UPDATE = IChildrenUpdate.class.getName();
 	public static String I_COMMAND = ICommand.class.getName();
 	public static String I_COMPLETION_PROPOSAL = ICompletionProposal.class.getName();
 	public static String I_CONFIGURATION_ELEMENT = IConfigurationElement.class.getName();
@@ -546,6 +533,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_CONTENT_OUTLINE_PAGE = IContentOutlinePage.class.getName();
 	public static String I_CONTEXT_INFORMATION = IContextInformation.class.getName();
 	public static String I_CONTEXT_INFORMATION_VALIDATOR = IContextInformationValidator.class.getName();
+	public static String I_DEBUG_MODEL_PRESENTATION = IDebugModelPresentation.class.getName();
 	public static String I_DELAYED_INPUT_CHANGE_PROVIDER = IDelayedInputChangeProvider.class.getName();
 	public static String I_DIALOG_CONSTANTS = IDialogConstants.class.getName();
 	public static String I_DOCUMENT = IDocument.class.getName();
@@ -554,9 +542,12 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_EDITOR_DESCRIPTOR = IEditorDescriptor.class.getName();
 	public static String I_EDITOR_INPUT = IEditorInput.class.getName();
 	public static String I_EDITOR_PART = IEditorPart.class.getName();
+	public static String I_ELEMENT_CONTENT_PROVIDER = IElementContentProvider.class.getName();
+	public static String I_ELEMENT_LABEL_PROVIDER = IElementLabelProvider.class.getName();
 	public static String I_EXTENSION_REGISTRY = IExtensionRegistry.class.getName();
 	public static String I_FILE = IFile.class.getName();
 	public static String I_FILE_EDITOR_INPUT = IFileEditorInput.class.getName();
+	public static String I_HAS_CHILDREN_UPDATE = IHasChildrenUpdate.class.getName();
 	public static String I_HYPERLINK = IHyperlink.class.getName();
 	public static String I_HYPERLINK_DETECTOR = IHyperlinkDetector.class.getName();
 	public static String I_INFORMATION_CONTROL = IInformationControl.class.getName();
@@ -568,6 +559,8 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_ITEM_LABEL_PROVIDER = IItemLabelProvider.class.getName();
 	public static String I_ITEM_PROPERTY_DESCRIPTOR = IItemPropertyDescriptor.class.getName();
 	public static String I_ITEM_PROPERTY_SOURCE = IItemPropertySource.class.getName();
+	public static String I_LABEL_PROVIDER_LISTENER = ILabelProviderListener.class.getName();
+	public static String I_LABEL_UPDATE = ILabelUpdate.class.getName();
 	public static String I_LAUNCH = ILaunch.class.getName();
 	public static String I_LAUNCH_CONFIGURATION = ILaunchConfiguration.class.getName();
 	public static String I_LAUNCH_CONFIGURATION_DIALOG = ILaunchConfigurationDialog.class.getName();
@@ -575,6 +568,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_LAUNCH_CONFIGURATION_TYPE = ILaunchConfigurationType.class.getName();
 	public static String I_LAUNCH_CONFIGURATION_WORKING_COPY = ILaunchConfigurationWorkingCopy.class.getName();
 	public static String I_LAUNCH_SHORTCUT2 = ILaunchShortcut2.class.getName();
+	public static String I_LINE_BREAKPOINT = ILineBreakpoint.class.getName();
 	public static String I_MARKER = IMarker.class.getName();
 	public static String I_MARKER_RESOLUTION = IMarkerResolution.class.getName();
 	public static String I_MARKER_RESOLUTION2 = IMarkerResolution2.class.getName();
@@ -614,6 +608,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_SOURCE_VIEWER = ISourceViewer.class.getName();
 	public static String I_STATUS = IStatus.class.getName();
 	public static String I_STRUCTURED_SELECTION = IStructuredSelection.class.getName();
+	public static String I_TEXT_EDITOR = ITextEditor.class.getName();
 	public static String I_TEXT_EDITOR_ACTION_CONSTANTS = ITextEditorActionConstants.class.getName();
 	public static String I_TEXT_EDITOR_ACTION_DEFINITION_IDS = ITextEditorActionDefinitionIds.class.getName();
 	public static String I_TEXT_HOVER = ITextHover.class.getName();
@@ -621,10 +616,13 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_TEXT_HOVER_EXTENSION2 = ITextHoverExtension2.class.getName();
 	public static String I_TEXT_OPERATION_TARGET = ITextOperationTarget.class.getName();
 	public static String I_TEXT_PRESENTATION_LISTENER = ITextPresentationListener.class.getName();
+	public static String I_TEXT_SELECTION = ITextSelection.class.getName();
 	public static String I_TEXT_VIEWER = ITextViewer.class.getName();
+	public static String I_TOGGLE_BREAKPOINTS_TARGET = IToggleBreakpointsTarget.class.getName();
 	public static String I_TOKEN = IToken.class.getName();
 	public static String I_TOKEN_SCANNER = ITokenScanner.class.getName();
 	public static String I_TREE_CONTENT_PROVIDER = ITreeContentProvider.class.getName();
+	public static String I_VALUE_DETAIL_LISTENER = IValueDetailListener.class.getName();
 	public static String I_VERTICAL_RULER = IVerticalRuler.class.getName();
 	public static String I_WIZARD = IWizard.class.getName();
 	public static String I_WIZARD_CATEGORY = IWizardCategory.class.getName();
@@ -777,11 +775,11 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String VERIFY_LISTENER = VerifyListener.class.getName(); 
 	public static String VIEWER = Viewer.class.getName();
 	public static String VIEWER_FILTER = ViewerFilter.class.getName();
-	public static String WORKBENCH_LABEL_PROVIDER = WorkbenchLabelProvider.class.getName();
-	public static String WORKBENCH_CONTENT_PROVIDER = WorkbenchContentProvider.class.getName();
 	public static String WINDOW = Window.class.getName();
 	public static String WINDOW_EVENT = WindowEvent.class.getName();
 	public static String WIZARD = Wizard.class.getName();
 	public static String WIZARD_PAGE = WizardPage.class.getName();
+	public static String WORKBENCH_CONTENT_PROVIDER = WorkbenchContentProvider.class.getName();
+	public static String WORKBENCH_LABEL_PROVIDER = WorkbenchLabelProvider.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
 }
