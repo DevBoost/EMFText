@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.resource.generators.util;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MATCHER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PATTERN;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -59,6 +60,101 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addGetRepeatingStringMethod(sc);
 		addMinimumMethod(sc);
 		addComputeLevenshteinDistanceMethod(sc);
+		addEncodeMethod1(sc);
+		addEncodeMethod2(sc);
+		addDecodeMethod(sc);
+		addConvertToStringMethod(sc);
+		addConvertFromStringMethod(sc);
+	}
+
+	private void addEncodeMethod1(JavaComposite sc) {
+		sc.add("public static String encode(char delimiter, String[] parts) {");
+		sc.add(LIST + "<String> partList = new " + ARRAY_LIST + "<String>();");
+		sc.add("for (String part : parts) {");
+		sc.add("partList.add(part);");
+		sc.add("}");
+		sc.add("return encode(delimiter, partList);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addEncodeMethod2(JavaComposite sc) {
+		sc.add("public static String encode(char delimiter, Iterable<String> parts) {");
+		sc.add("StringBuilder result = new StringBuilder();");
+		sc.add("for (String part : parts) {");
+		sc.add("String encodedPart = part.replace(\"\\\\\", \"\\\\\\\\\");");
+		sc.add("encodedPart = encodedPart.replace(\"\" + delimiter, \"\\\\\" + delimiter);");
+		sc.add("result.append(encodedPart);");
+		sc.add("result.append(delimiter);");
+		sc.add("}");
+		sc.add("return result.toString();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addDecodeMethod(JavaComposite sc) {
+		sc.add("public static " + LIST + "<String> decode(String text, char delimiter) {");
+		sc.add(LIST + "<String> parts = new " + ARRAY_LIST + "<String>();");
+		sc.addLineBreak();
+		sc.add("boolean escapeMode = false;");
+		sc.add("String part = \"\";");
+		sc.add("for (int i = 0; i < text.length(); i++) {");
+		sc.add("char c = text.charAt(i);");
+		sc.add("if (c == delimiter) {");
+		sc.add("if (escapeMode) {");
+		sc.add("part += delimiter;");
+		sc.add("escapeMode = false;");
+		sc.add("} else {");
+		sc.addComment("end of part");
+		sc.add("parts.add(part);");
+		sc.add("part = \"\";");
+		sc.add("}");
+		sc.add("} else if (c == '\\\\') {");
+		sc.add("if (escapeMode) {");
+		sc.add("part += '\\\\';");
+		sc.add("escapeMode = false;");
+		sc.add("} else {");
+		sc.add("escapeMode = true;");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("part += c;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return parts;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConvertToStringMethod(JavaComposite sc) {
+		sc.add("public static String convertToString(" + MAP + "<String, Object> properties) {");
+		sc.add(LIST + "<String> parts = new " + ARRAY_LIST + "<String>();");
+		sc.add("for (String key : properties.keySet()) {");
+		sc.add("Object value = properties.get(key);");
+		sc.add("if (value instanceof String) {");
+		sc.add("parts.add(encode('=', new String[] {key, (String) value}));");
+		sc.add("} else {");
+		// TODO
+		sc.add("System.out.println(\"Can't encode \" + value);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return encode(';', parts);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConvertFromStringMethod(JavaComposite sc) {
+		sc.add("public static " + MAP + "<String, String> convertFromString(String text) {");
+		sc.add(MAP + "<String, String> result = new " + LINKED_HASH_MAP + "<String, String>();");
+		sc.add(LIST + "<String> keyValuePairs = decode(text, ';');");
+		sc.add("for (String pair : keyValuePairs) {");
+		sc.add(LIST + "<String> keyAndValue = decode(pair, '=');");
+		sc.add("String key = keyAndValue.get(0);");
+		sc.add("String value = keyAndValue.get(1);");
+		sc.add("result.put(key, value);");
+		sc.add("}");
+		sc.add("return result;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addComputeLevenshteinDistanceMethod(JavaComposite sc) {

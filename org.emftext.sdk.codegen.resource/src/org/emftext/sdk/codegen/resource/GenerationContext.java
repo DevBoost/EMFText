@@ -391,4 +391,28 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	public boolean isLaunchSupportEnabled() {
 		return !OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.DISABLE_LAUNCH_SUPPORT);
 	}
+
+	public boolean isDebugSupportEnabled() {
+		return !OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.DISABLE_DEBUG_SUPPORT);
+	}
+
+	public String getSourceLocatorID() {
+		return getResourceUIPlugin().getName() + ".sourceLocator";
+	}
+
+	public String getSourcePathComputerID() {
+		return getResourceUIPlugin().getName() + ".sourcePathComputer";
+	}
+
+	public String getLineBreakpointMarkerID() {
+		return getResourcePlugin().getName() + ".debug.lineBreakpoint.marker";
+	}
+
+	public String getLineBreakpointAnnotationID() {
+		return getResourceUIPlugin().getName() + ".debug.lineBreakpoint";
+	}
+
+	public String getDebugModelID() {
+		return getResourcePlugin().getName() + ".debugModel";
+	}
 }

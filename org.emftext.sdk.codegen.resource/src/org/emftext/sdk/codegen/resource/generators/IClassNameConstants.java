@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -25,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.PushbackReader;
 import java.io.Reader;
@@ -34,8 +36,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
+import java.net.ConnectException;
 import java.net.MalformedURLException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -79,6 +85,7 @@ import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
@@ -89,11 +96,13 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
@@ -106,6 +115,33 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.debug.core.DebugEvent;
+import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.IBreakpointManager;
+import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.model.DebugElement;
+import org.eclipse.debug.core.model.IBreakpoint;
+import org.eclipse.debug.core.model.IDebugTarget;
+import org.eclipse.debug.core.model.IMemoryBlock;
+import org.eclipse.debug.core.model.IProcess;
+import org.eclipse.debug.core.model.IRegisterGroup;
+import org.eclipse.debug.core.model.IStackFrame;
+import org.eclipse.debug.core.model.IStreamsProxy;
+import org.eclipse.debug.core.model.IThread;
+import org.eclipse.debug.core.model.IValue;
+import org.eclipse.debug.core.model.IVariable;
+import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
+import org.eclipse.debug.core.model.LineBreakpoint;
+import org.eclipse.debug.core.sourcelookup.AbstractSourceLookupDirector;
+import org.eclipse.debug.core.sourcelookup.AbstractSourceLookupParticipant;
+import org.eclipse.debug.core.sourcelookup.ISourceContainer;
+import org.eclipse.debug.core.sourcelookup.ISourceContainerType;
+import org.eclipse.debug.core.sourcelookup.ISourceLookupDirector;
+import org.eclipse.debug.core.sourcelookup.ISourceLookupParticipant;
+import org.eclipse.debug.core.sourcelookup.ISourcePathComputerDelegate;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -158,6 +194,49 @@ import org.osgi.framework.BundleContext;
  * Constants for class names used in the generated code.
  */
 public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.IClassNameConstants {
+	
+	public static String I_ADAPTER_FACTORY = IAdapterFactory.class.getName();
+	
+	public static String I_LAUNCH_MANAGER = ILaunchManager.class.getName();
+	public static String LAUNCH_CONFIGURATION_DELEGATE = LaunchConfigurationDelegate.class.getName();
+	public static String I_SOURCE_PATH_COMPUTER_DELEGATE = ISourcePathComputerDelegate.class.getName();
+	public static String I_SOURCE_CONTAINER = ISourceContainer.class.getName();
+	public static String I_SOURCE_LOOKUP_DIRECTOR = ISourceLookupDirector.class.getName();
+	public static String I_LAUNCH_CONFIGURATION = ILaunchConfiguration.class.getName();
+	public static String I_SOURCE_CONTAINER_TYPE = ISourceContainerType.class.getName();
+	public static String I_REGISTER_GROUP = IRegisterGroup.class.getName();
+	
+	public static String LINE_BREAKPOINT = LineBreakpoint.class.getName();
+	public static String I_WORKSPACE_RUNNABLE = IWorkspaceRunnable.class.getName();
+	public static String ABSTRACT_SOURCE_LOOKUP_DIRECTOR = AbstractSourceLookupDirector.class.getName();
+	public static String ABSTRACT_SOURCE_LOOKUP_PARTICIPANT = AbstractSourceLookupParticipant.class.getName();
+	public static String I_SOURCE_LOOKUP_PARTICIPANT = ISourceLookupParticipant.class.getName();
+	
+	public static String I_PROCESS = IProcess.class.getName();
+	public static String I_LAUNCH = ILaunch.class.getName();
+	public static String DEBUG_EXCEPTION = DebugException.class.getName();
+	public static String I_STREAMS_PROXY = IStreamsProxy.class.getName();
+	public static String UNKNOWN_HOST_EXCEPTION = UnknownHostException.class.getName();
+	public static String BUFFERED_INPUT_STREAM = BufferedInputStream.class.getName();
+	
+	public static String I_VARIABLE = IVariable.class.getName();
+	public static String I_VALUE = IValue.class.getName();
+	public static String I_THREAD = IThread.class.getName();
+	public static String CONNECT_EXCEPTION = ConnectException.class.getName();
+	public static String I_BREAKPOINT = IBreakpoint.class.getName();
+	public static String I_MARKER_DELTA = IMarkerDelta.class.getName();
+	public static String I_MEMORY_BLOCK = IMemoryBlock.class.getName();
+	public static String I_STACK_FRAME = IStackFrame.class.getName();
+	public static String DEBUG_EVENT = DebugEvent.class.getName();
+	
+	public static String DEBUG_ELEMENT = DebugElement.class.getName();
+	public static String I_DEBUG_TARGET = IDebugTarget.class.getName();
+	public static String I_BREAKPOINT_MANAGER = IBreakpointManager.class.getName();
+	public static String DEBUG_PLUGIN = DebugPlugin.class.getName();
+	
+	public static String PRINT_STREAM = PrintStream.class.getName();
+	public static String SERVER_SOCKET = ServerSocket.class.getName();
+	public static String SOCKET = Socket.class.getName();
 	
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ADAPTER = Adapter.class.getName();

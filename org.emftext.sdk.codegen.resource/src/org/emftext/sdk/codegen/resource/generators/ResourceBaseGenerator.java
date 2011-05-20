@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IArtifactParameter;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -25,7 +26,8 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 
 	private String resourceClassName;
 	private String resourcePackageName;
-
+	
+	protected String abstractDebuggableClassName;
 	protected String abstractExpectedElementClassName;
 	protected String abstractInterpreterClassName;
 	protected String antlrGrammarClassName;
@@ -35,13 +37,14 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String antlrScannerClassName;
 	protected String attributeValueProviderClassName;
 	protected String babylonSpecificationClassName;
-	protected String bracketInformationProviderClassName;
 	protected String booleanTerminalClassName;
+	protected String bracketInformationProviderClassName;
 	protected String buildPropertiesClassName;
 	protected String builderAdapterClassName;
 	protected String builderClassName;
 	protected String cardinalityClassName;
 	protected String castUtilClassName;
+	protected String changeReferenceQuickFixClassName;
 	protected String choiceClassName;
 	protected String compoundClassName;
 	protected String containmentClassName;
@@ -49,6 +52,17 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String contextDependentUriFragmentFactoryClassName;
 	protected String copiedEListClassName;
 	protected String copiedEObjectInternalEListClassName;
+	protected String debugCommunicationHelperClassName;
+	protected String debugElementClassName;
+	protected String debugMessageClassName;
+	protected String debugProcessClassName;
+	protected String debugProxyClassName;
+	protected String debugTargetClassName;
+	protected String debugThreadClassName;
+	protected String debugValueClassName;
+	protected String debugVariableClassName;
+	protected String debuggableInterpreterClassName;
+	protected String debuggerListenerClassName;
 	protected String defaultResolverDelegateClassName;
 	protected String defaultTokenResolverClassName;
 	protected String delegatingResolveResultClassName;
@@ -57,6 +71,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String dummyEObjectClassName;
 	protected String dynamicTokenStyleClassName;
 	protected String eClassUtilClassName;
+	protected String eDebugMessageTypesClassName;
 	protected String eObjectUtilClassName;
 	protected String eProblemSeverityClassName;
 	protected String eProblemTypeClassName;
@@ -79,16 +94,19 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String iConfigurableClassName;
 	protected String iContextDependentUriFragmentClassName;
 	protected String iContextDependentUriFragmentFactoryClassName;
+	protected String iDebugEventListenerClassName;
 	protected String iElementMappingClassName;
 	protected String iExpectedElementClassName;
 	protected String iHoverTextProviderClassName;
 	protected String iInputStreamProcessorProviderClassName;
+	protected String iInterpreterListenerClassName;
 	protected String iLocationMapClassName;
 	protected String iMetaInformationClassName;
 	protected String iOptionProviderClassName;
 	protected String iOptionsClassName;
 	protected String iParseResultClassName;
 	protected String iProblemClassName;
+	protected String iQuickFixClassName;
 	protected String iReferenceCacheClassName;
 	protected String iReferenceMappingClassName;
 	protected String iReferenceResolveResultClassName;
@@ -111,13 +129,15 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String iUriMappingClassName;
 	protected String inputStreamProcessorClassName;
 	protected String keywordClassName;
+	protected String launchConfigurationDelegateClassName;
 	protected String layoutInformationAdapterClassName;
 	protected String layoutInformationClassName;
 	protected String lineBreakClassName;
+	protected String lineBreakpointClassName;
 	protected String listUtilClassName;
 	protected String locationMapClassName;
-	protected String markerHelperClassName;
 	protected String mapUtilClassName;
+	protected String markerHelperClassName;
 	protected String metaInformationClassName;
 	protected String minimalModelHelperClassName;
 	protected String natureClassName;
@@ -129,6 +149,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String printer2ClassName;
 	protected String printerClassName;
 	protected String problemClassName;
+	protected String quickFixClassName;
 	protected String referenceResolveResultClassName;
 	protected String referenceResolverSwitchClassName;
 	protected String resourceFactoryClassName;
@@ -139,6 +160,10 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String scannerlessParserClassName;
 	protected String scannerlessScannerClassName;
 	protected String sequenceClassName;
+	protected String sourceLocatorClassName;
+	protected String sourceLookupParticipantClassName;
+	protected String sourcePathComputerDelegateClassName;
+	protected String stackFrameClassName;
 	protected String streamUtilClassName;
 	protected String stringUtilClassName;
 	protected String syntaxCoverageInformationProviderClassName;
@@ -158,13 +183,11 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String unicodeConverterClassName;
 	protected String uriMappingClassName;
 	protected String whiteSpaceClassName;
-	protected String quickFixClassName;
-	protected String iQuickFixClassName;
-	protected String changeReferenceQuickFixClassName;
-
+	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
 		
+		abstractDebuggableClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_DEBUGGABLE);
 		abstractExpectedElementClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
 		abstractInterpreterClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_INTERPRETER);
 		antlrGrammarClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_GRAMMAR);
@@ -173,13 +196,14 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		antlrParserClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER);
 		antlrScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_SCANNER);
 		attributeValueProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
-		bracketInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
 		booleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.BOOLEAN_TERMINAL);
+		bracketInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
 		buildPropertiesClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILD_PROPERTIES);
 		builderAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER);
 		builderClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER);
 		cardinalityClassName = context.getQualifiedClassName(TextResourceArtifacts.CARDINALITY);
 		castUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.CAST_UTIL);
+		changeReferenceQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.CHANGE_REFERENCE_QUICK_FIX);
 		choiceClassName = context.getQualifiedClassName(TextResourceArtifacts.CHOICE);
 		compoundClassName = context.getQualifiedClassName(TextResourceArtifacts.COMPOUND);
 		containmentClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTAINMENT);
@@ -187,6 +211,17 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		contextDependentUriFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 		copiedEListClassName = context.getQualifiedClassName(TextResourceArtifacts.COPIED_E_LIST);
 		copiedEObjectInternalEListClassName = context.getQualifiedClassName(TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
+		debugCommunicationHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_COMMUNICATION_HELPER);
+		debugElementClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_ELEMENT);
+		debugMessageClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_MESSAGE);
+		debugProcessClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_PROCESS);
+		debugProxyClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_PROXY);
+		debugTargetClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_TARGET);
+		debugThreadClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_THREAD);
+		debugValueClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_VALUE);
+		debugVariableClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_VARIABLE);
+		debuggableInterpreterClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUGGABLE_INTERPRETER);
+		debuggerListenerClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUGGER_LISTENER);
 		defaultResolverDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
 		defaultTokenResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
 		delegatingResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);
@@ -195,6 +230,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		dummyEObjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DUMMY_E_OBJECT);
 		dynamicTokenStyleClassName = context.getQualifiedClassName(TextResourceArtifacts.DYNAMIC_TOKEN_STYLER);
 		eClassUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_CLASS_UTIL);
+		eDebugMessageTypesClassName = context.getQualifiedClassName(TextResourceArtifacts.E_DEBUG_MESSAGE_TYPES);
 		eObjectUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);
 		eProblemSeverityClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_SEVERITY);
 		eProblemTypeClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
@@ -217,16 +253,19 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		iConfigurableClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONFIGURABLE);
 		iContextDependentUriFragmentClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
 		iContextDependentUriFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		iDebugEventListenerClassName = context.getQualifiedClassName(TextResourceArtifacts.I_DEBUG_EVENT_LISTENER);
 		iElementMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.I_ELEMENT_MAPPING);
 		iExpectedElementClassName = context.getQualifiedClassName(TextResourceArtifacts.I_EXPECTED_ELEMENT);
 		iHoverTextProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_HOVER_TEXT_PROVIDER);
 		iInputStreamProcessorProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_INPUT_STREAM_PROCESSOR_PROVIDER);
+		iInterpreterListenerClassName = context.getQualifiedClassName(TextResourceArtifacts.I_INTERPRETER_LISTENER);
 		iLocationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.I_LOCATION_MAP);
 		iMetaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.I_META_INFORMATION);
 		iOptionProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER);
 		iOptionsClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
 		iParseResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_PARSE_RESULT);
 		iProblemClassName = context.getQualifiedClassName(TextResourceArtifacts.I_PROBLEM);
+		iQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
 		iReferenceCacheClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_CACHE);
 		iReferenceMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_MAPPING);
 		iReferenceResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
@@ -249,9 +288,11 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		iUriMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.I_URI_MAPPING);
 		inputStreamProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.INPUT_STREAM_PROCESSOR);
 		keywordClassName = context.getQualifiedClassName(TextResourceArtifacts.KEYWORD);
+		launchConfigurationDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
 		layoutInformationAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
 		layoutInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION);
 		lineBreakClassName = context.getQualifiedClassName(TextResourceArtifacts.LINE_BREAK);
+		lineBreakpointClassName = context.getQualifiedClassName(TextResourceArtifacts.LINEBREAK_POINT);
 		listUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.LIST_UTIL);
 		locationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.LOCATION_MAP);
 		mapUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
@@ -267,6 +308,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		printer2ClassName = context.getQualifiedClassName(TextResourceArtifacts.PRINTER2);
 		printerClassName = context.getQualifiedClassName(TextResourceArtifacts.PRINTER);
 		problemClassName = context.getQualifiedClassName(TextResourceArtifacts.PROBLEM);
+		quickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.QUICK_FIX);
 		referenceResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
 		referenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		resourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
@@ -277,6 +319,10 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		scannerlessParserClassName = context.getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_PARSER);
 		scannerlessScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.SCANNERLESS_SCANNER);
 		sequenceClassName = context.getQualifiedClassName(TextResourceArtifacts.SEQUENCE);
+		sourceLocatorClassName = context.getQualifiedClassName(TextResourceArtifacts.SOURCE_LOCATOR);
+		sourceLookupParticipantClassName = context.getQualifiedClassName(TextResourceArtifacts.SOURCE_LOOKUP_PARTICIPANT);
+		sourcePathComputerDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.SOURCE_PATH_COMPUTER_DELEGATE);
+		stackFrameClassName = context.getQualifiedClassName(TextResourceArtifacts.STACK_FRAME);
 		streamUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.STREAM_UTIL);
 		stringUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.STRING_UTIL);
 		syntaxCoverageInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
@@ -296,9 +342,6 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		unicodeConverterClassName = context.getQualifiedClassName(TextResourceArtifacts.UNICODE_CONVERTER);
 		uriMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.URI_MAPPING);
 		whiteSpaceClassName = context.getQualifiedClassName(TextResourceArtifacts.WHITE_SPACE);
-		iQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.I_QUICK_FIX);
-		quickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.QUICK_FIX);
-		changeReferenceQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.CHANGE_REFERENCE_QUICK_FIX);
 	}
 
 	protected String getResourceClassName() {
@@ -318,4 +361,12 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 			this.resourceClassName = getContext().getClassName(artifact);
 		}
     }
+
+	protected void generateEmptyClass(JavaComposite sc) {
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.add("public class " + getResourceClassName() + " {");
+		sc.addComment("The generator for this class is currently disabled by some option set in the .cs file.");
+		sc.add("}");
+	}
 }

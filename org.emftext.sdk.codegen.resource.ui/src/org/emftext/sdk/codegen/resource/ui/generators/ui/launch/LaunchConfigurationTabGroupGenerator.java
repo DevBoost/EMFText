@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.resource.ui.generators.ui;
+package org.emftext.sdk.codegen.resource.ui.generators.ui.launch;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_CONFIGURATION_DIALOG;

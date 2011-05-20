@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui;
 
+import static org.emftext.sdk.codegen.Constants.UI_DEBUG_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.UI_LAUNCH_PACKAGE;
 import static org.emftext.sdk.codegen.Constants.UI_PACKAGE;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
@@ -54,10 +56,6 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.IAnnotationModelProvide
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ImageProviderGenerator;
-import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchConfigurationDelegateGenerator;
-import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchConfigurationMainTabGenerator;
-import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchConfigurationTabGroupGenerator;
-import org.emftext.sdk.codegen.resource.ui.generators.ui.LaunchShortcutGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerAnnotationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerResolutionGeneratorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.NewFileWizardGenerator;
@@ -83,6 +81,12 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.TextHoverGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.TokenScannerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.UIMetaInformationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.UIPluginActivatorGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.debug.AdapterFactoryGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.debug.DebugModelPresentationGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.debug.LineBreakpointAdapterGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.launch.LaunchConfigurationMainTabGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.launch.LaunchConfigurationTabGroupGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.launch.LaunchShortcutGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class TextResourceUIArtifacts {
@@ -151,9 +155,12 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistProcessor", QuickAssistProcessorGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_PROCESSOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> IMAGE_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ImageProvider", ImageProviderGenerator.class, OptionTypes.OVERRIDE_IMAGE_PROVIDER);
 
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchConfigurationDelegate", LaunchConfigurationDelegateGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE);
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_MAIN_TAB = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchConfigurationMainTab", LaunchConfigurationMainTabGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB);
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_TAB_GROUP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchConfigurationTabGroup", LaunchConfigurationTabGroupGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP);
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_SHORTCUT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "LaunchShortcut", LaunchShortcutGenerator.class, OptionTypes.OVERRIDE_LAUNCH_SHORTCUT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_MAIN_TAB = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_LAUNCH_PACKAGE, "", "LaunchConfigurationMainTab", LaunchConfigurationMainTabGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_MAIN_TAB);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_TAB_GROUP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_LAUNCH_PACKAGE, "", "LaunchConfigurationTabGroup", LaunchConfigurationTabGroupGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_SHORTCUT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_LAUNCH_PACKAGE, "", "LaunchShortcut", LaunchShortcutGenerator.class, OptionTypes.OVERRIDE_LAUNCH_SHORTCUT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PROPERTY_TESTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PropertyTester", PropertyTesterGenerator.class, OptionTypes.OVERRIDE_PROPERTY_TESTER);
+
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_MODEL_PRESENTATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_DEBUG_PACKAGE, "", "DebugModelPresentation", DebugModelPresentationGenerator.class, OptionTypes.OVERRIDE_DEBUG_MODEL_PRESENTATION);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LINE_BREAKPOINT_ADAPTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_DEBUG_PACKAGE, "", "LineBreakpointAdapter", LineBreakpointAdapterGenerator.class, OptionTypes.OVERRIDE_LINE_BREAKPOINT_ADAPTER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ADAPTER_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_DEBUG_PACKAGE, "", "AdapterFactory", AdapterFactoryGenerator.class, OptionTypes.OVERRIDE_ADAPTER_FACTORY);
 }

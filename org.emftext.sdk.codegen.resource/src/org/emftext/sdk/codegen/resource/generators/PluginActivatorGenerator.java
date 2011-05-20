@@ -121,6 +121,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		);
 		sc.add("public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + \".default_load_options\";");
 		sc.add("public static final String EP_ADDITIONAL_EXTENSION_PARSER_ID = PLUGIN_ID + \".additional_extension_parser\";");
+		sc.add("public static final String DEBUG_MODEL_ID = PLUGIN_ID + \".debugModel\";");
 		sc.addLineBreak();
 		sc.add("private static " + getResourceClassName() + " plugin;");
 		sc.addLineBreak();

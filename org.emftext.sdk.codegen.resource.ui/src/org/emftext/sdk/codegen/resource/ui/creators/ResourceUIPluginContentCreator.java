@@ -118,6 +118,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_tab_main_icon.gif"), getLaunchTabMainIconFile(resourceUIPlugin, context), false));
 		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_type_icon.gif"), getLaunchConfigurationTypeIconFile(resourceUIPlugin, context), false));
 		}
+	    if (context.isDebugSupportEnabled()) {
+		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_breakpoint_icon.gif"), getBreakpointIconFile(resourceUIPlugin, context), false));
+		}
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
 	    // add UI generators
@@ -173,12 +176,15 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.QUICK_ASSIST_PROCESSOR);
 	    add(creators, TextResourceUIArtifacts.IMAGE_PROVIDER);
 	    
-	    add(creators, TextResourceUIArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
 	    add(creators, TextResourceUIArtifacts.LAUNCH_CONFIGURATION_MAIN_TAB);
 	    add(creators, TextResourceUIArtifacts.LAUNCH_CONFIGURATION_TAB_GROUP);
 	    add(creators, TextResourceUIArtifacts.LAUNCH_SHORTCUT);
 	    add(creators, TextResourceUIArtifacts.PROPERTY_TESTER);
-	    
+
+	    add(creators, TextResourceUIArtifacts.DEBUG_MODEL_PRESENTATION);
+	    add(creators, TextResourceUIArtifacts.LINE_BREAKPOINT_ADAPTER);
+	    add(creators, TextResourceUIArtifacts.ADAPTER_FACTORY);
+
 		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceUIArtifacts.PLUGIN_XML;
 	    creators.add(new PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
 	    return creators;
@@ -208,17 +214,17 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		informationProvider.setAttribute("class", uiMetaInformationClass);
 		informationProvider.setAttribute("id", uiMetaInformationClass);
 
-		String editorName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
+		String editorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
 
 		// registers the editor itself
 		XMLElement editorExtension = root.createChild("extension");
 		editorExtension.setAttribute("point", "org.eclipse.ui.editors");
 		XMLElement editor = editorExtension.createChild("editor");
-		editor.setAttribute("class", editorName);
+		editor.setAttribute("class", editorClassName);
 		editor.setAttribute("contributorClass", "org.eclipse.ui.texteditor.BasicTextEditorActionContributor");
 		editor.setAttribute("extensions", primaryConcreteSyntaxName);
 		editor.setAttribute("icon", "icons/" + UIConstants.DEFAULT_EDITOR_ICON_NAME);
-		editor.setAttribute("id", editorName);
+		editor.setAttribute("id", editorClassName);
 		editor.setAttribute("name", "EMFText " + concreteSyntax.getName() + " Editor");
 		
 		XMLElement contentTypeBinding = editor.createChild("contentTypeBinding");
@@ -351,15 +357,144 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		}
 
 		if (context.isLaunchSupportEnabled()) {
-			root.addChild(generateLaunchTypeExtension(context));
 			root.addChild(generateLaunchConfigurationTypeImageExtension(context));
 			root.addChild(generateLaunchTabGroup(context));
 			root.addChild(generateLaunchShortcutExtension(context));
 			root.addChild(generatePropertyTesterExtension(context));
 		}
+		if (context.isDebugSupportEnabled()) {
+			root.addChild(generateBreakpointAnnotationTypeExtension(context));
+			root.addChild(generateBreakpointMarkerAnnotationSpecificationExtension(context));
+			root.addChild(generateAdapterFactoryExtension(context));
+			root.addChild(generateRulerPopupExtension(context));
+			root.addChild(generateBreakpointRuleActionExtension(context));
+			root.addChild(generateDebugModelPresentationExtension(context));
+		}
 
 		XMLParameters<GenerationContext> parameters = new XMLParameters<GenerationContext>(TextResourceArtifacts.PLUGIN_XML, resourceUIPlugin, root);
 		return parameters;
+	}
+
+	private XMLElement generateDebugModelPresentationExtension(GenerationContext context) {
+		String debugModelPresentationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DEBUG_MODEL_PRESENTATION);
+		
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.debug.ui.debugModelPresentations");
+		XMLElement debugModelPresentation = extension.createChild("debugModelPresentation");
+		debugModelPresentation.setAttribute("id", context.getDebugModelID());
+		debugModelPresentation.setAttribute("class", debugModelPresentationClassName);
+		return extension;
+	}
+
+	private XMLElement generateBreakpointRuleActionExtension(GenerationContext context) {
+		String editorID = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
+		String uiPluginName = context.getResourceUIPlugin().getName();
+
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.ui.editorActions");
+		XMLElement editorContribution = extension.createChild("editorContribution");
+		editorContribution.setAttribute("targetID", editorID);
+		editorContribution.setAttribute("id", uiPluginName + ".BreakpointRulerActions");
+		XMLElement action = editorContribution.createChild("action");
+		action.setAttribute("id", uiPluginName + ".debug.RulerToggleBreakpointAction");
+		action.setAttribute("label", "Add breakpoint");
+		action.setAttribute("class", "org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate");
+		action.setAttribute("actionID", "RulerDoubleClick");
+		return extension;
+	}
+
+	private XMLElement generateRulerPopupExtension(GenerationContext context) {
+		String uiPluginName = context.getResourceUIPlugin().getName();
+		
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.ui.popupMenus");
+		XMLElement viewerContribution = extension.createChild("viewerContribution");
+		viewerContribution.setAttribute("id", uiPluginName + ".RulerPopupActions");
+		viewerContribution.setAttribute("targetID", "#TextRulerContext");
+		
+		XMLElement action = viewerContribution.createChild("action"); 
+		action.setAttribute("id", uiPluginName + ".toggleBreakpointAction"); 
+		action.setAttribute("icon", "icons/breakpoint_icon.gif");
+		// TODO use %key for label
+		action.setAttribute("label", "Toggle Breakpoint");
+		action.setAttribute("class", "org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate");
+		action.setAttribute("menubarPath", "debug");
+		return extension;
+	}
+
+	private XMLElement generateAdapterFactoryExtension(GenerationContext context) {
+		String editorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
+		String adapterFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ADAPTER_FACTORY);
+		String debugVariableClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_VARIABLE);
+		
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.core.runtime.adapters");
+		XMLElement factory1 = extension.createChild("factory");
+		// register generated editor
+		factory1.setAttribute("adaptableType", editorClassName);
+		factory1.setAttribute("class", adapterFactoryClassName);
+		XMLElement adapter1 = factory1.createChild("adapter");
+		adapter1.setAttribute("type", "org.eclipse.debug.ui.actions.IToggleBreakpointsTarget");
+
+		XMLElement factory2 = extension.createChild("factory");
+		factory2.setAttribute("adaptableType", debugVariableClassName);
+		factory2.setAttribute("class", adapterFactoryClassName);
+		XMLElement adapter2 = factory2.createChild("adapter");
+		adapter2.setAttribute("type", "org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider");
+
+		XMLElement factory3 = extension.createChild("factory");
+		factory3.setAttribute("adaptableType", debugVariableClassName);
+		factory3.setAttribute("class", adapterFactoryClassName);
+		XMLElement adapter3 = factory3.createChild("adapter");
+		adapter3.setAttribute("type", "org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider");
+		
+		return extension;
+	}
+
+	private XMLElement generateBreakpointMarkerAnnotationSpecificationExtension(GenerationContext context) {
+		String breakpointAnnotationTypeID = context.getLineBreakpointAnnotationID();
+		String syntaxName = context.getConcreteSyntax().getName();
+		IPluginDescriptor uiPluginName = context.getResourceUIPlugin();
+
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.ui.editors.markerAnnotationSpecification");
+		XMLElement specification = extension.createChild("specification"); 
+		specification.setAttribute("annotationType", breakpointAnnotationTypeID); 
+		specification.setAttribute("label", "Breakpoints (in ." + syntaxName + " files)");
+		specification.setAttribute("icon", "/icons/breakpoint_icon.gif"); 
+		specification.setAttribute("textPreferenceKey", uiPluginName + ".lineBreakpoint"); 
+		specification.setAttribute("textPreferenceValue", "false"); 
+		specification.setAttribute("highlightPreferenceKey", uiPluginName + ".lineBreakpointHighlighting"); 
+		specification.setAttribute("highlightPreferenceValue", "true"); 
+		specification.setAttribute("contributesToHeader", "false"); 
+		specification.setAttribute("overviewRulerPreferenceKey", uiPluginName + ".lineBreakpointIndicationInOverviewRuler"); 
+		specification.setAttribute("overviewRulerPreferenceValue", "true"); 
+		specification.setAttribute("verticalRulerPreferenceKey", uiPluginName + ".lineBreakpointIndicationInVerticalRuler"); 
+		specification.setAttribute("verticalRulerPreferenceValue", "false"); 
+		specification.setAttribute("colorPreferenceKey", uiPluginName + ".lineBreakpointColor"); 
+		specification.setAttribute("colorPreferenceValue", "212,212,212"); 
+		specification.setAttribute("presentationLayer", "4"); 
+		specification.setAttribute("showInNextPrevDropdownToolbarActionKey", uiPluginName + ".showLineBreakpointInNextPrevDropdownToolbarAction"); 
+		specification.setAttribute("showInNextPrevDropdownToolbarAction", "true"); 
+		specification.setAttribute("isGoToNextNavigationTargetKey", uiPluginName + ".isLineBreakpointGoToNextNavigationTarget"); 
+		specification.setAttribute("isGoToNextNavigationTarget", "false"); 
+		specification.setAttribute("isGoToPreviousNavigationTargetKey", uiPluginName + ".isLineBreakpointGoToPreviousNavigationTarget"); 
+		specification.setAttribute("isGoToPreviousNavigationTarget", "false"); 
+		specification.setAttribute("textStylePreferenceKey", uiPluginName + ".lineBreakpointTextStyle"); 
+		specification.setAttribute("textStylePreferenceValue", "NONE");
+		return extension;
+	}
+
+	private XMLElement generateBreakpointAnnotationTypeExtension(GenerationContext context) {
+		String breakpointAnnotationTypeID = context.getLineBreakpointAnnotationID();
+
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.ui.editors.annotationTypes");
+		XMLElement type = extension.createChild("type");
+		type.setAttribute("name", breakpointAnnotationTypeID);
+		type.setAttribute("markerType", context.getLineBreakpointMarkerID());
+		type.setAttribute("super", "org.eclipse.debug.core.breakpoint");
+		return extension;
 	}
 
 	private String getPrimarySyntaxName(ConcreteSyntax concreteSyntax) {
@@ -400,29 +535,6 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 				: concreteSyntaxBasePackage + ".")
 				+ concreteSyntaxName;
 		return baseId;
-	}
-
-	private XMLElement generateLaunchTypeExtension(GenerationContext context) {
-		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
-		final String concreteSyntaxName = concreteSyntax.getName();
-		final String launchConfigurationDelegateClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
-		final String launchConfigurationID = context.getLaunchConfigurationTypeID();
-
-		XMLElement launchTypeExtension = new XMLElement("extension");
-		launchTypeExtension.setAttribute("point", "org.eclipse.debug.core.launchConfigurationTypes");
-		
-		XMLElement launchConfigurationTypeExtension = launchTypeExtension.createChild("launchConfigurationType");
-		launchConfigurationTypeExtension.setAttribute("id", launchConfigurationID);
-		launchConfigurationTypeExtension.setAttribute("delegate", launchConfigurationDelegateClassName);
-		launchConfigurationTypeExtension.setAttribute("modes", "run,debug");
-		launchConfigurationTypeExtension.setAttribute("name", concreteSyntaxName + " Application");
-		//launchConfigurationTypeExtension.setAttribute("migrationDelegate", "com.example.migrationDelegate");
-		//launchConfigurationTypeExtension.setAttribute("sourceLocatorId", "com.example.sourceLookupDirector");
-		//launchConfigurationTypeExtension.setAttribute("sourcePathComputerId", "com.example.sourcePathComputer");
-		launchConfigurationTypeExtension.setAttribute("delegateName", concreteSyntaxName + " Launch Tooling");
-		launchConfigurationTypeExtension.setAttribute("delegateDescription", "This will run or debug ." + concreteSyntaxName + " files.");
-	
-		return launchTypeExtension;
 	}
 
 	private XMLElement generateLaunchShortcutExtension(GenerationContext context) {
@@ -634,6 +746,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 
 	private File getLaunchTabMainIconFile(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_LAUNCH_TAB_MAIN_ICON_NAME);
+	}
+
+	private File getBreakpointIconFile(IPluginDescriptor plugin, GenerationContext context) {
+		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_BREAKPOINT_ICON_NAME);
 	}
 
 	private File getLaunchConfigurationTypeIconFile(IPluginDescriptor plugin, GenerationContext context) {

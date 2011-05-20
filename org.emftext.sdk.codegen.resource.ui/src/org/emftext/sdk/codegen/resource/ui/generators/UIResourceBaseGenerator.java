@@ -46,7 +46,6 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String iBracketHandlerClassName;
 	protected String iBracketHandlerProviderClassName;
 	protected String imageProviderClassName;
-	protected String launchConfigurationDelegateClassName;
 	protected String launchConfigurationMainTabClassName;
 	protected String launchConfigurationTabGroupClassName;
 	protected String markerAnnotationClassName;
@@ -74,6 +73,10 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String tokenScannerClassName;
 	protected String uiMetaInformationClassName;
 	protected String uiPluginActivatorClassName;
+	
+	protected String debugModelPresentationClassName;
+	protected String lineBreakpointAdapterClassName;
+	protected String adapterFactoryClassName;
 
 	@Override
 	protected void initilizeClassNames() {
@@ -106,7 +109,6 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		iBracketHandlerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER);
 		iBracketHandlerProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER_PROVIDER);
 		imageProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.IMAGE_PROVIDER);
-		launchConfigurationDelegateClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
 		launchConfigurationMainTabClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_MAIN_TAB);
 		launchConfigurationTabGroupClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_TAB_GROUP);
 		markerAnnotationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_ANNOTATION);
@@ -134,5 +136,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		tokenScannerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.TOKEN_SCANNER);
 		uiMetaInformationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.UI_META_INFORMATION);
 		uiPluginActivatorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
+
+		debugModelPresentationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DEBUG_MODEL_PRESENTATION);
+		lineBreakpointAdapterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LINE_BREAKPOINT_ADAPTER);
+		adapterFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ADAPTER_FACTORY);
 	}
 }

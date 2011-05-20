@@ -19,6 +19,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STACK;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,9 +91,74 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		addContinueInterpretationMethod(sc);
 		addDoSwitchMethod(sc);
 		addInterpreteTypeMethods(sc);
+		addNotifyListenersMethod(sc);
 		addAddObjectToInterpreteMethod(sc);
 		addAddObjectsToInterpreteMethod(sc);
 		addAddObjectsToInterpreteInReverseOrderMethod(sc);
+		addAddObjectTreeToInterpreteTopDownMethod(sc);
+		addAddListenerMethod(sc);
+		addRemoveListenerMethod(sc);
+		addGetNextObjectToInterpreteMethod(sc);
+		addGetInterpretationStackMethod(sc);
+		addTerminateMethod(sc);
+		addGetCurrentContextMethod(sc);
+	}
+
+	private void addAddObjectTreeToInterpreteTopDownMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Adds the given object and all its children to the interpretation stack such that they are interpret in top down order."
+		);
+		sc.add("public void addObjectTreeToInterpreteTopDown(" + E_OBJECT + " root) {");
+		sc.add(LIST + "<" + E_OBJECT + "> objects = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
+		sc.add("objects.add(root);");
+		sc.add(ITERATOR + "<" + E_OBJECT + "> it = root.eAllContents();");
+		sc.add("while (it.hasNext()) {");
+		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") it.next();");
+		sc.add("objects.add(eObject);");
+		sc.add("}");
+		sc.add("addObjectsToInterpreteInReverseOrder(objects);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetNextObjectToInterpreteMethod(JavaComposite sc) {
+		sc.add("public " + E_OBJECT + " getNextObjectToInterprete() {");
+		sc.add("return nextObjectToInterprete;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetInterpretationStackMethod(JavaComposite sc) {
+		sc.add("public " + STACK + "<" + E_OBJECT + "> getInterpretationStack() {");
+		sc.add("return interpretationStack;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addTerminateMethod(JavaComposite sc) {
+		sc.add("public void terminate() {");
+		sc.add("interpretationStack.clear();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetCurrentContextMethod(JavaComposite sc) {
+		sc.add("public Object getCurrentContext() {");
+		sc.add("return currentContext;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addAddListenerMethod(JavaComposite sc) {
+		sc.add("public void addListener(" + iInterpreterListenerClassName + " newListener) {");
+		sc.add("listeners.add(newListener);");
+		sc.add("}");
+	}
+	
+	private void addRemoveListenerMethod(JavaComposite sc) {
+		sc.add("public boolean removeListener(" + iInterpreterListenerClassName + " listener) {");
+		sc.add("return listeners.remove(listener);");
+		sc.add("}");
 	}
 
 	private void addContinueInterpretationMethod(JavaComposite sc) {
@@ -184,22 +250,37 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + STACK + "<" + E_OBJECT + "> interpretationStack = new " + STACK + "<" + E_OBJECT + ">();");
+		sc.add("private " + LIST + "<" + iInterpreterListenerClassName + "> listeners = new " + ARRAY_LIST + "<" + iInterpreterListenerClassName + ">();");
+		sc.add("private " + E_OBJECT + " nextObjectToInterprete;");
+		sc.add("private Object currentContext;");
 		sc.addLineBreak();
 	}
 
 	private void addInterpreteMethod(StringComposite sc) {
 		sc.add("public ResultType interprete(ContextType context) {");
 		sc.add("ResultType result = null;");
+		sc.add("currentContext = context;");
 		sc.add("while (!interpretationStack.empty()) {");
 		sc.add(E_OBJECT + " next = interpretationStack.pop();");
+		sc.add("nextObjectToInterprete = next;");
+		sc.add("notifyListeners(next);");
 		sc.add("result = interprete(next, context);");
 		sc.add("if (!continueInterpretation(result)) {");
 		sc.add("break;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("currentContext = null;");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addNotifyListenersMethod(StringComposite sc) {
+		sc.add("private void notifyListeners(" + E_OBJECT + " element) {");
+		sc.add("for (" + iInterpreterListenerClassName + " listener : listeners) {");
+		sc.add("listener.handleInterpreteObject(element);");
+		sc.add("}");
+		sc.add("}");
 	}
 
 	private void addAddObjectToInterpreteMethod(JavaComposite sc) {

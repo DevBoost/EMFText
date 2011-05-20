@@ -109,14 +109,22 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
+import org.eclipse.debug.core.model.ILineBreakpoint;
+import org.eclipse.debug.internal.ui.viewers.model.provisional.IChildrenCountUpdate;
+import org.eclipse.debug.internal.ui.viewers.model.provisional.IChildrenUpdate;
+import org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider;
+import org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider;
+import org.eclipse.debug.internal.ui.viewers.model.provisional.IHasChildrenUpdate;
+import org.eclipse.debug.internal.ui.viewers.model.provisional.ILabelUpdate;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.debug.ui.IDebugModelPresentation;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.ILaunchShortcut2;
+import org.eclipse.debug.ui.IValueDetailListener;
+import org.eclipse.debug.ui.actions.IToggleBreakpointsTarget;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -207,6 +215,7 @@ import org.eclipse.jface.text.ITextHoverExtension;
 import org.eclipse.jface.text.ITextHoverExtension2;
 import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.jface.text.ITextPresentationListener;
+import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.Region;
@@ -249,6 +258,7 @@ import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -355,6 +365,7 @@ import org.eclipse.ui.part.Page;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel;
 import org.eclipse.ui.texteditor.ContentAssistAction;
+import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.texteditor.ITextEditorActionConstants;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
@@ -373,7 +384,23 @@ import org.osgi.framework.BundleContext;
 /**
  * Constants for class names used in the generated code.
  */
+@SuppressWarnings("restriction")
 public interface IUIClassNameConstants extends IClassNameConstants {
+	
+	public static String I_TEXT_EDITOR = ITextEditor.class.getName();
+	public static String I_ELEMENT_LABEL_PROVIDER = IElementLabelProvider.class.getName();
+	public static String I_ELEMENT_CONTENT_PROVIDER = IElementContentProvider.class.getName();
+	
+	public static String I_DEBUG_MODEL_PRESENTATION = IDebugModelPresentation.class.getName();
+	public static String I_LABEL_UPDATE = ILabelUpdate.class.getName();
+	public static String I_CHILDREN_COUNT_UPDATE = IChildrenCountUpdate.class.getName();
+	public static String I_CHILDREN_UPDATE = IChildrenUpdate.class.getName();
+	public static String I_HAS_CHILDREN_UPDATE = IHasChildrenUpdate.class.getName();
+	public static String I_TOGGLE_BREAKPOINTS_TARGET = IToggleBreakpointsTarget.class.getName();
+	public static String I_LABEL_PROVIDER_LISTENER = ILabelProviderListener.class.getName();
+	public static String I_LINE_BREAKPOINT = ILineBreakpoint.class.getName();
+	public static String I_VALUE_DETAIL_LISTENER = IValueDetailListener.class.getName();
+	public static String I_TEXT_SELECTION = ITextSelection.class.getName();
 	
 	public static String ABSTRACT_INFORMATION_CONTROL = AbstractInformationControl.class.getName();
 	public static String ABSTRACT_LAUNCH_CONFIGURATION_TAB = AbstractLaunchConfigurationTab.class.getName();
@@ -547,7 +574,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_LAUNCH_CONFIGURATION_TAB = ILaunchConfigurationTab.class.getName();
 	public static String I_LAUNCH_CONFIGURATION_TYPE = ILaunchConfigurationType.class.getName();
 	public static String I_LAUNCH_CONFIGURATION_WORKING_COPY = ILaunchConfigurationWorkingCopy.class.getName();
-	public static String I_LAUNCH_MANAGER = ILaunchManager.class.getName();
 	public static String I_LAUNCH_SHORTCUT2 = ILaunchShortcut2.class.getName();
 	public static String I_MARKER = IMarker.class.getName();
 	public static String I_MARKER_RESOLUTION = IMarkerResolution.class.getName();
@@ -618,7 +644,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String KEY_LISTENER = KeyListener.class.getName();
 	public static String LABEL = Label.class.getName();
 	public static String LABEL_PROVIDER = LabelProvider.class.getName();
-	public static String LAUNCH_CONFIGURATION_DELEGATE = LaunchConfigurationDelegate.class.getName();
 	public static String LEXER = Lexer.class.getName();
 	public static String LINK = Link.class.getName();
 	public static String LINKED_HASH_MAP = LinkedHashMap.class.getName();

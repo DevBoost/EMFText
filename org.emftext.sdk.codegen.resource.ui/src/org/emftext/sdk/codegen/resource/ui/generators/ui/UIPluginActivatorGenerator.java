@@ -28,6 +28,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
 // TODO this is a copy of class PluginActivatorGenerator in codegen.resource!
 public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -129,9 +130,12 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addFields(StringComposite sc) {
-		String resourceUIPluginName = getContext().getResourceUIPlugin().getName();
+		GenerationContext context = getContext();
+		String resourceUIPluginName = context.getResourceUIPlugin().getName();
+		String editorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
 
 		sc.add("public static final String PLUGIN_ID = \"" + resourceUIPluginName + "\";");
+		sc.add("public static final String EDITOR_ID = \"" + editorClassName + "\";");
 		sc.add("public static final String EMFTEXT_SDK_VERSION = \"" + EMFTextSDKPlugin.VERSION + "\";");
 		sc.add("public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + \".default_load_options\";");
 		sc.add("public static final String EP_ADDITIONAL_EXTENSION_PARSER_ID = PLUGIN_ID + \".additional_extension_parser\";");

@@ -151,6 +151,8 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ROOT));
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_ANALYSIS));
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_CC));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_DEBUG));
+		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_LAUNCH));
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_GRAMMAR));
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_MOPP));
 		exports.add(context.getPackageName(TextResourceArtifacts.PACKAGE_UTIL));
@@ -284,6 +286,28 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.RESOURCE_POST_PROCESSOR);
 	    
 	    add(creators, TextResourceArtifacts.TEXT_TOKEN);
+	    
+	    add(creators, TextResourceArtifacts.ABSTRACT_DEBUGGABLE);
+	    add(creators, TextResourceArtifacts.E_DEBUG_MESSAGE_TYPES);
+	    add(creators, TextResourceArtifacts.I_DEBUG_EVENT_LISTENER);
+	    add(creators, TextResourceArtifacts.I_INTERPRETER_LISTENER);
+	    add(creators, TextResourceArtifacts.DEBUG_COMMUNICATION_HELPER);
+	    add(creators, TextResourceArtifacts.DEBUG_ELEMENT);
+	    add(creators, TextResourceArtifacts.DEBUGGABLE_INTERPRETER);
+	    add(creators, TextResourceArtifacts.DEBUGGER_LISTENER);
+	    add(creators, TextResourceArtifacts.DEBUG_MESSAGE);
+	    add(creators, TextResourceArtifacts.DEBUG_PROCESS);
+	    add(creators, TextResourceArtifacts.DEBUG_PROXY);
+	    add(creators, TextResourceArtifacts.DEBUG_TARGET);
+	    add(creators, TextResourceArtifacts.DEBUG_THREAD);
+	    add(creators, TextResourceArtifacts.DEBUG_VALUE);
+	    add(creators, TextResourceArtifacts.DEBUG_VARIABLE);
+	    add(creators, TextResourceArtifacts.LINEBREAK_POINT);
+	    add(creators, TextResourceArtifacts.SOURCE_LOCATOR);
+	    add(creators, TextResourceArtifacts.SOURCE_LOOKUP_PARTICIPANT);
+	    add(creators, TextResourceArtifacts.SOURCE_PATH_COMPUTER_DELEGATE);
+	    add(creators, TextResourceArtifacts.STACK_FRAME);
+	    add(creators, TextResourceArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
 		return creators;
 	}
 
@@ -304,15 +328,16 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		final boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
 
 		// register the syntax meta information
-		String metaInformationClass = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
+		final String metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
+		final String lineBreakPointClassName = context.getQualifiedClassName(TextResourceArtifacts.LINEBREAK_POINT);
 		
 		XMLElement root = new XMLElement("plugin");
 		
 		XMLElement accessExtension = root.createChild("extension");
 		accessExtension.setAttribute("point", "org.emftext.access.syntax");
 		XMLElement informationProvider = accessExtension.createChild("metaInformationProvider");
-		informationProvider.setAttribute("class", metaInformationClass);
-		informationProvider.setAttribute("id", metaInformationClass);
+		informationProvider.setAttribute("class", metaInformationClassName);
+		informationProvider.setAttribute("id", metaInformationClassName);
 		
 		String problemID = pluginID + ".problem";
 
@@ -394,9 +419,86 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 			parser.setAttribute("class", qualifiedResourceFactoryClassName);
 			parser.setAttribute("type", secondaryConcreteSyntaxName);
 		}
+		
+		String lineBreakPointMarkerID = context.getLineBreakpointMarkerID();
 
+		XMLElement breakPointsExtension = root.createChild("extension");
+		breakPointsExtension.setAttribute("point", "org.eclipse.debug.core.breakpoints");
+		XMLElement breakpoint = breakPointsExtension.createChild("breakpoint");
+		breakpoint.setAttribute("class", lineBreakPointClassName);
+		breakpoint.setAttribute("id", pluginID + ".debug.breakpoint");
+		breakpoint.setAttribute("markerType", lineBreakPointMarkerID);
+		breakpoint.setAttribute("name", concreteSyntax.getName() + " Breakpoint");
+
+		XMLElement breakPointMarkerExtension = root.createChild("extension");
+		breakPointMarkerExtension.setAttribute("id", lineBreakPointMarkerID);
+		breakPointMarkerExtension.setAttribute("point", "org.eclipse.core.resources.markers");
+		XMLElement super1 = breakPointMarkerExtension.createChild("super");
+		super1.setAttribute("type", "org.eclipse.debug.core.lineBreakpointMarker");
+		XMLElement super2 = breakPointMarkerExtension.createChild("super");
+		super2.setAttribute("type", "org.eclipse.core.resources.textmarker");
+		XMLElement persistentMarker = breakPointMarkerExtension.createChild("persistent");
+		persistentMarker.setAttribute("value", "true");
+
+		if (context.isLaunchSupportEnabled()) {
+			root.addChild(generateLaunchConfigurationTypeExtension(context));
+			if (context.isDebugSupportEnabled()) {
+				root.addChild(generateSourcePathComputersExtension(context));
+				root.addChild(generateSourceLocatorsExtension(context));
+			}
+		}
 		XMLParameters<GenerationContext> parameters = new XMLParameters<GenerationContext>(TextResourceArtifacts.PLUGIN_XML, resourcePlugin, root);
 		return parameters;
+	}
+
+	private XMLElement generateLaunchConfigurationTypeExtension(GenerationContext context) {
+		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final String concreteSyntaxName = concreteSyntax.getName();
+		final String launchConfigurationDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
+		final String launchConfigurationID = context.getLaunchConfigurationTypeID();
+		final String sourceLocatorID = context.getSourceLocatorID();
+		final String sourcePathComputerId = context.getSourcePathComputerID();
+
+		XMLElement launchTypeExtension = new XMLElement("extension");
+		launchTypeExtension.setAttribute("point", "org.eclipse.debug.core.launchConfigurationTypes");
+		
+		XMLElement launchConfigurationTypeExtension = launchTypeExtension.createChild("launchConfigurationType");
+		launchConfigurationTypeExtension.setAttribute("id", launchConfigurationID);
+		launchConfigurationTypeExtension.setAttribute("delegate", launchConfigurationDelegateClassName);
+		launchConfigurationTypeExtension.setAttribute("modes", "run,debug");
+		launchConfigurationTypeExtension.setAttribute("name", concreteSyntaxName + " Application");
+		//launchConfigurationTypeExtension.setAttribute("migrationDelegate", "com.example.migrationDelegate");
+		if (context.isDebugSupportEnabled()) {
+			launchConfigurationTypeExtension.setAttribute("sourceLocatorId", sourceLocatorID);
+			launchConfigurationTypeExtension.setAttribute("sourcePathComputerId", sourcePathComputerId);
+		}
+		launchConfigurationTypeExtension.setAttribute("delegateName", concreteSyntaxName + " Launch Tooling");
+		launchConfigurationTypeExtension.setAttribute("delegateDescription", "This will run or debug ." + concreteSyntaxName + " files.");
+	
+		return launchTypeExtension;
+	}
+
+	private XMLElement generateSourcePathComputersExtension(GenerationContext context) {
+		final String sourcePathComputerDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.SOURCE_PATH_COMPUTER_DELEGATE);
+
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.debug.core.sourcePathComputers");
+		XMLElement sourcePathComputer = extension.createChild("sourcePathComputer");
+		sourcePathComputer.setAttribute("class", sourcePathComputerDelegateClassName);
+		sourcePathComputer.setAttribute("id", context.getSourcePathComputerID());
+		return extension;
+	}
+
+	private XMLElement generateSourceLocatorsExtension(GenerationContext context) {
+		final String sourceLocatorClassName = context.getQualifiedClassName(TextResourceArtifacts.SOURCE_LOCATOR);
+		
+		XMLElement extension = new XMLElement("extension");
+		extension.setAttribute("point", "org.eclipse.debug.core.sourceLocators");
+		XMLElement sourceLocator = extension.createChild("sourceLocator");
+		sourceLocator.setAttribute("id", context.getSourceLocatorID());
+		sourceLocator.setAttribute("class", sourceLocatorClassName);
+		sourceLocator.setAttribute("name", context.getConcreteSyntax().getName() + " Source Locator");
+		return extension;
 	}
 
 	private void add(
@@ -424,6 +526,9 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		imports.add("org.eclipse.emf.workspace");
 		imports.add("org.emftext.access;resolution:=optional");
 		
+		if (context.isDebugSupportEnabled()) {
+			imports.add("org.eclipse.debug.core");
+		}
 		// TODO implement extension mechanism to allow code generation plug-ins to add
 		// more imports here 
 

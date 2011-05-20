@@ -1872,7 +1872,199 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_RULE(233, "OVERRIDE_RULE", "overrideRule");
+	OVERRIDE_RULE(233, "OVERRIDE_RULE", "overrideRule"), /**
+	 * The '<em><b>OVERRIDE ABSTRACT DEBUGGABLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ABSTRACT_DEBUGGABLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ABSTRACT_DEBUGGABLE(234, "OVERRIDE_ABSTRACT_DEBUGGABLE", "overrideAbstractDebuggable"), /**
+	 * The '<em><b>OVERRIDE EDEBUG MESSAGE TYPES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EDEBUG_MESSAGE_TYPES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EDEBUG_MESSAGE_TYPES(235, "OVERRIDE_E_DEBUG_MESSAGE_TYPES", "overrideEDebugMessageTypes"), /**
+	 * The '<em><b>OVERRIDE IDEBUG EVENT LISTENER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IDEBUG_EVENT_LISTENER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IDEBUG_EVENT_LISTENER(236, "OVERRIDE_I_DEBUG_EVENT_LISTENER", "overrideIDebugEventListener"), /**
+	 * The '<em><b>OVERRIDE IINTERPRETER LISTENER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IINTERPRETER_LISTENER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IINTERPRETER_LISTENER(237, "OVERRIDE_I_INTERPRETER_LISTENER", "overrideIInterpreterListener"), /**
+	 * The '<em><b>OVERRIDE DEBUG COMMUNICATION HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_COMMUNICATION_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_COMMUNICATION_HELPER(238, "OVERRIDE_DEBUG_COMMUNICATION_HELPER", "overrideDebugCommunicationHelper"), /**
+	 * The '<em><b>OVERRIDE DEBUG ELEMENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_ELEMENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_ELEMENT(239, "OVERRIDE_DEBUG_ELEMENT", "overrideDebugElement"), /**
+	 * The '<em><b>OVERRIDE DEBUGGABLE INTERPRETER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUGGABLE_INTERPRETER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUGGABLE_INTERPRETER(240, "OVERRIDE_DEBUGGABLE_INTERPRETER", "overrideDebuggableInterpreter"), /**
+	 * The '<em><b>OVERRIDE DEBUGGER LISTENER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUGGER_LISTENER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUGGER_LISTENER(241, "OVERRIDE_DEBUGGER_LISTENER", "overrideDebuggerListener"), /**
+	 * The '<em><b>OVERRIDE DEBUG MESSAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_MESSAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_MESSAGE(242, "OVERRIDE_DEBUG_MESSAGE", "overrideDebugMessage"), /**
+	 * The '<em><b>OVERRIDE DEBUG PROCESS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_PROCESS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_PROCESS(243, "OVERRIDE_DEBUG_PROCESS", "overrideDebugProcess"), /**
+	 * The '<em><b>OVERRIDE DEBUG PROXY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_PROXY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_PROXY(244, "OVERRIDE_DEBUG_PROXY", "overrideDebugProxy"), /**
+	 * The '<em><b>OVERRIDE DEBUG TARGET</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_TARGET_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_TARGET(245, "OVERRIDE_DEBUG_TARGET", "overrideDebugTarget"), /**
+	 * The '<em><b>OVERRIDE DEBUG THREAD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_THREAD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_THREAD(246, "OVERRIDE_DEBUG_THREAD", "overrideDebugThread"), /**
+	 * The '<em><b>OVERRIDE DEBUG VALUE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_VALUE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_VALUE(247, "OVERRIDE_DEBUG_VALUE", "overrideDebugValue"), /**
+	 * The '<em><b>OVERRIDE DEBUG VARIABLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_VARIABLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_VARIABLE(248, "OVERRIDE_DEBUG_VARIABLE", "overrideDebugVariable"), /**
+	 * The '<em><b>OVERRIDE LINEBREAK POINT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LINEBREAK_POINT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LINEBREAK_POINT(249, "OVERRIDE_LINEBREAK_POINT", "overrideLineBreakpoint"), /**
+	 * The '<em><b>OVERRIDE SOURCE LOCATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_LOCATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SOURCE_LOCATOR(250, "OVERRIDE_SOURCE_LOCATOR", "overrideSourceLocator"), /**
+	 * The '<em><b>OVERRIDE SOURCE LOOKUP PARTICIPANT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_LOOKUP_PARTICIPANT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SOURCE_LOOKUP_PARTICIPANT(251, "OVERRIDE_SOURCE_LOOKUP_PARTICIPANT", "overrideSourceLookupParticipant"), /**
+	 * The '<em><b>OVERRIDE SOURCE PATH COMPUTER DELEGATE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE(252, "OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE", "overrideSourcePathComputerDelegate"), /**
+	 * The '<em><b>OVERRIDE STACK FRAME</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_STACK_FRAME_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_STACK_FRAME(253, "OVERRIDE_STACK_FRAME", "overrideStackFrame"), /**
+	 * The '<em><b>DISABLE DEBUG SUPPORT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_DEBUG_SUPPORT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISABLE_DEBUG_SUPPORT(254, "DISABLE_DEBUG_SUPPORT", "disableDebugSupport"), /**
+	 * The '<em><b>OVERRIDE DEBUG MODEL PRESENTATION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_MODEL_PRESENTATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEBUG_MODEL_PRESENTATION(255, "OVERRIDE_DEBUG_MODEL_PRESENTATION", "overrideDebugModelPresentation"), /**
+	 * The '<em><b>OVERRIDE LINE BREAKPOINT ADAPTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LINE_BREAKPOINT_ADAPTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LINE_BREAKPOINT_ADAPTER(256, "OVERRIDE_LINE_BREAKPOINT_ADAPTER", "overrideLineBreakpointAdapter"), /**
+	 * The '<em><b>OVERRIDE ADAPTER FACTORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ADAPTER_FACTORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ADAPTER_FACTORY(257, "OVERRIDE_ADAPTER_FACTORY", "overrideAdapterFactory");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -5777,6 +5969,342 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_RULE_VALUE = 233;
 /**
+	 * The '<em><b>OVERRIDE ABSTRACT DEBUGGABLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ABSTRACT DEBUGGABLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ABSTRACT_DEBUGGABLE
+	 * @model literal="overrideAbstractDebuggable"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ABSTRACT_DEBUGGABLE_VALUE = 234;
+/**
+	 * The '<em><b>OVERRIDE EDEBUG MESSAGE TYPES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EDEBUG MESSAGE TYPES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EDEBUG_MESSAGE_TYPES
+	 * @model name="OVERRIDE_E_DEBUG_MESSAGE_TYPES" literal="overrideEDebugMessageTypes"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EDEBUG_MESSAGE_TYPES_VALUE = 235;
+/**
+	 * The '<em><b>OVERRIDE IDEBUG EVENT LISTENER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IDEBUG EVENT LISTENER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IDEBUG_EVENT_LISTENER
+	 * @model name="OVERRIDE_I_DEBUG_EVENT_LISTENER" literal="overrideIDebugEventListener"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IDEBUG_EVENT_LISTENER_VALUE = 236;
+/**
+	 * The '<em><b>OVERRIDE IINTERPRETER LISTENER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IINTERPRETER LISTENER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IINTERPRETER_LISTENER
+	 * @model name="OVERRIDE_I_INTERPRETER_LISTENER" literal="overrideIInterpreterListener"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IINTERPRETER_LISTENER_VALUE = 237;
+/**
+	 * The '<em><b>OVERRIDE DEBUG COMMUNICATION HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG COMMUNICATION HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_COMMUNICATION_HELPER
+	 * @model literal="overrideDebugCommunicationHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_COMMUNICATION_HELPER_VALUE = 238;
+/**
+	 * The '<em><b>OVERRIDE DEBUG ELEMENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG ELEMENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_ELEMENT
+	 * @model literal="overrideDebugElement"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_ELEMENT_VALUE = 239;
+/**
+	 * The '<em><b>OVERRIDE DEBUGGABLE INTERPRETER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUGGABLE INTERPRETER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUGGABLE_INTERPRETER
+	 * @model literal="overrideDebuggableInterpreter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUGGABLE_INTERPRETER_VALUE = 240;
+/**
+	 * The '<em><b>OVERRIDE DEBUGGER LISTENER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUGGER LISTENER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUGGER_LISTENER
+	 * @model literal="overrideDebuggerListener"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUGGER_LISTENER_VALUE = 241;
+/**
+	 * The '<em><b>OVERRIDE DEBUG MESSAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG MESSAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_MESSAGE
+	 * @model literal="overrideDebugMessage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_MESSAGE_VALUE = 242;
+/**
+	 * The '<em><b>OVERRIDE DEBUG PROCESS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG PROCESS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_PROCESS
+	 * @model literal="overrideDebugProcess"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_PROCESS_VALUE = 243;
+/**
+	 * The '<em><b>OVERRIDE DEBUG PROXY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG PROXY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_PROXY
+	 * @model literal="overrideDebugProxy"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_PROXY_VALUE = 244;
+/**
+	 * The '<em><b>OVERRIDE DEBUG TARGET</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG TARGET</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_TARGET
+	 * @model literal="overrideDebugTarget"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_TARGET_VALUE = 245;
+/**
+	 * The '<em><b>OVERRIDE DEBUG THREAD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG THREAD</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_THREAD
+	 * @model literal="overrideDebugThread"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_THREAD_VALUE = 246;
+/**
+	 * The '<em><b>OVERRIDE DEBUG VALUE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG VALUE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_VALUE
+	 * @model literal="overrideDebugValue"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_VALUE_VALUE = 247;
+/**
+	 * The '<em><b>OVERRIDE DEBUG VARIABLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG VARIABLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_VARIABLE
+	 * @model literal="overrideDebugVariable"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_VARIABLE_VALUE = 248;
+/**
+	 * The '<em><b>OVERRIDE LINEBREAK POINT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LINEBREAK POINT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LINEBREAK_POINT
+	 * @model literal="overrideLineBreakpoint"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LINEBREAK_POINT_VALUE = 249;
+/**
+	 * The '<em><b>OVERRIDE SOURCE LOCATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SOURCE LOCATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_LOCATOR
+	 * @model literal="overrideSourceLocator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SOURCE_LOCATOR_VALUE = 250;
+/**
+	 * The '<em><b>OVERRIDE SOURCE LOOKUP PARTICIPANT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SOURCE LOOKUP PARTICIPANT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_LOOKUP_PARTICIPANT
+	 * @model literal="overrideSourceLookupParticipant"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SOURCE_LOOKUP_PARTICIPANT_VALUE = 251;
+/**
+	 * The '<em><b>OVERRIDE SOURCE PATH COMPUTER DELEGATE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SOURCE PATH COMPUTER DELEGATE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE
+	 * @model literal="overrideSourcePathComputerDelegate"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE_VALUE = 252;
+/**
+	 * The '<em><b>OVERRIDE STACK FRAME</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE STACK FRAME</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_STACK_FRAME
+	 * @model literal="overrideStackFrame"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_STACK_FRAME_VALUE = 253;
+/**
+	 * The '<em><b>DISABLE DEBUG SUPPORT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DISABLE DEBUG SUPPORT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_DEBUG_SUPPORT
+	 * @model literal="disableDebugSupport"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISABLE_DEBUG_SUPPORT_VALUE = 254;
+/**
+	 * The '<em><b>OVERRIDE DEBUG MODEL PRESENTATION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEBUG MODEL PRESENTATION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEBUG_MODEL_PRESENTATION
+	 * @model literal="overrideDebugModelPresentation"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEBUG_MODEL_PRESENTATION_VALUE = 255;
+/**
+	 * The '<em><b>OVERRIDE LINE BREAKPOINT ADAPTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LINE BREAKPOINT ADAPTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LINE_BREAKPOINT_ADAPTER
+	 * @model literal="overrideLineBreakpointAdapter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LINE_BREAKPOINT_ADAPTER_VALUE = 256;
+/**
+	 * The '<em><b>OVERRIDE ADAPTER FACTORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ADAPTER FACTORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ADAPTER_FACTORY
+	 * @model literal="overrideAdapterFactory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ADAPTER_FACTORY_VALUE = 257;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6014,6 +6542,30 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_PROPERTY_TESTER,
 			DISABLE_LAUNCH_SUPPORT,
 			OVERRIDE_RULE,
+			OVERRIDE_ABSTRACT_DEBUGGABLE,
+			OVERRIDE_EDEBUG_MESSAGE_TYPES,
+			OVERRIDE_IDEBUG_EVENT_LISTENER,
+			OVERRIDE_IINTERPRETER_LISTENER,
+			OVERRIDE_DEBUG_COMMUNICATION_HELPER,
+			OVERRIDE_DEBUG_ELEMENT,
+			OVERRIDE_DEBUGGABLE_INTERPRETER,
+			OVERRIDE_DEBUGGER_LISTENER,
+			OVERRIDE_DEBUG_MESSAGE,
+			OVERRIDE_DEBUG_PROCESS,
+			OVERRIDE_DEBUG_PROXY,
+			OVERRIDE_DEBUG_TARGET,
+			OVERRIDE_DEBUG_THREAD,
+			OVERRIDE_DEBUG_VALUE,
+			OVERRIDE_DEBUG_VARIABLE,
+			OVERRIDE_LINEBREAK_POINT,
+			OVERRIDE_SOURCE_LOCATOR,
+			OVERRIDE_SOURCE_LOOKUP_PARTICIPANT,
+			OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE,
+			OVERRIDE_STACK_FRAME,
+			DISABLE_DEBUG_SUPPORT,
+			OVERRIDE_DEBUG_MODEL_PRESENTATION,
+			OVERRIDE_LINE_BREAKPOINT_ADAPTER,
+			OVERRIDE_ADAPTER_FACTORY,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6292,6 +6844,30 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_PROPERTY_TESTER_VALUE: return OVERRIDE_PROPERTY_TESTER;
 			case DISABLE_LAUNCH_SUPPORT_VALUE: return DISABLE_LAUNCH_SUPPORT;
 			case OVERRIDE_RULE_VALUE: return OVERRIDE_RULE;
+			case OVERRIDE_ABSTRACT_DEBUGGABLE_VALUE: return OVERRIDE_ABSTRACT_DEBUGGABLE;
+			case OVERRIDE_EDEBUG_MESSAGE_TYPES_VALUE: return OVERRIDE_EDEBUG_MESSAGE_TYPES;
+			case OVERRIDE_IDEBUG_EVENT_LISTENER_VALUE: return OVERRIDE_IDEBUG_EVENT_LISTENER;
+			case OVERRIDE_IINTERPRETER_LISTENER_VALUE: return OVERRIDE_IINTERPRETER_LISTENER;
+			case OVERRIDE_DEBUG_COMMUNICATION_HELPER_VALUE: return OVERRIDE_DEBUG_COMMUNICATION_HELPER;
+			case OVERRIDE_DEBUG_ELEMENT_VALUE: return OVERRIDE_DEBUG_ELEMENT;
+			case OVERRIDE_DEBUGGABLE_INTERPRETER_VALUE: return OVERRIDE_DEBUGGABLE_INTERPRETER;
+			case OVERRIDE_DEBUGGER_LISTENER_VALUE: return OVERRIDE_DEBUGGER_LISTENER;
+			case OVERRIDE_DEBUG_MESSAGE_VALUE: return OVERRIDE_DEBUG_MESSAGE;
+			case OVERRIDE_DEBUG_PROCESS_VALUE: return OVERRIDE_DEBUG_PROCESS;
+			case OVERRIDE_DEBUG_PROXY_VALUE: return OVERRIDE_DEBUG_PROXY;
+			case OVERRIDE_DEBUG_TARGET_VALUE: return OVERRIDE_DEBUG_TARGET;
+			case OVERRIDE_DEBUG_THREAD_VALUE: return OVERRIDE_DEBUG_THREAD;
+			case OVERRIDE_DEBUG_VALUE_VALUE: return OVERRIDE_DEBUG_VALUE;
+			case OVERRIDE_DEBUG_VARIABLE_VALUE: return OVERRIDE_DEBUG_VARIABLE;
+			case OVERRIDE_LINEBREAK_POINT_VALUE: return OVERRIDE_LINEBREAK_POINT;
+			case OVERRIDE_SOURCE_LOCATOR_VALUE: return OVERRIDE_SOURCE_LOCATOR;
+			case OVERRIDE_SOURCE_LOOKUP_PARTICIPANT_VALUE: return OVERRIDE_SOURCE_LOOKUP_PARTICIPANT;
+			case OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE_VALUE: return OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE;
+			case OVERRIDE_STACK_FRAME_VALUE: return OVERRIDE_STACK_FRAME;
+			case DISABLE_DEBUG_SUPPORT_VALUE: return DISABLE_DEBUG_SUPPORT;
+			case OVERRIDE_DEBUG_MODEL_PRESENTATION_VALUE: return OVERRIDE_DEBUG_MODEL_PRESENTATION;
+			case OVERRIDE_LINE_BREAKPOINT_ADAPTER_VALUE: return OVERRIDE_LINE_BREAKPOINT_ADAPTER;
+			case OVERRIDE_ADAPTER_FACTORY_VALUE: return OVERRIDE_ADAPTER_FACTORY;
 		}
 		return null;
 	}

@@ -15,7 +15,9 @@ package org.emftext.sdk.codegen.resource;
 
 import static org.emftext.sdk.codegen.Constants.ANALYSIS_PACKAGE;
 import static org.emftext.sdk.codegen.Constants.CC_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.DEBUG_PACKAGE;
 import static org.emftext.sdk.codegen.Constants.GRAMMAR_PACKAGE;
+import static org.emftext.sdk.codegen.Constants.LAUNCH_PACKAGE;
 import static org.emftext.sdk.codegen.Constants.MOPP_PACKAGE;
 import static org.emftext.sdk.codegen.Constants.ROOT_PACKAGE;
 import static org.emftext.sdk.codegen.Constants.UTIL_PACKAGE;
@@ -75,6 +77,25 @@ import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedCsStr
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedEnumerationTerminalGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedStructuralFeatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedTerminalGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.AbstractDebuggableGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugCommunicationHelperGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugElementGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugMessageGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugProcessGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugProxyGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugTargetGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugThreadGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugValueGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebugVariableGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebuggableInterpreterGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.DebuggerListenerGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.EDebugMessageTypesGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.IDebugEventListenerGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.LineBreakpointGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.SourceLocatorGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.SourceLookupParticipantGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.SourcePathComputerDelegateGenerator;
+import org.emftext.sdk.codegen.resource.generators.debug.StackFrameGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.BooleanTerminalGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.CardinalityGenerator;
 import org.emftext.sdk.codegen.resource.generators.grammar.ChoiceGenerator;
@@ -103,6 +124,7 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.IElementMappingGen
 import org.emftext.sdk.codegen.resource.generators.interfaces.IExpectedElementGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IHoverTextProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IInputStreamProcessorProviderGenerator;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IInterpreterListenerGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.ILocationMapGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IMetaInformationGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionProviderGenerator;
@@ -131,6 +153,7 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.ITokenResolverGene
 import org.emftext.sdk.codegen.resource.generators.interfaces.ITokenStyleGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IURIMappingGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.InputStreamProcessorGenerator;
+import org.emftext.sdk.codegen.resource.generators.launch.LaunchConfigurationDelegateGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
@@ -272,6 +295,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_QUICK_FIX = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "QuickFix", IQuickFixGenerator.class, OptionTypes.OVERRIDE_IQUICK_FIX);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_PROBLEM_SEVERITY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "EProblemSeverity", EProblemSeverityGenerator.class, OptionTypes.OVERRIDE_EPROBLEM_SEVERITY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_PROBLEM_TYPE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "EProblemType", EProblemTypeGenerator.class, OptionTypes.OVERRIDE_EPROBLEM_TYPE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_INTERPRETER_LISTENER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "InterpreterListener", IInterpreterListenerGenerator.class, OptionTypes.OVERRIDE_IINTERPRETER_LISTENER);
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_CS_STRING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedCsString", ExpectedCsStringGenerator.class, OptionTypes.OVERRIDE_EXPECTED_CS_STRING);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_STRUCTURAL_FEATURE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedStructuralFeature", ExpectedStructuralFeatureGenerator.class, OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE);
@@ -301,6 +325,29 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> GRAMMAR_INFORMATION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "GrammarInformationProvider", GrammarInformationProviderGenerator.class, OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FOLLOW_SET_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "FollowSetProvider", FollowSetProviderGenerator.class, OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER);
 	
+	// the debug package
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ABSTRACT_DEBUGGABLE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "Abstract", "Debuggable", AbstractDebuggableGenerator.class, OptionTypes.OVERRIDE_ABSTRACT_DEBUGGABLE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_DEBUG_MESSAGE_TYPES = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "E", "DebugMessageTypes", EDebugMessageTypesGenerator.class, OptionTypes.OVERRIDE_EDEBUG_MESSAGE_TYPES);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_DEBUG_EVENT_LISTENER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "I", "DebugEventListener", IDebugEventListenerGenerator.class, OptionTypes.OVERRIDE_IDEBUG_EVENT_LISTENER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_COMMUNICATION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugCommunicationHelper", DebugCommunicationHelperGenerator.class, OptionTypes.OVERRIDE_DEBUG_COMMUNICATION_HELPER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_ELEMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugElement", DebugElementGenerator.class, OptionTypes.OVERRIDE_DEBUG_ELEMENT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUGGABLE_INTERPRETER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebuggableInterpreter", DebuggableInterpreterGenerator.class, OptionTypes.OVERRIDE_DEBUGGABLE_INTERPRETER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUGGER_LISTENER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebuggerListener", DebuggerListenerGenerator.class, OptionTypes.OVERRIDE_DEBUGGER_LISTENER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_MESSAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugMessage", DebugMessageGenerator.class, OptionTypes.OVERRIDE_DEBUG_MESSAGE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_PROCESS = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugProcess", DebugProcessGenerator.class, OptionTypes.OVERRIDE_DEBUG_PROCESS);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_PROXY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugProxy", DebugProxyGenerator.class, OptionTypes.OVERRIDE_DEBUG_PROXY);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_TARGET = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugTarget", DebugTargetGenerator.class, OptionTypes.OVERRIDE_DEBUG_TARGET);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_THREAD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugThread", DebugThreadGenerator.class, OptionTypes.OVERRIDE_DEBUG_THREAD);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_VALUE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugValue", DebugValueGenerator.class, OptionTypes.OVERRIDE_DEBUG_VALUE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_VARIABLE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "DebugVariable", DebugVariableGenerator.class, OptionTypes.OVERRIDE_DEBUG_VARIABLE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LINEBREAK_POINT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "LineBreakpoint", LineBreakpointGenerator.class, OptionTypes.OVERRIDE_LINEBREAK_POINT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SOURCE_LOCATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "SourceLocator", SourceLocatorGenerator.class, OptionTypes.OVERRIDE_SOURCE_LOCATOR);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SOURCE_LOOKUP_PARTICIPANT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "SourceLookupParticipant", SourceLookupParticipantGenerator.class, OptionTypes.OVERRIDE_SOURCE_LOOKUP_PARTICIPANT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SOURCE_PATH_COMPUTER_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "SourcePathComputerDelegate", SourcePathComputerDelegateGenerator.class, OptionTypes.OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> STACK_FRAME = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "StackFrame", StackFrameGenerator.class, OptionTypes.OVERRIDE_STACK_FRAME);
+	
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(LAUNCH_PACKAGE, "", "LaunchConfigurationDelegate", LaunchConfigurationDelegateGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE);
+	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CAST_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CastUtil", CastUtilGenerator.class, OptionTypes.OVERRIDE_CAST_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COPIED_E_LIST = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CopiedEList", CopiedEListGenerator.class, OptionTypes.OVERRIDE_COPIED_ELIST);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COPIED_E_OBJECT_INTERNAL_E_LIST = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CopiedEObjectInternalEList", CopiedEObjectInternalEListGenerator.class, OptionTypes.OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST);
@@ -322,15 +369,17 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_ROOT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "", null, null);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_MOPP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "", null, null);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_GRAMMAR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "", null, null);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_LAUNCH = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(LAUNCH_PACKAGE, "", "", null, null);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_ANALYSIS = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "analysis", "analysis", null, null);      
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_CC = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "", null, null);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_DEBUG = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "", null, null);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PACKAGE_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "", null, null);
 	
 	public static final ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ADDITIONAL_EXTENSION_PARSER_EXSD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(null, AdditionalExtensionParserExtensionPointSchemaCreator.FILENAME, "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_LOAD_OPTIONS_EXSD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(null, DefaultLoadOptionsExtensionPointSchemaCreator.FILENAME, "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, ReferenceResolverParameters> REFERENCE_RESOLVER = new ArtifactDescriptor<GenerationContext, ReferenceResolverParameters>(null, "reference resolvers", "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> REFERENCE_RESOLVERS = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(null, "reference resolvers", "", null, null);
-	public final static ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(ANALYSIS_PACKAGE, "token resolvers", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
+	public static final ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(ANALYSIS_PACKAGE, "token resolvers", "", null, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
 	public static final ArtifactDescriptor<GenerationContext, TokenResolverParameters> TOKEN_RESOLVERS = new ArtifactDescriptor<GenerationContext, TokenResolverParameters>(null, "token resolvers", "", null, null);
 	
 	public static final ArtifactDescriptor<GenerationContext, ClassParameters> EMPTY_CLASS = new ArtifactDescriptor<GenerationContext, ClassParameters>(null, "empty ", "", null, null);
