@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class LaunchConfigurationDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		String classComment = "A class that handles launch configurations";
+		String classComment = "A class that handles launch configurations.";
 		if (!getContext().isLaunchSupportEnabled()) {
 			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_LAUNCH_SUPPORT);
 			return;
