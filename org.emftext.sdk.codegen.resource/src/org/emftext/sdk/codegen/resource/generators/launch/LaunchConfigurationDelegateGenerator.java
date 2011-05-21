@@ -13,7 +13,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.launch;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_MANAGER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LAUNCH_CONFIGURATION_DELEGATE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
