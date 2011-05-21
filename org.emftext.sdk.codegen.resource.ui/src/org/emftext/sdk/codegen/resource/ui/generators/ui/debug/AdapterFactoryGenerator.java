@@ -17,17 +17,18 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		if (!getContext().isDebugSupportEnabled()) {
-			generateEmptyClass(sc);
+			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("@SuppressWarnings(\"restriction\")");
+		sc.add("@SuppressWarnings(\"restriction\")").addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_ADAPTER_FACTORY + " {");
 		sc.addLineBreak();
 		addMethods(sc);

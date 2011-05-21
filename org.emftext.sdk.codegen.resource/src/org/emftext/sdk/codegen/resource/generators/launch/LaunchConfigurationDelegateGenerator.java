@@ -31,25 +31,22 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class LaunchConfigurationDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
+		String classComment = "A class that handles launch configurations";
+		if (!getContext().isLaunchSupportEnabled()) {
+			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_LAUNCH_SUPPORT);
+			return;
+		}
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.addJavadoc(
-			"A class that handles launch configurations" +
-			(getContext().isLaunchSupportEnabled() ? "." : " (currently disabled).")
-		);
-		sc.add("public class " + getResourceClassName());
-		if (getContext().isLaunchSupportEnabled()) {
-			sc.add(" extends " + LAUNCH_CONFIGURATION_DELEGATE);
-		}
-		sc.add(" {");
+		sc.addJavadoc(classComment);
+		sc.add("public class " + getResourceClassName() + " extends " + LAUNCH_CONFIGURATION_DELEGATE + " {");
 		sc.addLineBreak();
-		if (getContext().isLaunchSupportEnabled()) {
-			addConstants(sc);
-			addSystemOutInterpreterClass(sc);
-			// TODO mseifert: move these methods to a LaunchHelper class to keep this delegate
-			// more clean and to ease customizations
-			addMethods(sc);
-		}
+		addConstants(sc);
+		addSystemOutInterpreterClass(sc);
+		// TODO mseifert: move these methods to a LaunchHelper class to keep this delegate
+		// more clean and to ease customizations
+		addMethods(sc);
 		sc.add("}");
 	}
 

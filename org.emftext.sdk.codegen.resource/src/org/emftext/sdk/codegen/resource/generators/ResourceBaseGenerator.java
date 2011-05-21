@@ -21,6 +21,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends BaseGenerator<GenerationContext, ParameterType> {
 
@@ -362,11 +363,14 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		}
     }
 
-	protected void generateEmptyClass(JavaComposite sc) {
+	protected void generateEmptyClass(JavaComposite sc, String classComment, OptionTypes disablingOption) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
+		if (classComment != null) {
+			sc.addJavadoc(classComment);
+		}
 		sc.add("public class " + getResourceClassName() + " {");
-		sc.addComment("The generator for this class is currently disabled by some option set in the .cs file.");
+		sc.addComment("The generator for this class is currently disabled by option '" + disablingOption.getLiteral() + "' in the .cs file.");
 		sc.add("}");
 	}
 }

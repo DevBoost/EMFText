@@ -16,22 +16,23 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
+		String classComment = 
+			"The DebugProxy allows to communicate between the interpreter, which runs in " +
+			"a separate thread or process and the Eclipse Debug framework (i.e., the " +
+			"DebugTarget class).";
 		if (!getContext().isDebugSupportEnabled()) {
-			generateEmptyClass(sc);
+			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc(
-			"The DebugProxy allows to communicate between the interpreter, which runs in " +
-			"a separate thread or process and the Eclipse Debug framework (i.e., the " +
-			"DebugTarget class)."
-		);
+		sc.addJavadoc(classComment);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addConstants(sc);

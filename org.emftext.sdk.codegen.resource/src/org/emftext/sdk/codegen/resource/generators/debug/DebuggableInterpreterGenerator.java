@@ -12,19 +12,21 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
+		String classComment = "A DebuggableInterpreter is a facade for interpreters that adds debug support.";
 		if (!getContext().isDebugSupportEnabled()) {
-			generateEmptyClass(sc);
+			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A DebuggableInterpreter is a facade for interpreters that adds debug support.",
+			classComment,
 			"@param <ResultType> the result type of the actual interpreter",
 			"@param <ContextType> the context type of the actual interpreter"
 		);

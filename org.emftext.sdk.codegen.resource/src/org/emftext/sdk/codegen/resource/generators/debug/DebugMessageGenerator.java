@@ -7,22 +7,24 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class DebugMessageGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
+		String classComment = 
+			"DebugMessages are exchanged between the debug server (the Eclipse debug " +
+			"framework) and the debug client (a running process or interpreter). To " +
+			"exchange messages they are serialized and sent over sockets.";
+
 		if (!getContext().isDebugSupportEnabled()) {
-			generateEmptyClass(sc);
+			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc(
-			"DebugMessages are exchanged between the debug server (the Eclipse debug " +
-			"framework) and the debug client (a running process or interpreter). To " +
-			"exchange messages they are serialized and sent over sockets."
-		);
+		sc.addJavadoc(classComment);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addConstants(sc);

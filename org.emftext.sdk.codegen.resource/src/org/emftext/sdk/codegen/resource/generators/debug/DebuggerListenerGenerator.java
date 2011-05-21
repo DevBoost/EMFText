@@ -19,22 +19,22 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
+		String classComment = 
+			"The DebuggerListener receives commands from the Eclipse Debug framework and sends " +
+			"these commands to a debuggable process (e.g., an interpreter or generated code).";
 		if (!getContext().isDebugSupportEnabled()) {
-			generateEmptyClass(sc);
+			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc(
-			"The DebuggerListener receives commands from the Eclipse Debug framework and " +
-			"sends these commands to a debuggable process (e.g., an interpreter or generated " +
-			"code)."
-		);
+		sc.addJavadoc(classComment);
 		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> implements Runnable {");
 		sc.addLineBreak();
 		addConstants(sc);
