@@ -544,6 +544,54 @@ OptionTypes.DISABLE_LAUNCH_SUPPORT : "If set to <code>true</code>, code that is 
 
 OptionTypes.OVERRIDE_RULE : "If set to <code>false</code>, the Rule class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_ABSTRACT_DEBUGGABLE : "If set to <code>false</code>, the AbstractDebuggable class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_E_DEBUG_MESSAGE_TYPES : "If set to <code>false</code>, the EDebugMessage enumeration will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_DEBUG_EVENT_LISTENER : "If set to <code>false</code>, the IDebugEventListener interface will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_I_INTERPRETER_LISTENER : "If set to <code>false</code>, the IInterpreterListener interface will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_COMMUNICATION_HELPER : "If set to <code>false</code>, the DebugCommunicationHandler class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_ELEMENT : "If set to <code>false</code>, the DebugElement class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUGGABLE_INTERPRETER : "If set to <code>false</code>, the DebuggableInterpreter class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUGGER_LISTENER : "If set to <code>false</code>, the DebuggerListener class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_MESSAGE : "If set to <code>false</code>, the DebugMessage class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_PROCESS : "If set to <code>false</code>, the DebugProcess class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_PROXY : "If set to <code>false</code>, the DebugProxy class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_TARGET : "If set to <code>false</code>, the DebugTarget class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_THREAD : "If set to <code>false</code>, the DebugThread class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_VALUE : "If set to <code>false</code>, the DebugValue class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEBUG_VARIABLE : "If set to <code>false</code>, the DebugVariable class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LINEBREAK_POINT : "If set to <code>false</code>, the LinebreakPoint class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SOURCE_LOCATOR : "If set to <code>false</code>, the SourceLocator class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SOURCE_LOOKUP_PARTICIPANT : "If set to <code>false</code>, the SourceLookupParticipant class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE : "If set to <code>false</code>, the SourcePathComputerDelegate class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_STACK_FRAME : "If set to <code>false</code>, the StackFrame class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.DISABLE_DEBUG_SUPPORT : "If set to <code>true</code>, code that is required to support debugging of DSL models is not generated. The default value for this option is <code>false</code>."
+
+OptionTypes.OVERRIDE_DEBUG_MODEL_PRESENTATION : "If set to <code>false</code>, the DebugModelPresentation class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_LINE_BREAKPOINT_ADAPTER : "If set to <code>false</code>, the LineBreakpointAdapter class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ADAPTER_FACTORY : "If set to <code>false</code>, the AdapterFactory class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

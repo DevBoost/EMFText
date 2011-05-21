@@ -4362,6 +4362,150 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>false</code>, the Rule class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(230), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the AbstractDebuggable class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(231), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the EDebugMessage enumeration will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(232), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the IDebugEventListener interface will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(233), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the IInterpreterListener interface will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(234), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugCommunicationHandler class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(235), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugElement class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(236), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebuggableInterpreter class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(237), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebuggerListener class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(238), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugMessage class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(239), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugProcess class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(240), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugProxy class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(241), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugTarget class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(242), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugThread class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(243), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugValue class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(244), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugVariable class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(245), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the LinebreakPoint class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(246), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the SourceLocator class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(247), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the SourceLookupParticipant class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(248), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the SourcePathComputerDelegate class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(249), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the StackFrame class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(250), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>true</code>, code that is required to support debugging of DSL models is not generated. The default value for this option is <code>false</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(251), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DebugModelPresentation class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(252), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the LineBreakpointAdapter class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(253), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the AdapterFactory class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {

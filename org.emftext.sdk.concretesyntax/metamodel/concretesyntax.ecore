@@ -1723,30 +1723,126 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the Rule class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_ABSTRACT_DEBUGGABLE" value="234" literal="overrideAbstractDebuggable"/>
-    <eLiterals name="OVERRIDE_E_DEBUG_MESSAGE_TYPES" value="235" literal="overrideEDebugMessageTypes"/>
-    <eLiterals name="OVERRIDE_I_DEBUG_EVENT_LISTENER" value="236" literal="overrideIDebugEventListener"/>
-    <eLiterals name="OVERRIDE_I_INTERPRETER_LISTENER" value="237" literal="overrideIInterpreterListener"/>
-    <eLiterals name="OVERRIDE_DEBUG_COMMUNICATION_HELPER" value="238" literal="overrideDebugCommunicationHelper"/>
-    <eLiterals name="OVERRIDE_DEBUG_ELEMENT" value="239" literal="overrideDebugElement"/>
-    <eLiterals name="OVERRIDE_DEBUGGABLE_INTERPRETER" value="240" literal="overrideDebuggableInterpreter"/>
-    <eLiterals name="OVERRIDE_DEBUGGER_LISTENER" value="241" literal="overrideDebuggerListener"/>
-    <eLiterals name="OVERRIDE_DEBUG_MESSAGE" value="242" literal="overrideDebugMessage"/>
-    <eLiterals name="OVERRIDE_DEBUG_PROCESS" value="243" literal="overrideDebugProcess"/>
-    <eLiterals name="OVERRIDE_DEBUG_PROXY" value="244" literal="overrideDebugProxy"/>
-    <eLiterals name="OVERRIDE_DEBUG_TARGET" value="245" literal="overrideDebugTarget"/>
-    <eLiterals name="OVERRIDE_DEBUG_THREAD" value="246" literal="overrideDebugThread"/>
-    <eLiterals name="OVERRIDE_DEBUG_VALUE" value="247" literal="overrideDebugValue"/>
-    <eLiterals name="OVERRIDE_DEBUG_VARIABLE" value="248" literal="overrideDebugVariable"/>
-    <eLiterals name="OVERRIDE_LINEBREAK_POINT" value="249" literal="overrideLineBreakpoint"/>
-    <eLiterals name="OVERRIDE_SOURCE_LOCATOR" value="250" literal="overrideSourceLocator"/>
-    <eLiterals name="OVERRIDE_SOURCE_LOOKUP_PARTICIPANT" value="251" literal="overrideSourceLookupParticipant"/>
-    <eLiterals name="OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE" value="252" literal="overrideSourcePathComputerDelegate"/>
-    <eLiterals name="OVERRIDE_STACK_FRAME" value="253" literal="overrideStackFrame"/>
-    <eLiterals name="DISABLE_DEBUG_SUPPORT" value="254" literal="disableDebugSupport"/>
-    <eLiterals name="OVERRIDE_DEBUG_MODEL_PRESENTATION" value="255" literal="overrideDebugModelPresentation"/>
-    <eLiterals name="OVERRIDE_LINE_BREAKPOINT_ADAPTER" value="256" literal="overrideLineBreakpointAdapter"/>
-    <eLiterals name="OVERRIDE_ADAPTER_FACTORY" value="257" literal="overrideAdapterFactory"/>
+    <eLiterals name="OVERRIDE_ABSTRACT_DEBUGGABLE" value="234" literal="overrideAbstractDebuggable">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the AbstractDebuggable class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_E_DEBUG_MESSAGE_TYPES" value="235" literal="overrideEDebugMessageTypes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the EDebugMessage enumeration will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_DEBUG_EVENT_LISTENER" value="236" literal="overrideIDebugEventListener">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IDebugEventListener interface will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_I_INTERPRETER_LISTENER" value="237" literal="overrideIInterpreterListener">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IInterpreterListener interface will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_COMMUNICATION_HELPER" value="238" literal="overrideDebugCommunicationHelper">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugCommunicationHandler class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_ELEMENT" value="239" literal="overrideDebugElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugElement class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUGGABLE_INTERPRETER" value="240" literal="overrideDebuggableInterpreter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebuggableInterpreter class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUGGER_LISTENER" value="241" literal="overrideDebuggerListener">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebuggerListener class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_MESSAGE" value="242" literal="overrideDebugMessage">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugMessage class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_PROCESS" value="243" literal="overrideDebugProcess">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugProcess class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_PROXY" value="244" literal="overrideDebugProxy">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugProxy class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_TARGET" value="245" literal="overrideDebugTarget">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugTarget class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_THREAD" value="246" literal="overrideDebugThread">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugThread class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_VALUE" value="247" literal="overrideDebugValue">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugValue class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_VARIABLE" value="248" literal="overrideDebugVariable">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugVariable class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_LINEBREAK_POINT" value="249" literal="overrideLineBreakpoint">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the LinebreakPoint class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SOURCE_LOCATOR" value="250" literal="overrideSourceLocator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the SourceLocator class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SOURCE_LOOKUP_PARTICIPANT" value="251" literal="overrideSourceLookupParticipant">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the SourceLookupParticipant class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE" value="252" literal="overrideSourcePathComputerDelegate">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the SourcePathComputerDelegate class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_STACK_FRAME" value="253" literal="overrideStackFrame">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the StackFrame class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DISABLE_DEBUG_SUPPORT" value="254" literal="disableDebugSupport">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>true&lt;/code>, code that is required to support debugging of DSL models is not generated. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_DEBUG_MODEL_PRESENTATION" value="255" literal="overrideDebugModelPresentation">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DebugModelPresentation class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_LINE_BREAKPOINT_ADAPTER" value="256" literal="overrideLineBreakpointAdapter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the LineBreakpointAdapter class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ADAPTER_FACTORY" value="257" literal="overrideAdapterFactory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the AdapterFactory class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

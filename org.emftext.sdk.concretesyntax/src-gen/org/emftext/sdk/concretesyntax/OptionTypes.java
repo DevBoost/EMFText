@@ -5976,6 +5976,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the AbstractDebuggable class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ABSTRACT_DEBUGGABLE
 	 * @model literal="overrideAbstractDebuggable"
 	 * @generated
@@ -5990,6 +5993,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the EDebugMessage enumeration will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EDEBUG_MESSAGE_TYPES
 	 * @model name="OVERRIDE_E_DEBUG_MESSAGE_TYPES" literal="overrideEDebugMessageTypes"
 	 * @generated
@@ -6004,6 +6010,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the IDebugEventListener interface will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IDEBUG_EVENT_LISTENER
 	 * @model name="OVERRIDE_I_DEBUG_EVENT_LISTENER" literal="overrideIDebugEventListener"
 	 * @generated
@@ -6018,6 +6027,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the IInterpreterListener interface will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IINTERPRETER_LISTENER
 	 * @model name="OVERRIDE_I_INTERPRETER_LISTENER" literal="overrideIInterpreterListener"
 	 * @generated
@@ -6032,6 +6044,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugCommunicationHandler class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_COMMUNICATION_HELPER
 	 * @model literal="overrideDebugCommunicationHelper"
 	 * @generated
@@ -6046,6 +6061,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugElement class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_ELEMENT
 	 * @model literal="overrideDebugElement"
 	 * @generated
@@ -6060,6 +6078,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebuggableInterpreter class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUGGABLE_INTERPRETER
 	 * @model literal="overrideDebuggableInterpreter"
 	 * @generated
@@ -6074,6 +6095,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebuggerListener class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUGGER_LISTENER
 	 * @model literal="overrideDebuggerListener"
 	 * @generated
@@ -6088,6 +6112,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugMessage class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_MESSAGE
 	 * @model literal="overrideDebugMessage"
 	 * @generated
@@ -6102,6 +6129,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugProcess class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_PROCESS
 	 * @model literal="overrideDebugProcess"
 	 * @generated
@@ -6116,6 +6146,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugProxy class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_PROXY
 	 * @model literal="overrideDebugProxy"
 	 * @generated
@@ -6130,6 +6163,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugTarget class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_TARGET
 	 * @model literal="overrideDebugTarget"
 	 * @generated
@@ -6144,6 +6180,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugThread class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_THREAD
 	 * @model literal="overrideDebugThread"
 	 * @generated
@@ -6158,6 +6197,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugValue class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_VALUE
 	 * @model literal="overrideDebugValue"
 	 * @generated
@@ -6172,6 +6214,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugVariable class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_VARIABLE
 	 * @model literal="overrideDebugVariable"
 	 * @generated
@@ -6186,6 +6231,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LinebreakPoint class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LINEBREAK_POINT
 	 * @model literal="overrideLineBreakpoint"
 	 * @generated
@@ -6200,6 +6248,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the SourceLocator class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SOURCE_LOCATOR
 	 * @model literal="overrideSourceLocator"
 	 * @generated
@@ -6214,6 +6265,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the SourceLookupParticipant class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SOURCE_LOOKUP_PARTICIPANT
 	 * @model literal="overrideSourceLookupParticipant"
 	 * @generated
@@ -6228,6 +6282,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the SourcePathComputerDelegate class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE
 	 * @model literal="overrideSourcePathComputerDelegate"
 	 * @generated
@@ -6242,6 +6299,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the StackFrame class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_STACK_FRAME
 	 * @model literal="overrideStackFrame"
 	 * @generated
@@ -6256,6 +6316,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>true</code>, code that is required to support debugging of DSL models is not generated. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DISABLE_DEBUG_SUPPORT
 	 * @model literal="disableDebugSupport"
 	 * @generated
@@ -6270,6 +6333,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DebugModelPresentation class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEBUG_MODEL_PRESENTATION
 	 * @model literal="overrideDebugModelPresentation"
 	 * @generated
@@ -6284,6 +6350,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LineBreakpointAdapter class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LINE_BREAKPOINT_ADAPTER
 	 * @model literal="overrideLineBreakpointAdapter"
 	 * @generated
@@ -6298,6 +6367,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the AdapterFactory class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ADAPTER_FACTORY
 	 * @model literal="overrideAdapterFactory"
 	 * @generated
