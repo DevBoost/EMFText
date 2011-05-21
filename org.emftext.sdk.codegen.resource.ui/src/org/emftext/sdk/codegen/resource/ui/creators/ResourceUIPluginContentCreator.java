@@ -680,7 +680,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		imports.add("org.eclipse.core.resources");
 		imports.add("org.emftext.access;resolution:=optional");
 
-		if (context.isLaunchSupportEnabled()) {
+		if (context.isLaunchSupportEnabled() || context.isDebugSupportEnabled()) {
 			imports.add("org.eclipse.core.expressions");
 			imports.add("org.eclipse.debug.core");
 			imports.add("org.eclipse.debug.ui");
