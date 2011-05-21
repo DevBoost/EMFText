@@ -551,7 +551,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    shortCut.setAttribute("label", syntaxName + " Application");
 	    shortCut.setAttribute("icon", getProjectRelativeLaunchShortcutIconPath());
 	    shortCut.setAttribute("helpContextId", baseId + ".launch");
-	    shortCut.setAttribute("modes", "run,debug");
+		if (context.isDebugSupportEnabled()) {
+			shortCut.setAttribute("modes", "run,debug");
+		} else {
+			shortCut.setAttribute("modes", "run");
+		}
 		shortCut.setAttribute("class", launchShortcutClassName);
 	    shortCut.setAttribute("description", "Launch a " + syntaxName + " model");
 	    shortCut.setAttribute("id", baseId + ".launchShortcut");
