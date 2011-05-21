@@ -15,8 +15,9 @@
 package org.emftext.sdk.concretesyntax.resource.cs.launch;
 
 /**
- * A class that handles launch configurations (currently disabled).
+ * A class that handles launch configurations.
  */
 public class CsLaunchConfigurationDelegate {
-	
+	// The generator for this class is currently disabled by option
+	// 'disableLaunchSupport' in the .cs file.
 }
