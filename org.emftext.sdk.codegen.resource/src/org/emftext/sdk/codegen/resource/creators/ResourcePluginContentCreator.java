@@ -467,7 +467,11 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		XMLElement launchConfigurationTypeExtension = launchTypeExtension.createChild("launchConfigurationType");
 		launchConfigurationTypeExtension.setAttribute("id", launchConfigurationID);
 		launchConfigurationTypeExtension.setAttribute("delegate", launchConfigurationDelegateClassName);
-		launchConfigurationTypeExtension.setAttribute("modes", "run,debug");
+		if (context.isDebugSupportEnabled()) {
+			launchConfigurationTypeExtension.setAttribute("modes", "run,debug");
+		} else {
+			launchConfigurationTypeExtension.setAttribute("modes", "run");
+		}
 		launchConfigurationTypeExtension.setAttribute("name", concreteSyntaxName + " Application");
 		//launchConfigurationTypeExtension.setAttribute("migrationDelegate", "com.example.migrationDelegate");
 		if (context.isDebugSupportEnabled()) {
