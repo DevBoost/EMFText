@@ -39,6 +39,8 @@ public class LaunchConfigurationDelegateGenerator extends JavaBaseGenerator<Arti
 		if (getContext().isLaunchSupportEnabled()) {
 			addConstants(sc);
 			addSystemOutInterpreterClass(sc);
+			// TODO mseifert: move these methods to a LaunchHelper class to keep this delegate
+			// more clean and to ease customizations
 			addMethods(sc);
 		}
 		sc.add("}");
