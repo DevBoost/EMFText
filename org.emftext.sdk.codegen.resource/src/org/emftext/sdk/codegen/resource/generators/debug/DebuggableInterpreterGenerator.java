@@ -14,6 +14,16 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+// TODO find free port instead of using fixed ones (other multiple debugging sessions can conflict)
+// TODO check how to support debugging of generated code
+// TODO make 'Toogle Breakpoint' context menu entry specific to each editor (currently editors all menu items)
+// TODO provide better example interpreter that has a GUI
+// TODO check whether variables that contain collections or arrays are handled correctly
+// TODO ease stack frame handling (startFrame(), stopFrame())
+// TODO default stepInto/Over/Out must use element depth instead of searching for the element to stop at, test this with other DSLs
+// TODO stepOver behavior might not be correct yet
+// TODO check what is "Drop to frame" (in debug view)
+// TODO after launching a model in 'run' mode the process is not shown as terminated even though interpretation has ended
 public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {

@@ -153,12 +153,6 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("this.thread = new " + debugThreadClassName + "(this);");
 		sc.add("this.threads = new " + I_THREAD + "[] {this.thread};");
 		sc.addLineBreak();
-		sc.add("try {");
-		sc.add("Thread.sleep(1000);");
-		sc.add("} catch (InterruptedException e) {");
-		sc.add("}");
-		
-		sc.addLineBreak();
 		sc.addComment("initialize debug proxy");
 		sc.add("try {");
 		sc.add("this.debugProxy = new " + debugProxyClassName + "(this);");
