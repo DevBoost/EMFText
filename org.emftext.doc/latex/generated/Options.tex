@@ -1,4 +1,4 @@
-EMFText currently supports 229 code generation options. However, most of them (194) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
+EMFText currently supports 254 code generation options. However, most of them (218) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
 
 \vspace{1cm}\noindent\texttt{additionalDependencies}
 \begin{myindentpar}{1cm}
@@ -55,6 +55,11 @@ This option can be used to specify the name of the token that is used when no to
 If set to \texttt{true}, the builder that is generated and registered by default will not be registered anymore. The default value for this option is \texttt{false}.
 \end{myindentpar}
 
+\noindent\texttt{disableDebugSupport}
+\begin{myindentpar}{1cm}
+If set to \texttt{true}, code that is required to support debugging of DSL models is not generated. The default value for this option is \texttt{false}.
+\end{myindentpar}
+
 \noindent\texttt{disableEMFValidationConstraints}
 \begin{myindentpar}{1cm}
 If set to \texttt{true}, constraint validation using the EMF Validation Framework is disabled. The default value for this option is \texttt{false}.
@@ -105,6 +110,11 @@ A URI pointing to a text file that contains a header which shall be added to all
 If set to \texttt{false}, the ANTLR-memoize is deactivated for parser generation. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideAbstractDebuggable}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the AbstractDebuggable class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideAbstractExpectedElement}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the AbstractExpectedElement class will not be overridden. The default value for this option is \texttt{true}.
@@ -113,6 +123,11 @@ If set to \texttt{false}, the AbstractExpectedElement class will not be overridd
 \noindent\texttt{overrideAbstractInterpreter}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the AbstractInterpreter class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAdapterFactory}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the AdapterFactory class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideAdditionalExtensionParserExtensionPointSchema}
@@ -265,6 +280,66 @@ If set to \texttt{false}, the CopiedEList class will not be overridden. The defa
 If set to \texttt{false}, the CopiedEObjectInternalEList class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideDebugCommunicationHelper}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugCommunicationHandler class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugElement}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugElement class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugMessage}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugMessage class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugModelPresentation}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugModelPresentation class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugProcess}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugProcess class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugProxy}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugProxy class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugTarget}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugTarget class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugThread}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugThread class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugValue}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugValue class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebugVariable}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebugVariable class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebuggableInterpreter}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebuggableInterpreter class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideDebuggerListener}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DebuggerListener class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideDefaultHoverTextProvider}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the DefaultHoverTextProvider class will not be overridden. The default value for this option is \texttt{true}.
@@ -308,6 +383,11 @@ If set to \texttt{false}, the DynamicTokenStyler class will not be overridden. T
 \noindent\texttt{overrideEClassUtil}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the EClassUtil class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideEDebugMessageTypes}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the EDebugMessage enumeration will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideEObjectSelection}
@@ -475,6 +555,11 @@ If set to \texttt{false}, the IContextDependentUriFragment class will not be ove
 If set to \texttt{false}, the IContextDependentUriFragmentFactory class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideIDebugEventListener}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the IDebugEventListener interface will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideIElementMapping}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the IElementMapping class will not be overridden. The default value for this option is \texttt{true}.
@@ -493,6 +578,11 @@ If set to \texttt{false}, the IHoverTextProvider class will not be overridden. T
 \noindent\texttt{overrideIInputStreamProcessorProvider}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the IInputStreamProcessorProvider class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideIInterpreterListener}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the IInterpreterListener interface will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideILocationMap}
@@ -678,6 +768,16 @@ If set to \texttt{false}, the LayoutInformationAdapter class will not be overrid
 \noindent\texttt{overrideLineBreak}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the LineBreak class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLineBreakpoint}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the LinebreakPoint class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideLineBreakpointAdapter}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the LineBreakpointAdapter class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideListUtil}
@@ -915,6 +1015,11 @@ If set to \texttt{false}, the ResourcePostProcessor class will not be overridden
 If set to \texttt{false}, the ResourceUtil class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideRule}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the Rule class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideScanner}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the Scanner class will not be overridden. The default value for this option is \texttt{true}.
@@ -923,6 +1028,26 @@ If set to \texttt{false}, the Scanner class will not be overridden. The default 
 \noindent\texttt{overrideSequence}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the Sequence class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSourceLocator}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the SourceLocator class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSourceLookupParticipant}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the SourceLookupParticipant class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideSourcePathComputerDelegate}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the SourcePathComputerDelegate class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideStackFrame}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the StackFrame class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideStreamUtil}
