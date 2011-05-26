@@ -454,7 +454,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	private XMLElement generateBreakpointMarkerAnnotationSpecificationExtension(GenerationContext context) {
 		String breakpointAnnotationTypeID = context.getLineBreakpointAnnotationID();
 		String syntaxName = context.getConcreteSyntax().getName();
-		IPluginDescriptor uiPluginName = context.getResourceUIPlugin();
+		String uiPluginName = context.getResourceUIPlugin().getName();
 
 		XMLElement extension = new XMLElement("extension");
 		extension.setAttribute("point", "org.eclipse.ui.editors.markerAnnotationSpecification");
