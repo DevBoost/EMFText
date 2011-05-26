@@ -2064,7 +2064,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ADAPTER_FACTORY(257, "OVERRIDE_ADAPTER_FACTORY", "overrideAdapterFactory");
+	OVERRIDE_ADAPTER_FACTORY(257, "OVERRIDE_ADAPTER_FACTORY", "overrideAdapterFactory"), /**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAUNCH_CONFIGURATION_HELPER(258, "OVERRIDE_LAUNCH_CONFIGURATION_HELPER", "overrideLaunchConfigurationHelper");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6377,6 +6385,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_ADAPTER_FACTORY_VALUE = 257;
 /**
+	 * The '<em><b>OVERRIDE LAUNCH CONFIGURATION HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LAUNCH CONFIGURATION HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_HELPER
+	 * @model literal="overrideLaunchConfigurationHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAUNCH_CONFIGURATION_HELPER_VALUE = 258;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6638,6 +6660,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_DEBUG_MODEL_PRESENTATION,
 			OVERRIDE_LINE_BREAKPOINT_ADAPTER,
 			OVERRIDE_ADAPTER_FACTORY,
+			OVERRIDE_LAUNCH_CONFIGURATION_HELPER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6940,6 +6963,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_DEBUG_MODEL_PRESENTATION_VALUE: return OVERRIDE_DEBUG_MODEL_PRESENTATION;
 			case OVERRIDE_LINE_BREAKPOINT_ADAPTER_VALUE: return OVERRIDE_LINE_BREAKPOINT_ADAPTER;
 			case OVERRIDE_ADAPTER_FACTORY_VALUE: return OVERRIDE_ADAPTER_FACTORY;
+			case OVERRIDE_LAUNCH_CONFIGURATION_HELPER_VALUE: return OVERRIDE_LAUNCH_CONFIGURATION_HELPER;
 		}
 		return null;
 	}

@@ -131,6 +131,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String inputStreamProcessorClassName;
 	protected String keywordClassName;
 	protected String launchConfigurationDelegateClassName;
+	protected String launchConfigurationHelperClassName;
 	protected String layoutInformationAdapterClassName;
 	protected String layoutInformationClassName;
 	protected String lineBreakClassName;
@@ -290,6 +291,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		inputStreamProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.INPUT_STREAM_PROCESSOR);
 		keywordClassName = context.getQualifiedClassName(TextResourceArtifacts.KEYWORD);
 		launchConfigurationDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
+		launchConfigurationHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.LAUNCH_CONFIGURATION_HELPER);
 		layoutInformationAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION_ADAPTER);
 		layoutInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION);
 		lineBreakClassName = context.getQualifiedClassName(TextResourceArtifacts.LINE_BREAK);

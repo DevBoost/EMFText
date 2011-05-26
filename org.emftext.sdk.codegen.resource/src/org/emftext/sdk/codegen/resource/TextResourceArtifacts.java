@@ -154,6 +154,7 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.ITokenStyleGenerat
 import org.emftext.sdk.codegen.resource.generators.interfaces.IURIMappingGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.InputStreamProcessorGenerator;
 import org.emftext.sdk.codegen.resource.generators.launch.LaunchConfigurationDelegateGenerator;
+import org.emftext.sdk.codegen.resource.generators.launch.LaunchConfigurationHelperGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
@@ -345,9 +346,12 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SOURCE_LOOKUP_PARTICIPANT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "SourceLookupParticipant", SourceLookupParticipantGenerator.class, OptionTypes.OVERRIDE_SOURCE_LOOKUP_PARTICIPANT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SOURCE_PATH_COMPUTER_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "SourcePathComputerDelegate", SourcePathComputerDelegateGenerator.class, OptionTypes.OVERRIDE_SOURCE_PATH_COMPUTER_DELEGATE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> STACK_FRAME = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(DEBUG_PACKAGE, "", "StackFrame", StackFrameGenerator.class, OptionTypes.OVERRIDE_STACK_FRAME);
-	
+
+	// the launch package
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(LAUNCH_PACKAGE, "", "LaunchConfigurationDelegate", LaunchConfigurationDelegateGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAUNCH_CONFIGURATION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(LAUNCH_PACKAGE, "", "LaunchConfigurationHelper", LaunchConfigurationHelperGenerator.class, OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_HELPER);
 	
+	// the util package
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CAST_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CastUtil", CastUtilGenerator.class, OptionTypes.OVERRIDE_CAST_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COPIED_E_LIST = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CopiedEList", CopiedEListGenerator.class, OptionTypes.OVERRIDE_COPIED_ELIST);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COPIED_E_OBJECT_INTERNAL_E_LIST = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CopiedEObjectInternalEList", CopiedEObjectInternalEListGenerator.class, OptionTypes.OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST);

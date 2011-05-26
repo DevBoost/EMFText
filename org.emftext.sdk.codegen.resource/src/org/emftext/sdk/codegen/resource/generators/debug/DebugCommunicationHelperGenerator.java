@@ -69,6 +69,9 @@ public class DebugCommunicationHelperGenerator extends JavaBaseGenerator<Artifac
 		sc.add("public " + debugMessageClassName + " receive(" + BUFFERED_READER + " reader) {");
 		sc.add("try {");
 		sc.add("String response = reader.readLine();");
+		sc.add("if (response == null) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add(debugMessageClassName + " receivedMessage = " + debugMessageClassName + ".deserialize(response);");
 		//sc.add("System.out.println(\"receive: \" + receivedMessage);");
 		sc.add("return receivedMessage;");

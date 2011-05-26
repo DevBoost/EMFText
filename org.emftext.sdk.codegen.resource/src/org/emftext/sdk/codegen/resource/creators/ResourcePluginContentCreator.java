@@ -307,7 +307,9 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.SOURCE_LOOKUP_PARTICIPANT);
 	    add(creators, TextResourceArtifacts.SOURCE_PATH_COMPUTER_DELEGATE);
 	    add(creators, TextResourceArtifacts.STACK_FRAME);
+	    
 	    add(creators, TextResourceArtifacts.LAUNCH_CONFIGURATION_DELEGATE);
+	    add(creators, TextResourceArtifacts.LAUNCH_CONFIGURATION_HELPER);
 		return creators;
 	}
 
