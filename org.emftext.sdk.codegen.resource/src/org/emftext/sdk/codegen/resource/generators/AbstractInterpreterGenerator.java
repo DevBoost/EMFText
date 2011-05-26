@@ -166,7 +166,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 			"Override this method to stop the overall interpretation depending on " +
 			"the result of the interpretation of a single model elements."
 		);
-		sc.add("public boolean continueInterpretation(ResultType result) {");
+		sc.add("public boolean continueInterpretation(ContextType context, ResultType result) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -265,7 +265,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.add("nextObjectToInterprete = next;");
 		sc.add("notifyListeners(next);");
 		sc.add("result = interprete(next, context);");
-		sc.add("if (!continueInterpretation(result)) {");
+		sc.add("if (!continueInterpretation(context, result)) {");
 		sc.add("break;");
 		sc.add("}");
 		sc.add("}");
