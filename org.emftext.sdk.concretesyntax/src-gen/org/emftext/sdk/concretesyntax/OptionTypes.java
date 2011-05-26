@@ -6392,6 +6392,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LaunchConfigurationHelper class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_LAUNCH_CONFIGURATION_HELPER
 	 * @model literal="overrideLaunchConfigurationHelper"
 	 * @generated
