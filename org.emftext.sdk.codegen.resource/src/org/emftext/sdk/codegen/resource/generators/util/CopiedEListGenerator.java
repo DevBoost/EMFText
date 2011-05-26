@@ -35,7 +35,6 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		// TODO mseifert: override remove() method of iterators
 		sc.add("public class " + getResourceClassName() + "<E> implements " + E_LIST + "<E> {");
 		sc.addLineBreak();
-		sc.add("private static final long serialVersionUID = 604726114003869602L;");
 		sc.add("private " + E_LIST + "<E> original;");
 		sc.add("private " + E_LIST + "<E> copy;");
 		sc.addLineBreak();

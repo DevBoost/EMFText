@@ -16,7 +16,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 
 public class CsCopiedEList<E> implements org.eclipse.emf.common.util.EList<E> {
 	
-	private static final long serialVersionUID = 604726114003869602L;
+	//private static final long serialVersionUID = 604726114003869602L;
 	private org.eclipse.emf.common.util.EList<E> original;
 	private org.eclipse.emf.common.util.EList<E> copy;
 	
