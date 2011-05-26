@@ -108,6 +108,9 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add(I_WORKBENCH_PAGE + " page = workbench.getActiveWorkbenchWindow().getActivePage();");
 		sc.add("try {");
 		sc.add(I_EDITOR_DESCRIPTOR + " desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());");
+		sc.add("if (desc == null) {");
+		sc.add("desc = workbench.getEditorRegistry().findEditor(\"org.eclipse.emf.ecore.presentation.ReflectiveEditorID\");");
+		sc.add("}");
 		sc.add(I_EDITOR_PART + " editorPart = page.openEditor(new " + FILE_EDITOR_INPUT + "(file), desc.getId());");
 		// TODO instead of checking whether this is an editor of the same kind, 
 		//      we should rather change the selection of the editorPart to the
