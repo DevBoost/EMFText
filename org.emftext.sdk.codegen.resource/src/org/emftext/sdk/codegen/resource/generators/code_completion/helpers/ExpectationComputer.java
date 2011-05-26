@@ -262,10 +262,8 @@ public class ExpectationComputer {
 		Set<Expectation> firstSet = new LinkedHashSet<Expectation>();
 
 		List<Sequence> options = choice.getOptions();
-		int i = 0;
 		for (Sequence sequence : options) {
 			firstSet.addAll(computeFirstSetForSequence(syntax, rule, sequence, contributingNonterminals));
-			i++;
 		}
 		return firstSet;
 	}
