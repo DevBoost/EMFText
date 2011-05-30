@@ -20,4 +20,5 @@ public interface IEditor {
 	public IResource getResource();
 	public void registerTextPresentationListener(ITextPresentationListener listener);
 	public void invalidateTextRepresentation();
+	public void setCaret(org.eclipse.emf.ecore.EObject element, String text);
 }
