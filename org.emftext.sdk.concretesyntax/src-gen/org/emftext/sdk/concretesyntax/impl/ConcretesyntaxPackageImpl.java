@@ -2549,7 +2549,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (concreteSyntaxEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tif (is_operatorRulesInitialized()) {\r\n\t\t\treturn;\r\n\t\t}\r\n\r\n\t\tset_operatorRulesInitialized(true);\r\n\r\n\t\t java.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();\r\n\r\n\t\t java.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();\r\n\t\t\tif (operatorAnnotation != null) {\r\n\t\t\t\tboolean added = false;\r\n\t\t\t\tfor ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); \r\n\t\t\t\t\tif (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {\r\n\t\t\t\t\t\toperatorRules.add(it.previousIndex(), rule);\r\n\t\t\t\t\t\tadded = true;\r\n\t\t\t\t\t\tbreak;\r\n\t\t\t\t\t}\t\t\t\r\n\t\t\t\t}\r\n\t\t\t\tif (!added) {\r\n\t\t\t\t\toperatorRules.add(rule);\r\n\t\t\t\t}\r\n\t\t\t\t java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\r\n\t\t\t\toperatorRuleSubsets.add(identifier);\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "body", "\r\n\t\tif (is_operatorRulesInitialized()) {\r\n\t\t\treturn;\r\n\t\t}\r\n\r\n\t\tset_operatorRulesInitialized(true);\r\n\r\n\t\t java.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();\r\n\r\n\t\t java.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();\r\n\t\t\tif (operatorAnnotation != null) {\r\n\t\t\t\tboolean added = false;\r\n\t\t\t\tfor ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); \r\n\t\t\t\t\tif (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {\r\n\t\t\t\t\t\toperatorRules.add(it.previousIndex(), rule);\r\n\t\t\t\t\t\tadded = true;\r\n\t\t\t\t\t\tbreak;\r\n\t\t\t\t\t}\t\t\t\r\n\t\t\t\t}\r\n\t\t\t\tif (!added) {\r\n\t\t\t\t\toperatorRules.add(rule);\r\n\t\t\t\t}\r\n\t\t\t\t java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\r\n\t\t\t\tif (identifier != null) {\r\n\t\t\t\t\toperatorRuleSubsets.add(identifier);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -2571,7 +2571,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\treturn rule.getSyntax() != this;\r\n",
-			 "documentation", "Returns true if the given rule was defined in the given syntax.\r\nIf the rule is defined in an imported syntax, this method returns false.\r\n \r\n@param syntax the syntax that refers to the rule\r\n@param rule the rule to check\r\n@return true if the rule is contained, false if it is imported"
+			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(8), 
@@ -2585,14 +2585,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\t java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\r\n\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\r\n\t\t\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\r\n\t\t\t\tcontinue;\r\n\t\t\t}\r\n\t\t\t org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\r\n\t\t\tfoundGenClasses.add(subClassCand);\r\n\t\t}\r\n\r\n\t\treturn foundGenClasses;\r\n",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\t org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\r\n\r\n\t\t org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\r\n\r\n\t\tfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\r\n\t\t\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\r\n\t\t\t\tsubClasses.add(subClassCand);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn subClasses;\r\n",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(11), 

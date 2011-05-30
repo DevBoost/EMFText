@@ -784,7 +784,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 							operatorRules.add(rule);
 						}
 						 java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());
-						operatorRuleSubsets.add(identifier);
+						if (identifier != null) {
+							operatorRuleSubsets.add(identifier);
+						}
 					}
 				}
 		

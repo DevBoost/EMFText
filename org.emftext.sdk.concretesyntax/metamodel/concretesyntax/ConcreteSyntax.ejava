@@ -119,7 +119,9 @@ eclass ConcreteSyntax {
 					operatorRules.add(rule);
 				}
 				String identifier = operatorAnnotation.getValue(OperatorAnnotationProperty.SUPERCLASS.toString());
-				operatorRuleSubsets.add(identifier);
+				if (identifier != null) {
+					operatorRuleSubsets.add(identifier);
+				}
 			}
 		}
 	}
