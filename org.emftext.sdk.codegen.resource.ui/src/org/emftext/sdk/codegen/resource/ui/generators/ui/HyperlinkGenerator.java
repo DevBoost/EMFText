@@ -112,14 +112,20 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("desc = workbench.getEditorRegistry().findEditor(\"org.eclipse.emf.ecore.presentation.ReflectiveEditorID\");");
 		sc.add("}");
 		sc.add(I_EDITOR_PART + " editorPart = page.openEditor(new " + FILE_EDITOR_INPUT + "(file), desc.getId());");
-		// TODO instead of checking whether this is an editor of the same kind, 
+		// TODO instead of checking whether this is an EMFText generated editor, 
 		//      we should rather change the selection of the editorPart to the
 		//      target EObject. This way, the code would not only work for all
 		//      kinds of EMFText editors, but also for other EMF-based editors.
-		sc.add("if (editorPart instanceof " + editorClassName + ") {");
-		sc.add(editorClassName + " emftEditor = (" + editorClassName + ") editorPart;");
-		sc.add("emftEditor.setCaret(linkTarget, text);");
+		sc.add("if(org.emftext.access.EMFTextAccessProxy.isAccessibleWith(editorPart.getClass(), org.emftext.access.resource.IEditor.class)){");
+		sc.add("org.emftext.access.resource.IEditor emftextEditor = (org.emftext.access.resource.IEditor) org.emftext.access.EMFTextAccessProxy.get(editorPart, org.emftext.access.resource.IEditor.class);");
+		sc.add("emftextEditor.setCaret(linkTarget, text);");
 		sc.add("}");
+		// this is the old caret setting handling which only allows for setting the caret in editors of the
+		// same kind as the linking editor is
+//		sc.add("if (editorPart instanceof " + editorClassName + ") {");
+//		sc.add(editorClassName + " emftEditor = (" + editorClassName + ") editorPart;");
+//		sc.add("emftEditor.setCaret(linkTarget, text);");
+//		sc.add("}");
 		
 		sc.add("} catch (" + PART_INIT_EXCEPTION + " e) {");
 		sc.add("e.printStackTrace();");
