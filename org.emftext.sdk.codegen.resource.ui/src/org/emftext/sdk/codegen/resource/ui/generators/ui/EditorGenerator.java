@@ -25,6 +25,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
@@ -54,12 +55,18 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOUR
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE_CHANGE_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE_DELTA;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE_DELTA_VISITOR;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_EDITOR_ACTION_CONSTANTS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_OPERATION_TARGET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_PRESENTATION_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VERTICAL_RULER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VIEWER_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_SUPPORT;
@@ -73,9 +80,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECT_MARKER_RULES_ACTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -91,17 +100,17 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		
+
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc("A text editor for '" + getContext().getConcreteSyntax().getName() + "' models.");
-		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + ", " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + ", " + I_VIEWER_PROVIDER + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
 		sc.addLineBreak();
-		
+
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
-		
+
 		sc.add("}");
 	}
 
@@ -132,6 +141,117 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addSetBracketHandlerMethod(sc);
 		addCreateActionsMethod(sc);
 		addGetAnnotationModelMethod(sc);
+		addAddSelectionChangedListenerMethod(sc);
+		addGetSelection(sc);
+		addRemoveSelectionChangedListener(sc);
+		addSetSelection(sc);
+		addSelectionChanged(sc);
+		addSetSelectionAndReveal(sc);
+		addGetViewer(sc);
+	}
+
+	private void addSetSelectionAndReveal(JavaComposite sc) {
+		sc.add("private void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
+		sc.add("if(selection instanceof " + I_STRUCTURED_SELECTION + "){");
+		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
+		sc.add("Object object = structuredSelection.getFirstElement();");
+		sc.add("if(object instanceof " + E_OBJECT + "){");
+		sc.add(E_OBJECT + " element = (" + E_OBJECT + ") object;");
+		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
+		sc.add("int destination = locationMap.getCharStart(element);");
+		sc.add("if (destination < 0) {");
+		sc.add("destination = 0;");
+		sc.add("}");
+		sc.add("selectAndReveal(destination, 0);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetViewer(JavaComposite sc) {
+		sc.add("public " + VIEWER + " getViewer() {");
+		sc.add(VIEWER + " selectionViewer = new " + VIEWER + "() {");
+		sc.addLineBreak();
+		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
+		sc.add(getResourceClassName() + ".this.setSelection(selection, reveal);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void setInput(Object input) {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void refresh() {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + I_SELECTION + " getSelection() {");
+		sc.add("return " + getResourceClassName() + ".this.editorSelection;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public Object getInput() {");
+		sc.add("return " + getResourceClassName() + ".this.getEditorInput();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + CONTROL + " getControl() {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("};");
+		sc.add("return selectionViewer;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSelectionChanged(JavaComposite sc) {
+		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+		sc.add(I_SELECTION + " selection = event.getSelection();");
+		sc.add("if(selection instanceof " + I_STRUCTURED_SELECTION + "){");
+		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
+		sc.add("Object object = structuredSelection.getFirstElement();");
+		sc.add("if(object instanceof " + E_OBJECT + "){");
+		sc.add(E_OBJECT + " element = (" + E_OBJECT + ") object;");
+		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
+		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
+		sc.add("int destination = locationMap.getCharStart(element);");
+		sc.add("if (destination < 0) {");
+		sc.add("destination = 0;");
+		sc.add("}");
+		sc.add("selectAndReveal(destination, 0);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetSelection(JavaComposite sc) {
+		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
+		sc.add("editorSelection = selection;");
+		sc.add("for (" + I_SELECTION_CHANGED_LISTENER + " listener : selectionChangedListeners)");
+		sc.add("{");
+		sc.add("listener.selectionChanged(new " + SELECTION_CHANGED_EVENT + "(this, selection));");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addRemoveSelectionChangedListener(JavaComposite sc) {
+		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
+		sc.add("selectionChangedListeners.remove(listener);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetSelection(JavaComposite sc) {
+		sc.add("public " + I_SELECTION + " getSelection() {");
+		sc.add("return editorSelection;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddSelectionChangedListenerMethod(JavaComposite sc) {
+		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
+		sc.add("selectionChangedListeners.add(listener);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetAnnotationModelMethod(JavaComposite sc) {
@@ -190,10 +310,10 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addSetCaretMethod(JavaComposite sc) {
-		
+
 		sc.addJavadoc(
-			"Sets the caret to the offset of the given element.",
-			"@param element has to be contained in the resource of this editor."
+				"Sets the caret to the offset of the given element.",
+				"@param element has to be contained in the resource of this editor."
 		);
 		sc.add("public void setCaret(" + E_OBJECT + " element, String text) {");
 		sc.add("try {");
@@ -263,10 +383,10 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("if (propertySheetPage == null) {");
 		sc.add("propertySheetPage = new " + propertySheetPageClassName + "();");
 		sc.addComment(
-			"add a slightly modified adapter factory that does not return any " +
-			"editors for properties. " +
-			"this way, a model can never be modified through the properties " +
-			"view."
+				"add a slightly modified adapter factory that does not return any " +
+				"editors for properties. " +
+				"this way, a model can never be modified through the properties " +
+				"view."
 		);
 		sc.add("propertySheetPage.setPropertySourceProvider(new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory) {");
 		sc.add("protected " + I_PROPERTY_SOURCE + " createPropertySource(Object object, " + I_ITEM_PROPERTY_SOURCE + " itemPropertySource) {");
@@ -485,6 +605,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("setSourceViewerConfiguration(new " + editorConfigurationClassName + "(this, this, this, colorManager));");
 		sc.add("initializeEditingDomain();");
 		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
+		sc.add("addSelectionChangedListener(this);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -578,11 +699,11 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addModelResourceChangeListenerClass(JavaComposite sc) {
 		sc.addJavadoc(
-			"Reacts to changes of the text resource displayed in the editor and " +
-			"resources cross-referenced by it. Cross-referenced resources are " +
-			"unloaded, the displayed resource is reloaded. An attempt to resolve all " +
-			"proxies in the displayed resource is made after each change.",
-			"The code pretty much corresponds to what EMF generates for a tree editor."
+				"Reacts to changes of the text resource displayed in the editor and " +
+				"resources cross-referenced by it. Cross-referenced resources are " +
+				"unloaded, the displayed resource is reloaded. An attempt to resolve all " +
+				"proxies in the displayed resource is made after each change.",
+				"The code pretty much corresponds to what EMF generates for a tree editor."
 		);
 		sc.add("private class ModelResourceChangeListener implements " + I_RESOURCE_CHANGE_LISTENER + " {");
 		sc.add("public void resourceChanged(" + I_RESOURCE_CHANGE_EVENT + " event) {");
@@ -659,8 +780,10 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
 		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
 		sc.add("private " + iBracketHandlerClassName + " bracketHandler;");
+		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + LINKED_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
+		sc.add("private " + I_SELECTION + " editorSelection;");
 		sc.addLineBreak();
 	}
 
-	
+
 }

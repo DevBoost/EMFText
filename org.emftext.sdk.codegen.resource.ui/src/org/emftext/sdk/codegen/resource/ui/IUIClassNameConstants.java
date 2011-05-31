@@ -135,6 +135,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
@@ -624,6 +625,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_TREE_CONTENT_PROVIDER = ITreeContentProvider.class.getName();
 	public static String I_VALUE_DETAIL_LISTENER = IValueDetailListener.class.getName();
 	public static String I_VERTICAL_RULER = IVerticalRuler.class.getName();
+	public static String I_VIEWER_PROVIDER = IViewerProvider.class.getName();
 	public static String I_WIZARD = IWizard.class.getName();
 	public static String I_WIZARD_CATEGORY = IWizardCategory.class.getName();
 	public static String I_WORKBENCH = IWorkbench.class.getName();

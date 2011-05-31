@@ -14,12 +14,16 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITING_DOMAIN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITING_DOMAIN_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_DESCRIPTOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_PART;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_HYPERLINK;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_REGION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VIEWER_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKSPACE;
@@ -29,7 +33,9 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -40,18 +46,18 @@ import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		
+
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		
+
 		sc.addJavadoc("A hyperlink for the proxy elements in source code.");
 		sc.add("public class " + getResourceClassName() + " implements " + I_HYPERLINK + " {");
 		sc.addLineBreak();
-		
+
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
-		
+
 		sc.add("}");
 	}
 
@@ -93,10 +99,10 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addOpenMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Opens the resource in <code>linkTarget</code> with the generated " +
-			"editor, if it supports the file extension of this " +
-			"resource, and tries to jump to the definition. Otherwise it tries to open the target with " +
-			"the default editor."
+				"Opens the resource in <code>linkTarget</code> with the generated " +
+				"editor, if it supports the file extension of this " +
+				"resource, and tries to jump to the definition. Otherwise it tries to open the target with " +
+				"the default editor."
 		);
 		sc.add("public void open() {");
 		sc.add("if (linkTarget == null) {");
@@ -116,17 +122,18 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		//      we should rather change the selection of the editorPart to the
 		//      target EObject. This way, the code would not only work for all
 		//      kinds of EMFText editors, but also for other EMF-based editors.
-		sc.add("if(org.emftext.access.EMFTextAccessProxy.isAccessibleWith(editorPart.getClass(), org.emftext.access.resource.IEditor.class)){");
-		sc.add("org.emftext.access.resource.IEditor emftextEditor = (org.emftext.access.resource.IEditor) org.emftext.access.EMFTextAccessProxy.get(editorPart, org.emftext.access.resource.IEditor.class);");
-		sc.add("emftextEditor.setCaret(linkTarget, text);");
+		sc.add("if(editorPart instanceof " + I_EDITING_DOMAIN_PROVIDER + "){");
+		sc.add(I_EDITING_DOMAIN_PROVIDER + " editingDomainProvider = (" + I_EDITING_DOMAIN_PROVIDER + ") editorPart;");
+		sc.add(EDITING_DOMAIN + " editingDomain = editingDomainProvider.getEditingDomain();");
+		sc.add(URI + " uri = " + ECORE_UTIL + ".getURI(linkTarget);");
+		sc.add(E_OBJECT + " originalObject = editingDomain.getResourceSet().getEObject(uri, true);");
+		sc.add("if(editingDomainProvider instanceof " + I_VIEWER_PROVIDER + "){");
+		sc.add(I_VIEWER_PROVIDER + " viewerProvider = (" + I_VIEWER_PROVIDER + ") editingDomainProvider;");
+		sc.add(VIEWER + " viewer = viewerProvider.getViewer();");
+		sc.add("viewer.setSelection(new " + STRUCTURED_SELECTION + "(originalObject), true);");
 		sc.add("}");
-		// this is the old caret setting handling which only allows for setting the caret in editors of the
-		// same kind as the linking editor is
-//		sc.add("if (editorPart instanceof " + editorClassName + ") {");
-//		sc.add(editorClassName + " emftEditor = (" + editorClassName + ") editorPart;");
-//		sc.add("emftEditor.setCaret(linkTarget, text);");
-//		sc.add("}");
-		
+		sc.add("}");
+
 		sc.add("} catch (" + PART_INIT_EXCEPTION + " e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("}");
@@ -159,10 +166,10 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates the hyperlink.",
-			"@param region the region of the hyperlink to highlight",
-			"@param linkTarget the link target where this hyperlink should go to",
-			"@param targetText the text to specify the target position in the <code>linkTarget</code>"
+				"Creates the hyperlink.",
+				"@param region the region of the hyperlink to highlight",
+				"@param linkTarget the link target where this hyperlink should go to",
+				"@param targetText the text to specify the target position in the <code>linkTarget</code>"
 		);
 		sc.add("public " + getResourceClassName() + "(" + I_REGION + " region, " + E_OBJECT + " linkTarget, String targetText) {");
 		sc.add("this.region = region;");
