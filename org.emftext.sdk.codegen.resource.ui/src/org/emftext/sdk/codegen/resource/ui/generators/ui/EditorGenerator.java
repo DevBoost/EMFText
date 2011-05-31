@@ -152,10 +152,10 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addSetSelectionAndReveal(JavaComposite sc) {
 		sc.add("private void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
-		sc.add("if(selection instanceof " + I_STRUCTURED_SELECTION + "){");
+		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION + ") {");
 		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
 		sc.add("Object object = structuredSelection.getFirstElement();");
-		sc.add("if(object instanceof " + E_OBJECT + "){");
+		sc.add("if (object instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " element = (" + E_OBJECT + ") object;");
 		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
@@ -204,10 +204,10 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	private void addSelectionChanged(JavaComposite sc) {
 		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.add(I_SELECTION + " selection = event.getSelection();");
-		sc.add("if(selection instanceof " + I_STRUCTURED_SELECTION + "){");
+		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION + ") {");
 		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
 		sc.add("Object object = structuredSelection.getFirstElement();");
-		sc.add("if(object instanceof " + E_OBJECT + "){");
+		sc.add("if (object instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " element = (" + E_OBJECT + ") object;");
 		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
@@ -225,8 +225,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	private void addSetSelection(JavaComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
 		sc.add("editorSelection = selection;");
-		sc.add("for (" + I_SELECTION_CHANGED_LISTENER + " listener : selectionChangedListeners)");
-		sc.add("{");
+		sc.add("for (" + I_SELECTION_CHANGED_LISTENER + " listener : selectionChangedListeners) {");
 		sc.add("listener.selectionChanged(new " + SELECTION_CHANGED_EVENT + "(this, selection));");
 		sc.add("}");
 		sc.add("}");
