@@ -151,7 +151,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addSetSelectionAndReveal(JavaComposite sc) {
-		sc.add("private void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
+		sc.add("private boolean setSelection(" + I_SELECTION + " selection, boolean reveal) {");
 		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION + ") {");
 		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
 		sc.add("Object object = structuredSelection.getFirstElement();");
@@ -164,39 +164,17 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("destination = 0;");
 		sc.add("}");
 		sc.add("selectAndReveal(destination, 0);");
+		sc.add("return true;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetViewer(JavaComposite sc) {
 		sc.add("public " + VIEWER + " getViewer() {");
-		sc.add(VIEWER + " selectionViewer = new " + VIEWER + "() {");
-		sc.addLineBreak();
-		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
-		sc.add(getResourceClassName() + ".this.setSelection(selection, reveal);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void setInput(Object input) {");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void refresh() {");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + I_SELECTION + " getSelection() {");
-		sc.add("return " + getResourceClassName() + ".this.editorSelection;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public Object getInput() {");
-		sc.add("return " + getResourceClassName() + ".this.getEditorInput();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + CONTROL + " getControl() {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add("};");
-		sc.add("return selectionViewer;");
+		sc.add("return (" + PROJECTION_VIEWER + ") getSourceViewer();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -300,7 +278,15 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addCreateSourceViewerMethod(JavaComposite sc) {
 		sc.add("protected " + I_SOURCE_VIEWER + " createSourceViewer(" + COMPOSITE + " parent, " + I_VERTICAL_RULER + " ruler, int styles) {");
-		sc.add(I_SOURCE_VIEWER + " viewer = new " + PROJECTION_VIEWER + "(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);");
+		sc.add(I_SOURCE_VIEWER + " viewer = new " + PROJECTION_VIEWER + "(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles) {");
+		sc.addLineBreak();
+		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
+		sc.add("if (!" + getResourceClassName() + ".this.setSelection(selection, reveal)) {");
+		sc.add("super.setSelection(selection, reveal);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("};");
 		sc.addComment("ensure decoration support has been created and configured.");
 		sc.add("getSourceViewerDecorationSupport(viewer);");
 		sc.add("return viewer;");
