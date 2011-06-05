@@ -25,7 +25,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
@@ -56,8 +55,8 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOUR
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE_DELTA;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE_DELTA_VISITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_EDITOR_ACTION_CONSTANTS;
@@ -79,8 +78,8 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECT_MARKER_RULES_ACTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECT_MARKER_RULES_ACTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
