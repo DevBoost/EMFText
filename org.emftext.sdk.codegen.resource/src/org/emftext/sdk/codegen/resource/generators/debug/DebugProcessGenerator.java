@@ -79,7 +79,6 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetLabelMethod(JavaComposite sc) {
 		sc.add("public String getLabel() {");
-		//sc.add("// TODO Auto-generated method stub");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -94,7 +93,6 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetStreamsProxyMethod(JavaComposite sc) {
 		sc.add("public " + I_STREAMS_PROXY + " getStreamsProxy() {");
-		//sc.add("// TODO Auto-generated method stub");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -102,14 +100,12 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addSetAttributeMethod(JavaComposite sc) {
 		sc.add("public void setAttribute(String key, String value) {");
-		//sc.add("// TODO Auto-generated method stub");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetAttributeMethod(JavaComposite sc) {
 		sc.add("public String getAttribute(String key) {");
-		//sc.add("// TODO Auto-generated method stub");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -117,7 +113,6 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetExitValueMethod(JavaComposite sc) {
 		sc.add("public int getExitValue() throws " + DEBUG_EXCEPTION + " {");
-		//sc.add("// TODO Auto-generated method stub");
 		sc.add("return 0;");
 		sc.add("}");
 		sc.addLineBreak();
