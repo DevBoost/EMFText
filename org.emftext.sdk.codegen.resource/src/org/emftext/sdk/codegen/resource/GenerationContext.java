@@ -415,4 +415,12 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	public String getDebugModelID() {
 		return getResourcePlugin().getName() + ".debugModel";
 	}
+
+	public String getEditorContextID() {
+		return getResourcePlugin().getName() + ".EditorContext";
+	}
+
+	public String getEditorRulerID() {
+		return getResourcePlugin().getName() + ".EditorRuler";
+	}
 }

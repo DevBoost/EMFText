@@ -252,9 +252,13 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addInitializeEditorMethod(StringComposite sc) {
+		String editorContextID = getContext().getEditorContextID();
+		String editorRulerID = getContext().getEditorRulerID();
+
 		sc.add("public void initializeEditor() {");
 		sc.add("super.initializeEditor();");
-		sc.add("setEditorContextMenuId(\"" + getContext().getResourcePlugin().getName() + ".EditorContext\");");
+		sc.add("setEditorContextMenuId(\"" + editorContextID + "\");");
+		sc.add("setRulerContextMenuId(\"" + editorRulerID + "\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

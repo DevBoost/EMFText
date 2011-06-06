@@ -410,7 +410,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		extension.setAttribute("point", "org.eclipse.ui.popupMenus");
 		XMLElement viewerContribution = extension.createChild("viewerContribution");
 		viewerContribution.setAttribute("id", uiPluginName + ".RulerPopupActions");
-		viewerContribution.setAttribute("targetID", "#TextRulerContext");
+		viewerContribution.setAttribute("targetID", context.getEditorRulerID());
 		
 		XMLElement action = viewerContribution.createChild("action"); 
 		action.setAttribute("id", uiPluginName + ".toggleBreakpointAction"); 
