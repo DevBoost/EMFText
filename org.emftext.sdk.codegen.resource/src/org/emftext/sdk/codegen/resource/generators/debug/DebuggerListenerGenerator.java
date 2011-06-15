@@ -68,9 +68,10 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addFields(JavaComposite sc) {
 		sc.add("private boolean stop = false;");
 		sc.add("private " + abstractDebuggableClassName + " debuggable;");
+		sc.addJavadoc("The last object id that was used.");
 		sc.add("private long id = 0;");
-		sc.add("private " + MAP + "<Long, String> nameMap = new " + LINKED_HASH_MAP + "<Long, String>();");
-		sc.add("private " + MAP + "<Long, Object> objectMap = new " + LINKED_HASH_MAP + "<Long, Object>();");
+		sc.addJavadoc("This map maps object ids to pairs of object names and object values.");
+		sc.add("private " + MAP + "<Long, " + pairClassName + "<String, Object>> objectMap = new " + LINKED_HASH_MAP + "<Long, " + pairClassName + "<String, Object>>();");
 		sc.addLineBreak();
 		sc.add("private " + debugCommunicationHelperClassName + " communicationHelper = new " + debugCommunicationHelperClassName + "();");
 		sc.addLineBreak();
@@ -142,7 +143,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".GET_VARIABLE)) {");
 		sc.add("long requestedID = Long.parseLong(command.getArgument(0));");
 		sc.addComment("create variable string");
-		sc.add("Object next = objectMap.get(requestedID);");
+		sc.add("Object next = objectMap.get(requestedID).getRight();");
 		sc.add("String varString = convertToString(requestedID, next);");
 		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".GET_VARIABLE_RESPONSE, new String[] {varString});");
 		sc.add("communicationHelper.sendEvent(message, output);");
@@ -159,7 +160,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addConvertToStringMethod(JavaComposite sc) {
 		sc.add("private String convertToString(long id, Object object) {");
-		sc.add("String name = nameMap.get(id);");
+		sc.add("String name = objectMap.get(id).getLeft();");
 		sc.addLineBreak();
 		sc.add(MAP + "<String, Object> properties = new " + LINKED_HASH_MAP + "<String, Object>();");
 		sc.add("properties.put(\"!name\", name);");
@@ -217,19 +218,20 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addGetObjectIDMethod(JavaComposite sc) {
 		sc.add("private long getObjectID(String name, Object value) {");
-		sc.add("if (objectMap.containsValue(value)) {");
+		sc.add(pairClassName + "<String, Object> pair = new " + pairClassName + "<String, Object>(name, value);");
+		sc.add("if (objectMap.containsValue(pair)) {");
 		sc.add("for (Long nextID : objectMap.keySet()) {");
 		sc.add("Object next = objectMap.get(nextID);");
-		sc.add("if (next == value) {");
+		sc.add("if (pair.equals(next)) {");
 		sc.add("return nextID;");
 		sc.add("}");
 		sc.add("}");
+		sc.addComment("This should not happen, because objectMap.containsValue() was true. Maybe there is a fault equals() method?");
 		sc.add("assert false;");
 		sc.add("return -1;");
 		sc.add("} else {");
 		sc.add("long usedID = id;");
-		sc.add("nameMap.put(usedID, name);");
-		sc.add("objectMap.put(usedID, value);");
+		sc.add("objectMap.put(usedID, pair);");
 		sc.add("id++;");
 		sc.add("return usedID;");
 		sc.add("}");
