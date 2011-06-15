@@ -90,9 +90,11 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("try {");
 		sc.add(I_VARIABLE + "[] variables = variable.getValue().getVariables();");
 		sc.add("for (" + I_CHILDREN_UPDATE + " update : updates) {");
-		sc.add("int i = 0;");
-		sc.add("for (" + I_VARIABLE + " variable : variables) {");
-		sc.add("update.setChild(variable, i++);");
+		sc.add("int offset = update.getOffset();");
+		sc.add("int length = update.getLength();");
+		sc.add("for (int i = offset; i < offset + length; i++) {");
+		sc.add(I_VARIABLE + " variable = variables[i];");
+		sc.add("update.setChild(variable, i);");
 		sc.add("}");
 		sc.add("update.done();");
 		sc.add("}");
@@ -122,7 +124,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetAdapterListMethod(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"rawtypes\")");
+		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();
 		sc.add("public Class[] getAdapterList() {");
 		sc.add("return new Class[] {" + I_TOGGLE_BREAKPOINTS_TARGET + ".class};");
 		sc.add("}");

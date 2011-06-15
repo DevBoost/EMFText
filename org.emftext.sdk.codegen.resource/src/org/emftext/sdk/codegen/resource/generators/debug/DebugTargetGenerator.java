@@ -295,7 +295,8 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("removeEventListener(this);");
 		sc.add("removeEventListener(this.thread);");
 		sc.add("removeEventListener(this.process);");
-		sc.add(DEBUG_PLUGIN + ".getDefault().getBreakpointManager().removeBreakpointListener(this);");
+		sc.add(DEBUG_PLUGIN + " debugPlugin = " + DEBUG_PLUGIN + ".getDefault();");
+		sc.add("debugPlugin.getBreakpointManager().removeBreakpointListener(this);");
 		// TODO is this correct?
 		sc.add("getDebugProxy().terminate();");
 		sc.add("}");

@@ -2,7 +2,9 @@ package org.emftext.sdk.codegen.resource.generators.debug;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_READER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FIELD;
@@ -11,6 +13,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SERVER_SOCKET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
@@ -47,10 +50,38 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		addRunMethod(sc);
 		addRunDebuggerMethod(sc);
 		addConvertToStringMethod(sc);
+		addAddFieldsMethod(sc);
 		addIsPrimitiveTypeClassMethod(sc);
 		addGetObjectIDMethod(sc);
 		addGetInterpreterMethod(sc);
 		addSetInterpreterMethod(sc);
+	}
+
+	private void addAddFieldsMethod(JavaComposite sc) {
+		sc.add("private void addFields(Object object, " + MAP + "<String, Object> properties, Class<?> javaClass) {");
+		sc.add(FIELD + "[] fields = javaClass.getDeclaredFields();");
+		sc.add("for (" + FIELD + " field : fields) {");
+		sc.addComment("here we should check the settings of the debug view");
+		sc.add("if (" + MODIFIER + ".isStatic(field.getModifiers())) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.add("try {");
+		sc.add("field.setAccessible(true);");
+		sc.add("Object value = field.get(object);");
+		sc.add("String fieldName = field.getName();");
+		sc.add("long valueID = getObjectID(fieldName, value);");
+		sc.add("properties.put(fieldName, Long.toString(valueID));");
+		sc.add("} catch (IllegalArgumentException e) {");
+		sc.add("e.printStackTrace();");
+		sc.add("} catch (IllegalAccessException e) {");
+		sc.add("e.printStackTrace();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("Class<?> superclass = javaClass.getSuperclass();");
+		sc.add("if (superclass != null) {");
+		sc.add("addFields(object, properties, superclass);");
+		sc.add("}");
+		sc.add("}");
 	}
 
 	private void addConstants(JavaComposite sc) {
@@ -60,7 +91,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("Long.class,");
 		sc.add("Boolean.class,");
 		sc.add("Float.class,");
-		sc.add("Double.class");
+		sc.add("Double.class,");
 		sc.add("};");
 		sc.addLineBreak();
 	}
@@ -165,13 +196,16 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add(MAP + "<String, Object> properties = new " + LINKED_HASH_MAP + "<String, Object>();");
 		sc.add("properties.put(\"!name\", name);");
 		sc.add("properties.put(\"!id\", Long.toString(id));");
-		sc.add("properties.put(\"!valueString\", object == null ? \"null\" : object.toString());");
+		sc.add("String valueString = object == null ? \"null\" : object.toString();");
 		sc.add("if (object != null) {");
 		sc.add("if (object instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") object;");
-		sc.add("properties.put(\"!type\", eObject.eClass().getName());");
+		sc.add(E_CLASS + " eClass = eObject.eClass();");
+		sc.add("String eClassName = eClass.getName();");
+		sc.add("valueString = eClassName + \" (id=\" + id + \")\";");
+		sc.add("properties.put(\"!type\", eClassName);");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = eObject.eClass().getEAllStructuralFeatures();");
+		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = eClass.getEAllStructuralFeatures();");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " feature : features) {");
 		sc.add("Object value = eObject.eGet(feature);");
 		sc.add("String featureName = feature.getName();");
@@ -180,24 +214,25 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add("} else {");
 		sc.add("Class<? extends Object> javaClass = object.getClass();");
+		sc.add("valueString = javaClass.getSimpleName() + \" (id=\" + id + \")\";");
 		sc.add("if (!isPrimitiveTypeClass(javaClass)) {");
-		sc.add("" + FIELD + "[] fields = javaClass.getDeclaredFields();");
-		sc.add("for (" + FIELD + " field : fields) {");
-		sc.add("try {");
-		sc.add("field.setAccessible(true);");
-		sc.add("Object value = field.get(object);");
-		sc.add("String fieldName = field.getName();");
-		sc.add("long valueID = getObjectID(fieldName, value);");
+		sc.add("addFields(object, properties, javaClass);");
+		sc.add("} else {");
+		sc.add("valueString = object.toString();");
+		sc.add("}");
+		sc.add("if (javaClass.isArray()) {");
+		sc.add("int length = " + ARRAY + ".getLength(object);");
+		sc.add("valueString = javaClass.getComponentType().getName() + \"[\" + length + \"] (id=\" + id + \")\";");
+		sc.add("for (int i = 0; i < length; i++) {");
+		sc.add("Object objectAtIndex = " + ARRAY + ".get(object, i);");
+		sc.add("String fieldName = \"[\" + i + \"]\";");
+		sc.add("long valueID = getObjectID(fieldName, objectAtIndex);");
 		sc.add("properties.put(fieldName, Long.toString(valueID));");
-		sc.add("} catch (IllegalArgumentException e) {");
-		sc.add("e.printStackTrace();");
-		sc.add("} catch (IllegalAccessException e) {");
-		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("}");
+		sc.add("properties.put(\"!valueString\", valueString);");
 		sc.addLineBreak();
 		sc.add("return " + stringUtilClassName + ".convertToString(properties);");
 		sc.add("}");

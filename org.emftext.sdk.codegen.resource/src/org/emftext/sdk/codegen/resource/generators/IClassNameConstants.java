@@ -204,6 +204,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String ANTLR_INPUT_STREAM = ANTLRInputStream.class.getName();
 	public static String ANTLR_PARSER = org.antlr.runtime3_3_0.Parser.class.getName();
 	public static String ANTLR_STRING_STREAM = ANTLRStringStream.class.getName();
+	public static String ARRAY = java.lang.reflect.Array.class.getName();
 	public static String ARRAYS = java.util.Arrays.class.getName();
 	public static String ASSERT = Assert.class.getName();
 	public static String BASIC_COMMAND_STACK = BasicCommandStack.class.getName();
@@ -339,6 +340,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String MATCHER = Matcher.class.getName();
 	public static String MESSAGE_DIGEST = MessageDigest.class.getName();
 	public static String METHOD = java.lang.reflect.Method.class.getName();
+	public static String MODIFIER = java.lang.reflect.Modifier.class.getName();
 	public static String MISMATCHED_NOT_SET_EXCEPTION = MismatchedNotSetException.class.getName();
 	public static String MISMATCHED_RANGE_EXCEPTION = MismatchedRangeException.class.getName();
 	public static String MISMATCHED_SET_EXCEPTION = MismatchedSetException.class.getName();
