@@ -16,10 +16,12 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import java.util.Collection;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexReference;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
@@ -45,6 +47,23 @@ public class RegexReferenceTargetReferenceResolver implements ICsReferenceResolv
 				}
 			}
 		}
+		EList<Import> imports = syntax.getImports();
+		for (Import i : imports) {
+			ConcreteSyntax imported = i.getConcreteSyntax();
+			Collection<NamedTokenDefinition> tokenDefs = CsEObjectUtil.getObjectsByType(imported.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getNamedTokenDefinition());
+			for (NamedTokenDefinition namedTokenDefinition : tokenDefs) {
+				String prefixedTokenName = i.getPrefix() +"." + namedTokenDefinition.getName();
+				if (resolveFuzzy) {
+					result.addMapping(prefixedTokenName, namedTokenDefinition);
+				} else {
+					if (prefixedTokenName != null && prefixedTokenName.equals(identifier)) {
+						result.addMapping(prefixedTokenName, namedTokenDefinition);
+						return;
+					}
+				}
+			}
+		}
+		
 	}
 	
 	private ConcreteSyntax findRoot(EObject object) {
