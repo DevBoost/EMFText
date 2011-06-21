@@ -77,17 +77,26 @@ public class CreateNewEMFTextProjectJob extends AbstractCreatePluginJob {
 		refresh(progress.newChild(2), project, "new project");
 		GenerationContext generationContext = context.getGenerationContext();
 		
-		String resourcePluginName = generationContext.getResourcePlugin().getName();
-		if (resourcePluginName != null) {
-			refresh(progress.newChild(2), getProject(resourcePluginName), "resource plug-in");
+		IPluginDescriptor resourcePlugin = generationContext.getResourcePlugin();
+		if (resourcePlugin != null) {
+			String resourcePluginName = resourcePlugin.getName();
+			if (resourcePluginName != null) {
+				refresh(progress.newChild(2), getProject(resourcePluginName), "resource plug-in");
+			}
 		}
-		String resourceUIPluginName = generationContext.getResourceUIPlugin().getName();
-		if (resourceUIPluginName != null) {
-			refresh(progress.newChild(2), getProject(resourceUIPluginName), "resource UI plug-in");
+		IPluginDescriptor resourceUIPlugin = generationContext.getResourceUIPlugin();
+		if (resourceUIPlugin != null) {
+			String resourceUIPluginName = resourceUIPlugin.getName();
+			if (resourceUIPluginName != null) {
+				refresh(progress.newChild(2), getProject(resourceUIPluginName), "resource UI plug-in");
+			}
 		}
-		String antrlPluginName = generationContext.getAntlrPlugin().getName();
-		if (antrlPluginName != null) {
-			refresh(progress.newChild(2), getProject(antrlPluginName), "ANTLR plug-in");
+		IPluginDescriptor antlrPlugin = generationContext.getAntlrPlugin();
+		if (antlrPlugin != null) {
+			String antrlPluginName = antlrPlugin.getName();
+			if (antrlPluginName != null) {
+				refresh(progress.newChild(2), getProject(antrlPluginName), "ANTLR plug-in");
+			}
 		}
 		
 		// write problems to error log
