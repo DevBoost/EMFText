@@ -95,6 +95,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=322886
 			    		//
 			    		// do also ignore FileNotFoundException caused by some pure::variants plug-ins
+			    		// do also ignore FileNotFoundException caused by Acceleo plug-ins
 						if (!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmeta.genmodel") &&
 							!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmodel.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.emf.cdo/model/resource.genmodel") &&
@@ -106,7 +107,8 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 							!uriString.startsWith("platform:/plugin/org.eclipse.ocl.examples.xtext.completeocl/org.eclipse.ocl.examples.xtext.completeocl/model/CompleteOCLCST.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.xtext/model/xtext.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.builder/model/BuilderState.genmodel") &&
-							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.xbase/org/eclipse/xtext/xbase/Xbase.genmodel")
+							!uriString.startsWith("platform:/plugin/org.eclipse.xtext.xbase/org/eclipse/xtext/xbase/Xbase.genmodel") &&
+							!uriString.startsWith("platform:/plugin/org.eclipse.acceleo.ide.ui/model/AcceleoWizardModel.genmodel")
 							) {
 				    		EMFTextSDKPlugin.logWarning("Exception while looking up generator model (" + nextNS + ") at " + uriString + " in the registry.", e);
 			    		}
