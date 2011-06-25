@@ -135,7 +135,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
 	/**
 	 * An implementation of the IResolvedGenPackage that is used to
-	 * return generator package found in the EMF registry.
+	 * return generator packages found in the EMF registry.
 	 */
 	private static class GenPackageInRegistry implements IResolvedGenPackage {
 
