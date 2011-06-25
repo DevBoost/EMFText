@@ -76,26 +76,29 @@ public class CreateNewEMFTextProjectJob extends AbstractCreatePluginJob {
 		new NewProjectContentsCreator().create(newProjectPlugin, context, null, null);
 		refresh(progress.newChild(2), project, "new project");
 		GenerationContext generationContext = context.getGenerationContext();
-		
-		IPluginDescriptor resourcePlugin = generationContext.getResourcePlugin();
-		if (resourcePlugin != null) {
-			String resourcePluginName = resourcePlugin.getName();
-			if (resourcePluginName != null) {
-				refresh(progress.newChild(2), getProject(resourcePluginName), "resource plug-in");
+		// generationContext can be null if the user chooses to not generate
+		// resource plug-ins
+		if (generationContext != null) {
+			IPluginDescriptor resourcePlugin = generationContext.getResourcePlugin();
+			if (resourcePlugin != null) {
+				String resourcePluginName = resourcePlugin.getName();
+				if (resourcePluginName != null) {
+					refresh(progress.newChild(2), getProject(resourcePluginName), "resource plug-in");
+				}
 			}
-		}
-		IPluginDescriptor resourceUIPlugin = generationContext.getResourceUIPlugin();
-		if (resourceUIPlugin != null) {
-			String resourceUIPluginName = resourceUIPlugin.getName();
-			if (resourceUIPluginName != null) {
-				refresh(progress.newChild(2), getProject(resourceUIPluginName), "resource UI plug-in");
+			IPluginDescriptor resourceUIPlugin = generationContext.getResourceUIPlugin();
+			if (resourceUIPlugin != null) {
+				String resourceUIPluginName = resourceUIPlugin.getName();
+				if (resourceUIPluginName != null) {
+					refresh(progress.newChild(2), getProject(resourceUIPluginName), "resource UI plug-in");
+				}
 			}
-		}
-		IPluginDescriptor antlrPlugin = generationContext.getAntlrPlugin();
-		if (antlrPlugin != null) {
-			String antrlPluginName = antlrPlugin.getName();
-			if (antrlPluginName != null) {
-				refresh(progress.newChild(2), getProject(antrlPluginName), "ANTLR plug-in");
+			IPluginDescriptor antlrPlugin = generationContext.getAntlrPlugin();
+			if (antlrPlugin != null) {
+				String antrlPluginName = antlrPlugin.getName();
+				if (antrlPluginName != null) {
+					refresh(progress.newChild(2), getProject(antrlPluginName), "ANTLR plug-in");
+				}
 			}
 		}
 		
