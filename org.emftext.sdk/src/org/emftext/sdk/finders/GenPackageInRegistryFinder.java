@@ -95,7 +95,10 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=322886
 			    		//
 			    		// do also ignore FileNotFoundException caused by some pure::variants plug-ins
+			    		//
 			    		// do also ignore FileNotFoundException caused by Acceleo plug-ins
+			    		// This is a workaround for Eclipse Bug 350348
+			    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=350348
 						if (!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmeta.genmodel") &&
 							!uriString.startsWith("platform:/plugin/com.ps.consul.eclipse.ecore/src/pvmodel.genmodel") &&
 							!uriString.startsWith("platform:/plugin/org.eclipse.emf.cdo/model/resource.genmodel") &&
