@@ -14,7 +14,7 @@
 package org.emftext.sdk.finders;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
@@ -38,7 +38,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  */
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
-	private static final Map<String, GenPackageInRegistry> cache = new HashMap<String, GenPackageInRegistry>();
+	private static final Map<String, GenPackageInRegistry> cache = new LinkedHashMap<String, GenPackageInRegistry>();
 	private static boolean isInitialized = false;
 	
 	private static void init() {
