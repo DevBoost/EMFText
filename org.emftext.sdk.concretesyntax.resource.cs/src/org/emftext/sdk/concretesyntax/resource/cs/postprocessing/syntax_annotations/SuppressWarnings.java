@@ -50,6 +50,9 @@ public class SuppressWarnings extends AbstractPostProcessor {
 			ConcreteSyntax syntax, 
 			Collection<IProblemWrapper> warningsToRemove, 
 			Set<ConcreteSyntax> handledSyntaxes) {
+		if (syntax == null) {
+			return;
+		}
 		handledSyntaxes.add(syntax);
 		Collection<Annotation> annotations = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getAnnotation());
 		for (Annotation annotation : annotations) {
