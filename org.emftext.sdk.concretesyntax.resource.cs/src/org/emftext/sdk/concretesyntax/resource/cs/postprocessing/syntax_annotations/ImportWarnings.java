@@ -27,6 +27,9 @@ public class ImportWarnings extends AbstractPostProcessor {
 	private void movedWarningsFromImportsToMainSyntax(Import mainImport, Import currentImport, Set<Import> handledImports) {
 		handledImports.add(currentImport);
 		ConcreteSyntax importedSyntax = currentImport.getConcreteSyntax();
+		if (importedSyntax == null) {
+			return;
+		}
 		for (IProblemWrapper warning : getContext().getWarnings()) {
 			EObject cause = warning.getCause();
 			// warning is not caused by an EObject
