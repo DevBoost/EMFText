@@ -51,10 +51,9 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 					continue;
 				}
 				String message = RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName();
-				addRuleProblem(
+				addProblem(
 					CsAnalysisProblemType.LEFT_RECURSIVE_RULE, 
 					message,
-					syntax,
 					rule
 				);
 			}

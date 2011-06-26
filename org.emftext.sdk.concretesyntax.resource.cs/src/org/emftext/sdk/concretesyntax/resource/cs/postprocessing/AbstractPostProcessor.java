@@ -22,9 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
@@ -137,24 +135,6 @@ public abstract class AbstractPostProcessor {
 		for (EObject cause : causes) {
 			addProblem(type, message, cause);
 		}
-	}
-
-	protected void addRuleProblem(CsAnalysisProblemType problemType,
-			String message, ConcreteSyntax syntax, Rule rule) {
-		EObject cause = rule;
-		if (syntax.isImportedRule(rule)) {
-			cause = getImport(syntax, rule.getSyntax());
-		}
-		addProblem(problemType, message, cause);
-	}
-	
-	private Import getImport(ConcreteSyntax importingSyntax, ConcreteSyntax importedSyntax) {
-		for (Import syntaxImport : importingSyntax.getImports()) {
-			if (syntaxImport.getConcreteSyntax() == importedSyntax) {
-				return syntaxImport;
-			}
-		}
-		return null;
 	}
 
 	public abstract void analyse(ConcreteSyntax syntax);

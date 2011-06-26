@@ -60,10 +60,9 @@ public class UnreachableRuleAnalyser extends AbstractPostProcessor {
 				continue;
 			}
 			String message = "Rule is not reachable (wrong super class or missing right hand side definition?)";
-			addRuleProblem(
+			addProblem(
 				CsAnalysisProblemType.UNREACHABLE_RULE, 
 				message,
-				syntax,
 				rule
 			);			
 		}
