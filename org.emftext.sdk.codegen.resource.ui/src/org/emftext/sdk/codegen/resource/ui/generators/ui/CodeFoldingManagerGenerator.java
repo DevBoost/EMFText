@@ -131,8 +131,15 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 		sc.add("private " + LIST + "<" + E_OBJECT + "> getAllContents(" + E_OBJECT + "[] contentArray) {");
 		sc.add(LIST + "<" + E_OBJECT + "> result = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.add("for (" + E_OBJECT + " eObject : contentArray) {");
+		sc.add("if (eObject == null) {");
+		sc.add("continue;");
+		sc.add("}");
 		sc.add("result.add(eObject);");
-		sc.add("result.addAll(getAllContents(eObject.eContents().toArray(new " + E_OBJECT + "[0])));");
+		sc.add(LIST + "<" + E_OBJECT + "> contents = eObject.eContents();");
+		sc.add("if (contents == null) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.add("result.addAll(getAllContents(contents.toArray(new " + E_OBJECT + "[0])));");
 		sc.add("}");
 		sc.add("return result;");
 		sc.add("}");
