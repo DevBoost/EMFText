@@ -17,7 +17,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		String classComment = "A class that provides common method that are required by launch configuration delegates.";
+		String classComment = "A class that provides common methods that are required by launch configuration delegates.";
 		if (!getContext().isLaunchSupportEnabled()) {
 			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_LAUNCH_SUPPORT);
 			return;
