@@ -12,7 +12,7 @@ import org.emftext.sdk.util.EObjectUtil;
 
 /**
  * This class collects the warnings the were issued for imported syntax elements
- * and moves the to the import element of the main syntax.
+ * and moves them to the import element of the main syntax.
  */
 public class ImportWarnings extends AbstractPostProcessor {
 
