@@ -57,6 +57,10 @@ public class PostProcessingContext {
 		public boolean wasCausedBy(EObject element) {
 			return element == cause;
 		}
+
+		public void setCause(EObject newCause) {
+			this.cause = newCause;
+		}
 	}
 	
 	private class WrappedPositionBasedProblem implements IProblemWrapper {
@@ -104,6 +108,14 @@ public class PostProcessingContext {
 			// class which needs a cause for all problems to check 
 			// whether a warning needs to be removed or not.
 			return element.eContainer() == null;
+		}
+
+		public EObject getCause() {
+			return null;
+		}
+
+		public void setCause(EObject newCause) {
+			throw new UnsupportedOperationException();
 		}
 	}
 	

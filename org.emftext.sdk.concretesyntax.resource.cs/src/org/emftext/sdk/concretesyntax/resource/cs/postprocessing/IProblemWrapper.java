@@ -19,4 +19,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
 public interface IProblemWrapper {
 	public ICsProblem getProblem();
 	public boolean wasCausedBy(EObject element);
+	public EObject getCause();
+	public void setCause(EObject newCause);
 }

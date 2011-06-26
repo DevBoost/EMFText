@@ -134,11 +134,6 @@ public abstract class AbstractPostProcessor {
 			causes.add(definition);
 		}
 		
-		if (definition.isImported(syntax)) {
-			causes.clear();
-			ConcreteSyntax importedSyntax = definition.getContainingSyntax(syntax);
-			causes.add(getImport(syntax, importedSyntax));
-		}
 		for (EObject cause : causes) {
 			addProblem(type, message, cause);
 		}

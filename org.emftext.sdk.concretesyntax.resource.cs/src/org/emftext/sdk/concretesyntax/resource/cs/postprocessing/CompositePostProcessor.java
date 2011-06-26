@@ -53,6 +53,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.UnusedFeatureAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.UnusedResolverAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.UnusedTokenAnalyser;
+import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_annotations.ImportWarnings;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_annotations.SuppressWarnings;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_extension.DefaultTokenConnector;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_extension.DerivedTokenCreator;
@@ -121,6 +122,7 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 		postProcessors.add(new SubclassRestrictionAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
+		postProcessors.add(new ImportWarnings());
 	}
 	
 	public ICsResourcePostProcessor getResourcePostProcessor() {

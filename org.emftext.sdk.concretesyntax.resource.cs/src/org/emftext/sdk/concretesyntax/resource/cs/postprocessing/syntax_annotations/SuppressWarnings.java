@@ -18,12 +18,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
@@ -38,6 +40,17 @@ public class SuppressWarnings extends AbstractPostProcessor {
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
 	    Collection<IProblemWrapper> warningsToRemove = new ArrayList<IProblemWrapper>();
+		findSuppressAnnotationsAndCollectWarnings(syntax, warningsToRemove, new LinkedHashSet<ConcreteSyntax>());
+		for (IProblemWrapper warningToRemove : warningsToRemove) {
+			getContext().removeWarning(warningToRemove);
+		}
+	}
+
+	private void findSuppressAnnotationsAndCollectWarnings(
+			ConcreteSyntax syntax, 
+			Collection<IProblemWrapper> warningsToRemove, 
+			Set<ConcreteSyntax> handledSyntaxes) {
+		handledSyntaxes.add(syntax);
 		Collection<Annotation> annotations = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getAnnotation());
 		for (Annotation annotation : annotations) {
 			AnnotationType type = annotation.getType();
@@ -68,8 +81,12 @@ public class SuppressWarnings extends AbstractPostProcessor {
 				}
 			}
 		}
-		for (IProblemWrapper warningToRemove : warningsToRemove) {
-			getContext().removeWarning(warningToRemove);
+		// call recursively for imported syntaxes
+		for (Import nextImport : syntax.getImports()) {
+			ConcreteSyntax importedSyntax = nextImport.getConcreteSyntax();
+			if (!handledSyntaxes.contains(importedSyntax)) {
+				findSuppressAnnotationsAndCollectWarnings(importedSyntax, warningsToRemove, handledSyntaxes);
+			}
 		}
 	}
 
@@ -101,8 +118,7 @@ public class SuppressWarnings extends AbstractPostProcessor {
 		return false;
 	}
 
-	private boolean wasCausedBy(IProblemWrapper problem,
-			EObject annotatedElement) {
+	private boolean wasCausedBy(IProblemWrapper problem, EObject annotatedElement) {
 		if (problem.wasCausedBy(annotatedElement)) {
 			return true;
 		}
