@@ -45,6 +45,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.RegularExpressionAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.StartSymbolAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.SubclassRestrictionAnalyser;
+import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.SuppressedWarningTypesAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.SyntaxNameWithDotAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.TokenConflictsAnalyser;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis.TokenNameAnalyser;
@@ -120,9 +121,15 @@ public class CompositePostProcessor implements ICsResourcePostProcessorProvider,
 		postProcessors.add(new EmptyCompoundAnalyser());
 		postProcessors.add(new BooleanTerminalAnalyser());
 		postProcessors.add(new SubclassRestrictionAnalyser());
+		postProcessors.add(new SuppressedWarningTypesAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		postProcessors.add(new ImportWarnings());
+		// we call the SuppressWarnings post-processor twice, because the
+		// ImportWarnings processor can move warnings to new positions. If
+		// these new positions are covered by @SuppressWarnings tags, they
+		// must be removed
+		postProcessors.add(new SuppressWarnings());
 	}
 	
 	public ICsResourcePostProcessor getResourcePostProcessor() {

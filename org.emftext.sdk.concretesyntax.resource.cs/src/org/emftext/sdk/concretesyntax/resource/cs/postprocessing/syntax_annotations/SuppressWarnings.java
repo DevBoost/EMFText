@@ -27,7 +27,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
-import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
@@ -35,6 +34,11 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostPro
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.IProblemWrapper;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
+/**
+ * This post-processor searches for @SuppressWarnings annotations in the syntax
+ * specification and for warnings that are caused by element which are covered
+ * by these annotations. If it finds such warnings, they are removed/suppressed.
+ */
 public class SuppressWarnings extends AbstractPostProcessor {
 
 	@Override
@@ -97,28 +101,10 @@ public class SuppressWarnings extends AbstractPostProcessor {
 		Collection<String> warningsToSuppress = new LinkedHashSet<String>();
 		List<KeyValuePair> parameters = annotation.getParameters();
 		for (KeyValuePair parameter : parameters) {
-			final String key = parameter.getKey();
-			// check whether 'key' is a valid warning type
-			boolean isValid = isValidWarningType(key);
-			if (!isValid) {
-				addProblem(CsAnalysisProblemType.INVALID_WARNING_TYPE, "Invalid warning type found: " + key, annotation);
-			}
+			String key = parameter.getKey();
 			warningsToSuppress.add(key);
 		}
 		return warningsToSuppress;
-	}
-
-	private boolean isValidWarningType(String key) {
-		for (CsAnalysisProblemType problemType : CsAnalysisProblemType.values()) {
-			// errors are not valid
-			if (problemType.getProblemSeverity() == CsEProblemSeverity.ERROR) {
-				continue;
-			}
-			if (problemType.getName().equals(key)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private boolean wasCausedBy(IProblemWrapper problem, EObject annotatedElement) {
