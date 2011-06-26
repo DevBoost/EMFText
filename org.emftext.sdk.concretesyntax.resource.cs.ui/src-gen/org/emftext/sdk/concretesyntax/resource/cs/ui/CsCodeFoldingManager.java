@@ -408,8 +408,15 @@ public class CsCodeFoldingManager {
 	private java.util.List<org.eclipse.emf.ecore.EObject> getAllContents(org.eclipse.emf.ecore.EObject[] contentArray) {
 		java.util.List<org.eclipse.emf.ecore.EObject> result = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
 		for (org.eclipse.emf.ecore.EObject eObject : contentArray) {
+			if (eObject == null) {
+				continue;
+			}
 			result.add(eObject);
-			result.addAll(getAllContents(eObject.eContents().toArray(new org.eclipse.emf.ecore.EObject[0])));
+			java.util.List<org.eclipse.emf.ecore.EObject> contents = eObject.eContents();
+			if (contents == null) {
+				continue;
+			}
+			result.addAll(getAllContents(contents.toArray(new org.eclipse.emf.ecore.EObject[0])));
 		}
 		return result;
 	}

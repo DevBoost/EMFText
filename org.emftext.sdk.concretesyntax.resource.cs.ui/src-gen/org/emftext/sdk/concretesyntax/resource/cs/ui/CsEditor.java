@@ -17,7 +17,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 /**
  * A text editor for 'cs' models.
  */
-public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements org.eclipse.emf.edit.domain.IEditingDomainProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
+public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements org.eclipse.emf.edit.domain.IEditingDomainProvider, org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener, org.eclipse.emf.common.ui.viewer.IViewerProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsHighlighting highlighting;
 	private org.eclipse.jface.text.source.projection.ProjectionSupport projectionSupport;
@@ -32,12 +32,15 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	private org.eclipse.emf.edit.domain.EditingDomain editingDomain;
 	private org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler;
+	private java.util.List<org.eclipse.jface.viewers.ISelectionChangedListener> selectionChangedListeners = new java.util.LinkedList<org.eclipse.jface.viewers.ISelectionChangedListener>();
+	private org.eclipse.jface.viewers.ISelection editorSelection;
 	
 	public CsEditor() {
 		super();
 		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorConfiguration(this, this, this, colorManager));
 		initializeEditingDomain();
 		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
+		addSelectionChangedListener(this);
 	}
 	
 	/**
@@ -106,6 +109,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	public void initializeEditor() {
 		super.initializeEditor();
 		setEditorContextMenuId("org.emftext.sdk.concretesyntax.resource.cs.EditorContext");
+		setRulerContextMenuId("org.emftext.sdk.concretesyntax.resource.cs.EditorRuler");
 	}
 	
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
@@ -355,7 +359,15 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	}
 	
 	protected org.eclipse.jface.text.source.ISourceViewer createSourceViewer(org.eclipse.swt.widgets.Composite parent, org.eclipse.jface.text.source.IVerticalRuler ruler, int styles) {
-		org.eclipse.jface.text.source.ISourceViewer viewer = new org.eclipse.jface.text.source.projection.ProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);
+		org.eclipse.jface.text.source.ISourceViewer viewer = new org.eclipse.jface.text.source.projection.ProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles) {
+			
+			public void setSelection(org.eclipse.jface.viewers.ISelection selection, boolean reveal) {
+				if (!CsEditor.this.setSelection(selection, reveal)) {
+					super.setSelection(selection, reveal);
+				}
+			}
+			
+		};
 		// ensure decoration support has been created and configured.
 		getSourceViewerDecorationSupport(viewer);
 		return viewer;
@@ -453,6 +465,66 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public org.eclipse.jface.text.source.IAnnotationModel getAnnotationModel() {
 		return getDocumentProvider().getAnnotationModel(getEditorInput());
+	}
+	
+	public void addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+		selectionChangedListeners.add(listener);
+	}
+	
+	public org.eclipse.jface.viewers.ISelection getSelection() {
+		return editorSelection;
+	}
+	
+	public void removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+		selectionChangedListeners.remove(listener);
+	}
+	
+	public void setSelection(org.eclipse.jface.viewers.ISelection selection) {
+		editorSelection = selection;
+		for (org.eclipse.jface.viewers.ISelectionChangedListener listener : selectionChangedListeners) {
+			listener.selectionChanged(new org.eclipse.jface.viewers.SelectionChangedEvent(this, selection));
+		}
+	}
+	
+	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
+		org.eclipse.jface.viewers.ISelection selection = event.getSelection();
+		if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
+			org.eclipse.jface.viewers.IStructuredSelection structuredSelection = (org.eclipse.jface.viewers.IStructuredSelection) selection;
+			Object object = structuredSelection.getFirstElement();
+			if (object instanceof org.eclipse.emf.ecore.EObject) {
+				org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) object;
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) element.eResource();
+				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
+				int destination = locationMap.getCharStart(element);
+				if (destination < 0) {
+					destination = 0;
+				}
+				selectAndReveal(destination, 0);
+			}
+		}
+	}
+	
+	private boolean setSelection(org.eclipse.jface.viewers.ISelection selection, boolean reveal) {
+		if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
+			org.eclipse.jface.viewers.IStructuredSelection structuredSelection = (org.eclipse.jface.viewers.IStructuredSelection) selection;
+			Object object = structuredSelection.getFirstElement();
+			if (object instanceof org.eclipse.emf.ecore.EObject) {
+				org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) object;
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) element.eResource();
+				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
+				int destination = locationMap.getCharStart(element);
+				if (destination < 0) {
+					destination = 0;
+				}
+				selectAndReveal(destination, 0);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public org.eclipse.jface.viewers.Viewer getViewer() {
+		return (org.eclipse.jface.text.source.projection.ProjectionViewer) getSourceViewer();
 	}
 	
 }

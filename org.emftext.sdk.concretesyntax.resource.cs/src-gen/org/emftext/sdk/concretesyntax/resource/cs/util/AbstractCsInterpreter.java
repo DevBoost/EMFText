@@ -41,7 +41,7 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 			nextObjectToInterprete = next;
 			notifyListeners(next);
 			result = interprete(next, context);
-			if (!continueInterpretation(result)) {
+			if (!continueInterpretation(context, result)) {
 				break;
 			}
 		}
@@ -53,7 +53,7 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	 * Override this method to stop the overall interpretation depending on the result
 	 * of the interpretation of a single model elements.
 	 */
-	public boolean continueInterpretation(ResultType result) {
+	public boolean continueInterpretation(ContextType context, ResultType result) {
 		return true;
 	}
 	
