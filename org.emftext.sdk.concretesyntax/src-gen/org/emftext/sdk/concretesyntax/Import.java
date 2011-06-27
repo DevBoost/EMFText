@@ -39,7 +39,7 @@ package org.emftext.sdk.concretesyntax;
  * @model
  * @generated
  */
-public interface Import extends GenPackageDependentElement {
+public interface Import extends GenPackageDependentElement, Annotable {
 	/**
 	 * Returns the value of the '<em><b>Prefix</b></em>' attribute.
 	 * <!-- begin-user-doc -->

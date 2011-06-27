@@ -1817,6 +1817,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		concreteSyntaxEClass.getESuperTypes().add(this.getGenPackageDependentElement());
 		concreteSyntaxEClass.getESuperTypes().add(this.getAnnotable());
 		importEClass.getESuperTypes().add(this.getGenPackageDependentElement());
+		importEClass.getESuperTypes().add(this.getAnnotable());
 		ruleEClass.getESuperTypes().add(this.getAnnotable());
 		ruleEClass.getESuperTypes().add(this.getSyntaxElement());
 		choiceEClass.getESuperTypes().add(this.getSyntaxElement());

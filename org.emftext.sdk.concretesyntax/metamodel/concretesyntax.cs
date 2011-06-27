@@ -75,7 +75,9 @@ RULES {
 		 !0 !0 "RULES" #1 "{" (!1 rules)* !0 "}"
 		;
 
-	Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
+	Import         ::= 
+		(annotations !0)*
+		prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
  
 	Option 	       ::= type[] #1 "=" #1 value[STRING];
  

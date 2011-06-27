@@ -16,10 +16,18 @@
  */
 package org.emftext.sdk.concretesyntax.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.emftext.sdk.concretesyntax.Annotable;
+import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
@@ -31,6 +39,7 @@ import org.emftext.sdk.concretesyntax.Import;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getCsLocationHint <em>Cs Location Hint</em>}</li>
@@ -40,6 +49,16 @@ import org.emftext.sdk.concretesyntax.Import;
  * @generated
  */
 public class ImportImpl extends GenPackageDependentElementImpl implements Import {
+	/**
+	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnotations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Annotation> annotations;
+
 	/**
 	 * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -107,6 +126,18 @@ public class ImportImpl extends GenPackageDependentElementImpl implements Import
 	@Override
 	protected EClass eStaticClass() {
 		return ConcretesyntaxPackage.Literals.IMPORT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Annotation> getAnnotations() {
+		if (annotations == null) {
+			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.IMPORT__ANNOTATIONS);
+		}
+		return annotations;
 	}
 
 	/**
@@ -195,8 +226,24 @@ public class ImportImpl extends GenPackageDependentElementImpl implements Import
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ConcretesyntaxPackage.IMPORT__ANNOTATIONS:
+				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.IMPORT__ANNOTATIONS:
+				return getAnnotations();
 			case ConcretesyntaxPackage.IMPORT__PREFIX:
 				return getPrefix();
 			case ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX:
@@ -213,9 +260,14 @@ public class ImportImpl extends GenPackageDependentElementImpl implements Import
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.IMPORT__ANNOTATIONS:
+				getAnnotations().clear();
+				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
+				return;
 			case ConcretesyntaxPackage.IMPORT__PREFIX:
 				setPrefix((String)newValue);
 				return;
@@ -237,6 +289,9 @@ public class ImportImpl extends GenPackageDependentElementImpl implements Import
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.IMPORT__ANNOTATIONS:
+				getAnnotations().clear();
+				return;
 			case ConcretesyntaxPackage.IMPORT__PREFIX:
 				setPrefix(PREFIX_EDEFAULT);
 				return;
@@ -258,6 +313,8 @@ public class ImportImpl extends GenPackageDependentElementImpl implements Import
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.IMPORT__ANNOTATIONS:
+				return annotations != null && !annotations.isEmpty();
 			case ConcretesyntaxPackage.IMPORT__PREFIX:
 				return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
 			case ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX:
@@ -266,6 +323,38 @@ public class ImportImpl extends GenPackageDependentElementImpl implements Import
 				return CS_LOCATION_HINT_EDEFAULT == null ? csLocationHint != null : !CS_LOCATION_HINT_EDEFAULT.equals(csLocationHint);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == Annotable.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.IMPORT__ANNOTATIONS: return ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == Annotable.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS: return ConcretesyntaxPackage.IMPORT__ANNOTATIONS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

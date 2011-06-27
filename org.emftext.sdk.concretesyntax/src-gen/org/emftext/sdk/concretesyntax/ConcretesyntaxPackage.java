@@ -326,13 +326,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int IMPORT__PACKAGE_LOCATION_HINT = GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__ANNOTATIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Prefix</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORT__PREFIX = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 0;
+	int IMPORT__PREFIX = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' reference.
@@ -341,7 +350,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORT__CONCRETE_SYNTAX = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 1;
+	int IMPORT__CONCRETE_SYNTAX = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Cs Location Hint</b></em>' attribute.
@@ -350,7 +359,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORT__CS_LOCATION_HINT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 2;
+	int IMPORT__CS_LOCATION_HINT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Import</em>' class.
@@ -359,7 +368,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORT_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 3;
+	int IMPORT_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.AnnotableImpl <em>Annotable</em>}' class.

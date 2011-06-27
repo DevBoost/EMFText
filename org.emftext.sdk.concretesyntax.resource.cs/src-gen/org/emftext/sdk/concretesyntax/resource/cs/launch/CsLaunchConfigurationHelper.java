@@ -15,7 +15,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs.launch;
 
 /**
- * A class that provides common method that are required by launch configuration
+ * A class that provides common methods that are required by launch configuration
  * delegates.
  */
 public class CsLaunchConfigurationHelper {
