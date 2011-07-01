@@ -335,8 +335,7 @@ public class ExpectationComputer {
 			boolean canBeEmpty = false;
 			if (terminal instanceof BooleanTerminal) {
 				BooleanTerminal booleanTerminal = (BooleanTerminal) terminal;
-				// TODO mseifert: replace with a call to isOptional()
-				canBeEmpty = "".equals(booleanTerminal.getTrueLiteral()) || "".equals(booleanTerminal.getFalseLiteral());
+				canBeEmpty = booleanTerminal.containsEmptyLiteral();
 			}
 			if (canBeEmpty) {
 				firstSet.add(EPSILON);
