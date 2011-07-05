@@ -244,7 +244,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
-		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
+		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0) {");
 		sc.add("String result = (String) " + eObjectUtilClassName + ".invokeOperation(element, o);");
 		sc.add("if (result != null) {");
 		sc.add("return result;");
@@ -325,9 +325,9 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		
+		// TODO this code is a duplicate of code in getName()
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
-		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
+		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0) {");
 		sc.add("String result = (String) " + eObjectUtilClassName + ".invokeOperation(element, o);");
 		sc.add("StringMatch match = matches(identifier, result, matchFuzzy);");
 		sc.add("if (match.getExactMatch() != null) {");
