@@ -770,6 +770,10 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		}
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
+			// do not print derived features
+			if (feature.isDerived()) {
+				continue;
+			}
 			sc.add("temp = element." + getAccessMethod(genClassCache, genClass, genFeature) + ";");
 
 			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
