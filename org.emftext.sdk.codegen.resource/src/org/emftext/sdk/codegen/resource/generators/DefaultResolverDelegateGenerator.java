@@ -238,6 +238,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("if (deresolvedReference != null) {");
 		sc.add("return deresolvedReference;");
 		sc.add("}");
+		
+		sc.addComment(
+			"if the referenced element was not a proxy, we try the same magic that was " +
+			"used while resolving elements to obtain names for elements"
+		);
+		
+		/*
 		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
 		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("return (String) element.eGet(nameAttr);");
@@ -255,6 +262,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("return result;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		*/
+		sc.add(LIST + "<Object> names = getNames(element);");
+		sc.add("for (Object name : names) {");
+		sc.add("if (name != null && name instanceof String) {");
+		sc.add("return (String) name;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return null;");
@@ -316,16 +330,14 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		//      of the previous names matched the identifier we are searching for
 		sc.add("protected " + LIST + "<Object> getNames(" + E_OBJECT + " element) {");
 		sc.add(LIST + "<Object> names = new " + ARRAY_LIST + "<Object>();");
+		sc.addLineBreak();
 		
 		sc.addComment("first check for attributes that have set the ID flag to true");
-		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = element.eClass().getEStructuralFeatures();");
-		sc.add("for (" + E_STRUCTURAL_FEATURE + " feature : features) {");
-		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
-		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
+		sc.add(LIST + "<" + E_ATTRIBUTE + "> attributes = element.eClass().getEAllAttributes();");
+		sc.add("for (" + E_ATTRIBUTE + " attribute : attributes) {");
 		sc.add("if (attribute.isID()) {");
 		sc.add("Object attributeValue = element.eGet(attribute);");
 		sc.add("names.add(attributeValue);");
-		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -335,21 +347,22 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("Object attributeValue = element.eGet(nameAttr);");
 		sc.add("names.add(attributeValue);");
-		sc.add("return names;");
 		sc.add("} else {");
 
 		sc.addComment("try any other string attribute found");
-		sc.add("for (" + E_ATTRIBUTE + " stringAttribute : element.eClass().getEAllAttributes()) {");
-		sc.add("if (\"java.lang.String\".equals(stringAttribute.getEType().getInstanceClassName())) {");
-		sc.add("Object attributeValue = element.eGet(stringAttribute);");
+		sc.add("for (" + E_ATTRIBUTE + " attribute : attributes) {");
+		sc.add("if (\"java.lang.String\".equals(attribute.getEType().getInstanceClassName())) {");
+		sc.add("Object attributeValue = element.eGet(attribute);");
 		sc.add("names.add(attributeValue);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		// TODO this code is a duplicate of code in getName()
-		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
-		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0) {");
-		sc.add("String result = (String) " + eObjectUtilClassName + ".invokeOperation(element, o);");
+
+		sc.addComment("try operations without arguments that return strings and which have a name that ends with 'name'");
+		sc.add("for (" + E_OPERATION + " operation : element.eClass().getEAllOperations()) {");
+		sc.add("if (operation.getName().toLowerCase().endsWith(NAME_FEATURE) && operation.getEParameters().size() == 0) {");
+		// TODO this will cause a ClassCastException if the operation does not return a string
+		sc.add("String result = (String) " + eObjectUtilClassName + ".invokeOperation(element, operation);");
 		sc.add("names.add(result);");
 		sc.add("}");
 		sc.add("}");
