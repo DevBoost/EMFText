@@ -634,11 +634,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 			"which causes reference resolving to slow down exponentially."
 		);
 		sc.add("private " + SET + "<" + E_OBJECT + "> referencedExternalObjects;");
+		sc.addLineBreak();
 		sc.addJavadoc(
 			"We store the number of proxy objects that were present when <code>referencedExternalObjects</code> was " +
 			"resolved, to recompute this set when a proxy was resolved. This is required, because a resolved proxy " +
 			"may point to a new extenal object."
 		);
 		sc.add("private int oldProxyCount = -1;");
+		sc.addLineBreak();
 	}
 }
