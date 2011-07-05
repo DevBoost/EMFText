@@ -168,6 +168,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.BasicEObjectImpl;
@@ -383,6 +384,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String SECURITY_EXCEPTION = SecurityException.class.getName();
 	public static String SERVER_SOCKET = ServerSocket.class.getName();
 	public static String SET = Set.class.getName();
+	public static String SETTING = Setting.class.getCanonicalName();
 	public static String SOCKET = Socket.class.getName();
 	public static String STACK = Stack.class.getName();
 	public static String STATUS = Status.class.getName();
