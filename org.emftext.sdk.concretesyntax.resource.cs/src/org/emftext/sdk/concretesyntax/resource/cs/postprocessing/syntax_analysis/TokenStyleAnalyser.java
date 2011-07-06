@@ -21,6 +21,7 @@ import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
@@ -29,15 +30,18 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 /**
  * A analyser that checks that all token styles refer either to
- * a token definition or a CsString.
+ * a token definition, a CsString, a BooleanTerminal or a 
+ * EnumLiteralTerminals.
  */
 public class TokenStyleAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
-		// first we collect all CsStrings and BooleanTerminals from all rules
+		// first we collect all CsStrings, BooleanTerminals and EnumLiteralTerminals from all rules
 		Collection<CsString> csStrings = new ArrayList<CsString>();
 		Collection<BooleanTerminal> booleanTerminals = new ArrayList<BooleanTerminal>();
+		Collection<EnumLiteralTerminal> enumLiteralTerminals = new ArrayList<EnumLiteralTerminal>();
+		
 		// to do so, we must iterate over the rules. Calling eAllContents()
 		// on the syntax is not sufficient, because imported rules are not
 		// contained in eAllContents().
@@ -46,21 +50,23 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 			csStrings.addAll(csStringsInRule);
 			Collection<BooleanTerminal> booleanTerminalsInRule = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getBooleanTerminal());
 			booleanTerminals.addAll(booleanTerminalsInRule);
+			Collection<EnumLiteralTerminal> enumLiteralTerminalsInRule = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal());
+			enumLiteralTerminals.addAll(enumLiteralTerminalsInRule);
 		}
 
 		// for each token style we search for a matching token
-		// definition or CsString
+		// definition, CsString, BooleanTerminal or EnumLiteralTerminal
 		Collection<TokenStyle> styles = syntax.getAllTokenStyles();
 		for (TokenStyle tokenStyle : styles) {
 			for (String tokenName : tokenStyle.getTokenNames()) {
-				if (!refersToExistingToken(syntax, csStrings, booleanTerminals, tokenName)) {
+				if (!refersToExistingToken(syntax, csStrings, booleanTerminals, enumLiteralTerminals, tokenName)) {
 					addProblem(CsAnalysisProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token " + tokenName + ".", tokenStyle);
 				}
 			}
 		}
 	}
 
-	private boolean refersToExistingToken(ConcreteSyntax syntax, Collection<CsString> csStrings, Collection<BooleanTerminal> booleanTerminals, String tokenName) {
+	private boolean refersToExistingToken(ConcreteSyntax syntax, Collection<CsString> csStrings, Collection<BooleanTerminal> booleanTerminals, Collection<EnumLiteralTerminal> enumLiteralTerminals, String tokenName) {
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (tokenName.equals(tokenDefinition.getName())) {
 				return true;
@@ -79,7 +85,11 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 				return true;
 			}
 		}
-		// TODO do we need to consider enumeration terminals here?
+		for (EnumLiteralTerminal enumLiteralTerminal : enumLiteralTerminals) {
+			if (tokenName.equals(enumLiteralTerminal.getText())) {
+				return true;
+			}
+		}
 		return false;
 	}
 }
