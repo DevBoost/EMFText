@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 /**
  * A analyser that checks that all token styles refer either to
  * a token definition, a CsString, a BooleanTerminal or a 
- * EnumLiteralTerminals.
+ * EnumLiteralTerminal.
  */
 public class TokenStyleAnalyser extends AbstractPostProcessor {
 
