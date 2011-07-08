@@ -47,6 +47,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.DocBrowserInformationCo
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EObjectSelectionGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EditorConfigurationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EditorGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.ExampleProjectWizardGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HTMLPrinterGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HighlightingGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HoverTextProviderGenerator;
@@ -129,6 +130,8 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DOC_BROWSER_INFORMATION_CONTROL_INPUT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DocBrowserInformationControlInput", DocBrowserInformationControlInputGenerator.class, OptionTypes.OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProcessor", CompletionProcessorGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROCESSOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BROWSER_INFORMATION_CONTROL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BrowserInformationControl", BrowserInformationControlGenerator.class, OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXAMPLE_PROJECT_WIZARD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ExampleProjectWizard", ExampleProjectWizardGenerator.class, OptionTypes.OVERRIDE_EXAMPLE_PROJECT_WIZARD);
+
 	// preference pages
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PreferencePage", PreferencePageGenerator.class, OptionTypes.OVERRIDE_PREFERENCE_PAGE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BRACKET_PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BracketPreferencePage", BracketPreferencePageGenerator.class, OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE);

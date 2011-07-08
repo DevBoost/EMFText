@@ -149,6 +149,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.TEXT_HOVER);
 	    add(creators, TextResourceUIArtifacts.TOKEN_SCANNER);
 	    add(creators, TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
+	    add(creators, TextResourceUIArtifacts.EXAMPLE_PROJECT_WIZARD);
 	    
 	    add(creators, TextResourceUIArtifacts.PREFERENCE_PAGE);
 	    add(creators, TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);

@@ -103,6 +103,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
@@ -352,9 +353,11 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.XMLMemento;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
@@ -378,6 +381,7 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.eclipse.ui.wizards.IWizardCategory;
+import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.emftext.sdk.codegen.resource.generators.IClassNameConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -784,4 +788,10 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String WORKBENCH_CONTENT_PROVIDER = WorkbenchContentProvider.class.getName();
 	public static String WORKBENCH_LABEL_PROVIDER = WorkbenchLabelProvider.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
+	
+	public static String WIZARD_NEW_PROJECT_CREATION_PAGE = WizardNewProjectCreationPage.class.getName();
+	public static String WORKSPACE_MODIFY_OPERATION = WorkspaceModifyOperation.class.getName();
+	public static String SUB_PROGRESS_MONITOR = SubProgressMonitor.class.getName();
+	public static String BASIC_NEW_PROJECT_RESOURCE_WIZARD = BasicNewProjectResourceWizard.class.getName();
+	
 }

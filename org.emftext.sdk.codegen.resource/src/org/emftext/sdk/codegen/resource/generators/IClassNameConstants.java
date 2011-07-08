@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,6 +61,8 @@ import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.swing.event.DocumentListener;
 
@@ -104,6 +107,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -398,4 +402,10 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String URI = org.eclipse.emf.common.util.URI.class.getName();
 	public static String URI_CONVERTER = URIConverter.class.getName();
 	public static String URL = URL.class.getName();
+
+	public static String I_EXECUTABLE_EXTENSION = IExecutableExtension.class.getName();
+	public static String FILE_NOT_FOUND_EXCEPTION = FileNotFoundException.class.getName();
+	public static String ZIP_FILE = ZipFile.class.getName();
+	public static String ZIP_ENTRY = ZipEntry.class.getName();
+	
 }
