@@ -594,6 +594,8 @@ OptionTypes.OVERRIDE_ADAPTER_FACTORY : "If set to <code>false</code>, the Adapte
 
 OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_HELPER : "If set to <code>false</code>, the LaunchConfigurationHelper class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_EXAMPLE_PROJECT_WIZARD : "If set to <code>false</code>, the ExampleProjectWizard class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
