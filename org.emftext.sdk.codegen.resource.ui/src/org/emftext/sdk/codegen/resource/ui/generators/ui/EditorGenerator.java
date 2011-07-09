@@ -141,12 +141,12 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addCreateActionsMethod(sc);
 		addGetAnnotationModelMethod(sc);
 		addAddSelectionChangedListenerMethod(sc);
-		addGetSelection(sc);
-		addRemoveSelectionChangedListener(sc);
+		addGetSelectionMethod(sc);
+		addRemoveSelectionChangedListenerMethod(sc);
 		addSelectionChangedMethod(sc);
 		addSetSelectionMethod1(sc);
 		addSetSelectionMethod2(sc);
-		addGetViewer(sc);
+		addGetViewerMethod(sc);
 	}
 
 	private void addSetSelectionMethod1(JavaComposite sc) {
@@ -184,7 +184,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addGetViewer(JavaComposite sc) {
+	private void addGetViewerMethod(JavaComposite sc) {
 		sc.add("public " + VIEWER + " getViewer() {");
 		sc.add("return (" + PROJECTION_VIEWER + ") getSourceViewer();");
 		sc.add("}");
@@ -199,14 +199,14 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addRemoveSelectionChangedListener(JavaComposite sc) {
+	private void addRemoveSelectionChangedListenerMethod(JavaComposite sc) {
 		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
 		sc.add("selectionChangedListeners.remove(listener);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetSelection(JavaComposite sc) {
+	private void addGetSelectionMethod(JavaComposite sc) {
 		sc.add("public " + I_SELECTION + " getSelection() {");
 		sc.add("return editorSelection;");
 		sc.add("}");
