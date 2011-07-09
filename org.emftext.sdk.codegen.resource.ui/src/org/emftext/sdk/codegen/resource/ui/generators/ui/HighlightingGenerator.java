@@ -22,7 +22,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFER
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.KEY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.KEY_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
@@ -37,7 +36,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTIO
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLED_TEXT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLE_RANGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VERIFY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VERIFY_LISTENER;
@@ -85,19 +83,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addHandleContentOutlineSelectionMethod(StringComposite sc) {
 		sc.add("private void handleContentOutlineSelection(" + I_SELECTION + " selection) {");
 		sc.add("if (!selection.isEmpty()) {");
-		sc.add("Object selectedElement = ((" + I_STRUCTURED_SELECTION + ") selection).getFirstElement();");
-		sc.add("if (selectedElement instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " selectedEObject = (" + E_OBJECT + ") selectedElement;");
-		sc.add(RESOURCE + " resource = selectedEObject.eResource();");
-		sc.add("if (resource instanceof " + iTextResourceClassName + ") {");
-		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
-		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add("int elementCharStart = locationMap.getCharStart(selectedEObject);");
-		sc.add("int elementCharEnd = locationMap.getCharEnd(selectedEObject);");
-		sc.add(TEXT_SELECTION + " textEditorSelection = new " + TEXT_SELECTION + "(elementCharStart, elementCharEnd - elementCharStart + 1);");
-		sc.add("projectionViewer.getSelectionProvider().setSelection(textEditorSelection);");
-		sc.add("}");
-		sc.add("}");
+		sc.add("editor.setSelection(selection);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -155,6 +141,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("private " + COLOR + " black;");
 		sc.add("private " + STYLED_TEXT + " textWidget;");
 		sc.add("private " + I_PREFERENCE_STORE + " preferenceStore;");
+		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
 		sc.add("private " + occurrenceClassName + " occurrence;");
 		sc.add("private " + bracketSetClassName + " bracketSet;");
@@ -308,6 +295,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("this.display = " + DISPLAY + ".getCurrent();");
 		sc.add("sourceviewer.getSelectionProvider();");
 		sc.add("preferenceStore = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add("this.editor = editor;");
 		sc.add("textWidget = sourceviewer.getTextWidget();");
 		sc.add("projectionViewer = sourceviewer;");
 		sc.add("scanner = new " + tokenScannerClassName + "(textResource, colorManager);");
@@ -394,6 +382,4 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

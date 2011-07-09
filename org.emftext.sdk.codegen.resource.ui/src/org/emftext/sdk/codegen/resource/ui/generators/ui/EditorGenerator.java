@@ -143,13 +143,23 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addAddSelectionChangedListenerMethod(sc);
 		addGetSelection(sc);
 		addRemoveSelectionChangedListener(sc);
-		addSetSelection(sc);
-		addSelectionChanged(sc);
-		addSetSelectionAndReveal(sc);
+		addSelectionChangedMethod(sc);
+		addSetSelectionMethod1(sc);
+		addSetSelectionMethod2(sc);
 		addGetViewer(sc);
 	}
 
-	private void addSetSelectionAndReveal(JavaComposite sc) {
+	private void addSetSelectionMethod1(JavaComposite sc) {
+		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
+		sc.add("editorSelection = selection;");
+		sc.add("for (" + I_SELECTION_CHANGED_LISTENER + " listener : selectionChangedListeners) {");
+		sc.add("listener.selectionChanged(new " + SELECTION_CHANGED_EVENT + "(this, selection));");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetSelectionMethod2(JavaComposite sc) {
 		sc.add("private boolean setSelection(" + I_SELECTION + " selection, boolean reveal) {");
 		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION + ") {");
 		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
@@ -163,6 +173,9 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("destination = 0;");
 		sc.add("}");
 		sc.add("selectAndReveal(destination, 0);");
+		sc.add("int length = locationMap.getCharEnd(element) - destination;");
+		sc.add("getSourceViewer().setRangeIndication(destination, length, true);");
+		sc.add("getSourceViewer().setSelectedRange(destination, length);");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("}");
@@ -178,33 +191,10 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addSelectionChanged(JavaComposite sc) {
+	private void addSelectionChangedMethod(JavaComposite sc) {
 		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.add(I_SELECTION + " selection = event.getSelection();");
-		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION + ") {");
-		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
-		sc.add("Object object = structuredSelection.getFirstElement();");
-		sc.add("if (object instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " element = (" + E_OBJECT + ") object;");
-		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
-		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add("int destination = locationMap.getCharStart(element);");
-		sc.add("if (destination < 0) {");
-		sc.add("destination = 0;");
-		sc.add("}");
-		sc.add("selectAndReveal(destination, 0);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addSetSelection(JavaComposite sc) {
-		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
-		sc.add("editorSelection = selection;");
-		sc.add("for (" + I_SELECTION_CHANGED_LISTENER + " listener : selectionChangedListeners) {");
-		sc.add("listener.selectionChanged(new " + SELECTION_CHANGED_EVENT + "(this, selection));");
-		sc.add("}");
+		sc.add("setSelection(selection, true);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -772,6 +762,4 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("private " + I_SELECTION + " editorSelection;");
 		sc.addLineBreak();
 	}
-
-
 }
