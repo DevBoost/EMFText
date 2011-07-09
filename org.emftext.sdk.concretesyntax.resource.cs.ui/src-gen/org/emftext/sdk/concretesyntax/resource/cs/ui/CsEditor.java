@@ -479,28 +479,15 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		selectionChangedListeners.remove(listener);
 	}
 	
+	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
+		org.eclipse.jface.viewers.ISelection selection = event.getSelection();
+		setSelection(selection, true);
+	}
+	
 	public void setSelection(org.eclipse.jface.viewers.ISelection selection) {
 		editorSelection = selection;
 		for (org.eclipse.jface.viewers.ISelectionChangedListener listener : selectionChangedListeners) {
 			listener.selectionChanged(new org.eclipse.jface.viewers.SelectionChangedEvent(this, selection));
-		}
-	}
-	
-	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
-		org.eclipse.jface.viewers.ISelection selection = event.getSelection();
-		if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
-			org.eclipse.jface.viewers.IStructuredSelection structuredSelection = (org.eclipse.jface.viewers.IStructuredSelection) selection;
-			Object object = structuredSelection.getFirstElement();
-			if (object instanceof org.eclipse.emf.ecore.EObject) {
-				org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) object;
-				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) element.eResource();
-				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
-				int destination = locationMap.getCharStart(element);
-				if (destination < 0) {
-					destination = 0;
-				}
-				selectAndReveal(destination, 0);
-			}
 		}
 	}
 	
@@ -517,6 +504,9 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 					destination = 0;
 				}
 				selectAndReveal(destination, 0);
+				int length = locationMap.getCharEnd(element) - destination;
+				getSourceViewer().setRangeIndication(destination, length, true);
+				getSourceViewer().setSelectedRange(destination, length);
 				return true;
 			}
 		}
