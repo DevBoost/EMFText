@@ -642,6 +642,33 @@ ThreeValuedLogic
 DSL\footnote{\url{http://www.emftext.org/language/threevaluedlogic}}. These do
 also come with an interpreter which shows how expression trees can be evaluated.
 
+\subsection{Overriding Imported Rules}
+
+EMFText supports to reuse syntax definitions partially by importing them and
+overriding rules. Rules can be redefined in the importing
+syntax by adding an \texttt{@Override} annotation to the overriding
+rule. You can also remove imported rules by using
+\texttt{@Override(remove="true")}.
+
+Examples are:
+
+\lstset{language=CS}
+\begin{lstlisting}
+// original rule in imported.cs
+MetaClass ::= "originalSyntax";
+
+// overriden rule in importing.cs
+@Override
+importPrefix.MetaClass ::= "newSyntax";
+
+// use this to remove imported syntax rules
+@Override(remove="true")
+importPrefix.MetaClass ::= "does not matter";
+\end{lstlisting}
+
+Please replace \texttt{importPrefix} with the prefix that you have assigned to 
+the imported syntax in the import statement (see Sect.~\ref{sec:cs_import}).
+
 \section{Suppressing Warnings}
 
 To suppress warnings issued by EMFText in \texttt{.cs} files one can use the
