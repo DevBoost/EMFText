@@ -86,11 +86,12 @@
             id="org.emftext.sdk.ui.emftext_category">
       </category>
       <wizard
-            name="EMFText Project"
-            icon="icons/new_project.gif"
             category="org.emftext.sdk.ui.emftext_category"
             class="org.emftext.sdk.ui.wizards.NewProjectWizard"
-            id="org.emftext.sdk.ui.emftext_category.NewProjectWizard">
+            icon="icons/new_project.gif"
+            id="org.emftext.sdk.ui.emftext_category.NewProjectWizard"
+            name="EMFText Project"
+            project="true">
       </wizard>
    </extension>
 
