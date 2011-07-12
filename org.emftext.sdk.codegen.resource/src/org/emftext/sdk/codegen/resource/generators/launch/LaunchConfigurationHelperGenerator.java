@@ -67,15 +67,14 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 		sc.add("});");
 		sc.add("interpreterThread.start();");
 		sc.addLineBreak();
-		sc.add("if (enableDebugger) {");
 		sc.addComment("step 2: start debugger listener (sends commands from Eclipse debug framework to running process");
 		sc.add(debuggerListenerClassName + "<ResultType, ContextType> debugListener = new " + debuggerListenerClassName + "<ResultType, ContextType>();");
 		sc.add("debugListener.setDebuggable(interpreter);");
 		sc.add("new Thread(debugListener).start();");
+		sc.addLineBreak();
 		sc.addComment("step 3: start debugger");
 		sc.add(debugProcessClassName + " process = new " + debugProcessClassName + "(launch);");
 		sc.add("launch.addDebugTarget(new " + debugTargetClassName + "(process, launch));");
-		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();

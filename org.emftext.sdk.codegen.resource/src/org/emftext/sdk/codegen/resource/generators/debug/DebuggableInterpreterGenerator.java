@@ -220,7 +220,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("stopAt = null;");
 		sc.addComment("suspending after step...");
 		sc.add("setSuspend(true);");
-		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".SUSPENDED);");
+		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".SUSPENDED, true);");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("waitIfSuspended();");

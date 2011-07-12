@@ -17,9 +17,10 @@ import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMPTY_STACK_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STACK;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -256,12 +257,21 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addInterpreteMethod(StringComposite sc) {
+	private void addInterpreteMethod(JavaComposite sc) {
 		sc.add("public ResultType interprete(ContextType context) {");
 		sc.add("ResultType result = null;");
+		sc.add(E_OBJECT + " next = null;");
 		sc.add("currentContext = context;");
 		sc.add("while (!interpretationStack.empty()) {");
-		sc.add(E_OBJECT + " next = interpretationStack.pop();");
+		sc.add("try {");
+		sc.add("next = interpretationStack.pop();");
+		sc.add("} catch (" + EMPTY_STACK_EXCEPTION + " ese) {");
+		sc.addComment(
+			"this can happen when the interpreter was terminated between " +
+			"the call to empty() and pop()"
+		);
+		sc.add("break;");
+		sc.add("}");
 		sc.add("nextObjectToInterprete = next;");
 		sc.add("notifyListeners(next);");
 		sc.add("result = interprete(next, context);");

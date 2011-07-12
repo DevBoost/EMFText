@@ -48,6 +48,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.EmptyStackException;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -247,6 +248,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String ECORE_VALIDATOR = EcoreValidator.class.getName();
 	public static String EDITOR = Editor.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
+	public static String EMPTY_STACK_EXCEPTION = EmptyStackException.class.getName();
 	public static String ENUMERATOR = Enumerator.class.getName();
 	public static String EVALUATION_MODE = EvaluationMode.class.getName();
 	public static String E_ATTRIBUTE = EAttribute.class.getName();

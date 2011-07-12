@@ -51,7 +51,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		addAddLineBreakpointMethod(sc);
 		addRemoveLineBreakpointMethod(sc);
 		addResumeMethod(sc);
-		addTerminatemethod(sc);
+		addTerminateMethod(sc);
 		addIsDebugModeMethod(sc);
 		addSetDebugModeMethod(sc);
 		addIsSuspendMethod(sc);
@@ -61,7 +61,6 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 
 	private void addStartEventSocketMethod(JavaComposite sc) {
 		sc.add("public void startEventSocket() {");
-		sc.add("if (isDebugMode()) {");
 		sc.add("try {");
 		sc.addComment("starting event server socket (waiting for connection)...");
 		sc.add("server = new " + SERVER_SOCKET + "(" + debugTargetClassName + ".DEBUG_PORT_2);");
@@ -71,7 +70,6 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("} catch (Exception e) {");
 		// TODO
 		sc.add("e.printStackTrace();");
-		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -89,8 +87,8 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addSendEventMethod(JavaComposite sc) {
-		sc.add("public void sendEvent(" + eDebugMessageTypesClassName + " command, String... arguments) {");
-		sc.add("if (isDebugMode()) {");
+		sc.add("public void sendEvent(" + eDebugMessageTypesClassName + " command, boolean sendOnlyInDebugMode, String... arguments) {");
+		sc.add("if (isDebugMode() || !sendOnlyInDebugMode) {");
 		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(command, arguments);");
 		sc.add("communicationHelper.sendEvent(message, outputStream);");
 		sc.add("}");
@@ -106,7 +104,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("if (breakpointLine.intValue() == currentLine) {");
 		sc.addComment("suspending...");
 		sc.add("setSuspend(true);");
-		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".SUSPENDED, new String[] {\"breakpoint\", \"\" + currentLine});");
+		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".SUSPENDED, true, new String[] {\"breakpoint\", \"\" + currentLine});");
 		sc.add("break;");
 		sc.add("}");
 		sc.add("}");
@@ -124,7 +122,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("}");
 		sc.add("} catch (InterruptedException e) {");
 		sc.add("}");
-		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".RESUMED);");
+		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".RESUMED, true);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -150,12 +148,10 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addTerminatemethod(JavaComposite sc) {
+	private void addTerminateMethod(JavaComposite sc) {
 		sc.add("public void terminate() {");
-		sc.add("if (isDebugMode()) {");
-		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".TERMINATED);");
+		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".TERMINATED, false);");
 		sc.add("stopEventSocket();");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -198,7 +194,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("public void startUpAndWait() {");
 		sc.addComment("suspend here after startup to wait for the installation of deferred breakpoints");
 		sc.add("if (isDebugMode()) {");
-		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".STARTED);");
+		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".STARTED, true);");
 		sc.add("setSuspend(true);");
 		sc.addComment("wait until server sends the RESUME event");
 		sc.add("while (isSuspend()) {");
@@ -209,7 +205,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("}");
 		sc.add("}");
 		sc.addComment("confirm that the debuggable was resumed");
-		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".RESUMED);");
+		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".RESUMED, true);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
