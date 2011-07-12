@@ -50,11 +50,25 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("}");
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetObjectsByTypeMethod(sc);
 		addFindRootContainerMethod(sc);
 		addInvokeOperationMethod(sc);
 		addSetFeatureMethod(sc);
+		addGetDepthMethod(sc);
+	}
+
+	private void addGetDepthMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the depth of the given element in the containment tree");
+		sc.add("public static int getDepth(" + E_OBJECT + " current) {");
+		sc.add(E_OBJECT + " parent = current.eContainer();");
+		sc.add("if (parent == null) {");
+		sc.add("return 0;");
+		sc.add("} else {");
+		sc.add("return getDepth(parent) + 1;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetObjectsByTypeMethod(StringComposite sc) {

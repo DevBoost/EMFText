@@ -6,7 +6,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STACK;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -17,7 +16,6 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 // TODO check how to support debugging of generated code
 // TODO provide better example interpreter that has a GUI
 // TODO ease stack frame handling (startFrame(), stopFrame())
-// TODO default stepInto/Over/Out must use element depth instead of searching for the element to stop at, test this with other DSLs
 // TODO stepOver behavior might not be correct yet
 // TODO check what is "Drop to frame" (in debug view)
 public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -54,8 +52,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		addGetCharStartMethod(sc);
 		addGetCharEndMethod(sc);
 		addGetLocationMapMethod(sc);
-		addGetElementByDepthMethod(sc);
-		addGetDepthMethod(sc);
+		//addGetElementByDepthMethod(sc);
 		addEvaluateStepMethod(sc);
 		addTerminateMethod(sc);
 		addStepOverMethod(sc);
@@ -68,7 +65,8 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.addJavadoc("The actual interpreter. Interpretation is delegated to this object.");
 		sc.add("private " + abstractInterpreterClassName + "<ResultType, ContextType> interpreterDelegate;");
 		sc.addLineBreak();
-		sc.add("private " + E_OBJECT + " stopAt;");
+		sc.addJavadoc("To check whether we must stop the execution after step over/into/return, we use a closure");
+		sc.add("private " + iCommandClassName + "<" + E_OBJECT + "> stopCondition;");
 		sc.addLineBreak();
 		sc.add("private int eventPort;");
 		sc.addLineBreak();
@@ -189,36 +187,12 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 	}
 
-	private void addGetElementByDepthMethod(JavaComposite sc) {
-		sc.add("private " + E_OBJECT + " getElementByDepth(" + STACK + "<" + E_OBJECT + "> stack, int depth) {");
-		sc.add("for (int i = stack.size() - 1; i >= 0; i--) {");
-		sc.add(E_OBJECT + " next = stack.get(i);");
-		sc.add("if (getDepth(next) == depth) {");
-		sc.add("return next;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetDepthMethod(JavaComposite sc) {
-		sc.add("private int getDepth(" + E_OBJECT + " current) {");
-		sc.addComment("TODO move this to EObjectUtil class");
-		sc.add(E_OBJECT + " parent = current.eContainer();");
-		sc.add("if (parent == null) {");
-		sc.add("return 0;");
-		sc.add("} else {");
-		sc.add("return getDepth(parent) + 1;");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addEvaluateStepMethod(JavaComposite sc) {
 		sc.add("private void evaluateStep(" + E_OBJECT + " element) {");
-		sc.add("if (stopAt == element) {");
-		sc.add("stopAt = null;");
+		sc.addComment("create local copy to avoid race conditions");
+		sc.add(iCommandClassName + "<" + E_OBJECT + "> stopCheck = stopCondition;");
+		sc.add("if (stopCheck != null && stopCheck.execute(element)) {");
+		sc.add("stopCondition = null;");
 		sc.addComment("suspending after step...");
 		sc.add("setSuspend(true);");
 		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".SUSPENDED, true);");
@@ -240,13 +214,23 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	private void addStepOverMethod(JavaComposite sc) {
 		sc.add("public void stepOver() {");
 		sc.add(E_OBJECT + " current = interpreterDelegate.getNextObjectToInterprete();");
-		sc.add("int depth = getDepth(current);");
+		sc.add("final int currentLevel = " + eObjectUtilClassName + ".getDepth(current);");
+		
+		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
+		sc.add("public boolean execute(" + E_OBJECT + " element) {");
+		sc.addComment("For step over, we stop at the next object that is at the same level or higher");
+		sc.add("int depth = " + eObjectUtilClassName + ".getDepth(element);");
+		sc.add("return depth <= currentLevel;");
+		sc.add("}");
+		sc.add("};");
+		/*
 		sc.add(STACK + "<" + E_OBJECT + "> stack = interpreterDelegate.getInterpretationStack();");
 		sc.add(E_OBJECT + " nextElementAtSameDepth = getElementByDepth(stack, depth);");
 		sc.add("if (nextElementAtSameDepth != null) {");
 		//sc.add("System.out.println(\"WebtestDebuggableInterpreter.stepOver() must stop at: \" + nextElementAtSameDepth);");
 		sc.add("stopAt = nextElementAtSameDepth;");
 		sc.add("}");
+		*/
 		sc.add("resume();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -254,12 +238,15 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 
 	private void addStepIntoMethod(JavaComposite sc) {
 		sc.add("public void stepInto() {");
-		sc.add(STACK + "<" + E_OBJECT + "> stack = interpreterDelegate.getInterpretationStack();");
-		sc.add("if (!stack.isEmpty()) {");
-		sc.add(E_OBJECT + " next = stack.peek();");
-		//sc.add("System.out.println(\"DebuggableInterpreter.stepInto() must stop at: \" + next);");
-		sc.add("stopAt = next;");
+		//sc.add(STACK + "<" + E_OBJECT + "> stack = interpreterDelegate.getInterpretationStack();");
+		//sc.add("if (!stack.isEmpty()) {");
+		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
+		sc.add("public boolean execute(" + E_OBJECT + " element) {");
+		sc.addComment("For step into, we stop at the next object");
+		sc.add("return true;");
 		sc.add("}");
+		sc.add("};");
+		//sc.add("}");
 		sc.add("resume();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -268,13 +255,24 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	private void addStepReturnMethod(JavaComposite sc) {
 		sc.add("public void stepReturn() {");
 		sc.add(E_OBJECT + " current = interpreterDelegate.getNextObjectToInterprete();");
-		sc.add("int depth = getDepth(current) + 1;");
+		sc.add("final int parentLevel = " + eObjectUtilClassName + ".getDepth(current) - 1;");
+		
+		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
+		sc.add("public boolean execute(" + E_OBJECT + " element) {");
+		sc.addComment("For step return, we stop at the next object that is at least one level higher");
+		sc.add("int depth = " + eObjectUtilClassName + ".getDepth(element);");
+		sc.add("return depth <= parentLevel;");
+		sc.add("}");
+		sc.add("};");
+		/*
 		sc.add(STACK + "<" + E_OBJECT + "> stack = interpreterDelegate.getInterpretationStack();");
 		sc.add(E_OBJECT + " nextElementAtParentLevel = getElementByDepth(stack, depth);");
 		sc.add("if (nextElementAtParentLevel != null) {");
 		//sc.add("System.out.println(\"WebtestDebuggableInterpreter.stepReturn() must stop at: \" + nextElementAtParentLevel);");
 		sc.add("stopAt = nextElementAtParentLevel;");
 		sc.add("}");
+		*/
+		
 		sc.add("resume();");
 		sc.add("}");
 		sc.addLineBreak();
