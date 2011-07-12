@@ -14,7 +14,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-// TODO find free port instead of using fixed ones (other multiple debugging sessions can conflict)
 // TODO check how to support debugging of generated code
 // TODO provide better example interpreter that has a GUI
 // TODO ease stack frame handling (startFrame(), stopFrame())
@@ -71,10 +70,13 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 		sc.add("private " + E_OBJECT + " stopAt;");
 		sc.addLineBreak();
+		sc.add("private int eventPort;");
+		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + abstractInterpreterClassName + "<ResultType, ContextType> interpreterDelegate) {");
+		sc.add("public " + getResourceClassName() + "(" + abstractInterpreterClassName + "<ResultType, ContextType> interpreterDelegate, int eventPort) {");
+		sc.add("this.eventPort = eventPort;");
 		sc.add("this.interpreterDelegate = interpreterDelegate;");
 		sc.add("this.interpreterDelegate.addListener(new " + iInterpreterListenerClassName + "() {");
 		sc.addLineBreak();
@@ -106,7 +108,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	private void addInterpreteMethod2(JavaComposite sc) {
 		sc.add("public ResultType interprete(ContextType context, boolean debugMode) {");
 		sc.add("setDebugMode(debugMode);");
-		sc.add("startEventSocket();");
+		sc.add("startEventSocket(eventPort);");
 		sc.addLineBreak();
 		sc.add("ResultType result = interprete(context);");
 		sc.add("return result;");

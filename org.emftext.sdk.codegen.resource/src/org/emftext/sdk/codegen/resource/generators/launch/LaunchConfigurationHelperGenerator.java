@@ -2,10 +2,14 @@ package org.emftext.sdk.codegen.resource.generators.launch;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_CONFIGURATION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_MANAGER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SERVER_SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -38,6 +42,41 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 		addLaunchInterpreterMethod(sc);
 		addGetURIMethod(sc);
 		addGetModelRootMethod(sc);
+		addFindFreePortMethod(sc);
+		addAbortMethod(sc);
+	}
+
+	private void addAbortMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Throws an exception with a new status containing the given " +
+			"message and optional exception.",
+			"@param message error message",
+			"@param e underlying exception",
+			"@throws CoreException"
+		);
+		sc.add("protected void abort(String message, Throwable e) throws " + CORE_EXCEPTION + " {");
+		sc.add("throw new " + CORE_EXCEPTION + "(new " + STATUS + "(" + I_STATUS + ".ERROR, " + pluginActivatorClassName + ".DEBUG_MODEL_ID, 0, message, e));");
+		sc.add("}");
+	}
+
+	private void addFindFreePortMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns a free port number on localhost, or -1 if unable to find a free port.");
+		sc.add("protected int findFreePort() {");
+		sc.add(SERVER_SOCKET + " socket = null;");
+		sc.add("try {");
+		sc.add("socket = new " + SERVER_SOCKET + "(0);");
+		sc.add("return socket.getLocalPort();");
+		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} finally {");
+		sc.add("if (socket != null) {");
+		sc.add("try {");
+		sc.add("socket.close();");
+		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return -1;");		
+		sc.add("}");
 	}
 
 	private void addLaunchMethod(JavaComposite sc) {
@@ -55,9 +94,16 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 	private void addLaunchInterpreterMethod(JavaComposite sc) {
 		sc.add("public <ResultType, ContextType> void launchInterpreter(" + I_LAUNCH_CONFIGURATION + " configuration, String mode, " + I_LAUNCH + " launch, " + I_PROGRESS_MONITOR + " monitor, " + abstractInterpreterClassName + "<ResultType, ContextType> delegate, final ContextType context) throws " + CORE_EXCEPTION + " {");
 		sc.add("final boolean enableDebugger = mode.equals(" + I_LAUNCH_MANAGER + ".DEBUG_MODE);");
-		sc.add("final " + debuggableInterpreterClassName + "<ResultType, ContextType> interpreter = new " + debuggableInterpreterClassName + "<ResultType, ContextType>(delegate);");
+		sc.addComment("step 1: find two free ports we can use to communicate between the Eclipse and the interpreter");
+		sc.add("int requestPort = findFreePort();");
+		sc.add("int eventPort = findFreePort();");
+		sc.add("if (requestPort < 0 || eventPort < 0) {");
+		sc.add("abort(\"Unable to find free port\", null);");
+		sc.add("}");
 		sc.addLineBreak();
-		sc.addComment("step 1: prepare and start interpreter in separate thread");
+		sc.add("final " + debuggableInterpreterClassName + "<ResultType, ContextType> interpreter = new " + debuggableInterpreterClassName + "<ResultType, ContextType>(delegate, eventPort);");
+		sc.addLineBreak();
+		sc.addComment("step 2: prepare and start interpreter in separate thread");
 		sc.add("Thread interpreterThread = new Thread(new Runnable() {");
 		sc.addLineBreak();
 		sc.add("public void run() {");
@@ -67,15 +113,14 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 		sc.add("});");
 		sc.add("interpreterThread.start();");
 		sc.addLineBreak();
-		sc.addComment("step 2: start debugger listener (sends commands from Eclipse debug framework to running process");
-		sc.add(debuggerListenerClassName + "<ResultType, ContextType> debugListener = new " + debuggerListenerClassName + "<ResultType, ContextType>();");
+		sc.addComment("step 3: start debugger listener (sends commands from Eclipse debug framework to running process");
+		sc.add(debuggerListenerClassName + "<ResultType, ContextType> debugListener = new " + debuggerListenerClassName + "<ResultType, ContextType>(requestPort);");
 		sc.add("debugListener.setDebuggable(interpreter);");
 		sc.add("new Thread(debugListener).start();");
 		sc.addLineBreak();
-		sc.addComment("step 3: start debugger");
+		sc.addComment("step 4: start debugger");
 		sc.add(debugProcessClassName + " process = new " + debugProcessClassName + "(launch);");
-		sc.add("launch.addDebugTarget(new " + debugTargetClassName + "(process, launch));");
-		sc.addLineBreak();
+		sc.add("launch.addDebugTarget(new " + debugTargetClassName + "(process, launch, requestPort, eventPort));");
 		sc.add("}");
 		sc.addLineBreak();
 	}

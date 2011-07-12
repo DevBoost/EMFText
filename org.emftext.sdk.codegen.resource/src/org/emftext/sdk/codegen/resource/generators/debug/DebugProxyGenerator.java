@@ -44,7 +44,6 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addConstants(JavaComposite sc) {
 		sc.add("public static final int STARTUP_DELAY = 1000;");
-		sc.add("public static final int DEBUG_PORT = 6670;");
 		sc.addLineBreak();
 	}
 
@@ -75,22 +74,22 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + debugTargetClassName + " debugTarget) throws " + UNKNOWN_HOST_EXCEPTION + ", " + IO_EXCEPTION + " {");
+		sc.add("public " + getResourceClassName() + "(" + debugTargetClassName + " debugTarget, int requestPort) throws " + UNKNOWN_HOST_EXCEPTION + ", " + IO_EXCEPTION + " {");
 		sc.add("this.debugTarget = debugTarget;");
 		sc.add("// give interpreter a chance to start");
 		sc.add("try {");
 		sc.add("Thread.sleep(STARTUP_DELAY);");
 		sc.add("} catch (InterruptedException e) {");
 		sc.add("}");
-		sc.add("startSocket();");
+		sc.add("startSocket(requestPort);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addStartSocketMethod(JavaComposite sc) {
-		sc.add("private void startSocket() throws " + UNKNOWN_HOST_EXCEPTION + ", " + IO_EXCEPTION + " {");
+		sc.add("private void startSocket(int requestPort) throws " + UNKNOWN_HOST_EXCEPTION + ", " + IO_EXCEPTION + " {");
 		sc.addComment("creating client proxy socket (trying to connect)...");
-		sc.add(SOCKET + " client = new " + SOCKET + "(\"localhost\", DEBUG_PORT);");
+		sc.add(SOCKET + " client = new " + SOCKET + "(\"localhost\", requestPort);");
 		sc.addComment("creating client proxy socket - done. (connected)");
 		sc.add("try {");
 		sc.add(BUFFERED_INPUT_STREAM + " input = new " + BUFFERED_INPUT_STREAM + "(client.getInputStream());");

@@ -42,7 +42,16 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		addConstants(sc);
 		addFields(sc);
+		addConstructor(sc);
 		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		// TODO Auto-generated method stub
+		sc.add("public " + getResourceClassName() + "(int requestPort) {");
+		sc.add("super();");
+		sc.add("this.requestPort = requestPort;");
 		sc.add("}");
 	}
 
@@ -106,6 +115,8 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		sc.add("private " + debugCommunicationHelperClassName + " communicationHelper = new " + debugCommunicationHelperClassName + "();");
 		sc.addLineBreak();
+		sc.add("private int requestPort;");
+		sc.addLineBreak();
 	}
 
 	private void addRunMethod(JavaComposite sc) {
@@ -122,7 +133,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addRunDebuggerMethod(JavaComposite sc) {
 		sc.add("private void runDebugger() throws " + IO_EXCEPTION + " {");
-		sc.add(SERVER_SOCKET + " server = new " + SERVER_SOCKET + "(" + debugProxyClassName + ".DEBUG_PORT);");
+		sc.add(SERVER_SOCKET + " server = new " + SERVER_SOCKET + "(requestPort);");
 		//sc.add("System.out.println(\"WebtestDebuggerListener.runDebugger() creating proxy server socket (waiting for connection)...\");");
 		sc.add(SOCKET + " accept = server.accept();");
 		//sc.add("System.out.println(\"WebtestDebuggerListener.runDebugger() proxy server socket (connected).\");");

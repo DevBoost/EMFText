@@ -40,7 +40,6 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName +" implements " + I_DEBUG_TARGET + ", " + iDebugEventListenerClassName + " {");
 		sc.addLineBreak();
-		addConstants(sc);
 		addFields(sc);
 		addDebugEventDispatcherClass(sc);
 		addConstructor(sc);
@@ -80,11 +79,6 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		addInstallDeferredBreakpointsMethod(sc);
 		addHandleMessageMethod(sc);
 		addGetDebugProxyMethod(sc);
-	}
-
-	private void addConstants(JavaComposite sc) {
-		sc.add("public static final int DEBUG_PORT_2 = 6671;");
-		sc.addLineBreak();
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -146,7 +140,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + debugProcessClassName + " process, " + I_LAUNCH + " launch) {");
+		sc.add("public " + getResourceClassName() + "(" + debugProcessClassName + " process, " + I_LAUNCH + " launch, int requestPort, int eventPort) {");
 		sc.add("super(launch.getDebugTarget());");
 		sc.add("this.process = process;");
 		sc.add("this.launch = launch;");
@@ -155,7 +149,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 		sc.addComment("initialize debug proxy");
 		sc.add("try {");
-		sc.add("this.debugProxy = new " + debugProxyClassName + "(this);");
+		sc.add("this.debugProxy = new " + debugProxyClassName + "(this, requestPort);");
 		sc.add("} catch (" + UNKNOWN_HOST_EXCEPTION + " e) {");
 		// TODO Auto-generated catch block
 		sc.add("e.printStackTrace();");
@@ -167,7 +161,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addComment("initialize asynchronous event dispatcher");
 		sc.add("try {");
 		sc.addComment("creating event client socket (trying to connect)...");
-		sc.add("this.eventSocket = new " + SOCKET + "(\"localhost\", DEBUG_PORT_2);");
+		sc.add("this.eventSocket = new " + SOCKET + "(\"localhost\", eventPort);");
 		sc.addComment("creating event client socket - done (connected).");
 		sc.add("this.eventReader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(this.eventSocket.getInputStream()));");
 		sc.add("} catch (" + CONNECT_EXCEPTION + " e) {");

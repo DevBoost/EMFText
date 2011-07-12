@@ -60,16 +60,16 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addStartEventSocketMethod(JavaComposite sc) {
-		sc.add("public void startEventSocket() {");
+		sc.add("public void startEventSocket(int eventPort) {");
 		sc.add("try {");
 		sc.addComment("starting event server socket (waiting for connection)...");
-		sc.add("server = new " + SERVER_SOCKET + "(" + debugTargetClassName + ".DEBUG_PORT_2);");
+		sc.add("server = new " + SERVER_SOCKET + "(eventPort);");
 		sc.add(SOCKET + " accept = server.accept();");
 		sc.addComment("starting event server socket done (connection established).");
 		sc.add("outputStream = new " + PRINT_STREAM + "(accept.getOutputStream());");
 		sc.add("} catch (Exception e) {");
-		// TODO
-		sc.add("e.printStackTrace();");
+		// TODO this should probably be signaled to the user
+		sc.add(pluginActivatorClassName + ".logError(\"Can't create socket connection while launching.\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
