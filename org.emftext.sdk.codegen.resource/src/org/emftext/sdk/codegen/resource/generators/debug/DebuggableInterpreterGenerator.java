@@ -81,8 +81,19 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("public void handleInterpreteObject(" + E_OBJECT + " element) {");
 		sc.addComment("check whether we have hit an element after a step over/into/return");
 		sc.add("evaluateStep(element);");
+		sc.addComment("if we are stepping we do ignore breakpoints");
+		sc.add("if (stopCondition != null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.addComment("check whether we have hit a line breakpoint");
 		sc.add("int line = getLine(element);");
+		sc.add(E_OBJECT + " parent = element.eContainer();");
+		sc.add("if (parent != null) {");
+		sc.add("int parentLine = getLine(parent);");
+		sc.add("if (line == parentLine) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("}");
 		sc.add("if (line >= 0) {");
 		sc.add("evaluateLineBreakpoint(element.eResource().getURI(), line);");
 		sc.add("}");
@@ -213,14 +224,16 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 
 	private void addStepOverMethod(JavaComposite sc) {
 		sc.add("public void stepOver() {");
-		sc.add(E_OBJECT + " current = interpreterDelegate.getNextObjectToInterprete();");
+		sc.add("final " + E_OBJECT + " current = interpreterDelegate.getNextObjectToInterprete();");
 		sc.add("final int currentLevel = " + eObjectUtilClassName + ".getDepth(current);");
 		
 		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
 		sc.add("public boolean execute(" + E_OBJECT + " element) {");
 		sc.addComment("For step over, we stop at the next object that is at the same level or higher");
 		sc.add("int depth = " + eObjectUtilClassName + ".getDepth(element);");
-		sc.add("return depth <= currentLevel;");
+		sc.add("boolean sameOrHigher = depth <= currentLevel;");
+		sc.add("boolean differentElement = element != current;");
+		sc.add("return sameOrHigher && differentElement;");
 		sc.add("}");
 		sc.add("};");
 		sc.add("resume();");
