@@ -86,7 +86,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.addComment("check whether we have hit a line breakpoint");
 		sc.add("int line = getLine(element);");
 		sc.add("if (line >= 0) {");
-		sc.add("evaluateLineBreakpoint(line);");
+		sc.add("evaluateLineBreakpoint(element.eResource().getURI(), line);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("});");

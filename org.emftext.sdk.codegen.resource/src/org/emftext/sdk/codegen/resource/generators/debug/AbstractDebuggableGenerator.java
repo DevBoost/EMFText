@@ -7,6 +7,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MA
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SERVER_SOCKET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -32,7 +33,8 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + LIST + "<Integer> lineBreakpoints = new " + ARRAY_LIST + "<Integer>();");
+		sc.addJavadoc("The list of breakpoints, where each breakpoint is represented by its location (a string) and the line number");
+		sc.add("private " + LIST + "<" + pairClassName + "<String, Integer>> lineBreakpoints = new " + ARRAY_LIST + "<" + pairClassName + "<String, Integer>>();");
 		sc.add("private " + PRINT_STREAM + " outputStream;");
 		sc.add("private " + SERVER_SOCKET + " server;");
 		sc.add("private boolean debugMode;");
@@ -97,11 +99,19 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addEvaluateLineBreakpointMethod(JavaComposite sc) {
-		sc.add("public void evaluateLineBreakpoint(int currentLine) {");
+		sc.add("public void evaluateLineBreakpoint(" + URI + " uri, int currentLine) {");
 		sc.add("if (isDebugMode()) {");
+		sc.add("String platformString = uri.toPlatformString(true);");
+		sc.add(I_RESOURCE + " member = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
+		sc.add("if (member == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("String location = member.getRawLocation().toPortableString();");
 		sc.add("for (int i = 0; i < lineBreakpoints.size(); i++) {");
-		sc.add("Integer breakpointLine = lineBreakpoints.get(i);");
-		sc.add("if (breakpointLine.intValue() == currentLine) {");
+		sc.add(pairClassName + "<String, Integer> breakpointLocationAndLine = lineBreakpoints.get(i);");
+		sc.add("String breakpointLocation = breakpointLocationAndLine.getLeft();");
+		sc.add("Integer breakpointLine = breakpointLocationAndLine.getRight();");
+		sc.add("if (breakpointLine.intValue() == currentLine && breakpointLocation.equals(location)) {");
 		sc.addComment("suspending...");
 		sc.add("setSuspend(true);");
 		sc.add("sendEvent(" + eDebugMessageTypesClassName + ".SUSPENDED, true, new String[] {\"breakpoint\", \"\" + currentLine});");
@@ -128,15 +138,15 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addAddLineBreakpointMethod(JavaComposite sc) {
-		sc.add("public void addLineBreakpoint(int line) {");
-		sc.add("lineBreakpoints.add(new Integer(line));");
+		sc.add("public void addLineBreakpoint(String location, int line) {");
+		sc.add("lineBreakpoints.add(new " + pairClassName + "<String, Integer>(location, new Integer(line)));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRemoveLineBreakpointMethod(JavaComposite sc) {
-		sc.add("public void removeLineBreakpoint(int line) {");
-		sc.add("lineBreakpoints.remove(new Integer(line));");
+		sc.add("public void removeLineBreakpoint(String location, int line) {");
+		sc.add("lineBreakpoints.remove(new " + pairClassName + "<String, Integer>(location, new Integer(line)));");
 		sc.add("}");
 		sc.addLineBreak();
 	}

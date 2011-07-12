@@ -161,11 +161,13 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".STEP_RETURN)) {");
 		sc.add("debuggable.stepReturn();");
 		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".ADD_LINE_BREAKPOINT)) {");
-		sc.add("int line = Integer.parseInt(command.getArgument(0));");
-		sc.add("debuggable.addLineBreakpoint(line);");
+		sc.add("String location = command.getArgument(0);");
+		sc.add("int line = Integer.parseInt(command.getArgument(1));");
+		sc.add("debuggable.addLineBreakpoint(location, line);");
 		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".REMOVE_LINE_BREAKPOINT)) {");
-		sc.add("int line = Integer.parseInt(command.getArgument(0));");
-		sc.add("debuggable.removeLineBreakpoint(line);");
+		sc.add("String location = command.getArgument(0);");
+		sc.add("int line = Integer.parseInt(command.getArgument(1));");
+		sc.add("debuggable.removeLineBreakpoint(location, line);");
 		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".GET_STACK)) {");
 		sc.add("final String[] stack = debuggable.getStack();");
 		sc.add("String controlStack = " + stringUtilClassName + ".encode('#', stack);");

@@ -65,6 +65,7 @@ public class LineBreakpointGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("marker.setAttribute(" + I_MARKER + ".LINE_NUMBER, lineNumber);");
 		sc.add("marker.setAttribute(" + I_BREAKPOINT + ".ID, getModelIdentifier());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".MESSAGE, \"Line Breakpoint: \" + resource.getName() + \" [line: \" + lineNumber + \"]\");");
+		sc.add("marker.setAttribute(" + I_MARKER + ".LOCATION, resource.getRawLocation().toPortableString());");		
 		sc.add("}");
 		sc.add("};");
 		sc.add("run(getMarkerRule(resource), runnable);");
@@ -82,7 +83,8 @@ public class LineBreakpointGenerator extends JavaBaseGenerator<ArtifactParameter
 	private void addInstallMethod(JavaComposite sc) {
 		sc.add("public void install(" + debugTargetClassName + " target) {");
 		sc.add("try {");
-		sc.add("target.getDebugProxy().addLineBreakpoint(getLineNumber());");
+		sc.add("String location = (String) getMarker().getAttribute(" + I_MARKER + ".LOCATION);");
+		sc.add("target.getDebugProxy().addLineBreakpoint(location, getLineNumber());");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
 		// TODO
 		sc.add("e.printStackTrace();");
@@ -94,7 +96,8 @@ public class LineBreakpointGenerator extends JavaBaseGenerator<ArtifactParameter
 	private void addRemoveMethod(JavaComposite sc) {
 		sc.add("public void remove(" + debugTargetClassName + " target) {");
 		sc.add("try {");
-		sc.add("target.getDebugProxy().removeLineBreakpoint(getLineNumber());");
+		sc.add("String location = (String) getMarker().getAttribute(" + I_MARKER + ".LOCATION);");
+		sc.add("target.getDebugProxy().removeLineBreakpoint(location, getLineNumber());");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("}");

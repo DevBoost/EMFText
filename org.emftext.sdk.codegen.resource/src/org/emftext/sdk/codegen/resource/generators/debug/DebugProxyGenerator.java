@@ -151,16 +151,16 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addAddLineBreakpointMethod(JavaComposite sc) {
-		sc.add("public void addLineBreakpoint(int line) {");
-		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".ADD_LINE_BREAKPOINT, new String[] {Integer.toString(line)});");
+		sc.add("public void addLineBreakpoint(String location, int line) {");
+		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".ADD_LINE_BREAKPOINT, new String[] {location, Integer.toString(line)});");
 		sc.add("communicationHelper.sendEvent(message, output);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRemoveLineBreakpointMethod(JavaComposite sc) {
-		sc.add("public void removeLineBreakpoint(int line) {");
-		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".REMOVE_LINE_BREAKPOINT, new String[] {Integer.toString(line)});");
+		sc.add("public void removeLineBreakpoint(String location, int line) {");
+		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".REMOVE_LINE_BREAKPOINT, new String[] {location, Integer.toString(line)});");
 		sc.add("communicationHelper.sendEvent(message, output);");
 		sc.add("}");
 		sc.addLineBreak();
