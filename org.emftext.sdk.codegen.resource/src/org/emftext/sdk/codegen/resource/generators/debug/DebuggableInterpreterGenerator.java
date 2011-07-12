@@ -16,7 +16,6 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 // TODO check how to support debugging of generated code
 // TODO provide better example interpreter that has a GUI
 // TODO ease stack frame handling (startFrame(), stopFrame())
-// TODO stepOver behavior might not be correct yet
 // TODO check what is "Drop to frame" (in debug view)
 public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
