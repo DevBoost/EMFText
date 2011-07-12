@@ -21,7 +21,6 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 // TODO default stepInto/Over/Out must use element depth instead of searching for the element to stop at, test this with other DSLs
 // TODO stepOver behavior might not be correct yet
 // TODO check what is "Drop to frame" (in debug view)
-// TODO after launching a model in 'run' mode the process is not shown as terminated even though interpretation has ended
 public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
