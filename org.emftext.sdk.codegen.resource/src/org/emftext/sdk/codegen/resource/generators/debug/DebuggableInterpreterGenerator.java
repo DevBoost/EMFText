@@ -223,14 +223,6 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("return depth <= currentLevel;");
 		sc.add("}");
 		sc.add("};");
-		/*
-		sc.add(STACK + "<" + E_OBJECT + "> stack = interpreterDelegate.getInterpretationStack();");
-		sc.add(E_OBJECT + " nextElementAtSameDepth = getElementByDepth(stack, depth);");
-		sc.add("if (nextElementAtSameDepth != null) {");
-		//sc.add("System.out.println(\"WebtestDebuggableInterpreter.stepOver() must stop at: \" + nextElementAtSameDepth);");
-		sc.add("stopAt = nextElementAtSameDepth;");
-		sc.add("}");
-		*/
 		sc.add("resume();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -238,15 +230,12 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 
 	private void addStepIntoMethod(JavaComposite sc) {
 		sc.add("public void stepInto() {");
-		//sc.add(STACK + "<" + E_OBJECT + "> stack = interpreterDelegate.getInterpretationStack();");
-		//sc.add("if (!stack.isEmpty()) {");
 		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
 		sc.add("public boolean execute(" + E_OBJECT + " element) {");
 		sc.addComment("For step into, we stop at the next object");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("};");
-		//sc.add("}");
 		sc.add("resume();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -264,15 +253,6 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("return depth <= parentLevel;");
 		sc.add("}");
 		sc.add("};");
-		/*
-		sc.add(STACK + "<" + E_OBJECT + "> stack = interpreterDelegate.getInterpretationStack();");
-		sc.add(E_OBJECT + " nextElementAtParentLevel = getElementByDepth(stack, depth);");
-		sc.add("if (nextElementAtParentLevel != null) {");
-		//sc.add("System.out.println(\"WebtestDebuggableInterpreter.stepReturn() must stop at: \" + nextElementAtParentLevel);");
-		sc.add("stopAt = nextElementAtParentLevel;");
-		sc.add("}");
-		*/
-		
 		sc.add("resume();");
 		sc.add("}");
 		sc.addLineBreak();
