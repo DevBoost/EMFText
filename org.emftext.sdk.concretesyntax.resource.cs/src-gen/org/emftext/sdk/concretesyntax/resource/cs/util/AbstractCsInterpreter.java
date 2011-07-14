@@ -544,6 +544,7 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 			listener.handleInterpreteObject(element);
 		}
 	}
+	
 	/**
 	 * Adds the given object to the interpretation stack. Attention: Objects that are
 	 * added first, are interpret last.
