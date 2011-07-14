@@ -180,9 +180,8 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetStackVariablesMethod(JavaComposite sc) {
-		sc.add("public " + I_VARIABLE + "[] getStackVariables() {");
-		// TODO send stack frame ID
-		sc.add(debugMessageClassName + " response = sendCommandAndRead(" + eDebugMessageTypesClassName + ".GET_FRAME_VARIABLES);");
+		sc.add("public " + I_VARIABLE + "[] getStackVariables(String stackFrame) {");
+		sc.add(debugMessageClassName + " response = sendCommandAndRead(" + eDebugMessageTypesClassName + ".GET_FRAME_VARIABLES, new String[] {stackFrame});");
 		sc.add("String[] ids = response.getArguments();");
 		sc.add(I_VARIABLE + "[] variables = new " + I_VARIABLE + "[ids.length];");
 		sc.addComment("fetch all variables");

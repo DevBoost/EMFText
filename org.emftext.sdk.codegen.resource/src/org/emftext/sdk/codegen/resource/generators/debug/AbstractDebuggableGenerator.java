@@ -239,6 +239,6 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("public abstract void stepInto();");
 		sc.add("public abstract void stepReturn();");
 		sc.add("public abstract String[] getStack();");
-		sc.add("public abstract " + MAP + "<String, Object> getFrameVariables();");
+		sc.add("public abstract " + MAP + "<String, Object> getFrameVariables(String stackFrame);");
 	}
 }

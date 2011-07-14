@@ -187,7 +187,8 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".GET_STACK_RESPONSE, new String[] {controlStack});");
 		sc.add("communicationHelper.sendEvent(message, output);");
 		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".GET_FRAME_VARIABLES)) {");
-		sc.add(MAP + "<String, Object> frameVariables = debuggable.getFrameVariables();");
+		sc.add("String stackFrame = command.getArgument(0);");
+		sc.add(MAP + "<String, Object> frameVariables = debuggable.getFrameVariables(stackFrame);");
 		sc.addLineBreak();
 		sc.add(LIST + "<String> topVariableIDs = new " + ARRAY_LIST + "<String>();");
 		sc.add("for (String name : frameVariables.keySet()) {");

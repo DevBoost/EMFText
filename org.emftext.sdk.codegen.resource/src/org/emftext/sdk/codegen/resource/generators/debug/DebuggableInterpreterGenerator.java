@@ -26,10 +26,11 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-// TODO check how to support debugging of generated code
-// TODO provide better example interpreter that has a GUI
 // TODO ease stack frame handling (startFrame(), stopFrame())
 // TODO check what is "Drop to frame" (in debug view)
+
+// TODO check how to support debugging of generated code
+// TODO provide better example interpreter that has a GUI
 public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
@@ -64,7 +65,6 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		addGetCharStartMethod(sc);
 		addGetCharEndMethod(sc);
 		addGetLocationMapMethod(sc);
-		//addGetElementByDepthMethod(sc);
 		addEvaluateStepMethod(sc);
 		addTerminateMethod(sc);
 		addStepOverMethod(sc);
@@ -80,7 +80,14 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.addJavadoc("To check whether we must stop the execution after step over/into/return, we use a closure");
 		sc.add("private " + iCommandClassName + "<" + E_OBJECT + "> stopCondition;");
 		sc.addLineBreak();
+		sc.addJavadoc("The port of the socket that is used to send debug events to the Eclipse debugging framework");
 		sc.add("private int eventPort;");
+		sc.addLineBreak();
+		sc.addJavadoc("This map is used to remember the IDs of stack frame elements");
+		sc.add(MAP + "<Integer, " + E_OBJECT + "> stackFrameMap = new " + LINKED_HASH_MAP + "<Integer, " + E_OBJECT + ">();");
+		sc.addLineBreak();
+		sc.addJavadoc("The IDs of the last stack frame element");
+		sc.add("int stackFrameID = 0;");
 		sc.addLineBreak();
 	}
 
@@ -149,7 +156,8 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("String[] stack = new String[parents.size()];");
 		sc.add("int i = parents.size();");
 		sc.add("for (" + E_OBJECT + " parent : parents) {");
-		sc.add("stack[--i] = parent.eClass().getName() + \",\" + parent.eResource().getURI().toString() + \",\" + getLine(parent) + \",\" + getCharStart(parent) + \",\" + getCharEnd(parent);");
+		sc.add("stack[--i] = parent.eClass().getName() + \",\" + stackFrameID + \",\" + parent.eResource().getURI().toString() + \",\" + getLine(parent) + \",\" + getCharStart(parent) + \",\" + getCharEnd(parent);");
+		sc.add("stackFrameMap.put(stackFrameID++, parent);");
 		sc.add("}");
 		sc.add("return stack;");
 		sc.add("}");
@@ -284,9 +292,10 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	}
 
 	private void addGetFrameVariablesMethod(JavaComposite sc) {
-		sc.add("public " + MAP + "<String, Object> getFrameVariables() {");
+		sc.add("public " + MAP + "<String, Object> getFrameVariables(String stackFrame) {");
+		sc.add("int stackFrameID = Integer.parseInt(stackFrame);");
 		sc.add(MAP + "<String, Object> frameVariables = new " + LINKED_HASH_MAP + "<String, Object>();");
-		sc.add("frameVariables.put(\"this\", getInterpreterDelegate().getNextObjectToInterprete());");
+		sc.add("frameVariables.put(\"this\", stackFrameMap.get(stackFrameID));");
 		sc.add("frameVariables.put(\"context\", getInterpreterDelegate().getCurrentContext());");
 		sc.add("return frameVariables;");
 		sc.add("}");

@@ -76,6 +76,7 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	private void addFields(JavaComposite sc) {
 		sc.add("private " + debugTargetClassName + " target;");
 		sc.add("private String name;");
+		sc.add("private int id;");
 		sc.add("private String resourceURI;");
 		sc.add("private int line;");
 		sc.add("private int charStart;");
@@ -91,10 +92,11 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		// TODO unescaped excaped commata
 		sc.add("String[] datas = data.split(\",\");");
 		sc.add("this.name = datas[0];");
-		sc.add("this.resourceURI = datas[1];");
-		sc.add("this.line = Integer.parseInt(datas[2]);");
-		sc.add("this.charStart = Integer.parseInt(datas[3]);");
-		sc.add("this.charEnd = Integer.parseInt(datas[4]);");
+		sc.add("this.id = Integer.parseInt(datas[1]);");
+		sc.add("this.resourceURI = datas[2];");
+		sc.add("this.line = Integer.parseInt(datas[3]);");
+		sc.add("this.charStart = Integer.parseInt(datas[4]);");
+		sc.add("this.charEnd = Integer.parseInt(datas[5]);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -151,7 +153,7 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	private void addGetVariablesMethod(JavaComposite sc) {
 		sc.add("public " + I_VARIABLE + "[] getVariables() throws " + DEBUG_EXCEPTION + " {");
 		sc.addComment("get root (top level) variables");
-		sc.add(I_VARIABLE + "[] variables = getTarget().getDebugProxy().getStackVariables();");
+		sc.add(I_VARIABLE + "[] variables = getTarget().getDebugProxy().getStackVariables(Integer.toString(id));");
 		sc.add("return variables;");
 		sc.add("}");
 		sc.addLineBreak();
