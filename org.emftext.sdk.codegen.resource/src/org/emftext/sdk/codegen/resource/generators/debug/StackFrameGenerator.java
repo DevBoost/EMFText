@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_REGISTER_GROUP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STACK_FRAME;
@@ -89,14 +90,13 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("super(target);");
 		sc.add("this.target = target;");
 		sc.addLineBreak();
-		// TODO unescaped excaped commata
-		sc.add("String[] datas = data.split(\",\");");
-		sc.add("this.name = datas[0];");
-		sc.add("this.id = Integer.parseInt(datas[1]);");
-		sc.add("this.resourceURI = datas[2];");
-		sc.add("this.line = Integer.parseInt(datas[3]);");
-		sc.add("this.charStart = Integer.parseInt(datas[4]);");
-		sc.add("this.charEnd = Integer.parseInt(datas[5]);");
+		sc.add(LIST + "<String> dataParts = " + stringUtilClassName + ".decode(data, ',');");
+		sc.add("this.name = dataParts.get(0);");
+		sc.add("this.id = Integer.parseInt(dataParts.get(1));");
+		sc.add("this.resourceURI = dataParts.get(2);");
+		sc.add("this.line = Integer.parseInt(dataParts.get(3));");
+		sc.add("this.charStart = Integer.parseInt(dataParts.get(4));");
+		sc.add("this.charEnd = Integer.parseInt(dataParts.get(5));");
 		sc.add("}");
 		sc.addLineBreak();
 	}

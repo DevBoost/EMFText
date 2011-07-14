@@ -156,7 +156,8 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("String[] stack = new String[parents.size()];");
 		sc.add("int i = parents.size();");
 		sc.add("for (" + E_OBJECT + " parent : parents) {");
-		sc.add("stack[--i] = parent.eClass().getName() + \",\" + stackFrameID + \",\" + parent.eResource().getURI().toString() + \",\" + getLine(parent) + \",\" + getCharStart(parent) + \",\" + getCharEnd(parent);");
+		sc.add("String serializedStackElement = " + stringUtilClassName + ".encode(',', new String[] {parent.eClass().getName(), Integer.toString(stackFrameID), parent.eResource().getURI().toString(), Integer.toString(getLine(parent)), Integer.toString(getCharStart(parent)), Integer.toString(getCharEnd(parent))});");
+		sc.add("stack[--i] = serializedStackElement;");
 		sc.add("stackFrameMap.put(stackFrameID++, parent);");
 		sc.add("}");
 		sc.add("return stack;");
