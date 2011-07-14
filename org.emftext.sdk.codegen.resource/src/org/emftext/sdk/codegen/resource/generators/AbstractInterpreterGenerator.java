@@ -154,12 +154,14 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.add("public void addListener(" + iInterpreterListenerClassName + " newListener) {");
 		sc.add("listeners.add(newListener);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 	
 	private void addRemoveListenerMethod(JavaComposite sc) {
 		sc.add("public boolean removeListener(" + iInterpreterListenerClassName + " listener) {");
 		sc.add("return listeners.remove(listener);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addContinueInterpretationMethod(JavaComposite sc) {
