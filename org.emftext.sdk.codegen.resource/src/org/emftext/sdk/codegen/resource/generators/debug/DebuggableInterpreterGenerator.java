@@ -86,7 +86,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.addJavadoc("This map is used to remember the IDs of stack frame elements");
 		sc.add(MAP + "<Integer, " + E_OBJECT + "> stackFrameMap = new " + LINKED_HASH_MAP + "<Integer, " + E_OBJECT + ">();");
 		sc.addLineBreak();
-		sc.addJavadoc("The IDs of the last stack frame element");
+		sc.addJavadoc("The ID of the last stack frame element");
 		sc.add("int stackFrameID = 0;");
 		sc.addLineBreak();
 	}
