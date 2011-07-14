@@ -16,14 +16,12 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ACTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUFFERED_READER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_INFORMATION_CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITORS_UI;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FONT_DATA;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_CONTROL_CREATOR;
@@ -71,7 +69,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 			"Most of the code is taken from " +
 			"<code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover</code>."
 		);
-		sc.add("public class " + getResourceClassName() + " implements " + I_TEXT_HOVER + ", " + I_TEXT_HOVER_EXTENSION + ", " + I_TEXT_HOVER_EXTENSION2 + "{");
+		sc.add("public class " + getResourceClassName() + " implements " + I_TEXT_HOVER + ", " + I_TEXT_HOVER_EXTENSION + ", " + I_TEXT_HOVER_EXTENSION2 + " {");
 		sc.addLineBreak();
 
 		addFields(sc);
@@ -150,7 +148,8 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverInfoMethod(StringComposite sc) {
+	private void addGetHoverInfoMethod(JavaComposite sc) {
+		sc.addComment("The warning about overriding or implementing a deprecated API cannot be avoided because the SourceViewerConfiguration class depends on ITextHover.");
 		sc.add("public String getHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
 		sc.add("return ((" + docBrowserInformationControlInputClassName + ") getHoverInfo2(textViewer, hoverRegion)).getHtml();");
 		sc.add("}");
@@ -326,31 +325,13 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + uiPluginActivatorClassName + ".PLUGIN_ID);");
 		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + UIConstants.DEFAULT_CSS_DIR + "/" + UIConstants.HOVER_STYLE_FILENAME + "\");");
 		sc.add("if (styleSheetURL != null) {");
-		sc.add(BUFFERED_READER + " reader = null;");
 		sc.add("try {");
-		sc.add("reader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(styleSheetURL.openStream()));");
-		sc.add("StringBuffer buffer = new StringBuffer();");
-		sc.add("String line = reader.readLine();");
-		sc.add("while (line != null) {");
-		sc.add("buffer.append(line);");
-		sc.add("buffer.append('\\n');");
-		sc.add("line = reader.readLine();");
-		sc.add("}");
-		sc.add("return buffer.toString();");
+		sc.add("return " + streamUtilClassName + ".getContent(styleSheetURL.openStream());");
 		sc.add("} catch (" + IO_EXCEPTION + " ex) {");
 		sc.add("ex.printStackTrace();");
+		sc.add("}");
+		sc.add("}");
 		sc.add("return \"\";");
-		sc.add("} finally {");
-		sc.add("try {");
-		sc.add("if (reader != null) {");
-		sc.add("reader.close();");
-		sc.add("}");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add("e.printStackTrace();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
