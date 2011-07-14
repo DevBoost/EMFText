@@ -33,7 +33,6 @@ import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	// TODO split this method and add missing curly braces to generated code
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
@@ -42,12 +41,147 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addJavadoc("This class is copied from org.eclipse.jface.internal.text.html.HTMLPrinter.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		
+		addHTML2TextReaderClass(sc);
+		addConstants(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addAddParagraphMethod(sc);
+		addInsertPagePrologMethod(sc);
+		addAddPageEpilogMethod(sc);
+		addAddSmallHeaderMethod(sc);
+		addConvertTopLevelFontMethod(sc);
+		addInsertStylesMethod(sc);
+		addHtml2textMethod(sc);
+	}
+
+	private void addHtml2textMethod(JavaComposite sc) {
+		sc.add("public static String html2text(" + STRING_READER + " stringReader, " + TEXT_PRESENTATION + " presentation) throws " + IO_EXCEPTION + " {");
+		sc.add("HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);");
+		sc.add("return html2TextReader.getString();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addInsertStylesMethod(JavaComposite sc) {
+		sc.add("public static void insertStyles(StringBuffer buffer, String[] styles) {");
+		sc.add("if (styles == null || styles.length == 0) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("StringBuffer styleBuf= new StringBuffer(10 * styles.length);");
+		sc.add("for (int i= 0; i < styles.length; i++) {");
+		sc.add("styleBuf.append(\" style=\\\"\");");
+		sc.add("styleBuf.append(styles[i]);");
+		sc.add("styleBuf.append('\"');");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.addComment(
+			"Find insertion index",
+			"a) within existing body tag with trailing space"
+		);
+		sc.add("int index= buffer.indexOf(\"<body \");");
+		sc.add("if (index != -1) {");
+		sc.add("buffer.insert(index+5, styleBuf);");
+		sc.add("return;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.addComment("b) within existing body tag without attributes");
+		sc.add("index= buffer.indexOf(\"<body>\");");
+		sc.add("if (index != -1) {");
+		sc.add("buffer.insert(index+5, ' ');");
+		sc.add("buffer.insert(index+6, styleBuf);");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConvertTopLevelFontMethod(JavaComposite sc) {
+		sc.add("public static String convertTopLevelFont(String styles, " + FONT_DATA + " fontData) {");
+		sc.add("boolean bold = (fontData.getStyle() & " + SWT + ".BOLD) != 0;");
+		sc.add("boolean italic = (fontData.getStyle() & " + SWT + ".ITALIC) != 0;");
+		sc.add("String size = Integer.toString(fontData.getHeight()) + UNIT;");
+		sc.add("String family = \"'\" + fontData.getName() + \"',sans-serif\";");
+		sc.addLineBreak();
+		sc.add("styles = styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-size:\\\\s*)\\\\d+pt(\\\\;?.*\\\\})\", \"$1\" + size + \"$2\");");
+		sc.add("styles = styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-weight:\\\\s*)\\\\w+(\\\\;?.*\\\\})\", \"$1\" + (bold ? \"bold\" : \"normal\") + \"$2\");");
+		sc.add("styles = styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-style:\\\\s*)\\\\w+(\\\\;?.*\\\\})\", \"$1\" + (italic ? \"italic\" : \"normal\") + \"$2\");");
+		sc.add("styles = styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-family:\\\\s*).+?(;.*\\\\})\", \"$1\" + family + \"$2\");");
+		sc.add("return styles;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddSmallHeaderMethod(JavaComposite sc) {
+		sc.add("public static void addSmallHeader(StringBuffer buffer, String header) {");
+		sc.add("if (header != null) {");
+		sc.add("buffer.append(\"<h5>\");");
+		sc.add("buffer.append(header);");
+		sc.add("buffer.append(\"</h5>\");");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddPageEpilogMethod(JavaComposite sc) {
+		sc.add("public static void addPageEpilog(StringBuffer buffer) {");
+		sc.add("buffer.append(\"</body></html>\");");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addInsertPagePrologMethod(JavaComposite sc) {
+		sc.add("public static void insertPageProlog(StringBuffer buffer, int position, String styleSheet) {");
+		sc.addLineBreak();
+		sc.add("StringBuffer pageProlog= new StringBuffer(300);");
+		sc.addLineBreak();
+		sc.add("pageProlog.append(\"<html>\");");
+		sc.addLineBreak();
+		sc.add("if (styleSheet == null)");
+		sc.add("return;");
+		sc.addLineBreak();
+		sc.add("buffer.append(\"<head><style CHARSET=\\\"ISO-8859-1\\\" TYPE=\\\"text/css\\\">\");");
+		sc.add("buffer.append(styleSheet);");
+		sc.add("buffer.append(\"</style></head><body>\");");
+		sc.addLineBreak();
+		sc.add("buffer.insert(position,  pageProlog.toString());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddParagraphMethod(JavaComposite sc) {
+		sc.add("public static void addParagraph(StringBuffer buffer, String paragraph) {");
+		sc.add("if (paragraph != null) {");
+		sc.add("buffer.append(\"<p>\");");
+		sc.add("buffer.append(paragraph);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstants(JavaComposite sc) {
+		sc.add("private static final String UNIT;");
+		sc.addComment(
+			"See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993",
+			"if the platform is a mac the UNIT is set to \"px\""
+		);
+		sc.add("static {");
+		sc.add("String platform = " + SWT + ".getPlatform();");
+		sc.add("UNIT = (platform.equals(\"carbon\")||platform.equals(\"cocoa\")) ? \"px\" : \"pt\";");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addHTML2TextReaderClass(JavaComposite sc) {
 		sc.addJavadoc(
 			"Reads the text contents from a reader of HTML contents and translates " +
 			"the tags or cut them out.",
 			"<p>Moved into HTMLPrinter as inner class from <code>org.eclipse.jface.internal.text.html</code>.</p>"
 		);
-		
 		sc.add("private static final class HTML2TextReader extends " + READER + " {");
 		sc.addLineBreak();
 		sc.add("private static final String EMPTY_STRING= \"\";");
@@ -176,32 +310,35 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addJavadoc("@see org.eclipse.jdt.internal.ui.text.SubstitutionTextReader#computeSubstitution(int)");
 		sc.add("protected String computeSubstitution(int c) throws " + IO_EXCEPTION + " {");
 		sc.addLineBreak();
-		sc.add("if (c == '<')");
+		sc.add("if (c == '<') {");
 		sc.add("return  processHTMLTag();");
-		sc.add("else if (fIgnore)");
+		sc.add("} else if (fIgnore) {");
 		sc.add("return EMPTY_STRING;");
-		sc.add("else if (c == '&')");
+		sc.add("} else if (c == '&') {");
 		sc.add("return processEntity();");
-		sc.add("else if (fIsPreformattedText)");
+		sc.add("} else if (fIsPreformattedText) {");
 		sc.add("return processPreformattedText(c);");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private String html2Text(String html) {");
 		sc.addLineBreak();
-		sc.add("if (html == null || html.length() == 0)");
+		sc.add("if (html == null || html.length() == 0) {");
 		sc.add("return EMPTY_STRING;");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("html= html.toLowerCase();");
 		sc.addLineBreak();
 		sc.add("String tag= html;");
-		sc.add("if ('/' == tag.charAt(0))");
+		sc.add("if ('/' == tag.charAt(0)) {");
 		sc.add("tag= tag.substring(1);");
+		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (!fgTags.contains(tag))");
+		sc.add("if (!fgTags.contains(tag)) {");
 		sc.add("return EMPTY_STRING;");
-		sc.addLineBreak();
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (\"pre\".equals(html)) {");
 		sc.add("startPreformattedText();");
@@ -213,8 +350,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("return EMPTY_STRING;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (fIsPreformattedText)");
+		sc.add("if (fIsPreformattedText) {");
 		sc.add("return EMPTY_STRING;");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (\"b\".equals(html)) {");
 		sc.add("startBold();");
@@ -226,29 +364,33 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("return EMPTY_STRING;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (\"dl\".equals(html))");
+		sc.add("if (\"dl\".equals(html)) {");
 		sc.add("return LINE_DELIM;");
+		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (\"dd\".equals(html))");
+		sc.add("if (\"dd\".equals(html)) {");
 		sc.add("return \"\t\";");
+		sc.add("}");
 		sc.addLineBreak();
 		// FIXME: this hard-coded prefix does not work for RTL languages, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=91682
 		//This return is taken from org.eclipse.jface.internal.text.html.HTMLMessages.properties
-		sc.add("if (\"li\".equals(html))");
+		sc.add("if (\"li\".equals(html)) {");
 		sc.add("return LINE_DELIM + \"\\t-\\n \";");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (\"/b\".equals(html)) {");
 		sc.add("stopBold();");
 		sc.add("return EMPTY_STRING;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (\"p\".equals(html))  {");
+		sc.add("if (\"p\".equals(html)) {");
 		sc.add("fInParagraph= true;");
 		sc.add("return LINE_DELIM;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (\"br\".equals(html) || \"br/\".equals(html)|| \"br /\".equals(html)  || \"div\".equals(html))");
+		sc.add("if (\"br\".equals(html) || \"br/\".equals(html)|| \"br /\".equals(html)  || \"div\".equals(html)) {");
 		sc.add("return LINE_DELIM;");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (\"/p\".equals(html)) {");
 		sc.add("boolean inParagraph= fInParagraph;");
@@ -261,8 +403,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("return LINE_DELIM;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (\"/dd\".equals(html))");
+		sc.add("if (\"/dd\".equals(html)) {");
 		sc.add("return LINE_DELIM;");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (\"head\".equals(html) && !fHeaderDetected) {");
 		sc.add("fHeaderDetected= true;");
@@ -291,10 +434,10 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("while (ch != -1 && ch != '>') {");
 		sc.add("buf.append(Character.toLowerCase((char) ch));");
 		sc.add("ch= nextChar();");
-		sc.add("if (ch == '\"'){");
+		sc.add("if (ch == '\"') {");
 		sc.add("buf.append(Character.toLowerCase((char) ch));");
 		sc.add("ch= nextChar();");
-		sc.add("while (ch != -1 && ch != '\"'){");
+		sc.add("while (ch != -1 && ch != '\"') {");
 		sc.add("buf.append(Character.toLowerCase((char) ch));");
 		sc.add("ch= nextChar();");
 		sc.add("}");
@@ -305,8 +448,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (ch == -1)");
+		sc.add("if (ch == -1) {");
 		sc.add("return null;");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (!isInComment(buf) || isCommentEnd(buf)) {");
 		sc.add("break;");
@@ -328,8 +472,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private String processPreformattedText(int c) {");
-		sc.add("if  (c == '\\r' || c == '\\n')");
+		sc.add("if  (c == '\\r' || c == '\\n') {");
 		sc.add("fCounter++;");
+		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -369,19 +514,20 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("ch= nextChar();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (ch == ';')");
+		sc.add("if (ch == ';') {");
 		sc.add("return entity2Text(buf.toString());");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("buf.insert(0, '&');");
-		sc.add("if (ch != -1)");
+		sc.add("if (ch != -1) {");
 		sc.add("buf.append((char) ch);");
+		sc.add("}");
 		sc.add("return buf.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.add("public void close() throws " + IO_EXCEPTION + " {");
 		sc.add("fReader.close();");
-		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -390,8 +536,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("for (int i= off; i < end; i++) {");
 		sc.add("int ch= read();");
 		sc.add("if (ch == -1) {");
-		sc.add("if (i == off)");
+		sc.add("if (i == off) {");
 		sc.add("return -1;");
+		sc.add("}");
 		sc.add("return i - off;");
 		sc.add("}");
 		sc.add("cbuf[i]= (char)ch;");
@@ -481,101 +628,5 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.addLineBreak();
-		sc.add("private static final String UNIT;");
-		sc.addComment(
-			"See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993",
-			"if the platform is a mac the UNIT is set to \"px\""
-		);
-		sc.add("static {");
-		sc.add("String platform = " + SWT + ".getPlatform();");
-		sc.add("UNIT= (platform.equals(\"carbon\")||platform.equals(\"cocoa\")) ? \"px\" : \"pt\";");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static void addParagraph(StringBuffer buffer, String paragraph) {");
-		sc.add("if (paragraph != null) {");
-		sc.add("buffer.append(\"<p>\");");
-		sc.add("buffer.append(paragraph);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static void insertPageProlog(StringBuffer buffer, int position, String styleSheet) {");
-		sc.addLineBreak();
-		sc.add("StringBuffer pageProlog= new StringBuffer(300);");
-		sc.addLineBreak();
-		sc.add("pageProlog.append(\"<html>\");");
-		sc.addLineBreak();
-		sc.add("if (styleSheet == null)");
-		sc.add("return;");
-		sc.addLineBreak();
-		sc.add("buffer.append(\"<head><style CHARSET=\\\"ISO-8859-1\\\" TYPE=\\\"text/css\\\">\");");
-		sc.add("buffer.append(styleSheet);");
-		sc.add("buffer.append(\"</style></head><body>\");");
-		sc.addLineBreak();
-		sc.add("buffer.insert(position,  pageProlog.toString());");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static void addPageEpilog(StringBuffer buffer) {");
-		sc.add("buffer.append(\"</body></html>\");");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static void addSmallHeader(StringBuffer buffer, String header) {");
-		sc.add("if (header != null) {");
-		sc.add("buffer.append(\"<h5>\");");
-		sc.add("buffer.append(header);");
-		sc.add("buffer.append(\"</h5>\");");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static String convertTopLevelFont(String styles, " + FONT_DATA + " fontData) {");
-		sc.add("boolean bold= (fontData.getStyle() & " + SWT + ".BOLD) != 0;");
-		sc.add("boolean italic= (fontData.getStyle() & " + SWT + ".ITALIC) != 0;");
-		sc.add("String size= Integer.toString(fontData.getHeight()) + UNIT;");
-		sc.add("String family= \"'\" + fontData.getName() + \"',sans-serif\";");
-		sc.addLineBreak();
-		sc.add("styles= styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-size:\\\\s*)\\\\d+pt(\\\\;?.*\\\\})\", \"$1\" + size + \"$2\");");
-		sc.add("styles= styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-weight:\\\\s*)\\\\w+(\\\\;?.*\\\\})\", \"$1\" + (bold ? \"bold\" : \"normal\") + \"$2\");");
-		sc.add("styles= styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-style:\\\\s*)\\\\w+(\\\\;?.*\\\\})\", \"$1\" + (italic ? \"italic\" : \"normal\") + \"$2\");");
-		sc.add("styles= styles.replaceFirst(\"(html\\\\s*\\\\{.*(?:\\\\s|;)font-family:\\\\s*).+?(;.*\\\\})\", \"$1\" + family + \"$2\");");
-		sc.add("return styles;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static void insertStyles(StringBuffer buffer, String[] styles) {");
-		sc.add("if (styles == null || styles.length == 0)");
-		sc.add("return;");
-		sc.addLineBreak();
-		sc.add("StringBuffer styleBuf= new StringBuffer(10 * styles.length);");
-		sc.add("for (int i= 0; i < styles.length; i++) {");
-		sc.add("styleBuf.append(\" style=\\\"\");");
-		sc.add("styleBuf.append(styles[i]);");
-		sc.add("styleBuf.append('\"');");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.addComment(
-			"Find insertion index",
-			"a) within existing body tag with trailing space"
-		);
-		sc.add("int index= buffer.indexOf(\"<body \");");
-		sc.add("if (index != -1) {");
-		sc.add("buffer.insert(index+5, styleBuf);");
-		sc.add("return;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.addComment("b) within existing body tag without attributes");
-		sc.add("index= buffer.indexOf(\"<body>\");");
-		sc.add("if (index != -1) {");
-		sc.add("buffer.insert(index+5, ' ');");
-		sc.add("buffer.insert(index+6, styleBuf);");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static String html2text(" + STRING_READER + " stringReader, " + TEXT_PRESENTATION + " presentation) throws " + IO_EXCEPTION + " {");
-		sc.add("HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);");
-		sc.add("return html2TextReader.getString();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("}");
 	}
 }
