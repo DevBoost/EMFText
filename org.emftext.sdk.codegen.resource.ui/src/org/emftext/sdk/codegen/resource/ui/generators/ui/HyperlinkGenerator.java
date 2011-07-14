@@ -118,24 +118,19 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("desc = workbench.getEditorRegistry().findEditor(\"org.eclipse.emf.ecore.presentation.ReflectiveEditorID\");");
 		sc.add("}");
 		sc.add(I_EDITOR_PART + " editorPart = page.openEditor(new " + FILE_EDITOR_INPUT + "(file), desc.getId());");
-		// TODO instead of checking whether this is an EMFText generated editor, 
-		//      we should rather change the selection of the editorPart to the
-		//      target EObject. This way, the code would not only work for all
-		//      kinds of EMFText editors, but also for other EMF-based editors.
-		sc.add("if(editorPart instanceof " + I_EDITING_DOMAIN_PROVIDER + "){");
+		sc.add("if (editorPart instanceof " + I_EDITING_DOMAIN_PROVIDER + ") {");
 		sc.add(I_EDITING_DOMAIN_PROVIDER + " editingDomainProvider = (" + I_EDITING_DOMAIN_PROVIDER + ") editorPart;");
 		sc.add(EDITING_DOMAIN + " editingDomain = editingDomainProvider.getEditingDomain();");
 		sc.add(URI + " uri = " + ECORE_UTIL + ".getURI(linkTarget);");
 		sc.add(E_OBJECT + " originalObject = editingDomain.getResourceSet().getEObject(uri, true);");
-		sc.add("if(editingDomainProvider instanceof " + I_VIEWER_PROVIDER + "){");
+		sc.add("if (editingDomainProvider instanceof " + I_VIEWER_PROVIDER + ") {");
 		sc.add(I_VIEWER_PROVIDER + " viewerProvider = (" + I_VIEWER_PROVIDER + ") editingDomainProvider;");
 		sc.add(VIEWER + " viewer = viewerProvider.getViewer();");
 		sc.add("viewer.setSelection(new " + STRUCTURED_SELECTION + "(originalObject), true);");
 		sc.add("}");
 		sc.add("}");
-
 		sc.add("} catch (" + PART_INIT_EXCEPTION + " e) {");
-		sc.add("e.printStackTrace();");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while opening hyperlink target.\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
