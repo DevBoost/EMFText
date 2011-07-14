@@ -77,7 +77,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("update.setLabel(variable.getValue().getValueString(), 1);");
 		sc.add("update.done();");
 		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
-		// TODO
+		// TODO handle exception
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -112,7 +112,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("update.done();");
 		sc.add("}");
 		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
-		// TODO Auto-generated catch block
+		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
@@ -124,7 +124,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("update.setHasChilren(variable.getValue().hasVariables());");
 		sc.add("update.done();");
 		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
-		// TODO Auto-generated catch block
+		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
