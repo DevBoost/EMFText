@@ -18,7 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * A class to display the information of an element. Most of the code is taken
  * from <code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover</code>.
  */
-public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclipse.jface.text.ITextHoverExtension, org.eclipse.jface.text.ITextHoverExtension2{
+public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclipse.jface.text.ITextHoverExtension, org.eclipse.jface.text.ITextHoverExtension2 {
 	
 	private static final String FONT = org.eclipse.jface.resource.JFaceResources.DIALOG_FONT;
 	
@@ -212,6 +212,8 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		this.hoverTextProvider = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().getHoverTextProvider();
 	}
 	
+	// The warning about overriding or implementing a deprecated API cannot be avoided
+	// because the SourceViewerConfiguration class depends on ITextHover.
 	public String getHoverInfo(org.eclipse.jface.text.ITextViewer textViewer, org.eclipse.jface.text.IRegion hoverRegion) {
 		return ((org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput) getHoverInfo2(textViewer, hoverRegion)).getHtml();
 	}
@@ -323,31 +325,13 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.PLUGIN_ID);
 		java.net.URL styleSheetURL = bundle.getEntry("/css/hover_style.css");
 		if (styleSheetURL != null) {
-			java.io.BufferedReader reader = null;
 			try {
-				reader = new java.io.BufferedReader(new java.io.InputStreamReader(styleSheetURL.openStream()));
-				StringBuffer buffer = new StringBuffer();
-				String line = reader.readLine();
-				while (line != null) {
-					buffer.append(line);
-					buffer.append('\n');
-					line = reader.readLine();
-				}
-				return buffer.toString();
+				return org.emftext.sdk.concretesyntax.resource.cs.util.CsStreamUtil.getContent(styleSheetURL.openStream());
 			} catch (java.io.IOException ex) {
 				ex.printStackTrace();
-				return "";
-			} finally {
-				try {
-					if (reader != null) {
-						reader.close();
-					}
-				} catch (java.io.IOException e) {
-					e.printStackTrace();
-				}
 			}
 		}
-		return null;
+		return "";
 	}
 	
 	private static org.eclipse.emf.ecore.EObject getFirstProxy(java.util.List<org.eclipse.emf.ecore.EObject> elements) {
