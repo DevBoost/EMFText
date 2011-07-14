@@ -35,9 +35,16 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	
 	public ResultType interprete(ContextType context) {
 		ResultType result = null;
+		org.eclipse.emf.ecore.EObject next = null;
 		currentContext = context;
 		while (!interpretationStack.empty()) {
-			org.eclipse.emf.ecore.EObject next = interpretationStack.pop();
+			try {
+				next = interpretationStack.pop();
+			} catch (java.util.EmptyStackException ese) {
+				// this can happen when the interpreter was terminated between the call to empty()
+				// and pop()
+				break;
+			}
 			nextObjectToInterprete = next;
 			notifyListeners(next);
 			result = interprete(next, context);

@@ -24,6 +24,35 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 	private final static java.util.Map<String, java.util.List<HighlightingColorListItem>> content = new java.util.LinkedHashMap<String, java.util.List<HighlightingColorListItem>>();
 	private final static java.util.Collection<IChangedPreference> changedPreferences = new java.util.ArrayList<IChangedPreference>();
 	
+	public CsSyntaxColoringPreferencePage() {
+		super();
+		
+		org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation syntaxPlugin = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+		
+		String languageId = syntaxPlugin.getSyntaxName();
+		
+		java.util.List<HighlightingColorListItem> terminals = new java.util.ArrayList<HighlightingColorListItem>();
+		String[] tokenNames = syntaxPlugin.getTokenNames();
+		
+		for (int i = 0; i < tokenNames.length; i++) {
+			if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {
+				continue;
+			}
+			
+			String tokenName = tokenHelper.getTokenName(tokenNames, i);
+			if (tokenName == null) {
+				continue;
+			}
+			HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);
+			terminals.add(item);
+		}
+		java.util.Collections.sort(terminals);
+		content.put(languageId, terminals);
+		
+		setPreferenceStore(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
+		setDescription("Configure syntax coloring for ." + languageId + " files.");
+	}
+	
 	private interface IChangedPreference {
 		public void apply(org.eclipse.jface.preference.IPreferenceStore store);
 	}
@@ -525,35 +554,6 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		return (HighlightingColorListItem) element;
 	}
 	
-	public CsSyntaxColoringPreferencePage() {
-		super();
-		
-		org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation syntaxPlugin = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
-		
-		String languageId = syntaxPlugin.getSyntaxName();
-		
-		java.util.List<HighlightingColorListItem> terminals = new java.util.ArrayList<HighlightingColorListItem>();
-		String[] tokenNames = syntaxPlugin.getTokenNames();
-		
-		for (int i = 0; i < tokenNames.length; i++) {
-			if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {
-				continue;
-			}
-			
-			String tokenName = tokenHelper.getTokenName(tokenNames, i);
-			if (tokenName == null) {
-				continue;
-			}
-			HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);
-			terminals.add(item);
-		}
-		java.util.Collections.sort(terminals);
-		content.put(languageId, terminals);
-		
-		setPreferenceStore(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
-		setDescription("Configure syntax coloring for ." + languageId + " files.");
-	}
-	
 	public void init(org.eclipse.ui.IWorkbench workbench) {
 	}
 	
@@ -623,4 +623,5 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 			emfTextEditor.invalidateTextRepresentation();
 		}
 	}
+	
 }

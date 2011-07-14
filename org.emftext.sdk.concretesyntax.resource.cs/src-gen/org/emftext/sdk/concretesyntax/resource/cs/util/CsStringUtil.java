@@ -356,7 +356,7 @@ public class CsStringUtil {
 			if (value instanceof String) {
 				parts.add(encode('=', new String[] {key, (String) value}));
 			} else {
-				System.out.println("Can't encode " + value);
+				throw new RuntimeException("Can't encode " + value);
 			}
 		}
 		return encode(';', parts);
