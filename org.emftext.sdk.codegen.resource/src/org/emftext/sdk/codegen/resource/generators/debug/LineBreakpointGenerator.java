@@ -99,7 +99,7 @@ public class LineBreakpointGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("String location = (String) getMarker().getAttribute(" + I_MARKER + ".LOCATION);");
 		sc.add("target.getDebugProxy().addLineBreakpoint(location, getLineNumber());");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		// TODO
+		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");

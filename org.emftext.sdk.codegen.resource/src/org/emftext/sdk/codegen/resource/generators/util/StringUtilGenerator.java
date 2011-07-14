@@ -133,8 +133,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("if (value instanceof String) {");
 		sc.add("parts.add(encode('=', new String[] {key, (String) value}));");
 		sc.add("} else {");
-		// TODO
-		sc.add("System.out.println(\"Can't encode \" + value);");
+		sc.add("throw new RuntimeException(\"Can't encode \" + value);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return encode(';', parts);");

@@ -61,11 +61,11 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		// TODO Auto-generated method stub
 		sc.add("public " + getResourceClassName() + "(int requestPort) {");
 		sc.add("super();");
 		sc.add("this.requestPort = requestPort;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -137,7 +137,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("try {");
 		sc.add("runDebugger();");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		// TODO
+		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
@@ -147,21 +147,17 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addRunDebuggerMethod(JavaComposite sc) {
 		sc.add("private void runDebugger() throws " + IO_EXCEPTION + " {");
 		sc.add(SERVER_SOCKET + " server = new " + SERVER_SOCKET + "(requestPort);");
-		//sc.add("System.out.println(\"WebtestDebuggerListener.runDebugger() creating proxy server socket (waiting for connection)...\");");
 		sc.add(SOCKET + " accept = server.accept();");
-		//sc.add("System.out.println(\"WebtestDebuggerListener.runDebugger() proxy server socket (connected).\");");
 		sc.add(INPUT_STREAM + " inputStream = accept.getInputStream();");
 		sc.add(BUFFERED_READER + " reader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(inputStream));");
 		sc.add(PRINT_STREAM + " output = new " + PRINT_STREAM + "(accept.getOutputStream());");
 		sc.addLineBreak();
 		sc.add(debugMessageClassName + " command;");
 		sc.add("while (!stop) {");
-		//sc.add("//System.out.println(\"WebtestDebuggerListener.runDebugger() loop - waiting for input.\");");
 		sc.add("command = communicationHelper.receive(reader);");
 		sc.add("if (command == null) {");
 		sc.add("break;");
 		sc.add("}");
-		//sc.add("//System.out.println(\"WebtestDebuggerListener.runDebugger() received command: \" + command);");
 		sc.add("if (command.hasType(" + eDebugMessageTypesClassName + ".EXIT)) {");
 		sc.add("debuggable.terminate();");
 		sc.add("stop = true;");

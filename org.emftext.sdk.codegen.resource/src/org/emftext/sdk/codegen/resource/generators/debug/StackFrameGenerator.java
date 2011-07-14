@@ -279,8 +279,7 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetSourceMethod(JavaComposite sc) {
-		// TODO rename this method appropriately
-		sc.add("public String getSource() {");
+		sc.add("public String getResourceURI() {");
 		sc.add("return this.resourceURI;");
 		sc.add("}");
 		sc.addLineBreak();

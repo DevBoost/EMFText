@@ -99,12 +99,14 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("private " + debugProcessClassName + " process;");
 		sc.addLineBreak();
 		sc.add("private " + SOCKET + " eventSocket;");
+		sc.addLineBreak();
 		sc.add("private " + BUFFERED_READER + " eventReader;");
 		sc.addLineBreak();
 		sc.addJavadoc("containing launch object");
 		sc.add("private " + I_LAUNCH + " launch;");
 		sc.addLineBreak();
 		sc.add("private " + I_THREAD + "[] threads;");
+		sc.addLineBreak();
 		sc.add("private " + debugThreadClassName + " thread;");
 		sc.addLineBreak();
 		sc.add("private boolean terminated = false;");
@@ -164,10 +166,10 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("try {");
 		sc.add("this.debugProxy = new " + debugProxyClassName + "(this, requestPort);");
 		sc.add("} catch (" + UNKNOWN_HOST_EXCEPTION + " e) {");
-		// TODO Auto-generated catch block
+		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		// TODO Auto-generated catch block
+		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -431,7 +433,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("try {");
 		sc.add("resume();");
 		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
-		// TODO
+		// TODO handle exception
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -450,7 +452,6 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addHandleMessageMethod(JavaComposite sc) {
 		sc.add("public void handleMessage(" + debugMessageClassName + " message) {");
-		//sc.add("System.out.println(\"WebtestDebugTarget.handleMessage(\" + message + \")\");");
 		sc.add("try {");
 		sc.add("if (message.hasType(" + eDebugMessageTypesClassName + ".STARTED)) {");
 		sc.add("started();");
@@ -464,7 +465,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("System.out.println(\"ERROR in \" + this.getClass().getName() + \".handleMessage(): unknown event \" + message);");
 		sc.add("}");
 		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
-		// TODO
+		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");

@@ -41,7 +41,7 @@ public class SourceLookupParticipantGenerator extends JavaBaseGenerator<Artifact
 		sc.add("public String getSourceName(Object object) throws " + CORE_EXCEPTION + " {");
 		sc.add("if (object instanceof " + stackFrameClassName + ") {");
 		sc.add(stackFrameClassName + " frame = (" + stackFrameClassName + ") object;");
-		sc.add("return frame.getSource();");
+		sc.add("return frame.getResourceURI();");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");

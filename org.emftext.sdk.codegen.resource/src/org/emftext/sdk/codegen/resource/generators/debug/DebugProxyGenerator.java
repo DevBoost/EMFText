@@ -78,6 +78,7 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addFields(JavaComposite sc) {
 		sc.add("private " + PRINT_STREAM + " output;");
+		sc.addLineBreak();
 		sc.add("private " + BUFFERED_READER + " reader;");
 		sc.addLineBreak();
 		sc.add("private " + debugTargetClassName + " debugTarget;");
@@ -108,13 +109,13 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add(BUFFERED_INPUT_STREAM + " input = new " + BUFFERED_INPUT_STREAM + "(client.getInputStream());");
 		sc.add("reader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(input));");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		// TODO
+		// TODO handle exception
 		sc.add("System.out.println(e);");
 		sc.add("}");
 		sc.add("try {");
 		sc.add("output = new " + PRINT_STREAM + "(client.getOutputStream());");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		// TODO
+		// TODO handle exception
 		sc.add("System.out.println(e);");
 		sc.add("}");
 		sc.add("}");

@@ -130,7 +130,9 @@ public class DebugVariableGenerator extends JavaBaseGenerator<ArtifactParameter<
 
 	private void addHasValueChangedMethod(JavaComposite sc) {
 		sc.add("public boolean hasValueChanged() throws " + DEBUG_EXCEPTION + " {");
-		// TODO
+		// it may be more efficient to signal changes only if there were actually changes,
+		// but for the time being, we assume all variables have changed since the last
+		// request
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();

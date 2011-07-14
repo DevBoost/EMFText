@@ -202,7 +202,8 @@ public class DebugThreadGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addIsSteppingMethod(JavaComposite sc) {
 		sc.add("public boolean isStepping() {");
-		// TODO
+		// TODO figure out what this method is used for and whether there is cases
+		// where we should not return false
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
