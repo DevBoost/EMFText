@@ -591,9 +591,11 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	public void addListener(org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener newListener) {
 		listeners.add(newListener);
 	}
+	
 	public boolean removeListener(org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener listener) {
 		return listeners.remove(listener);
 	}
+	
 	public org.eclipse.emf.ecore.EObject getNextObjectToInterprete() {
 		return nextObjectToInterprete;
 	}
