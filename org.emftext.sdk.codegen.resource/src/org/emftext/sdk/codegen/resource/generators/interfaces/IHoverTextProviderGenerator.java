@@ -29,10 +29,19 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		// TODO add documentation
+		sc.addJavadoc(
+			"Returns the hoves text that is shown when the mouse pointer rests over the given object. " +
+			"The hover text can contain HTML."
+		);
 		sc.add("public String getHoverText(" + E_OBJECT + " object);");
-		// TODO add documentation
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+			"Returns the hoves text that is shown when the mouse pointer rests over a reference to the given object. " +
+			"The hover text can contain HTML."
+		);
 		sc.add("public String getHoverText(" + E_OBJECT + " container, " + E_OBJECT + " referencedObject);");
+		sc.addLineBreak();
 		sc.add("}");
 	}
 }
