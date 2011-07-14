@@ -293,6 +293,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.add("listener.handleInterpreteObject(element);");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addAddObjectToInterpreteMethod(JavaComposite sc) {
