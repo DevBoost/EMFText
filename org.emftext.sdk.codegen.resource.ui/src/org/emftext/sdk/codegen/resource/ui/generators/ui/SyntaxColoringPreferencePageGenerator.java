@@ -69,167 +69,261 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");
 		sc.addLineBreak();
+		addConstants(sc);
+		addConstructor(sc);
+		addInnerClasses(sc);
 		addFields(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addInnerClasses(JavaComposite sc) {
 		addIChangePreferenceInterface(sc);
 		addAbstractChangedPreferenceClass(sc);
 		addChangedBooleanPreferenceClass(sc);
 		addChangedRGBPreferenceClass(sc);
 		addHighlightingColorListItemClass(sc);
 		addColorListLabelProviderClass(sc);
-		// TODO finish splitting of this method
-		sc.addJavadoc("Color list content provider.");
-		sc.add("private class ColorListContentProvider implements " + I_TREE_CONTENT_PROVIDER + " {");
-		sc.addLineBreak();
-		sc.add("public ColorListContentProvider() {");
-		sc.add("super();");
+		addColorListContentProviderClass(sc);
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addDisposeMethod(sc);
+		addHandleSyntaxColorListSelectionMethod(sc);
+		addCreateSyntaxPageMethod(sc);
+		addCreateEditorCompositeMethod(sc);
+		addCreateListViewerMethod(sc);
+		addAddListenersToStyleButtonsMethod(sc);
+		addCreateStylesCompositeMethod(sc);
+		addAddFillerMethod(sc);
+		addGetHighlightingColorListItemMethod(sc);
+		addInitMethod(sc);
+		addCreateContentsMethod(sc);
+		addPerformOkMethod(sc);
+		addPerformCancelMethod(sc);
+		addPerformApplyMethod(sc);
+		addPerformDefaultsMethod(sc);
+		addRestoreDefaultBooleanValueMethod(sc);
+		addRestoreDefaultStringValueMethod(sc);
+		addUpdateActiveEditorMethod(sc);
+	}
+
+	private void addUpdateActiveEditorMethod(JavaComposite sc) {
+		sc.add("private void updateActiveEditor() {");
+		sc.add(I_WORKBENCH + " workbench = org.eclipse.ui.PlatformUI.getWorkbench();");
+		sc.add(I_EDITOR_PART + " editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
+		sc.add("if (editor != null && editor instanceof " + editorClassName + ") {");
+		sc.add(editorClassName + " emfTextEditor = (" + editorClassName + ") editor;");
+		sc.add("emfTextEditor.invalidateTextRepresentation();");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public Object[] getElements(Object inputElement) {");
-		sc.add(LIST + "<HighlightingColorListItem> contentsList = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
-		sc.add("for (" + LIST + "<HighlightingColorListItem> l : content.values()) {");
-		sc.add("contentsList.addAll(l);");
-		sc.add("}");
-		sc.add("return contentsList.toArray();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void dispose() {");
+	}
+
+	private void addRestoreDefaultStringValueMethod(JavaComposite sc) {
+		sc.add("private void restoreDefaultStringValue(" + I_PREFERENCE_STORE + " preferenceStore, String key) {");
+		sc.add("preferenceStore.setValue(key, preferenceStore.getDefaultString(key));");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void inputChanged(" + VIEWER + " viewer, Object oldInput, Object newInput) {");
+	}
+
+	private void addRestoreDefaultBooleanValueMethod(JavaComposite sc) {
+		sc.add("private void restoreDefaultBooleanValue(" + I_PREFERENCE_STORE + " preferenceStore, String key) {");
+		sc.add("preferenceStore.setValue(key, preferenceStore.getDefaultBoolean(key));");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public Object[] getChildren(Object parentElement) {");
-		sc.add("return new Object[0];");
+	}
+
+	private void addPerformDefaultsMethod(JavaComposite sc) {
+		sc.add("public void performDefaults() {");
+		sc.add("super.performDefaults();");
+		sc.addLineBreak();
+		sc.add(I_PREFERENCE_STORE + " preferenceStore = getPreferenceStore();");
+		sc.addComment("reset all preferences to their default values");
+		sc.add("for (String languageID : content.keySet()) {");
+		sc.add(LIST + "<HighlightingColorListItem> items = content.get(languageID);");
+		sc.add("for (HighlightingColorListItem item : items) {");
+		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getBoldKey());");
+		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getEnableKey());");
+		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getItalicKey());");
+		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getStrikethroughKey());");
+		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getUnderlineKey());");
+		sc.add("restoreDefaultStringValue(preferenceStore, item.getColorKey());");
+		sc.add("}");
+		sc.add("}");
+		sc.add("handleSyntaxColorListSelection();");
+		sc.add("updateActiveEditor();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public Object getParent(Object element) {");
-		sc.add("return null;");
+	}
+
+	private void addPerformApplyMethod(JavaComposite sc) {
+		sc.add("protected void performApply() {");
+		sc.add("for (IChangedPreference changedPreference : changedPreferences) {");
+		sc.add("changedPreference.apply(getPreferenceStore());");
+		sc.add("}");
+		sc.add("changedPreferences.clear();");
+		sc.add("updateActiveEditor();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public boolean hasChildren(Object element) {");
+	}
+
+	private void addPerformCancelMethod(JavaComposite sc) {
+		sc.add("public boolean performCancel() {");
+		sc.add("if (!super.performCancel()) {");
 		sc.add("return false;");
 		sc.add("}");
+		sc.addComment("discard all changes that were made");
+		sc.add("changedPreferences.clear();");
+		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private " + COLOR_SELECTOR + " fSyntaxForegroundColorEditor;");
-		sc.add("private " + LABEL + " fColorEditorLabel;");
-		sc.add("private " + BUTTON + " fBoldCheckBox;");
-		sc.add("private " + BUTTON + " fEnableCheckbox;");
-		sc.addJavadoc("Check box for italic preference.");
-		sc.add("private " + BUTTON + " fItalicCheckBox;");
-		sc.addJavadoc("Check box for strikethrough preference.");
-		sc.add("private " + BUTTON + " fStrikethroughCheckBox;");
-		sc.addJavadoc("Check box for underline preference.");
-		sc.add("private " + BUTTON + " fUnderlineCheckBox;");
-		sc.add("private " + BUTTON + " fForegroundColorButton;");
-		sc.addLineBreak();
-		sc.addJavadoc("Highlighting color list viewer");
-		sc.add("private " + STRUCTURED_VIEWER + " fListViewer;");
-		sc.addLineBreak();
-		sc.add("public void dispose() {");
-		sc.add("super.dispose();");
+	}
+
+	private void addPerformOkMethod(JavaComposite sc) {
+		sc.add("public boolean performOk() {");
+		sc.add("if (!super.performOk()) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("performApply();");
+		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private void handleSyntaxColorListSelection() {");
-		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
-		sc.add("if (item == null) {");
-		sc.add("fEnableCheckbox.setEnabled(false);");
-		sc.add("fSyntaxForegroundColorEditor.getButton().setEnabled(false);");
-		sc.add("fColorEditorLabel.setEnabled(false);");
-		sc.add("fBoldCheckBox.setEnabled(false);");
-		sc.add("fItalicCheckBox.setEnabled(false);");
-		sc.add("fStrikethroughCheckBox.setEnabled(false);");
-		sc.add("fUnderlineCheckBox.setEnabled(false);");
-		sc.add("return;");
-		sc.add("}");
-		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(), item.getColorKey());");
-		sc.add("fSyntaxForegroundColorEditor.setColorValue(rgb);");
-		sc.add("fBoldCheckBox.setSelection(getPreferenceStore().getBoolean(item.getBoldKey()));");
-		sc.add("fItalicCheckBox.setSelection(getPreferenceStore().getBoolean(item.getItalicKey()));");
-		sc.add("fStrikethroughCheckBox.setSelection(getPreferenceStore().getBoolean(item.getStrikethroughKey()));");
-		sc.add("fUnderlineCheckBox.setSelection(getPreferenceStore().getBoolean(item.getUnderlineKey()));");
-		sc.addLineBreak();
-		sc.add("fEnableCheckbox.setEnabled(true);");
-		sc.add("boolean enable = getPreferenceStore().getBoolean(item.getEnableKey());");
-		sc.add("fEnableCheckbox.setSelection(enable);");
-		sc.add("fSyntaxForegroundColorEditor.getButton().setEnabled(enable);");
-		sc.add("fColorEditorLabel.setEnabled(enable);");
-		sc.add("fBoldCheckBox.setEnabled(enable);");
-		sc.add("fItalicCheckBox.setEnabled(enable);");
-		sc.add("fStrikethroughCheckBox.setEnabled(enable);");
-		sc.add("fUnderlineCheckBox.setEnabled(enable);");
+	}
+
+	private void addCreateContentsMethod(JavaComposite sc) {
+		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
+		sc.add(CONTROL + " content = createSyntaxPage(parent);");
+		sc.add("return content;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private " + CONTROL + " createSyntaxPage(final " + COMPOSITE + " parent) {");
-		sc.addLineBreak();
-		sc.add(COMPOSITE + " colorComposite = new " + COMPOSITE + "(parent, " + SWT + ".NONE);");
-		sc.add(GRID_LAYOUT + " layout = new " + GRID_LAYOUT + "();");
-		sc.add("layout.marginHeight = 0;");
-		sc.add("layout.marginWidth = 0;");
-		sc.add("colorComposite.setLayout(layout);");
-		sc.addLineBreak();
-		sc.add("addFiller(colorComposite, 1);");
-		sc.addLineBreak();
-		sc.add(LABEL + " label = new " + LABEL + "(colorComposite, " + SWT + ".LEFT);");
-		sc.add("label.setText(\"Element:\");");
-		sc.add("label.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".BEGINNING, true, false));");
-		sc.addLineBreak();
-		sc.add(COMPOSITE + " editorComposite = createEditorComposite(colorComposite);");
-		sc.add("createListViewer(editorComposite);");
-		sc.add("createStylesComposite(editorComposite);");
-		sc.addLineBreak();
-		sc.add("addListenersToStyleButtons();");
-		sc.add("colorComposite.layout(false);");
-		sc.add("handleSyntaxColorListSelection();");
-		sc.addLineBreak();
-		sc.add("return colorComposite;");
+	}
+
+	private void addInitMethod(JavaComposite sc) {
+		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private " + COMPOSITE + " createEditorComposite(" + COMPOSITE + " colorComposite) {");
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "() {");
+		sc.add("super();");
+		sc.addLineBreak();
+		sc.add(iMetaInformationClassName + " syntaxPlugin = new " + metaInformationClassName + "();");
+		sc.addLineBreak();
+		sc.add("String languageId = syntaxPlugin.getSyntaxName();");
+		sc.addLineBreak();
+		sc.add(LIST + "<HighlightingColorListItem> terminals = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
+		sc.add("String[] tokenNames = syntaxPlugin.getTokenNames();");
+		sc.addLineBreak();
+		sc.add("for (int i = 0; i < tokenNames.length; i++) {");
+		sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("String tokenName = tokenHelper.getTokenName(tokenNames, i);");
+		sc.add("if (tokenName == null) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.add("HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);");
+		sc.add("terminals.add(item);");
+		sc.add("}");
+		sc.add(COLLECTIONS + ".sort(terminals);");
+		sc.add("content.put(languageId, terminals);");
+		sc.addLineBreak();
+		sc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
+		sc.add("setDescription(\"Configure syntax coloring for .\" + languageId + \" files.\");");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetHighlightingColorListItemMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the current highlighting color list item.");
+		sc.add("private HighlightingColorListItem getHighlightingColorListItem() {");
+		sc.add(I_STRUCTURED_SELECTION + " selection = (" + I_STRUCTURED_SELECTION + ") fListViewer.getSelection();");
+		sc.add("Object element = selection.getFirstElement();");
+		sc.add("if (element instanceof String) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("return (HighlightingColorListItem) element;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddFillerMethod(JavaComposite sc) {
+		sc.add("private void addFiller(" + COMPOSITE + " composite, int horizontalSpan) {");
+		sc.add(pixelConverterClassName + " pixelConverter = new " + pixelConverterClassName + "(composite);");
+		sc.add(LABEL + " filler = new " + LABEL + "(composite, " + SWT + ".LEFT);");
+		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_FILL);");
+		sc.add("gd.horizontalSpan = horizontalSpan;");
+		sc.add("gd.heightHint = pixelConverter.convertHeightInCharsToPixels(1) / 2;");
+		sc.add("filler.setLayoutData(gd);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateStylesCompositeMethod(JavaComposite sc) {
+		sc.add("private void createStylesComposite(" + COMPOSITE + " editorComposite) {");
 		sc.add(GRID_LAYOUT + " layout;");
-		sc.add(COMPOSITE + " editorComposite = new " + COMPOSITE + "(colorComposite, " + SWT + ".NONE);");
+		sc.add(GRID_DATA + " gd;");
+		sc.add(COMPOSITE + " stylesComposite = new " + COMPOSITE + "(editorComposite, " + SWT + ".NONE);");
 		sc.add("layout = new " + GRID_LAYOUT + "();");
-		sc.add("layout.numColumns = 2;");
 		sc.add("layout.marginHeight = 0;");
 		sc.add("layout.marginWidth = 0;");
-		sc.add("editorComposite.setLayout(layout);");
-		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".FILL, true, true);");
-		sc.add("editorComposite.setLayoutData(gd);");
-		sc.add("return editorComposite;");
+		sc.add("layout.numColumns = 2;");
+		sc.add("stylesComposite.setLayout(layout);");
+		sc.add("stylesComposite.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".END, " + GRID_DATA + ".FILL, false, true));");
+		sc.addLineBreak();
+		sc.add("fEnableCheckbox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fEnableCheckbox.setText(\"Enable\");");
+		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL_HORIZONTAL);");
+		sc.add("gd.horizontalAlignment = " + GRID_DATA + ".BEGINNING;");
+		sc.add("gd.horizontalSpan = 2;");
+		sc.add("fEnableCheckbox.setLayoutData(gd);");
+		sc.addLineBreak();
+		sc.add("fColorEditorLabel = new " + LABEL + "(stylesComposite, " + SWT + ".LEFT);");
+		sc.add("fColorEditorLabel.setText(\"Color:\");");
+		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd.horizontalIndent = 20;");
+		sc.add("fColorEditorLabel.setLayoutData(gd);");
+		sc.addLineBreak();
+		sc.add("fSyntaxForegroundColorEditor = new " + COLOR_SELECTOR + "(stylesComposite);");
+		sc.add("fForegroundColorButton = fSyntaxForegroundColorEditor.getButton();");
+		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("fForegroundColorButton.setLayoutData(gd);");
+		sc.addLineBreak();
+		sc.add("fBoldCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fBoldCheckBox.setText(\"Bold\");");
+		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd.horizontalIndent = 20;");
+		sc.add("gd.horizontalSpan = 2;");
+		sc.add("fBoldCheckBox.setLayoutData(gd);");
+		sc.addLineBreak();
+		sc.add("fItalicCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fItalicCheckBox.setText(\"Italic\");");
+		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd.horizontalIndent = 20;");
+		sc.add("gd.horizontalSpan = 2;");
+		sc.add("fItalicCheckBox.setLayoutData(gd);");
+		sc.addLineBreak();
+		sc.add("fStrikethroughCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fStrikethroughCheckBox.setText(\"Strikethrough\");");
+		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd.horizontalIndent = 20;");
+		sc.add("gd.horizontalSpan = 2;");
+		sc.add("fStrikethroughCheckBox.setLayoutData(gd);");
+		sc.addLineBreak();
+		sc.add("fUnderlineCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fUnderlineCheckBox.setText(\"Underlined\");");
+		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd.horizontalIndent = 20;");
+		sc.add("gd.horizontalSpan = 2;");
+		sc.add("fUnderlineCheckBox.setLayoutData(gd);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private void createListViewer(" + COMPOSITE + " editorComposite) {");
-		sc.add("fListViewer = new " + TREE_VIEWER + "(editorComposite, " + SWT + ".SINGLE | " + SWT + ".BORDER);");
-		sc.add("fListViewer.setLabelProvider(new ColorListLabelProvider());");
-		sc.add("fListViewer.setContentProvider(new ColorListContentProvider());");
-		sc.addLineBreak();
-		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".FILL, true, true);");
-		sc.add("gd.heightHint = convertHeightInCharsToPixels(26);");
-		sc.add("int maxWidth = 0;");
-		sc.add("for (" + ITERATOR + "<" + LIST + "<HighlightingColorListItem>> it = content.values().iterator(); it.hasNext();) {");
-		sc.add("for (" + ITERATOR + "<HighlightingColorListItem> j = it.next().iterator(); j.hasNext();) {");
-		sc.add("HighlightingColorListItem item = j.next();");
-		sc.add("maxWidth = Math.max(maxWidth, convertWidthInCharsToPixels(item.getDisplayName().length()));");
-		sc.add("}");
-		sc.add("}");
-		sc.add(SCROLL_BAR + " vBar = ((" + SCROLLABLE + ") fListViewer.getControl()).getVerticalBar();");
-		sc.add("if (vBar != null) {");
-		sc.addComment("scrollbars and tree indentation guess");
-		sc.add("maxWidth += vBar.getSize().x * 3;");
-		sc.add("}");
-		sc.add("gd.widthHint = maxWidth;");
-		sc.addLineBreak();
-		sc.add("fListViewer.getControl().setLayoutData(gd);");
-		sc.addLineBreak();
-		sc.add("fListViewer.setInput(content);");
-		sc.add("fListViewer.setSelection(new " + STRUCTURED_SELECTION + "(content.values().iterator().next()));");
-		sc.add("fListViewer.addSelectionChangedListener(new " + I_SELECTION_CHANGED_LISTENER + "() {");
-		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
-		sc.add("handleSyntaxColorListSelection();");
-		sc.add("}");
-		sc.add("});");
-		sc.add("}");
-		sc.addLineBreak();
+	}
+
+	private void addAddListenersToStyleButtonsMethod(JavaComposite sc) {
 		sc.add("private void addListenersToStyleButtons() {");
 		sc.add("fForegroundColorButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
@@ -313,182 +407,162 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private void createStylesComposite(" + COMPOSITE + " editorComposite) {");
+	}
+
+	private void addCreateListViewerMethod(JavaComposite sc) {
+		sc.add("private void createListViewer(" + COMPOSITE + " editorComposite) {");
+		sc.add("fListViewer = new " + TREE_VIEWER + "(editorComposite, " + SWT + ".SINGLE | " + SWT + ".BORDER);");
+		sc.add("fListViewer.setLabelProvider(new ColorListLabelProvider());");
+		sc.add("fListViewer.setContentProvider(new ColorListContentProvider());");
+		sc.addLineBreak();
+		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".FILL, true, true);");
+		sc.add("gd.heightHint = convertHeightInCharsToPixels(26);");
+		sc.add("int maxWidth = 0;");
+		sc.add("for (" + ITERATOR + "<" + LIST + "<HighlightingColorListItem>> it = content.values().iterator(); it.hasNext();) {");
+		sc.add("for (" + ITERATOR + "<HighlightingColorListItem> j = it.next().iterator(); j.hasNext();) {");
+		sc.add("HighlightingColorListItem item = j.next();");
+		sc.add("maxWidth = Math.max(maxWidth, convertWidthInCharsToPixels(item.getDisplayName().length()));");
+		sc.add("}");
+		sc.add("}");
+		sc.add(SCROLL_BAR + " vBar = ((" + SCROLLABLE + ") fListViewer.getControl()).getVerticalBar();");
+		sc.add("if (vBar != null) {");
+		sc.addComment("scrollbars and tree indentation guess");
+		sc.add("maxWidth += vBar.getSize().x * 3;");
+		sc.add("}");
+		sc.add("gd.widthHint = maxWidth;");
+		sc.addLineBreak();
+		sc.add("fListViewer.getControl().setLayoutData(gd);");
+		sc.addLineBreak();
+		sc.add("fListViewer.setInput(content);");
+		sc.add("fListViewer.setSelection(new " + STRUCTURED_SELECTION + "(content.values().iterator().next()));");
+		sc.add("fListViewer.addSelectionChangedListener(new " + I_SELECTION_CHANGED_LISTENER + "() {");
+		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+		sc.add("handleSyntaxColorListSelection();");
+		sc.add("}");
+		sc.add("});");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateEditorCompositeMethod(JavaComposite sc) {
+		sc.add("private " + COMPOSITE + " createEditorComposite(" + COMPOSITE + " colorComposite) {");
 		sc.add(GRID_LAYOUT + " layout;");
-		sc.add(GRID_DATA + " gd;");
-		sc.add(COMPOSITE + " stylesComposite = new " + COMPOSITE + "(editorComposite, " + SWT + ".NONE);");
+		sc.add(COMPOSITE + " editorComposite = new " + COMPOSITE + "(colorComposite, " + SWT + ".NONE);");
 		sc.add("layout = new " + GRID_LAYOUT + "();");
+		sc.add("layout.numColumns = 2;");
 		sc.add("layout.marginHeight = 0;");
 		sc.add("layout.marginWidth = 0;");
-		sc.add("layout.numColumns = 2;");
-		sc.add("stylesComposite.setLayout(layout);");
-		sc.add("stylesComposite.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".END, " + GRID_DATA + ".FILL, false, true));");
-		sc.addLineBreak();
-		sc.add("fEnableCheckbox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
-		sc.add("fEnableCheckbox.setText(\"Enable\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL_HORIZONTAL);");
-		sc.add("gd.horizontalAlignment = " + GRID_DATA + ".BEGINNING;");
-		sc.add("gd.horizontalSpan = 2;");
-		sc.add("fEnableCheckbox.setLayoutData(gd);");
-		sc.addLineBreak();
-		sc.add("fColorEditorLabel = new " + LABEL + "(stylesComposite, " + SWT + ".LEFT);");
-		sc.add("fColorEditorLabel.setText(\"Color:\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
-		sc.add("gd.horizontalIndent = 20;");
-		sc.add("fColorEditorLabel.setLayoutData(gd);");
-		sc.addLineBreak();
-		sc.add("fSyntaxForegroundColorEditor = new " + COLOR_SELECTOR + "(stylesComposite);");
-		sc.add("fForegroundColorButton = fSyntaxForegroundColorEditor.getButton();");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
-		sc.add("fForegroundColorButton.setLayoutData(gd);");
-		sc.addLineBreak();
-		sc.add("fBoldCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
-		sc.add("fBoldCheckBox.setText(\"Bold\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
-		sc.add("gd.horizontalIndent = 20;");
-		sc.add("gd.horizontalSpan = 2;");
-		sc.add("fBoldCheckBox.setLayoutData(gd);");
-		sc.addLineBreak();
-		sc.add("fItalicCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
-		sc.add("fItalicCheckBox.setText(\"Italic\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
-		sc.add("gd.horizontalIndent = 20;");
-		sc.add("gd.horizontalSpan = 2;");
-		sc.add("fItalicCheckBox.setLayoutData(gd);");
-		sc.addLineBreak();
-		sc.add("fStrikethroughCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
-		sc.add("fStrikethroughCheckBox.setText(\"Strikethrough\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
-		sc.add("gd.horizontalIndent = 20;");
-		sc.add("gd.horizontalSpan = 2;");
-		sc.add("fStrikethroughCheckBox.setLayoutData(gd);");
-		sc.addLineBreak();
-		sc.add("fUnderlineCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
-		sc.add("fUnderlineCheckBox.setText(\"Underlined\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
-		sc.add("gd.horizontalIndent = 20;");
-		sc.add("gd.horizontalSpan = 2;");
-		sc.add("fUnderlineCheckBox.setLayoutData(gd);");
+		sc.add("editorComposite.setLayout(layout);");
+		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".FILL, true, true);");
+		sc.add("editorComposite.setLayoutData(gd);");
+		sc.add("return editorComposite;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private void addFiller(" + COMPOSITE + " composite, int horizontalSpan) {");
-		sc.add(pixelConverterClassName + " pixelConverter = new " + pixelConverterClassName + "(composite);");
-		sc.add(LABEL + " filler = new " + LABEL + "(composite, " + SWT + ".LEFT);");
-		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_FILL);");
-		sc.add("gd.horizontalSpan = horizontalSpan;");
-		sc.add("gd.heightHint = pixelConverter.convertHeightInCharsToPixels(1) / 2;");
-		sc.add("filler.setLayoutData(gd);");
+	}
+
+	private void addCreateSyntaxPageMethod(JavaComposite sc) {
+		sc.add("private " + CONTROL + " createSyntaxPage(final " + COMPOSITE + " parent) {");
+		sc.addLineBreak();
+		sc.add(COMPOSITE + " colorComposite = new " + COMPOSITE + "(parent, " + SWT + ".NONE);");
+		sc.add(GRID_LAYOUT + " layout = new " + GRID_LAYOUT + "();");
+		sc.add("layout.marginHeight = 0;");
+		sc.add("layout.marginWidth = 0;");
+		sc.add("colorComposite.setLayout(layout);");
+		sc.addLineBreak();
+		sc.add("addFiller(colorComposite, 1);");
+		sc.addLineBreak();
+		sc.add(LABEL + " label = new " + LABEL + "(colorComposite, " + SWT + ".LEFT);");
+		sc.add("label.setText(\"Element:\");");
+		sc.add("label.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".BEGINNING, true, false));");
+		sc.addLineBreak();
+		sc.add(COMPOSITE + " editorComposite = createEditorComposite(colorComposite);");
+		sc.add("createListViewer(editorComposite);");
+		sc.add("createStylesComposite(editorComposite);");
+		sc.addLineBreak();
+		sc.add("addListenersToStyleButtons();");
+		sc.add("colorComposite.layout(false);");
+		sc.add("handleSyntaxColorListSelection();");
+		sc.addLineBreak();
+		sc.add("return colorComposite;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.addJavadoc("Returns the current highlighting color list item.");
-		sc.add("private HighlightingColorListItem getHighlightingColorListItem() {");
-		sc.add(I_STRUCTURED_SELECTION + " selection = (" + I_STRUCTURED_SELECTION + ") fListViewer.getSelection();");
-		sc.add("Object element = selection.getFirstElement();");
-		sc.add("if (element instanceof String) {");
+	}
+
+	private void addHandleSyntaxColorListSelectionMethod(JavaComposite sc) {
+		sc.add("private void handleSyntaxColorListSelection() {");
+		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
+		sc.add("if (item == null) {");
+		sc.add("fEnableCheckbox.setEnabled(false);");
+		sc.add("fSyntaxForegroundColorEditor.getButton().setEnabled(false);");
+		sc.add("fColorEditorLabel.setEnabled(false);");
+		sc.add("fBoldCheckBox.setEnabled(false);");
+		sc.add("fItalicCheckBox.setEnabled(false);");
+		sc.add("fStrikethroughCheckBox.setEnabled(false);");
+		sc.add("fUnderlineCheckBox.setEnabled(false);");
+		sc.add("return;");
+		sc.add("}");
+		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(), item.getColorKey());");
+		sc.add("fSyntaxForegroundColorEditor.setColorValue(rgb);");
+		sc.add("fBoldCheckBox.setSelection(getPreferenceStore().getBoolean(item.getBoldKey()));");
+		sc.add("fItalicCheckBox.setSelection(getPreferenceStore().getBoolean(item.getItalicKey()));");
+		sc.add("fStrikethroughCheckBox.setSelection(getPreferenceStore().getBoolean(item.getStrikethroughKey()));");
+		sc.add("fUnderlineCheckBox.setSelection(getPreferenceStore().getBoolean(item.getUnderlineKey()));");
+		sc.addLineBreak();
+		sc.add("fEnableCheckbox.setEnabled(true);");
+		sc.add("boolean enable = getPreferenceStore().getBoolean(item.getEnableKey());");
+		sc.add("fEnableCheckbox.setSelection(enable);");
+		sc.add("fSyntaxForegroundColorEditor.getButton().setEnabled(enable);");
+		sc.add("fColorEditorLabel.setEnabled(enable);");
+		sc.add("fBoldCheckBox.setEnabled(enable);");
+		sc.add("fItalicCheckBox.setEnabled(enable);");
+		sc.add("fStrikethroughCheckBox.setEnabled(enable);");
+		sc.add("fUnderlineCheckBox.setEnabled(enable);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addDisposeMethod(JavaComposite sc) {
+		sc.add("public void dispose() {");
+		sc.add("super.dispose();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addColorListContentProviderClass(JavaComposite sc) {
+		sc.addJavadoc("Color list content provider.");
+		sc.add("private class ColorListContentProvider implements " + I_TREE_CONTENT_PROVIDER + " {");
+		sc.addLineBreak();
+		sc.add("public ColorListContentProvider() {");
+		sc.add("super();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public Object[] getElements(Object inputElement) {");
+		sc.add(LIST + "<HighlightingColorListItem> contentsList = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
+		sc.add("for (" + LIST + "<HighlightingColorListItem> l : content.values()) {");
+		sc.add("contentsList.addAll(l);");
+		sc.add("}");
+		sc.add("return contentsList.toArray();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void dispose() {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void inputChanged(" + VIEWER + " viewer, Object oldInput, Object newInput) {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public Object[] getChildren(Object parentElement) {");
+		sc.add("return new Object[0];");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public Object getParent(Object element) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("return (HighlightingColorListItem) element;");
-		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.addLineBreak();
-		sc.add(iMetaInformationClassName + " syntaxPlugin = new " + metaInformationClassName + "();");
-		sc.addLineBreak();
-		sc.add("String languageId = syntaxPlugin.getSyntaxName();");
-		sc.addLineBreak();
-		sc.add(LIST + "<HighlightingColorListItem> terminals = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
-		sc.add("String[] tokenNames = syntaxPlugin.getTokenNames();");
-		sc.addLineBreak();
-		sc.add("for (int i = 0; i < tokenNames.length; i++) {");
-		sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("String tokenName = tokenHelper.getTokenName(tokenNames, i);");
-		sc.add("if (tokenName == null) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.add("HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);");
-		sc.add("terminals.add(item);");
-		sc.add("}");
-		sc.add(COLLECTIONS + ".sort(terminals);");
-		sc.add("content.put(languageId, terminals);");
-		sc.addLineBreak();
-		sc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
-		sc.add("setDescription(\"Configure syntax coloring for .\" + languageId + \" files.\");");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
-		sc.add(CONTROL + " content = createSyntaxPage(parent);");
-		sc.add("return content;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean performOk() {");
-		sc.add("if (!super.performOk()) {");
+		sc.add("public boolean hasChildren(Object element) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("performApply();");
-		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public boolean performCancel() {");
-		sc.add("if (!super.performCancel()) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addComment("discard all changes that were made");
-		sc.add("changedPreferences.clear();");
-		sc.add("return true;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("protected void performApply() {");
-		sc.add("for (IChangedPreference changedPreference : changedPreferences) {");
-		sc.add("changedPreference.apply(getPreferenceStore());");
-		sc.add("}");
-		sc.add("changedPreferences.clear();");
-		sc.add("updateActiveEditor();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void performDefaults() {");
-		sc.add("super.performDefaults();");
-		sc.addLineBreak();
-		sc.add(I_PREFERENCE_STORE + " preferenceStore = getPreferenceStore();");
-		sc.addComment("reset all preferences to their default values");
-		sc.add("for (String languageID : content.keySet()) {");
-		sc.add(LIST + "<HighlightingColorListItem> items = content.get(languageID);");
-		sc.add("for (HighlightingColorListItem item : items) {");
-		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getBoldKey());");
-		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getEnableKey());");
-		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getItalicKey());");
-		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getStrikethroughKey());");
-		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getUnderlineKey());");
-		sc.add("restoreDefaultStringValue(preferenceStore, item.getColorKey());");
-		sc.add("}");
-		sc.add("}");
-		sc.add("handleSyntaxColorListSelection();");
-		sc.add("updateActiveEditor();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private void restoreDefaultBooleanValue(" + I_PREFERENCE_STORE + " preferenceStore, String key) {");
-		sc.add("preferenceStore.setValue(key, preferenceStore.getDefaultBoolean(key));");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private void restoreDefaultStringValue(" + I_PREFERENCE_STORE + " preferenceStore, String key) {");
-		sc.add("preferenceStore.setValue(key, preferenceStore.getDefaultString(key));");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private void updateActiveEditor() {");
-		sc.add(I_WORKBENCH + " workbench = org.eclipse.ui.PlatformUI.getWorkbench();");
-		sc.add(I_EDITOR_PART + " editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
-		sc.add("if (editor != null && editor instanceof " + editorClassName + ") {");
-		sc.add(editorClassName + " emfTextEditor = (" + editorClassName + ") editor;");
-		sc.add("emfTextEditor.invalidateTextRepresentation();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
 	}
 
 	private void addColorListLabelProviderClass(JavaComposite sc) {
@@ -658,7 +732,25 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
+		sc.add("private " + COLOR_SELECTOR + " fSyntaxForegroundColorEditor;");
+		sc.add("private " + LABEL + " fColorEditorLabel;");
+		sc.add("private " + BUTTON + " fBoldCheckBox;");
+		sc.add("private " + BUTTON + " fEnableCheckbox;");
+		sc.addJavadoc("Check box for italic preference.");
+		sc.add("private " + BUTTON + " fItalicCheckBox;");
+		sc.addJavadoc("Check box for strikethrough preference.");
+		sc.add("private " + BUTTON + " fStrikethroughCheckBox;");
+		sc.addJavadoc("Check box for underline preference.");
+		sc.add("private " + BUTTON + " fUnderlineCheckBox;");
+		sc.add("private " + BUTTON + " fForegroundColorButton;");
+		sc.addLineBreak();
+		sc.addJavadoc("Highlighting color list viewer");
+		sc.add("private " + STRUCTURED_VIEWER + " fListViewer;");
+		sc.addLineBreak();
+	}
+
+	private void addConstants(JavaComposite sc) {
 		sc.add("private final static " + antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
 		sc.add("private final static " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
 		sc.add("private final static " + COLLECTION + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST + "<IChangedPreference>();");
