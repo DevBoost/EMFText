@@ -2073,14 +2073,14 @@ public enum OptionTypes implements Enumerator {
 	 * @ordered
 	 */
 	OVERRIDE_LAUNCH_CONFIGURATION_HELPER(258, "OVERRIDE_LAUNCH_CONFIGURATION_HELPER", "overrideLaunchConfigurationHelper"), /**
-	 * The '<em><b>OVERRIDE EXAMPLE PROJECT WIZARD</b></em>' literal object.
+	 * The '<em><b>OVERRIDE NEW PROJECT WIZARD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_EXAMPLE_PROJECT_WIZARD_VALUE
+	 * @see #OVERRIDE_NEW_PROJECT_WIZARD_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EXAMPLE_PROJECT_WIZARD(259, "OVERRIDE_EXAMPLE_PROJECT_WIZARD", "overrideExampleProjectWizard");
+	OVERRIDE_NEW_PROJECT_WIZARD(259, "OVERRIDE_NEW_PROJECT_WIZARD", "overrideNewProjectWizard");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6410,22 +6410,18 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_LAUNCH_CONFIGURATION_HELPER_VALUE = 258;
 /**
-	 * The '<em><b>OVERRIDE EXAMPLE PROJECT WIZARD</b></em>' literal value.
+	 * The '<em><b>OVERRIDE NEW PROJECT WIZARD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE EXAMPLE PROJECT WIZARD</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * If set to <code>false</code>, the ExampleProjectWizard class will not be overridden. The default value for this option is <code>true</code>.
 	 * <!-- end-model-doc -->
-	 * @see #OVERRIDE_EXAMPLE_PROJECT_WIZARD
-	 * @model literal="overrideExampleProjectWizard"
+	 * @see #OVERRIDE_NEW_PROJECT_WIZARD
+	 * @model literal="overrideNewProjectWizard"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_EXAMPLE_PROJECT_WIZARD_VALUE = 259;
+	public static final int OVERRIDE_NEW_PROJECT_WIZARD_VALUE = 259;
 /**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
@@ -6689,7 +6685,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_LINE_BREAKPOINT_ADAPTER,
 			OVERRIDE_ADAPTER_FACTORY,
 			OVERRIDE_LAUNCH_CONFIGURATION_HELPER,
-			OVERRIDE_EXAMPLE_PROJECT_WIZARD,
+			OVERRIDE_NEW_PROJECT_WIZARD,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6993,7 +6989,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_LINE_BREAKPOINT_ADAPTER_VALUE: return OVERRIDE_LINE_BREAKPOINT_ADAPTER;
 			case OVERRIDE_ADAPTER_FACTORY_VALUE: return OVERRIDE_ADAPTER_FACTORY;
 			case OVERRIDE_LAUNCH_CONFIGURATION_HELPER_VALUE: return OVERRIDE_LAUNCH_CONFIGURATION_HELPER;
-			case OVERRIDE_EXAMPLE_PROJECT_WIZARD_VALUE: return OVERRIDE_EXAMPLE_PROJECT_WIZARD;
+			case OVERRIDE_NEW_PROJECT_WIZARD_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD;
 		}
 		return null;
 	}

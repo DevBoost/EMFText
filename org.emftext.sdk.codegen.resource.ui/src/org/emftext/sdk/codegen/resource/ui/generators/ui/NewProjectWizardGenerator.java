@@ -1,26 +1,53 @@
-/*******************************************************************************
- * Copyright (c) 2006-2011
- * Software Technology Group, Dresden University of Technology
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_LOCATOR;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_NOT_FOUND_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXECUTABLE_EXTENSION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ZIP_ENTRY;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ZIP_FILE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BASIC_NEW_PROJECT_RESOURCE_WIZARD;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUNDLE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ENUMERATION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_COMMAND;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONFIGURATION_ELEMENT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_NEW_WIZARD;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROJECT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROJECT_DESCRIPTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RUNNABLE_WITH_PROGRESS;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKSPACE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OUTPUT_STREAM_WRITER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SUB_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URL;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD_NEW_PROJECT_CREATION_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WORKSPACE_MODIFY_OPERATION;
 
-import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class ExampleProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
@@ -34,7 +61,6 @@ public class ExampleProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("public class " + getResourceClassName() + " extends " + WIZARD + " implements " + I_NEW_WIZARD + ", " + I_EXECUTABLE_EXTENSION + " {");
 		sc.addLineBreak();
 		addFields(sc);
-		addConstants(sc);
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
@@ -50,42 +76,27 @@ public class ExampleProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The name of the project creation page");
-		// TODO replace page name
-		sc.add("private String pageName = \"PAGE_TITLE\";");
+		sc.add("private String pageName = \"New \" + new " + metaInformationClassName + "().getSyntaxName() + \" Project\";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The title of the project creation page");
-		// TODO replace page title
-		sc.add("private String pageTitle = \"PAGE_TITLE\";");
+		sc.add("private String pageTitle = pageName;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The description of the project creation page");
-		// TODO replace page description
-		sc.add("private String pageDescription = \"PAGE_DESCRIPTION\";");
+		sc.add("private String pageDescription = \"\";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("The name of the project in the project creation page");
-		// TODO replace project name
-		sc.add("private String pageProjectName = \"PROJECT_NAME\";");
+		sc.addJavadoc(" The name of the project in the project creation page");
+		sc.add("private String  pageProjectName= \"\";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Does the project need a java nature?");
-		// TODO is this needed?
-		sc.add("private boolean needsJavaNature = false;");
+		sc.addJavadoc("The name of the new project zip file (relative to the UI plugin's root)");
+		sc.add("private String  newProjectZip=\"newProject.zip\";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The configuration element associated with this new project wizard");		
 		sc.add("private " + I_CONFIGURATION_ELEMENT + " config;");
-		sc.addLineBreak();
-	}
-
-	private void addConstants(JavaComposite sc) {
-		sc.add("private final static String JAVA_NATURE   = \"org.eclipse.jdt.core.javanature\";");
-		sc.add("private final static String JAVA_BUILDER  = \"org.eclipse.jdt.core.javabuilder\";");
-		
-		// TODO is this needed?
-		sc.add("private final static String SOKAN_NATURE  = \"org.reuseware.sokan.resource.repositoryNature\";");
-		sc.add("private final static String SOKAN_BUILDER = \"org.reuseware.sokan.resource.indexBuilder\";");
 		sc.addLineBreak();
 	}
 
@@ -137,51 +148,53 @@ public class ExampleProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("projectFolderFile.mkdirs();");
 		sc.add("monitor.worked(10);");
 		sc.addLineBreak();
-		// TODO replace PLUGIN_ID
-		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(\"PLUGIN_ID\");");
-		// TODO replace zip file name
-		sc.add(URL + " url = bundle.getEntry(\"example.zip\");");
+		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(\"" + getContext().getResourceUIPlugin().getName() + "\");");
+		sc.add(URL + " newProjectZipURL = bundle.getEntry(newProjectZip);");
 		sc.addLineBreak();
+		sc.add("if (newProjectZipURL != null) {");
 		sc.addComment("Copy plug-in project code");
-		sc.add("extractProject(projectFolderFile, url, new " + SUB_PROGRESS_MONITOR + "(monitor, 100));");
+		sc.add("extractProject(projectFolderFile, newProjectZipURL, new " + SUB_PROGRESS_MONITOR + "(monitor, 100));");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (monitor.isCanceled()) {");
 		sc.add("throw new InterruptedException();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (projectPath.equals(workspace.getRoot().getLocation())) {");
-		sc.add("project.create(monitor);");
-		sc.add("} else {");
 		sc.add(I_PROJECT_DESCRIPTION + " desc = workspace.newProjectDescription(project.getName());");
+		sc.add("if (!projectPath.equals(workspace.getRoot().getLocation())) {");
 		sc.add("desc.setLocation(new " + PATH + "(projectFolder));");
+		sc.add("}");
 		sc.addLineBreak();
-		sc.add("String[]   natureIDs = null;");
-		sc.add(I_COMMAND + "[] buildCommands = null;");
-		sc.addLineBreak();
-		sc.add("if (needsJavaNature) {");
-		sc.add(I_COMMAND + " command1 = desc.newCommand();");
-		sc.add("command1.setBuilderName(JAVA_BUILDER);");
-		sc.add(I_COMMAND + " command2 = desc.newCommand();");
-		sc.add("command2.setBuilderName(SOKAN_BUILDER);");
-		sc.add("buildCommands = new " + I_COMMAND + "[] {command1, command2};");
-		sc.add("natureIDs = new String[] {JAVA_NATURE, SOKAN_NATURE};");
-		sc.add("} else {");
+		
+		String natureClassName = getContext().getQualifiedClassName(TextResourceArtifacts.NATURE);
+		
+		sc.add("String natureID = " + natureClassName + ".NATURE_ID;");
+		sc.add(LIST + "<" + I_COMMAND + "> buildCommands = new " + ARRAY_LIST +"<" + I_COMMAND + ">();");
+		sc.add("for (String builderID : " + natureClassName + ".BUILDER_IDS) {");
 		sc.add(I_COMMAND + " command = desc.newCommand();");
-		sc.add("command.setBuilderName(SOKAN_BUILDER);");
-		sc.add("buildCommands = new " + I_COMMAND + "[] {command};");
-		sc.add("natureIDs = new String[] {SOKAN_NATURE};");
+		sc.add("command.setBuilderName(builderID);");
+		sc.add("buildCommands.add(command);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("desc.setNatureIds(natureIDs);");
-		sc.add("desc.setBuildSpec(buildCommands);");
+		sc.add("desc.setNatureIds(new String[] {natureID});");
+		sc.add("desc.setBuildSpec(buildCommands.toArray(new " + I_COMMAND + "[buildCommands.size()]));");
 		sc.add("project.create(desc, monitor);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
 		sc.addComment("Now, we ensure that the project is open.");
 		sc.add("project.open(monitor);");
-		sc.addLineBreak();
 		sc.add("renameProject(project, projectName);");
+		sc.addLineBreak();
+		sc.add(I_FILE + " defaultNewFile = project.getFile(\"NEW_FILE_PLACEHOLDER\");");
+		sc.add("if (newProjectZipURL == null) {");
+		sc.add("defaultNewFile.create(new " + BYTE_ARRAY_INPUT_STREAM + "(new byte[0]), true, null);");
+		sc.add("}");
+		sc.add("if (defaultNewFile.exists()) {");
+		sc.add(metaInformationClassName + " info = new " + metaInformationClassName + "();");
+		sc.add("String fileName = \"new_file.\" + info.getSyntaxName();");
+		sc.add("String content = info.getNewFileContentProvider().getNewFileContent(\"new_file.\" + info.getSyntaxName());");
+		sc.add("defaultNewFile.setContents(new " + BYTE_ARRAY_INPUT_STREAM + "(content.getBytes()), " + I_FILE + ".FORCE, null);");
+		sc.add("defaultNewFile.move(project.getProjectRelativePath().append(fileName), true, null);");
+		sc.add("}");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("monitor.worked(10);");
 		sc.add("if (monitor.isCanceled()) {");
@@ -273,7 +286,7 @@ public class ExampleProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add(PATH + " path = new " + PATH + "(file.getPath());");
-		sc.add("if (path.getFileExtension().equals(\"java\")) {");
+		sc.add("if (\"java\".equals(path.getFileExtension())) {");
 		sc.add(INPUT_STREAM_READER + " is = null;");
 		sc.add(OUTPUT_STREAM_WRITER + " os = null;");
 		sc.addLineBreak();

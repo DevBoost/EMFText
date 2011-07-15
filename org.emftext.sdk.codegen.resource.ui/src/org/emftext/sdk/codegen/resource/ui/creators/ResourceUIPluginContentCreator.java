@@ -94,6 +94,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		bpp.getBinIncludes().add(".");
 		bpp.getBinIncludes().add("icons/");
 		bpp.getBinIncludes().add("css/");
+		bpp.getBinIncludes().add("newProject.zip");
 		bpp.getBinIncludes().add("plugin.xml");
 		creators.add(new BuildPropertiesCreator<GenerationContext>(bpp, doOverride(syntax, buildProperties)));
 
@@ -123,6 +124,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		}
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
+	    // the initial newProject.zip 
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("newProject.zip"), getNewProjectFile(resourceUIPlugin, context), false));	    
+	    
 	    // add UI generators
 		add(creators, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
@@ -149,7 +153,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.TEXT_HOVER);
 	    add(creators, TextResourceUIArtifacts.TOKEN_SCANNER);
 	    add(creators, TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
-	    add(creators, TextResourceUIArtifacts.EXAMPLE_PROJECT_WIZARD);
+	    add(creators, TextResourceUIArtifacts.NEW_PROJECT_WIZARD);
 	    
 	    add(creators, TextResourceUIArtifacts.PREFERENCE_PAGE);
 	    add(creators, TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);
@@ -190,9 +194,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    creators.add(new PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
 	    return creators;
 	}
-	
+
 	private XMLParameters<GenerationContext> getPluginXmlParamters(GenerationContext context) {
-		final String newWizardCategoryID = "org.emftext.runtime.ui.EMFTextFileCategory";
+		final String newFileWizardCategoryID = "org.emftext.runtime.ui.EMFTextFileCategory";
+		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
 		final IPluginDescriptor resourcePlugin = context.getResourcePlugin();
@@ -201,6 +206,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		final String uiPluginID = resourceUIPlugin.getName();
 		final String uiMetaInformationClass = context.getQualifiedClassName(TextResourceUIArtifacts.UI_META_INFORMATION);
 		final String newFileWizard = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_FILE_WIZARD);
+		final String newProjectWizard = context.getQualifiedClassName(TextResourceUIArtifacts.NEW_PROJECT_WIZARD);
 		final String problemID = resourcePluginID + ".problem";
 		final String occurrenceAnnotationTypeID = context.getOccurrenceAnnotationTypeID();
 		final String declarationAnnotationTypeID = context.getDeclarationAnnotationTypeID();
@@ -260,16 +266,27 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 
 		XMLElement newWizardExtension = root.createChild("extension");
 		newWizardExtension.setAttribute("point", "org.eclipse.ui.newWizards");
-		XMLElement category = newWizardExtension.createChild("category");
-		category.setAttribute("id", newWizardCategoryID);
-		category.setAttribute("name", "EMFText File");
 		
-		XMLElement wizard = newWizardExtension.createChild("wizard");
-		wizard.setAttribute("category", newWizardCategoryID);
-		wizard.setAttribute("icon", getProjectRelativeNewIconPath());
-		wizard.setAttribute("class", newFileWizard);
-		wizard.setAttribute("id", newFileWizard);
-		wizard.setAttribute("name", "EMFText ." + context.getConcreteSyntax().getName() + " file");
+		XMLElement newFilesCategory = newWizardExtension.createChild("category");
+		newFilesCategory.setAttribute("id", newFileWizardCategoryID);
+		newFilesCategory.setAttribute("name", "EMFText File");
+		XMLElement wizardFile = newWizardExtension.createChild("wizard");
+		wizardFile.setAttribute("category", newFileWizardCategoryID);
+		wizardFile.setAttribute("icon", getProjectRelativeNewIconPath());
+		wizardFile.setAttribute("class", newFileWizard);
+		wizardFile.setAttribute("id", newFileWizard);
+		wizardFile.setAttribute("name", "EMFText ." + context.getConcreteSyntax().getName() + " file");
+		
+		XMLElement newProjectsCategory = newWizardExtension.createChild("category");
+		newProjectsCategory.setAttribute("id", newProjectWizardCategoryID);
+		newProjectsCategory.setAttribute("name", "EMFText Project");
+		XMLElement wizardProject = newWizardExtension.createChild("wizard");
+		wizardProject.setAttribute("category", newProjectWizardCategoryID);
+		wizardProject.setAttribute("icon", getProjectRelativeNewIconPath());
+		wizardProject.setAttribute("class", newProjectWizard);
+		wizardProject.setAttribute("id", newProjectWizard);
+		wizardProject.setAttribute("name", "EMFText " + context.getConcreteSyntax().getName() + " project");
+		wizardProject.setAttribute("project", "true");
 		
 		XMLElement markerResolutionExtension = root.createChild("extension");
 		markerResolutionExtension.setAttribute("point", "org.eclipse.ui.ide.markerResolution");
@@ -767,5 +784,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 
 	private File getHoverStyleFile(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(getCSSDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.HOVER_STYLE_FILENAME);
+	}
+	
+	private File getNewProjectFile(IPluginDescriptor plugin, GenerationContext context) {
+		return new File(context.getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + UIConstants.NEW_PROJECT_FILENAME);
 	}
 }

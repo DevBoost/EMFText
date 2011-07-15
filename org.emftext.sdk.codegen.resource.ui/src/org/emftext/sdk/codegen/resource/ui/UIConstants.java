@@ -28,4 +28,7 @@ public class UIConstants {
 	// CSS
 	public static final String DEFAULT_CSS_DIR = "css";
 	public static final String HOVER_STYLE_FILENAME = "hover_style.css";
+	
+	// New Project
+	public static final String NEW_PROJECT_FILENAME = "newProject.zip";
 }
