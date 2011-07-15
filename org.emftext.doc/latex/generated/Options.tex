@@ -1,4 +1,4 @@
-EMFText currently supports 256 code generation options. However, most of them (220) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
+EMFText currently supports 257 code generation options. However, most of them (220) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
 
 \vspace{1cm}\noindent\texttt{additionalDependencies}
 \begin{myindentpar}{1cm}
@@ -73,6 +73,11 @@ If set to \texttt{false}, constraint validation using registered EValidators wil
 \noindent\texttt{disableLaunchSupport}
 \begin{myindentpar}{1cm}
 If set to \texttt{true}, code that is required to support launching of DSL models is not generated. The default value for this option is \texttt{false}.
+\end{myindentpar}
+
+\noindent\texttt{disableNewProjectWizard}
+\begin{myindentpar}{1cm}
+If set to \texttt{true}, the new NewProjectWizard is not registered. Use this option if there is already an existing wizard. The default value for this option is \texttt{false}.
 \end{myindentpar}
 
 \noindent\texttt{disableTokenSorting}
