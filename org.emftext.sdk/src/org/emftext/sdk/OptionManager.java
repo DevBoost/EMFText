@@ -87,6 +87,7 @@ public class OptionManager {
 		booleanOptions.add(OptionTypes.DISABLE_TOKEN_SORTING);
 		booleanOptions.add(OptionTypes.GENERATE_UI_PLUGIN);
 		booleanOptions.add(OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
+		booleanOptions.add(OptionTypes.DISABLE_NEW_PROJECT_WIZARD);
 
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {
