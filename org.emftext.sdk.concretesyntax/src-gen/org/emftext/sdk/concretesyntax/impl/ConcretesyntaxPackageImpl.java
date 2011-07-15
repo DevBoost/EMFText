@@ -4518,7 +4518,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(255), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to <code>false</code>, the ExampleProjectWizard class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>false</code>, the NewProjectWizard class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 

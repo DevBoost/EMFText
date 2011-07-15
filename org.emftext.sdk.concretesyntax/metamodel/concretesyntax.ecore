@@ -1850,7 +1850,7 @@
     </eLiterals>
     <eLiterals name="OVERRIDE_NEW_PROJECT_WIZARD" value="259" literal="overrideNewProjectWizard">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ExampleProjectWizard class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the NewProjectWizard class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
   </eClassifiers>

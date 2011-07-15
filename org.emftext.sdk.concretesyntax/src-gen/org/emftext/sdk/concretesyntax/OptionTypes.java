@@ -6414,7 +6414,7 @@ public enum OptionTypes implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * If set to <code>false</code>, the ExampleProjectWizard class will not be overridden. The default value for this option is <code>true</code>.
+	 * If set to <code>false</code>, the NewProjectWizard class will not be overridden. The default value for this option is <code>true</code>.
 	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_NEW_PROJECT_WIZARD
 	 * @model literal="overrideNewProjectWizard"
