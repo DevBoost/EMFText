@@ -229,6 +229,9 @@ public class OptionManager {
 		if (option == OptionTypes.DISABLE_DEBUG_SUPPORT) {
 			return false;
 		}
+		if (option == OptionTypes.DISABLE_NEW_PROJECT_WIZARD) {
+			return false;
+		}
 		return true;
 	}
 
