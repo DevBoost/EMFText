@@ -71,7 +71,7 @@ public interface GenClassCache extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 *  Return an esacped version of the qualified name of the interface for 
+	 *  Returns an escaped version of the qualified name of the interface for 
 	 *  the given GenClass. Underscores and dots are replaced to be able to use 
 	 *  the returned name, for example, as method name.
 	 * 
