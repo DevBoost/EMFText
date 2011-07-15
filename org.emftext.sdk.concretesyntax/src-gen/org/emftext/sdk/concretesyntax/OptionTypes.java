@@ -2080,7 +2080,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_PROJECT_WIZARD(259, "OVERRIDE_NEW_PROJECT_WIZARD", "overrideNewProjectWizard");
+	OVERRIDE_NEW_PROJECT_WIZARD(259, "OVERRIDE_NEW_PROJECT_WIZARD", "overrideNewProjectWizard"), /**
+	 * The '<em><b>DISABLE NEW PROJECT WIZARD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_NEW_PROJECT_WIZARD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DISABLE_NEW_PROJECT_WIZARD(260, "DISABLE_NEW_PROJECT_WIZARD", "disableNewProjectWizard");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6423,6 +6431,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_NEW_PROJECT_WIZARD_VALUE = 259;
 /**
+	 * The '<em><b>DISABLE NEW PROJECT WIZARD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DISABLE NEW PROJECT WIZARD</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DISABLE_NEW_PROJECT_WIZARD
+	 * @model literal="disableNewProjectWizard"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DISABLE_NEW_PROJECT_WIZARD_VALUE = 260;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6686,6 +6708,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ADAPTER_FACTORY,
 			OVERRIDE_LAUNCH_CONFIGURATION_HELPER,
 			OVERRIDE_NEW_PROJECT_WIZARD,
+			DISABLE_NEW_PROJECT_WIZARD,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6990,6 +7013,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ADAPTER_FACTORY_VALUE: return OVERRIDE_ADAPTER_FACTORY;
 			case OVERRIDE_LAUNCH_CONFIGURATION_HELPER_VALUE: return OVERRIDE_LAUNCH_CONFIGURATION_HELPER;
 			case OVERRIDE_NEW_PROJECT_WIZARD_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD;
+			case DISABLE_NEW_PROJECT_WIZARD_VALUE: return DISABLE_NEW_PROJECT_WIZARD;
 		}
 		return null;
 	}

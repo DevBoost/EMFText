@@ -1853,6 +1853,7 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the NewProjectWizard class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="DISABLE_NEW_PROJECT_WIZARD" value="260" literal="disableNewProjectWizard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

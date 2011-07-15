@@ -277,16 +277,18 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		wizardFile.setAttribute("id", newFileWizard);
 		wizardFile.setAttribute("name", "EMFText ." + context.getConcreteSyntax().getName() + " file");
 		
-		XMLElement newProjectsCategory = newWizardExtension.createChild("category");
-		newProjectsCategory.setAttribute("id", newProjectWizardCategoryID);
-		newProjectsCategory.setAttribute("name", "EMFText Project");
-		XMLElement wizardProject = newWizardExtension.createChild("wizard");
-		wizardProject.setAttribute("category", newProjectWizardCategoryID);
-		wizardProject.setAttribute("icon", getProjectRelativeNewIconPath());
-		wizardProject.setAttribute("class", newProjectWizard);
-		wizardProject.setAttribute("id", newProjectWizard);
-		wizardProject.setAttribute("name", "EMFText " + context.getConcreteSyntax().getName() + " project");
-		wizardProject.setAttribute("project", "true");
+		if (OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_NEW_PROJECT_WIZARD)) {
+			XMLElement newProjectsCategory = newWizardExtension.createChild("category");
+			newProjectsCategory.setAttribute("id", newProjectWizardCategoryID);
+			newProjectsCategory.setAttribute("name", "EMFText Project");
+			XMLElement wizardProject = newWizardExtension.createChild("wizard");
+			wizardProject.setAttribute("category", newProjectWizardCategoryID);
+			wizardProject.setAttribute("icon", getProjectRelativeNewIconPath());
+			wizardProject.setAttribute("class", newProjectWizard);
+			wizardProject.setAttribute("id", newProjectWizard);
+			wizardProject.setAttribute("name", "EMFText " + context.getConcreteSyntax().getName() + " project");
+			wizardProject.setAttribute("project", "true");
+		}
 		
 		XMLElement markerResolutionExtension = root.createChild("extension");
 		markerResolutionExtension.setAttribute("point", "org.eclipse.ui.ide.markerResolution");
