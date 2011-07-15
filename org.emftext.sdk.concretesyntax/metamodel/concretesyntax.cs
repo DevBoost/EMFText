@@ -25,6 +25,7 @@ OPTIONS {
 	resolveProxyElementsAfterParsing = "false";
 	disableLaunchSupport = "true";
 	disableDebugSupport = "true";
+	disableNewProjectWizard = "true";
 }
 
 TOKENS {
