@@ -173,7 +173,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("destination = 0;");
 		sc.add("}");
 		sc.add("selectAndReveal(destination, 0);");
-		sc.add("int length = locationMap.getCharEnd(element) - destination;");
+		sc.add("int length = locationMap.getCharEnd(element) - destination + 1;");
 		sc.add("getSourceViewer().setRangeIndication(destination, length, true);");
 		sc.add("getSourceViewer().setSelectedRange(destination, length);");
 		sc.add("return true;");

@@ -504,7 +504,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 					destination = 0;
 				}
 				selectAndReveal(destination, 0);
-				int length = locationMap.getCharEnd(element) - destination;
+				int length = locationMap.getCharEnd(element) - destination + 1;
 				getSourceViewer().setRangeIndication(destination, length, true);
 				getSourceViewer().setSelectedRange(destination, length);
 				return true;
