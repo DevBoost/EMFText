@@ -6438,6 +6438,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>true</code>, the new NewProjectWizard is not registered. Use this option if there is already an existing wizard. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #DISABLE_NEW_PROJECT_WIZARD
 	 * @model literal="disableNewProjectWizard"
 	 * @generated
