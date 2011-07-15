@@ -277,7 +277,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		wizardFile.setAttribute("id", newFileWizard);
 		wizardFile.setAttribute("name", "EMFText ." + context.getConcreteSyntax().getName() + " file");
 		
-		if (OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_NEW_PROJECT_WIZARD)) {
+		if (!OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_NEW_PROJECT_WIZARD)) {
 			XMLElement newProjectsCategory = newWizardExtension.createChild("category");
 			newProjectsCategory.setAttribute("id", newProjectWizardCategoryID);
 			newProjectsCategory.setAttribute("name", "EMFText Project");
