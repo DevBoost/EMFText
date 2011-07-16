@@ -109,11 +109,12 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addConstants(JavaComposite sc) {
 		sc.add("private static final Class<?>[] PRIMITIVE_TYPES = new Class<?>[] {");
 		sc.add("String.class,");
-		sc.add("Integer.class,");
-		sc.add("Long.class,");
-		sc.add("Boolean.class,");
-		sc.add("Float.class,");
-		sc.add("Double.class,");
+		sc.add("Integer.class, int.class,");
+		sc.add("Long.class, long.class,");
+		sc.add("Boolean.class, boolean.class,");
+		sc.add("Float.class, float.class,");
+		sc.add("Double.class, double.class,");
+		sc.add("Byte.class, byte.class,");
 		sc.add("};");
 		sc.addLineBreak();
 	}
