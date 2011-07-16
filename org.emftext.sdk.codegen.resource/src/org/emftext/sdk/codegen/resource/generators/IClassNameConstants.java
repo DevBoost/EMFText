@@ -61,6 +61,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -401,6 +402,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String TOKEN = Token.class.getName();
 	public static String TOKEN_STREAM = org.antlr.runtime3_3_0.TokenStream.class.getName();
 	public static String UNKNOWN_HOST_EXCEPTION = UnknownHostException.class.getName();
+	public static String TREE_MAP = TreeMap.class.getName();
 	public static String URI = org.eclipse.emf.common.util.URI.class.getName();
 	public static String URI_CONVERTER = URIConverter.class.getName();
 	public static String URL = URL.class.getName();

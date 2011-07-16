@@ -19,10 +19,10 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TREE_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.UNKNOWN_HOST_EXCEPTION;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -203,7 +203,7 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addComment("convert varString to variables and values");
 		sc.add("String valueString = properties.get(\"!valueString\");");
 		sc.add("String valueRefType = \"valueRefType\";");
-		sc.add(MAP + "<String, Long> childVariables = new " + LINKED_HASH_MAP + "<String, Long>();");
+		sc.add(MAP + "<String, Long> childVariables = new " + TREE_MAP + "<String, Long>();");
 		sc.add("for (String property : properties.keySet()) {");
 		sc.addComment("ignore special properties - they are not children");
 		sc.add("if (property.startsWith(\"!\")) {");
