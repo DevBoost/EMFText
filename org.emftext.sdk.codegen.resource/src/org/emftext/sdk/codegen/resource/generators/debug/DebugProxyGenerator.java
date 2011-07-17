@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.generators.debug;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_READER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
@@ -203,7 +204,11 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addComment("convert varString to variables and values");
 		sc.add("String valueString = properties.get(\"!valueString\");");
 		sc.add("String valueRefType = \"valueRefType\";");
-		sc.add(MAP + "<String, Long> childVariables = new " + TREE_MAP + "<String, Long>();");
+		sc.add(MAP + "<String, Long> childVariables = new " + TREE_MAP + "<String, Long>(new " + COMPARATOR + "<String>() {");
+		sc.add("public int compare(String s1, String s2) {");
+		sc.add("return s1.compareToIgnoreCase(s2);");
+		sc.add("}");
+		sc.add("});");
 		sc.add("for (String property : properties.keySet()) {");
 		sc.addComment("ignore special properties - they are not children");
 		sc.add("if (property.startsWith(\"!\")) {");
