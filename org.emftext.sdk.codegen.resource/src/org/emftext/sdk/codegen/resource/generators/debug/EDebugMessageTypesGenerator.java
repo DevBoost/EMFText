@@ -48,7 +48,7 @@ public class EDebugMessageTypesGenerator extends JavaBaseGenerator<ArtifactParam
 		);
 		
 		sc.add("GET_FRAME_VARIABLES,");
-		sc.add("GET_VARIABLE,");
+		sc.add("GET_VARIABLES,");
 		sc.add("GET_STACK,");
 		sc.add("STEP_RETURN,");
 		sc.add("STEP_INTO,");
@@ -61,7 +61,7 @@ public class EDebugMessageTypesGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		sc.add("GET_STACK_RESPONSE,");
 		sc.add("GET_FRAME_VARIABLES_RESPONSE,");
-		sc.add("GET_VARIABLE_RESPONSE,");
+		sc.add("GET_VARIABLES_RESPONSE,");
 		sc.add("}");
 	}
 }

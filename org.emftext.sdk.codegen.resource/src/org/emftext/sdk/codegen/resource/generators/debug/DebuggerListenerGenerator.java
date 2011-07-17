@@ -54,10 +54,47 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> implements Runnable {");
 		sc.addLineBreak();
 		addConstants(sc);
+		addArrayPartitionClass(sc);
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addArrayPartitionClass(JavaComposite sc) {
+		sc.add("private final static class ArrayPartition {");
+		sc.addLineBreak();
+
+		sc.add("private final Object array;");
+		sc.add("private final int startIndex;");
+		sc.add("private final int endIndex;");
+		sc.addLineBreak();
+
+		sc.add("public ArrayPartition(Object array, int startIndex, int endIndex) {");
+		sc.add("super();");
+		sc.add("this.array = array;");
+		sc.add("this.startIndex = startIndex;");
+		sc.add("this.endIndex = endIndex;");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public int getStartIndex() {");
+		sc.add("return startIndex;");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public int getEndIndex() {");
+		sc.add("return endIndex;");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public Object getArray() {");
+		sc.add("return array;");
+		sc.add("}");
+		sc.addLineBreak();
+			
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
@@ -72,6 +109,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		addRunMethod(sc);
 		addRunDebuggerMethod(sc);
 		addConvertToStringMethod(sc);
+		addGetPartitionCount(sc);
 		addAddFieldsMethod(sc);
 		addIsPrimitiveTypeClassMethod(sc);
 		addGetObjectIDMethod(sc);
@@ -197,12 +235,22 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".GET_FRAME_VARIABLES_RESPONSE, topVariableIDs);");
 		sc.add("communicationHelper.sendEvent(message, output);");
-		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".GET_VARIABLE)) {");
-		sc.add("long requestedID = Long.parseLong(command.getArgument(0));");
-		sc.addComment("create variable string");
+		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".GET_VARIABLES)) {");
+		sc.add("String[] arguments = command.getArguments();");
+		sc.add("Long[] requestedIDs = new Long[arguments.length];");
+		sc.add("int i = 0;");
+		sc.add("for (String argument : arguments) {");
+		sc.add("requestedIDs[i++] = Long.parseLong(argument);");
+		sc.add("}");
+		sc.addComment("create variable strings");
+		sc.add("String[] varStrings = new String[arguments.length];");
+		sc.add("i = 0;");
+		sc.add("for (Long requestedID : requestedIDs) {");
 		sc.add("Object next = objectMap.get(requestedID).getRight();");
 		sc.add("String varString = convertToString(requestedID, next);");
-		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".GET_VARIABLE_RESPONSE, new String[] {varString});");
+		sc.add("varStrings[i++] = varString;");
+		sc.add("}");
+		sc.add(debugMessageClassName + " message = new " + debugMessageClassName + "(" + eDebugMessageTypesClassName + ".GET_VARIABLES_RESPONSE, varStrings);");
 		sc.add("communicationHelper.sendEvent(message, output);");
 		sc.add("} else {");
 		sc.add("System.out.println(\"ERROR: Unrecognized command (\" + command + \")!\");");
@@ -238,6 +286,20 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("long valueID = getObjectID(featureName, value);");
 		sc.add("properties.put(featureName, Long.toString(valueID));");
 		sc.add("}");
+		sc.add("} else if (object instanceof ArrayPartition) {");
+		sc.add("ArrayPartition partition = (ArrayPartition) object;");
+		sc.add("valueString = \"\";");
+		sc.addComment(
+			"if there is only a single partition, the elements of the array " +
+			"are directly used a children"
+		);
+		sc.add("for (int i = partition.getStartIndex(); i < partition.getEndIndex(); i++) {");
+		sc.add("Object array = partition.getArray();");
+		sc.add("Object objectAtIndex = java.lang.reflect.Array.get(array, i);");
+		sc.add("String fieldName = \"[\" + i + \"]\";");
+		sc.add("long valueID = getObjectID(fieldName, objectAtIndex);");
+		sc.add("properties.put(fieldName, Long.toString(valueID));");
+		sc.add("}");
 		sc.add("} else {");
 		sc.add("Class<? extends Object> javaClass = object.getClass();");
 		sc.add("valueString = javaClass.getSimpleName() + \" (id=\" + id + \")\";");
@@ -248,12 +310,31 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add("if (javaClass.isArray()) {");
 		sc.add("int length = " + ARRAY + ".getLength(object);");
-		sc.add("valueString = javaClass.getComponentType().getName() + \"[\" + length + \"] (id=\" + id + \")\";");
+		sc.add("int partitions = getPartitionCount(length);");
+		sc.add("Class<?> componentType = javaClass.getComponentType();");
+		sc.add("valueString = componentType.getName() + \"[\" + length + \"] (id=\" + id + \")\";");
+		sc.add("if (partitions == 1) {");
+		sc.addComment(
+			"if there is only a single partition, the elements of the array " +
+			"are directly used a children");
 		sc.add("for (int i = 0; i < length; i++) {");
 		sc.add("Object objectAtIndex = " + ARRAY + ".get(object, i);");
 		sc.add("String fieldName = \"[\" + i + \"]\";");
 		sc.add("long valueID = getObjectID(fieldName, objectAtIndex);");
 		sc.add("properties.put(fieldName, Long.toString(valueID));");
+		sc.add("}");
+		sc.add("} else {");
+		sc.addComment(
+			"if there are multiple partitions, we introduce artificial " +
+			"objects that represent partitions of the array");
+		sc.add("for (int i = 0; i < partitions; i++) {");
+		sc.add("int startIndex = i * 100;");
+		sc.add("int endIndex = Math.min((i + 1) * 100, length);");
+		sc.add("String fieldName = \"[\" + startIndex + \"..\" + (endIndex - 1) + \"]\";");
+		sc.add("ArrayPartition newPartition = new ArrayPartition(object, startIndex, endIndex);");
+		sc.add("long valueID = getObjectID(fieldName, newPartition);");
+		sc.add("properties.put(fieldName, Long.toString(valueID));");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -261,6 +342,19 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("properties.put(\"!valueString\", valueString);");
 		sc.addLineBreak();
 		sc.add("return " + stringUtilClassName + ".convertToString(properties);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetPartitionCount(JavaComposite sc) {
+		sc.add("private int getPartitionCount(int arraySize) {");
+		sc.add("int partitionSize = 100;");
+		sc.add("int numPartitions = arraySize / partitionSize;");
+		sc.add("int remainder = arraySize % partitionSize;");
+		sc.add("if (remainder > 0) {");
+		sc.add("numPartitions++;");
+		sc.add("}");
+		sc.add("return numPartitions;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

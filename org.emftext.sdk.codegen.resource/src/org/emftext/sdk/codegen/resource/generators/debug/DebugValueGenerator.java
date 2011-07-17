@@ -13,12 +13,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -44,11 +45,13 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addGetReferenceTypeName(sc);
+		addGetReferenceTypeNameMethod(sc);
 		addGetValueStringMethod(sc);
 		addIsAllocatedMethod(sc);
 		addGetVariablesMethod(sc);
 		addHasVariablesMethod(sc);
+		addGetChildMethod(sc);
+		addGetVariableCountMethod(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -71,7 +74,7 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 	}
 
-	private void addGetReferenceTypeName(JavaComposite sc) {
+	private void addGetReferenceTypeNameMethod(JavaComposite sc) {
 		sc.add("public String getReferenceTypeName() throws " + DEBUG_EXCEPTION + " {");
 		sc.add("return referenceTypeName;");
 		sc.add("}");
@@ -97,13 +100,14 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("public " + I_VARIABLE + "[] getVariables() throws " + DEBUG_EXCEPTION + " {");
 		sc.add("if (variables == null) {");
 		sc.addComment("request variables from debug client");
-		sc.add("" + LIST + "<" + I_VARIABLE + "> variables = new " + ARRAY_LIST + "<" + I_VARIABLE + ">();");
-		sc.add("for (String key : children.keySet()) {");
-		sc.add("Long variableID = children.get(key);");
-		sc.add("" + I_VARIABLE + " response = debugTarget.getDebugProxy().getVariable(variableID);");
-		sc.add("variables.add(response);");
+		sc.add(COLLECTION + "<Long> childIDs = children.values();");
+		sc.add("String[] childIDStrings = new String[childIDs.size()];");
+		sc.add("int i = 0;");
+		sc.add("for (Long childID : childIDs) {");
+		sc.add("childIDStrings[i++] = childID.toString();");
 		sc.add("}");
-		sc.add("this.variables = variables.toArray(new " + I_VARIABLE + "[variables.size()]);");
+		sc.add(I_VARIABLE + "[] response = debugTarget.getDebugProxy().getVariables(childIDStrings);");
+		sc.add("variables = response;");
 		sc.add("}");
 		sc.add("return variables;");
 		sc.add("}");
@@ -113,6 +117,28 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	private void addHasVariablesMethod(JavaComposite sc) {
 		sc.add("public boolean hasVariables() throws " + DEBUG_EXCEPTION + " {");
 		sc.add("return this.children.keySet().size() > 0;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetVariableCountMethod(JavaComposite sc) {
+		sc.add("public int getVariableCount() {");
+		sc.add("return this.children.keySet().size();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetChildMethod(JavaComposite sc) {
+		sc.add("public " + I_VARIABLE + " getChild(int index) {");
+		sc.add(SET + "<String> keySet = this.children.keySet();");
+		sc.add(ITERATOR + "<String> iterator = keySet.iterator();");
+		sc.add("String keyAtIndex = iterator.next();");
+		sc.add("for (int i = 0; i < index; i++) {");
+		sc.add("keyAtIndex = iterator.next();");
+		sc.add("}");
+		sc.add("Long childID = this.children.get(keyAtIndex);");
+		sc.add(I_VARIABLE + "[] response = debugTarget.getDebugProxy().getVariables(childID.toString());");
+		sc.add("return response[0];");
 		sc.add("}");
 		sc.addLineBreak();
 	}

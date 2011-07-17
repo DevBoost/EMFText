@@ -185,20 +185,20 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("public " + I_VARIABLE + "[] getStackVariables(String stackFrame) {");
 		sc.add(debugMessageClassName + " response = sendCommandAndRead(" + eDebugMessageTypesClassName + ".GET_FRAME_VARIABLES, new String[] {stackFrame});");
 		sc.add("String[] ids = response.getArguments();");
-		sc.add(I_VARIABLE + "[] variables = new " + I_VARIABLE + "[ids.length];");
 		sc.addComment("fetch all variables");
-		sc.add("for (int i = 0; i < variables.length; i++) {");
-		sc.add("variables[i] = getVariable(Long.parseLong(ids[i]));");
-		sc.add("}");
+		sc.add(I_VARIABLE + "[] variables = getVariables(ids);");
 		sc.add("return variables;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetVariableMethod(JavaComposite sc) {
-		sc.add("public " + I_VARIABLE + " getVariable(long requestedID) {");
-		sc.add(debugMessageClassName + " response = sendCommandAndRead(" + eDebugMessageTypesClassName + ".GET_VARIABLE, Long.toString(requestedID));");
-		sc.add("String varString = response.getArgument(0);");
+		sc.add("public " + I_VARIABLE + "[] getVariables(String... requestedIDs) {");
+		sc.add(debugMessageClassName + " response = sendCommandAndRead(" + eDebugMessageTypesClassName + ".GET_VARIABLES, requestedIDs);");
+		sc.add("String[] varStrings = response.getArguments();");
+		sc.add(debugVariableClassName + "[] variables  = new " + debugVariableClassName + "[varStrings.length];");
+		sc.add("int i = 0;");
+		sc.add("for (String varString : varStrings) {");
 		sc.add(MAP + "<String, String> properties = " + stringUtilClassName + ".convertFromString(varString);");
 		sc.addLineBreak();
 		sc.addComment("convert varString to variables and values");
@@ -223,7 +223,9 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("String variableRefType = properties.get(\"!type\");");
 		sc.addLineBreak();
 		sc.add(debugVariableClassName + " variable = new " + debugVariableClassName + "(debugTarget, variableName, value, variableRefType);");
-		sc.add("return variable;");
+		sc.add("variables[i++] = variable;");
+		sc.add("}");
+		sc.add("return variables;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

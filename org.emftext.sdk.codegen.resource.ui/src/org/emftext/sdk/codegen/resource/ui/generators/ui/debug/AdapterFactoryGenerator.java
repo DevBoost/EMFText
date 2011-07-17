@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CHILDREN_COUNT_UPDATE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CHILDREN_UPDATE;
@@ -90,7 +91,9 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("public void update(" + I_CHILDREN_COUNT_UPDATE + "[] updates) {");
 		sc.add("try {");
 		sc.add("for (" + I_CHILDREN_COUNT_UPDATE + " update : updates) {");
-		sc.add("update.setChildCount(variable.getValue().getVariables().length);");
+		sc.add(I_VALUE + " value = variable.getValue();");
+		sc.add(debugValueClassName + " castedValue = (" + debugValueClassName + ") value;");
+		sc.add("update.setChildCount(castedValue.getVariableCount());");
 		sc.add("update.done();");
 		sc.add("}");
 		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
@@ -101,12 +104,13 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		
 		sc.add("public void update(" + I_CHILDREN_UPDATE + "[] updates) {");
 		sc.add("try {");
-		sc.add(I_VARIABLE + "[] variables = variable.getValue().getVariables();");
+		sc.add(I_VALUE + " value = variable.getValue();");
+		sc.add(debugValueClassName + " castedValue = (" + debugValueClassName + ") value;");
 		sc.add("for (" + I_CHILDREN_UPDATE + " update : updates) {");
 		sc.add("int offset = update.getOffset();");
 		sc.add("int length = update.getLength();");
 		sc.add("for (int i = offset; i < offset + length; i++) {");
-		sc.add(I_VARIABLE + " variable = variables[i];");
+		sc.add(I_VARIABLE + " variable = castedValue.getChild(i);");
 		sc.add("update.setChild(variable, i);");
 		sc.add("}");
 		sc.add("update.done();");
