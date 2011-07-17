@@ -115,6 +115,8 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("Float.class, float.class,");
 		sc.add("Double.class, double.class,");
 		sc.add("Byte.class, byte.class,");
+		sc.add("Short.class, short.class,");
+		sc.add("Char.class, char.class,");
 		sc.add("};");
 		sc.addLineBreak();
 	}
