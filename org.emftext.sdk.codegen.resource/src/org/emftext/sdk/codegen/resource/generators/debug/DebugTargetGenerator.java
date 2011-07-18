@@ -305,7 +305,11 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("removeEventListener(this.thread);");
 		sc.add("removeEventListener(this.process);");
 		sc.add(DEBUG_PLUGIN + " debugPlugin = " + DEBUG_PLUGIN + ".getDefault();");
+		sc.add("try {");
 		sc.add("debugPlugin.getBreakpointManager().removeBreakpointListener(this);");
+		sc.add("} catch (NullPointerException npe) {");
+		sc.addComment("this is a workaround for Eclipse bug 352315 (see https://bugs.eclipse.org/bugs/show_bug.cgi?id=352315)");
+		sc.add("}");
 		// TODO is this correct?
 		sc.add("getDebugProxy().terminate();");
 		sc.add("}");
