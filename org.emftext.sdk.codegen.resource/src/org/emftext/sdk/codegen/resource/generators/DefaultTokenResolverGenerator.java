@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_DATA_TYPE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ENUM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ENUM_LITERAL;
@@ -27,6 +28,9 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
+/**
+ * A generator for the DefaultTokenResolver class.
+ */
 public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
@@ -34,7 +38,20 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.addJavadoc("A default implementation for token resolvers. It tries to resolve lexems using Java methods.");
+		sc.addJavadoc(
+			"A default implementation for token resolvers. " +
+			"Generated token resolvers delegate calls to this class to convert text (i.e., tokens) to " +
+			"Java objects. " +
+			"This default implementation tries to perform this conversion using the EMF-based data type " +
+			"serialization mechanism using " + ECORE_UTIL + ".createFromString(). ", "",
+			"In addition, enumeration literals are converted to the respective literal object, if " +
+			"the text (i.e., the token) matches the literal. ", "",
+			"For boolean attributes the token is considered " +
+			"to represent <code>true</code> if it matches the name of the attribute. Attributes that have " +
+			"names like <code>isFoo</code> are also interpret as <code>true</code> if the text is <code>foo</code>.", "",
+			"The behavior of this resolving can be customized by either changing the generated token resolver " +
+			"classes or by using custom EMF data type converters."
+		);
 		sc.add("public class " + getResourceClassName() + " implements " + iTokenResolverClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
@@ -50,7 +67,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 
 	private void addConstructor1(JavaComposite sc) {
 		sc.addJavadoc(
-			"This constructor is used by token resolvers that were generated before EMFText 1.3.5. " +
+			"This constructor is used by token resolvers that were generated before EMFText 1.4.0. " +
 			"It does not enable automatic escaping and unescaping of keywords.");
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("this(false);");
@@ -60,7 +77,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 
 	private void addConstructor2(JavaComposite sc) {
 		sc.addJavadoc(
-			"This constructor is used by token resolvers that were generated with EMFText 1.3.5 and later releases. " +
+			"This constructor is used by token resolvers that were generated with EMFText 1.4.0 and later releases. " +
 			"It can optionally enable automatic escaping and unescaping of keywords.");
 		sc.add("public " + getResourceClassName() + "(boolean escapeKeywords) {");
 		sc.add("super();");
@@ -136,22 +153,23 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.addLineBreak();
 		sc.addComment("Step 3: convert text to Java object");
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
-		sc.add("if (feature.getEType() instanceof " + E_ENUM + ") {");
-		sc.add(E_ENUM_LITERAL + " literal = ((" + E_ENUM + ") feature.getEType()).getEEnumLiteralByLiteral(lexem);");
+		sc.add(E_CLASSIFIER + " featureType = feature.getEType();");
+		sc.add("if (featureType instanceof " + E_ENUM + ") {");
+		sc.add(E_ENUM_LITERAL + " literal = ((" + E_ENUM + ") featureType).getEEnumLiteralByLiteral(lexem);");
 		sc.add("if (literal != null) {");
 		sc.add("result.setResolvedToken(literal.getInstance());");
 		sc.add("return;");
 		sc.add("} else {");
-		sc.add("result.setErrorMessage(\"Could not map lexem '\" + lexem + \"' to enum '\" + feature.getEType().getName() + \"'.\");");
+		sc.add("result.setErrorMessage(\"Could not map lexem '\" + lexem + \"' to enum '\" + featureType.getName() + \"'.\");");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("} else if (feature.getEType() instanceof " + E_DATA_TYPE + ") {");
+		sc.add("} else if (featureType instanceof " + E_DATA_TYPE + ") {");
 		sc.add("try {");
-		sc.add("result.setResolvedToken(" + ECORE_UTIL + ".createFromString((" + E_DATA_TYPE + ") feature.getEType(), lexem));");
+		sc.add("result.setResolvedToken(" + ECORE_UTIL + ".createFromString((" + E_DATA_TYPE + ") featureType, lexem));");
 		sc.add("} catch (Exception e) {");
-		sc.add("result.setErrorMessage(\"Could not convert '\" + lexem + \"' to '\" + feature.getEType().getName() + \"'.\");");
+		sc.add("result.setErrorMessage(\"Could not convert '\" + lexem + \"' to '\" + featureType.getName() + \"'.\");");
 		sc.add("}");
-		sc.add("String typeName = feature.getEType().getInstanceClassName();");
+		sc.add("String typeName = featureType.getInstanceClassName();");
 		sc.add("if (typeName.equals(\"boolean\") || java.lang.Boolean.class.getName().equals(typeName)) {");
 		sc.add("String featureName = feature.getName();");
 		sc.add("boolean featureNameMatchesLexem = featureName.equals(lexem);");
