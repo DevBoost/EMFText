@@ -15,8 +15,22 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 /**
- * A default implementation for token resolvers. It tries to resolve lexems using
- * Java methods.
+ * A default implementation for token resolvers. Generated token resolvers
+ * delegate calls to this class to convert text (i.e., tokens) to Java objects.
+ * This default implementation tries to perform this conversion using the
+ * EMF-based data type serialization mechanism using
+ * org.eclipse.emf.ecore.util.EcoreUtil.createFromString().
+ * 
+ * In addition, enumeration literals are converted to the respective literal
+ * object, if the text (i.e., the token) matches the literal.
+ * 
+ * For boolean attributes the token is considered to represent <code>true</code>
+ * if it matches the name of the attribute. Attributes that have names like
+ * <code>isFoo</code> are also interpret as <code>true</code> if the text is
+ * <code>foo</code>.
+ * 
+ * The behavior of this resolving can be customized by either changing the
+ * generated token resolver classes or by using custom EMF data type converters.
  */
 public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver {
 	
@@ -25,7 +39,7 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 	
 	/**
 	 * This constructor is used by token resolvers that were generated before EMFText
-	 * 1.3.5. It does not enable automatic escaping and unescaping of keywords.
+	 * 1.4.0. It does not enable automatic escaping and unescaping of keywords.
 	 */
 	public CsDefaultTokenResolver() {
 		this(false);
@@ -33,7 +47,7 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 	
 	/**
 	 * This constructor is used by token resolvers that were generated with EMFText
-	 * 1.3.5 and later releases. It can optionally enable automatic escaping and
+	 * 1.4.0 and later releases. It can optionally enable automatic escaping and
 	 * unescaping of keywords.
 	 */
 	public CsDefaultTokenResolver(boolean escapeKeywords) {
@@ -79,22 +93,23 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 		
 		// Step 3: convert text to Java object
 		if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
-			if (feature.getEType() instanceof org.eclipse.emf.ecore.EEnum) {
-				org.eclipse.emf.ecore.EEnumLiteral literal = ((org.eclipse.emf.ecore.EEnum) feature.getEType()).getEEnumLiteralByLiteral(lexem);
+			org.eclipse.emf.ecore.EClassifier featureType = feature.getEType();
+			if (featureType instanceof org.eclipse.emf.ecore.EEnum) {
+				org.eclipse.emf.ecore.EEnumLiteral literal = ((org.eclipse.emf.ecore.EEnum) featureType).getEEnumLiteralByLiteral(lexem);
 				if (literal != null) {
 					result.setResolvedToken(literal.getInstance());
 					return;
 				} else {
-					result.setErrorMessage("Could not map lexem '" + lexem + "' to enum '" + feature.getEType().getName() + "'.");
+					result.setErrorMessage("Could not map lexem '" + lexem + "' to enum '" + featureType.getName() + "'.");
 					return;
 				}
-			} else if (feature.getEType() instanceof org.eclipse.emf.ecore.EDataType) {
+			} else if (featureType instanceof org.eclipse.emf.ecore.EDataType) {
 				try {
-					result.setResolvedToken(org.eclipse.emf.ecore.util.EcoreUtil.createFromString((org.eclipse.emf.ecore.EDataType) feature.getEType(), lexem));
+					result.setResolvedToken(org.eclipse.emf.ecore.util.EcoreUtil.createFromString((org.eclipse.emf.ecore.EDataType) featureType, lexem));
 				} catch (Exception e) {
-					result.setErrorMessage("Could not convert '" + lexem + "' to '" + feature.getEType().getName() + "'.");
+					result.setErrorMessage("Could not convert '" + lexem + "' to '" + featureType.getName() + "'.");
 				}
-				String typeName = feature.getEType().getInstanceClassName();
+				String typeName = featureType.getInstanceClassName();
 				if (typeName.equals("boolean") || java.lang.Boolean.class.getName().equals(typeName)) {
 					String featureName = feature.getName();
 					boolean featureNameMatchesLexem = featureName.equals(lexem);
