@@ -65,7 +65,8 @@ public class GeneratorUtil {
 
 	public String getFeatureConstant(GenClass genClass, GenFeature genFeature) {
 		GenPackage genPackage = genClass.getGenPackage();
-		return genPackage.getQualifiedPackageInterfaceName() + "." + genClass.getFeatureValue(genFeature);
+		String featureID = genClass.getFeatureID(genFeature);
+		return genPackage.getQualifiedPackageInterfaceName() + "." + featureID;
 	}
 
 	public String getFeatureAccessor(GenClass genClass, GenFeature genFeature) {
