@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
@@ -26,10 +26,14 @@ import org.emftext.sdk.codegen.IContext;
  */
 public abstract class BaseGenerator<ContextType extends IContext<ContextType>, ParameterType> extends AbstractGenerator<ContextType, ParameterType> {
 	
-	protected static final Map<String, String> javaNativeTypeMapping;
-	static {
-		javaNativeTypeMapping = new HashMap<String, String>();
-		
+	private final Map<String, String> javaNativeTypeMapping = new LinkedHashMap<String, String>();
+	
+	public BaseGenerator() {
+		super();
+		initializeTypeMapping();
+	}
+	
+	private void initializeTypeMapping() {
 		javaNativeTypeMapping.put("int", "java.lang.Integer");
 		javaNativeTypeMapping.put("short", "java.lang.Short");
 		javaNativeTypeMapping.put("long", "java.lang.Long");
@@ -40,13 +44,9 @@ public abstract class BaseGenerator<ContextType extends IContext<ContextType>, P
 		javaNativeTypeMapping.put("char", "java.lang.Character");
 	}
 
-	public BaseGenerator() {
-		super();
-	}
-	
     protected String getObjectTypeName(String typeName){
-    	if (BaseGenerator.javaNativeTypeMapping.containsKey(typeName)) {
-    		return BaseGenerator.javaNativeTypeMapping.get(typeName);
+    	if (javaNativeTypeMapping.containsKey(typeName)) {
+    		return javaNativeTypeMapping.get(typeName);
     	}
     	return typeName;
     }

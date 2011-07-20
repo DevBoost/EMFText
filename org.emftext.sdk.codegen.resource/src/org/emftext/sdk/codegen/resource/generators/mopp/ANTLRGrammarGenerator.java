@@ -1843,7 +1843,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 					// the feature is an EAttribute
 					targetTypeName = genFeature.getQualifiedListItemType(null);
 					resolvements.add(targetTypeName + " " + resolvedIdent + " = ("
-							+ getObjectTypeName(targetTypeName) + ")" + preResolved
+							+ getObjectTypeName(targetTypeName) + ") " + preResolved
 							+ ";");
 					expressionToBeSet = "resolved";
 				}
