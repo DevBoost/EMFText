@@ -685,6 +685,7 @@ you can set the \texttt{overrideNewProjectWizard} option to
 according to your needs.
 
 \subsection{Implementing Launch Support}
+\label{sec:launch_support}
 
 For executable DSLs it is convenient to provide users with support for launch
 configurations. EMFText does generate all the code that is required to obtain a
@@ -706,3 +707,20 @@ Zoo\footnote{\url{http://www.emftext.org/language/simplemath}}. If you do not
 need launch support for your DSL and you want to get rid of the generated code
 for this feature, set the option \texttt{disableLaunchSupport} to
 \texttt{true}.
+
+\subsection{Enabling Debug Support}
+
+EMFText generates all the infrastructure code that is required to obtain a
+full fledged debugger for executable DSLs that use a stack-based interpreter.
+In Sect.~\ref{sec:cust_interpreters}, details on the implementation of such
+interpreters can be found. To enable debugging you can simply adjust the 
+\texttt{LaunchConfigurationDelegate} class as described in
+Sect.~\ref{sec:launch_support} to tell EMFText which interpreter must be used
+when running or debugging DSL models. Here, the
+\texttt{LaunchConfigurationHelper} class provides a method
+\texttt{launchInterpreter()} that allows to run and debug custom interpreters.
+
+The WebTest\footnote{\url{http://www.emftext.org/language/webtest}} and the
+Pico\footnote{\url{http://www.emftext.org/language/pico}} language in the
+EMFText Syntax Zoo contain custom interpreters and launch configurations. They
+can serve as a starting point to see how debugging support can be realized.
