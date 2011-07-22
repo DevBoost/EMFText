@@ -63,8 +63,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	@Override
 	public List<IArtifactCreator<GenerationContext>> getCreators(
 			GenerationContext context) {
+
 		IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
 		final ConcreteSyntax syntax = context.getConcreteSyntax();
+		final boolean disableNewProjectWizard = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.DISABLE_NEW_PROJECT_WIZARD);
 		
 		List<IArtifactCreator<GenerationContext>> creators = new ArrayList<IArtifactCreator<GenerationContext>>();
 
@@ -94,7 +96,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		bpp.getBinIncludes().add(".");
 		bpp.getBinIncludes().add("icons/");
 		bpp.getBinIncludes().add("css/");
-		bpp.getBinIncludes().add("newProject.zip");
+		if (!disableNewProjectWizard) {
+			bpp.getBinIncludes().add("newProject.zip");
+		}
 		bpp.getBinIncludes().add("plugin.xml");
 		creators.add(new BuildPropertiesCreator<GenerationContext>(bpp, doOverride(syntax, buildProperties)));
 
