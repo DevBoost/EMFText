@@ -312,8 +312,9 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("candidate = getResolvedEObject(candidate);");
 		sc.add("}");
 		sc.addComment(
-			"take an element that is actually contained in a resource. " +
-			"the location map might reference elements that were removed by a post processor"
+			"Only accept elements that are actually contained in a resource. " +
+			"The location map might reference elements that were removed by a post processor and " +
+			"which are therefore not part of the resource anymore."
 		);
 		sc.add("if (candidate.eResource() != null) {");
 		sc.add("return candidate;");
