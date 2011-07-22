@@ -128,8 +128,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		}
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
-	    // the initial newProject.zip 
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("newProject.zip"), getNewProjectFile(resourceUIPlugin, context), false));	    
+	    if (!disableNewProjectWizard) {
+		    // copy the initial newProject.zip 
+		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("newProject.zip"), getNewProjectFile(resourceUIPlugin, context), false));	    
+		}
 	    
 	    // add UI generators
 		add(creators, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
