@@ -17,6 +17,7 @@ import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
@@ -156,6 +157,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		addGetExternalObjectsMethod(sc);
 		addTryToResolveIdentifierInObjectTree(sc);
 		addTryToResolveIdentifierAsURI(sc);
+		addTryToResolveIdentifierInGenModelRegistry(sc);
 		addCheckElementMethod(sc);
 		addCastMethod(sc);
 		addProduceDeResolveErrorMessage(sc);
@@ -171,6 +173,37 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		addSetEnableScopingMethod(sc);
 		addGetEnableScopingMethod(sc);
 		addIsSimilarMethod(sc);
+	}
+
+	private void addTryToResolveIdentifierInGenModelRegistry(JavaComposite sc) {
+		sc.add("private boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.test.resolving.resource.resolving.IResolvingReferenceResolveResult<ReferenceType> result) {");
+		sc.add(E_CLASS + " type = reference.getEReferenceType();");
+		sc.addLineBreak();
+		sc.add("final " + MAP + "<String, " + URI + "> packageNsURIToGenModelLocationMap = " + ECORE_PLUGIN + ".getEPackageNsURIToGenModelLocationMap();");
+		sc.add("for (String nextNS : packageNsURIToGenModelLocationMap.keySet()) {");
+		sc.add(URI + " genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);");
+		sc.add("try {");
+		sc.add("final " + RESOURCE_SET + " rs = container.eResource().getResourceSet();");
+		sc.add(RESOURCE + " genModelResource = rs.getResource(genModelURI, true);");
+		sc.add("if (genModelResource == null) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.add("final " + LIST + "<" + E_OBJECT + "> contents = genModelResource.getContents();");
+		sc.add("if (contents == null || contents.size() == 0) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.add(E_OBJECT + " genModel = contents.get(0);");
+		sc.add("boolean continueSearch = checkElement(container, genModel, reference, position, type, identifier, resolveFuzzy, false, result);");
+		sc.add("if (!continueSearch) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("} catch (Exception e) {");
+		sc.addComment("ignore exceptions that are raised by faulty genmodel registrations");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetCacheMethod(StringComposite sc) {
@@ -482,6 +515,9 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("}");
+		sc.add("if (continueSearch) {");
+		sc.add("continueSearch = tryToResolveIdentifierInGenModelRegistry(identifier, container, reference, position, resolveFuzzy, result);");
 		sc.add("}");
 		sc.add("} catch (" + RUNTIME_EXCEPTION + " rte) {");
 		sc.addComment("catch exception here to prevent EMF proxy resolution from swallowing it");

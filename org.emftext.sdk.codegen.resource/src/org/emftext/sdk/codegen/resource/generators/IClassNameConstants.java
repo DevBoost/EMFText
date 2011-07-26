@@ -179,6 +179,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.BasicEObjectImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -245,6 +246,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String DOCUMENT_LISTENER = DocumentListener.class.getName();
 	public static String EARLY_EXIT_EXCEPTION = EarlyExitException.class.getName();
 	public static String ECORE_FACTORY = EcoreFactory.class.getName();
+	public static String ECORE_PLUGIN = EcorePlugin.class.getName();
 	public static String ECORE_UTIL = EcoreUtil.class.getName();
 	public static String ECORE_VALIDATOR = EcoreValidator.class.getName();
 	public static String EDITOR = Editor.class.getName();
