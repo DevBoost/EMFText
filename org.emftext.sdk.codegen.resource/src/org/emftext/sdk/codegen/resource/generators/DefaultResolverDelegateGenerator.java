@@ -176,7 +176,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addTryToResolveIdentifierInGenModelRegistry(JavaComposite sc) {
-		sc.add("private boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.test.resolving.resource.resolving.IResolvingReferenceResolveResult<ReferenceType> result) {");
+		sc.add("private boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
 		sc.addLineBreak();
 		sc.add("final " + MAP + "<String, " + URI + "> packageNsURIToGenModelLocationMap = " + ECORE_PLUGIN + ".getEPackageNsURIToGenModelLocationMap();");
