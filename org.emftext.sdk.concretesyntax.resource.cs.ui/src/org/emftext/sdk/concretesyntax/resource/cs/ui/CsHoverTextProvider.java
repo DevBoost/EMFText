@@ -111,8 +111,10 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 			int upperBound = eFeature.getUpperBound();
 			String documentation = EcoreUtil.getDocumentation(eFeature);
 			String documentationHTML = documentation == null ? "" : " (" + documentation +")";
+			EClassifier featureType = eFeature.getEType();
+			String typeName = featureType == null ? "" : featureType.getName();
 			return "<strong>" + eClass.getName() + "</strong> " + eFeature.getName() + documentationHTML + " : " + 
-				eFeature.getEType().getName() + " " + eFeature.getLowerBound() + ".." + 
+				typeName + " " + eFeature.getLowerBound() + ".." + 
 				(upperBound >= 0 ? upperBound : "*") + getBooleanString(eObject);
 		}
 
