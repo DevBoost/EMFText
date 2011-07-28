@@ -153,17 +153,13 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addGetLayoutInformationMethod(StringComposite sc) {
-		// TODO rename method
 		sc.add("private " + layoutInformationClassName + " getLayoutInformation(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, Object object, " + E_OBJECT + " container) {");
-		//sc.add(LIST + "<" + layoutInformationClassName + "> result = new " + ARRAY_LIST + "<" + layoutInformationClassName + ">(1);");
 		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
 		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
 		sc.add("if (object == null) {");
 		sc.add("return layoutInformation;");
-		//sc.add("return result;");
 		sc.add("} else if (isSame(object, layoutInformation.getObject(container))) {");
 		sc.add("return layoutInformation;");
-		//sc.add("return result;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -717,14 +713,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintFormattingElementsMethod(JavaComposite sc) {
-		// TODO
-		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> allLayoutInformations, " + LIST + "<" + layoutInformationClassName + "> layoutInformationsToPrint) {");
-		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformationsToPrint) {");
-		sc.add("printFormattingElements(foundFormattingElements, allLayoutInformations, layoutInformation);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-
 		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + layoutInformationClassName + " layoutInformation) {");
 		// (a) if the element to print is at the correct printing spot (the
 		// one it was parsed at, print whitespace collected while parsing
