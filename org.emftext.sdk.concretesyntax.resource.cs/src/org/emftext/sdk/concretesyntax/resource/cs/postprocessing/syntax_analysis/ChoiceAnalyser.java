@@ -30,7 +30,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostPro
 public class ChoiceAnalyser extends AbstractPostProcessor {
 
 	private static final String EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS = 
-		"Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
+		"Explicit syntax choices are not reflected in model instances and may thus cause problems when printing models.";
 
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
