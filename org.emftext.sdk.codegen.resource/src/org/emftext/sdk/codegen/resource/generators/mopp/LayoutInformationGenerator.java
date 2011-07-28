@@ -75,6 +75,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 		addGetHiddenTokenTextMethod(sc);
 		addGetVisibleTokenTextMethod(sc);
 		addReplaceProxyMethod(sc);
+		addToStringMethod(sc);
 	}
 
 	private void addGetSyntaxElementMethod(StringComposite sc) {
@@ -140,6 +141,13 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("if (this.object == proxy) {");
 		sc.add("this.object = target;");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {");
+		sc.add("return \"visible='\" + visibleTokenText + \"', hidden='\" + hiddenTokenText + \"', object='\" + object + \"', syntaxElement='\" + syntaxElement + \"'\";");
 		sc.add("}");
 		sc.addLineBreak();
 	}

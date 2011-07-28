@@ -151,10 +151,10 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("return;");
 		sc.add("}");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
+		sc.add("StringBuilder anonymousText = new StringBuilder();");
 		sc.add("for (" + COMMON_TOKEN + " anonymousToken : anonymousTokens) {");
-		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, anonymousToken.getStartIndex(), anonymousToken.getText(), null));");
+		sc.add("anonymousText.append(anonymousToken.getText());");
 		sc.add("}");
-		sc.add("anonymousTokens.clear();");
 		sc.add("int currentPos = getTokenStream().index();");
 		sc.add("if (currentPos == 0) {");
 		sc.add("return;");
@@ -170,12 +170,16 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("}");
 		sc.add("}");
 		sc.add("StringBuilder hiddenTokenText = new StringBuilder();");
+		sc.add("hiddenTokenText.append(anonymousText);");
 		sc.add("StringBuilder visibleTokenText = new StringBuilder();");
 		sc.add(COMMON_TOKEN + " firstToken = null;");
 		sc.add("for (int pos = this.lastPosition2; pos <= endPos; pos++) {");
 		sc.add(TOKEN + " token = getTokenStream().get(pos);");
 		sc.add("if (firstToken == null) {");
 		sc.add("firstToken = (" + COMMON_TOKEN + ") token;");
+		sc.add("}");
+		sc.add("if (anonymousTokens.contains(token)) {");
+		sc.add("continue;");
 		sc.add("}");
 		sc.add("int _channel = token.getChannel();");
 		sc.add("if (_channel == 99) {");
@@ -190,6 +194,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("}");
 		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));");
 		sc.add("this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);");
+		sc.add("anonymousTokens.clear();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

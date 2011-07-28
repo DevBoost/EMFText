@@ -135,6 +135,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addSetTokenSpaceMethod(sc);
 		addPrintBasicMethod(sc);
 		addPrintSmartMethod(sc);
+		addIsSameMethod(sc);
 	}
 
 	private void addSetTokenSpaceMethod(JavaComposite sc) {
@@ -152,17 +153,31 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addGetLayoutInformationMethod(StringComposite sc) {
+		// TODO rename method
 		sc.add("private " + layoutInformationClassName + " getLayoutInformation(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, Object object, " + E_OBJECT + " container) {");
+		//sc.add(LIST + "<" + layoutInformationClassName + "> result = new " + ARRAY_LIST + "<" + layoutInformationClassName + ">(1);");
 		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
 		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
 		sc.add("if (object == null) {");
 		sc.add("return layoutInformation;");
-		sc.add("} else if (object == layoutInformation.getObject(container)) {");
+		//sc.add("return result;");
+		sc.add("} else if (isSame(object, layoutInformation.getObject(container))) {");
 		sc.add("return layoutInformation;");
+		//sc.add("return result;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addIsSameMethod(StringComposite sc) {
+		sc.add("private boolean isSame(Object o1, Object o2) {");
+		sc.add("if (o1 instanceof Integer || o1 instanceof Long || o1 instanceof Byte || o1 instanceof Short || o1 instanceof Float || o2 instanceof Double) {");
+		sc.add("return o1.equals(o2);");
+		sc.add("}");
+		sc.add("return o1 == o2;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -553,8 +568,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintKeywordMethod(StringComposite sc) {
 		sc.add("public void printKeyword(" + E_OBJECT + " eObject, " + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
-		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
+		sc.add(layoutInformationClassName + " keywordLayout = getLayoutInformation(layoutInformations, keyword, null, eObject);");
+		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, keywordLayout);");
 		sc.add("String value = keyword.getValue();");
 		// TODO using single quotes and escapeToANTLRKeyword() to obtain the token name here is ANTLR specific
 		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(value) + \"'\"));");
@@ -621,18 +636,24 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintAttributeCode(JavaComposite sc, String terminalParameter, String tokenName, StringComposite deResolveCode) {
-		sc.add("String result;");
+		sc.add("String result = null;");
 		sc.add("Object attributeValue = getValue(eObject, attribute, count);");
-		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, " + terminalParameter + ", attributeValue, eObject);");
-		sc.add("String visibleTokenText = getVisibleTokenText(layoutInformation);");
+		sc.add(layoutInformationClassName + " attributeLayout = getLayoutInformation(layoutInformations, " + terminalParameter + ", attributeValue, eObject);");
+		//sc.add("for (" + layoutInformationClassName + " attributeLayout : attributeLayouts) {");
+		sc.add("String visibleTokenText = getVisibleTokenText(attributeLayout);");
 		sc.addComment("if there is text for the attribute we use it");
 		sc.add("if (visibleTokenText != null) {");
 		sc.add("result = visibleTokenText;");
-		sc.add("} else {");
+		//sc.add("break;");
+		sc.add("}");
+		//sc.add("}");
+		sc.addLineBreak();
+		sc.add("if (result == null) {");
 		sc.add(deResolveCode);
 		sc.add("}");
+		sc.addLineBreak();
 		sc.add("if (result != null && !\"\".equals(result)) {");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
+		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);");
 		sc.addComment("write result to the output stream");
 		sc.add("tokenOutputStream.add(new PrintToken(result, " + tokenName + "));");
 		sc.add("}");
@@ -646,8 +667,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("String tokenName = placeholder.getTokenName();");
 		sc.add("Object referencedObject = getValue(eObject, reference, count);");
 		sc.addComment("first add layout before the reference");
-		sc.add(layoutInformationClassName + " layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);");
+		sc.add(layoutInformationClassName + " referenceLayout = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
+		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, referenceLayout);");
 		sc.addComment("proxy objects must be printed differently");
 		generatorUtil.addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "referencedObject");
 		sc.add("if (deresolvedReference == null) {");
@@ -696,6 +717,14 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintFormattingElementsMethod(JavaComposite sc) {
+		// TODO
+		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> allLayoutInformations, " + LIST + "<" + layoutInformationClassName + "> layoutInformationsToPrint) {");
+		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformationsToPrint) {");
+		sc.add("printFormattingElements(foundFormattingElements, allLayoutInformations, layoutInformation);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+
 		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + layoutInformationClassName + " layoutInformation) {");
 		// (a) if the element to print is at the correct printing spot (the
 		// one it was parsed at, print whitespace collected while parsing
