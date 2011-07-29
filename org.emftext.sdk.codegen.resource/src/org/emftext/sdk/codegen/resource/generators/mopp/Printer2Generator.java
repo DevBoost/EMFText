@@ -107,9 +107,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"feature of an EObject. It is also used to store the indices of all values that have been " +
 			"printed. This knowledge is used to avoid printing values twice. We must store the concrete " +
 			"indices of the printed values instead of basically counting them, because values may be printed " +
-			"in an order that differs from the order in which they are stored in the EObject's feature.",
-			"For some reason, the indices of the values to print are stored inversely. The real index " +
-			"of the value can be computed as follows: valueList.size() - indexToPrint."
+			"in an order that differs from the order in which they are stored in the EObject's feature."
 		);
 		sc.add("protected class PrintCountingMap {");
 		sc.addLineBreak();
@@ -138,6 +136,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("return totalValuesToPrint - printedValues;");
 		sc.add("}");
 		sc.addLineBreak();
+		sc.add("public int getNextIndexToPrint(String featureName) {");
+		sc.add("int printedValues = featureToPrintedIndicesMap.get(featureName).size();");
+		sc.add("return printedValues;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -162,7 +165,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintContainedObjectMethod(sc);
 		addPrintFormattingElementsMethod(sc);
 		addSetTabsBeforeCurrentObjectMethod(sc);
-		addGetValueMethod(sc);
 		addPrintReferenceMethod(sc);
 		addInitializePrintCountingMapMethod(sc);
 		addGetOptionsMethod(sc);
@@ -437,7 +439,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		// where is the most reasonable place to put such warnings.
 		sc.add("if (countLeft > terminal.getMandatoryOccurencesAfter()) {");
 		sc.addComment("normally we print the element at the next index");
-		sc.add("int indexToPrint = countLeft;");
+		sc.add("int indexToPrint = printCountingMap.getNextIndexToPrint(featureName);");
 		sc.addComment(
 			"But, if there are type restrictions for containments, we must choose an " +
 			"index of an element that fits (i.e., which has the correct type)"
@@ -507,13 +509,13 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (value instanceof " + LIST + "<?>) {");
 		sc.add(LIST + "<?> valueList = (" + LIST + "<?>) value;");
 		sc.add("int listSize = valueList.size();");
-		sc.add("for (int i = 0; i < listSize; i++) {");
-		sc.add("if (indicesToPrint.contains(listSize - i)) {");
+		sc.add("for (int index = 0; index < listSize; index++) {");
+		sc.add("if (indicesToPrint.contains(index)) {");
 		sc.add("continue;");
 		sc.add("}");
-		sc.add("Object valueAtIndex = valueList.get(i);");
+		sc.add("Object valueAtIndex = valueList.get(index);");
 		sc.add("if (eClassUtil.isInstance(valueAtIndex, allowedTypes)) {");
-		sc.add("return listSize - i;");
+		sc.add("return index;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} else {");
@@ -674,7 +676,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintAttributeMethod(JavaComposite sc) {
-		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("public void printAttribute(" + E_OBJECT + " eObject, " + E_ATTRIBUTE + " attribute, " + placeholderClassName + " placeholder, int index, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 
 		JavaComposite deResolveCode = new JavaComposite();
 		deResolveCode.addComment("if no text is available, the attribute is deresolved to obtain its textual representation");
@@ -689,7 +691,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintBooleanTerminalMethod(JavaComposite sc) {
-		sc.add("public void printBooleanTerminal(" + E_OBJECT + " eObject, " + booleanTerminalClassName + " booleanTerminal, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("public void printBooleanTerminal(" + E_OBJECT + " eObject, " + booleanTerminalClassName + " booleanTerminal, int index, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_ATTRIBUTE + " attribute = booleanTerminal.getAttribute();");
 
 		JavaComposite deResolveCode = new JavaComposite();
@@ -706,7 +708,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintEnumerationTerminalMethod(JavaComposite sc) {
-		sc.add("public void printEnumerationTerminal(" + E_OBJECT + " eObject, " + enumerationTerminalClassName + " enumTerminal, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("public void printEnumerationTerminal(" + E_OBJECT + " eObject, " + enumerationTerminalClassName + " enumTerminal, int index, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_ATTRIBUTE + " attribute = enumTerminal.getAttribute();");
 
 		JavaComposite deResolveCode = new JavaComposite();
@@ -721,7 +723,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintAttributeCode(JavaComposite sc, String terminalParameter, String tokenName, StringComposite deResolveCode) {
 		sc.add("String result = null;");
-		sc.add("Object attributeValue = getValue(eObject, attribute, count);");
+		sc.add("Object attributeValue = " + eObjectUtilClassName + ".getFeatureValue(eObject, attribute, index);");
 		sc.add(layoutInformationClassName + " attributeLayout = getLayoutInformation(layoutInformations, " + terminalParameter + ", attributeValue, eObject);");
 		//sc.add("for (" + layoutInformationClassName + " attributeLayout : attributeLayouts) {");
 		sc.add("String visibleTokenText = getVisibleTokenText(attributeLayout);");
@@ -747,9 +749,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addPrintReferenceMethod(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
-		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int index, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add("String tokenName = placeholder.getTokenName();");
-		sc.add("Object referencedObject = getValue(eObject, reference, count);");
+		sc.add("Object referencedObject = " + eObjectUtilClassName + ".getFeatureValue(eObject, reference, index);");
 		sc.addComment("first add layout before the reference");
 		sc.add(layoutInformationClassName + " referenceLayout = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, referenceLayout);");
@@ -778,9 +780,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintContainedObjectMethod(JavaComposite sc) {
-		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + containmentClassName + " containment, int count, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
+		sc.add("public void printContainedObject(" + E_OBJECT + " eObject, " + containmentClassName + " containment, int index, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(E_STRUCTURAL_FEATURE + " reference = containment.getFeature();");
-		sc.add("Object o = getValue(eObject, reference, count);");
+		sc.add("Object o = " + eObjectUtilClassName + ".getFeatureValue(eObject, reference, index);");
 		sc.addComment(
 				"save current number of tabs to restore them after printing the contained object"
 		);
@@ -870,20 +872,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 	
-	private void addGetValueMethod(JavaComposite sc) {
-		sc.add("private Object getValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int count) {");
-		sc.addComment("get value of feature");
-		sc.add("Object o = eObject.eGet(feature);");
-		sc.add("if (o instanceof " + LIST + "<?>) {");
-		sc.add(LIST + "<?> list = (" + LIST + "<?>) o;");
-		sc.add("int index = list.size() - count;");
-		sc.add("o = list.get(index);");
-		sc.add("}");
-		sc.add("return o;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addPrintMethod(JavaComposite sc) {
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + " {");
 		sc.add("tokenOutputStream = new " + ARRAY_LIST + "<PrintToken>();");

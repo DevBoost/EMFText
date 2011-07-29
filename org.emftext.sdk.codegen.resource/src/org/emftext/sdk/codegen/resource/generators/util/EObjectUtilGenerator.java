@@ -13,7 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -21,7 +22,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INVOCATION_TARGET_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.METHOD;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -56,6 +56,21 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		addInvokeOperationMethod(sc);
 		addSetFeatureMethod(sc);
 		addGetDepthMethod(sc);
+		addGetValueMethod(sc);
+	}
+
+	private void addGetValueMethod(JavaComposite sc) {
+		sc.add("public static Object getFeatureValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int index) {");
+		sc.addComment("get value of feature");
+		sc.add("Object o = eObject.eGet(feature);");
+		sc.add("if (o instanceof " + LIST + "<?>) {");
+		sc.add(LIST + "<?> list = (" + LIST + "<?>) o;");
+		//sc.add("int index = list.size() - count;");
+		sc.add("o = list.get(index);");
+		sc.add("}");
+		sc.add("return o;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetDepthMethod(JavaComposite sc) {
