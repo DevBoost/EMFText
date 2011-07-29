@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -167,7 +169,21 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			String featureAccessor = getFeatureAccessor(rule.getMetaclass(), genFeature);
 			String fieldName = nameUtil.getFieldName(containment);
 			int mandatoryOccurencesAfter = occurrenceHelper.getMandatoryOccurencesAfter(containment, genFeature);
-			sc.add("public final static " + containmentClassName + " " + fieldName + " = new " + containmentClassName + "(" + featureAccessor + ", " + getCardinality(next) + ", " + mandatoryOccurencesAfter + ");");
+			
+			StringBuffer allowedSubTypeString = new StringBuffer();
+			EList<GenClass> allowedSubTypes = containment.getAllowedSubTypes();
+			if (allowedSubTypes.isEmpty()) {
+				allowedSubTypeString.append("null");
+			} else {
+				allowedSubTypeString.append("new " + E_CLASS + "[] {");
+				for (GenClass genClass : allowedSubTypes) {
+					String metaClassAccessor = generatorUtil.getClassifierAccessor(genClass);
+					allowedSubTypeString.append(metaClassAccessor + ", ");
+				}
+				allowedSubTypeString.append("}");
+			}
+			
+			sc.add("public final static " + containmentClassName + " " + fieldName + " = new " + containmentClassName + "(" + featureAccessor + ", " + getCardinality(next) + ", " + allowedSubTypeString.toString() + ", " + mandatoryOccurencesAfter + ");");
 		} else if (next instanceof CompoundDefinition) {
 			CompoundDefinition compound = (CompoundDefinition) next;
 			Choice choice = compound.getDefinition();

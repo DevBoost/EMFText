@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -30,15 +31,34 @@ public class ContainmentGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		
 		sc.add("public class " + getResourceClassName() + " extends " + terminalClassName + " {");
 		sc.addLineBreak();
+		addFields(sc);
 		addConstructor(sc);
-		addToStringMethod(sc);
+		addMethods(sc);
 		sc.add("}");
 	}
 
+	private void addFields(JavaComposite sc) {
+		sc.add("private final " + E_CLASS + "[] allowedTypes;");
+		sc.addLineBreak();
+	}
+
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality, " + E_CLASS + "[] allowedTypes, int mandatoryOccurencesAfter) {"); 
 		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
+		sc.add("this.allowedTypes = allowedTypes;");
 		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetAllowedTypesMethod(sc);
+		addToStringMethod(sc);
+	}
+	
+	private void addGetAllowedTypesMethod(JavaComposite sc) {
+		sc.add("public " + E_CLASS + "[] getAllowedTypes() {"); 
+		sc.add("return allowedTypes;"); 
+		sc.add("}"); 
 		sc.addLineBreak();
 	}
 
