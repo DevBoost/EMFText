@@ -670,7 +670,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a5).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a5).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a5).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a5).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), value);
@@ -783,7 +783,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						if (resolvedObject == null) {
 							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
 						}
-						java.lang.String resolved = (java.lang.String)resolvedObject;
+						java.lang.String resolved = (java.lang.String) resolvedObject;
 						if (resolved != null) {
 							Object value = resolved;
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), value);
@@ -1671,7 +1671,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), value);
@@ -1767,7 +1767,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 						if (resolvedObject == null) {
 							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
 						}
-						java.lang.String resolved = (java.lang.String)resolvedObject;
+						java.lang.String resolved = (java.lang.String) resolvedObject;
 						if (resolved != null) {
 							Object value = resolved;
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), value);
@@ -1891,7 +1891,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 								if (resolvedObject == null) {
 									addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
 								}
-								java.lang.String resolved = (java.lang.String)resolvedObject;
+								java.lang.String resolved = (java.lang.String) resolvedObject;
 								if (resolved != null) {
 									Object value = resolved;
 									element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), value);
@@ -1953,7 +1953,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
 				}
-				org.emftext.sdk.concretesyntax.OptionTypes resolved = (org.emftext.sdk.concretesyntax.OptionTypes)resolvedObject;
+				org.emftext.sdk.concretesyntax.OptionTypes resolved = (org.emftext.sdk.concretesyntax.OptionTypes) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), value);
@@ -2003,7 +2003,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), value);
@@ -2392,7 +2392,7 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), value);
@@ -2854,7 +2854,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), value);
@@ -2910,7 +2910,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), value);
@@ -2969,7 +2969,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 						if (resolvedObject == null) {
 							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStopIndex());
 						}
-						java.lang.String resolved = (java.lang.String)resolvedObject;
+						java.lang.String resolved = (java.lang.String) resolvedObject;
 						if (resolved != null) {
 							Object value = resolved;
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER), value);
@@ -3166,7 +3166,7 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__TRUE_LITERAL), value);
@@ -3222,7 +3222,7 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__FALSE_LITERAL), value);
@@ -3641,7 +3641,7 @@ parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sd
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL__TEXT), value);
@@ -4089,7 +4089,7 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
 				}
-				java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+				java.lang.Integer resolved = (java.lang.Integer) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), value);
@@ -4143,7 +4143,7 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
 				}
-				java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+				java.lang.Integer resolved = (java.lang.Integer) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), value);
@@ -4302,7 +4302,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME), value);
@@ -4475,7 +4475,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__NAME), value);
@@ -4624,7 +4624,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 						if (resolvedObject == null) {
 							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
 						}
-						java.lang.String resolved = (java.lang.String)resolvedObject;
+						java.lang.String resolved = (java.lang.String) resolvedObject;
 						if (resolved != null) {
 							Object value = resolved;
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ATTRIBUTE_NAME), value);
@@ -4701,7 +4701,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), value);
@@ -4883,7 +4883,7 @@ parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concre
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ATOMIC_REGEX__ATOMIC_EXPRESSION), value);
@@ -4979,7 +4979,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES, value);
@@ -5032,7 +5032,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 						if (resolvedObject == null) {
 							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 						}
-						java.lang.String resolved = (java.lang.String)resolvedObject;
+						java.lang.String resolved = (java.lang.String) resolvedObject;
 						if (resolved != null) {
 							Object value = resolved;
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES, value);
@@ -5091,7 +5091,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), value);
@@ -5144,7 +5144,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 						if (resolvedObject == null) {
 							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStopIndex());
 						}
-						org.emftext.sdk.concretesyntax.FontStyle resolved = (org.emftext.sdk.concretesyntax.FontStyle)resolvedObject;
+						org.emftext.sdk.concretesyntax.FontStyle resolved = (org.emftext.sdk.concretesyntax.FontStyle) resolvedObject;
 						if (resolved != null) {
 							Object value = resolved;
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES, value);
@@ -5224,7 +5224,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
 				}
-				org.emftext.sdk.concretesyntax.AnnotationType resolved = (org.emftext.sdk.concretesyntax.AnnotationType)resolvedObject;
+				org.emftext.sdk.concretesyntax.AnnotationType resolved = (org.emftext.sdk.concretesyntax.AnnotationType) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), value);
@@ -5400,7 +5400,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 				if (resolvedObject == null) {
 					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
 				}
-				java.lang.String resolved = (java.lang.String)resolvedObject;
+				java.lang.String resolved = (java.lang.String) resolvedObject;
 				if (resolved != null) {
 					Object value = resolved;
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), value);
@@ -5454,7 +5454,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 						if (resolvedObject == null) {
 							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
 						}
-						java.lang.String resolved = (java.lang.String)resolvedObject;
+						java.lang.String resolved = (java.lang.String) resolvedObject;
 						if (resolved != null) {
 							Object value = resolved;
 							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), value);

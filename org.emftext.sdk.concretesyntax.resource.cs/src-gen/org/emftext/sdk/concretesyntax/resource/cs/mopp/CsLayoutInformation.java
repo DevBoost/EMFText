@@ -88,4 +88,8 @@ public class CsLayoutInformation {
 		}
 	}
 	
+	public String toString() {
+		return "visible='" + visibleTokenText + "', hidden='" + hiddenTokenText + "', object='" + object + "', syntaxElement='" + syntaxElement + "'";
+	}
+	
 }

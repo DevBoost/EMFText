@@ -113,11 +113,20 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 				if (typeName.equals("boolean") || java.lang.Boolean.class.getName().equals(typeName)) {
 					String featureName = feature.getName();
 					boolean featureNameMatchesLexem = featureName.equals(lexem);
-					if (featureName.length() > 2 && featureName.startsWith("is")) {
-						featureNameMatchesLexem |= (featureName.substring(2, 3).toLowerCase() + featureName.substring(3)).equals(lexem);
+					if (featureNameMatchesLexem) {
+						result.setResolvedToken(true);
+						return;
 					}
-					result.setResolvedToken(Boolean.parseBoolean(lexem) || featureNameMatchesLexem);
-					return;
+					if (featureName.length() > 2 && featureName.startsWith("is")) {
+						if ((featureName.substring(2, 3).toLowerCase() + featureName.substring(3)).equals(lexem)) {
+							result.setResolvedToken(true);
+							return;
+						}
+					}
+					if (Boolean.parseBoolean(lexem)) {
+						result.setResolvedToken(true);
+						return;
+					}
 				}
 			} else {
 				assert false;

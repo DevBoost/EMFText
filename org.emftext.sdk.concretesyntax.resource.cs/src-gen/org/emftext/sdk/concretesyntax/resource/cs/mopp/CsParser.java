@@ -881,7 +881,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a5).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a5).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a5).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a5).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), value);
@@ -1024,7 +1024,7 @@ public class CsParser extends CsANTLRParserBase {
                       						if (resolvedObject == null) {
                       							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
                       						}
-                      						java.lang.String resolved = (java.lang.String)resolvedObject;
+                      						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
                       							Object value = resolved;
                       							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), value);
@@ -2421,7 +2421,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), value);
@@ -2547,7 +2547,7 @@ public class CsParser extends CsANTLRParserBase {
                       						if (resolvedObject == null) {
                       							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
                       						}
-                      						java.lang.String resolved = (java.lang.String)resolvedObject;
+                      						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
                       							Object value = resolved;
                       							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), value);
@@ -2725,7 +2725,7 @@ public class CsParser extends CsANTLRParserBase {
                               								if (resolvedObject == null) {
                               									addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
                               								}
-                              								java.lang.String resolved = (java.lang.String)resolvedObject;
+                              								java.lang.String resolved = (java.lang.String) resolvedObject;
                               								if (resolved != null) {
                               									Object value = resolved;
                               									element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), value);
@@ -2836,7 +2836,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
               				}
-              				org.emftext.sdk.concretesyntax.OptionTypes resolved = (org.emftext.sdk.concretesyntax.OptionTypes)resolvedObject;
+              				org.emftext.sdk.concretesyntax.OptionTypes resolved = (org.emftext.sdk.concretesyntax.OptionTypes) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), value);
@@ -2897,7 +2897,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), value);
@@ -3574,7 +3574,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), value);
@@ -4294,7 +4294,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), value);
@@ -4361,7 +4361,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), value);
@@ -4443,7 +4443,7 @@ public class CsParser extends CsANTLRParserBase {
                       						if (resolvedObject == null) {
                       							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStopIndex());
                       						}
-                      						java.lang.String resolved = (java.lang.String)resolvedObject;
+                      						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
                       							Object value = resolved;
                       							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER), value);
@@ -4757,7 +4757,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__TRUE_LITERAL), value);
@@ -4824,7 +4824,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__FALSE_LITERAL), value);
@@ -5505,7 +5505,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL__TEXT), value);
@@ -6251,7 +6251,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
               				}
-              				java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+              				java.lang.Integer resolved = (java.lang.Integer) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), value);
@@ -6336,7 +6336,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
               				}
-              				java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+              				java.lang.Integer resolved = (java.lang.Integer) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), value);
@@ -6590,7 +6590,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME), value);
@@ -6903,7 +6903,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__NAME), value);
@@ -7134,7 +7134,7 @@ public class CsParser extends CsANTLRParserBase {
                       						if (resolvedObject == null) {
                       							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
                       						}
-                      						java.lang.String resolved = (java.lang.String)resolvedObject;
+                      						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
                       							Object value = resolved;
                       							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ATTRIBUTE_NAME), value);
@@ -7265,7 +7265,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), value);
@@ -7569,7 +7569,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ATOMIC_REGEX__ATOMIC_EXPRESSION), value);
@@ -7734,7 +7734,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES, value);
@@ -7814,7 +7814,7 @@ public class CsParser extends CsANTLRParserBase {
             	      						if (resolvedObject == null) {
             	      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
             	      						}
-            	      						java.lang.String resolved = (java.lang.String)resolvedObject;
+            	      						java.lang.String resolved = (java.lang.String) resolvedObject;
             	      						if (resolved != null) {
             	      							Object value = resolved;
             	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES, value);
@@ -7895,7 +7895,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), value);
@@ -7975,7 +7975,7 @@ public class CsParser extends CsANTLRParserBase {
             	      						if (resolvedObject == null) {
             	      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStopIndex());
             	      						}
-            	      						org.emftext.sdk.concretesyntax.FontStyle resolved = (org.emftext.sdk.concretesyntax.FontStyle)resolvedObject;
+            	      						org.emftext.sdk.concretesyntax.FontStyle resolved = (org.emftext.sdk.concretesyntax.FontStyle) resolvedObject;
             	      						if (resolved != null) {
             	      							Object value = resolved;
             	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES, value);
@@ -8113,7 +8113,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
               				}
-              				org.emftext.sdk.concretesyntax.AnnotationType resolved = (org.emftext.sdk.concretesyntax.AnnotationType)resolvedObject;
+              				org.emftext.sdk.concretesyntax.AnnotationType resolved = (org.emftext.sdk.concretesyntax.AnnotationType) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), value);
@@ -8405,7 +8405,7 @@ public class CsParser extends CsANTLRParserBase {
               				if (resolvedObject == null) {
               					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
               				}
-              				java.lang.String resolved = (java.lang.String)resolvedObject;
+              				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
               					Object value = resolved;
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), value);
@@ -8482,7 +8482,7 @@ public class CsParser extends CsANTLRParserBase {
                       						if (resolvedObject == null) {
                       							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
                       						}
-                      						java.lang.String resolved = (java.lang.String)resolvedObject;
+                      						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
                       							Object value = resolved;
                       							element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), value);

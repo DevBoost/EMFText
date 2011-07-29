@@ -36,11 +36,51 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		
 	}
 	
+	/**
+	 * The PrintCountingMap keeps tracks of the number of values that must be printed
+	 * for each feature of an EObject. It is also used to store the indices of all
+	 * values that have been printed. This knowledge is used to avoid printing values
+	 * twice. We must store the concrete indices of the printed values instead of
+	 * basically counting them, because values may be printed in an order that differs
+	 * from the order in which they are stored in the EObject's feature.
+	 */
+	protected class PrintCountingMap {
+		
+		private java.util.Map<String, Integer> featureToValueCountMap = new java.util.LinkedHashMap<String, Integer>();
+		private java.util.Map<String, java.util.Set<Integer>> featureToPrintedIndicesMap = new java.util.LinkedHashMap<String, java.util.Set<Integer>>();
+		
+		public void setFeatureValueCount(String featureName, int values) {
+			featureToValueCountMap.put(featureName, values);
+			// If the feature does not have values it won't be printed. An entry in
+			// 'featureToPrintedIndicesMap' is therefore not needed in this case.
+			if (values >= 0) {
+				featureToPrintedIndicesMap.put(featureName, new java.util.LinkedHashSet<Integer>());
+			}
+		}
+		
+		public java.util.Set<Integer> getIndicesToPrint(String featureName) {
+			return featureToPrintedIndicesMap.get(featureName);
+		}
+		
+		public void addIndexToPrint(String featureName, int index) {
+			featureToPrintedIndicesMap.get(featureName).add(index);
+		}
+		
+		public int getCountLeft(String featureName) {
+			int totalValuesToPrint = featureToValueCountMap.get(featureName);
+			int printedValues = featureToPrintedIndicesMap.get(featureName).size();
+			return totalValuesToPrint - printedValues;
+		}
+		
+	}
+	
 	public final static String NEW_LINE = java.lang.System.getProperties().getProperty("line.separator");
 	
 	private final PrintToken SPACE_TOKEN = new PrintToken(" ", null);
 	private final PrintToken TAB_TOKEN = new PrintToken("\t", null);
 	private final PrintToken NEW_LINE_TOKEN = new PrintToken(NEW_LINE, null);
+	
+	private final org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil eClassUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil();
 	
 	/**
 	 * Holds the resource that is associated with this printer. May be null if the
@@ -248,7 +288,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	public void decorateTree(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject) {
-		java.util.Map<String, Integer> printCountingMap = initializePrintCountingMap(eObject);
+		PrintCountingMap printCountingMap = initializePrintCountingMap(eObject);
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator> keywordsToPrint = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator>();
 		decorateTreeBasic(decorator, eObject, printCountingMap, keywordsToPrint);
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator keywordToPrint : keywordsToPrint) {
@@ -259,10 +299,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	/**
-	 * Tries to decorate the decorator with an attribute value, or reference holded by
-	 * eObject. Returns true if an attribute value or reference was found.
+	 * Tries to decorate the decorator with an attribute value, or reference held by
+	 * the given EObject. Returns true if an attribute value or reference was found.
 	 */
-	public boolean decorateTreeBasic(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject, java.util.Map<String, Integer> printCountingMap, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator> keywordsToPrint) {
+	public boolean decorateTreeBasic(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject, PrintCountingMap printCountingMap, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator> keywordsToPrint) {
 		boolean foundFeatureToPrint = false;
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement = decorator.getDecoratedElement();
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality = syntaxElement.getCardinality();
@@ -278,11 +318,22 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				if (feature == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.ANONYMOUS_FEATURE) {
 					return false;
 				}
-				int countLeft = printCountingMap.get(feature.getName());
+				String featureName = feature.getName();
+				int countLeft = printCountingMap.getCountLeft(featureName);
 				if (countLeft > terminal.getMandatoryOccurencesAfter()) {
-					decorator.addIndexToPrint(countLeft);
-					printCountingMap.put(feature.getName(), countLeft - 1);
-					keepDecorating = true;
+					// normally we print the element at the next index
+					int indexToPrint = countLeft;
+					// But, if there are type restrictions for containments, we must choose an index
+					// of an element that fits (i.e., which has the correct type)
+					if (terminal instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) {
+						org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) terminal;
+						indexToPrint = findElementWithCorrectType(eObject, feature, printCountingMap.getIndicesToPrint(featureName), containment);
+					}
+					if (indexToPrint >= 0) {
+						decorator.addIndexToPrint(indexToPrint);
+						printCountingMap.addIndexToPrint(featureName, indexToPrint);
+						keepDecorating = true;
+					}
 				}
 			}
 			if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice) {
@@ -331,6 +382,29 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		return foundFeatureToPrint;
 	}
 	
+	private int findElementWithCorrectType(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, java.util.Set<Integer> indicesToPrint, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment) {
+		org.eclipse.emf.ecore.EClass[] allowedTypes = containment.getAllowedTypes();
+		Object value = eObject.eGet(feature);
+		if (value instanceof java.util.List<?>) {
+			java.util.List<?> valueList = (java.util.List<?>) value;
+			int listSize = valueList.size();
+			for (int i = 0; i < listSize; i++) {
+				if (indicesToPrint.contains(listSize - i)) {
+					continue;
+				}
+				Object valueAtIndex = valueList.get(i);
+				if (eClassUtil.isInstance(valueAtIndex, allowedTypes)) {
+					return listSize - i;
+				}
+			}
+		} else {
+			if (eClassUtil.isInstance(value, allowedTypes)) {
+				return 0;
+			}
+		}
+		return -1;
+	}
+	
 	/**
 	 * Checks whether decorating the given node will use at least one attribute value,
 	 * or reference holded by eObject. Returns true if a printable attribute value or
@@ -338,7 +412,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	 * multiple choices are available. We pick the choice that prints at least one
 	 * attribute or reference.
 	 */
-	public boolean doesPrintFeature(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject, java.util.Map<String, Integer> printCountingMap) {
+	public boolean doesPrintFeature(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxElementDecorator decorator, org.eclipse.emf.ecore.EObject eObject, PrintCountingMap printCountingMap) {
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement = decorator.getDecoratedElement();
 		if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) {
 			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal) syntaxElement;
@@ -346,7 +420,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			if (feature == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.ANONYMOUS_FEATURE) {
 				return false;
 			}
-			int countLeft = printCountingMap.get(feature.getName());
+			int countLeft = printCountingMap.getCountLeft(feature.getName());
 			if (countLeft > terminal.getMandatoryOccurencesAfter()) {
 				// found a feature to print
 				return true;
@@ -424,8 +498,8 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	public void printKeyword(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, keyword, null, eObject);
-		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation keywordLayout = getLayoutInformation(layoutInformations, keyword, null, eObject);
+		printFormattingElements(foundFormattingElements, layoutInformations, keywordLayout);
 		String value = keyword.getValue();
 		tokenOutputStream.add(new PrintToken(value, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(value) + "'"));
 	}
@@ -440,14 +514,16 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	public void printAttribute(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EAttribute attribute, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
-		String result;
+		String result = null;
 		Object attributeValue = getValue(eObject, attribute, count);
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, placeholder, attributeValue, eObject);
-		String visibleTokenText = getVisibleTokenText(layoutInformation);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation attributeLayout = getLayoutInformation(layoutInformations, placeholder, attributeValue, eObject);
+		String visibleTokenText = getVisibleTokenText(attributeLayout);
 		// if there is text for the attribute we use it
 		if (visibleTokenText != null) {
 			result = visibleTokenText;
-		} else {
+		}
+		
+		if (result == null) {
 			// if no text is available, the attribute is deresolved to obtain its textual
 			// representation
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(placeholder.getTokenName());
@@ -455,8 +531,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			String deResolvedValue = tokenResolver.deResolve(attributeValue, attribute, eObject);
 			result = deResolvedValue;
 		}
+		
 		if (result != null && !"".equals(result)) {
-			printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+			printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);
 			// write result to the output stream
 			tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName()));
 		}
@@ -465,14 +542,16 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public void printBooleanTerminal(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal booleanTerminal, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.eclipse.emf.ecore.EAttribute attribute = booleanTerminal.getAttribute();
-		String result;
+		String result = null;
 		Object attributeValue = getValue(eObject, attribute, count);
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, booleanTerminal, attributeValue, eObject);
-		String visibleTokenText = getVisibleTokenText(layoutInformation);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation attributeLayout = getLayoutInformation(layoutInformations, booleanTerminal, attributeValue, eObject);
+		String visibleTokenText = getVisibleTokenText(attributeLayout);
 		// if there is text for the attribute we use it
 		if (visibleTokenText != null) {
 			result = visibleTokenText;
-		} else {
+		}
+		
+		if (result == null) {
 			// if no text is available, the boolean attribute is converted to its textual
 			// representation using the literals of the boolean terminal
 			if (Boolean.TRUE.equals(attributeValue)) {
@@ -481,8 +560,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				result = booleanTerminal.getFalseLiteral();
 			}
 		}
+		
 		if (result != null && !"".equals(result)) {
-			printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+			printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);
 			// write result to the output stream
 			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'"));
 		}
@@ -491,21 +571,24 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public void printEnumerationTerminal(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal enumTerminal, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.eclipse.emf.ecore.EAttribute attribute = enumTerminal.getAttribute();
-		String result;
+		String result = null;
 		Object attributeValue = getValue(eObject, attribute, count);
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, enumTerminal, attributeValue, eObject);
-		String visibleTokenText = getVisibleTokenText(layoutInformation);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation attributeLayout = getLayoutInformation(layoutInformations, enumTerminal, attributeValue, eObject);
+		String visibleTokenText = getVisibleTokenText(attributeLayout);
 		// if there is text for the attribute we use it
 		if (visibleTokenText != null) {
 			result = visibleTokenText;
-		} else {
+		}
+		
+		if (result == null) {
 			// if no text is available, the enumeration attribute is converted to its textual
 			// representation using the literals of the enumeration terminal
 			assert attributeValue instanceof org.eclipse.emf.common.util.Enumerator;
 			result = enumTerminal.getText(((org.eclipse.emf.common.util.Enumerator) attributeValue).getName());
 		}
+		
 		if (result != null && !"".equals(result)) {
-			printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+			printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);
 			// write result to the output stream
 			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'"));
 		}
@@ -601,8 +684,8 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		String tokenName = placeholder.getTokenName();
 		Object referencedObject = getValue(eObject, reference, count);
 		// first add layout before the reference
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);
-		printFormattingElements(foundFormattingElements, layoutInformations, layoutInformation);
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation referenceLayout = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);
+		printFormattingElements(foundFormattingElements, layoutInformations, referenceLayout);
 		// proxy objects must be printed differently
 		String deresolvedReference = null;
 		if (referencedObject instanceof org.eclipse.emf.ecore.EObject) {
@@ -631,13 +714,13 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName));
 	}
 	
-	public java.util.Map<String, Integer> initializePrintCountingMap(org.eclipse.emf.ecore.EObject eObject) {
-		// The printCountingMap contains a mapping from feature names to the number of
+	public PrintCountingMap initializePrintCountingMap(org.eclipse.emf.ecore.EObject eObject) {
+		// The PrintCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
 		// the number of elements stored in each structural feature. For lists this is the
 		// list size. For non-multiple features it is either 1 (if the feature is set) or
 		// 0 (if the feature is null).
-		java.util.Map<String, Integer> printCountingMap = new java.util.LinkedHashMap<String, Integer>();
+		PrintCountingMap printCountingMap = new PrintCountingMap();
 		java.util.List<org.eclipse.emf.ecore.EStructuralFeature> features = eObject.eClass().getEAllStructuralFeatures();
 		for (org.eclipse.emf.ecore.EStructuralFeature feature : features) {
 			int count = 0;
@@ -649,7 +732,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					count = 1;
 				}
 			}
-			printCountingMap.put(feature.getName(), count);
+			printCountingMap.setFeatureValueCount(feature.getName(), count);
 		}
 		return printCountingMap;
 	}
@@ -695,7 +778,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			if (syntaxElement == layoutInformation.getSyntaxElement()) {
 				if (object == null) {
 					return layoutInformation;
-				} else if (object == layoutInformation.getObject(container)) {
+				} else if (isSame(object, layoutInformation.getObject(container))) {
 					return layoutInformation;
 				}
 			}
@@ -843,6 +926,13 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		}
 		// flush remaining valid text to writer
 		writer.write(validBlock);
+	}
+	
+	private boolean isSame(Object o1, Object o2) {
+		if (o1 instanceof Integer || o1 instanceof Long || o1 instanceof Byte || o1 instanceof Short || o1 instanceof Float || o2 instanceof Double) {
+			return o1.equals(o2);
+		}
+		return o1 == o2;
 	}
 	
 }

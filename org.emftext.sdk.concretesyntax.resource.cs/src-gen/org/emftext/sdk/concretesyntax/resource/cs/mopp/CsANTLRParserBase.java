@@ -75,10 +75,10 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_3_0.Parser im
 			return;
 		}
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
+		StringBuilder anonymousText = new StringBuilder();
 		for (org.antlr.runtime3_3_0.CommonToken anonymousToken : anonymousTokens) {
-			layoutInformationAdapter.addLayoutInformation(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, anonymousToken.getStartIndex(), anonymousToken.getText(), null));
+			anonymousText.append(anonymousToken.getText());
 		}
-		anonymousTokens.clear();
 		int currentPos = getTokenStream().index();
 		if (currentPos == 0) {
 			return;
@@ -94,12 +94,16 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_3_0.Parser im
 			}
 		}
 		StringBuilder hiddenTokenText = new StringBuilder();
+		hiddenTokenText.append(anonymousText);
 		StringBuilder visibleTokenText = new StringBuilder();
 		org.antlr.runtime3_3_0.CommonToken firstToken = null;
 		for (int pos = this.lastPosition2; pos <= endPos; pos++) {
 			org.antlr.runtime3_3_0.Token token = getTokenStream().get(pos);
 			if (firstToken == null) {
 				firstToken = (org.antlr.runtime3_3_0.CommonToken) token;
+			}
+			if (anonymousTokens.contains(token)) {
+				continue;
 			}
 			int _channel = token.getChannel();
 			if (_channel == 99) {
@@ -114,6 +118,7 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_3_0.Parser im
 		}
 		layoutInformationAdapter.addLayoutInformation(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));
 		this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);
+		anonymousTokens.clear();
 	}
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter getLayoutInformationAdapter(org.eclipse.emf.ecore.EObject element) {

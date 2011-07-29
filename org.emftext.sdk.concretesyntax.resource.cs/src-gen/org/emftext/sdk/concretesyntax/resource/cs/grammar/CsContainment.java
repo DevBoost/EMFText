@@ -16,8 +16,15 @@ package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
 public class CsContainment extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal {
 	
-	public CsContainment(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
+	private final org.eclipse.emf.ecore.EClass[] allowedTypes;
+	
+	public CsContainment(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, org.eclipse.emf.ecore.EClass[] allowedTypes, int mandatoryOccurencesAfter) {
 		super(feature, cardinality, mandatoryOccurencesAfter);
+		this.allowedTypes = allowedTypes;
+	}
+	
+	public org.eclipse.emf.ecore.EClass[] getAllowedTypes() {
+		return allowedTypes;
 	}
 	
 	public String toString() {

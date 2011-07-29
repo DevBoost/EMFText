@@ -73,4 +73,13 @@ public class CsEClassUtil {
 		return !isConcrete(eClass);
 	}
 	
+	public boolean isInstance(Object object, org.eclipse.emf.ecore.EClass[] allowedTypes) {
+		for (org.eclipse.emf.ecore.EClass allowedType : allowedTypes) {
+			if (allowedType.isInstance(object)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

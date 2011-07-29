@@ -150,6 +150,9 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 					}
 				}
 			}
+			if (continueSearch) {
+				continueSearch = tryToResolveIdentifierInGenModelRegistry(identifier, container, reference, position, resolveFuzzy, result);
+			}
 		} catch (java.lang.RuntimeException rte) {
 			// catch exception here to prevent EMF proxy resolution from swallowing it
 			rte.printStackTrace();
@@ -245,6 +248,34 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 					return true;
 				}
 				return checkElement(container, element, reference, position, type, identifier, resolveFuzzy, false, result);
+			}
+		}
+		return true;
+	}
+	
+	private boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
+		
+		final java.util.Map<String, org.eclipse.emf.common.util.URI> packageNsURIToGenModelLocationMap = org.eclipse.emf.ecore.plugin.EcorePlugin.getEPackageNsURIToGenModelLocationMap();
+		for (String nextNS : packageNsURIToGenModelLocationMap.keySet()) {
+			org.eclipse.emf.common.util.URI genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);
+			try {
+				final org.eclipse.emf.ecore.resource.ResourceSet rs = container.eResource().getResourceSet();
+				org.eclipse.emf.ecore.resource.Resource genModelResource = rs.getResource(genModelURI, true);
+				if (genModelResource == null) {
+					continue;
+				}
+				final java.util.List<org.eclipse.emf.ecore.EObject> contents = genModelResource.getContents();
+				if (contents == null || contents.size() == 0) {
+					continue;
+				}
+				org.eclipse.emf.ecore.EObject genModel = contents.get(0);
+				boolean continueSearch = checkElement(container, genModel, reference, position, type, identifier, resolveFuzzy, false, result);
+				if (!continueSearch) {
+					return false;
+				}
+			} catch (Exception e) {
+				// ignore exceptions that are raised by faulty genmodel registrations
 			}
 		}
 		return true;
