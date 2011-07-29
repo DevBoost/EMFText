@@ -107,7 +107,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"feature of an EObject. It is also used to store the indices of all values that have been " +
 			"printed. This knowledge is used to avoid printing values twice. We must store the concrete " +
 			"indices of the printed values instead of basically counting them, because values may be printed " +
-			"in an order that differs from the order in which they are stored in the EObject's feature."
+			"in an order that differs from the order in which they are stored in the EObject's feature.",
+			"For some reason, the indices of the values to print are stored inversely. The real index " +
+			"of the value can be computed as follows: valueList.size() - indexToPrint."
 		);
 		sc.add("protected class PrintCountingMap {");
 		sc.addLineBreak();
