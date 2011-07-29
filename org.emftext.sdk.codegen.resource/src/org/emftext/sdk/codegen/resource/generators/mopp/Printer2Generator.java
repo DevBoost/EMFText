@@ -150,7 +150,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addDecorateTreeMethod(sc);
 		addDecorateTreeBasicMethod(sc);
 		addFindElementWithCorrectTypeMethod(sc);
-		addHasTypeMethod(sc);
 		addDoesPrintFeatureMethod(sc);
 		addPrintTreeMethod(sc);
 		addPrintKeywordMethod(sc);
@@ -314,6 +313,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private final PrintToken TAB_TOKEN = new PrintToken(\"\\t\", null);");
 		sc.add("private final PrintToken NEW_LINE_TOKEN = new PrintToken(NEW_LINE, null);");
 		sc.addLineBreak();
+		sc.add("private final " + eClassUtilClassName + " eClassUtil = new " + eClassUtilClassName + "();");
+		sc.addLineBreak();
+		
 		// TODO we should probably wrap all these members in a context class
 		sc.addJavadoc("Holds the resource that is associated with this printer. May be null if the printer is used stand alone.");
 		sc.add("private " + iTextResourceClassName + " resource;");
@@ -508,29 +510,16 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("continue;");
 		sc.add("}");
 		sc.add("Object valueAtIndex = valueList.get(i);");
-		sc.add("if (hasType(valueAtIndex, allowedTypes)) {");
+		sc.add("if (eClassUtil.isInstance(valueAtIndex, allowedTypes)) {");
 		sc.add("return listSize - i;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} else {");
-		sc.add("if (hasType(value, allowedTypes)) {");
+		sc.add("if (eClassUtil.isInstance(value, allowedTypes)) {");
 		sc.add("return 0;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return -1;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	// TODO mseifert: move this to EObjectUtil?
-	private void addHasTypeMethod(JavaComposite sc) {
-		sc.add("private boolean hasType(Object object, " + E_CLASS + "[] allowedTypes) {");
-		sc.add("for (" + E_CLASS + " allowedType : allowedTypes) {");
-		sc.add("if (allowedType.isInstance(object)) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

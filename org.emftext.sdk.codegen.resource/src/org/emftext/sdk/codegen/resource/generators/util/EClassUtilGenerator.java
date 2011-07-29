@@ -45,6 +45,19 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addNamesAreEqualMethod(sc);
 		addIsConcreteMethod(sc);
 		addIsNotConcreteMethod(sc);
+		addHasTypeMethod(sc);
+	}
+
+	private void addHasTypeMethod(JavaComposite sc) {
+		sc.add("public boolean isInstance(Object object, " + E_CLASS + "[] allowedTypes) {");
+		sc.add("for (" + E_CLASS + " allowedType : allowedTypes) {");
+		sc.add("if (allowedType.isInstance(object)) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addIsNotConcreteMethod(JavaComposite sc) {
