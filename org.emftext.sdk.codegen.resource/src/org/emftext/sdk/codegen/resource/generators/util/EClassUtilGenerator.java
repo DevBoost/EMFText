@@ -49,6 +49,7 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addHasTypeMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns true if the given object is an instance of one of the EClasses.");
 		sc.add("public boolean isInstance(Object object, " + E_CLASS + "[] allowedTypes) {");
 		sc.add("for (" + E_CLASS + " allowedType : allowedTypes) {");
 		sc.add("if (allowedType.isInstance(object)) {");
