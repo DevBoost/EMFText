@@ -59,9 +59,9 @@ public abstract class AbstractPostProcessor {
 			// but, since all post processors work in isolation, we cannot pass on the
 			// information that proxy objects have already been resolved. if this turns
 			// out to be a performance problem one can attach an adapter to the resource
-			// which carried the information. this adapter must also react to all changes
+			// which carries this information. this adapter must also react to all changes
 			// made to the resource in order to trigger proxy resolution again after the
-			// resource has changed
+			// resource has changed.
 			if (!CsResourceUtil.resolveAll(resource)) {
 				return;
 			}
