@@ -99,4 +99,14 @@ public class CsEObjectUtil {
 		}
 	}
 	
+	public static Object getFeatureValue(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, int index) {
+		// get value of feature
+		Object o = eObject.eGet(feature);
+		if (o instanceof java.util.List<?>) {
+			java.util.List<?> list = (java.util.List<?>) o;
+			o = list.get(index);
+		}
+		return o;
+	}
+	
 }

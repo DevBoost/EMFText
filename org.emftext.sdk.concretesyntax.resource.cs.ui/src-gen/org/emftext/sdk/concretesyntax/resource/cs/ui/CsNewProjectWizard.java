@@ -41,7 +41,7 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 	/**
 	 * The description of the project creation page
 	 */
-	private String pageDescription = "";
+	private String pageDescription = "Enter a name and select a location where the new project shall be created.";
 	
 	/**
 	 *  The name of the project in the project creation page
@@ -307,6 +307,12 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 	 * dNewProjectCreationPage(String)
 	 */
 	public void init(org.eclipse.ui.IWorkbench workbench, org.eclipse.jface.viewers.IStructuredSelection selection) {
+		// Set default image for all wizard pages
+		org.eclipse.core.runtime.IPath path = new org.eclipse.core.runtime.Path("icons/new_project_wizban.gif");
+		org.osgi.framework.Bundle bundle = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getBundle();
+		java.net.URL url = org.eclipse.core.runtime.FileLocator.find(bundle, path, null);
+		org.eclipse.jface.resource.ImageDescriptor descriptor = org.eclipse.jface.resource.ImageDescriptor.createFromURL(url);
+		setDefaultPageImageDescriptor(descriptor);
 		
 		wizardNewProjectCreationPage = new org.eclipse.ui.dialogs.WizardNewProjectCreationPage(pageName);
 		wizardNewProjectCreationPage.setTitle(pageTitle);
