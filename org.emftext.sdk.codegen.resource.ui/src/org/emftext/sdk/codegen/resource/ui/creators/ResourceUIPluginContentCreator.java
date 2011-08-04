@@ -116,6 +116,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD);
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context), false));
+	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_project_wizban_icon.gif"), getNewWizbanIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context), false));
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_occurrence_icon.gif"), getOccurrenceIconFile(resourceUIPlugin, context), false));
 	    if (context.isLaunchSupportEnabled()) {
@@ -766,6 +767,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_EDITOR_ICON_NAME);
 	}
 
+	private File getNewWizbanIconFile(IPluginDescriptor plugin, GenerationContext context) {
+		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_NEW_PROJECT_WIZBAN_NAME);
+	}
+	
 	private File getOccurrenceIconFile(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_OCCURRENCE_ICON_NAME);
 	}

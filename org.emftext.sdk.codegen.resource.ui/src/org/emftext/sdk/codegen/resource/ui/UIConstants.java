@@ -24,6 +24,7 @@ public class UIConstants {
 	public static final String DEFAULT_LAUNCH_TAB_MAIN_ICON_NAME = "launch_tab_main_icon.gif";
 	public static final String DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON_NAME = "launch_type_icon.gif";
 	public static final String DEFAULT_BREAKPOINT_ICON_NAME = "breakpoint_icon.gif";
+	public static final String DEFAULT_NEW_PROJECT_WIZBAN_NAME = "new_project_wizban.gif";
 	
 	// CSS
 	public static final String DEFAULT_CSS_DIR = "css";

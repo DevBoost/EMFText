@@ -13,6 +13,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXC
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ENUMERATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE_DESCRIPTOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
@@ -45,6 +46,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -84,7 +86,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The description of the project creation page");
-		sc.add("private String pageDescription = \"\";");
+		sc.add("private String pageDescription = \"Enter a name and select a location where the new project shall be created.\";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(" The name of the project in the project creation page");
@@ -366,6 +368,12 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 			"@see " + WIZARD_NEW_PROJECT_CREATION_PAGE + "#" + WIZARD_NEW_PROJECT_CREATION_PAGE + "(String)"
 		);
 		sc.add("public void init(" + I_WORKBENCH + " workbench, " + I_STRUCTURED_SELECTION + " selection) {");
+		sc.addComment("Set default image for all wizard pages");
+		sc.add(I_PATH + " path = new " + PATH + "(\"icons/" + UIConstants.DEFAULT_NEW_PROJECT_WIZBAN_NAME + "\");");
+		sc.add(BUNDLE + " bundle = " + uiPluginActivatorClassName + ".getDefault().getBundle();");
+		sc.add(URL + " url = " + FILE_LOCATOR + ".find(bundle, path, null);");
+		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(url);");
+		sc.add("setDefaultPageImageDescriptor(descriptor);");
 		sc.addLineBreak();
 		sc.add("wizardNewProjectCreationPage = new " + WIZARD_NEW_PROJECT_CREATION_PAGE + "(pageName);");
 		sc.add("wizardNewProjectCreationPage.setTitle(pageTitle);");
