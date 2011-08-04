@@ -14,6 +14,7 @@
 package org.emftext.sdk.ui.wizards;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -24,8 +25,10 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
+import org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin;
 import org.emftext.sdk.ui.jobs.CreateNewEMFTextProjectJob;
 import org.emftext.sdk.ui.jobs.WorkspaceMarker;
+import org.osgi.framework.Bundle;
 
 public class NewProjectWizard extends Wizard implements INewWizard {
 
@@ -71,7 +74,12 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 	}
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		// do nothing
+		// set default image for all wizard pages
+		org.eclipse.core.runtime.IPath path = new org.eclipse.core.runtime.Path("icons/new_project_wizban.gif");
+		Bundle bundle = CsUIPlugin.getDefault().getBundle();
+		URL url = org.eclipse.core.runtime.FileLocator.find(bundle, path, null);
+		org.eclipse.jface.resource.ImageDescriptor descriptor = org.eclipse.jface.resource.ImageDescriptor.createFromURL(url);
+	    setDefaultPageImageDescriptor(descriptor);
 	}
 
 	public void addPages() {
