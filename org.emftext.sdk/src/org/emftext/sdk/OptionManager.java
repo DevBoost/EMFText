@@ -56,6 +56,8 @@ public class OptionManager {
 		stringOptions.add(OptionTypes.RESOURCE_UI_PLUGIN_ID);
 		stringOptions.add(OptionTypes.SOURCE_FOLDER);
 		stringOptions.add(OptionTypes.SOURCE_GEN_FOLDER);
+		stringOptions.add(OptionTypes.UI_SOURCE_FOLDER);
+		stringOptions.add(OptionTypes.UI_SOURCE_GEN_FOLDER);
 		stringOptions.add(OptionTypes.PARSER_GENERATOR);
 		stringOptions.add(OptionTypes.BASE_RESOURCE_PLUGIN);
 		stringOptions.add(OptionTypes.ANTLR_PLUGIN_ID);
