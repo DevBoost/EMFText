@@ -17,10 +17,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
 import org.eclipse.emf.codegen.ecore.genmodel.GenEnumLiteral;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.Containment;
@@ -43,54 +45,65 @@ public class SyntaxGenerator extends ModelGenerator {
 	}
 
 	@Override
-	public EObject generateModel() {
-		NewProjectParameters parameters = getContext().getParameters();
+	public EObject generateModel(NewProjectParameters parameters) {
+		String syntaxName = parameters.getSyntaxName();
+		GenPackage genPackage = getContext().getGenPackage();
 
+		return generateModel(syntaxName, genPackage);
+	}
+
+	public EObject generateModel(String syntaxName, GenPackage genPackage) {
 		ConcreteSyntax syntax = CS_FACTORY.createConcreteSyntax();
-		syntax.setName(parameters.getSyntaxName());
-		syntax.setPackage(getContext().getGenPackage());
+		syntax.setName(syntaxName);
+		syntax.setPackage(genPackage);
 		
-		syntax.getRules().add(getEntityModelRule());
-		syntax.getRules().add(getEntityRule());
-		syntax.getRules().add(getDataTypeRule());
-		syntax.getRules().add(getFeatureRule());
+		syntax.getRules().add(getEntityModelRule(genPackage));
+		syntax.getRules().add(getEntityRule(genPackage));
+		syntax.getRules().add(getDataTypeRule(genPackage));
+		syntax.getRules().add(getFeatureRule(genPackage));
 		
-		syntax.getStartSymbols().add(getGenClass(MetaModelGenerator.ENTITY_MODEL));
+		syntax.getStartSymbols().add(getGenClass(genPackage, MetaModelGenerator.ENTITY_MODEL));
 		return syntax;
 	}
 	
-	private Rule getEntityModelRule() {
+	private Rule getEntityModelRule(GenPackage genPackage) {
 		Rule rule = CS_FACTORY.createRule();
-		GenClass entityModelClass = getGenClass(MetaModelGenerator.ENTITY_MODEL);
+		GenClass entityModelClass = getGenClass(genPackage, MetaModelGenerator.ENTITY_MODEL);
 		rule.setMetaclass(entityModelClass);
 		CsString keyword = CS_FACTORY.createCsString();
 		keyword.setValue("model");
 
 		Containment shapesContainment = CS_FACTORY.createContainment();
-		shapesContainment.setFeature(getGenFeature(MetaModelGenerator.ENTITY_MODEL_TYPES_REF));
+		shapesContainment.setFeature(getGenFeature(genPackage, MetaModelGenerator.ENTITY_MODEL_TYPES_REF));
 		shapesContainment.setCardinality(Cardinality.STAR);
 
 		Sequence sequence = CS_FACTORY.createSequence();
 		sequence.getChildren().add(keyword);
 		sequence.getChildren().add(shapesContainment);
 
-		rule.getChildren().add(sequence);
+		Choice choice = CS_FACTORY.createChoice();
+		choice.getChildren().add(sequence);
+		
+		rule.getChildren().add(choice);
 		return rule;
 	}
 
-	private Rule getDataTypeRule() {
+	private Rule getDataTypeRule(GenPackage genPackage) {
 		Rule rule = CS_FACTORY.createRule();
-		rule.setMetaclass(getGenClass(MetaModelGenerator.DATA_TYPE));
+		rule.setMetaclass(getGenClass(genPackage, MetaModelGenerator.DATA_TYPE));
 
 		Placeholder namePlaceholder = CS_FACTORY.createPlaceholderUsingDefaultToken();
-		namePlaceholder.setFeature(getGenFeature(MetaModelGenerator.TYPE_NAME_ATT));
+		namePlaceholder.setFeature(getGenFeature(genPackage, MetaModelGenerator.TYPE_NAME_ATT));
 		
 		Sequence sequence = CS_FACTORY.createSequence();
 		sequence.getChildren().add(createKeyword("datatype"));
 		sequence.getChildren().add(namePlaceholder);
 		sequence.getChildren().add(createKeyword(";"));
 		
-		rule.getChildren().add(sequence);
+		Choice choice = CS_FACTORY.createChoice();
+		choice.getChildren().add(sequence);
+		
+		rule.getChildren().add(choice);
 		return rule;
 	}
 
@@ -100,21 +113,21 @@ public class SyntaxGenerator extends ModelGenerator {
 		return keyword;
 	}
 
-	private Rule getFeatureRule() {
+	private Rule getFeatureRule(GenPackage genPackage) {
 		Rule rule = CS_FACTORY.createRule();
-		rule.setMetaclass(getGenClass(MetaModelGenerator.FEATURE));
+		rule.setMetaclass(getGenClass(genPackage, MetaModelGenerator.FEATURE));
 		
 		EnumTerminal kindTerminal = CS_FACTORY.createEnumTerminal();
-		kindTerminal.setFeature(getGenFeature(MetaModelGenerator.FEATURE_KIND_ATT));
-		kindTerminal.getLiterals().add(createEnumLiteralTerminal(MetaModelGenerator.FEATURE_KIND_ATTRIBUTE, "att"));
-		kindTerminal.getLiterals().add(createEnumLiteralTerminal(MetaModelGenerator.FEATURE_KIND_REFERENCE, "ref"));
-		kindTerminal.getLiterals().add(createEnumLiteralTerminal(MetaModelGenerator.FEATURE_KIND_CONTAINMENT, "cont"));
+		kindTerminal.setFeature(getGenFeature(genPackage, MetaModelGenerator.FEATURE_KIND_ATT));
+		kindTerminal.getLiterals().add(createEnumLiteralTerminal(genPackage, MetaModelGenerator.FEATURE_KIND_ATTRIBUTE, "att"));
+		kindTerminal.getLiterals().add(createEnumLiteralTerminal(genPackage, MetaModelGenerator.FEATURE_KIND_REFERENCE, "ref"));
+		kindTerminal.getLiterals().add(createEnumLiteralTerminal(genPackage, MetaModelGenerator.FEATURE_KIND_CONTAINMENT, "cont"));
 
 		Placeholder reference = CS_FACTORY.createPlaceholderUsingDefaultToken();
-		reference.setFeature(getGenFeature(MetaModelGenerator.FEATURE_TYPE_REF));
+		reference.setFeature(getGenFeature(genPackage, MetaModelGenerator.FEATURE_TYPE_REF));
 
 		Placeholder namePlaceholder = CS_FACTORY.createPlaceholderUsingDefaultToken();
-		namePlaceholder.setFeature(getGenFeature(MetaModelGenerator.TYPE_NAME_ATT));
+		namePlaceholder.setFeature(getGenFeature(genPackage, MetaModelGenerator.TYPE_NAME_ATT));
 
 		Sequence sequence = CS_FACTORY.createSequence();
 		sequence.getChildren().add(kindTerminal);
@@ -122,31 +135,34 @@ public class SyntaxGenerator extends ModelGenerator {
 		sequence.getChildren().add(namePlaceholder);
 		sequence.getChildren().add(createKeyword(";"));
 		
-		rule.getChildren().add(sequence);
+		Choice choice = CS_FACTORY.createChoice();
+		choice.getChildren().add(sequence);
+		
+		rule.getChildren().add(choice);
 		return rule;
 	}
 
-	private EnumLiteralTerminal createEnumLiteralTerminal(String name, String text) {
+	private EnumLiteralTerminal createEnumLiteralTerminal(GenPackage genPackage, String name, String text) {
 		EnumLiteralTerminal literal = CS_FACTORY.createEnumLiteralTerminal();
-		literal.setLiteral(getEEnumLiteral(name).getEcoreEnumLiteral());
+		literal.setLiteral(getEEnumLiteral(genPackage, name).getEcoreEnumLiteral());
 		literal.setText(text);
 		return literal;
 	}
 
-	private Rule getEntityRule() {
+	private Rule getEntityRule(GenPackage genPackage) {
 		Rule rule = CS_FACTORY.createRule();
-		rule.setMetaclass(getGenClass(MetaModelGenerator.ENTITY));
+		rule.setMetaclass(getGenClass(genPackage, MetaModelGenerator.ENTITY));
 		
 		BooleanTerminal visibleTerminal = CS_FACTORY.createBooleanTerminal();
-		visibleTerminal.setFeature(getGenFeature(MetaModelGenerator.ENTITY_ABSTRACT_ATT));
+		visibleTerminal.setFeature(getGenFeature(genPackage, MetaModelGenerator.ENTITY_ABSTRACT_ATT));
 		visibleTerminal.setTrueLiteral("abstract");
 		visibleTerminal.setFalseLiteral("");
 		
 		Placeholder namePlaceholder = CS_FACTORY.createPlaceholderUsingDefaultToken();
-		namePlaceholder.setFeature(getGenFeature(MetaModelGenerator.TYPE_NAME_ATT));
+		namePlaceholder.setFeature(getGenFeature(genPackage, MetaModelGenerator.TYPE_NAME_ATT));
 		
 		Containment containment = CS_FACTORY.createContainment();
-		containment.setFeature(getGenFeature(MetaModelGenerator.ENTITY_FEATURES_REF));
+		containment.setFeature(getGenFeature(genPackage, MetaModelGenerator.ENTITY_FEATURES_REF));
 		containment.setCardinality(Cardinality.STAR);
 
 		Sequence sequence = CS_FACTORY.createSequence();
@@ -157,12 +173,15 @@ public class SyntaxGenerator extends ModelGenerator {
 		sequence.getChildren().add(containment);
 		sequence.getChildren().add(createKeyword("}"));
 		
-		rule.getChildren().add(sequence);
+		Choice choice = CS_FACTORY.createChoice();
+		choice.getChildren().add(sequence);
+		
+		rule.getChildren().add(choice);
 		return rule;
 	}
 
-	private GenClass getGenClass(String name) {
-		for (GenClass genClass : getContext().getGenPackage().getGenClasses()) {
+	private GenClass getGenClass(GenPackage genPackage, String name) {
+		for (GenClass genClass : genPackage.getGenClasses()) {
 			if (name.equals(genClass.getName())) {
 				return genClass;
 			}
@@ -170,8 +189,8 @@ public class SyntaxGenerator extends ModelGenerator {
 		throw new RuntimeException("Can't find GenClass: " + name);
 	}
 
-	private GenFeature getGenFeature(String name) {
-		for (GenClass genClass : getContext().getGenPackage().getGenClasses()) {
+	private GenFeature getGenFeature(GenPackage genPackage, String name) {
+		for (GenClass genClass : genPackage.getGenClasses()) {
 			for (GenFeature genFeature : genClass.getAllGenFeatures()) {
 				if (name.equals(genFeature.getName())) {
 					return genFeature;
@@ -181,8 +200,8 @@ public class SyntaxGenerator extends ModelGenerator {
 		throw new RuntimeException("Can't find GenFeature: " + name);
 	}
 
-	private GenEnumLiteral getEEnumLiteral(String name) {
-		for (GenEnum genEnum : getContext().getGenPackage().getGenEnums()) {
+	private GenEnumLiteral getEEnumLiteral(GenPackage genPackage, String name) {
+		for (GenEnum genEnum : genPackage.getGenEnums()) {
 			for (GenEnumLiteral genEnumLiteral : genEnum.getGenEnumLiterals()) {
 				if (name.equals(genEnumLiteral.getName())) {
 					return genEnumLiteral;

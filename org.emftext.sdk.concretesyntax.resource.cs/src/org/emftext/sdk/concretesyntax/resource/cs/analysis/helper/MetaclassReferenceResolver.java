@@ -65,6 +65,9 @@ public class MetaclassReferenceResolver {
 	public String deResolve(EObject element, EObject container, EReference reference){
 		GenClass genClass = (GenClass)element;
 		ConcreteSyntax syntax = getConcreteSyntax(container);
+		if (syntax == null) {
+			return null;
+		}
 		GenPackage genPackage = genClass.getGenPackage();
 		if (genPackage == null) {
 			return null;
@@ -74,9 +77,9 @@ public class MetaclassReferenceResolver {
 			return null;
 		}
 		String packageURI = ePackage.getNsURI();
-		if(syntax.getPackage().getNSName().equals(packageURI))
+		if (syntax.getPackage().getNSName().equals(packageURI)) {
 			return genClass.getName();
-		else{
+		} else {
 			String prefix = "";
 			for (Import aImport : syntax.getImports()) {
 				if (aImport.getPackage().getNSURI().equals(packageURI)){

@@ -233,7 +233,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.addLineBreak();
 		
 		sc.addComment("Step 3: escape keywords if required");
-		sc.add("if (escapeKeywords) {");
+		sc.add("if (escapeKeywords && result != null) {");
 		sc.addComment("Escape keywords if required");
 		sc.add("for (String keyword : " + grammarInformationProviderClassName + ".INSTANCE.getKeywords()) {");
 		sc.add("if (result.endsWith(keyword)) {");

@@ -165,7 +165,7 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 		}
 		
 		// Step 3: escape keywords if required
-		if (escapeKeywords) {
+		if (escapeKeywords && result != null) {
 			// Escape keywords if required
 			for (String keyword : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.INSTANCE.getKeywords()) {
 				if (result.endsWith(keyword)) {

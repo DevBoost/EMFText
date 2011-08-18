@@ -37,26 +37,43 @@ public class GenModelGenerator extends ModelGenerator {
 		super();
 	}
 
-	public EObject generateModel() {
-		NewProjectParameters parameters = getContext().getParameters();
+	public EObject generateModel(NewProjectParameters parameters) {
+		String projectName = parameters.getProjectName();
+		String srcFolder = parameters.getSrcFolder();
+        String name = parameters.getName();
+        String basePackage = parameters.getBasePackage();
 		
-		URI genModelURI = URI.createPlatformResourceURI(getModelPath(), true);
+		return generateModel(projectName, srcFolder, name, basePackage, getModelPath());
+	}
+
+	public EObject generateModel(String projectName, String srcFolder,
+			String name, String basePackage, String getModelPath) {
+		EPackage ePackage = getContext().getEPackage();
+		GenModel genModel = generateGenModel(projectName, srcFolder, name,
+				basePackage, getModelPath, ePackage);
+        getContext().setGenPackage(genModel.getGenPackages().get(0));
+        return genModel;
+	}
+
+	public GenModel generateGenModel(String projectName, String srcFolder,
+			String name, String basePackage, String getModelPath,
+			EPackage ePackage) {
+		URI genModelURI = URI.createPlatformResourceURI(getModelPath, true);
 
 		GenModel genModel = GEN_MODEL_FACTORY.createGenModel();
 		List<EPackage> ePackages = new ArrayList<EPackage>();
-		ePackages.add(getContext().getEPackage());
+		ePackages.add(ePackage);
 		genModel.initialize(ePackages);
-		genModel.setModelDirectory("/" + parameters.getProjectName() + "/" + parameters.getSrcFolder());
-		genModel.setModelPluginID(parameters.getProjectName());
+		genModel.setModelDirectory("/" + projectName + "/" + srcFolder);
+		genModel.setModelPluginID(projectName);
 		genModel.setComplianceLevel(GenJDKLevel.JDK50_LITERAL);
 
         GenPackage genPackage = genModel.getGenPackages().get(0);
         genModel.setModelName(genModelURI.trimFileExtension().lastSegment());
 
-        genPackage.setPrefix(StringUtil.capitalize(parameters.getName()));
-        genPackage.setBasePackage(parameters.getBasePackage());
-        getContext().setGenPackage(genPackage);
-        return genModel;
+		genPackage.setPrefix(StringUtil.capitalize(name));
+		genPackage.setBasePackage(basePackage);
+		return genModel;
 	}
 
 	@Override

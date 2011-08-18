@@ -54,9 +54,13 @@ public class MetaModelGenerator extends ModelGenerator {
 		super();
 	}
 
-	public EObject generateModel() {
-		NewProjectParameters parameters = getContext().getParameters();
+	public EObject generateModel(NewProjectParameters parameters) {
+		EPackage ePackage = generateEPackage(parameters);
+		getContext().setEPackage(ePackage);
+		return ePackage;
+	}
 
+	public EPackage generateEPackage(NewProjectParameters parameters) {
 		EClass namedElementClass = ECORE_FACTORY.createEClass();
 		namedElementClass.setName(NAMED_ELEMENT);
 		namedElementClass.setAbstract(true);
@@ -110,8 +114,6 @@ public class MetaModelGenerator extends ModelGenerator {
 		ePackage.setName(parameters.getName());
 		ePackage.setNsPrefix(parameters.getNamespacePrefix());
 		ePackage.setNsURI(parameters.getNamespaceUri());
-
-		getContext().setEPackage(ePackage);
 		return ePackage;
 	}
 

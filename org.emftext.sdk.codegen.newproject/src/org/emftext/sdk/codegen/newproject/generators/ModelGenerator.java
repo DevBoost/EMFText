@@ -41,7 +41,7 @@ public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerat
 	public final void generate(NewProjectGenerationContext context, SimpleParameter<NewProjectGenerationContext, String> parameters, OutputStream outputStream) {
 		init(context, parameters);
 		
-		EObject generatedModel = generateModel();
+		EObject generatedModel = generateModel(context.getParameters());
 		ResourceSet rs = new ResourceSetImpl();
 		String modelPath = getModelPath();
 		Resource r = rs.createResource(URI.createPlatformResourceURI(modelPath, true));
@@ -62,5 +62,5 @@ public abstract class ModelGenerator extends AbstractGenerator<NewProjectGenerat
 	}
 
 	public abstract String getModelPath();
-	public abstract EObject generateModel();
+	public abstract EObject generateModel(NewProjectParameters parameters);
 }
