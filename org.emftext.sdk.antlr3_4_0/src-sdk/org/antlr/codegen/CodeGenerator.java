@@ -28,6 +28,7 @@
 package org.antlr.codegen;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -431,8 +432,9 @@ public class CodeGenerator {
 
 		String targetAppropriateFileNameString =
 			target.getTargetStringLiteralFromString(grammar.getFileName());
-		outputFileST.add("fileName", targetAppropriateFileNameString);
-		headerFileST.add("fileName", targetAppropriateFileNameString);
+		String simpleFileName = (new File(targetAppropriateFileNameString)).getName();		
+		outputFileST.add("fileName", simpleFileName);
+		headerFileST.add("fileName", simpleFileName);
 		outputFileST.add("ANTLRVersion", tool.VERSION);
 		headerFileST.add("ANTLRVersion", tool.VERSION);
 		outputFileST.add("generatedTimestamp", Tool.getCurrentTimeStamp());
