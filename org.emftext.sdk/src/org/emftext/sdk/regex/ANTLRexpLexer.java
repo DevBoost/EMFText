@@ -17,7 +17,7 @@ package org.emftext.sdk.regex;
 
 
 
-import org.antlr.runtime3_3_0.*;
+import org.antlr.runtime3_4_0.*;
 
 public class ANTLRexpLexer extends Lexer {
     public static final int EOF=-1;

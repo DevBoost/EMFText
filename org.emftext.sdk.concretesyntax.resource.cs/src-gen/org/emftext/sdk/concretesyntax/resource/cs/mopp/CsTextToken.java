@@ -17,9 +17,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken {
 	
 	private final org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
-	private final org.antlr.runtime3_3_0.Token antlrToken;
+	private final org.antlr.runtime3_4_0.Token antlrToken;
 	
-	public CsTextToken(org.antlr.runtime3_3_0.Token antlrToken) {
+	public CsTextToken(org.antlr.runtime3_4_0.Token antlrToken) {
 		super();
 		this.antlrToken = antlrToken;
 	}
@@ -29,11 +29,11 @@ public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.I
 	}
 	
 	public int getOffset() {
-		return ((org.antlr.runtime3_3_0.CommonToken) antlrToken).getStartIndex();
+		return ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStartIndex();
 	}
 	
 	public int getLength() {
-		return ((org.antlr.runtime3_3_0.CommonToken) antlrToken).getStopIndex() - ((org.antlr.runtime3_3_0.CommonToken) antlrToken).getStartIndex() + 1;
+		return ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStopIndex() - ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStartIndex() + 1;
 	}
 	
 	public int getLine() {
@@ -49,19 +49,19 @@ public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.I
 	}
 	
 	public boolean canBeUsedForSyntaxHighlighting(int tokenType) {
-		if (tokenType < 0 || tokenType == org.antlr.runtime3_3_0.Token.EOF) {
+		if (tokenType < 0 || tokenType == org.antlr.runtime3_4_0.Token.EOF) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_3_0.Token.UP) {
+		if (tokenType == org.antlr.runtime3_4_0.Token.UP) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_3_0.Token.DOWN) {
+		if (tokenType == org.antlr.runtime3_4_0.Token.DOWN) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_3_0.Token.EOR_TOKEN_TYPE) {
+		if (tokenType == org.antlr.runtime3_4_0.Token.EOR_TOKEN_TYPE) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_3_0.Token.INVALID_TOKEN_TYPE) {
+		if (tokenType == org.antlr.runtime3_4_0.Token.INVALID_TOKEN_TYPE) {
 			return false;
 		}
 		return true;

@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.ISyntaxContext;
 
 public interface Constants {
 
-	public String ANTLR_VERSION = "3_3_0";
+	public String ANTLR_VERSION = "3_4_0";
 	public String DEFAULT_ANTLR_PLUGIN_NAME = "org.emftext.commons.antlr" + ANTLR_VERSION;
 	
 	public IPackage<ISyntaxContext> ANTLR_RUNTIME_PACKAGE = new BasicPackage<ISyntaxContext>("org.antlr.runtime" + ANTLR_VERSION);

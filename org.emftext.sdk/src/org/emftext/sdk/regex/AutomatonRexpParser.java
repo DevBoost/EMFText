@@ -16,7 +16,7 @@
 package org.emftext.sdk.regex; 
 
 
-import org.antlr.runtime3_3_0.*;
+import org.antlr.runtime3_4_0.*;
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
 Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/

@@ -17,9 +17,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.antlr.runtime3_3_0.ANTLRInputStream;
-import org.antlr.runtime3_3_0.CommonTokenStream;
-import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_4_0.ANTLRInputStream;
+import org.antlr.runtime3_4_0.CommonTokenStream;
+import org.antlr.runtime3_4_0.RecognitionException;
 
 public class RegexpTranslationHelper {
 

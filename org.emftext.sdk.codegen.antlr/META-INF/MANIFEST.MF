@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.emftext.sdk.codegen.antlr
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.emftext.sdk,
- org.emftext.sdk.antlr3_3_0,
+ org.emftext.sdk.antlr3_4_0,
  org.emftext.sdk.codegen
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.sdk.codegen.antlr,

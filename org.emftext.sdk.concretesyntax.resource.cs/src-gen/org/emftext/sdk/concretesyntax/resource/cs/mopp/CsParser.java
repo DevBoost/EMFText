@@ -3,7 +3,7 @@
 	package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 
-import org.antlr.runtime3_3_0.*;
+import org.antlr.runtime3_4_0.*;
 import java.util.HashMap;
 @SuppressWarnings("unused")
 public class CsParser extends CsANTLRParserBase {
@@ -104,7 +104,7 @@ public class CsParser extends CsANTLRParserBase {
     	/**
     	 * A helper list to allow a lexer to pass errors to its parser
     	 */
-    	protected java.util.List<org.antlr.runtime3_3_0.RecognitionException> lexerExceptions = java.util.Collections.synchronizedList(new java.util.ArrayList<org.antlr.runtime3_3_0.RecognitionException>());
+    	protected java.util.List<org.antlr.runtime3_4_0.RecognitionException> lexerExceptions = java.util.Collections.synchronizedList(new java.util.ArrayList<org.antlr.runtime3_4_0.RecognitionException>());
     	
     	/**
     	 * Another helper list to allow a lexer to pass positions of errors to its parser
@@ -198,7 +198,7 @@ public class CsParser extends CsANTLRParserBase {
     		});
     	}
     	
-    	protected void copyLocalizationInfos(final org.antlr.runtime3_3_0.CommonToken source, final org.eclipse.emf.ecore.EObject target) {
+    	protected void copyLocalizationInfos(final org.antlr.runtime3_4_0.CommonToken source, final org.eclipse.emf.ecore.EObject target) {
     		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
     			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
     				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
@@ -240,9 +240,9 @@ public class CsParser extends CsANTLRParserBase {
     	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser createInstance(java.io.InputStream actualInputStream, String encoding) {
     		try {
     			if (encoding == null) {
-    				return new CsParser(new org.antlr.runtime3_3_0.CommonTokenStream(new CsLexer(new org.antlr.runtime3_3_0.ANTLRInputStream(actualInputStream))));
+    				return new CsParser(new org.antlr.runtime3_4_0.CommonTokenStream(new CsLexer(new org.antlr.runtime3_4_0.ANTLRInputStream(actualInputStream))));
     			} else {
-    				return new CsParser(new org.antlr.runtime3_3_0.CommonTokenStream(new CsLexer(new org.antlr.runtime3_3_0.ANTLRInputStream(actualInputStream, encoding))));
+    				return new CsParser(new org.antlr.runtime3_4_0.CommonTokenStream(new CsLexer(new org.antlr.runtime3_4_0.ANTLRInputStream(actualInputStream, encoding))));
     			}
     		} catch (java.io.IOException e) {
     			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Error while creating parser.", e);
@@ -257,7 +257,7 @@ public class CsParser extends CsANTLRParserBase {
     		super(null);
     	}
     	
-    	protected org.eclipse.emf.ecore.EObject doParse() throws org.antlr.runtime3_3_0.RecognitionException {
+    	protected org.eclipse.emf.ecore.EObject doParse() throws org.antlr.runtime3_4_0.RecognitionException {
     		this.lastPosition = 0;
     		// required because the lexer class can not be subclassed
     		((CsLexer) getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
@@ -353,7 +353,7 @@ public class CsParser extends CsANTLRParserBase {
     		return mismatchedTokenRecoveryTries;
     	}
     	
-    	public Object getMissingSymbol(org.antlr.runtime3_3_0.IntStream arg0, org.antlr.runtime3_3_0.RecognitionException arg1, int arg2, org.antlr.runtime3_3_0.BitSet arg3) {
+    	public Object getMissingSymbol(org.antlr.runtime3_4_0.IntStream arg0, org.antlr.runtime3_4_0.RecognitionException arg1, int arg2, org.antlr.runtime3_4_0.BitSet arg3) {
     		mismatchedTokenRecoveryTries++;
     		return super.getMissingSymbol(arg0, arg1, arg2, arg3);
     	}
@@ -387,7 +387,7 @@ public class CsParser extends CsANTLRParserBase {
     			if (lexerExceptions.isEmpty()) {
     				parseResult.setRoot(result);
     			}
-    		} catch (org.antlr.runtime3_3_0.RecognitionException re) {
+    		} catch (org.antlr.runtime3_4_0.RecognitionException re) {
     			reportError(re);
     		} catch (java.lang.IllegalArgumentException iae) {
     			if ("The 'no null' constraint is violated".equals(iae.getMessage())) {
@@ -397,7 +397,7 @@ public class CsParser extends CsANTLRParserBase {
     				iae.printStackTrace();
     			}
     		}
-    		for (org.antlr.runtime3_3_0.RecognitionException re : lexerExceptions) {
+    		for (org.antlr.runtime3_4_0.RecognitionException re : lexerExceptions) {
     			reportLexicalError(re);
     		}
     		parseResult.getPostParseCommands().addAll(postParseCommands);
@@ -409,10 +409,10 @@ public class CsParser extends CsANTLRParserBase {
     		this.parseToIndexTypeObject = type;
     		this.cursorOffset = cursorOffset;
     		this.lastStartIncludingHidden = -1;
-    		final org.antlr.runtime3_3_0.CommonTokenStream tokenStream = (org.antlr.runtime3_3_0.CommonTokenStream) getTokenStream();
+    		final org.antlr.runtime3_4_0.CommonTokenStream tokenStream = (org.antlr.runtime3_4_0.CommonTokenStream) getTokenStream();
     		org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult result = parse();
     		for (org.eclipse.emf.ecore.EObject incompleteObject : incompleteObjects) {
-    			org.antlr.runtime3_3_0.Lexer lexer = (org.antlr.runtime3_3_0.Lexer) tokenStream.getTokenSource();
+    			org.antlr.runtime3_4_0.Lexer lexer = (org.antlr.runtime3_4_0.Lexer) tokenStream.getTokenSource();
     			int endChar = lexer.getCharIndex();
     			int endLine = lexer.getLine();
     			setLocalizationEnd(result.getPostParseCommands(), incompleteObject, endChar, endLine);
@@ -442,7 +442,7 @@ public class CsParser extends CsANTLRParserBase {
     		int followSetID = 186;
     		int i;
     		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
-    			org.antlr.runtime3_3_0.CommonToken nextToken = (org.antlr.runtime3_3_0.CommonToken) tokenStream.get(i);
+    			org.antlr.runtime3_4_0.CommonToken nextToken = (org.antlr.runtime3_4_0.CommonToken) tokenStream.get(i);
     			if (nextToken.getType() < 0) {
     				break;
     			}
@@ -490,7 +490,7 @@ public class CsParser extends CsANTLRParserBase {
     			if (index >= input.size()) {
     				break;
     			}
-    			org.antlr.runtime3_3_0.CommonToken tokenAtIndex = (org.antlr.runtime3_3_0.CommonToken) input.get(index);
+    			org.antlr.runtime3_4_0.CommonToken tokenAtIndex = (org.antlr.runtime3_4_0.CommonToken) input.get(index);
     			stopIncludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;
     			if (tokenAtIndex.getChannel() != 99) {
     				stopExcludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;
@@ -500,7 +500,7 @@ public class CsParser extends CsANTLRParserBase {
     		expectedElement.setPosition(stopExcludingHiddenTokens, stopIncludingHiddenTokens);
     	}
     	
-    	public Object recoverFromMismatchedToken(org.antlr.runtime3_3_0.IntStream input, int ttype, org.antlr.runtime3_3_0.BitSet follow) throws org.antlr.runtime3_3_0.RecognitionException {
+    	public Object recoverFromMismatchedToken(org.antlr.runtime3_4_0.IntStream input, int ttype, org.antlr.runtime3_4_0.BitSet follow) throws org.antlr.runtime3_4_0.RecognitionException {
     		if (!rememberExpectedElements) {
     			return super.recoverFromMismatchedToken(input, ttype, follow);
     		} else {
@@ -511,35 +511,35 @@ public class CsParser extends CsANTLRParserBase {
     	/**
     	 * Translates errors thrown by the parser into human readable messages.
     	 */
-    	public void reportError(final org.antlr.runtime3_3_0.RecognitionException e)  {
+    	public void reportError(final org.antlr.runtime3_4_0.RecognitionException e)  {
     		String message = e.getMessage();
-    		if (e instanceof org.antlr.runtime3_3_0.MismatchedTokenException) {
-    			org.antlr.runtime3_3_0.MismatchedTokenException mte = (org.antlr.runtime3_3_0.MismatchedTokenException) e;
+    		if (e instanceof org.antlr.runtime3_4_0.MismatchedTokenException) {
+    			org.antlr.runtime3_4_0.MismatchedTokenException mte = (org.antlr.runtime3_4_0.MismatchedTokenException) e;
     			String expectedTokenName = formatTokenName(mte.expecting);
     			String actualTokenName = formatTokenName(e.token.getType());
     			message = "Syntax error on token \"" + e.token.getText() + " (" + actualTokenName + ")\", \"" + expectedTokenName + "\" expected";
-    		} else if (e instanceof org.antlr.runtime3_3_0.MismatchedTreeNodeException) {
-    			org.antlr.runtime3_3_0.MismatchedTreeNodeException mtne = (org.antlr.runtime3_3_0.MismatchedTreeNodeException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedTreeNodeException) {
+    			org.antlr.runtime3_4_0.MismatchedTreeNodeException mtne = (org.antlr.runtime3_4_0.MismatchedTreeNodeException) e;
     			String expectedTokenName = formatTokenName(mtne.expecting);
     			message = "mismatched tree node: " + "xxx" + "; tokenName " + expectedTokenName;
-    		} else if (e instanceof org.antlr.runtime3_3_0.NoViableAltException) {
+    		} else if (e instanceof org.antlr.runtime3_4_0.NoViableAltException) {
     			message = "Syntax error on token \"" + e.token.getText() + "\", check following tokens";
-    		} else if (e instanceof org.antlr.runtime3_3_0.EarlyExitException) {
+    		} else if (e instanceof org.antlr.runtime3_4_0.EarlyExitException) {
     			message = "Syntax error on token \"" + e.token.getText() + "\", delete this token";
-    		} else if (e instanceof org.antlr.runtime3_3_0.MismatchedSetException) {
-    			org.antlr.runtime3_3_0.MismatchedSetException mse = (org.antlr.runtime3_3_0.MismatchedSetException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedSetException) {
+    			org.antlr.runtime3_4_0.MismatchedSetException mse = (org.antlr.runtime3_4_0.MismatchedSetException) e;
     			message = "mismatched token: " + e.token + "; expecting set " + mse.expecting;
-    		} else if (e instanceof org.antlr.runtime3_3_0.MismatchedNotSetException) {
-    			org.antlr.runtime3_3_0.MismatchedNotSetException mse = (org.antlr.runtime3_3_0.MismatchedNotSetException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedNotSetException) {
+    			org.antlr.runtime3_4_0.MismatchedNotSetException mse = (org.antlr.runtime3_4_0.MismatchedNotSetException) e;
     			message = "mismatched token: " +  e.token + "; expecting set " + mse.expecting;
-    		} else if (e instanceof org.antlr.runtime3_3_0.FailedPredicateException) {
-    			org.antlr.runtime3_3_0.FailedPredicateException fpe = (org.antlr.runtime3_3_0.FailedPredicateException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.FailedPredicateException) {
+    			org.antlr.runtime3_4_0.FailedPredicateException fpe = (org.antlr.runtime3_4_0.FailedPredicateException) e;
     			message = "rule " + fpe.ruleName + " failed predicate: {" +  fpe.predicateText + "}?";
     		}
     		// the resource may be null if the parser is used for code completion
     		final String finalMessage = message;
-    		if (e.token instanceof org.antlr.runtime3_3_0.CommonToken) {
-    			final org.antlr.runtime3_3_0.CommonToken ct = (org.antlr.runtime3_3_0.CommonToken) e.token;
+    		if (e.token instanceof org.antlr.runtime3_4_0.CommonToken) {
+    			final org.antlr.runtime3_4_0.CommonToken ct = (org.antlr.runtime3_4_0.CommonToken) e.token;
     			addErrorToResource(finalMessage, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
     		} else {
     			addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5);
@@ -549,27 +549,27 @@ public class CsParser extends CsANTLRParserBase {
     	/**
     	 * Translates errors thrown by the lexer into human readable messages.
     	 */
-    	public void reportLexicalError(final org.antlr.runtime3_3_0.RecognitionException e)  {
+    	public void reportLexicalError(final org.antlr.runtime3_4_0.RecognitionException e)  {
     		String message = "";
-    		if (e instanceof org.antlr.runtime3_3_0.MismatchedTokenException) {
-    			org.antlr.runtime3_3_0.MismatchedTokenException mte = (org.antlr.runtime3_3_0.MismatchedTokenException) e;
+    		if (e instanceof org.antlr.runtime3_4_0.MismatchedTokenException) {
+    			org.antlr.runtime3_4_0.MismatchedTokenException mte = (org.antlr.runtime3_4_0.MismatchedTokenException) e;
     			message = "Syntax error on token \"" + ((char) e.c) + "\", \"" + (char) mte.expecting + "\" expected";
-    		} else if (e instanceof org.antlr.runtime3_3_0.NoViableAltException) {
+    		} else if (e instanceof org.antlr.runtime3_4_0.NoViableAltException) {
     			message = "Syntax error on token \"" + ((char) e.c) + "\", delete this token";
-    		} else if (e instanceof org.antlr.runtime3_3_0.EarlyExitException) {
-    			org.antlr.runtime3_3_0.EarlyExitException eee = (org.antlr.runtime3_3_0.EarlyExitException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.EarlyExitException) {
+    			org.antlr.runtime3_4_0.EarlyExitException eee = (org.antlr.runtime3_4_0.EarlyExitException) e;
     			message = "required (...)+ loop (decision=" + eee.decisionNumber + ") did not match anything; on line " + e.line + ":" + e.charPositionInLine + " char=" + ((char) e.c) + "'";
-    		} else if (e instanceof org.antlr.runtime3_3_0.MismatchedSetException) {
-    			org.antlr.runtime3_3_0.MismatchedSetException mse = (org.antlr.runtime3_3_0.MismatchedSetException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedSetException) {
+    			org.antlr.runtime3_4_0.MismatchedSetException mse = (org.antlr.runtime3_4_0.MismatchedSetException) e;
     			message = "mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set " + mse.expecting;
-    		} else if (e instanceof org.antlr.runtime3_3_0.MismatchedNotSetException) {
-    			org.antlr.runtime3_3_0.MismatchedNotSetException mse = (org.antlr.runtime3_3_0.MismatchedNotSetException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedNotSetException) {
+    			org.antlr.runtime3_4_0.MismatchedNotSetException mse = (org.antlr.runtime3_4_0.MismatchedNotSetException) e;
     			message = "mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set " + mse.expecting;
-    		} else if (e instanceof org.antlr.runtime3_3_0.MismatchedRangeException) {
-    			org.antlr.runtime3_3_0.MismatchedRangeException mre = (org.antlr.runtime3_3_0.MismatchedRangeException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedRangeException) {
+    			org.antlr.runtime3_4_0.MismatchedRangeException mre = (org.antlr.runtime3_4_0.MismatchedRangeException) e;
     			message = "mismatched char: '" + ((char) e.c) + "' on line " + e.line + ":" + e.charPositionInLine + "; expecting set '" + (char) mre.a + "'..'" + (char) mre.b + "'";
-    		} else if (e instanceof org.antlr.runtime3_3_0.FailedPredicateException) {
-    			org.antlr.runtime3_3_0.FailedPredicateException fpe = (org.antlr.runtime3_3_0.FailedPredicateException) e;
+    		} else if (e instanceof org.antlr.runtime3_4_0.FailedPredicateException) {
+    			org.antlr.runtime3_4_0.FailedPredicateException fpe = (org.antlr.runtime3_4_0.FailedPredicateException) e;
     			message = "rule " + fpe.ruleName + " failed predicate: {" + fpe.predicateText + "}?";
     		}
     		addErrorToResource(message, e.charPositionInLine, e.line, lexerExceptionsPosition.get(lexerExceptions.indexOf(e)), lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
@@ -809,7 +809,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_1, true, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
                       				// set value of boolean attribute
                       				Object value = true;
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT), value);
@@ -845,7 +845,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_2, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -879,7 +879,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a5).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a5).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a5).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a5).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a5).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a5).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a5).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a5).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -889,7 +889,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_4, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a5, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a5, element);
               			}
               		
             }
@@ -916,7 +916,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_6, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -950,7 +950,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a7).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a7).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a7).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a7).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a7).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a7).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a7).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a7).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenPackage();
@@ -963,8 +963,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_8, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a7, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a7, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a7, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a7, proxy);
               			}
               		
             }
@@ -1022,7 +1022,7 @@ public class CsParser extends CsANTLRParserBase {
                       						tokenResolver.resolve(a8.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), result);
                       						Object resolvedObject = result.getResolvedToken();
                       						if (resolvedObject == null) {
-                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
+                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a8).getStopIndex());
                       						}
                       						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
@@ -1032,7 +1032,7 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						collectHiddenTokens(element);
                       						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_9_0_0_1, resolved, true);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a8, element);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a8, element);
                       					}
                       				
                     }
@@ -1098,7 +1098,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_11_0_0_0, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a9, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a9, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1135,7 +1135,7 @@ public class CsParser extends CsANTLRParserBase {
                       							tokenResolver.resolve(a10.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
                       							Object resolvedObject = result.getResolvedToken();
                       							if (resolvedObject == null) {
-                      								addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a10).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a10).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a10).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a10).getStopIndex());
+                      								addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a10).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a10).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a10).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a10).getStopIndex());
                       							}
                       							String resolved = (String) resolvedObject;
                       							org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
@@ -1148,8 +1148,8 @@ public class CsParser extends CsANTLRParserBase {
                       							}
                       							collectHiddenTokens(element);
                       							retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_11_0_0_2_0_0_0, proxy, true);
-                      							copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a10, element);
-                      							copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a10, proxy);
+                      							copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a10, element);
+                      							copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a10, proxy);
                       						}
                       					
                     }
@@ -1213,7 +1213,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      						}
                     	      						collectHiddenTokens(element);
                     	      						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_11_0_0_3_0_0_0, null, true);
-                    	      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a11, element);
+                    	      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a11, element);
                     	      					
                     	    }
                     	    if ( state.backtracking==0 ) {
@@ -1250,7 +1250,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      									tokenResolver.resolve(a12.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
                     	      									Object resolvedObject = result.getResolvedToken();
                     	      									if (resolvedObject == null) {
-                    	      										addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a12).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a12).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a12).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a12).getStopIndex());
+                    	      										addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a12).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a12).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a12).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a12).getStopIndex());
                     	      									}
                     	      									String resolved = (String) resolvedObject;
                     	      									org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
@@ -1263,8 +1263,8 @@ public class CsParser extends CsANTLRParserBase {
                     	      									}
                     	      									collectHiddenTokens(element);
                     	      									retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_11_0_0_3_0_0_1_0_0_0, proxy, true);
-                    	      									copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a12, element);
-                    	      									copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a12, proxy);
+                    	      									copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a12, element);
+                    	      									copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a12, proxy);
                     	      								}
                     	      							
                     	    }
@@ -1366,7 +1366,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_12_0_0_2, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a13, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a13, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1389,7 +1389,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_12_0_0_4, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a14, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a14, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1497,7 +1497,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_12_0_0_7, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a16, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a16, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1555,7 +1555,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_13_0_0_2, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a17, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a17, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1578,7 +1578,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_13_0_0_4, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a18, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a18, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1663,7 +1663,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      						}
                     	      						collectHiddenTokens(element);
                     	      						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_13_0_0_5_0_0_2, null, true);
-                    	      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a20, element);
+                    	      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a20, element);
                     	      					
                     	    }
                     	    if ( state.backtracking==0 ) {
@@ -1706,7 +1706,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_13_0_0_7, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a21, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a21, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1762,7 +1762,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_14_0_0_2, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a22, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a22, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1785,7 +1785,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_14_0_0_4, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a23, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a23, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1874,7 +1874,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      						}
                     	      						collectHiddenTokens(element);
                     	      						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_14_0_0_5_0_0_2, null, true);
-                    	      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a25, element);
+                    	      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a25, element);
                     	      					
                     	    }
                     	    if ( state.backtracking==0 ) {
@@ -1925,7 +1925,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_14_0_0_7, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a26, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a26, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -1979,7 +1979,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_15_0_0_2, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a27, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a27, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -2002,7 +2002,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_15_0_0_4, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a28, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a28, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -2107,7 +2107,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_15_0_0_7, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a30, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a30, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -2145,7 +2145,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_18, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a31, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a31, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -2168,7 +2168,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_20, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a32, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a32, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -2276,7 +2276,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_0_0_0_23, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a34, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a34, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -2419,7 +2419,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -2429,7 +2429,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_1, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a1, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a1, element);
               			}
               		
             }
@@ -2451,7 +2451,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_2, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a2, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a2, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -2480,7 +2480,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a3).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a3).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a3).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a3).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a3).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a3).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a3).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a3).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenPackage();
@@ -2493,8 +2493,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_3, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a3, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a3, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a3, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a3, proxy);
               			}
               		
             }
@@ -2545,7 +2545,7 @@ public class CsParser extends CsANTLRParserBase {
                       						tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), result);
                       						Object resolvedObject = result.getResolvedToken();
                       						if (resolvedObject == null) {
-                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
+                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStopIndex());
                       						}
                       						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
@@ -2555,7 +2555,7 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						collectHiddenTokens(element);
                       						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_4_0_0_1, resolved, true);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a4, element);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a4, element);
                       					}
                       				
                     }
@@ -2612,7 +2612,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_5_0_0_1, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -2630,7 +2630,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_5_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -2659,7 +2659,7 @@ public class CsParser extends CsANTLRParserBase {
                       						tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), result);
                       						Object resolvedObject = result.getResolvedToken();
                       						if (resolvedObject == null) {
-                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a7).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a7).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a7).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a7).getStopIndex());
+                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a7).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a7).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a7).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a7).getStopIndex());
                       						}
                       						String resolved = (String) resolvedObject;
                       						org.emftext.sdk.concretesyntax.ConcreteSyntax proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -2672,8 +2672,8 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						collectHiddenTokens(element);
                       						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_5_0_0_5, proxy, true);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a7, element);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a7, proxy);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a7, element);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a7, proxy);
                       					}
                       				
                     }
@@ -2723,7 +2723,7 @@ public class CsParser extends CsANTLRParserBase {
                               								tokenResolver.resolve(a8.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), result);
                               								Object resolvedObject = result.getResolvedToken();
                               								if (resolvedObject == null) {
-                              									addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
+                              									addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a8).getStopIndex());
                               								}
                               								java.lang.String resolved = (java.lang.String) resolvedObject;
                               								if (resolved != null) {
@@ -2733,7 +2733,7 @@ public class CsParser extends CsANTLRParserBase {
                               								}
                               								collectHiddenTokens(element);
                               								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_1_0_0_5_0_0_6_0_0_1, resolved, true);
-                              								copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a8, element);
+                              								copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a8, element);
                               							}
                               						
                             }
@@ -2834,7 +2834,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				org.emftext.sdk.concretesyntax.OptionTypes resolved = (org.emftext.sdk.concretesyntax.OptionTypes) resolvedObject;
               				if (resolved != null) {
@@ -2844,7 +2844,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_2_0_0_0, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
               			}
               		
             }
@@ -2866,7 +2866,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_2_0_0_2, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -2895,7 +2895,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -2905,7 +2905,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_2_0_0_4, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
               			}
               		
             }
@@ -3050,7 +3050,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
@@ -3063,8 +3063,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3_0_0_1, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a1, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a1, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a1, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a1, proxy);
               			}
               		
             }
@@ -3086,7 +3086,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3_0_0_3, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a2, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a2, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -3151,7 +3151,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_3_0_0_6, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -3444,7 +3444,7 @@ public class CsParser extends CsANTLRParserBase {
             	      				}
             	      				collectHiddenTokens(element);
             	      				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_5_0_0_1_0_0_1, null, true);
-            	      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+            	      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
             	      			
             	    }
             	    if ( state.backtracking==0 ) {
@@ -3572,7 +3572,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -3582,7 +3582,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_6_0_0_0, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
               			}
               		
             }
@@ -3666,7 +3666,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
@@ -3679,8 +3679,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -3705,7 +3705,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -3737,7 +3737,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.emftext.sdk.concretesyntax.ReferencableTokenDefinition proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalTokenDefinition();
@@ -3750,8 +3750,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_2, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, proxy);
               			}
               		
             }
@@ -3776,7 +3776,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_3, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -3824,7 +3824,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_4, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.PLUS_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), value);
@@ -3849,7 +3849,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_4, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.STAR_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), value);
@@ -3874,7 +3874,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_7_0_0_4, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), value);
@@ -3966,7 +3966,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
@@ -3979,8 +3979,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -4005,7 +4005,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4026,7 +4026,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_2, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a2, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a2, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4074,7 +4074,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.PLUS_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), value);
@@ -4099,7 +4099,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.STAR_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), value);
@@ -4124,7 +4124,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_8_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), value);
@@ -4221,7 +4221,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
@@ -4234,8 +4234,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -4260,7 +4260,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4292,7 +4292,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -4302,7 +4302,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_2, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
               			}
               		
             }
@@ -4327,7 +4327,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_3, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4359,7 +4359,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -4369,7 +4369,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_4, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a4, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a4, element);
               			}
               		
             }
@@ -4409,7 +4409,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_5_0_0_0, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -4441,7 +4441,7 @@ public class CsParser extends CsANTLRParserBase {
                       						tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER), result);
                       						Object resolvedObject = result.getResolvedToken();
                       						if (resolvedObject == null) {
-                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStopIndex());
+                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a6).getStopIndex());
                       						}
                       						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
@@ -4451,7 +4451,7 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						collectHiddenTokens(element);
                       						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_5_0_0_1, resolved, true);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a6, element);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a6, element);
                       					}
                       				
                     }
@@ -4491,7 +4491,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_6, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a7, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a7, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4539,7 +4539,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_7, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a8, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a8, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.PLUS_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), value);
@@ -4564,7 +4564,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_7, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a9, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a9, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.STAR_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), value);
@@ -4589,7 +4589,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_9_0_0_7, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a10, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a10, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), value);
@@ -4684,7 +4684,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__FEATURE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
@@ -4697,8 +4697,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -4723,7 +4723,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4755,7 +4755,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__TRUE_LITERAL), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -4765,7 +4765,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_2, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
               			}
               		
             }
@@ -4790,7 +4790,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_4, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4822,7 +4822,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__FALSE_LITERAL), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -4832,7 +4832,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_6, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a4, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a4, element);
               			}
               		
             }
@@ -4857,7 +4857,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_7, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -4905,7 +4905,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_8, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.PLUS_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__CARDINALITY), value);
@@ -4930,7 +4930,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_8, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a7, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a7, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.STAR_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__CARDINALITY), value);
@@ -4955,7 +4955,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_10_0_0_8, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a8, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a8, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.BOOLEAN_TERMINAL__CARDINALITY), value);
@@ -5052,7 +5052,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__FEATURE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
@@ -5065,8 +5065,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -5091,7 +5091,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -5172,7 +5172,7 @@ public class CsParser extends CsANTLRParserBase {
             	      				}
             	      				collectHiddenTokens(element);
             	      				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_3_0_0_0, null, true);
-            	      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+            	      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
             	      			
             	    }
             	    if ( state.backtracking==0 ) {
@@ -5254,7 +5254,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_4, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -5302,7 +5302,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_5, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.PLUS_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__CARDINALITY), value);
@@ -5327,7 +5327,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_5, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a7, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a7, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.STAR_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__CARDINALITY), value);
@@ -5352,7 +5352,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_11_0_0_5, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a8, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a8, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__CARDINALITY), value);
@@ -5438,7 +5438,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL__LITERAL), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.ecore.EEnumLiteral proxy = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEEnumLiteral();
@@ -5451,8 +5451,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_12_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -5474,7 +5474,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_12_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -5503,7 +5503,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_LITERAL_TERMINAL__TEXT), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -5513,7 +5513,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_12_0_0_2, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
               			}
               		
             }
@@ -5587,7 +5587,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
@@ -5600,8 +5600,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -5641,7 +5641,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_1_0_0_0, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -5673,7 +5673,7 @@ public class CsParser extends CsANTLRParserBase {
                       						tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), result);
                       						Object resolvedObject = result.getResolvedToken();
                       						if (resolvedObject == null) {
-                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
                       						}
                       						String resolved = (String) resolvedObject;
                       						org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
@@ -5686,8 +5686,8 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						collectHiddenTokens(element);
                       						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_1_0_0_1, proxy, true);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, proxy);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, proxy);
                       					}
                       				
                     }
@@ -5731,7 +5731,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      						}
                     	      						collectHiddenTokens(element);
                     	      						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_1_0_0_2_0_0_0, null, true);
-                    	      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+                    	      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
                     	      					
                     	    }
                     	    if ( state.backtracking==0 ) {
@@ -5763,7 +5763,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      								tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), result);
                     	      								Object resolvedObject = result.getResolvedToken();
                     	      								if (resolvedObject == null) {
-                    	      									addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
+                    	      									addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStopIndex());
                     	      								}
                     	      								String resolved = (String) resolvedObject;
                     	      								org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
@@ -5776,8 +5776,8 @@ public class CsParser extends CsANTLRParserBase {
                     	      								}
                     	      								collectHiddenTokens(element);
                     	      								retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_1_0_0_2_0_0_1, proxy, true);
-                    	      								copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a4, element);
-                    	      								copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a4, proxy);
+                    	      								copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a4, element);
+                    	      								copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a4, proxy);
                     	      							}
                     	      						
                     	    }
@@ -5864,7 +5864,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_2, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.PLUS_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), value);
@@ -5889,7 +5889,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_2, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.STAR_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), value);
@@ -5914,7 +5914,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_13_0_0_2, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a7, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a7, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), value);
@@ -5996,7 +5996,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_0, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a0, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a0, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -6067,7 +6067,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_2, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a2, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a2, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -6115,7 +6115,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.PLUS_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), value);
@@ -6140,7 +6140,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.STAR_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), value);
@@ -6165,7 +6165,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_14_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
                       				// set value of enumeration attribute
                       				Object value = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCardinality().getEEnumLiteral(org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK_VALUE).getInstance();
                       				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), value);
@@ -6249,7 +6249,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				java.lang.Integer resolved = (java.lang.Integer) resolvedObject;
               				if (resolved != null) {
@@ -6259,7 +6259,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_15_0_0_0, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
               			}
               		
             }
@@ -6334,7 +6334,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				java.lang.Integer resolved = (java.lang.Integer) resolvedObject;
               				if (resolved != null) {
@@ -6344,7 +6344,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_16_0_0_0, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
               			}
               		
             }
@@ -6494,7 +6494,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -6523,7 +6523,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__REDEFINED_TOKEN), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.emftext.sdk.concretesyntax.CompleteTokenDefinition proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalTokenDefinition();
@@ -6536,8 +6536,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17_0_0_3, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, proxy);
               			}
               		
             }
@@ -6559,7 +6559,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17_0_0_4, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -6588,7 +6588,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__NAME), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -6598,7 +6598,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17_0_0_5, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a4, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a4, element);
               			}
               		
             }
@@ -6678,7 +6678,7 @@ public class CsParser extends CsANTLRParserBase {
             	      				}
             	      				collectHiddenTokens(element);
             	      				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_17_0_0_8_0_0_1, null, true);
-            	      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+            	      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
             	      			
             	    }
             	    if ( state.backtracking==0 ) {
@@ -6872,7 +6872,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18_0_0_1, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -6901,7 +6901,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__NAME), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -6911,7 +6911,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18_0_0_3, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
               			}
               		
             }
@@ -6992,7 +6992,7 @@ public class CsParser extends CsANTLRParserBase {
             	      				}
             	      				collectHiddenTokens(element);
             	      				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18_0_0_6_0_0_1, null, true);
-            	      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+            	      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
             	      			
             	    }
             	    if ( state.backtracking==0 ) {
@@ -7085,7 +7085,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18_0_0_7_0_0_1, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -7103,7 +7103,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18_0_0_7_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a7, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a7, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -7132,7 +7132,7 @@ public class CsParser extends CsANTLRParserBase {
                       						tokenResolver.resolve(a8.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ATTRIBUTE_NAME), result);
                       						Object resolvedObject = result.getResolvedToken();
                       						if (resolvedObject == null) {
-                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a8).getStopIndex());
+                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a8).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a8).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a8).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a8).getStopIndex());
                       						}
                       						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
@@ -7142,7 +7142,7 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						collectHiddenTokens(element);
                       						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_18_0_0_7_0_0_5, resolved, true);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a8, element);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a8, element);
                       					}
                       				
                     }
@@ -7216,7 +7216,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19_0_0_0, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a0, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a0, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -7234,7 +7234,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19_0_0_2, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -7263,7 +7263,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__NAME), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -7273,7 +7273,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19_0_0_4, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
               			}
               		
             }
@@ -7353,7 +7353,7 @@ public class CsParser extends CsANTLRParserBase {
             	      				}
             	      				collectHiddenTokens(element);
             	      				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_19_0_0_7_0_0_1, null, true);
-            	      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+            	      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
             	      			
             	    }
             	    if ( state.backtracking==0 ) {
@@ -7461,7 +7461,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_20_0_0_0, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a0, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a0, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -7490,7 +7490,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.emftext.sdk.concretesyntax.CompleteTokenDefinition proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalTokenDefinition();
@@ -7503,8 +7503,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_20_0_0_2, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a1, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a1, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a1, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a1, proxy);
               			}
               		
             }
@@ -7567,7 +7567,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ATOMIC_REGEX__ATOMIC_EXPRESSION), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -7577,7 +7577,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_21_0_0_0, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
               			}
               		
             }
@@ -7644,7 +7644,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.REGEX_REFERENCE__TARGET), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				String resolved = (String) resolvedObject;
               				org.emftext.sdk.concretesyntax.NamedTokenDefinition proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPartialTokenDefinition();
@@ -7657,8 +7657,8 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_22_0_0_0, proxy, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, proxy);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, proxy);
               			}
               		
             }
@@ -7732,7 +7732,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -7742,7 +7742,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_0, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
               			}
               		
             }
@@ -7783,7 +7783,7 @@ public class CsParser extends CsANTLRParserBase {
             	      				}
             	      				collectHiddenTokens(element);
             	      				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_1_0_0_0, null, true);
-            	      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+            	      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
             	      			
             	    }
             	    if ( state.backtracking==0 ) {
@@ -7812,7 +7812,7 @@ public class CsParser extends CsANTLRParserBase {
             	      						tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAMES), result);
             	      						Object resolvedObject = result.getResolvedToken();
             	      						if (resolvedObject == null) {
-            	      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+            	      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
             	      						}
             	      						java.lang.String resolved = (java.lang.String) resolvedObject;
             	      						if (resolved != null) {
@@ -7822,7 +7822,7 @@ public class CsParser extends CsANTLRParserBase {
             	      						}
             	      						collectHiddenTokens(element);
             	      						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_1_0_0_2, resolved, true);
-            	      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+            	      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
             	      					}
             	      				
             	    }
@@ -7864,7 +7864,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_3, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a3, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a3, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -7893,7 +7893,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a4).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a4).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a4).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -7903,7 +7903,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_5, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a4, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a4, element);
               			}
               		
             }
@@ -7944,7 +7944,7 @@ public class CsParser extends CsANTLRParserBase {
             	      				}
             	      				collectHiddenTokens(element);
             	      				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_6_0_0_0, null, true);
-            	      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a5, element);
+            	      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a5, element);
             	      			
             	    }
             	    if ( state.backtracking==0 ) {
@@ -7973,7 +7973,7 @@ public class CsParser extends CsANTLRParserBase {
             	      						tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES), result);
             	      						Object resolvedObject = result.getResolvedToken();
             	      						if (resolvedObject == null) {
-            	      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a6).getStopIndex());
+            	      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a6).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a6).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a6).getStopIndex());
             	      						}
             	      						org.emftext.sdk.concretesyntax.FontStyle resolved = (org.emftext.sdk.concretesyntax.FontStyle) resolvedObject;
             	      						if (resolved != null) {
@@ -7983,7 +7983,7 @@ public class CsParser extends CsANTLRParserBase {
             	      						}
             	      						collectHiddenTokens(element);
             	      						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_6_0_0_2, resolved, true);
-            	      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a6, element);
+            	      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a6, element);
             	      					}
             	      				
             	    }
@@ -8025,7 +8025,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_23_0_0_7, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a7, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a7, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -8082,7 +8082,7 @@ public class CsParser extends CsANTLRParserBase {
               		}
               		collectHiddenTokens(element);
               		retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_0, null, true);
-              		copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a0, element);
+              		copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a0, element);
               	
             }
             if ( state.backtracking==0 ) {
@@ -8111,7 +8111,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a1).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a1).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a1).getStopIndex());
               				}
               				org.emftext.sdk.concretesyntax.AnnotationType resolved = (org.emftext.sdk.concretesyntax.AnnotationType) resolvedObject;
               				if (resolved != null) {
@@ -8121,7 +8121,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_1, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a1, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a1, element);
               			}
               		
             }
@@ -8164,7 +8164,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_2_0_0_0, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a2, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a2, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -8239,7 +8239,7 @@ public class CsParser extends CsANTLRParserBase {
                     	      						}
                     	      						collectHiddenTokens(element);
                     	      						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_2_0_0_2_0_0_0, null, true);
-                    	      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a4, element);
+                    	      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a4, element);
                     	      					
                     	    }
                     	    if ( state.backtracking==0 ) {
@@ -8315,7 +8315,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_24_0_0_2_0_0_3, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a6, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a6, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -8403,7 +8403,7 @@ public class CsParser extends CsANTLRParserBase {
               				tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), result);
               				Object resolvedObject = result.getResolvedToken();
               				if (resolvedObject == null) {
-              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a0).getStopIndex());
+              					addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a0).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a0).getStopIndex());
               				}
               				java.lang.String resolved = (java.lang.String) resolvedObject;
               				if (resolved != null) {
@@ -8413,7 +8413,7 @@ public class CsParser extends CsANTLRParserBase {
               				}
               				collectHiddenTokens(element);
               				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25_0_0_0, resolved, true);
-              				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a0, element);
+              				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a0, element);
               			}
               		
             }
@@ -8451,7 +8451,7 @@ public class CsParser extends CsANTLRParserBase {
                       				}
                       				collectHiddenTokens(element);
                       				retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25_0_0_1_0_0_0, null, true);
-                      				copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken)a1, element);
+                      				copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken)a1, element);
                       			
                     }
                     if ( state.backtracking==0 ) {
@@ -8480,7 +8480,7 @@ public class CsParser extends CsANTLRParserBase {
                       						tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), result);
                       						Object resolvedObject = result.getResolvedToken();
                       						if (resolvedObject == null) {
-                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_3_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_3_0.CommonToken) a2).getStopIndex());
+                      							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime3_4_0.CommonToken) a2).getLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) a2).getStopIndex());
                       						}
                       						java.lang.String resolved = (java.lang.String) resolvedObject;
                       						if (resolved != null) {
@@ -8490,7 +8490,7 @@ public class CsParser extends CsANTLRParserBase {
                       						}
                       						collectHiddenTokens(element);
                       						retrieveLayoutInformation(element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.CS_25_0_0_1_0_0_1, resolved, true);
-                      						copyLocalizationInfos((org.antlr.runtime3_3_0.CommonToken) a2, element);
+                      						copyLocalizationInfos((org.antlr.runtime3_4_0.CommonToken) a2, element);
                       					}
                       				
                     }

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.antlr.runtime3_3_0.RecognitionException;
+import org.antlr.runtime3_4_0.RecognitionException;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
