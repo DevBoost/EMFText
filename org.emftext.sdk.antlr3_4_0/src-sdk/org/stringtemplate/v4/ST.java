@@ -27,6 +27,20 @@
  */
 package org.stringtemplate.v4;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import org.stringtemplate.v4.compiler.CompiledST;
 import org.stringtemplate.v4.compiler.FormalArgument;
 import org.stringtemplate.v4.debug.AddAttributeEvent;
@@ -34,10 +48,11 @@ import org.stringtemplate.v4.debug.ConstructionEvent;
 import org.stringtemplate.v4.debug.EvalTemplateEvent;
 import org.stringtemplate.v4.debug.InterpEvent;
 import org.stringtemplate.v4.gui.STViz;
-import org.stringtemplate.v4.misc.*;
-
-import java.io.*;
-import java.util.*;
+import org.stringtemplate.v4.misc.Aggregate;
+import org.stringtemplate.v4.misc.ErrorBuffer;
+import org.stringtemplate.v4.misc.ErrorManager;
+import org.stringtemplate.v4.misc.MultiMap;
+import org.stringtemplate.v4.misc.STNoSuchAttributeException;
 
 /** An instance of the StringTemplate. It consists primarily of
  *  a reference to its implementation (shared among all instances)

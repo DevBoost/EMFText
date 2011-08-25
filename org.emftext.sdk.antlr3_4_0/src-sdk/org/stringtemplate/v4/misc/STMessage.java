@@ -27,11 +27,11 @@
  */
 package org.stringtemplate.v4.misc;
 
-import org.antlr.runtime.Token;
-import org.stringtemplate.v4.ST;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
+import org.antlr.runtime.Token;
+import org.stringtemplate.v4.ST;
 
 /** Upon error, ST creates an STMessage or subclass instance and notifies
  *  the listener.  This root class is used for IO and internal errors.

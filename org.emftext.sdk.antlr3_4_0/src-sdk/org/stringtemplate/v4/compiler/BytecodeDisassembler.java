@@ -27,11 +27,11 @@
  */
 package org.stringtemplate.v4.compiler;
 
-import org.stringtemplate.v4.misc.Interval;
-import org.stringtemplate.v4.misc.Misc;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.stringtemplate.v4.misc.Interval;
+import org.stringtemplate.v4.misc.Misc;
 
 public class BytecodeDisassembler {
     CompiledST code;

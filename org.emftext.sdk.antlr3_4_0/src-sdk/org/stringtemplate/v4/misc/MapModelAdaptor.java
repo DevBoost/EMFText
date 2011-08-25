@@ -27,12 +27,12 @@
  */
 package org.stringtemplate.v4.misc;
 
+import java.util.Map;
+
 import org.stringtemplate.v4.Interpreter;
 import org.stringtemplate.v4.ModelAdaptor;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
-
-import java.util.Map;
 
 public class MapModelAdaptor implements ModelAdaptor {
 	public Object getProperty(Interpreter interp, ST self, Object o, Object property, String propertyName)

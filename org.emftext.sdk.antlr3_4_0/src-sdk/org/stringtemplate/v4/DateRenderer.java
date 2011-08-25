@@ -29,7 +29,11 @@ package org.stringtemplate.v4;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /** A renderer for java.util.Date and Calendar objects. It understands a
  *  variety of format names as shown in formatToInt field.  By default

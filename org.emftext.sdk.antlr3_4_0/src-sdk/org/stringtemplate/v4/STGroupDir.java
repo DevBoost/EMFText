@@ -27,12 +27,18 @@
  */
 package org.stringtemplate.v4;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.stringtemplate.v4.compiler.*;
-import org.stringtemplate.v4.misc.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import java.io.*;
-import java.net.*;
+import org.antlr.runtime.ANTLRInputStream;
+import org.stringtemplate.v4.compiler.CompiledST;
+import org.stringtemplate.v4.compiler.STException;
+import org.stringtemplate.v4.misc.ErrorType;
+import org.stringtemplate.v4.misc.Misc;
 
 // TODO: caching?
 

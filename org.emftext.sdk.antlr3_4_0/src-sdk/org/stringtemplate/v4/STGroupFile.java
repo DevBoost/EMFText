@@ -27,11 +27,15 @@
  */
 package org.stringtemplate.v4;
 
-import org.stringtemplate.v4.compiler.*;
-import org.stringtemplate.v4.misc.*;
-
 import java.io.File;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+
+import org.stringtemplate.v4.compiler.CompiledST;
+import org.stringtemplate.v4.compiler.STException;
+import org.stringtemplate.v4.misc.ErrorType;
+import org.stringtemplate.v4.misc.Misc;
 
 /** The internal representation of a single group file (which must end in
  *  ".stg").  If we fail to find a group file, look for it via the

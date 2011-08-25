@@ -28,11 +28,11 @@
 
 package org.stringtemplate.v4;
 
-import org.stringtemplate.v4.debug.EvalTemplateEvent;
-import org.stringtemplate.v4.debug.InterpEvent;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.stringtemplate.v4.debug.EvalTemplateEvent;
+import org.stringtemplate.v4.debug.InterpEvent;
 
 /** */
 public class InstanceScope {

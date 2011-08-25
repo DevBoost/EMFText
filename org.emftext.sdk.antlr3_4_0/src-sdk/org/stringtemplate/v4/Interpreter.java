@@ -27,14 +27,39 @@
  */
 package org.stringtemplate.v4;
 
-import org.stringtemplate.v4.compiler.*;
-import org.stringtemplate.v4.compiler.Compiler;
-import org.stringtemplate.v4.debug.*;
-import org.stringtemplate.v4.misc.*;
-
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.lang.reflect.Constructor;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
+import org.stringtemplate.v4.compiler.Bytecode;
+import org.stringtemplate.v4.compiler.BytecodeDisassembler;
+import org.stringtemplate.v4.compiler.CompiledST;
+import org.stringtemplate.v4.compiler.Compiler;
+import org.stringtemplate.v4.compiler.FormalArgument;
+import org.stringtemplate.v4.compiler.GroupParser;
+import org.stringtemplate.v4.debug.EvalExprEvent;
+import org.stringtemplate.v4.debug.EvalTemplateEvent;
+import org.stringtemplate.v4.debug.IndentEvent;
+import org.stringtemplate.v4.debug.InterpEvent;
+import org.stringtemplate.v4.misc.ArrayIterator;
+import org.stringtemplate.v4.misc.ErrorManager;
+import org.stringtemplate.v4.misc.ErrorType;
+import org.stringtemplate.v4.misc.Interval;
+import org.stringtemplate.v4.misc.Misc;
+import org.stringtemplate.v4.misc.STNoSuchAttributeException;
+import org.stringtemplate.v4.misc.STNoSuchPropertyException;
 
 /** This class knows how to execute template bytecodes relative to a
  *  particular STGroup. To execute the byte codes, we need an output stream

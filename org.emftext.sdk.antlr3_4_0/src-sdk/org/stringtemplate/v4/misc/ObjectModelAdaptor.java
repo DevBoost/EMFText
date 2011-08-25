@@ -27,14 +27,14 @@
  */
 package org.stringtemplate.v4.misc;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
+
 import org.antlr.runtime.misc.DoubleKeyMap;
 import org.stringtemplate.v4.Interpreter;
 import org.stringtemplate.v4.ModelAdaptor;
 import org.stringtemplate.v4.ST;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
 
 public class ObjectModelAdaptor implements ModelAdaptor {
 	/** Cache exact attribute type and property name reflection Member object */

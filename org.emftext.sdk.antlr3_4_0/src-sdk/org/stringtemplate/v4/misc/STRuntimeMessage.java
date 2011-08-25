@@ -27,7 +27,9 @@
  */
 package org.stringtemplate.v4.misc;
 
-import org.stringtemplate.v4.*;
+import org.stringtemplate.v4.InstanceScope;
+import org.stringtemplate.v4.Interpreter;
+import org.stringtemplate.v4.ST;
 
 /** Used to track errors that occur in the ST interpreter. */
 public class STRuntimeMessage extends STMessage {

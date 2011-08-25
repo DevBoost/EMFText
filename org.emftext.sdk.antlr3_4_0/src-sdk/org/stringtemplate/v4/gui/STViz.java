@@ -27,27 +27,45 @@
  */
 package org.stringtemplate.v4.gui;
 
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeAdaptor;
-import org.stringtemplate.v4.*;
-import org.stringtemplate.v4.debug.EvalTemplateEvent;
-import org.stringtemplate.v4.debug.InterpEvent;
-import org.stringtemplate.v4.misc.*;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
-import javax.swing.text.JTextComponent;
-import javax.swing.tree.TreePath;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.ListModel;
+import javax.swing.border.Border;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
+import javax.swing.tree.TreePath;
+
+import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.CommonTreeAdaptor;
+import org.stringtemplate.v4.InstanceScope;
+import org.stringtemplate.v4.Interpreter;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupFile;
+import org.stringtemplate.v4.STGroupString;
+import org.stringtemplate.v4.debug.EvalTemplateEvent;
+import org.stringtemplate.v4.debug.InterpEvent;
+import org.stringtemplate.v4.misc.ErrorManager;
+import org.stringtemplate.v4.misc.Interval;
+import org.stringtemplate.v4.misc.Misc;
+import org.stringtemplate.v4.misc.STMessage;
+import org.stringtemplate.v4.misc.STRuntimeMessage;
 
 public class STViz {
 	//public ST currentST; // current ST selected in template tree

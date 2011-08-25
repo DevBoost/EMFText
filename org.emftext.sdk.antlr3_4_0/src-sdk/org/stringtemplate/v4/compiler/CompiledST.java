@@ -27,13 +27,21 @@
  */
 package org.stringtemplate.v4.compiler;
 
-import org.antlr.runtime.*;
-import org.antlr.runtime.tree.CommonTree;
-import org.stringtemplate.v4.*;
-import org.stringtemplate.v4.misc.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.io.*;
-import java.util.*;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenStream;
+import org.antlr.runtime.tree.CommonTree;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.misc.Interval;
+import org.stringtemplate.v4.misc.Misc;
 
 /** The result of compiling an ST.  Contains all the bytecode instructions,
  *  string table, bytecode address to source code map, and other bookkeeping

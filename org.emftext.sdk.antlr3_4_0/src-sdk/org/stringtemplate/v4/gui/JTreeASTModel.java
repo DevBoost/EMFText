@@ -28,12 +28,12 @@
 
 package org.stringtemplate.v4.gui;
 
-import org.antlr.runtime.tree.CommonTreeAdaptor;
-import org.antlr.runtime.tree.TreeAdaptor;
-
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
+import org.antlr.runtime.tree.CommonTreeAdaptor;
+import org.antlr.runtime.tree.TreeAdaptor;
 
 // TODO: copied from ANTLR v4; rm when upgraded to v4
 public class JTreeASTModel implements TreeModel {

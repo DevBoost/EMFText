@@ -28,10 +28,10 @@
 
 package org.stringtemplate.v4.misc;
 
+import java.util.Map;
+
 import org.stringtemplate.v4.Interpreter;
 import org.stringtemplate.v4.ST;
-
-import java.util.Map;
 
 /** Deal with structs created via ST.add("structname.{prop1, prop2}", ...); */
 public class AggregateModelAdaptor extends MapModelAdaptor {

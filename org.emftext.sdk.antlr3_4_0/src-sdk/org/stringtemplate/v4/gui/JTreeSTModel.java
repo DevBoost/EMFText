@@ -27,13 +27,13 @@
  */
 package org.stringtemplate.v4.gui;
 
-import org.stringtemplate.v4.Interpreter;
-import org.stringtemplate.v4.ST;
-import org.stringtemplate.v4.debug.EvalTemplateEvent;
-
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
+import org.stringtemplate.v4.Interpreter;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.debug.EvalTemplateEvent;
 
 public class JTreeSTModel implements TreeModel {
 	public Interpreter interp;

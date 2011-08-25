@@ -28,17 +28,18 @@
 
 package org.stringtemplate.v4.gui;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+
 import org.antlr.runtime.tree.CommonTree;
 import org.stringtemplate.v4.InstanceScope;
 import org.stringtemplate.v4.Interpreter;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.debug.AddAttributeEvent;
-
-import javax.swing.event.TreeModelListener;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
-import java.util.List;
-import java.util.Map;
 
 /** From a scope, get stack of enclosing scopes in order from root down
  *  to scope.  Then show each scope's (ST's) attributes as children.

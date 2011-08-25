@@ -27,7 +27,9 @@
  */
 package org.stringtemplate.v4.misc;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /** A hash table that maps a key to a list of elements not just a single. */
 public class MultiMap<K, V> extends LinkedHashMap<K, List<V>> {

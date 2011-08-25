@@ -27,11 +27,19 @@
  */
 package org.stringtemplate.v4.compiler;
 
-import org.antlr.runtime.*;
-import org.stringtemplate.v4.STGroup;
-import org.stringtemplate.v4.misc.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.MismatchedTokenException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenSource;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.misc.ErrorManager;
+import org.stringtemplate.v4.misc.Misc;
 
 /** This class represents the tokenizer for templates. It operates in two modes:
  *  inside and outside of expressions. It behaves like an ANTLR TokenSource,
