@@ -1275,7 +1275,7 @@
     </eLiterals>
     <eLiterals name="ANTLR_PLUGIN_ID" value="142" literal="antlrPluginID">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is &lt;code>org.emftext.commons.antlr3_3_0&lt;/code>."/>
+        <details key="documentation" value="Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is &lt;code>org.emftext.commons.antlr3_4_0&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="OVERRIDE_ANTLR_PLUGIN" value="143" literal="overrideAntlrPlugin">

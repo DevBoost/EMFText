@@ -4471,7 +4471,7 @@ public enum OptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_3_0</code>.
+	 * Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_4_0</code>.
 	 * <!-- end-model-doc -->
 	 * @see #ANTLR_PLUGIN_ID
 	 * @model literal="antlrPluginID"
