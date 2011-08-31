@@ -137,6 +137,7 @@ public class TextResourceGenerator extends
 
 		addAddProblemMethod1(sc);
 		addAddProblemMethod2(sc);
+		addAddQuickFixesToQuickFixMap(sc);
 		addAddErrorMethod1(sc);
 		addAddErrorMethod2(sc);
 		addAddWarningMethod1(sc);
@@ -504,15 +505,7 @@ public class TextResourceGenerator extends
 		sc.add("if (isMarkerCreationEnabled()) {");
 		sc.add(markerHelperClassName + ".mark(this, diagnostic);");
 		sc.add("}");
-		sc.add(COLLECTION + "<" + iQuickFixClassName
-				+ "> quickFixes = problem.getQuickFixes();");
-		sc.add("if (quickFixes != null) {");
-		sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
-		sc.add("if (quickFix != null) {");
-		sc.add("quickFixMap.put(quickFix.getContextAsString(), quickFix);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
+		sc.add("addQuickFixesToQuickFixMap(problem);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -521,6 +514,20 @@ public class TextResourceGenerator extends
 		sc.add("public " + iQuickFixClassName
 				+ " getQuickFix(String quickFixContext) {");
 		sc.add("return quickFixMap.get(quickFixContext);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddQuickFixesToQuickFixMap(StringComposite sc) {
+		sc.add("private void addQuickFixesToQuickFixMap(" + iProblemClassName + " problem) {");
+		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = problem.getQuickFixes();");
+		sc.add("if (quickFixes != null) {");
+		sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
+		sc.add("if (quickFix != null) {");
+		sc.add("quickFixMap.put(quickFix.getContextAsString(), quickFix);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -536,6 +543,7 @@ public class TextResourceGenerator extends
 		sc.add("if (isMarkerCreationEnabled()) {");
 		sc.add(markerHelperClassName + ".mark(this, diagnostic);");
 		sc.add("}");
+		sc.add("addQuickFixesToQuickFixMap(problem);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
