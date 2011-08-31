@@ -2088,7 +2088,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DISABLE_NEW_PROJECT_WIZARD(260, "DISABLE_NEW_PROJECT_WIZARD", "disableNewProjectWizard");
+	DISABLE_NEW_PROJECT_WIZARD(260, "DISABLE_NEW_PROJECT_WIZARD", "disableNewProjectWizard"), /**
+	 * The '<em><b>OVERRIDE OPTION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OPTION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OPTION_PROVIDER(260, "OVERRIDE_OPTION_PROVIDER", "overrideOptionProvider");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6448,6 +6456,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int DISABLE_NEW_PROJECT_WIZARD_VALUE = 260;
 /**
+	 * The '<em><b>OVERRIDE OPTION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OPTION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OPTION_PROVIDER
+	 * @model literal="overrideOptionProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OPTION_PROVIDER_VALUE = 260;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6712,6 +6734,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_LAUNCH_CONFIGURATION_HELPER,
 			OVERRIDE_NEW_PROJECT_WIZARD,
 			DISABLE_NEW_PROJECT_WIZARD,
+			OVERRIDE_OPTION_PROVIDER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.

@@ -144,6 +144,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String minimalModelHelperClassName;
 	protected String natureClassName;
 	protected String newFileContentProviderClassName;
+	protected String optionProviderClassName;
 	protected String pairClassName;
 	protected String parseResultClassName;
 	protected String placeholderClassName;
@@ -304,6 +305,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		minimalModelHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.MINIMAL_MODEL_HELPER);
 		natureClassName = context.getQualifiedClassName(TextResourceArtifacts.NATURE);
 		newFileContentProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER);
+		optionProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.OPTION_PROVIDER);
 		pairClassName = context.getQualifiedClassName(TextResourceArtifacts.PAIR);
 		parseResultClassName = context.getQualifiedClassName(TextResourceArtifacts.PARSE_RESULT);
 		placeholderClassName = context.getQualifiedClassName(TextResourceArtifacts.PLACEHOLDER);

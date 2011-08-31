@@ -24,6 +24,8 @@ import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 
 public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {
 
+	public static final String EXTENSION_ID_SUFFIX = "default_load_options";
+
 	@Override
 	public void doGenerate(PrintWriter out) {
 		super.doGenerate(out);
@@ -36,7 +38,7 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator extends ResourceBas
 		sc.add("<schema targetNamespace=\"" + resourcePluginName + "\" xmlns=\"http://www.w3.org/2001/XMLSchema\">");
 		sc.add("<annotation>");
 		sc.add("<appinfo>");
-		sc.add("<meta.schema plugin=\"" + resourcePluginName + "\" id=\"" + resourcePluginName + ".default_load_options\" name=\"Default Load Options\"/>");
+		sc.add("<meta.schema plugin=\"" + resourcePluginName + "\" id=\"" + resourcePluginName + "." + EXTENSION_ID_SUFFIX + "\" name=\"Default Load Options\"/>");
 		sc.add("</appinfo>");
 		sc.add("<documentation>");
 		sc.add("This extension point can be used to configure the default load options for resources.");

@@ -462,6 +462,9 @@ public class TextResourceGenerator extends
 				+ MAP + "<?, ?> loadOptions) {");
 		sc.add(MAP + "<Object, Object> loadOptionsCopy = " + mapUtilClassName
 				+ ".copySafelyToObjectToObjectMap(loadOptions);");
+		sc.addComment("first add static option provider");
+		sc.add("loadOptionsCopy.putAll(new " + optionProviderClassName + "().getOptions());");
+		sc.addComment("second, add dynamic option providers that are registered via extension");
 		sc.add("if (" + PLATFORM + ".isRunning()) {");
 		sc.addComment("find default load option providers");
 		sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM

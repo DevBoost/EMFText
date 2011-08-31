@@ -194,6 +194,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
 	    add(creators, TextResourceArtifacts.QUICK_FIX);
 	    add(creators, TextResourceArtifacts.CHANGE_REFERENCE_QUICK_FIX);
+	    add(creators, TextResourceArtifacts.OPTION_PROVIDER);
 
 	    // add grammar information generators
 	    add(creators, TextResourceArtifacts.CARDINALITY);
