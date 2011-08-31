@@ -518,6 +518,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	protected java.util.Map<Object, Object> addDefaultLoadOptions(java.util.Map<?, ?> loadOptions) {
 		java.util.Map<Object, Object> loadOptionsCopy = org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil.copySafelyToObjectToObjectMap(loadOptions);
+		// first add static option provider
+		loadOptionsCopy.putAll(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsOptionProvider().getOptions());
+		// second, add dynamic option providers that are registered via extension
 		if (org.eclipse.core.runtime.Platform.isRunning()) {
 			// find default load option providers
 			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
