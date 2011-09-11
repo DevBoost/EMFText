@@ -388,6 +388,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	private int findElementWithCorrectType(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, java.util.Set<Integer> indicesToPrint, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment containment) {
+		// By default the type restrictions that are defined in the CS definition are
+		// considered when printing models. You can change this behavior by setting the
+		// 'ignoreTypeRestrictionsForPrinting' option to true.
+		boolean ignoreTypeRestrictions = false;
 		org.eclipse.emf.ecore.EClass[] allowedTypes = containment.getAllowedTypes();
 		Object value = eObject.eGet(feature);
 		if (value instanceof java.util.List<?>) {
@@ -398,12 +402,12 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					continue;
 				}
 				Object valueAtIndex = valueList.get(index);
-				if (eClassUtil.isInstance(valueAtIndex, allowedTypes)) {
+				if (eClassUtil.isInstance(valueAtIndex, allowedTypes) || ignoreTypeRestrictions) {
 					return index;
 				}
 			}
 		} else {
-			if (eClassUtil.isInstance(value, allowedTypes)) {
+			if (eClassUtil.isInstance(value, allowedTypes) || ignoreTypeRestrictions) {
 				return 0;
 			}
 		}

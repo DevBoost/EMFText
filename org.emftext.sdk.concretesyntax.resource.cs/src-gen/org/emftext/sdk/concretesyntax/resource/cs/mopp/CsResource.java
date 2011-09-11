@@ -472,14 +472,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		if (isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 		}
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = problem.getQuickFixes();
-		if (quickFixes != null) {
-			for (org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix : quickFixes) {
-				if (quickFix != null) {
-					quickFixMap.put(quickFix.getContextAsString(), quickFix);
-				}
-			}
-		}
+		addQuickFixesToQuickFixMap(problem);
 	}
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
@@ -487,6 +480,18 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
 		if (isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
+		}
+		addQuickFixesToQuickFixMap(problem);
+	}
+	
+	private void addQuickFixesToQuickFixMap(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem) {
+		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes = problem.getQuickFixes();
+		if (quickFixes != null) {
+			for (org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix : quickFixes) {
+				if (quickFix != null) {
+					quickFixMap.put(quickFix.getContextAsString(), quickFix);
+				}
+			}
 		}
 	}
 	
