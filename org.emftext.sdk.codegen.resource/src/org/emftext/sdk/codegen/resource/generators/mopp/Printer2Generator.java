@@ -42,6 +42,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
@@ -503,7 +504,21 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addFindElementWithCorrectTypeMethod(JavaComposite sc) {
+		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
+		boolean ignoreTypeRestrictions = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING);
+		
 		sc.add("private int findElementWithCorrectType(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, " + SET + "<Integer> indicesToPrint, " + containmentClassName + " containment) {");
+		if (ignoreTypeRestrictions) {
+			sc.addComment(
+					"By default the type restrictions that are defined in the CS definition are considered when printing models. " +
+					"You can change this behavior by setting the '" + OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING.getLiteral() + "' option to true.");
+			sc.add("boolean ignoreTypeRestrictions = false;");
+		} else {
+			sc.addComment(
+					"Since the '" + OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING.getLiteral() + "' option is set to true, " +
+					"the type restrictions are not considered when printing models.");
+			sc.add("boolean ignoreTypeRestrictions = true;");
+		}
 		sc.add(E_CLASS + "[] allowedTypes = containment.getAllowedTypes();");
 		sc.add("Object value = eObject.eGet(feature);");
 		sc.add("if (value instanceof " + LIST + "<?>) {");
@@ -514,12 +529,12 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("continue;");
 		sc.add("}");
 		sc.add("Object valueAtIndex = valueList.get(index);");
-		sc.add("if (eClassUtil.isInstance(valueAtIndex, allowedTypes)) {");
+		sc.add("if (eClassUtil.isInstance(valueAtIndex, allowedTypes) || ignoreTypeRestrictions) {");
 		sc.add("return index;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} else {");
-		sc.add("if (eClassUtil.isInstance(value, allowedTypes)) {");
+		sc.add("if (eClassUtil.isInstance(value, allowedTypes) || ignoreTypeRestrictions) {");
 		sc.add("return 0;");
 		sc.add("}");
 		sc.add("}");

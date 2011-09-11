@@ -90,6 +90,7 @@ public class OptionManager {
 		booleanOptions.add(OptionTypes.GENERATE_UI_PLUGIN);
 		booleanOptions.add(OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
 		booleanOptions.add(OptionTypes.DISABLE_NEW_PROJECT_WIZARD);
+		booleanOptions.add(OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING);
 
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {

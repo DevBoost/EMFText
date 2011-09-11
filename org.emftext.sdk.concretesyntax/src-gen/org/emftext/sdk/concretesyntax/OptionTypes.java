@@ -2096,7 +2096,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OPTION_PROVIDER(260, "OVERRIDE_OPTION_PROVIDER", "overrideOptionProvider");
+	OVERRIDE_OPTION_PROVIDER(260, "OVERRIDE_OPTION_PROVIDER", "overrideOptionProvider"), /**
+	 * The '<em><b>IGNORE TYPE RESTRICTIONS FOR PRINTING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING(261, "IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING", "ignoreTypeRestrictionsForPrinting");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6473,6 +6481,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_OPTION_PROVIDER_VALUE = 260;
 /**
+	 * The '<em><b>IGNORE TYPE RESTRICTIONS FOR PRINTING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>IGNORE TYPE RESTRICTIONS FOR PRINTING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING
+	 * @model literal="ignoreTypeRestrictionsForPrinting"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING_VALUE = 261;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6738,6 +6760,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_NEW_PROJECT_WIZARD,
 			DISABLE_NEW_PROJECT_WIZARD,
 			OVERRIDE_OPTION_PROVIDER,
+			IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7043,6 +7066,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_LAUNCH_CONFIGURATION_HELPER_VALUE: return OVERRIDE_LAUNCH_CONFIGURATION_HELPER;
 			case OVERRIDE_NEW_PROJECT_WIZARD_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD;
 			case DISABLE_NEW_PROJECT_WIZARD_VALUE: return DISABLE_NEW_PROJECT_WIZARD;
+			case IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING_VALUE: return IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING;
 		}
 		return null;
 	}

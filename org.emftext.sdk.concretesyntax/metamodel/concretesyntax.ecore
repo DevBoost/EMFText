@@ -1863,6 +1863,7 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OptionProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING" value="261" literal="ignoreTypeRestrictionsForPrinting"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
