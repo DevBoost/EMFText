@@ -6488,6 +6488,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>true</code>, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING
 	 * @model literal="ignoreTypeRestrictionsForPrinting"
 	 * @generated

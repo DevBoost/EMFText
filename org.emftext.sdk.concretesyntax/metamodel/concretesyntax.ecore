@@ -1863,7 +1863,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OptionProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING" value="261" literal="ignoreTypeRestrictionsForPrinting"/>
+    <eLiterals name="IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING" value="261" literal="ignoreTypeRestrictionsForPrinting">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>true&lt;/code>, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

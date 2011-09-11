@@ -600,6 +600,8 @@ OptionTypes.DISABLE_NEW_PROJECT_WIZARD : "If set to <code>true</code>, the new N
 
 OptionTypes.OVERRIDE_OPTION_PROVIDER : "If set to <code>false</code>, the OptionProvider class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING : "If set to <code>true</code>, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is <code>false</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
