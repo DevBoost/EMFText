@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2011
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -34,7 +33,9 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *
  * @generated
  */
-public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTokenStyleAdder {
+public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTokenStyleAdder
+{
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,12 +88,12 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 				final  java.lang.String KEYWORD_COLOR = "800055";
 		
 				for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {
-					 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.CsString> csStrings = getAllKeywords(rule);
-					for ( org.emftext.sdk.concretesyntax.CsString csString : csStrings) {
-						if (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {
+					 org.eclipse.emf.common.util.EList< java.lang.String> keywords = getAllKeywords(rule);
+					for ( java.lang.String keyword : keywords) {
+						if (KEYWORD_PATTERN.matcher(keyword).matches()) {
 							 org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 							newStyle.setRgb(KEYWORD_COLOR);
-							newStyle.getTokenNames().add(csString.getValue());
+							newStyle.getTokenNames().add(keyword);
 							newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);
 							syntax.addTokenStyle(allStyles, newStyle);
 						}
@@ -171,16 +172,24 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<CsString> getAllKeywords(Rule rule) {
+	public EList<String> getAllKeywords(Rule rule) {
 		
-				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.CsString> allKeywords = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.CsString>();
+				 org.eclipse.emf.common.util.EList< java.lang.String> allKeywords = new  org.eclipse.emf.common.util.BasicEList< java.lang.String>();
 		
 				 org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();
 		
 				while (iterator.hasNext()) {
 					 org.eclipse.emf.ecore.EObject next = iterator.next();
 					if (next instanceof  org.emftext.sdk.concretesyntax.CsString) {
-						allKeywords.add(( org.emftext.sdk.concretesyntax.CsString) next);
+						allKeywords.add((( org.emftext.sdk.concretesyntax.CsString) next).getValue());
+					} else if (next instanceof  org.emftext.sdk.concretesyntax.BooleanTerminal) {
+						allKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getTrueLiteral());
+						allKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getFalseLiteral());
+					} else if (next instanceof  org.emftext.sdk.concretesyntax.EnumTerminal) {
+						 org.emftext.sdk.concretesyntax.EnumTerminal enumTerminal = ( org.emftext.sdk.concretesyntax.EnumTerminal) next;
+						for ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : enumTerminal.getLiterals()) {
+							allKeywords.add(literal.getText());
+						}
 					}
 				}
 		

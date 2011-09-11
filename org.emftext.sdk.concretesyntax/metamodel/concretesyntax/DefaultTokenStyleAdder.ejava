@@ -77,12 +77,12 @@ eclass DefaultTokenStyleAdder {
 		final Pattern KEYWORD_PATTERN = Pattern.compile(getKeywordRegex());
 		final String KEYWORD_COLOR = "800055";
 		for (Rule rule : syntax.getAllRules()) {
-			EList<CsString> csStrings = getAllKeywords(rule);
-			for (CsString csString : csStrings) {
-				if (KEYWORD_PATTERN.matcher(csString.getValue()).matches()) {
+			EList<String> keywords = getAllKeywords(rule);
+			for (String keyword : keywords) {
+				if (KEYWORD_PATTERN.matcher(keyword).matches()) {
 					TokenStyle newStyle = #TokenStyle;
 					newStyle.setRgb(KEYWORD_COLOR);
-					newStyle.getTokenNames().add(csString.getValue());
+					newStyle.getTokenNames().add(keyword);
 					newStyle.getFontStyles().add(FontStyle.BOLD);
 					syntax.addTokenStyle(allStyles, newStyle);
 				}
@@ -91,12 +91,20 @@ eclass DefaultTokenStyleAdder {
 	}
 
 	/* EList<CsString> */getAllKeywords(/*Rule rule*/) {
-		EList<CsString> allKeywords = new BasicEList<CsString>();
+		EList<String> allKeywords = new BasicEList<String>();
 		TreeIterator<EObject> iterator = rule.eAllContents();
 		while (iterator.hasNext()) {
 			EObject next = iterator.next();
 			if (next instanceof CsString) {
-				allKeywords.add((CsString) next);
+				allKeywords.add(((CsString) next).getValue());
+			} else if (next instanceof BooleanTerminal) {
+				allKeywords.add(((BooleanTerminal) next).getTrueLiteral());
+				allKeywords.add(((BooleanTerminal) next).getFalseLiteral());
+			} else if (next instanceof EnumTerminal) {
+				EnumTerminal enumTerminal = (EnumTerminal) next;
+				for (EnumLiteralTerminal literal : enumTerminal.getLiterals()) {
+					allKeywords.add(literal.getText());
+				}
 			}
 		}
 		return allKeywords;
