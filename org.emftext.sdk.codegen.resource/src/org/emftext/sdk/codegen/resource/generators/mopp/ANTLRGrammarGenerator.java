@@ -873,11 +873,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("setPosition(expectedElement, input.index());");
 		
 		sc.add("int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();");
+		// TODO explain why this is required
 		sc.add("if (lastStartIncludingHidden >= 0 && " +
 			"lastStartIncludingHidden < startIncludingHiddenTokens && " +
 			"cursorOffset > startIncludingHiddenTokens) {");
 		sc.addComment("clear list of expected elements");
 		sc.add("this.expectedElements.clear();");
+		sc.add("this.expectedElementsIndexOfLastCompleteElement = 0;");
 		sc.add("}");
 		sc.add("lastStartIncludingHidden = startIncludingHiddenTokens;");
 		sc.add("this.expectedElements.add(expectedElement);");
