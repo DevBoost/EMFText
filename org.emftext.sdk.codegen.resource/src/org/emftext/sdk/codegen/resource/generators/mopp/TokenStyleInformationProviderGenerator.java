@@ -40,11 +40,11 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
         
         sc.add("public class " + getResourceClassName()+ " {");
         sc.addLineBreak();
-		addGetDefaultStyleMethod(sc);
+		addGetDefaultTokenStyleMethod(sc);
 		sc.add("}");
 	}
 
-	private void addGetDefaultStyleMethod(StringComposite sc) {
+	private void addGetDefaultTokenStyleMethod(StringComposite sc) {
 		List<TokenStyle> styles = getContext().getConcreteSyntax().getAllTokenStyles();
 		
 		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(String tokenName) {");
