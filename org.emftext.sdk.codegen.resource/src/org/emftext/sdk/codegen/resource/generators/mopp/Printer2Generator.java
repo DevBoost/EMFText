@@ -510,14 +510,14 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("private int findElementWithCorrectType(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, " + SET + "<Integer> indicesToPrint, " + containmentClassName + " containment) {");
 		if (ignoreTypeRestrictions) {
 			sc.addComment(
-					"By default the type restrictions that are defined in the CS definition are considered when printing models. " +
-					"You can change this behavior by setting the '" + OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING.getLiteral() + "' option to true.");
-			sc.add("boolean ignoreTypeRestrictions = false;");
-		} else {
-			sc.addComment(
 					"Since the '" + OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING.getLiteral() + "' option is set to true, " +
 					"the type restrictions are not considered when printing models.");
 			sc.add("boolean ignoreTypeRestrictions = true;");
+		} else {
+			sc.addComment(
+					"By default the type restrictions that are defined in the CS definition are considered when printing models. " +
+					"You can change this behavior by setting the '" + OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING.getLiteral() + "' option to true.");
+			sc.add("boolean ignoreTypeRestrictions = false;");
 		}
 		sc.add(E_CLASS + "[] allowedTypes = containment.getAllowedTypes();");
 		sc.add("Object value = eObject.eGet(feature);");
