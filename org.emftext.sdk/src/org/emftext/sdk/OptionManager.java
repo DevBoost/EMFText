@@ -35,76 +35,98 @@ public class OptionManager {
 	public static final String ANTLR = "antlr";
 	public static final String SCALES = "scales";
 	public static final String TOKEN_SPACE_VALUE_AUTOMATIC = "automatic";
-	
+
+	private final List<OptionTypes> NON_STANDARD_OPTIONS = new ArrayList<OptionTypes>();
+	private final List<OptionTypes> STRING_OPTIONS = new ArrayList<OptionTypes>();
+	private final List<OptionTypes> BOOLEAN_OPTIONS = new ArrayList<OptionTypes>();
+
 	private OptionManager() {
 		super();
+		initializeOptionLists();
 	}
 
+	/**
+	 * Returns a list of options that might be removed in future releases.
+	 */
 	public List<OptionTypes> getNonStandardOptions() {
-		List<OptionTypes> nonStandardOptions = new ArrayList<OptionTypes>();
-		nonStandardOptions.add(OptionTypes.PARSER_GENERATOR);
-		nonStandardOptions.add(OptionTypes.GENERATE_TEST_ACTION);
-		nonStandardOptions.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
-		return nonStandardOptions;
+		return NON_STANDARD_OPTIONS;
 	}
 
+	/**
+	 * Returns a list of all options that have type string.
+	 */
 	public List<OptionTypes> getStringOptions() {
-		List<OptionTypes> stringOptions = new ArrayList<OptionTypes>();
-		stringOptions.add(OptionTypes.BASE_PACKAGE);
-		stringOptions.add(OptionTypes.UI_BASE_PACKAGE);
-		stringOptions.add(OptionTypes.RESOURCE_PLUGIN_ID);
-		stringOptions.add(OptionTypes.RESOURCE_UI_PLUGIN_ID);
-		stringOptions.add(OptionTypes.SOURCE_FOLDER);
-		stringOptions.add(OptionTypes.SOURCE_GEN_FOLDER);
-		stringOptions.add(OptionTypes.UI_SOURCE_FOLDER);
-		stringOptions.add(OptionTypes.UI_SOURCE_GEN_FOLDER);
-		stringOptions.add(OptionTypes.PARSER_GENERATOR);
-		stringOptions.add(OptionTypes.BASE_RESOURCE_PLUGIN);
-		stringOptions.add(OptionTypes.ANTLR_PLUGIN_ID);
-		stringOptions.add(OptionTypes.LICENCE_HEADER);
-		stringOptions.add(OptionTypes.ADDITIONAL_DEPENDENCIES);
-		stringOptions.add(OptionTypes.ADDITIONAL_EXPORTS);
-		stringOptions.add(OptionTypes.ADDITIONAL_UI_DEPENDENCIES);
-		stringOptions.add(OptionTypes.ADDITIONAL_UI_EXPORTS);
-		return stringOptions;
+		return STRING_OPTIONS;
 	}
 
+	/**
+	 * Returns a list of all options that have type boolean.
+	 */
 	public List<OptionTypes> getBooleanOptions() {
-		List<OptionTypes> booleanOptions = new ArrayList<OptionTypes>();
-		booleanOptions.add(OptionTypes.USE_CLASSIC_PRINTER);
-		booleanOptions.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
-		booleanOptions.add(OptionTypes.FORCE_EOF);
-		booleanOptions.add(OptionTypes.GENERATE_TEST_ACTION);
-		booleanOptions.add(OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
-		booleanOptions.add(OptionTypes.RELOAD_GENERATOR_MODEL);
-		booleanOptions.add(OptionTypes.USE_PREDEFINED_TOKENS);
-		booleanOptions.add(OptionTypes.ANTLR_BACKTRACKING);
-		booleanOptions.add(OptionTypes.ANTLR_MEMOIZE);
-		booleanOptions.add(OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
-		booleanOptions.add(OptionTypes.DISABLE_BUILDER);
-		booleanOptions.add(OptionTypes.DISABLE_EVALIDATORS);
-		booleanOptions.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
-		booleanOptions.add(OptionTypes.DISABLE_LAUNCH_SUPPORT);
-		booleanOptions.add(OptionTypes.DISABLE_DEBUG_SUPPORT);
-		booleanOptions.add(OptionTypes.DISABLE_TOKEN_SORTING);
-		booleanOptions.add(OptionTypes.GENERATE_UI_PLUGIN);
-		booleanOptions.add(OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
-		booleanOptions.add(OptionTypes.DISABLE_NEW_PROJECT_WIZARD);
-		booleanOptions.add(OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING);
+		return BOOLEAN_OPTIONS;
+	}
+
+	private void initializeOptionLists() {
+		NON_STANDARD_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
+		NON_STANDARD_OPTIONS.add(OptionTypes.GENERATE_TEST_ACTION);
+		NON_STANDARD_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+
+		STRING_OPTIONS.add(OptionTypes.BASE_PACKAGE);
+		STRING_OPTIONS.add(OptionTypes.UI_BASE_PACKAGE);
+		STRING_OPTIONS.add(OptionTypes.RESOURCE_PLUGIN_ID);
+		STRING_OPTIONS.add(OptionTypes.RESOURCE_UI_PLUGIN_ID);
+		STRING_OPTIONS.add(OptionTypes.SOURCE_FOLDER);
+		STRING_OPTIONS.add(OptionTypes.SOURCE_GEN_FOLDER);
+		STRING_OPTIONS.add(OptionTypes.UI_SOURCE_FOLDER);
+		STRING_OPTIONS.add(OptionTypes.UI_SOURCE_GEN_FOLDER);
+		STRING_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
+		STRING_OPTIONS.add(OptionTypes.BASE_RESOURCE_PLUGIN);
+		STRING_OPTIONS.add(OptionTypes.ANTLR_PLUGIN_ID);
+		STRING_OPTIONS.add(OptionTypes.LICENCE_HEADER);
+		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_DEPENDENCIES);
+		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_EXPORTS);
+		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_UI_DEPENDENCIES);
+		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_UI_EXPORTS);
+
+		BOOLEAN_OPTIONS.add(OptionTypes.USE_CLASSIC_PRINTER);
+		BOOLEAN_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+		BOOLEAN_OPTIONS.add(OptionTypes.FORCE_EOF);
+		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_TEST_ACTION);
+		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
+		BOOLEAN_OPTIONS.add(OptionTypes.RELOAD_GENERATOR_MODEL);
+		BOOLEAN_OPTIONS.add(OptionTypes.USE_PREDEFINED_TOKENS);
+		BOOLEAN_OPTIONS.add(OptionTypes.ANTLR_BACKTRACKING);
+		BOOLEAN_OPTIONS.add(OptionTypes.ANTLR_MEMOIZE);
+		BOOLEAN_OPTIONS.add(OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_BUILDER);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EVALIDATORS);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_LAUNCH_SUPPORT);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_DEBUG_SUPPORT);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_TOKEN_SORTING);
+		BOOLEAN_OPTIONS.add(OptionTypes.GENERATE_UI_PLUGIN);
+		BOOLEAN_OPTIONS.add(OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
+		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_NEW_PROJECT_WIZARD);
+		BOOLEAN_OPTIONS.add(OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING);
 
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {
 			if (optionType.name().startsWith("OVERRIDE_")) {
-				booleanOptions.add(optionType);
+				BOOLEAN_OPTIONS.add(optionType);
 			}
 		}
-
-		return booleanOptions;
 	}
 
-	public String getStringOptionValue(ConcreteSyntax concreteSyntax,
-			OptionTypes type) {
-		List<Option> options = concreteSyntax.getOptions();
+	/**
+	 * Return the value of the given option. If the option is not set, null is
+	 * returned.
+	 * 
+	 * @param syntax the syntax that specifies the option.
+	 * @param type the type of the option
+	 * @return the value as string
+	 */
+	public String getStringOptionValue(ConcreteSyntax syntax, OptionTypes type) {
+		List<Option> options = syntax.getOptions();
 		if (options == null) {
 			return null;
 		}
@@ -119,14 +141,13 @@ public class OptionManager {
 	 * Returns the value of the given syntax option. If the option is not
 	 * set, the default value is returned.
 	 * 
-	 * @param syntax
-	 * @param option
-	 * @param defaultValue
-	 * @return
+	 * @param syntax the syntax that specifies the option.
+	 * @param type the type of the option
+	 * @param defaultValue the options default value
 	 */
-	public String getStringOptionValue(ConcreteSyntax syntax, OptionTypes option, String defaultValue) {
+	public String getStringOptionValue(ConcreteSyntax syntax, OptionTypes type, String defaultValue) {
 		String value;
-		String optionValue = OptionManager.INSTANCE.getStringOptionValue(syntax, option);
+		String optionValue = OptionManager.INSTANCE.getStringOptionValue(syntax, type);
 		if (optionValue != null) {
 			// use package plug-in from option
 			value = optionValue;
@@ -141,12 +162,11 @@ public class OptionManager {
 	 * Returns the value of the given syntax option as collection. The value is split into
 	 * parts denoted by commata.
 	 * 
-	 * @param syntax
-	 * @param option
-	 * @return
+	 * @param syntax the syntax that specifies the option.
+	 * @param type the type of the option
 	 */
-	public Collection<String> getStringOptionValueAsCollection(ConcreteSyntax syntax, OptionTypes option) {
-		String optionValue = getStringOptionValue(syntax, option);
+	public Collection<String> getStringOptionValueAsCollection(ConcreteSyntax syntax, OptionTypes type) {
+		String optionValue = getStringOptionValue(syntax, type);
 		if (optionValue != null) {
 			String[] parts = optionValue.split(",");
 			return Arrays.asList(parts);
@@ -155,9 +175,16 @@ public class OptionManager {
 		}
 	}
 	
-	public boolean getBooleanOptionValue(ConcreteSyntax concreteSyntax,
-			OptionTypes type) {
-		List<Option> options = concreteSyntax.getOptions();
+	/**
+	 * Return the value of the given (boolean) option. If the option is not 
+	 * set, the default value is returned.
+	 * 
+	 * @param syntax the syntax that specifies the option.
+	 * @param type the type of the option
+	 * @return the value as boolean
+	 */
+	public boolean getBooleanOptionValue(ConcreteSyntax syntax, OptionTypes type) {
+		List<Option> options = syntax.getOptions();
 		if (options == null) {
 			return getBooleanOptionsDefaultValue(type);
 		}
@@ -178,61 +205,70 @@ public class OptionManager {
 		}
 	}
 
-	public boolean getBooleanOptionsDefaultValue(OptionTypes option) {
+	/**
+	 * Returns the default value for the given (boolean) option.
+	 * 
+	 * @param type the option type
+	 * @return the boolean default value.
+	 */
+	public boolean getBooleanOptionsDefaultValue(OptionTypes type) {
 		// Attention: Any changes made to this default values must be
 		// documented in concretesyntax.ecoredoc!
-		if (option == OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING) {
+		if (type == OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING) {
 			return true;
 		}
-		if (option == OptionTypes.GENERATE_UI_PLUGIN) {
+		if (type == OptionTypes.GENERATE_UI_PLUGIN) {
 			return true;
 		}
-		if (option == OptionTypes.DISABLE_EVALIDATORS) {
+		if (type == OptionTypes.DISABLE_EVALIDATORS) {
 			return true;
 		}
-		if (option == OptionTypes.USE_CLASSIC_PRINTER) {
+		if (type == OptionTypes.USE_CLASSIC_PRINTER) {
 			return false;
 		}
-		if (option == OptionTypes.GENERATE_TEST_ACTION) {
+		if (type == OptionTypes.GENERATE_TEST_ACTION) {
 			return false;
 		}
-		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVERS) {
+		if (type == OptionTypes.OVERRIDE_REFERENCE_RESOLVERS) {
 			return false;
 		}
-		if (option == OptionTypes.OVERRIDE_TOKEN_RESOLVERS) {
+		if (type == OptionTypes.OVERRIDE_TOKEN_RESOLVERS) {
 			return false;
 		}
-		if (option == OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL) {
+		if (type == OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL) {
 			return false;
 		}
-		if (option == OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION) {
+		if (type == OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION) {
 			return false;
 		}
-		if (option == OptionTypes.RELOAD_GENERATOR_MODEL) {
+		if (type == OptionTypes.RELOAD_GENERATOR_MODEL) {
 			return false;
 		}
-		if (option == OptionTypes.SAVE_CHANGED_RESOURCES_ONLY) {
+		if (type == OptionTypes.SAVE_CHANGED_RESOURCES_ONLY) {
 			return false;
 		}
-		if (option == OptionTypes.DISABLE_BUILDER) {
+		if (type == OptionTypes.DISABLE_BUILDER) {
 			return false;
 		}
-		if (option == OptionTypes.DISABLE_EVALIDATORS) {
+		if (type == OptionTypes.DISABLE_EVALIDATORS) {
 			return false;
 		}
-		if (option == OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS) {
+		if (type == OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS) {
 			return false;
 		}
-		if (option == OptionTypes.DISABLE_TOKEN_SORTING) {
+		if (type == OptionTypes.DISABLE_TOKEN_SORTING) {
 			return false;
 		}
-		if (option == OptionTypes.DISABLE_LAUNCH_SUPPORT) {
+		if (type == OptionTypes.DISABLE_LAUNCH_SUPPORT) {
 			return false;
 		}
-		if (option == OptionTypes.DISABLE_DEBUG_SUPPORT) {
+		if (type == OptionTypes.DISABLE_DEBUG_SUPPORT) {
 			return false;
 		}
-		if (option == OptionTypes.DISABLE_NEW_PROJECT_WIZARD) {
+		if (type == OptionTypes.DISABLE_NEW_PROJECT_WIZARD) {
+			return false;
+		}
+		if (type == OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING) {
 			return false;
 		}
 		return true;
@@ -247,8 +283,7 @@ public class OptionManager {
 	 * @param type the type to search for
 	 * @return the found option, or null if none was found
 	 */
-	public Option findOptionByType(List<Option> options,
-			OptionTypes type) {
+	public Option findOptionByType(List<Option> options, OptionTypes type) {
 		for (Option option : options) {
 			if (type == option.getType()) {
 				return option;
@@ -278,9 +313,8 @@ public class OptionManager {
 		}
 	}
 
-	public boolean doOverride(ConcreteSyntax concreteSyntax,
-			OptionTypes overrideOption) {
-		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, overrideOption);
+	public boolean doOverride(ConcreteSyntax syntax, OptionTypes overrideOption) {
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
 		return doOverride;
 	}
 }
