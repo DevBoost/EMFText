@@ -121,6 +121,7 @@ options {
 		if (lastStartIncludingHidden >= 0 && lastStartIncludingHidden < startIncludingHiddenTokens && cursorOffset > startIncludingHiddenTokens) {
 			// clear list of expected elements
 			this.expectedElements.clear();
+			this.expectedElementsIndexOfLastCompleteElement = 0;
 		}
 		lastStartIncludingHidden = startIncludingHiddenTokens;
 		this.expectedElements.add(expectedElement);
