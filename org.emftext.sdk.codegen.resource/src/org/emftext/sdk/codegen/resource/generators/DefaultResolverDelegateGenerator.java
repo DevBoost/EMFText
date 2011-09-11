@@ -406,8 +406,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addDeResolveMethod(StringComposite sc) {
+	private void addDeResolveMethod(JavaComposite sc) {
 		sc.add("protected String deResolve(ReferenceType element, ContainerType container, " + E_REFERENCE + " reference) {");
+		sc.add(RESOURCE + " elementResource = element.eResource();");
+		sc.addComment("For elements in external resources we return the resource URI instead of the name of the element.");
+		sc.add("if (!container.eResource().equals(elementResource)) {");
+		sc.add("return elementResource.getURI().toString();");
+		sc.add("}");
 		sc.add("return getName(element);");
 		sc.add("}");
 		sc.addLineBreak();
