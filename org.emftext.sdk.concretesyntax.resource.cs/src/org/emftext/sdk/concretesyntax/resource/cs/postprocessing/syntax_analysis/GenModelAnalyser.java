@@ -30,7 +30,12 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
-		GenPackage genPackage = syntax.getPackage();
+		GenPackage genPackage = null;
+		try {
+			genPackage = syntax.getPackage();
+		} catch (NullPointerException e) {
+			// ignore exception (is thrown for partial models only)
+		}
 		if (genPackage == null || genPackage.eIsProxy()) {
 			return;
 		}

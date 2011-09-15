@@ -147,7 +147,12 @@ public class RuleItemProvider
 		Rule rule = (Rule) object;
 		String label = "<unknown>";
 		if (rule != null && !rule.eIsProxy()) {
-			GenClass genClass = rule.getMetaclass();
+			GenClass genClass = null;
+			try {
+				genClass = rule.getMetaclass();
+			} catch (NullPointerException e) {
+				// ignore exception (is thrown when model is partial only)
+			}
 			if (genClass != null && !genClass.eIsProxy() && genClass.getEcoreClass() != null) {
 				String name = genClass.getName();
 				// make sure label is not null
