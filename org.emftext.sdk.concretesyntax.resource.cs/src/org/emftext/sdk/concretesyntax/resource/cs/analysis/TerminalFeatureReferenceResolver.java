@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis; 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -159,7 +160,12 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 			return;
 		}
 		FeatureResolveResult resultForFeature = new FeatureResolveResultImpl(result);
-		List<GenFeature> availableFeatures = metaclass.getAllGenFeatures();
+		List<GenFeature> availableFeatures = new ArrayList<GenFeature>();
+		try {
+			metaclass.getAllGenFeatures();
+		} catch (NullPointerException e) {
+			// ignore exception (is thrown only for partial resources)
+		}
 		// for placeholders it is allowed to use an anonymous features,
 		// which means that the token is thrown away
 		if (container instanceof Placeholder) {
