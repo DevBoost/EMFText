@@ -97,9 +97,10 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addInnerClassReferenceCache(StringComposite sc) {
-		sc.add("private static class ReferenceCache implements " + iReferenceCacheClassName + ", " + ADAPTER + " {");
+		sc.add("private class ReferenceCache implements " + iReferenceCacheClassName + ", " + ADAPTER + " {");
 		sc.addLineBreak();
 		sc.add("private " + MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">> cache = new " + LINKED_HASH_MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">>();");
+		sc.add("private " + MAP + "<String, " + E_OBJECT + "> nameToObjectMap  = new " + LINKED_HASH_MAP + "<String, " + E_OBJECT +">();");
 		sc.add("private boolean isInitialized;");
 		sc.add("private " + NOTIFIER + " target;");
 		sc.addLineBreak();
@@ -134,12 +135,21 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("isInitialized = true;");
 		sc.add("}");
 		sc.addLineBreak();
+		sc.add("public " + MAP + "<String, " + E_OBJECT + "> getNameToObjectMap() {");
+		sc.add("return nameToObjectMap;");
+		sc.add("}");
+		sc.addLineBreak();
+
 		sc.add("private void put(" + E_OBJECT + " object) {");
 		sc.add(E_CLASS + " eClass = object.eClass();");
 		sc.add("if (!cache.containsKey(eClass)) {");
 		sc.add("cache.put(eClass, new " + LINKED_HASH_SET + "<" + E_OBJECT + ">());");
 		sc.add("}");
 		sc.add("cache.get(eClass).add(object);");
+		sc.add(LIST + "<Object> names = getNames(object);");
+		sc.add("for (Object name : names) {");
+		sc.add("nameToObjectMap.put(name.toString(), object);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void clear() {");
@@ -211,8 +221,8 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(object);");
 		sc.add(LIST + "<" + ADAPTER + "> eAdapters = root.eAdapters();");
 		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
-		sc.add("if (adapter instanceof ReferenceCache) {");
-		sc.add("ReferenceCache cache = (ReferenceCache) adapter;");
+		sc.add("if (adapter instanceof " + getResourceClassName() + ".ReferenceCache) {");
+		sc.add(getResourceClassName() + "<?,?>.ReferenceCache cache = (" + getResourceClassName() + "<?,?>.ReferenceCache) adapter;");
 		sc.add("return cache;");
 		sc.add("}");
 		sc.add("}");

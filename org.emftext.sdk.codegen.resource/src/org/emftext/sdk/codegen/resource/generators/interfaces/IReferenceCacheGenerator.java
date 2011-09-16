@@ -33,10 +33,17 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 
 		sc.addJavadoc(
-			"Initializes the cache with the object tree that is rooted at <code>root</code>. " +
-			"If the cache was already initialized, no action is performed."
+				"Initializes the cache with the object tree that is rooted at <code>root</code>. " +
+				"The cache allows to retrieve of objects of a given type or a given name. " +
+				"If the cache was already initialized, no action is performed."
+			);
+			sc.add("public void initialize(" + E_OBJECT + " root);");
+			sc.addLineBreak();
+
+		sc.addJavadoc(
+			"Returns the map from object names to objects that was created when the cache was initialized."
 		);
-		sc.add("public void initialize(" + E_OBJECT + " root);");
+		sc.add("public " + MAP + "<String, " + E_OBJECT + "> getNameToObjectMap();");
 		sc.addLineBreak();
 
 		sc.addJavadoc("Clears the cache.");
