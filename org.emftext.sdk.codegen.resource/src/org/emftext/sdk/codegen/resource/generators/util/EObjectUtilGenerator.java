@@ -120,8 +120,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetObjectsByTypeMethod(StringComposite sc) {
-		sc.add("public static <T> " + COLLECTION + "<T> getObjectsByType(" + ITERATOR + "<?> iterator,");
-		sc.add(E_CLASSIFIER + " type) {");
+		sc.add("public static <T> " + COLLECTION + "<T> getObjectsByType(" + ITERATOR + "<?> iterator, " + E_CLASSIFIER + " type) {");
 		sc.add(COLLECTION + "<T> result = new " + ARRAY_LIST + "<T>();");
 		sc.add("while (iterator.hasNext()) {");
 		sc.add("Object object = iterator.next();");
