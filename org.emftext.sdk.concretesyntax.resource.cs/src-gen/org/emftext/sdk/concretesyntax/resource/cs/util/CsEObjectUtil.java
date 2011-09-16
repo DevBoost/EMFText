@@ -23,8 +23,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
  */
 public class CsEObjectUtil {
 	
-	public static <T> java.util.Collection<T> getObjectsByType(java.util.Iterator<?> iterator,
-	org.eclipse.emf.ecore.EClassifier type) {
+	public static <T> java.util.Collection<T> getObjectsByType(java.util.Iterator<?> iterator, org.eclipse.emf.ecore.EClassifier type) {
 		java.util.Collection<T> result = new java.util.ArrayList<T>();
 		while (iterator.hasNext()) {
 			Object object = iterator.next();
@@ -37,6 +36,10 @@ public class CsEObjectUtil {
 		return result;
 	}
 	
+	/**
+	 * Use EcoreUtil.getRootContainer() instead.
+	 */
+	@Deprecated	
 	public static org.eclipse.emf.ecore.EObject findRootContainer(org.eclipse.emf.ecore.EObject object) {
 		org.eclipse.emf.ecore.EObject container = object.eContainer();
 		if (container != null) {
@@ -99,6 +102,10 @@ public class CsEObjectUtil {
 		}
 	}
 	
+	/**
+	 * Returns the value of the given feature. If the feature is a list, the list item
+	 * at the given index is returned.
+	 */
 	public static Object getFeatureValue(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, int index) {
 		// get value of feature
 		Object o = eObject.eGet(feature);
