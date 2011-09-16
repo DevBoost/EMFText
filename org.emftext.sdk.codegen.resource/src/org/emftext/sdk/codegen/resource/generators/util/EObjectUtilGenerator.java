@@ -161,7 +161,9 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addFindRootContainerMethod(StringComposite sc) {
+	private void addFindRootContainerMethod(JavaComposite sc) {
+		sc.addJavadoc("Use EcoreUtil.getRootContainer() instead.");
+		sc.add("@Deprecated").addLineBreak();
 		sc.add("public static " + E_OBJECT + " findRootContainer(" + E_OBJECT + " object) {");
 		sc.add(E_OBJECT + " container = object.eContainer();");
 		sc.add("if (container != null) {");
