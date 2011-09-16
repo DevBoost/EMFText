@@ -80,11 +80,12 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"Checks whether the given object has an EAdapter that is an instance of " +
 			"the given class. If one is found, it is returned, otherwise the result is null."
 		);
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public static <T> T getEAdapter(" + E_OBJECT + " object, Class<T> clazz) {");
 		sc.add(LIST + "<" + ADAPTER + "> eAdapters = object.eAdapters();");
 		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
 		sc.add("if (clazz.isInstance(adapter)) {");
-		sc.add("return " + castUtilClassName + ".cast(adapter);");
+		sc.add("return (T) adapter;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return null;");
