@@ -123,11 +123,12 @@ public class CsEObjectUtil {
 	 * Checks whether the given object has an EAdapter that is an instance of the
 	 * given class. If one is found, it is returned, otherwise the result is null.
 	 */
+	@SuppressWarnings("unchecked")	
 	public static <T> T getEAdapter(org.eclipse.emf.ecore.EObject object, Class<T> clazz) {
 		java.util.List<org.eclipse.emf.common.notify.Adapter> eAdapters = object.eAdapters();
 		for (org.eclipse.emf.common.notify.Adapter adapter : eAdapters) {
 			if (clazz.isInstance(adapter)) {
-				return org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(adapter);
+				return (T) adapter;
 			}
 		}
 		return null;
