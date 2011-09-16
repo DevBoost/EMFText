@@ -216,20 +216,20 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addGetCacheMethod(StringComposite sc) {
+	private void addGetCacheMethod(JavaComposite sc) {
 		sc.add("protected " + iReferenceCacheClassName + " getCache(" + E_OBJECT + " object) {");
-		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(object);");
-		sc.add(LIST + "<" + ADAPTER + "> eAdapters = root.eAdapters();");
-		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
-		sc.add("if (adapter instanceof " + getResourceClassName() + ".ReferenceCache) {");
-		sc.add(getResourceClassName() + "<?,?>.ReferenceCache cache = (" + getResourceClassName() + "<?,?>.ReferenceCache) adapter;");
+		sc.add(E_OBJECT + " root = " + ECORE_UTIL + ".getRootContainer(object);");
+		sc.add(ADAPTER + " adapter = " + eObjectUtilClassName + ".getEAdapter(root, " + getResourceClassName() + ".ReferenceCache.class);");
+		sc.add("ReferenceCache cache = " + castUtilClassName + ".cast(adapter);");
+		sc.add("if (cache != null) {");
 		sc.add("return cache;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("ReferenceCache cache = new ReferenceCache();");
+		sc.add("} else {");
+		sc.addComment("cache does not exist. create a new one.");
+		sc.add("cache = new ReferenceCache();");
 		sc.add("cache.initialize(root);");
 		sc.add("root.eAdapters().add(cache);");
 		sc.add("return cache;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}

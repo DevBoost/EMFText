@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.generators.util;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -23,6 +24,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INVOCATION_TARGET_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.METHOD;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -57,6 +59,37 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		addSetFeatureMethod(sc);
 		addGetDepthMethod(sc);
 		addGetValueMethod(sc);
+		addGetEAdapterFromRootMethod(sc);
+		addGetEAdapterMethod(sc);
+	}
+
+	private void addGetEAdapterFromRootMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks whether the root container of the given object has an EAdapter that is an instance of " +
+			"the given class. If one is found, it is returned, otherwise the result is null."
+		);
+		sc.add("public static <T> T getEAdapterFromRoot(" + E_OBJECT + " object, Class<T> clazz) {");
+		sc.add(E_OBJECT + " root = " + ECORE_UTIL + ".getRootContainer(object);");
+		sc.add("return getEAdapter(root, clazz);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetEAdapterMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks whether the given object has an EAdapter that is an instance of " +
+			"the given class. If one is found, it is returned, otherwise the result is null."
+		);
+		sc.add("public static <T> T getEAdapter(" + E_OBJECT + " object, Class<T> clazz) {");
+		sc.add(LIST + "<" + ADAPTER + "> eAdapters = object.eAdapters();");
+		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
+		sc.add("if (clazz.isInstance(adapter)) {");
+		sc.add("return " + castUtilClassName + ".cast(adapter);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetValueMethod(JavaComposite sc) {
@@ -65,7 +98,6 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("Object o = eObject.eGet(feature);");
 		sc.add("if (o instanceof " + LIST + "<?>) {");
 		sc.add(LIST + "<?> list = (" + LIST + "<?>) o;");
-		//sc.add("int index = list.size() - count;");
 		sc.add("o = list.get(index);");
 		sc.add("}");
 		sc.add("return o;");
