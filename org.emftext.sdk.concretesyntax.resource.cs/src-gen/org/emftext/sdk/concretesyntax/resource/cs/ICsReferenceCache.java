@@ -23,9 +23,16 @@ public interface ICsReferenceCache {
 	
 	/**
 	 * Initializes the cache with the object tree that is rooted at <code>root</code>.
-	 * If the cache was already initialized, no action is performed.
+	 * The cache allows to retrieve of objects of a given type or a given name. If the
+	 * cache was already initialized, no action is performed.
 	 */
 	public void initialize(org.eclipse.emf.ecore.EObject root);
+	
+	/**
+	 * Returns the map from object names to objects that was created when the cache
+	 * was initialized.
+	 */
+	public java.util.Map<String, org.eclipse.emf.ecore.EObject> getNameToObjectMap();
 	
 	/**
 	 * Clears the cache.

@@ -44,9 +44,10 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		
 	}
 	
-	private static class ReferenceCache implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache, org.eclipse.emf.common.notify.Adapter {
+	private class ReferenceCache implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache, org.eclipse.emf.common.notify.Adapter {
 		
 		private java.util.Map<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>> cache = new java.util.LinkedHashMap<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>>();
+		private java.util.Map<String, org.eclipse.emf.ecore.EObject> nameToObjectMap  = new java.util.LinkedHashMap<String, org.eclipse.emf.ecore.EObject>();
 		private boolean isInitialized;
 		private org.eclipse.emf.common.notify.Notifier target;
 		
@@ -81,12 +82,20 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			isInitialized = true;
 		}
 		
+		public java.util.Map<String, org.eclipse.emf.ecore.EObject> getNameToObjectMap() {
+			return nameToObjectMap;
+		}
+		
 		private void put(org.eclipse.emf.ecore.EObject object) {
 			org.eclipse.emf.ecore.EClass eClass = object.eClass();
 			if (!cache.containsKey(eClass)) {
 				cache.put(eClass, new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>());
 			}
 			cache.get(eClass).add(object);
+			java.util.List<Object> names = getNames(object);
+			for (Object name : names) {
+				nameToObjectMap.put(name.toString(), object);
+			}
 		}
 		
 		public void clear() {
@@ -341,6 +350,12 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	protected String deResolve(ReferenceType element, ContainerType container, org.eclipse.emf.ecore.EReference reference) {
+		org.eclipse.emf.ecore.resource.Resource elementResource = element.eResource();
+		// For elements in external resources we return the resource URI instead of the
+		// name of the element.
+		if (elementResource != null && !elementResource.equals(container.eResource())) {
+			return elementResource.getURI().toString();
+		}
 		return getName(element);
 	}
 	
@@ -473,18 +488,18 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache getCache(org.eclipse.emf.ecore.EObject object) {
-		org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(object);
-		java.util.List<org.eclipse.emf.common.notify.Adapter> eAdapters = root.eAdapters();
-		for (org.eclipse.emf.common.notify.Adapter adapter : eAdapters) {
-			if (adapter instanceof ReferenceCache) {
-				ReferenceCache cache = (ReferenceCache) adapter;
-				return cache;
-			}
+		org.eclipse.emf.ecore.EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(object);
+		org.eclipse.emf.common.notify.Adapter adapter = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.getEAdapter(root, CsDefaultResolverDelegate.ReferenceCache.class);
+		ReferenceCache cache = org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(adapter);
+		if (cache != null) {
+			return cache;
+		} else {
+			// cache does not exist. create a new one.
+			cache = new ReferenceCache();
+			cache.initialize(root);
+			root.eAdapters().add(cache);
+			return cache;
 		}
-		ReferenceCache cache = new ReferenceCache();
-		cache.initialize(root);
-		root.eAdapters().add(cache);
-		return cache;
 	}
 	
 	public void setEnableScoping(boolean enableScoping) {

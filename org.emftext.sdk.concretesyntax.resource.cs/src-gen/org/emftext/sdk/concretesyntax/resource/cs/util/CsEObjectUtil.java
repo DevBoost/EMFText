@@ -109,4 +109,28 @@ public class CsEObjectUtil {
 		return o;
 	}
 	
+	/**
+	 * Checks whether the root container of the given object has an EAdapter that is
+	 * an instance of the given class. If one is found, it is returned, otherwise the
+	 * result is null.
+	 */
+	public static <T> T getEAdapterFromRoot(org.eclipse.emf.ecore.EObject object, Class<T> clazz) {
+		org.eclipse.emf.ecore.EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(object);
+		return getEAdapter(root, clazz);
+	}
+	
+	/**
+	 * Checks whether the given object has an EAdapter that is an instance of the
+	 * given class. If one is found, it is returned, otherwise the result is null.
+	 */
+	public static <T> T getEAdapter(org.eclipse.emf.ecore.EObject object, Class<T> clazz) {
+		java.util.List<org.eclipse.emf.common.notify.Adapter> eAdapters = object.eAdapters();
+		for (org.eclipse.emf.common.notify.Adapter adapter : eAdapters) {
+			if (clazz.isInstance(adapter)) {
+				return org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(adapter);
+			}
+		}
+		return null;
+	}
+	
 }
