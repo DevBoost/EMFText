@@ -162,7 +162,7 @@ public class TerminalFeatureReferenceResolver implements ICsReferenceResolver<Te
 		FeatureResolveResult resultForFeature = new FeatureResolveResultImpl(result);
 		List<GenFeature> availableFeatures = new ArrayList<GenFeature>();
 		try {
-			metaclass.getAllGenFeatures();
+			availableFeatures = metaclass.getAllGenFeatures();
 		} catch (NullPointerException e) {
 			// ignore exception (is thrown only for partial resources)
 		}
