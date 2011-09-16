@@ -94,6 +94,10 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetValueMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the value of the given feature. " +
+			"If the feature is a list, the list item at the given index is returned."
+		);
 		sc.add("public static Object getFeatureValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int index) {");
 		sc.addComment("get value of feature");
 		sc.add("Object o = eObject.eGet(feature);");
