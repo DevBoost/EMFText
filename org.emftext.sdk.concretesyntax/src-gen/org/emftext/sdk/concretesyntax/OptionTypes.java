@@ -6529,6 +6529,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the INameProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_INAME_PROVIDER
 	 * @model name="OVERRIDE_I_NAME_PROVIDER" literal="overrideINameProvider"
 	 * @generated
@@ -6543,6 +6546,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DefaultNameProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEFAULT_NAME_PROVIDER
 	 * @model literal="overrideDefaultNameProvider"
 	 * @generated
@@ -6557,6 +6563,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the ReferenceCache class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_REFERENCE_CACHE
 	 * @model literal="overrideReferenceCache"
 	 * @generated

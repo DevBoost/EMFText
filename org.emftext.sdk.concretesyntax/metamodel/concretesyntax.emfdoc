@@ -602,6 +602,12 @@ OptionTypes.OVERRIDE_OPTION_PROVIDER : "If set to <code>false</code>, the Option
 
 OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING : "If set to <code>true</code>, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is <code>false</code>."
 
+OptionTypes.OVERRIDE_I_NAME_PROVIDER: "If set to <code>false</code>, the INameProvider class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_DEFAULT_NAME_PROVIDER : "If set to <code>false</code>, the DefaultNameProvider class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_REFERENCE_CACHE : "If set to <code>false</code>, the ReferenceCache class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
