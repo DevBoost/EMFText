@@ -65,7 +65,6 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 	}
 
-
 	private void addPutMethod1(StringComposite sc) {
 		sc.add("private void put(" + E_OBJECT + " object) {");
 		sc.add(E_CLASS + " eClass = object.eClass();");
@@ -88,14 +87,12 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 	}
 
-
 	private void addGetNameToObjectMap(StringComposite sc) {
 		sc.add("public " + MAP + "<String, " + SET + "<" + E_OBJECT + ">> getNameToObjectsMap() {");
 		sc.add("return nameToObjectsMap;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
 
 	private void addInitializeMethod(StringComposite sc) {
 		sc.add("public void initialize(" + E_OBJECT + " root) {");
@@ -111,7 +108,6 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
 
 	private void addGetObjectsMethod(StringComposite sc) {
 		sc.add("public " + SET + "<" + E_OBJECT + "> getObjects(" + E_CLASS + " type) {");
