@@ -32,7 +32,7 @@ public interface ICsReferenceCache {
 	 * Returns the map from object names to objects that was created when the cache
 	 * was initialized.
 	 */
-	public java.util.Map<String, org.eclipse.emf.ecore.EObject> getNameToObjectMap();
+	public java.util.Map<String, java.util.Set<org.eclipse.emf.ecore.EObject>> getNameToObjectsMap();
 	
 	/**
 	 * Clears the cache.

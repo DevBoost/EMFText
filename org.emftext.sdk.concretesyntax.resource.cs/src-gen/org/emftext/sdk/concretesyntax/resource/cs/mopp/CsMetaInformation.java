@@ -108,4 +108,8 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return "org.emftext.sdk.concretesyntax.resource.cs.ui.launchConfigurationType";
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsNameProvider createNameProvider() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultNameProvider();
+	}
+	
 }

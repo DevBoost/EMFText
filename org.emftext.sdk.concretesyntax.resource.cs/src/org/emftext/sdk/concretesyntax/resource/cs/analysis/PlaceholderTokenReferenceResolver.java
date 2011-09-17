@@ -18,6 +18,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -26,7 +27,6 @@ import org.emftext.sdk.concretesyntax.ReferencableTokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
-import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<Placeholder, ReferencableTokenDefinition> {
 
@@ -40,7 +40,7 @@ public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<P
 			return;
 		}
 		// then look in the resource itself
-		EObject root = CsEObjectUtil.findRootContainer(container);
+		EObject root = EcoreUtil.getRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return;
 		}
@@ -55,7 +55,7 @@ public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<P
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
 			Placeholder container, boolean resolveFuzzy, ICsReferenceResolveResult<ReferencableTokenDefinition> result) {
-		EObject root = CsEObjectUtil.findRootContainer(container);
+		EObject root = EcoreUtil.getRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;
 		}

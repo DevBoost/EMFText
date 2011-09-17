@@ -44,68 +44,6 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		
 	}
 	
-	private class ReferenceCache implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache, org.eclipse.emf.common.notify.Adapter {
-		
-		private java.util.Map<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>> cache = new java.util.LinkedHashMap<org.eclipse.emf.ecore.EClass, java.util.Set<org.eclipse.emf.ecore.EObject>>();
-		private java.util.Map<String, org.eclipse.emf.ecore.EObject> nameToObjectMap  = new java.util.LinkedHashMap<String, org.eclipse.emf.ecore.EObject>();
-		private boolean isInitialized;
-		private org.eclipse.emf.common.notify.Notifier target;
-		
-		public org.eclipse.emf.common.notify.Notifier getTarget() {
-			return target;
-		}
-		
-		public boolean isAdapterForType(Object arg0) {
-			return false;
-		}
-		
-		public void notifyChanged(org.eclipse.emf.common.notify.Notification arg0) {
-		}
-		
-		public void setTarget(org.eclipse.emf.common.notify.Notifier arg0) {
-			target = arg0;
-		}
-		
-		public java.util.Set<org.eclipse.emf.ecore.EObject> getObjects(org.eclipse.emf.ecore.EClass type) {
-			return cache.get(type);
-		}
-		
-		public void initialize(org.eclipse.emf.ecore.EObject root) {
-			if (isInitialized) {
-				return;
-			}
-			put(root);
-			java.util.Iterator<org.eclipse.emf.ecore.EObject> it = root.eAllContents();
-			while (it.hasNext()) {
-				put(it.next());
-			}
-			isInitialized = true;
-		}
-		
-		public java.util.Map<String, org.eclipse.emf.ecore.EObject> getNameToObjectMap() {
-			return nameToObjectMap;
-		}
-		
-		private void put(org.eclipse.emf.ecore.EObject object) {
-			org.eclipse.emf.ecore.EClass eClass = object.eClass();
-			if (!cache.containsKey(eClass)) {
-				cache.put(eClass, new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>());
-			}
-			cache.get(eClass).add(object);
-			java.util.List<Object> names = getNames(object);
-			for (Object name : names) {
-				nameToObjectMap.put(name.toString(), object);
-			}
-		}
-		
-		public void clear() {
-			cache.clear();
-			isInitialized = false;
-		}
-		
-	}
-	
-	public final static String NAME_FEATURE = "name";
 	/**
 	 * The maximal distance between two identifiers according to the Levenshtein
 	 * distance to qualify for a quick fix.
@@ -115,7 +53,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	private boolean enableScoping = true;
 	
 	/**
-	 * This is a cache for the extenal objects that are referenced by the current
+	 * This is a cache for the external objects that are referenced by the current
 	 * resource. We must cache this set because determining this set required to
 	 * resolve proxy objects, which causes reference resolving to slow down
 	 * exponentially.
@@ -126,9 +64,11 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * We store the number of proxy objects that were present when
 	 * <code>referencedExternalObjects</code> was resolved, to recompute this set when
 	 * a proxy was resolved. This is required, because a resolved proxy may point to a
-	 * new extenal object.
+	 * new external object.
 	 */
 	private int oldProxyCount = -1;
+	
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsNameProvider nameProvider = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().createNameProvider();
 	
 	/**
 	 * This standard implementation searches for objects in the resource, which have
@@ -140,7 +80,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		try {
 			org.eclipse.emf.ecore.EObject root = container;
 			if (!enableScoping) {
-				root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(container);
+				root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(container);
 			}
 			while (root != null) {
 				boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, container, root, reference, position, resolveFuzzy, result, !enableScoping);
@@ -173,7 +113,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * contains <code>object</code>, but that are located in different resources.
 	 */
 	private java.util.Set<org.eclipse.emf.ecore.EObject> findReferencedExternalObjects(org.eclipse.emf.ecore.EObject object) {
-		org.eclipse.emf.ecore.EObject root = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.findRootContainer(object);
+		org.eclipse.emf.ecore.EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(object);
 		java.util.Map<org.eclipse.emf.ecore.EObject, java.util.Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting>> proxies = org.eclipse.emf.ecore.util.EcoreUtil.ProxyCrossReferencer.find(root);
 		int proxyCount = 0;
 		for (java.util.Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting> settings : proxies.values()) {
@@ -370,46 +310,12 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	/**
-	 * Returns a list of potential identifiers that may be used to reference the given
-	 * element. This method can be overridden to customize the identification of
-	 * elements.
+	 * This method is only kept for compatibility reasons. The current version
+	 * delegates all calls to a name provider, but previous custom implementation of
+	 * this class may have overridden this method.
 	 */
-	protected java.util.List<Object> getNames(org.eclipse.emf.ecore.EObject element) {
-		java.util.List<Object> names = new java.util.ArrayList<Object>();
-		
-		// first check for attributes that have set the ID flag to true
-		java.util.List<org.eclipse.emf.ecore.EAttribute> attributes = element.eClass().getEAllAttributes();
-		for (org.eclipse.emf.ecore.EAttribute attribute : attributes) {
-			if (attribute.isID()) {
-				Object attributeValue = element.eGet(attribute);
-				names.add(attributeValue);
-			}
-		}
-		
-		// then check for an attribute that is called 'name'
-		org.eclipse.emf.ecore.EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
-		if (nameAttr instanceof org.eclipse.emf.ecore.EAttribute) {
-			Object attributeValue = element.eGet(nameAttr);
-			names.add(attributeValue);
-		} else {
-			// try any other string attribute found
-			for (org.eclipse.emf.ecore.EAttribute attribute : attributes) {
-				if ("java.lang.String".equals(attribute.getEType().getInstanceClassName())) {
-					Object attributeValue = element.eGet(attribute);
-					names.add(attributeValue);
-				}
-			}
-			
-			// try operations without arguments that return strings and which have a name that
-			// ends with 'name'
-			for (org.eclipse.emf.ecore.EOperation operation : element.eClass().getEAllOperations()) {
-				if (operation.getName().toLowerCase().endsWith(NAME_FEATURE) && operation.getEParameters().size() == 0) {
-					String result = (String) org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.invokeOperation(element, operation);
-					names.add(result);
-				}
-			}
-		}
-		return names;
+	public java.util.List<String> getNames(org.eclipse.emf.ecore.EObject element) {
+		return nameProvider.getNames(element);
 	}
 	
 	private StringMatch matches(String identifier, Object attributeValue, boolean matchFuzzy) {
@@ -444,10 +350,10 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		}
 		// if the referenced element was not a proxy, we try the same magic that was used
 		// while resolving elements to obtain names for elements
-		java.util.List<Object> names = getNames(element);
-		for (Object name : names) {
-			if (name != null && name instanceof String) {
-				return (String) name;
+		java.util.List<String> names = getNames(element);
+		for (String name : names) {
+			if (name != null) {
+				return name;
 			}
 		}
 		return null;
@@ -489,13 +395,13 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceCache getCache(org.eclipse.emf.ecore.EObject object) {
 		org.eclipse.emf.ecore.EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(object);
-		org.eclipse.emf.common.notify.Adapter adapter = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.getEAdapter(root, CsDefaultResolverDelegate.ReferenceCache.class);
-		ReferenceCache cache = org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(adapter);
+		org.eclipse.emf.common.notify.Adapter adapter = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.getEAdapter(root, org.emftext.sdk.concretesyntax.resource.cs.analysis.CsReferenceCache.class);
+		org.emftext.sdk.concretesyntax.resource.cs.analysis.CsReferenceCache cache = org.emftext.sdk.concretesyntax.resource.cs.util.CsCastUtil.cast(adapter);
 		if (cache != null) {
 			return cache;
 		} else {
 			// cache does not exist. create a new one.
-			cache = new ReferenceCache();
+			cache = new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsReferenceCache(nameProvider);
 			cache.initialize(root);
 			root.eAdapters().add(cache);
 			return cache;
