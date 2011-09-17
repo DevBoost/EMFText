@@ -43,7 +43,7 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addJavadoc(
 			"Returns the map from object names to objects that was created when the cache was initialized."
 		);
-		sc.add("public " + MAP + "<String, " + E_OBJECT + "> getNameToObjectMap();");
+		sc.add("public " + MAP + "<String, " + SET + "<" + E_OBJECT + ">> getNameToObjectsMap();");
 		sc.addLineBreak();
 
 		sc.addJavadoc("Clears the cache.");

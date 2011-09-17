@@ -1868,6 +1868,9 @@
         <details key="documentation" value="If set to &lt;code>true&lt;/code>, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is &lt;code>false&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_I_NAME_PROVIDER" value="262" literal="overrideINameProvider"/>
+    <eLiterals name="OVERRIDE_DEFAULT_NAME_PROVIDER" value="263" literal="overrideDefaultNameProvider"/>
+    <eLiterals name="OVERRIDE_REFERENCE_CACHE" value="264" literal="overrideReferenceCache"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

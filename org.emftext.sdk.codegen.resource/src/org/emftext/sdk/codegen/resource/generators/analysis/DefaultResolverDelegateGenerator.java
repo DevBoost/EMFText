@@ -11,28 +11,21 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.resource.generators;
+package org.emftext.sdk.codegen.resource.generators.analysis;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OPERATION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RUNTIME_EXCEPTION;
@@ -45,6 +38,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -59,7 +53,6 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> {");
 		sc.addLineBreak();
 		addInnerClassStringMatchResult(sc);
-		addInnerClassReferenceCache(sc);
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
@@ -96,71 +89,6 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addInnerClassReferenceCache(StringComposite sc) {
-		sc.add("private class ReferenceCache implements " + iReferenceCacheClassName + ", " + ADAPTER + " {");
-		sc.addLineBreak();
-		sc.add("private " + MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">> cache = new " + LINKED_HASH_MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">>();");
-		sc.add("private " + MAP + "<String, " + E_OBJECT + "> nameToObjectMap  = new " + LINKED_HASH_MAP + "<String, " + E_OBJECT +">();");
-		sc.add("private boolean isInitialized;");
-		sc.add("private " + NOTIFIER + " target;");
-		sc.addLineBreak();
-		sc.add("public " + NOTIFIER + " getTarget() {");
-		sc.add("return target;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean isAdapterForType(Object arg0) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void notifyChanged(" + NOTIFICATION + " arg0) {");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void setTarget(" + NOTIFIER + " arg0) {");
-		sc.add("target = arg0;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + SET + "<" + E_OBJECT + "> getObjects(" + E_CLASS + " type) {");
-		sc.add("return cache.get(type);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void initialize(" + E_OBJECT + " root) {");
-		sc.add("if (isInitialized) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("put(root);");
-		sc.add(ITERATOR + "<" + E_OBJECT + "> it = root.eAllContents();");
-		sc.add("while (it.hasNext()) {");
-		sc.add("put(it.next());");
-		sc.add("}");
-		sc.add("isInitialized = true;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + MAP + "<String, " + E_OBJECT + "> getNameToObjectMap() {");
-		sc.add("return nameToObjectMap;");
-		sc.add("}");
-		sc.addLineBreak();
-
-		sc.add("private void put(" + E_OBJECT + " object) {");
-		sc.add(E_CLASS + " eClass = object.eClass();");
-		sc.add("if (!cache.containsKey(eClass)) {");
-		sc.add("cache.put(eClass, new " + LINKED_HASH_SET + "<" + E_OBJECT + ">());");
-		sc.add("}");
-		sc.add("cache.get(eClass).add(object);");
-		sc.add(LIST + "<Object> names = getNames(object);");
-		sc.add("for (Object name : names) {");
-		sc.add("nameToObjectMap.put(name.toString(), object);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void clear() {");
-		sc.add("cache.clear();");
-		sc.add("isInitialized = false;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addMethods(JavaComposite sc) {
 		addResolveMethod(sc);
 		addFindReferencedExternalObjectsMethod(sc);
@@ -183,6 +111,19 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		addSetEnableScopingMethod(sc);
 		addGetEnableScopingMethod(sc);
 		addIsSimilarMethod(sc);
+	}
+
+	
+	private void addGetNamesMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"This method is only kept for compatibility reasons. " +
+			"The current version delegates all calls to a name provider, but previous " +
+			"custom implementation of this class may have overridden this method."
+		);
+		sc.add("public " + LIST + "<String> getNames(" + E_OBJECT + " element) {");
+		sc.add("return nameProvider.getNames(element);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addTryToResolveIdentifierInGenModelRegistry(JavaComposite sc) {
@@ -219,13 +160,13 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	private void addGetCacheMethod(JavaComposite sc) {
 		sc.add("protected " + iReferenceCacheClassName + " getCache(" + E_OBJECT + " object) {");
 		sc.add(E_OBJECT + " root = " + ECORE_UTIL + ".getRootContainer(object);");
-		sc.add(ADAPTER + " adapter = " + eObjectUtilClassName + ".getEAdapter(root, " + getResourceClassName() + ".ReferenceCache.class);");
-		sc.add("ReferenceCache cache = " + castUtilClassName + ".cast(adapter);");
+		sc.add(ADAPTER + " adapter = " + eObjectUtilClassName + ".getEAdapter(root, " + referenceCacheClassName + ".class);");
+		sc.add(referenceCacheClassName + " cache = " + castUtilClassName + ".cast(adapter);");
 		sc.add("if (cache != null) {");
 		sc.add("return cache;");
 		sc.add("} else {");
 		sc.addComment("cache does not exist. create a new one.");
-		sc.add("cache = new ReferenceCache();");
+		sc.add("cache = new " + referenceCacheClassName + "(nameProvider);");
 		sc.add("cache.initialize(root);");
 		sc.add("root.eAdapters().add(cache);");
 		sc.add("return cache;");
@@ -308,10 +249,10 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("}");
 		*/
-		sc.add(LIST + "<Object> names = getNames(element);");
-		sc.add("for (Object name : names) {");
-		sc.add("if (name != null && name instanceof String) {");
-		sc.add("return (String) name;");
+		sc.add(LIST + "<String> names = getNames(element);");
+		sc.add("for (String name : names) {");
+		sc.add("if (name != null) {");
+		sc.add("return name;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return null;");
@@ -359,59 +300,6 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("}");
 		sc.add("return new StringMatch();");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetNamesMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Returns a list of potential identifiers that may be used to reference the " +
-			"given element. This method can be overridden to customize the identification " +
-			"of elements.");
-		// TODO it would be better if this method returned an iterator instead of a
-		//      list to avoid the creation of names that will never used, because one
-		//      of the previous names matched the identifier we are searching for
-		sc.add("protected " + LIST + "<Object> getNames(" + E_OBJECT + " element) {");
-		sc.add(LIST + "<Object> names = new " + ARRAY_LIST + "<Object>();");
-		sc.addLineBreak();
-		
-		sc.addComment("first check for attributes that have set the ID flag to true");
-		sc.add(LIST + "<" + E_ATTRIBUTE + "> attributes = element.eClass().getEAllAttributes();");
-		sc.add("for (" + E_ATTRIBUTE + " attribute : attributes) {");
-		sc.add("if (attribute.isID()) {");
-		sc.add("Object attributeValue = element.eGet(attribute);");
-		sc.add("names.add(attributeValue);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		sc.addComment("then check for an attribute that is called 'name'");
-		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
-		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
-		sc.add("Object attributeValue = element.eGet(nameAttr);");
-		sc.add("names.add(attributeValue);");
-		sc.add("} else {");
-
-		sc.addComment("try any other string attribute found");
-		sc.add("for (" + E_ATTRIBUTE + " attribute : attributes) {");
-		sc.add("if (\"java.lang.String\".equals(attribute.getEType().getInstanceClassName())) {");
-		sc.add("Object attributeValue = element.eGet(attribute);");
-		sc.add("names.add(attributeValue);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-
-		sc.addComment("try operations without arguments that return strings and which have a name that ends with 'name'");
-		sc.add("for (" + E_OPERATION + " operation : element.eClass().getEAllOperations()) {");
-		sc.add("if (operation.getName().toLowerCase().endsWith(NAME_FEATURE) && operation.getEParameters().size() == 0) {");
-		// TODO this will cause a ClassCastException if the operation does not return a string
-		sc.add("String result = (String) " + eObjectUtilClassName + ".invokeOperation(element, operation);");
-		sc.add("names.add(result);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-
-		sc.add("return names;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -512,7 +400,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("try {");
 		sc.add(E_OBJECT + " root = container;");
 		sc.add("if (!enableScoping) {");
-		sc.add("root = " + eObjectUtilClassName + ".findRootContainer(container);");
+		sc.add("root = " + ECORE_UTIL + ".getRootContainer(container);");
 		sc.add("}");
 		sc.add("while (root != null) {");
 		sc.add("boolean continueSearch = tryToResolveIdentifierInObjectTree(identifier, container, root, reference, position, resolveFuzzy, result, !enableScoping);");
@@ -548,7 +436,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 			"contains <code>object</code>, but that are located in different resources."
 		);
 		sc.add("private " + SET + "<" + E_OBJECT + "> findReferencedExternalObjects(" + E_OBJECT + " object) {");
-		sc.add(E_OBJECT + " root = " + eObjectUtilClassName + ".findRootContainer(object);");
+		sc.add(E_OBJECT + " root = " + ECORE_UTIL + ".getRootContainer(object);");
 		
 		sc.add(MAP + "<" + E_OBJECT + ", " + COLLECTION + "<" + SETTING + ">> proxies = " + ECORE_UTIL + ".ProxyCrossReferencer.find(root);");
 		sc.add("int proxyCount = 0;");
@@ -670,7 +558,6 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 	
 	private void addFields(JavaComposite sc) {
-		sc.add("public final static String NAME_FEATURE = \"name\";");
 		sc.addJavadoc(
 			"The maximal distance between two identifiers according to the " +
 			"Levenshtein distance to qualify for a quick fix."
@@ -680,7 +567,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("private boolean enableScoping = true;");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"This is a cache for the external objects that are referenced by the current resource. " +
+			"This is a cache for the extenal objects that are referenced by the current resource. " +
 			"We must cache this set because determining this set required to resolve proxy objects, " +
 			"which causes reference resolving to slow down exponentially."
 		);
@@ -689,9 +576,11 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addJavadoc(
 			"We store the number of proxy objects that were present when <code>referencedExternalObjects</code> was " +
 			"resolved, to recompute this set when a proxy was resolved. This is required, because a resolved proxy " +
-			"may point to a new external object."
+			"may point to a new extenal object."
 		);
 		sc.add("private int oldProxyCount = -1;");
+		sc.addLineBreak();
+		sc.add("private " + iNameProviderClassName + " nameProvider = new " + metaInformationClassName +"().createNameProvider();");
 		sc.addLineBreak();
 	}
 }

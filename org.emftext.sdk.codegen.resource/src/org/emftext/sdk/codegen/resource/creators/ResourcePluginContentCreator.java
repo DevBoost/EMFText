@@ -186,6 +186,8 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.LOCATION_MAP);
 	    add(creators, TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
 	    add(creators, TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
+	    add(creators, TextResourceArtifacts.DEFAULT_NAME_PROVIDER);
+	    add(creators, TextResourceArtifacts.REFERENCE_CACHE);
 	    add(creators, TextResourceArtifacts.TOKEN_RESOLVE_RESULT);
 	    add(creators, TextResourceArtifacts.URI_MAPPING);
 	    add(creators, TextResourceArtifacts.PARSE_RESULT);
@@ -230,6 +232,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.I_EXPECTED_ELEMENT);
 	    add(creators, TextResourceArtifacts.I_HOVER_TEXT_PROVIDER);
 	    add(creators, TextResourceArtifacts.I_LOCATION_MAP);
+	    add(creators, TextResourceArtifacts.I_NAME_PROVIDER);
 	    add(creators, TextResourceArtifacts.I_PARSE_RESULT);
 	    add(creators, TextResourceArtifacts.I_PROBLEM);
 	    add(creators, TextResourceArtifacts.I_REFERENCE_CACHE);

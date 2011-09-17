@@ -2104,7 +2104,31 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING(261, "IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING", "ignoreTypeRestrictionsForPrinting");
+	IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING(261, "IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING", "ignoreTypeRestrictionsForPrinting"), /**
+	 * The '<em><b>OVERRIDE INAME PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_INAME_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_INAME_PROVIDER(262, "OVERRIDE_I_NAME_PROVIDER", "overrideINameProvider"), /**
+	 * The '<em><b>OVERRIDE DEFAULT NAME PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_NAME_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEFAULT_NAME_PROVIDER(263, "OVERRIDE_DEFAULT_NAME_PROVIDER", "overrideDefaultNameProvider"), /**
+	 * The '<em><b>OVERRIDE REFERENCE CACHE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_REFERENCE_CACHE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_REFERENCE_CACHE(264, "OVERRIDE_REFERENCE_CACHE", "overrideReferenceCache");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6498,6 +6522,48 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING_VALUE = 261;
 /**
+	 * The '<em><b>OVERRIDE INAME PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE INAME PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_INAME_PROVIDER
+	 * @model name="OVERRIDE_I_NAME_PROVIDER" literal="overrideINameProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_INAME_PROVIDER_VALUE = 262;
+/**
+	 * The '<em><b>OVERRIDE DEFAULT NAME PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEFAULT NAME PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_NAME_PROVIDER
+	 * @model literal="overrideDefaultNameProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEFAULT_NAME_PROVIDER_VALUE = 263;
+/**
+	 * The '<em><b>OVERRIDE REFERENCE CACHE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE REFERENCE CACHE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_REFERENCE_CACHE
+	 * @model literal="overrideReferenceCache"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_REFERENCE_CACHE_VALUE = 264;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6764,6 +6830,9 @@ public enum OptionTypes implements Enumerator {
 			DISABLE_NEW_PROJECT_WIZARD,
 			OVERRIDE_OPTION_PROVIDER,
 			IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING,
+			OVERRIDE_INAME_PROVIDER,
+			OVERRIDE_DEFAULT_NAME_PROVIDER,
+			OVERRIDE_REFERENCE_CACHE,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7070,6 +7139,9 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_NEW_PROJECT_WIZARD_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD;
 			case DISABLE_NEW_PROJECT_WIZARD_VALUE: return DISABLE_NEW_PROJECT_WIZARD;
 			case IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING_VALUE: return IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING;
+			case OVERRIDE_INAME_PROVIDER_VALUE: return OVERRIDE_INAME_PROVIDER;
+			case OVERRIDE_DEFAULT_NAME_PROVIDER_VALUE: return OVERRIDE_DEFAULT_NAME_PROVIDER;
+			case OVERRIDE_REFERENCE_CACHE_VALUE: return OVERRIDE_REFERENCE_CACHE;
 		}
 		return null;
 	}

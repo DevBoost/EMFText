@@ -42,7 +42,6 @@ import org.emftext.sdk.codegen.resource.generators.BuilderAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.BuilderGenerator;
 import org.emftext.sdk.codegen.resource.generators.ContextDependentURIFragmentFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.ContextDependentURIFragmentGenerator;
-import org.emftext.sdk.codegen.resource.generators.DefaultResolverDelegateGenerator;
 import org.emftext.sdk.codegen.resource.generators.DefaultTokenResolverGenerator;
 import org.emftext.sdk.codegen.resource.generators.DelegatingResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.DummyEObjectGenerator;
@@ -70,6 +69,9 @@ import org.emftext.sdk.codegen.resource.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.URIMappingGenerator;
 import org.emftext.sdk.codegen.resource.generators.UnexpectedContentTypeExceptionGenerator;
+import org.emftext.sdk.codegen.resource.generators.analysis.DefaultNameProviderGenerator;
+import org.emftext.sdk.codegen.resource.generators.analysis.DefaultResolverDelegateGenerator;
+import org.emftext.sdk.codegen.resource.generators.analysis.ReferenceCacheGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.AbstractExpectedElementGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.AttributeValueProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedBooleanTerminalGenerator;
@@ -127,6 +129,7 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.IInputStreamProces
 import org.emftext.sdk.codegen.resource.generators.interfaces.IInterpreterListenerGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.ILocationMapGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IMetaInformationGenerator;
+import org.emftext.sdk.codegen.resource.generators.interfaces.INameProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IParseResultGenerator;
@@ -255,9 +258,13 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_BUILDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "Builder", IBuilderGenerator.class, OptionTypes.OVERRIDE_IBUILDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE_POST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ResourcePostProcessor", ResourcePostProcessorGenerator.class, OptionTypes.OVERRIDE_RESOURCE_POST_PROCESSOR);
 	
+	// the analysis package
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_TOKEN_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultTokenResolver", DefaultTokenResolverGenerator.class, OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_RESOLVER_DELEGATE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", DefaultResolverDelegateGenerator.class, OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE); 
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_NAME_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "DefaultNameProvider", DefaultNameProviderGenerator.class, OptionTypes.OVERRIDE_DEFAULT_NAME_PROVIDER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> REFERENCE_CACHE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ANALYSIS_PACKAGE, "", "ReferenceCache", ReferenceCacheGenerator.class, OptionTypes.OVERRIDE_REFERENCE_CACHE);
 
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_NAME_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "NameProvider", INameProviderGenerator.class, OptionTypes.OVERRIDE_INAME_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_INPUT_STREAM_PROCESSOR_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "InputStreamProcessorProvider", IInputStreamProcessorProviderGenerator.class, OptionTypes.OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> INPUT_STREAM_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "InputStreamProcessor", InputStreamProcessorGenerator.class, OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_OPTION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "OptionProvider", IOptionProviderGenerator.class, OptionTypes.OVERRIDE_IOPTION_PROVIDER);

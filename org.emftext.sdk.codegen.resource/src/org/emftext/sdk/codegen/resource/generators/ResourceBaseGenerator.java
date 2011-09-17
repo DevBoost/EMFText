@@ -186,6 +186,9 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String unicodeConverterClassName;
 	protected String uriMappingClassName;
 	protected String whiteSpaceClassName;
+	protected String referenceCacheClassName;
+	protected String iNameProviderClassName;
+	protected String defaultNameProviderClassName;
 	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -226,6 +229,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		debuggableInterpreterClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUGGABLE_INTERPRETER);
 		debuggerListenerClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUGGER_LISTENER);
 		defaultResolverDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
+		defaultNameProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_NAME_PROVIDER);
 		defaultTokenResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
 		delegatingResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);
 		dotClasspathClassName = context.getQualifiedClassName(TextResourceArtifacts.DOT_CLASSPATH);
@@ -264,6 +268,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		iInterpreterListenerClassName = context.getQualifiedClassName(TextResourceArtifacts.I_INTERPRETER_LISTENER);
 		iLocationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.I_LOCATION_MAP);
 		iMetaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.I_META_INFORMATION);
+		iNameProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_NAME_PROVIDER);
 		iOptionProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER);
 		iOptionsClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
 		iParseResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_PARSE_RESULT);
@@ -314,6 +319,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		printerClassName = context.getQualifiedClassName(TextResourceArtifacts.PRINTER);
 		problemClassName = context.getQualifiedClassName(TextResourceArtifacts.PROBLEM);
 		quickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.QUICK_FIX);
+		referenceCacheClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_CACHE);
 		referenceResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
 		referenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		resourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);

@@ -45,6 +45,13 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         sc.add("}");
 	}
 
+	private void addCreateNameProviderMethod(StringComposite sc) {
+		sc.add("public " + iNameProviderClassName + " createNameProvider() {");
+		sc.add("return new " + defaultNameProviderClassName + "();");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
 	private void addCreateResourceFactoryMethod(StringComposite sc) {
 		sc.add("public " + RESOURCE_FACTORY + " createResourceFactory() {");
 		sc.add("return new " + resourceFactoryClassName + "();");
@@ -80,6 +87,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         addGetInputStreamPreprocessorProviderOptionKeyMethod(sc);
         addGetResourcePostProcessorProviderOptionKeyMethod(sc);
         addGetLaunchConfigurationTypeMethod(sc);
+        addCreateNameProviderMethod(sc);
 	}
 
 	private void addGetLaunchConfigurationTypeMethod(JavaComposite sc) {
