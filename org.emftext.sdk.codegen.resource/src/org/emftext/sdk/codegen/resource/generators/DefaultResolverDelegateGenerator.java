@@ -680,7 +680,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("private boolean enableScoping = true;");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"This is a cache for the extenal objects that are referenced by the current resource. " +
+			"This is a cache for the external objects that are referenced by the current resource. " +
 			"We must cache this set because determining this set required to resolve proxy objects, " +
 			"which causes reference resolving to slow down exponentially."
 		);
@@ -689,7 +689,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addJavadoc(
 			"We store the number of proxy objects that were present when <code>referencedExternalObjects</code> was " +
 			"resolved, to recompute this set when a proxy was resolved. This is required, because a resolved proxy " +
-			"may point to a new extenal object."
+			"may point to a new external object."
 		);
 		sc.add("private int oldProxyCount = -1;");
 		sc.addLineBreak();
