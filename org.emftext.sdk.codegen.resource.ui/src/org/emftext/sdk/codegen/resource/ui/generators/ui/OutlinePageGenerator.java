@@ -17,7 +17,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GROUP_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_OUTLINE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MENU_LISTENER;
@@ -32,7 +31,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MENU;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MENU_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
