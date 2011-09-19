@@ -177,7 +177,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("selectionChangedListeners.clear();");
 		generatorUtil.addCreateAdapterFactoryCode(sc);
 		sc.add(ADAPTER_FACTORY_CONTENT_PROVIDER + " contentProvider = new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory);");
-		sc.add("treeViewer.setAutoExpandLevel(3);");
+		sc.add("treeViewer.setAutoExpandLevel(AUTO_EXPAND_LEVEL);");
 		sc.add("treeViewer.setContentProvider(contentProvider);");
 		sc.add("treeViewer.setLabelProvider(new " + ADAPTER_FACTORY_LABEL_PROVIDER + "(adapterFactory));");
 		sc.add(RESOURCE_SET + " resourceSet = editor.getResourceSet();");
@@ -226,14 +226,15 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc, String outlineContextMenuID) {
+	private void addFields(JavaComposite sc, String outlineContextMenuID) {
 		sc.add("public final static String CONTEXT_MENU_ID = \"" + outlineContextMenuID + "\";");
+		sc.addLineBreak();
+		sc.addJavadoc("The auto expand level determines the depth to which the outline tree is expanded by default.");
+		sc.add("public static int AUTO_EXPAND_LEVEL = 3;");
 		sc.addLineBreak();
 		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + TREE_VIEWER + " treeViewer;");
 		sc.add("private " + LISTENER_LIST + " selectionChangedListeners = new " + LISTENER_LIST + "();");
 		sc.addLineBreak();
 	}
-
-	
 }
