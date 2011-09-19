@@ -180,12 +180,11 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("treeViewer.setAutoExpandLevel(AUTO_EXPAND_LEVEL);");
 		sc.add("treeViewer.setContentProvider(contentProvider);");
 		sc.add("treeViewer.setLabelProvider(new " + ADAPTER_FACTORY_LABEL_PROVIDER + "(adapterFactory));");
-		sc.add(RESOURCE_SET + " resourceSet = editor.getResourceSet();");
-		sc.add(E_LIST + "<" + RESOURCE + "> resources = resourceSet.getResources();");
-		sc.add("treeViewer.setInput(resources.get(0));");
-		sc.add("if (!resources.isEmpty()) {");
+		sc.add(RESOURCE + " resource = resourceProvider.getResource();");
+		sc.add("treeViewer.setInput(resource);");
+		sc.add("if (resource != null) {");
 		sc.addComment("Select the root object in the view.");
-		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION + "(resources.get(0)), true);");
+		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION + "(resource), true);");
 		sc.add("}");
 		sc.add("createContextMenu();");
 		sc.add("}");
@@ -219,9 +218,9 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + editorClassName + " textEditor) {");
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider) {");
 		sc.add("super();");
-		sc.add("this.editor = textEditor;");
+		sc.add("this.resourceProvider = resourceProvider;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -232,7 +231,11 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addJavadoc("The auto expand level determines the depth to which the outline tree is expanded by default.");
 		sc.add("public static int AUTO_EXPAND_LEVEL = 3;");
 		sc.addLineBreak();
-		sc.add("private " + editorClassName + " editor;");
+		sc.addJavadoc(
+			"The provider for the resource that is displayed in the outline page. " +
+			"Normally this is the current editor."
+		);
+		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
 		sc.add("private " + TREE_VIEWER + " treeViewer;");
 		sc.add("private " + LISTENER_LIST + " selectionChangedListeners = new " + LISTENER_LIST + "();");
 		sc.addLineBreak();
