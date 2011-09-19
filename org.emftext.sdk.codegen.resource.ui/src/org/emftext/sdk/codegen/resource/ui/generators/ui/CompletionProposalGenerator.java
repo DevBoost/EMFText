@@ -52,6 +52,18 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		addGetContainerMethod(sc);
 		addEqualsMethod(sc);
 		addHashCodeMethod(sc);
+		addCompareToMethod(sc);
+		addToStringMethod(sc);
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {");
+		sc.add("String result = (container == null ? \"null\" : container.eClass().getName()) + \".\";");
+		sc.add("result += (structuralFeature == null ? \"null\" : structuralFeature.getName());");
+		sc.add("result += \": \" + insertString;");
+		sc.add("return result;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addHashCodeMethod(JavaComposite sc) {
@@ -59,6 +71,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("return getInsertString().hashCode();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addCompareToMethod(JavaComposite sc) {
 		sc.add("public int compareTo(" + getResourceClassName() + " object) {");
 		sc.add("if (object instanceof " + getResourceClassName() + ") {");
 		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
@@ -159,16 +174,16 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstructor2(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
-		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container);");
+		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
+		sc.add("this(insertString, prefix, matchesPrefix, structuralFeature, container);");
 		sc.add("this.image = image;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addConstructor3(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean startsWithPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
-		sc.add("this(insertString, prefix, startsWithPrefix, structuralFeature, container, image);");
+		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
+		sc.add("this(insertString, prefix, matchesPrefix, structuralFeature, container, image);");
 		sc.add("this.displayString = displayString;");
 		sc.add("}");
 		sc.addLineBreak();
