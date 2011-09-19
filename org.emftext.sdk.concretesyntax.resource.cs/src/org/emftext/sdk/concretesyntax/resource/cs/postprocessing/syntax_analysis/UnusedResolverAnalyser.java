@@ -68,7 +68,11 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 			if (!member.isDirectory()) {
 				String fileName = member.getName();
 				boolean isDefaultResolver = defaultResolverFileName.equals(fileName);
-				if (!resolverFileNames.contains(fileName) && !isDefaultResolver) {
+				if (isDefaultResolver) {
+					continue;
+				}
+				boolean isResolver = fileName.endsWith(Constants.CLASS_SUFFIX_REFERENCE_RESOLVER + ".java");
+				if (!resolverFileNames.contains(fileName) && isResolver) {
 					// create quick fixes
 					Collection<ICsQuickFix> quickFixes = new ArrayList<ICsQuickFix>(2);
 					quickFixes.add(new RemoveResolverQuickFix(syntax, member));
