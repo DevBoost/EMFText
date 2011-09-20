@@ -33,6 +33,7 @@ public class OutlinePageActionProviderGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("defaultActions.add(new " + outlinePageLinkWithEditorActionClassName + "(treeViewer));");
 		sc.add("defaultActions.add(new " + outlinePageCollapseAllActionClassName + "(treeViewer));");
 		sc.add("defaultActions.add(new " + outlinePageExpandAllActionClassName + "(treeViewer));");
+		sc.add("defaultActions.add(new " + outlinePageAutoExpandActionClassName + "(treeViewer));");
 		sc.add("defaultActions.add(new " + outlinePageLexicalSortingActionClassName + "(treeViewer));");
 		sc.add("defaultActions.add(new " + outlinePageTypeSortingActionClassName + "(treeViewer));");
 		sc.add("return defaultActions;");

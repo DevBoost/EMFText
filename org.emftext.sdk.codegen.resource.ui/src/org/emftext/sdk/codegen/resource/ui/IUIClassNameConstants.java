@@ -261,6 +261,7 @@ import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -508,6 +509,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String GRID_LAYOUT = GridLayout.class.getName();
 	public static String GROUP = Group.class.getName();
 	public static String GROUP_MARKER = GroupMarker.class.getName();
+	public static String I_ELEMENT_COMPARER = IElementComparer.class.getName();
 	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
 	public static String IMAGE = org.eclipse.swt.graphics.Image.class.getName();

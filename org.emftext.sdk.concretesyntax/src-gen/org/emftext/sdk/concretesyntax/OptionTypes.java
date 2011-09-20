@@ -2192,7 +2192,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION(272, "OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION", "overrideOutlinePageLinkWithEditorAction");
+	OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION(272, "OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION", "overrideOutlinePageLinkWithEditorAction"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE AUTO EXPAND ACTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION(273, "OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION", "overrideOutlinePageAutoExpandAction");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6749,6 +6757,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION_VALUE = 272;
 /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE AUTO EXPAND ACTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE AUTO EXPAND ACTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION
+	 * @model literal="overrideOutlinePageAutoExpandAction"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION_VALUE = 273;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7026,6 +7048,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION,
 			OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER,
 			OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION,
+			OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7343,6 +7366,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION;
 			case OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER_VALUE: return OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER;
 			case OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION;
+			case OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION;
 		}
 		return null;
 	}

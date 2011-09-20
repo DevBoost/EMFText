@@ -85,6 +85,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String debugModelPresentationClassName;
 	protected String lineBreakpointAdapterClassName;
 	protected String adapterFactoryClassName;
+	protected String outlinePageAutoExpandActionClassName;
 
 	@Override
 	protected void initilizeClassNames() {
@@ -129,6 +130,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		outlinePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE);
 		outlinePageActionProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_ACTION_PROVIDER);
 		outlinePageLinkWithEditorActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION);
+		outlinePageAutoExpandActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_AUTO_EXPAND_ACTION);
 		outlinePageExpandAllActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_EXPAND_ALL_ACTION);
 		outlinePageLexicalSortingActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_LEXICAL_SORTING_ACTION);
 		outlinePageTypeSortingActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_GROUP_TYPES_ACTION);

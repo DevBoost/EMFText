@@ -34,7 +34,8 @@ public class UIConstants {
 		DEFAULT_SORT_LEXICALLY_ICON("sort_lexically_icon.gif"),
 		DEFAULT_GROUP_TYPES_ICON("group_types_icon.gif"), 
 		DEFAULT_EXPAND_ALL_ICON("expand_all_icon.gif"), 
-		DEFAULT_LINK_WITH_EDITOR_ICON("link_with_editor_icon.gif");
+		DEFAULT_LINK_WITH_EDITOR_ICON("link_with_editor_icon.gif"), 
+		DEFAULT_AUTO_EXPAND_ICON("auto_expand_icon.gif");
 		
 		private String filename;
 

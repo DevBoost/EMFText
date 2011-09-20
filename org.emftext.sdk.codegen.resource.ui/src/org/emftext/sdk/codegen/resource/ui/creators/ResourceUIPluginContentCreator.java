@@ -124,6 +124,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_GROUP_TYPES_ICON));
 		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_COLLAPSE_ALL_ICON));
 		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_EXPAND_ALL_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_AUTO_EXPAND_ICON));
 		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_LINK_WITH_EDITOR_ICON));
 	    if (context.isLaunchSupportEnabled()) {
 	    	creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_LAUNCH_SHORTCUT_ICON));
@@ -164,6 +165,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_COLLAPSE_ALL_ACTION);
 	    add(creators, TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_EXPAND_ALL_ACTION);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_AUTO_EXPAND_ACTION);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_ACTION_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);
