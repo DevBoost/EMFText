@@ -35,13 +35,13 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		this.container = container;
 	}
 	
-	public CsCompletionProposal(String insertString, String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
-		this(insertString, prefix, startsWithPrefix, structuralFeature, container);
+	public CsCompletionProposal(String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
+		this(insertString, prefix, matchesPrefix, structuralFeature, container);
 		this.image = image;
 	}
 	
-	public CsCompletionProposal(String insertString, String prefix, boolean startsWithPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
-		this(insertString, prefix, startsWithPrefix, structuralFeature, container, image);
+	public CsCompletionProposal(String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
+		this(insertString, prefix, matchesPrefix, structuralFeature, container, image);
 		this.displayString = displayString;
 	}
 	
@@ -105,6 +105,13 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 			return startCompare == 0 ? getInsertString().compareTo(other.getInsertString()) : -startCompare;
 		}
 		return -1;
+	}
+	
+	public String toString() {
+		String result = (container == null ? "null" : container.eClass().getName()) + ".";
+		result += (structuralFeature == null ? "null" : structuralFeature.getName());
+		result += ": " + insertString;
+		return result;
 	}
 	
 }
