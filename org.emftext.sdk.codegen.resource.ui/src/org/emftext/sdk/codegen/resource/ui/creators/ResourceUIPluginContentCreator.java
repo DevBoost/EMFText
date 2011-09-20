@@ -46,6 +46,7 @@ import org.emftext.sdk.codegen.resource.creators.AbstractPluginCreator;
 import org.emftext.sdk.codegen.resource.creators.SyntaxArtifactCreator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.UIConstants;
+import org.emftext.sdk.codegen.resource.ui.UIConstants.Icon;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
@@ -115,17 +116,22 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD);
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD_PAGE);
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_icon.gif"), getNewIconFile(resourceUIPlugin, context), false));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_new_project_wizban_icon.gif"), getNewWizbanIconFile(resourceUIPlugin, context), false));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), getEditorIconFile(resourceUIPlugin, context), false));
-	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_occurrence_icon.gif"), getOccurrenceIconFile(resourceUIPlugin, context), false));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_NEW_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_NEW_PROJECT_WIZBAN));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_EDITOR_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_OCCURRENCE_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_SORT_LEXICALLY_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_GROUP_TYPES_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_COLLAPSE_ALL_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_EXPAND_ALL_ICON));
+		creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_LINK_WITH_EDITOR_ICON));
 	    if (context.isLaunchSupportEnabled()) {
-		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_shortcut_icon.gif"), getLaunchShortcutIconFile(resourceUIPlugin, context), false));
-		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_tab_main_icon.gif"), getLaunchTabMainIconFile(resourceUIPlugin, context), false));
-		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_launch_type_icon.gif"), getLaunchConfigurationTypeIconFile(resourceUIPlugin, context), false));
+	    	creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_LAUNCH_SHORTCUT_ICON));
+	    	creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_LAUNCH_TAB_MAIN_ICON));
+	    	creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON));
 		}
 	    if (context.isDebugSupportEnabled()) {
-		    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_breakpoint_icon.gif"), getBreakpointIconFile(resourceUIPlugin, context), false));
+	    	creators.add(getIconCreator(context, resourceUIPlugin, UIConstants.Icon.DEFAULT_BREAKPOINT_ICON));
 		}
 	    creators.add(new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("hover_style.css"), getHoverStyleFile(resourceUIPlugin, context), false));
 
@@ -153,7 +159,15 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.HYPERLINK_DETECTOR);
 	    add(creators, TextResourceUIArtifacts.OCCURRENCE);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_LEXICAL_SORTING_ACTION);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_GROUP_TYPES_ACTION);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_COLLAPSE_ALL_ACTION);
+	    add(creators, TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_EXPAND_ALL_ACTION);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_ACTION_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);
+	    add(creators, TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER_COMPARATOR);
 	    add(creators, TextResourceUIArtifacts.POSITION_CATEGORY);
 	    add(creators, TextResourceUIArtifacts.POSITION_HELPER);
 	    add(creators, TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
@@ -202,6 +216,21 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    return creators;
 	}
 
+	/**
+	 * Returns a FileCopier that copies the given icon to the resource UI plug-in.
+	 * 
+	 * @param context
+	 * @param resourceUIPlugin
+	 * @param icon
+	 * @return
+	 */
+	private FileCopier<GenerationContext> getIconCreator(
+			GenerationContext context, 
+			IPluginDescriptor resourceUIPlugin,
+			Icon icon) {
+		return new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_" + icon.getFilename()), getIconFile(resourceUIPlugin, context, icon), false);
+	}
+
 	private XMLParameters<GenerationContext> getPluginXmlParamters(GenerationContext context) {
 		final String newFileWizardCategoryID = "org.emftext.runtime.ui.EMFTextFileCategory";
 		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
@@ -237,7 +266,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		editor.setAttribute("class", editorClassName);
 		editor.setAttribute("contributorClass", "org.eclipse.ui.texteditor.BasicTextEditorActionContributor");
 		editor.setAttribute("extensions", primaryConcreteSyntaxName);
-		editor.setAttribute("icon", "icons/" + UIConstants.DEFAULT_EDITOR_ICON_NAME);
+		editor.setAttribute("icon", "icons/" + UIConstants.Icon.DEFAULT_EDITOR_ICON.getFilename());
 		editor.setAttribute("id", editorClassName);
 		editor.setAttribute("name", "EMFText " + concreteSyntax.getName() + " Editor");
 		
@@ -340,7 +369,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		XMLElement specification = markerAnnotationExtension.createChild("specification");
 		specification.setAttribute("annotationType", occurrenceAnnotationTypeID);
 		specification.setAttribute("label", "Occurrences (in ." + syntaxName + " files)");
-		specification.setAttribute("icon", "/icons/" + UIConstants.DEFAULT_OCCURRENCE_ICON_NAME);
+		specification.setAttribute("icon", "/icons/" + UIConstants.Icon.DEFAULT_OCCURRENCE_ICON.getFilename());
 		specification.setAttribute("textPreferenceKey", syntaxName + ".occurrenceIndication");
 		specification.setAttribute("textPreferenceValue", "false");
 		specification.setAttribute("highlightPreferenceKey", syntaxName + ".occurrenceHighlighting");
@@ -677,19 +706,19 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	private String getProjectRelativeNewIconPath() {
 		// it is OK to use slashes here, because this path is put into
 		// the plugin.xml
-		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_NEW_ICON_NAME;
+		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.Icon.DEFAULT_NEW_ICON.getFilename();
 	}
 	
 	private String getProjectRelativeLaunchShortcutIconPath() {
 		// it is OK to use slashes here, because this path is put into
 		// the plugin.xml
-		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_LAUNCH_SHORTCUT_ICON_NAME;
+		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.Icon.DEFAULT_LAUNCH_SHORTCUT_ICON.getFilename();
 	}
 	
 	private String getProjectRelativeLaunchConfigurationTypeIconPath() {
 		// it is OK to use slashes here, because this path is put into
 		// the plugin.xml
-		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON_NAME;
+		return "/" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.Icon.DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON.getFilename();
 	}
 	
 	private void add(
@@ -759,10 +788,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		return new File(context.getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + UIConstants.DEFAULT_ICON_DIR);
 	}
 
-	private File getNewIconFile(IPluginDescriptor plugin, GenerationContext context) {
-		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_NEW_ICON_NAME);
+	private File getIconFile(IPluginDescriptor plugin, GenerationContext context, UIConstants.Icon icon) {
+		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + icon.getFilename());
 	}
 
+	/*
 	private File getEditorIconFile(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_EDITOR_ICON_NAME);
 	}
@@ -790,6 +820,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	private File getLaunchConfigurationTypeIconFile(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(getIconsDir(plugin, context).getAbsolutePath() + File.separator + UIConstants.DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON_NAME);
 	}
+	*/
 
 	private File getCSSDir(IPluginDescriptor plugin, GenerationContext context) {
 		return new File(context.getFileSystemConnector().getProjectFolder(plugin).getAbsolutePath() + File.separator + UIConstants.DEFAULT_CSS_DIR);

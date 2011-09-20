@@ -20,6 +20,7 @@ import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
 public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends ResourceBaseGenerator<ParameterType> {
 
+	protected String abstractOutlinePageActionClassName;
 	protected String annotationModelClassName;
 	protected String annotationModelFactoryClassName;
 	protected String antlrTokenHelperClassName;
@@ -55,7 +56,14 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String occurrenceClassName;
 	protected String occurrencePreferencePageClassName;
 	protected String outlinePageClassName;
+	protected String outlinePageLinkWithEditorActionClassName;
+	protected String outlinePageLexicalSortingActionClassName;
+	protected String outlinePageTypeSortingActionClassName;
+	protected String outlinePageCollapseAllActionClassName;
+	protected String outlinePageExpandAllActionClassName;
 	protected String outlinePageTreeViewerClassName;
+	protected String outlinePageActionProviderClassName;
+	protected String outlinePageTreeViewerComparatorClassName;
 	protected String pixelConverterClassName;
 	protected String positionCategoryClassName;
 	protected String positionHelperClassName;
@@ -83,6 +91,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		super.initilizeClassNames();
 		GenerationContext context = getContext();
 
+		abstractOutlinePageActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
 		annotationModelClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL);
 		annotationModelFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
 		antlrTokenHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
@@ -118,7 +127,14 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		occurrenceClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OCCURRENCE);
 		occurrencePreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OCCURRENCE_PREFERENCE_PAGE);
 		outlinePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE);
+		outlinePageActionProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_ACTION_PROVIDER);
+		outlinePageLinkWithEditorActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION);
+		outlinePageExpandAllActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_EXPAND_ALL_ACTION);
+		outlinePageLexicalSortingActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_LEXICAL_SORTING_ACTION);
+		outlinePageTypeSortingActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_GROUP_TYPES_ACTION);
+		outlinePageCollapseAllActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_COLLAPSE_ALL_ACTION);
 		outlinePageTreeViewerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER);
+		outlinePageTreeViewerComparatorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.OUTLINE_PAGE_TREE_VIEWER_COMPARATOR);
 		pixelConverterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.PIXEL_CONVERTER);
 		positionCategoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.POSITION_CATEGORY);
 		positionHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.POSITION_HELPER);

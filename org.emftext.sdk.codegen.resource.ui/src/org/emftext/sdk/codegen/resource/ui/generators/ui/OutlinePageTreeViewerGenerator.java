@@ -39,13 +39,18 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("public class " + getResourceClassName() + " extends " + TREE_VIEWER + " {");
 		sc.addLineBreak();
 		
-		sc.add("boolean suppressNotifications = false;");
-		sc.addLineBreak();
-		
+		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
 
 		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.add("private boolean suppressNotifications = false;");
+		sc.addLineBreak();
+		sc.add("private boolean linkWithEditor = false;");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -58,6 +63,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		addRefreshMethod4(sc);
 		addExpandToLevelMethod(sc);
 		addFireSelectionChangedMethod(sc);
+		addSetLinkWithEditorMethod(sc);
 	}
 
 	private void addExpandToLevelMethod(JavaComposite sc) {
@@ -112,6 +118,9 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 
 	private void addSetSelectionMethod(StringComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
+		sc.add("if (!linkWithEditor) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("if (selection instanceof " + eObjectSelectionClassName + ") {");
 		sc.add("suppressNotifications = true;");
 		sc.add("super.setSelection(selection, reveal);");
@@ -148,7 +157,9 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	
 	private void addFireSelectionChangedMethod(StringComposite sc) {
 		sc.add("protected void fireSelectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
-		sc.add("if (suppressNotifications == true) return;");
+		sc.add("if (suppressNotifications == true) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("super.fireSelectionChanged(event);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -161,5 +172,10 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	
+	private void addSetLinkWithEditorMethod(StringComposite sc) {
+		sc.add("public void setLinkWithEditor(boolean on) {");
+		sc.add("this.linkWithEditor = on;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
 }

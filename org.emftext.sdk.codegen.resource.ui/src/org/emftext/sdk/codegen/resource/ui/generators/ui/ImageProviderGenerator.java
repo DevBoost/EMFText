@@ -48,8 +48,39 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addFields(sc);
-		addGetImageMethod(sc);
+		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addGetImageMethod(sc);
+		addGetImageDescriptorMethod(sc);
+	}
+
+	private void addGetImageDescriptorMethod(JavaComposite sc) {
+		sc.add("public " + IMAGE_DESCRIPTOR + " getImageDescriptor(String key) {");
+		sc.add(I_PATH + " path = new " + PATH + "(key);");
+		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(" + uiPluginActivatorClassName + ".getDefault().getBundle(), path, null));");
+		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
+		sc.addComment("try loading image from any bundle");
+		sc.add("try {");
+		sc.addComment(
+			"possible URLs:",
+			"platform:/plugin/your.plugin/icons/yourIcon.png",
+			"bundleentry://557.fwk3560063/icons/yourIcon.png"
+		);
+		sc.add(IClassNameConstants.URL + " pluginUrl = new " + IClassNameConstants.URL + "(key);");
+		sc.add("descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(pluginUrl);");
+		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("} catch (" + MALFORMED_URL_EXCEPTION + " mue) {");
+		sc.add(uiPluginActivatorClassName + ".logError(\"IconProvider can't load image (URL is malformed).\", mue);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return descriptor;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -93,24 +124,9 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addComment("try loading image from UI bundle");
-		sc.add(I_PATH + " path = new " + PATH + "(key);");
-		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(" + uiPluginActivatorClassName + ".getDefault().getBundle(), path, null));");
-		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
-		sc.addComment("try loading image from any bundle");
-		sc.add("try {");
-		sc.addComment(
-			"possible URLs:",
-			"platform:/plugin/your.plugin/icons/yourIcon.png",
-			"bundleentry://557.fwk3560063/icons/yourIcon.png"
-		);
-		sc.add(IClassNameConstants.URL + " pluginUrl = new " + IClassNameConstants.URL + "(key);");
-		sc.add("descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(pluginUrl);");
-		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
+		sc.add(IMAGE_DESCRIPTOR + " descriptor = getImageDescriptor(key);");
+		sc.add("if (descriptor == null) {");
 		sc.add("return null;");
-		sc.add("}");
-		sc.add("} catch (" + MALFORMED_URL_EXCEPTION + " mue) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"IconProvider can't load image (URL is malformed).\", mue);");
-		sc.add("}");
 		sc.add("}");
 		sc.add("image = descriptor.createImage();");
 		sc.add("if (image == null) {");

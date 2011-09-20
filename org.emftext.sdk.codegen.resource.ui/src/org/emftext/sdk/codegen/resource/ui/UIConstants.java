@@ -17,14 +17,35 @@ public class UIConstants {
 
 	// icons
 	public static final String DEFAULT_ICON_DIR = "icons";
-	public static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
-	public static final String DEFAULT_EDITOR_ICON_NAME = "editor_icon.gif";
-	public static final String DEFAULT_OCCURRENCE_ICON_NAME = "occurrence_icon.gif";
-	public static final String DEFAULT_LAUNCH_SHORTCUT_ICON_NAME = "launch_shortcut_icon.gif";
-	public static final String DEFAULT_LAUNCH_TAB_MAIN_ICON_NAME = "launch_tab_main_icon.gif";
-	public static final String DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON_NAME = "launch_type_icon.gif";
-	public static final String DEFAULT_BREAKPOINT_ICON_NAME = "breakpoint_icon.gif";
-	public static final String DEFAULT_NEW_PROJECT_WIZBAN_NAME = "new_project_wizban.gif";
+	
+	public enum Icon {
+		// this should actually be 'new_icon.gif', but for compatibility reasons
+		// we keep the old name.
+		DEFAULT_NEW_ICON("default_new_icon.gif"),
+		
+		DEFAULT_EDITOR_ICON("editor_icon.gif"),
+		DEFAULT_OCCURRENCE_ICON("occurrence_icon.gif"),
+		DEFAULT_LAUNCH_SHORTCUT_ICON("launch_shortcut_icon.gif"),
+		DEFAULT_LAUNCH_TAB_MAIN_ICON("launch_tab_main_icon.gif"),
+		DEFAULT_LAUNCH_CONFIGURATION_TYPE_ICON("launch_type_icon.gif"),
+		DEFAULT_BREAKPOINT_ICON("breakpoint_icon.gif"),
+		DEFAULT_NEW_PROJECT_WIZBAN("new_project_wizban.gif"),
+		DEFAULT_COLLAPSE_ALL_ICON("collapse_all_icon.gif"),
+		DEFAULT_SORT_LEXICALLY_ICON("sort_lexically_icon.gif"),
+		DEFAULT_GROUP_TYPES_ICON("group_types_icon.gif"), 
+		DEFAULT_EXPAND_ALL_ICON("expand_all_icon.gif"), 
+		DEFAULT_LINK_WITH_EDITOR_ICON("link_with_editor_icon.gif");
+		
+		private String filename;
+
+		private Icon(String filename) {
+			this.filename = filename;
+		}
+
+		public String getFilename() {
+			return filename;
+		}
+	}
 	
 	// CSS
 	public static final String DEFAULT_CSS_DIR = "css";

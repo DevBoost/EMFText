@@ -2128,7 +2128,71 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_REFERENCE_CACHE(264, "OVERRIDE_REFERENCE_CACHE", "overrideReferenceCache");
+	OVERRIDE_REFERENCE_CACHE(264, "OVERRIDE_REFERENCE_CACHE", "overrideReferenceCache"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE LEXICAL SORTING ACTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION(265, "OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION", "overrideOutlinePageLexicalSortingAction"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE COLLAPSE ALL ACTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION(266, "OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION", "overrideOutlinePageCollapseAllAction"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE GROUP TYPES ACTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION(267, "OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION", "overrideOutlinePageTypeSortingAction"), /**
+	 * The '<em><b>OVERRIDE ABSTRACT OUTLINE PAGE ACTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION(268, "OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION", "overrideAbstractOutlinePageAction"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE TREE VIEWER COMPARATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR(269, "OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR", "overrideOutlinePageTreeViewerComparator"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE EXPAND ALL ACTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION(270, "OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION", "overrideOutlinePageExpandAllAction"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE ACTION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER(271, "OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER", "overrideOutlinePageActionProvider"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE LINK WITH EDITOR ACTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION(272, "OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION", "overrideOutlinePageLinkWithEditorAction");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6573,6 +6637,118 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_REFERENCE_CACHE_VALUE = 264;
 /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE LEXICAL SORTING ACTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE LEXICAL SORTING ACTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION
+	 * @model literal="overrideOutlinePageLexicalSortingAction"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION_VALUE = 265;
+/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE COLLAPSE ALL ACTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE COLLAPSE ALL ACTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION
+	 * @model literal="overrideOutlinePageCollapseAllAction"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION_VALUE = 266;
+/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE GROUP TYPES ACTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE GROUP TYPES ACTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION
+	 * @model literal="overrideOutlinePageTypeSortingAction"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION_VALUE = 267;
+/**
+	 * The '<em><b>OVERRIDE ABSTRACT OUTLINE PAGE ACTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ABSTRACT OUTLINE PAGE ACTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION
+	 * @model literal="overrideAbstractOutlinePageAction"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION_VALUE = 268;
+/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE TREE VIEWER COMPARATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE TREE VIEWER COMPARATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR
+	 * @model literal="overrideOutlinePageTreeViewerComparator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR_VALUE = 269;
+/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE EXPAND ALL ACTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE EXPAND ALL ACTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION
+	 * @model literal="overrideOutlinePageExpandAllAction"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION_VALUE = 270;
+/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE ACTION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE ACTION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER
+	 * @model literal="overrideOutlinePageActionProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER_VALUE = 271;
+/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE LINK WITH EDITOR ACTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE LINK WITH EDITOR ACTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION
+	 * @model literal="overrideOutlinePageLinkWithEditorAction"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION_VALUE = 272;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6842,6 +7018,14 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_INAME_PROVIDER,
 			OVERRIDE_DEFAULT_NAME_PROVIDER,
 			OVERRIDE_REFERENCE_CACHE,
+			OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION,
+			OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION,
+			OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION,
+			OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION,
+			OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR,
+			OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION,
+			OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER,
+			OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7151,6 +7335,14 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_INAME_PROVIDER_VALUE: return OVERRIDE_INAME_PROVIDER;
 			case OVERRIDE_DEFAULT_NAME_PROVIDER_VALUE: return OVERRIDE_DEFAULT_NAME_PROVIDER;
 			case OVERRIDE_REFERENCE_CACHE_VALUE: return OVERRIDE_REFERENCE_CACHE;
+			case OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION;
+			case OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION;
+			case OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION;
+			case OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION_VALUE: return OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION;
+			case OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR_VALUE: return OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR;
+			case OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION;
+			case OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER_VALUE: return OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER;
+			case OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION;
 		}
 		return null;
 	}

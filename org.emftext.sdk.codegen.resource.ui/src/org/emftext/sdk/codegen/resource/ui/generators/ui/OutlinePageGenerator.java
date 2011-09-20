@@ -35,6 +35,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTIO
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -67,6 +68,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		addCreateControlMethod(sc);
 		addCreateContextMenuMethod(sc, outlineContextMenuID);
 		addFillContextMenuMethod(sc);
+		addCreateActionsMethod(sc);
 		addAddSelectionChangedListenerMethod(sc);
 		addGetControlMethod(sc);
 		addGetSelectionMethod(sc);
@@ -184,7 +186,22 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addComment("Select the root object in the view.");
 		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION + "(resource), true);");
 		sc.add("}");
+		sc.add("treeViewer.setComparator(new "+ outlinePageTreeViewerComparatorClassName + "());");
 		sc.add("createContextMenu();");
+		sc.add("createActions();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateActionsMethod(JavaComposite sc) {
+		sc.add("private void createActions() {");
+		sc.add(I_PAGE_SITE + " site = getSite();");
+		sc.add(I_ACTION_BARS + " actionBars = site.getActionBars();");
+		sc.add(I_TOOL_BAR_MANAGER + " toolBarManager = actionBars.getToolBarManager();");
+		sc.add(LIST + "<" + I_ACTION + "> actions = new " + outlinePageActionProviderClassName + "().getActions(treeViewer);");
+		sc.add("for (" + I_ACTION + " action : actions) {");
+		sc.add("toolBarManager.add(action);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -234,7 +251,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 			"Normally this is the current editor."
 		);
 		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
-		sc.add("private " + TREE_VIEWER + " treeViewer;");
+		sc.add("private " + outlinePageTreeViewerClassName + " treeViewer;");
 		sc.add("private " + LISTENER_LIST + " selectionChangedListeners = new " + LISTENER_LIST + "();");
 		sc.addLineBreak();
 	}

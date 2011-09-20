@@ -2478,6 +2478,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_INAME_PROVIDER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DEFAULT_NAME_PROVIDER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_REFERENCE_CACHE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);

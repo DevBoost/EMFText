@@ -369,7 +369,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		);
 		sc.add("public void init(" + I_WORKBENCH + " workbench, " + I_STRUCTURED_SELECTION + " selection) {");
 		sc.addComment("Set default image for all wizard pages");
-		sc.add(I_PATH + " path = new " + PATH + "(\"icons/" + UIConstants.DEFAULT_NEW_PROJECT_WIZBAN_NAME + "\");");
+		sc.add(I_PATH + " path = new " + PATH + "(\"icons/" + UIConstants.Icon.DEFAULT_NEW_PROJECT_WIZBAN.getFilename() + "\");");
 		sc.add(BUNDLE + " bundle = " + uiPluginActivatorClassName + ".getDefault().getBundle();");
 		sc.add(URL + " url = " + FILE_LOCATOR + ".find(bundle, path, null);");
 		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(url);");

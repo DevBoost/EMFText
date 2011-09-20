@@ -146,7 +146,7 @@ public class LaunchConfigurationMainTabGenerator extends UIJavaBaseGenerator<Art
 	private void addGetImageMethod(JavaComposite sc) {
 		sc.add("@Override").addLineBreak();
 		sc.add("public " + IMAGE + " getImage() {");
-		sc.add("return " + imageProviderClassName + ".INSTANCE.getImage(\"" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.DEFAULT_LAUNCH_TAB_MAIN_ICON_NAME + "\");");
+		sc.add("return " + imageProviderClassName + ".INSTANCE.getImage(\"" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.Icon.DEFAULT_LAUNCH_TAB_MAIN_ICON.getFilename() + "\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}
