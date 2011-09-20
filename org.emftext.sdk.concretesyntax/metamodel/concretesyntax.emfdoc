@@ -608,6 +608,24 @@ OptionTypes.OVERRIDE_DEFAULT_NAME_PROVIDER : "If set to <code>false</code>, the 
 
 OptionTypes.OVERRIDE_REFERENCE_CACHE : "If set to <code>false</code>, the ReferenceCache class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION : "If set to <code>false</code>, the OutlinePageLexicalSortingAction class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION : "If set to <code>false</code>, the OutlinePageCollapseAllAction class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION : "If set to <code>false</code>, the OutlinePageGroupTypesAction class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION : "If set to <code>false</code>, the AbstractOutlinePageAction class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR : "If set to <code>false</code>, the OutlinePageTreeViewerComparator class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION : "If set to <code>false</code>, the OutlinePageExpandAllAction class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER : "If set to <code>false</code>, the OutlinePageActionProvider class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION : "If set to <code>false</code>, the OutlinePageLinkWithEditorAction class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION : "If set to <code>false</code>, the OutlinePageAutoExpandAction class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

@@ -2152,7 +2152,7 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION(267, "OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION", "overrideOutlinePageTypeSortingAction"), /**
+	OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION(267, "OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION", "overrideOutlinePageGroupTypesAction"), /**
 	 * The '<em><b>OVERRIDE ABSTRACT OUTLINE PAGE ACTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6652,6 +6652,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageLexicalSortingAction class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION
 	 * @model literal="overrideOutlinePageLexicalSortingAction"
 	 * @generated
@@ -6666,6 +6669,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageCollapseAllAction class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION
 	 * @model literal="overrideOutlinePageCollapseAllAction"
 	 * @generated
@@ -6680,8 +6686,11 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageGroupTypesAction class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION
-	 * @model literal="overrideOutlinePageTypeSortingAction"
+	 * @model literal="overrideOutlinePageGroupTypesAction"
 	 * @generated
 	 * @ordered
 	 */
@@ -6694,6 +6703,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the AbstractOutlinePageAction class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION
 	 * @model literal="overrideAbstractOutlinePageAction"
 	 * @generated
@@ -6708,6 +6720,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageTreeViewerComparator class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR
 	 * @model literal="overrideOutlinePageTreeViewerComparator"
 	 * @generated
@@ -6722,6 +6737,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageExpandAllAction class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION
 	 * @model literal="overrideOutlinePageExpandAllAction"
 	 * @generated
@@ -6736,6 +6754,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageActionProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER
 	 * @model literal="overrideOutlinePageActionProvider"
 	 * @generated
@@ -6750,6 +6771,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageLinkWithEditorAction class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION
 	 * @model literal="overrideOutlinePageLinkWithEditorAction"
 	 * @generated
@@ -6764,6 +6788,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the OutlinePageAutoExpandAction class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION
 	 * @model literal="overrideOutlinePageAutoExpandAction"
 	 * @generated

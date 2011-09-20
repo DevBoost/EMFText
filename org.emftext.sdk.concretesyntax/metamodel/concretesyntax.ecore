@@ -1883,15 +1883,51 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ReferenceCache class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION" value="265" literal="overrideOutlinePageLexicalSortingAction"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION" value="266" literal="overrideOutlinePageCollapseAllAction"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION" value="267" literal="overrideOutlinePageTypeSortingAction"/>
-    <eLiterals name="OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION" value="268" literal="overrideAbstractOutlinePageAction"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR" value="269" literal="overrideOutlinePageTreeViewerComparator"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION" value="270" literal="overrideOutlinePageExpandAllAction"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER" value="271" literal="overrideOutlinePageActionProvider"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION" value="272" literal="overrideOutlinePageLinkWithEditorAction"/>
-    <eLiterals name="OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION" value="273" literal="overrideOutlinePageAutoExpandAction"/>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_LEXICAL_SORTING_ACTION" value="265" literal="overrideOutlinePageLexicalSortingAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageLexicalSortingAction class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_COLLAPSE_ALL_ACTION" value="266" literal="overrideOutlinePageCollapseAllAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageCollapseAllAction class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_GROUP_TYPES_ACTION" value="267" literal="overrideOutlinePageGroupTypesAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageGroupTypesAction class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ABSTRACT_OUTLINE_PAGE_ACTION" value="268" literal="overrideAbstractOutlinePageAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the AbstractOutlinePageAction class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR" value="269" literal="overrideOutlinePageTreeViewerComparator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageTreeViewerComparator class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_EXPAND_ALL_ACTION" value="270" literal="overrideOutlinePageExpandAllAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageExpandAllAction class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER" value="271" literal="overrideOutlinePageActionProvider">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageActionProvider class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION" value="272" literal="overrideOutlinePageLinkWithEditorAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageLinkWithEditorAction class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION" value="273" literal="overrideOutlinePageAutoExpandAction">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the OutlinePageAutoExpandAction class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
