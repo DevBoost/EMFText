@@ -40,11 +40,51 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("public class " + getResourceClassName() + " extends " + TREE_VIEWER + " {");
 		sc.addLineBreak();
 		
+		addInnerClassTypeFilter(sc);
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
 
 		sc.add("}");
+	}
+
+	private void addRemoveTypeToFilterMethod(JavaComposite sc) {
+		sc.add("public void removeTypeToFilter(" + E_CLASS + " typeToNotFilter) {");
+		sc.add("typeFilter.getFilteredTypes().remove(typeToNotFilter);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddTypeToFilterMethod(JavaComposite sc) {
+		sc.add("public void addTypeToFilter(" + E_CLASS + " typeToFilter) {");
+		sc.add("typeFilter.getFilteredTypes().add(typeToFilter);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addInnerClassTypeFilter(JavaComposite sc) {
+		sc.add("public class TypeFilter extends " + VIEWER_FILTER + " {");
+		sc.addLineBreak();
+		sc.add("private " +  sc.declareLinkedHashSet("filteredTypes", E_CLASS));
+		sc.addLineBreak();
+		sc.add("@Override").addLineBreak();
+		sc.add("public boolean select(" + VIEWER + " viewer, Object parentElement, Object element) {");
+		sc.add("if (element instanceof " + E_OBJECT + ") {");
+		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") element;");
+		sc.add("for (" + E_CLASS + " filteredType : filteredTypes) {");
+		sc.add("if (filteredType.isInstance(eObject)) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + SET + "<" + E_CLASS + "> getFilteredTypes() {");
+		sc.add("return filteredTypes;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -53,6 +93,8 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("private boolean linkWithEditor = false;");
 		sc.addLineBreak();
 		sc.add("private boolean autoExpand = false;");
+		sc.addLineBreak();
+		sc.add("private TypeFilter typeFilter = new TypeFilter();");
 		sc.addLineBreak();
 	}
 
@@ -69,6 +111,8 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		addFireSelectionChangedMethod(sc);
 		addSetLinkWithEditorMethod(sc);
 		addDoAutoExpandMethod(sc);
+		addAddTypeToFilterMethod(sc);
+		addRemoveTypeToFilterMethod(sc);
 	}
 
 	private void addSetAutoExpandMethod(JavaComposite sc) {
@@ -189,6 +233,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + COMPOSITE + " parent, int style) {");
 		sc.add("super(parent, style);");
+		sc.add("addFilter(typeFilter);");
 		sc.add("setComparer(new " + I_ELEMENT_COMPARER + "() {");
 		sc.addLineBreak();
 		sc.add("public int hashCode(Object element) {");
