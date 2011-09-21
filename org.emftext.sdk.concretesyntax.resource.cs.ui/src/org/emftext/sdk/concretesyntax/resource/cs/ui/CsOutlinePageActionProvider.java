@@ -18,12 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.action.IAction;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.resource.cs.ui.actions.HideOptionsAction;
 import org.emftext.sdk.concretesyntax.resource.cs.ui.actions.HideTokenDefinitionsAction;
 
 public class CsOutlinePageActionProvider {
 	
 	public List<IAction> getActions(CsOutlinePageTreeViewer treeViewer) {
+		// we do not want to see annotations in the outline view
+		treeViewer.addTypeToFilter(ConcretesyntaxPackage.eINSTANCE.getAnnotation());
+		
 		List<IAction> defaultActions = new ArrayList<IAction>();
 		defaultActions.add(new CsOutlinePageLinkWithEditorAction(treeViewer));
 		defaultActions.add(new CsOutlinePageCollapseAllAction(treeViewer));
