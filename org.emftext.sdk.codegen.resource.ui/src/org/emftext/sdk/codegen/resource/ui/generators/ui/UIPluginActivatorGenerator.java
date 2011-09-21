@@ -89,8 +89,7 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add(DISPLAY + ".getDefault().asyncExec(new Runnable() {");
 		sc.add("public void run() {");
 		sc.add(SHELL + " parent = new " + SHELL + "();");
-		sc.add(MESSAGE_DIALOG + " dialog = new " + MESSAGE_DIALOG + "(parent, title, null, message, " + MESSAGE_DIALOG + ".ERROR,");
-		sc.add("new String[] { " + I_DIALOG_CONSTANTS + ".OK_LABEL }, 0) {");
+		sc.add(MESSAGE_DIALOG + " dialog = new " + MESSAGE_DIALOG + "(parent, title, null, message, " + MESSAGE_DIALOG + ".ERROR, new String[] { " + I_DIALOG_CONSTANTS + ".OK_LABEL }, 0) {");
 		sc.add("};");
 		sc.add("dialog.open();");
 		sc.add("}");
