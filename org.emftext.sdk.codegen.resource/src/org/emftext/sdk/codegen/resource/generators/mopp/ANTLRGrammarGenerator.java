@@ -897,7 +897,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add(COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN + ") input.get(index);");
 		sc.add("stopIncludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
-		sc.add("if (tokenAtIndex.getChannel() != 99) {");
+		sc.add("if (tokenAtIndex.getChannel() != 99 && !anonymousTokens.contains(tokenAtIndex)) {");
 		sc.add("stopExcludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
 		sc.add("}");
 		sc.add("}");

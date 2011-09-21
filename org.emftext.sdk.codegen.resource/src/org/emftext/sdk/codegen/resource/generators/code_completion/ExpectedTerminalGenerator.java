@@ -106,7 +106,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addToStringMethod(StringComposite sc) {
 		sc.add("public String toString() {");
-		sc.add("return terminal == null ? \"null\" : terminal.toString();");
+		sc.add("return terminal == null ? \"null\" : terminal.toString() + \" at \" + startIncludingHiddenTokens + \"/\" + startExcludingHiddenTokens;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
