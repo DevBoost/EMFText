@@ -14,6 +14,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin;
+
 /**
  * A singleton class for the text resource UI plug-in.
  */
@@ -21,7 +23,7 @@ public class CsUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin {
 	
 	public static final String PLUGIN_ID = "org.emftext.sdk.concretesyntax.resource.cs.ui";
 	public static final String EDITOR_ID = "org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor";
-	public static final String EMFTEXT_SDK_VERSION = "1.4.1";
+	public static final String EMFTEXT_SDK_VERSION = CsPlugin.EMFTEXT_SDK_VERSION;
 	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + ".default_load_options";
 	public static final String EP_ADDITIONAL_EXTENSION_PARSER_ID = PLUGIN_ID + ".additional_extension_parser";
 	
@@ -34,6 +36,9 @@ public class CsUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin {
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		// begin customization
+		CsOutlinePage.AUTO_EXPAND_LEVEL = 2;
+		// end of customization
 	}
 	
 	public void stop(org.osgi.framework.BundleContext context) throws Exception {
@@ -49,8 +54,7 @@ public class CsUIPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin {
 		org.eclipse.swt.widgets.Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
 				org.eclipse.swt.widgets.Shell parent = new org.eclipse.swt.widgets.Shell();
-				org.eclipse.jface.dialogs.MessageDialog dialog = new org.eclipse.jface.dialogs.MessageDialog(parent, title, null, message, org.eclipse.jface.dialogs.MessageDialog.ERROR,
-				new String[] { org.eclipse.jface.dialogs.IDialogConstants.OK_LABEL }, 0) {
+				org.eclipse.jface.dialogs.MessageDialog dialog = new org.eclipse.jface.dialogs.MessageDialog(parent, title, null, message, org.eclipse.jface.dialogs.MessageDialog.ERROR, new String[] { org.eclipse.jface.dialogs.IDialogConstants.OK_LABEL }, 0) {
 				};
 				dialog.open();
 			}

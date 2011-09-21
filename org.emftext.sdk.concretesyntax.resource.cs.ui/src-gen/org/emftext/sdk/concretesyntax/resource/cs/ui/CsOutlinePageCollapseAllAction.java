@@ -22,7 +22,9 @@ public class CsOutlinePageCollapseAllAction extends org.emftext.sdk.concretesynt
 	}
 	
 	public void runInternal(boolean on) {
-		getTreeViewer().collapseAll();
+		if (on) {
+			getTreeViewer().collapseAll();
+		}
 	}
 	
 	public boolean keepState() {

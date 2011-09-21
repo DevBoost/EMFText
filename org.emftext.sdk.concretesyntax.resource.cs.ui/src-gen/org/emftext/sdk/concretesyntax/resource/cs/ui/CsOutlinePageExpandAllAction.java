@@ -22,7 +22,9 @@ public class CsOutlinePageExpandAllAction extends org.emftext.sdk.concretesyntax
 	}
 	
 	public void runInternal(boolean on) {
-		getTreeViewer().expandAll();
+		if (on) {
+			getTreeViewer().expandAll();
+		}
 	}
 	
 	public boolean keepState() {

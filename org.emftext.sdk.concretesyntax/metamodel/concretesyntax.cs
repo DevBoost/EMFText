@@ -5,15 +5,23 @@ START     ConcreteSyntax
 
 OPTIONS {	
 	licenceHeader ="../../org.dropsbox/licence.txt";
+	// token options
 	tokenspace = "0";
 	defaultTokenName = "QUALIFIED_NAME";
 	usePredefinedTokens = "false";
+	
+	// override options
 	overrideManifest = "false";
 	overrideHoverTextProvider = "false";
-	//overrideProblemClass = "false";
 	overrideProposalPostProcessor = "false";
 	overrideResourcePostProcessor = "false";
 	overrideOutlinePageActionProvider = "false";
+	overrideUIPluginActivator = "false";
+
+	// dependencies
+	additionalUIDependencies = "org.emftext.sdk";
+
+	// disable stuff we don't need	
 	disableBuilder = "true";
 	// we need to disable the use of the EMF validation framework, because
 	// it does not run outside of Eclipse properly, which conflicts with
@@ -22,11 +30,11 @@ OPTIONS {
 	// we also need to disable the EValidators since they do cause problems
 	// as well 
 	disableEValidators = "true";
-	additionalUIDependencies = "org.emftext.sdk";
-	resolveProxyElementsAfterParsing = "false";
 	disableLaunchSupport = "true";
 	disableDebugSupport = "true";
 	disableNewProjectWizard = "true";
+
+	resolveProxyElementsAfterParsing = "false";
 }
 
 TOKENS {

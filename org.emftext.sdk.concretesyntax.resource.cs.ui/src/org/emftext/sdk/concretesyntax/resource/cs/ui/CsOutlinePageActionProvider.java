@@ -24,9 +24,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.ui.actions.HideTokenDefinition
 public class CsOutlinePageActionProvider {
 	
 	public List<IAction> getActions(CsOutlinePageTreeViewer treeViewer) {
-		CsOutlinePage.AUTO_EXPAND_LEVEL = 2;
-		treeViewer.setAutoExpandLevel(CsOutlinePage.AUTO_EXPAND_LEVEL);
-		
 		List<IAction> defaultActions = new ArrayList<IAction>();
 		defaultActions.add(new CsOutlinePageLinkWithEditorAction(treeViewer));
 		defaultActions.add(new CsOutlinePageCollapseAllAction(treeViewer));
