@@ -35,7 +35,7 @@ public class OutlinePageExpandAllActionGenerator extends UIJavaBaseGenerator<Art
 
 	private void addRunInternalMethod(JavaComposite sc) {
 		sc.add("public void runInternal(boolean on) {");
-		sc.add("if (do) {");
+		sc.add("if (on) {");
 		sc.add("getTreeViewer().expandAll();");
 		sc.add("}");
 		sc.add("}");
