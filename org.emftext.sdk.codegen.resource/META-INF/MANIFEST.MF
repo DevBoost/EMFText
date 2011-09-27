@@ -20,6 +20,7 @@ Require-Bundle: org.eclipse.core.expressions,
  org.emftext.sdk.antlr3_4_0,
  org.emftext.sdk.codegen,
  org.emftext.sdk.codegen.antlr,
+ org.eclipse.emf.ecore.change,
  org.eclipse.emf.validation,
  org.eclipse.debug.core,
  org.eclipse.debug.ui

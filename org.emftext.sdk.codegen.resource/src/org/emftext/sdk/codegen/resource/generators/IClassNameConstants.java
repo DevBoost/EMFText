@@ -177,6 +177,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.change.ChangeDescription;
+import org.eclipse.emf.ecore.change.util.ChangeRecorder;
 import org.eclipse.emf.ecore.impl.BasicEObjectImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -228,6 +230,8 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String BUNDLE_CONTEXT = BundleContext.class.getName();
 	public static String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public static String BYTE_ARRAY_OUTPUT_STREAM = ByteArrayOutputStream.class.getName();
+	public static String CHANGE_RECORDER = ChangeRecorder.class.getName();
+	public static String CHANGE_DESCRIPTION = ChangeDescription.class.getName();
 	public static String COLLECTION = Collection.class.getName();
 	public static String COLLECTIONS = Collections.class.getName();
 	public static String COMMON_TOKEN = CommonToken.class.getName();

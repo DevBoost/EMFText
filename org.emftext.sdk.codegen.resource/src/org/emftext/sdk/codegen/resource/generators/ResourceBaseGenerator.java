@@ -48,6 +48,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String changeReferenceQuickFixClassName;
 	protected String choiceClassName;
 	protected String compoundClassName;
+	protected String containedFeatureClassName;
 	protected String containmentClassName;
 	protected String contextDependentUriFragmentClassName;
 	protected String contextDependentUriFragmentFactoryClassName;
@@ -212,6 +213,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		changeReferenceQuickFixClassName = context.getQualifiedClassName(TextResourceArtifacts.CHANGE_REFERENCE_QUICK_FIX);
 		choiceClassName = context.getQualifiedClassName(TextResourceArtifacts.CHOICE);
 		compoundClassName = context.getQualifiedClassName(TextResourceArtifacts.COMPOUND);
+		containedFeatureClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTAINED_FEATURE);
 		containmentClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTAINMENT);
 		contextDependentUriFragmentClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT);
 		contextDependentUriFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);

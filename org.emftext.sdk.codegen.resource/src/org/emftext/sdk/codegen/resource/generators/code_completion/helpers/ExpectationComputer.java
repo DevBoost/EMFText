@@ -371,17 +371,19 @@ public class ExpectationComputer {
 			}
 			Collection<Rule> featureTypeRules = csUtil.getRules(syntax, subType);
 			for (Rule nextFeatureTypeRule : featureTypeRules) {
-				if (contributingNonterminals.contains(nextFeatureTypeRule.getMetaclass())) {
+				GenClass metaclass = nextFeatureTypeRule.getMetaclass();
+				if (contributingNonterminals.contains(metaclass)) {
 					continue;
 				}
-				contributingNonterminals.add(nextFeatureTypeRule.getMetaclass());
+				contributingNonterminals.add(metaclass);
 				Set<Expectation> firstSetOfSubRule = computeFirstSet(syntax, nextFeatureTypeRule, contributingNonterminals);
-				// for every expectation that results from a contained
-				// rule, we extend the rule trace. this way, we know
-				// the types of the containers that may potentially
-				// be created if they do not exist
+				// for every expectation that results from a contained rule, 
+				// we extend the rule trace. this way, we know the types of the 
+				// containers that may potentially be created if they do not 
+				// exist.
 				for (Expectation expectation : firstSetOfSubRule) {
-					expectation.getContainmentTrace().add(containment.getFeature());
+					ContainmentLink link = new ContainmentLink(metaclass, containment.getFeature());
+					expectation.getContainmentTrace().add(link);
 				}
 				firstSet.addAll(firstSetOfSubRule);
 			}

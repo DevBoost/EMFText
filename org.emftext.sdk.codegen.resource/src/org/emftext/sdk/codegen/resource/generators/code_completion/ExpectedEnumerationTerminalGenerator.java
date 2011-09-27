@@ -55,6 +55,7 @@ public class ExpectedEnumerationTerminalGenerator extends JavaBaseGenerator<Arti
 	private void addMethods(JavaComposite sc) {
 		addGetTokenNamesMethod(sc);
 		addGetEnumerationTerminalMethod(sc);
+		addToStringMethod(sc);
 	}
 	
 	private void addGetEnumerationTerminalMethod(JavaComposite sc) {
@@ -79,6 +80,13 @@ public class ExpectedEnumerationTerminalGenerator extends JavaBaseGenerator<Arti
 		sc.add("}");
 		sc.add("}");
 		sc.add("return tokenNames;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addToStringMethod(StringComposite sc) {
+		sc.add("public String toString() {");
+		sc.add("return \"EnumTerminal \\\"\" + getEnumerationTerminal() + \"\\\"\";");
 		sc.add("}");
 		sc.addLineBreak();
 	}

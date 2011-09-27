@@ -23,6 +23,8 @@ import static org.emftext.sdk.codegen.composites.IClassNameConstants.SET;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.emftext.sdk.util.StringUtil;
+
 /**
  * A custom StringComposite that is configured with the Java-specific
  * line break characters and indentation starter and stoppers.
@@ -153,5 +155,18 @@ public class JavaComposite extends StringComposite {
 
 	public String declareLinkedHashSet(String name, String type) {
 		return SET + "<" + type + "> " + name + " = new " + LINKED_HASH_SET + "<" + type + ">();";
+	}
+
+	public void addFieldGetSet(String fieldName, String type) {
+		add("private " + type + " " + fieldName + ";");
+		addLineBreak();
+		add("public " + type + " get" + StringUtil.capitalize(fieldName) + "() {");
+		add("return " + fieldName + ";");
+		add("}");
+		addLineBreak();
+		add("public void set" + StringUtil.capitalize(fieldName) + "(" + type + " " + fieldName + ") {");
+		add("this." + fieldName + " = " + fieldName + ";");
+		add("}");
+		addLineBreak();
 	}
 }

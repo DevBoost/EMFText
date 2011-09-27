@@ -26,6 +26,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ContainmentLink;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
@@ -57,7 +58,8 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addTerminalConstants(JavaComposite sc) {
-		Map<EObject, String> idMap = getContext().getIdMap();
+		GenerationContext context = getContext();
+		Map<EObject, String> idMap = context.getIdMap();
 		for (EObject expectedElement : idMap.keySet()) {
 			String terminalID = idMap.get(expectedElement);
 			
@@ -82,27 +84,41 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		}
 		sc.addLineBreak();
 
-		Map<String, Set<Expectation>> followSetMap = getContext().getFollowSetMap();
+		Map<String, Set<Expectation>> followSetMap = context.getFollowSetMap();
 		// ask for all features to make sure respective fields are generated
+		
 		for (String firstID : followSetMap.keySet()) {
 			for (Expectation expectation : followSetMap.get(firstID)) {
-				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
-				for (GenFeature genFeature : containmentTrace) {
-					getContext().getFeatureConstantFieldName(genFeature);
+				List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
+				for (ContainmentLink link : containmentTrace) {
+					context.getFeatureConstantFieldName(link.getFeature());
 				}
 			}
 		}
+		Map<ContainmentLink, String> containmentLinkToConstantNameMap = context.getContainmentLinkToConstantNameMap();
+		for (ContainmentLink link : containmentLinkToConstantNameMap.keySet()) {
+			context.getFeatureConstantFieldName(link.getFeature());
+		}
 		
-		Map<GenFeature, String> eFeatureToConstantNameMap = getContext().getFeatureToConstantNameMap();
+		Map<GenFeature, String> eFeatureToConstantNameMap = context.getFeatureToConstantNameMap();
 		// generate fields for all used features
 		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
-			String fieldName = getContext().getFeatureConstantFieldName(genFeature);
+			String fieldName = context.getFeatureConstantFieldName(genFeature);
 			String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
 			sc.add("public final static " + E_STRUCTURAL_FEATURE + " " + fieldName + " = " + featureAccessor + ";");
 		}
 		sc.addLineBreak();
 		
-		sc.add("public final static " + E_STRUCTURAL_FEATURE + "[] EMPTY_FEATURE_ARRAY = new " + E_STRUCTURAL_FEATURE + "[0];");
+		// generate fields for all containment links
+		for (ContainmentLink link : containmentLinkToConstantNameMap.keySet()) {
+			String fieldName = context.getContainmentLinkConstantName(link);
+			String classConstant = generatorUtil.getClassifierAccessor(link.getContainerClass());
+			String featureConstant = context.getFeatureConstantFieldName(link.getFeature());
+			sc.add("public final static " + containedFeatureClassName + " " + fieldName + " = new " + containedFeatureClassName + "(" + classConstant + ", " + featureConstant + ");");
+		}
+		sc.addLineBreak();
+		
+		sc.add("public final static " + containedFeatureClassName + "[] EMPTY_LINK_ARRAY = new " + containedFeatureClassName + "[0];");
 		sc.addLineBreak();
 		
 		// we need to split the code to wire the terminals with their
@@ -121,20 +137,27 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 			}
 			for (Expectation expectation : followSetMap.get(firstID)) {
 				EObject follower = expectation.getExpectedElement();
-				List<GenFeature> containmentTrace = expectation.getContainmentTrace();
+				List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
 				StringBuilder trace = new StringBuilder();
 				if (containmentTrace.isEmpty()) {
-					trace.append(", EMPTY_FEATURE_ARRAY");
+					trace.append(", EMPTY_LINK_ARRAY");
 				} else {
-					trace.append(", new " + E_STRUCTURAL_FEATURE + "[] {");
-					for (GenFeature genFeature : containmentTrace) {
-						trace.append(getContext().getFeatureConstantFieldName(genFeature) + ", ");
+					trace.append(", new " + containedFeatureClassName + "[] {");
+					for (ContainmentLink link : containmentTrace) {
+						GenFeature genFeature = link.getFeature();
+						trace.append("new ");
+						trace.append(containedFeatureClassName);
+						trace.append("(");
+						trace.append(generatorUtil.getClassifierAccessor(link.getContainerClass()));
+						trace.append(", ");
+						trace.append(context.getFeatureConstantFieldName(genFeature));
+						trace.append("), ");
 						// another 16 bytes for each access to a constant
 						bytesUsedInCurrentMethod += 16;
 					}
 					trace.append("}");
 				}
-				sc.add(firstID + ".addFollower(" + getContext().getID(follower) + trace + ");");
+				sc.add(firstID + ".addFollower(" + context.getID(follower) + trace + ");");
 				// the method call takes 19 bytes
 				bytesUsedInCurrentMethod += 19;
 			}

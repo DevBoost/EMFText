@@ -13,11 +13,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
@@ -39,6 +38,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 
+		sc.addFieldGetSet("attachmentCode", "Runnable");
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
@@ -57,6 +57,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		addGetPrefixMethod(sc);
 		addSetPrefixMethod(sc);
 		addGetContainmentTraceMethod(sc);
+		addGetContainerMethod(sc);
 	}
 
 	private void addSetPrefixMethod(StringComposite sc) {
@@ -99,7 +100,12 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addEqualsMethod(StringComposite sc) {
 		sc.add("public boolean equals(Object o) {");
-		sc.add("return this.terminal.equals(((" + getResourceClassName() + ") o).terminal);");
+		sc.add(getResourceClassName() + " otherExpectedTerminal = (" + getResourceClassName() + ") o;");
+		sc.add("if (this.container == null && otherExpectedTerminal.container != null) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("boolean containersBothNull = this.container == null && otherExpectedTerminal.container == null;");
+		sc.add("return this.terminal.equals((otherExpectedTerminal).terminal) && (containersBothNull || this.container.equals(otherExpectedTerminal.container));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -119,7 +125,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetContainmentTraceMethod(StringComposite sc) {
-		sc.add("public " + E_STRUCTURAL_FEATURE + "[] getContainmentTrace() {");
+		sc.add("public " + containedFeatureClassName + "[] getContainmentTrace() {");
 		sc.add("return containmentTrace;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -132,9 +138,17 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
+	private void addGetContainerMethod(StringComposite sc) {
+		sc.add("public " + E_OBJECT + " getContainer() {");
+		sc.add("return container;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + iExpectedElementClassName + " terminal, int followSetID, " + E_STRUCTURAL_FEATURE + "... containmentTrace) {");
+		sc.add("public " + getResourceClassName() + "(" + E_OBJECT + " container, " + iExpectedElementClassName + " terminal, int followSetID, " + containedFeatureClassName + "... containmentTrace) {");
 		sc.add("super();");
+		sc.add("this.container = container;");
 		sc.add("this.terminal = terminal;");
 		sc.add("this.followSetID = followSetID;");
 		sc.add("this.containmentTrace = containmentTrace;");
@@ -144,11 +158,12 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addFields(StringComposite sc) {
 		sc.add("private int followSetID;");
+		sc.add("private " + E_OBJECT + " container;");
 		sc.add("private " + iExpectedElementClassName + " terminal;");
 		sc.add("private int startIncludingHiddenTokens;");
 		sc.add("private int startExcludingHiddenTokens;");
 		sc.add("private String prefix;");
-		sc.add("private " + E_STRUCTURAL_FEATURE + "[] containmentTrace;");
+		sc.add("private " + containedFeatureClassName + "[] containmentTrace;");
 		sc.addLineBreak();
 	}
 }

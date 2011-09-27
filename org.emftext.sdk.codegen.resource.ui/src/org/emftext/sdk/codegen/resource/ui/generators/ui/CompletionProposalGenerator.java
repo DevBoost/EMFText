@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CHANGE_DESCRIPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CHANGE_RECORDER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
@@ -38,6 +41,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		addConstructor2(sc);
 		addConstructor3(sc);
 		addMethods(sc);
+		sc.addFieldGetSet("root", E_OBJECT);
 		sc.add("}");
 	}
 
@@ -50,10 +54,39 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		addIsStructuralFeatureMethod(sc);
 		addGetStructuralFeatureMethod(sc);
 		addGetContainerMethod(sc);
+		addGetExpectedTerminalMethod(sc);
 		addEqualsMethod(sc);
 		addHashCodeMethod(sc);
 		addCompareToMethod(sc);
 		addToStringMethod(sc);
+		addMaterializeMethod(sc);
+	}
+
+	private void addMaterializeMethod(JavaComposite sc) {
+		sc.add("public void materialize(Runnable code) {");
+		sc.add("if (root == null) {");
+		sc.add("code.run();");
+		sc.add("return;");
+		sc.add("}");
+		sc.add(CHANGE_RECORDER + " recorder = new " + CHANGE_RECORDER + "();");
+		sc.add("recorder.beginRecording(" + COLLECTIONS + ".singleton(root));");
+		sc.addLineBreak();
+		sc.addComment("attach proposal model fragment to main model");
+		sc.add("Runnable attachmentCode = expectedTerminal.getAttachmentCode();");
+		sc.add("if (attachmentCode != null) {");
+		sc.addComment("Applying attachment code");
+		sc.add("attachmentCode.run();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add(CHANGE_DESCRIPTION + " changes = recorder.endRecording();");
+		//sc.add("changes.applyAndReverse();");
+		sc.add("code.run();");
+		sc.addComment("revert changes");
+		//sc.add("System.out.println("materialize() Reverting changes");");
+		sc.add("changes.apply();");
+		//sc.add("System.out.println("materialize() Reverting changes (end)");");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addToStringMethod(JavaComposite sc) {
@@ -161,9 +194,17 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
+	private void addGetExpectedTerminalMethod(StringComposite sc) {
+		sc.add("public " + expectedTerminalClassName + " getExpectedTerminal() {");
+		sc.add("return expectedTerminal;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addConstructor1(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
 		sc.add("super();");
+		sc.add("this.expectedTerminal = expectedTerminal;");
 		sc.add("this.insertString = insertString;");
 		sc.add("this.prefix = prefix;");
 		sc.add("this.matchesPrefix = matchesPrefix;");
@@ -174,22 +215,23 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstructor2(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
-		sc.add("this(insertString, prefix, matchesPrefix, structuralFeature, container);");
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
+		sc.add("this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container);");
 		sc.add("this.image = image;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addConstructor3(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
-		sc.add("this(insertString, prefix, matchesPrefix, structuralFeature, container, image);");
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
+		sc.add("this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container, image);");
 		sc.add("this.displayString = displayString;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addFields(StringComposite sc) {
+		sc.add("private " + expectedTerminalClassName + " expectedTerminal;");
 		sc.add("private String insertString;");
 		sc.add("private String displayString;");
 		sc.add("private String prefix;");

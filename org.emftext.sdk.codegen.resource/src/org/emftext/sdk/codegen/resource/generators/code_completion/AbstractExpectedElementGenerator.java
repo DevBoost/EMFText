@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.generators.code_completion;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
@@ -51,15 +50,15 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addGetFollowersMethod(StringComposite sc) {
-		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> getFollowers() {");
+		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> getFollowers() {");
 		sc.add("return followers;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addAddFollowerMethod(StringComposite sc) {
-		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + E_STRUCTURAL_FEATURE + "[] path) {");
-		sc.add("followers.add(new " + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>(follower, path));");
+		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + containedFeatureClassName + "[] path) {");
+		sc.add("followers.add(new " + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>(follower, path));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -81,7 +80,8 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator<Artifact
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + E_CLASS + " ruleMetaclass;");
-		sc.add("private " + SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> followers = new " + LINKED_HASH_SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>>();");
+		sc.addLineBreak();
+		sc.add("private " + SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> followers = new " + LINKED_HASH_SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>>();");
 		sc.addLineBreak();
 	}
 }

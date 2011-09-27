@@ -2200,7 +2200,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION(273, "OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION", "overrideOutlinePageAutoExpandAction");
+	OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION(273, "OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION", "overrideOutlinePageAutoExpandAction"), /**
+	 * The '<em><b>OVERRIDE CONTAINED FEATURE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTAINED_FEATURE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CONTAINED_FEATURE(274, "OVERRIDE_CONTAINED_FEATURE", "overrideContainedFeature");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6798,6 +6806,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION_VALUE = 273;
 /**
+	 * The '<em><b>OVERRIDE CONTAINED FEATURE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CONTAINED FEATURE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTAINED_FEATURE
+	 * @model literal="overrideContainedFeature"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CONTAINED_FEATURE_VALUE = 274;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7076,6 +7098,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER,
 			OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION,
 			OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION,
+			OVERRIDE_CONTAINED_FEATURE,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7394,6 +7417,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER_VALUE: return OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER;
 			case OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION;
 			case OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION;
+			case OVERRIDE_CONTAINED_FEATURE_VALUE: return OVERRIDE_CONTAINED_FEATURE;
 		}
 		return null;
 	}

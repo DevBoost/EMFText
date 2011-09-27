@@ -14,9 +14,8 @@
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -35,20 +34,24 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Returns the names of all tokens that are expected at the given position");
+		sc.addJavadoc("Returns the names of all tokens that are expected at the given position.");
 		sc.add("public " + SET + "<String> getTokenNames();");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Returns the metaclass of the rule that contains the expected element");
+		sc.addJavadoc("Returns the metaclass of the rule that contains the expected element.");
 		sc.add("public " + E_CLASS +" getRuleMetaclass();");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Adds an element that is a valid follower for this element");
-		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + E_STRUCTURAL_FEATURE + "[] path);");
+		sc.addJavadoc("Adds an element that is a valid follower for this element.");
+		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + containedFeatureClassName + "[] path);");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Returns all valid followers for this element");
-		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> getFollowers();");
+		sc.addJavadoc(
+			"Returns all valid followers for this element. " +
+			"Each follower is represented by a pair of an expected elements and the " +
+			"containment trace that leads from the current element to the follower."
+		);
+		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> getFollowers();");
 		sc.addLineBreak();
 		
 		sc.add("}");

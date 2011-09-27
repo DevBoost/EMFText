@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IPackage;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.ISyntaxContext;
+import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ContainmentLink;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
@@ -92,7 +93,9 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 
 	private int featureCounter = 0;
 	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
-
+	private int linkCounter = 0;
+	private Map<ContainmentLink, String> containmentLinkToConstantNameMap = new LinkedHashMap<ContainmentLink, String>();
+	
 	private IPluginDescriptor resourcePlugin;
 
 	private IPluginDescriptor resourceUIPlugin;
@@ -324,8 +327,21 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		return eFeatureToConstantNameMap.get(genFeature);
 	}
 
+	public String getContainmentLinkConstantName(ContainmentLink link) {
+		if (!containmentLinkToConstantNameMap.keySet().contains(link)) {
+			String featureConstantName = "LINK_" + linkCounter;
+			linkCounter++;
+			containmentLinkToConstantNameMap.put(link, featureConstantName);
+		}
+		return containmentLinkToConstantNameMap.get(link);
+	}
+	
 	public Map<GenFeature, String> getFeatureToConstantNameMap() {
 		return eFeatureToConstantNameMap;
+	}
+
+	public Map<ContainmentLink, String> getContainmentLinkToConstantNameMap() {
+		return containmentLinkToConstantNameMap;
 	}
 
 	/**

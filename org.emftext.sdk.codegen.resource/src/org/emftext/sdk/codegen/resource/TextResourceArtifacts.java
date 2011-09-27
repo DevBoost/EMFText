@@ -162,6 +162,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ChangeReferenceQuickFixGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.ContainedFeatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.DynamicTokenStylerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationGenerator;
@@ -236,6 +237,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_FIX = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "QuickFix", QuickFixGenerator.class, OptionTypes.OVERRIDE_QUICK_FIX);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CHANGE_REFERENCE_QUICK_FIX = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ChangeReferenceQuickFix", ChangeReferenceQuickFixGenerator.class, OptionTypes.OVERRIDE_CHANGE_REFERENCE_QUICK_FIX);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OPTION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "OptionProvider", OptionProviderGenerator.class, OptionTypes.OVERRIDE_OPTION_PROVIDER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTAINED_FEATURE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ContainedFeature", ContainedFeatureGenerator.class, OptionTypes.OVERRIDE_CONTAINED_FEATURE);
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> NEW_FILE_CONTENT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "NewFileContentProvider", NewFileContentProviderGenerator.class, OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PARSE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ParseResult", ParseResultGenerator.class, OptionTypes.OVERRIDE_PARSE_RESULT);

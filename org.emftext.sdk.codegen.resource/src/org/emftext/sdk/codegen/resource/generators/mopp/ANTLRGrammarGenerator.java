@@ -43,7 +43,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STACK;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
 import java.io.PrintWriter;
@@ -83,6 +82,7 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ContainmentLink;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ExpectationComputer;
 import org.emftext.sdk.codegen.util.Counter;
@@ -301,7 +301,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addRecoverFromMismatchedTokenMethod(sc);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
+		addStartIncompleteElementMethod(sc);
 		addCompletedElementMethod(sc);
+		addGetLastIncompleteElementMethod(sc);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -430,13 +432,29 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addCompletedElementMethod(StringComposite sc) {
 		// TODO mseifert: instead of passing isContainment, we can call this method only
 		// for contained objects
-		sc.add("protected void completedElement(Object object, boolean isContainment) {");
+		sc.add("private void completedElement(Object object, boolean isContainment) {");
 		sc.add("if (isContainment && !this.incompleteObjects.isEmpty()) {");
-		sc.add("this.incompleteObjects.pop();");
+		sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"endofIncompleteElement(\" + object + \")\");");
+		sc.add("boolean exists = this.incompleteObjects.remove(object);");
+		sc.add("if (!exists) {");
+		sc.add("System.out.println(\"ERROR: Inconsistent set of objects (Can't find \" + object + \")\");");
+		sc.add("}");
 		sc.add("}");
 		sc.add("if (object instanceof " + E_OBJECT + ") {");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addStartIncompleteElementMethod(StringComposite sc) {
+		// TODO mseifert: instead of passing isContainment, we can call this method only
+		// for contained objects
+		sc.add("private void startIncompleteElement(Object object) {");
+		sc.add("if (object instanceof " + E_OBJECT + ") {");
+		sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"startIncompleteElement(\" + object + \")\");");
+		sc.add("this.incompleteObjects.add((" + E_OBJECT + ") object);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -664,9 +682,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			"for code completion. Whenever the parser starts to read an object it is pushed on " +
 			"the stack. Once the element was parser completely it is popped from the stack."
 		);
-		sc.add("protected " + STACK + "<" + E_OBJECT
+		/*sc.add("protected " + STACK + "<" + E_OBJECT
 				+ "> incompleteObjects = new " + STACK + "<" + E_OBJECT
-				+ ">();");
+				+ ">();");*/
+		sc.add(sc.declareArrayList("incompleteObjects", E_OBJECT));
 		sc.addLineBreak();
 
 		sc.add("private int stopIncludingHiddenTokens;");
@@ -761,10 +780,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (nextFollow.getTerminal().getTokenNames().contains(getTokenNames()[nextToken.getType()])) {");
 		sc.addComment("keep this one - it matches");
 		//sc.add("System.out.println(\"MATCH! \" + nextFollow);");
-		sc.add(COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]>> newFollowers = nextFollow.getTerminal().getFollowers();");
-		sc.add("for (" + pairClassName + "<" + iExpectedElementClassName + ", " + E_STRUCTURAL_FEATURE + "[]> newFollowerPair : newFollowers) {");
+		sc.add(COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> newFollowers = nextFollow.getTerminal().getFollowers();");
+		sc.add("for (" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]> newFollowerPair : newFollowers) {");
 		sc.add(iExpectedElementClassName + " newFollower = newFollowerPair.getLeft();");
-		sc.add(expectedTerminalClassName + " newFollowTerminal = new " + expectedTerminalClassName + "(newFollower, followSetID, newFollowerPair.getRight());");
+		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
+		sc.add(expectedTerminalClassName + " newFollowTerminal = new " + expectedTerminalClassName + "(container, newFollower, followSetID, newFollowerPair.getRight());");
 		sc.add("newFollowSet.add(newFollowTerminal);");
 		sc.add("expectedElements.add(newFollowTerminal);");
 		sc.add("}");
@@ -865,11 +885,12 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// however, unless there is no serious performance problems I'd
 		// stick with keeping all the expected elements. they will be 
 		// garbage collected right afterwards anyway
-		sc.add("public void addExpectedElement(" + iExpectedElementClassName + " terminal, int followSetID, " + E_STRUCTURAL_FEATURE + "... containmentTrace) {");
+		sc.add("public void addExpectedElement(" + iExpectedElementClassName + " terminal, int followSetID, " + containedFeatureClassName + "... containmentTrace) {");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(expectedTerminalClassName + " expectedElement = new " + expectedTerminalClassName + "(terminal, followSetID, containmentTrace);"); 
+		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
+		sc.add(expectedTerminalClassName + " expectedElement = new " + expectedTerminalClassName + "(container, terminal, followSetID, containmentTrace);"); 
 		sc.add("setPosition(expectedElement, input.index());");
 		
 		sc.add("int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();");
@@ -883,6 +904,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add("lastStartIncludingHidden = startIncludingHiddenTokens;");
 		sc.add("this.expectedElements.add(expectedElement);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetLastIncompleteElementMethod(ANTLRGrammarComposite sc) {
+		sc.add("private " + E_OBJECT + " getLastIncompleteElement() {"); 
+		sc.add("if (incompleteObjects.isEmpty()) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("return incompleteObjects.get(incompleteObjects.size() - 1);"); 
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -1599,14 +1630,17 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addExpectationsCode(StringComposite sc, Set<Expectation> expectations) {
 		for (Expectation expectation : expectations) {
 			EObject expectedElement = expectation.getExpectedElement();
-			String terminalID = followSetProviderClassName + "." + getContext().getID(expectedElement);
+			GenerationContext context = getContext();
+			String terminalID = followSetProviderClassName + "." + context.getID(expectedElement);
 			// here the containment trace is used
 			// TODO mseifert: figure out whether this is really needed
 			StringBuilder traceArguments = new StringBuilder();
-			List<GenFeature> containmentTrace = expectation.getContainmentTrace();
-			for (GenFeature genFeature : containmentTrace) {
+			List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
+			for (ContainmentLink link : containmentTrace) {
 				traceArguments.append(", ");
-				traceArguments.append(followSetProviderClassName + "." + getContext().getFeatureConstantFieldName(genFeature));
+				traceArguments.append(followSetProviderClassName);
+				traceArguments.append(".");
+				traceArguments.append(context.getContainmentLinkConstantName(link));
 			}
 			sc.add("addExpectedElement(" + terminalID + ", " + followSetID + traceArguments + ");");
 		}
@@ -1632,7 +1666,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 		sc.add("if (element == null) {");
 		sc.add("element = " + genClassUtil.getCreateObjectCall(metaclass, dummyEObjectClassName) + ";");
-		sc.add("incompleteObjects.push(element);");
+		sc.add("startIncompleteElement(element);");
 		addCodeToInitializeBooleanAttributes(sc, rule, metaclass);
 		addCodeToInitializeEnumerationAttributes(sc, rule, metaclass);
 		sc.add("}");

@@ -16,19 +16,17 @@ package org.emftext.sdk.codegen.resource.generators.code_completion.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * A container class that holds the expected element (i.e.,
- * an object contained in a concrete syntax rule) and some
- * information about the path to the expected element 
- * (starting from the element used to compute the expectation).
+ * A container class that holds the expected element (i.e., an object contained 
+ * in a concrete syntax rule) and some information about the path to the 
+ * expected element (starting from the element used to compute the expectation).
  */
 public class Expectation {
 
 	private EObject expectedElement;
-	private List<GenFeature> containmentTrace;
+	private List<ContainmentLink> containmentTrace;
 	
 	public Expectation(EObject expectedElement) {
 		super();
@@ -39,9 +37,9 @@ public class Expectation {
 		return expectedElement;
 	}
 
-	public List<GenFeature> getContainmentTrace() {
+	public List<ContainmentLink> getContainmentTrace() {
 		if (containmentTrace == null) {
-			containmentTrace = new ArrayList<GenFeature>(1);
+			containmentTrace = new ArrayList<ContainmentLink>(1);
 		}
 		return containmentTrace;
 	}
