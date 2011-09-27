@@ -36,16 +36,20 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		
 		sc.addJavadoc("A proposal for completing an incomplete document.");
 		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
+		
+		sc.addFieldGetSet("root", E_OBJECT);
+
 		addFields(sc);
 		addConstructor1(sc);
 		addConstructor2(sc);
 		addConstructor3(sc);
 		addMethods(sc);
-		sc.addFieldGetSet("root", E_OBJECT);
 		sc.add("}");
 	}
 
 	private void addMethods(JavaComposite sc) {
+		sc.addGettersSetters();
+		
 		addGetInsertStringMethod(sc);
 		addGetDisplayStringMethod(sc);
 		addGetPrefixMethod(sc);
@@ -63,6 +67,14 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addMaterializeMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"This method create a model that reflects that the state that " +
+			"would be obtained if this proposal was accepted. This model can " +
+			"differ from the current model, because different proposals can " +
+			"result in different models. The code that is passed as argument " +
+			"is executed once the (changed) model was created. After exectuing " +
+			"the given code, all changes are reverted."
+		);
 		sc.add("public void materialize(Runnable code) {");
 		sc.add("if (root == null) {");
 		sc.add("code.run();");
@@ -230,7 +242,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 	
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
+		sc.addFields();
+		
 		sc.add("private " + expectedTerminalClassName + " expectedTerminal;");
 		sc.add("private String insertString;");
 		sc.add("private String displayString;");

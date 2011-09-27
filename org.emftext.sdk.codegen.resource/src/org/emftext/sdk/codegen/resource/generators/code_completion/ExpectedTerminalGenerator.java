@@ -38,7 +38,14 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 
-		sc.addFieldGetSet("attachmentCode", "Runnable");
+		sc.addFieldGetSet(
+			"attachmentCode", "Runnable",
+			"Run the attachment code to create a model the reflects the state " +
+			"that would be reached if the completion was executed. " +
+			"This is required, because different completions can yield " +
+			"different models."
+		);
+		
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
@@ -46,7 +53,9 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
+		sc.addGettersSetters();
+		
 		addGetFollowSetIDMethod(sc);
 		addGetTerminalMethod(sc);
 		addToStringMethod(sc);
@@ -156,7 +165,9 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
+		sc.addFields();
+		
 		sc.add("private int followSetID;");
 		sc.add("private " + E_OBJECT + " container;");
 		sc.add("private " + iExpectedElementClassName + " terminal;");

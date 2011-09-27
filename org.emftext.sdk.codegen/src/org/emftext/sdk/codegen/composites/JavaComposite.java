@@ -21,7 +21,9 @@ import static org.emftext.sdk.codegen.composites.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.SET;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.emftext.sdk.util.StringUtil;
 
@@ -30,6 +32,11 @@ import org.emftext.sdk.util.StringUtil;
  * line break characters and indentation starter and stoppers.
  */
 public class JavaComposite extends StringComposite {
+
+	private Map<String, String> fields = new LinkedHashMap<String, String>();
+	private Map<String, String[]> fieldDoc = new LinkedHashMap<String, String[]>();
+	private Map<String, String> getters = new LinkedHashMap<String, String>();
+	private Map<String, String> setters = new LinkedHashMap<String, String>();
 
 	public JavaComposite() {
 		super(true);
@@ -157,16 +164,54 @@ public class JavaComposite extends StringComposite {
 		return SET + "<" + type + "> " + name + " = new " + LINKED_HASH_SET + "<" + type + ">();";
 	}
 
-	public void addFieldGetSet(String fieldName, String type) {
-		add("private " + type + " " + fieldName + ";");
-		addLineBreak();
-		add("public " + type + " get" + StringUtil.capitalize(fieldName) + "() {");
-		add("return " + fieldName + ";");
-		add("}");
-		addLineBreak();
-		add("public void set" + StringUtil.capitalize(fieldName) + "(" + type + " " + fieldName + ") {");
-		add("this." + fieldName + " = " + fieldName + ";");
-		add("}");
-		addLineBreak();
+	/**
+	 * Adds a field with the given name and type and the respective get and set
+	 * methods.
+	 * 
+	 * @param fieldName the name of the field to add
+	 * @param type the type of the field
+	 */
+	public void addFieldGetSet(String fieldName, String type, String... javadoc) {
+		fields.put(fieldName, type);
+		fieldDoc.put(fieldName, javadoc);
+		getters.put(fieldName, type);
+		setters.put(fieldName, type);
+	}
+	
+	public void addGettersSetters() {
+		addGetters();
+		addSetters();
+	}
+
+	private void addSetters() {
+		for (String fieldName : setters.keySet()) {
+			String type = setters.get(fieldName);
+			add("public void set" + StringUtil.capitalize(fieldName) + "(" + type + " " + fieldName + ") {");
+			add("this." + fieldName + " = " + fieldName + ";");
+			add("}");
+			addLineBreak();
+		}
+	}
+
+	private void addGetters() {
+		for (String fieldName : getters.keySet()) {
+			String type = getters.get(fieldName);
+			add("public " + type + " get" + StringUtil.capitalize(fieldName) + "() {");
+			add("return " + fieldName + ";");
+			add("}");
+			addLineBreak();
+		}
+	}
+
+	public void addFields() {
+		for (String fieldName : fields.keySet()) {
+			String type = fields.get(fieldName);
+			String[] doc = fieldDoc.get(fieldName);
+			if (doc != null) {
+				addJavadoc(doc);
+			}
+			add("private " + type + " " + fieldName + ";");
+			addLineBreak();
+		}
 	}
 }

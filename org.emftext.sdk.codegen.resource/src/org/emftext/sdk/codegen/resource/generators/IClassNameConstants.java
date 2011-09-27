@@ -205,7 +205,7 @@ import org.osgi.framework.BundleContext;
  */
 @SuppressWarnings("restriction")
 public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.IClassNameConstants {
-	
+
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ABSTRACT_SOURCE_LOOKUP_DIRECTOR = AbstractSourceLookupDirector.class.getName();
 	public static String ABSTRACT_SOURCE_LOOKUP_PARTICIPANT = AbstractSourceLookupParticipant.class.getName();
@@ -230,8 +230,8 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String BUNDLE_CONTEXT = BundleContext.class.getName();
 	public static String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public static String BYTE_ARRAY_OUTPUT_STREAM = ByteArrayOutputStream.class.getName();
-	public static String CHANGE_RECORDER = ChangeRecorder.class.getName();
 	public static String CHANGE_DESCRIPTION = ChangeDescription.class.getName();
+	public static String CHANGE_RECORDER = ChangeRecorder.class.getName();
 	public static String COLLECTION = Collection.class.getName();
 	public static String COLLECTIONS = Collections.class.getName();
 	public static String COMMON_TOKEN = CommonToken.class.getName();
@@ -255,6 +255,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String ECORE_VALIDATOR = EcoreValidator.class.getName();
 	public static String EDITOR = Editor.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
+	public static String EMF_MODEL_VALIDATION_PLUGIN = org.eclipse.emf.validation.internal.EMFModelValidationPlugin.class.getName();
 	public static String EMPTY_STACK_EXCEPTION = EmptyStackException.class.getName();
 	public static String ENUMERATOR = Enumerator.class.getName();
 	public static String EVALUATION_MODE = EvaluationMode.class.getName();
@@ -272,12 +273,12 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String E_PACKAGE = EPackage.class.getName();
 	public static String E_REFERENCE = EReference.class.getName();
 	public static String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
-	public static String EMF_MODEL_VALIDATION_PLUGIN = org.eclipse.emf.validation.internal.EMFModelValidationPlugin.class.getName();
 	public static String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
 	public static String FIELD = Field.class.getName();
 	public static String FILE = File.class.getName();
 	public static String FILE_INPUT_STREAM = FileInputStream.class.getName();
 	public static String FILE_LOCATOR = FileLocator.class.getName();
+	public static String FILE_NOT_FOUND_EXCEPTION = FileNotFoundException.class.getName();
 	public static String FILE_OUTPUT_STREAM = FileOutputStream.class.getName();
 	public static String GEN_CLASS = GenClass.class.getName();
 	public static String GEN_FEATURE = GenFeature.class.getName();
@@ -304,6 +305,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String I_CONFIGURATION_ELEMENT = IConfigurationElement.class.getName();
 	public static String I_CONTAINER = IContainer.class.getName();
 	public static String I_DEBUG_TARGET = IDebugTarget.class.getName();
+	public static String I_EXECUTABLE_EXTENSION = IExecutableExtension.class.getName();
 	public static String I_EXTENSION_REGISTRY = IExtensionRegistry.class.getName();
 	public static String I_FILE = IFile.class.getName();
 	public static String I_LAUNCH = ILaunch.class.getName();
@@ -354,13 +356,13 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String MATCHER = Matcher.class.getName();
 	public static String MESSAGE_DIGEST = MessageDigest.class.getName();
 	public static String METHOD = java.lang.reflect.Method.class.getName();
-	public static String MODIFIER = java.lang.reflect.Modifier.class.getName();
 	public static String MISMATCHED_NOT_SET_EXCEPTION = MismatchedNotSetException.class.getName();
 	public static String MISMATCHED_RANGE_EXCEPTION = MismatchedRangeException.class.getName();
 	public static String MISMATCHED_SET_EXCEPTION = MismatchedSetException.class.getName();
 	public static String MISMATCHED_TOKEN_EXCEPTION = MismatchedTokenException.class.getName();
 	public static String MISMATCHED_TREE_NODE_EXCEPTION = MismatchedTreeNodeException.class.getName();
 	public static String MODEL_VALIDATION_SERVICE = ModelValidationService.class.getName();
+	public static String MODIFIER = java.lang.reflect.Modifier.class.getName();
 	public static String NOTIFICATION = Notification.class.getName();
 	public static String NOTIFICATION_CHAIN = NotificationChain.class.getName();
 	public static String NOTIFIER = Notifier.class.getName();
@@ -407,15 +409,11 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String TIMER_TASK = TimerTask.class.getName();
 	public static String TOKEN = Token.class.getName();
 	public static String TOKEN_STREAM = org.antlr.runtime3_4_0.TokenStream.class.getName();
-	public static String UNKNOWN_HOST_EXCEPTION = UnknownHostException.class.getName();
 	public static String TREE_MAP = TreeMap.class.getName();
+	public static String UNKNOWN_HOST_EXCEPTION = UnknownHostException.class.getName();
 	public static String URI = org.eclipse.emf.common.util.URI.class.getName();
 	public static String URI_CONVERTER = URIConverter.class.getName();
 	public static String URL = URL.class.getName();
-
-	public static String I_EXECUTABLE_EXTENSION = IExecutableExtension.class.getName();
-	public static String FILE_NOT_FOUND_EXCEPTION = FileNotFoundException.class.getName();
-	public static String ZIP_FILE = ZipFile.class.getName();
 	public static String ZIP_ENTRY = ZipEntry.class.getName();
-	
+	public static String ZIP_FILE = ZipFile.class.getName();
 }

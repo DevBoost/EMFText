@@ -72,6 +72,9 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	private String licenceText;
 	private boolean antlrGrammarHasChanged;
 	
+	// TODO there are three int fields and three maps that are used to capture
+	//      names of constants that must be generated. maybe these can be
+	//      moved to a separate class.
 	/**
 	 * A counter that is used to indicate the next free id in 'idMap'.
 	 */

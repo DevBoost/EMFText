@@ -65,6 +65,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String debugVariableClassName;
 	protected String debuggableInterpreterClassName;
 	protected String debuggerListenerClassName;
+	protected String defaultNameProviderClassName;
 	protected String defaultResolverDelegateClassName;
 	protected String defaultTokenResolverClassName;
 	protected String delegatingResolveResultClassName;
@@ -104,6 +105,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String iInterpreterListenerClassName;
 	protected String iLocationMapClassName;
 	protected String iMetaInformationClassName;
+	protected String iNameProviderClassName;
 	protected String iOptionProviderClassName;
 	protected String iOptionsClassName;
 	protected String iParseResultClassName;
@@ -154,6 +156,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String printerClassName;
 	protected String problemClassName;
 	protected String quickFixClassName;
+	protected String referenceCacheClassName;
 	protected String referenceResolveResultClassName;
 	protected String referenceResolverSwitchClassName;
 	protected String resourceFactoryClassName;
@@ -187,9 +190,6 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String unicodeConverterClassName;
 	protected String uriMappingClassName;
 	protected String whiteSpaceClassName;
-	protected String referenceCacheClassName;
-	protected String iNameProviderClassName;
-	protected String defaultNameProviderClassName;
 	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -230,8 +230,8 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		debugVariableClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUG_VARIABLE);
 		debuggableInterpreterClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUGGABLE_INTERPRETER);
 		debuggerListenerClassName = context.getQualifiedClassName(TextResourceArtifacts.DEBUGGER_LISTENER);
-		defaultResolverDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
 		defaultNameProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_NAME_PROVIDER);
+		defaultResolverDelegateClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_RESOLVER_DELEGATE);
 		defaultTokenResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
 		delegatingResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);
 		dotClasspathClassName = context.getQualifiedClassName(TextResourceArtifacts.DOT_CLASSPATH);

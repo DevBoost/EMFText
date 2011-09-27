@@ -391,8 +391,11 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 	
 	private void addDeriveProposalsMethod2(JavaComposite sc) {
+		// TODO mseifert: remove parameter 'resource'?
+		// TODO mseifert: all method that are called by this method and that
+		// take a parameter 'expectedTerminal' do not need the parameter 'prefix'
 		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(" + expectedTerminalClassName + " expectedTerminal, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
-		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
+		//sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
 		sc.add(iExpectedElementClassName + " expectedElement = (" + iExpectedElementClassName + ") expectedTerminal.getTerminal();");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
 		sc.add(expectedCsStringClassName + " csString = (" + expectedCsStringClassName + ") expectedElement;");
