@@ -18,8 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * A proposal for completing an incomplete document.
  */
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
-	/**
-	 */
 	private org.eclipse.emf.ecore.EObject root;
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal;
