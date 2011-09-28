@@ -128,7 +128,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		Map<ContainmentLink, Integer> containmentLinkToIdMap = constantsPool.getContainmentLinkToConstantIdMap();
 
 		int linkCount = containmentLinkToIdMap.keySet().size();
-		sc.add("public static " + containedFeatureClassName + "[] LINKS = new " + containedFeatureClassName + "[" + linkCount + "];");
+		sc.add("public final static " + containedFeatureClassName + "[] LINKS = new " + containedFeatureClassName + "[" + linkCount + "];");
 		
 		// generate fields for all containment links
 		for (ContainmentLink link : containmentLinkToIdMap.keySet()) {
@@ -151,7 +151,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		Map<GenFeature, String> eFeatureToConstantNameMap = constantsPool.getFeatureToConstantNameMap();
 
 		int featureCount = eFeatureToConstantNameMap.keySet().size();
-		sc.add("public static " + E_STRUCTURAL_FEATURE + "[] FEATURES = new " + E_STRUCTURAL_FEATURE + "[" + featureCount + "];");
+		sc.add("public final static " + E_STRUCTURAL_FEATURE + "[] FEATURES = new " + E_STRUCTURAL_FEATURE + "[" + featureCount + "];");
 		
 		// generate fields for all used features
 		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
@@ -172,7 +172,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		Map<EObject, Integer> idMap = constantsPool.getTerminalIdMap();
 		
 		int terminalCount = idMap.keySet().size();
-		sc.add("public static " + iExpectedElementClassName + " TERMINALS[] = new " + iExpectedElementClassName + "[" + terminalCount + "];");
+		sc.add("public final static " + iExpectedElementClassName + " TERMINALS[] = new " + iExpectedElementClassName + "[" + terminalCount + "];");
 		
 		for (EObject expectedElement : idMap.keySet()) {
 			int terminalID = idMap.get(expectedElement);
