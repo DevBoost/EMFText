@@ -435,10 +435,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// for contained objects
 		sc.add("private void completedElement(Object object, boolean isContainment) {");
 		sc.add("if (isContainment && !this.incompleteObjects.isEmpty()) {");
-		sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"endofIncompleteElement(\" + object + \")\");");
+		//sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"endofIncompleteElement(\" + object + \")\");");
 		sc.add("boolean exists = this.incompleteObjects.remove(object);");
 		sc.add("if (!exists) {");
-		sc.add("System.out.println(\"ERROR: Inconsistent set of objects (Can't find \" + object + \")\");");
+		//sc.add("System.out.println(\"ERROR: Inconsistent set of objects (Can't find \" + object + \")\");");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (object instanceof " + E_OBJECT + ") {");
@@ -454,7 +454,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// for contained objects
 		sc.add("private void startIncompleteElement(Object object) {");
 		sc.add("if (object instanceof " + E_OBJECT + ") {");
-		sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"startIncompleteElement(\" + object + \")\");");
+		//sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"startIncompleteElement(\" + object + \")\");");
 		sc.add("this.incompleteObjects.add((" + E_OBJECT + ") object);");
 		sc.add("}");
 		sc.add("}");
