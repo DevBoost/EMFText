@@ -6838,6 +6838,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the ExpectationConstants class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EXPECTATION_CONSTANTS
 	 * @model literal="overrideExpectationConstants"
 	 * @generated

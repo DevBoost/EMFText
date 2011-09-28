@@ -628,6 +628,8 @@ OptionTypes.OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION : "If set to <code>false</c
 
 OptionTypes.OVERRIDE_CONTAINED_FEATURE : "If set to <code>false</code>, the ContainedFeature class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_EXPECTATION_CONSTANTS : "If set to <code>false</code>, the ExpectationConstants class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
