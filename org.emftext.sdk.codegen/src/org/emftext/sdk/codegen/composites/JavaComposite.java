@@ -208,7 +208,7 @@ public class JavaComposite extends StringComposite {
 		for (String fieldName : fields.keySet()) {
 			String type = fields.get(fieldName);
 			String[] doc = fieldDoc.get(fieldName);
-			if (doc != null) {
+			if (doc != null && doc.length > 0) {
 				addJavadoc(doc);
 			}
 			add("private " + type + " " + fieldName + ";");
