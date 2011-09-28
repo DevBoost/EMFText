@@ -15,6 +15,9 @@ public class ExpectationsConstantsGenerator extends JavaBaseGenerator<ArtifactPa
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
+		sc.addJavadoc(
+			"This class contains some constants that are used during code completion."
+		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
@@ -27,13 +30,13 @@ public class ExpectationsConstantsGenerator extends JavaBaseGenerator<ArtifactPa
 		for (Integer[] expectationCall : expectationCalls) {
 			statements.add(new Pair<String, Integer>(
 				"EXPECTATIONS[" + index +  "] = new int[" + expectationCall.length + "];", 
-				20
+				20 // this is just a rough estimation
 			));
 			int index2 = 0;
 			for (Integer integer : expectationCall) {
 				statements.add(new Pair<String, Integer>(
 					"EXPECTATIONS[" + index +  "][" + index2 +  "] = " + integer.toString() + ";",
-					20
+					20 // this is just a rough estimation
 				));
 				index2++;
 			}
