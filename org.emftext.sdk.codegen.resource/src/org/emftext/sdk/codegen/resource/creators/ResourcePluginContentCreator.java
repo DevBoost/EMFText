@@ -182,6 +182,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.DELEGATING_RESOLVE_RESULT);
 	    add(creators, TextResourceArtifacts.DUMMY_E_OBJECT);
 	    add(creators, TextResourceArtifacts.ELEMENT_MAPPING);
+	    add(creators, TextResourceArtifacts.EXPECTATION_CONSTANTS);
 	    add(creators, TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
 	    add(creators, TextResourceArtifacts.LOCATION_MAP);
 	    add(creators, TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);

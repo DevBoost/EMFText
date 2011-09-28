@@ -886,14 +886,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// however, unless there is no serious performance problems I'd
 		// stick with keeping all the expected elements. they will be 
 		// garbage collected right afterwards anyway
-		sc.add("public void addExpectedElement(int terminalID, int followSetID, int... containmentTraceIDs) {");
+		sc.add("public void addExpectedElement(int[] ids) {");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
+		sc.add("int terminalID = ids[0];");
+		sc.add("int followSetID = ids[1];");
 		sc.add(iExpectedElementClassName + " terminal = " + followSetProviderClassName + ".TERMINALS[terminalID];");
-		sc.add(containedFeatureClassName + "[] containmentTrace = new " + containedFeatureClassName + "[containmentTraceIDs.length];");
-		sc.add("for (int i = 0; i < containmentTraceIDs.length; i++) {");
-		sc.add("containmentTrace[i] = " + followSetProviderClassName + ".LINKS[containmentTraceIDs[i]];");
+		sc.add(containedFeatureClassName + "[] containmentTrace = new " + containedFeatureClassName + "[ids.length - 2];");
+		sc.add("for (int i = 2; i < ids.length; i++) {");
+		sc.add("containmentTrace[i - 2] = " + followSetProviderClassName + ".LINKS[ids[i]];");
 		sc.add("}");
 		
 		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
@@ -1637,24 +1639,28 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addExpectationsCode(StringComposite sc, Set<Expectation> expectations) {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
+		List<Integer[]> expectationCalls = constantsPool.getExpectationCalls();
+		
 		for (Expectation expectation : expectations) {
 			EObject expectedElement = expectation.getExpectedElement();
 			int terminalID = constantsPool.getTerminalID(expectedElement);
 			// here the containment trace is used
 			// TODO mseifert: figure out whether this is really needed
-			StringBuilder methodCall = new StringBuilder();
-			methodCall.append("addExpectedElement(");
-			methodCall.append(terminalID);
-			methodCall.append(", ");
-			methodCall.append(followSetID);
+			//StringBuilder methodCall = new StringBuilder();
 			List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
+
+			Integer[] o = new Integer[2 +  containmentTrace.size()];
+			o[0] = terminalID;
+			o[1] = followSetID;
+
+			int i = 2;
 			for (ContainmentLink link : containmentTrace) {
-				methodCall.append(", ");
-				methodCall.append(constantsPool.getContainmentLinkID(link));
+				o[i] = constantsPool.getContainmentLinkID(link);
+				i++;
 			}
-			methodCall.append(");");
 			
-			sc.add(methodCall.toString());
+			sc.add("addExpectedElement(" + expectationConstantsClassName + ".EXPECTATIONS["+ expectationCalls.size() + "]);");
+			expectationCalls.add(o);
 		}
 		followSetID++;
 	}

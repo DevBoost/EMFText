@@ -2208,7 +2208,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CONTAINED_FEATURE(274, "OVERRIDE_CONTAINED_FEATURE", "overrideContainedFeature");
+	OVERRIDE_CONTAINED_FEATURE(274, "OVERRIDE_CONTAINED_FEATURE", "overrideContainedFeature"), /**
+	 * The '<em><b>OVERRIDE EXPECTATION CONSTANTS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTATION_CONSTANTS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EXPECTATION_CONSTANTS(275, "OVERRIDE_EXPECTATION_CONSTANTS", "overrideExpectationConstants");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6823,6 +6831,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_CONTAINED_FEATURE_VALUE = 274;
 /**
+	 * The '<em><b>OVERRIDE EXPECTATION CONSTANTS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EXPECTATION CONSTANTS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTATION_CONSTANTS
+	 * @model literal="overrideExpectationConstants"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EXPECTATION_CONSTANTS_VALUE = 275;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7102,6 +7124,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION,
 			OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION,
 			OVERRIDE_CONTAINED_FEATURE,
+			OVERRIDE_EXPECTATION_CONSTANTS,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7421,6 +7444,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION;
 			case OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION;
 			case OVERRIDE_CONTAINED_FEATURE_VALUE: return OVERRIDE_CONTAINED_FEATURE;
+			case OVERRIDE_EXPECTATION_CONSTANTS_VALUE: return OVERRIDE_EXPECTATION_CONSTANTS;
 		}
 		return null;
 	}

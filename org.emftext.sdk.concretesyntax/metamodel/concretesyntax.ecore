@@ -1933,6 +1933,7 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ContainedFeature class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_EXPECTATION_CONSTANTS" value="275" literal="overrideExpectationConstants"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

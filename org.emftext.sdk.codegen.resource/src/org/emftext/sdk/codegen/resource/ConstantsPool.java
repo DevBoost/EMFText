@@ -13,7 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,6 +60,8 @@ public class ConstantsPool {
 	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
 	private int linkCounter = 0;
 	private Map<ContainmentLink, Integer> containmentLinkToConstantNameMap = new LinkedHashMap<ContainmentLink, Integer>();
+
+	private List<Integer[]> expectationCalls = new ArrayList<Integer[]>();
 	
 	public String getTerminalFieldAccessor(EObject expectedElement) {
 		return "TERMINALS[" + getTerminalID(expectedElement) + "]";
@@ -122,6 +126,10 @@ public class ConstantsPool {
 
 	public Map<ContainmentLink, Integer> getContainmentLinkToConstantIdMap() {
 		return containmentLinkToConstantNameMap;
+	}
+
+	public List<Integer[]> getExpectationCalls() {
+		return expectationCalls;
 	}
 
 }

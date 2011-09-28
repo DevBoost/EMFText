@@ -80,6 +80,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String eProblemTypeClassName;
 	protected String elementMappingClassName;
 	protected String enumerationTerminalClassName;
+	protected String expectationConstantsClassName;
 	protected String expectedBooleanTerminalClassName;
 	protected String expectedCsStringClassName;
 	protected String expectedEnumerationTerminalClassName;
@@ -245,6 +246,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		eProblemTypeClassName = context.getQualifiedClassName(TextResourceArtifacts.E_PROBLEM_TYPE);
 		elementMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.ELEMENT_MAPPING);
 		enumerationTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.ENUMERATION_TERMINAL);
+		expectationConstantsClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTATION_CONSTANTS);
 		expectedBooleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_BOOLEAN_TERMINAL);
 		expectedCsStringClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_CS_STRING);
 		expectedEnumerationTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_ENUMERATION_TERMINAL);

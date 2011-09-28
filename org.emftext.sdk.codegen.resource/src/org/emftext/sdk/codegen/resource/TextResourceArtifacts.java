@@ -164,6 +164,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ChangeReferenceQuickFixGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ContainedFeatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.DynamicTokenStylerGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.ExpectationsConstantsGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.MarkerHelperGenerator;
@@ -215,6 +216,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ContextDependentURIFragmentFactory", ContextDependentURIFragmentFactoryGenerator.class, OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DELEGATING_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "DelegatingResolveResult", DelegatingResolveResultGenerator.class, OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DUMMY_E_OBJECT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "DummyEObject", DummyEObjectGenerator.class, OptionTypes.OVERRIDE_DUMMY_EOBJECT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTATION_CONSTANTS = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ExpectationConstants", ExpectationsConstantsGenerator.class, OptionTypes.OVERRIDE_EXPECTATION_CONSTANTS);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ELEMENT_MAPPING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ElementMapping", ElementMappingGenerator.class, OptionTypes.OVERRIDE_ELEMENT_MAPPING);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FUZZY_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "FuzzyResolveResult", FuzzyResolveResultGenerator.class, OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LOCATION_MAP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "LocationMap", LocationMapGenerator.class, OptionTypes.OVERRIDE_LOCATION_MAP);
