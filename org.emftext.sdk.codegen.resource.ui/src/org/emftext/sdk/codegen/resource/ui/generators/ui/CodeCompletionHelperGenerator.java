@@ -379,7 +379,6 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (parent != null) {");
 		sc.add("expectedTerminal.setAttachmentCode(new Runnable() {");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
 		sc.add("public void run() {");
 		sc.add(eObjectUtilClassName + ".setFeature(finalContainer, finalFeature, finalParent, false);");
 		sc.add("}");
