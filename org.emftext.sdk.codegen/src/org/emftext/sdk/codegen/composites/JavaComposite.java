@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.emftext.sdk.util.Pair;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -213,5 +214,48 @@ public class JavaComposite extends StringComposite {
 			add("private " + type + " " + fieldName + ";");
 			addLineBreak();
 		}
+	}
+	
+	/**
+	 * Creates a set of methods that contain the given statements. Each 
+	 * statement is represented by its content (the code) and the number of
+	 * bytes that this code requires. The method is automatically split if
+	 * the code exceed the 64k limit.
+	 * 
+	 * @param statements
+	 */
+	public void addLargeMethod(String name, List<Pair<String, Integer>> statements) {
+		int bytesUsedInCurrentMethod = 0;
+		boolean methodIsFull = true;
+		int i = 0;
+		int numberOfMethods = 0;
+		// create multiple nameX() methods
+		for (Pair<String, Integer> statement : statements) {
+			if (methodIsFull) {
+				add("public static void " + name + numberOfMethods + "() {");
+				numberOfMethods++;
+				methodIsFull = false;
+			}
+			add(statement.getLeft());
+			bytesUsedInCurrentMethod += statement.getRight();
+			
+			if (bytesUsedInCurrentMethod >= 63 * 1024) {
+				methodIsFull = true;
+				bytesUsedInCurrentMethod = 0;
+			}
+			if (methodIsFull || i == statements.size() - 1) {
+				add("}");
+				addLineBreak();
+			}
+			i++;
+		}
+		
+		// create multiple name() method that calls all nameX() methods
+		add("public static void " + name + "() {");
+		for (int c = 0; c < numberOfMethods; c++) {
+			add(name + c + "();");
+		}
+		add("}");
+		addLineBreak();
 	}
 }

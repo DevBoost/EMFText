@@ -78,6 +78,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
+import org.emftext.sdk.codegen.resource.ConstantsPool;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -885,10 +886,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// however, unless there is no serious performance problems I'd
 		// stick with keeping all the expected elements. they will be 
 		// garbage collected right afterwards anyway
-		sc.add("public void addExpectedElement(" + iExpectedElementClassName + " terminal, int followSetID, " + containedFeatureClassName + "... containmentTrace) {");
+		sc.add("public void addExpectedElement(int terminalID, int followSetID, int... containmentTraceIDs) {");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
+		sc.add(iExpectedElementClassName + " terminal = " + followSetProviderClassName + ".TERMINALS[terminalID];");
+		sc.add(containedFeatureClassName + "[] containmentTrace = new " + containedFeatureClassName + "[containmentTraceIDs.length];");
+		sc.add("for (int i = 0; i < containmentTraceIDs.length; i++) {");
+		sc.add("containmentTrace[i] = " + followSetProviderClassName + ".LINKS[containmentTraceIDs[i]];");
+		sc.add("}");
+		
 		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
 		sc.add(expectedTerminalClassName + " expectedElement = new " + expectedTerminalClassName + "(container, terminal, followSetID, containmentTrace);"); 
 		sc.add("setPosition(expectedElement, input.index());");
@@ -1590,7 +1597,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			}
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
 			Set<Expectation> expectations = computer.computeFollowSet(syntax, definition);
-			getContext().addToFollowSetMap(definition, expectations);
+			getContext().getConstantsPool().addToFollowSetMap(definition, expectations);
 			String cardinality = definition.computeCardinalityString();
 			if (!"".equals(cardinality)) {
 				sc.add("(");
@@ -1628,21 +1635,26 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addExpectationsCode(StringComposite sc, Set<Expectation> expectations) {
+		GenerationContext context = getContext();
+		ConstantsPool constantsPool = context.getConstantsPool();
 		for (Expectation expectation : expectations) {
 			EObject expectedElement = expectation.getExpectedElement();
-			GenerationContext context = getContext();
-			String terminalID = followSetProviderClassName + "." + context.getID(expectedElement);
+			int terminalID = constantsPool.getTerminalID(expectedElement);
 			// here the containment trace is used
 			// TODO mseifert: figure out whether this is really needed
-			StringBuilder traceArguments = new StringBuilder();
+			StringBuilder methodCall = new StringBuilder();
+			methodCall.append("addExpectedElement(");
+			methodCall.append(terminalID);
+			methodCall.append(", ");
+			methodCall.append(followSetID);
 			List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
 			for (ContainmentLink link : containmentTrace) {
-				traceArguments.append(", ");
-				traceArguments.append(followSetProviderClassName);
-				traceArguments.append(".");
-				traceArguments.append(context.getContainmentLinkConstantName(link));
+				methodCall.append(", ");
+				methodCall.append(constantsPool.getContainmentLinkID(link));
 			}
-			sc.add("addExpectedElement(" + terminalID + ", " + followSetID + traceArguments + ");");
+			methodCall.append(");");
+			
+			sc.add(methodCall.toString());
 		}
 		followSetID++;
 	}

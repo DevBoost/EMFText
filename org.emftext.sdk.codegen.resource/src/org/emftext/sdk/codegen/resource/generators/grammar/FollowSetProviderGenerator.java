@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.generators.grammar;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +24,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
+import org.emftext.sdk.codegen.resource.ConstantsPool;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
@@ -35,6 +37,7 @@ import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.util.Pair;
 
 public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -58,10 +61,121 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addTerminalConstants(JavaComposite sc) {
+		touchAllFieldsAndLinks();
+
+		List<String> initializeTerminalConstantsCode = addTerminalConstantFields(sc);
+		List<String> initializeFeatureConstantsCode = addFeatureFields(sc);
+		List<String> initializeLinkConstantsCode = addContainmentLinkFields(sc);
+		
+		sc.add("public final static " + containedFeatureClassName + "[] EMPTY_LINK_ARRAY = new " + containedFeatureClassName + "[0];");
+		sc.addLineBreak();
+		
+		addLargeMethod(sc, "initializeTerminals", initializeTerminalConstantsCode, 22);
+		addLargeMethod(sc, "initializeFeatures", initializeFeatureConstantsCode, 31);
+		addLargeMethod(sc, "initializeLinks", initializeLinkConstantsCode, 37);
+		addWireTerminalsCode(sc);
+
+		sc.add("static {");
+		sc.addComment("initialize the arrays");
+		sc.add("initializeTerminals();");
+		sc.add("initializeFeatures();");
+		sc.add("initializeLinks();");
+		sc.addComment("wire the terminals");
+		sc.add("wire();");
+		sc.add("}");
+	}
+
+	private void addLargeMethod(JavaComposite sc, String name, List<String> plainStatements, int bytesPerStatement) {
+		List<Pair<String, Integer>> statements = new ArrayList<Pair<String,Integer>>(plainStatements.size());
+		int tempCount = 0;
+		for (String plainStatement : plainStatements) {
+			statements.add(new Pair<String, Integer>(plainStatement, bytesPerStatement));
+			tempCount++;
+			if (tempCount > 200) {
+				//break;
+			}
+		}
+		sc.addLargeMethod(name, statements);
+	}
+
+	/** 
+	 * Asks for all features to make sure respective fields are generated.
+	 */
+	private void touchAllFieldsAndLinks() {
 		GenerationContext context = getContext();
-		Map<EObject, String> idMap = context.getIdMap();
+		ConstantsPool constantsPool = context.getConstantsPool();
+		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+		
+		for (String firstID : followSetMap.keySet()) {
+			for (Expectation expectation : followSetMap.get(firstID)) {
+				List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
+				for (ContainmentLink link : containmentTrace) {
+					constantsPool.getFeatureConstantFieldName(link.getFeature());
+				}
+			}
+		}
+		Map<ContainmentLink, Integer> containmentLinkToConstantNameMap = constantsPool.getContainmentLinkToConstantIdMap();
+		for (ContainmentLink link : containmentLinkToConstantNameMap.keySet()) {
+			constantsPool.getFeatureConstantFieldName(link.getFeature());
+		}
+	}
+
+	private List<String> addContainmentLinkFields(JavaComposite sc) {
+		List<String> initializationCode = new ArrayList<String>();
+		
+		GenerationContext context = getContext();
+		ConstantsPool constantsPool = context.getConstantsPool();
+		Map<ContainmentLink, Integer> containmentLinkToIdMap = constantsPool.getContainmentLinkToConstantIdMap();
+
+		int linkCount = containmentLinkToIdMap.keySet().size();
+		sc.add("public static " + containedFeatureClassName + "[] LINKS = new " + containedFeatureClassName + "[" + linkCount + "];");
+		
+		// generate fields for all containment links
+		for (ContainmentLink link : containmentLinkToIdMap.keySet()) {
+			String fieldName = constantsPool.getContainmentLinkConstantName(link);
+			String classConstant = generatorUtil.getClassifierAccessor(link.getContainerClass());
+			String featureConstant = constantsPool.getFeatureConstantFieldName(link.getFeature());
+			//sc.add("public static " + containedFeatureClassName + " " + fieldName + ";");
+			initializationCode.add(fieldName + " = new " + containedFeatureClassName + "(" + classConstant + ", " + featureConstant + ");");
+		}
+		sc.addLineBreak();
+		return initializationCode;
+	}
+
+	private List<String> addFeatureFields(JavaComposite sc) {
+		List<String> initializationCode = new ArrayList<String>();
+		
+		GenerationContext context = getContext();
+		ConstantsPool constantsPool = context.getConstantsPool();
+
+		Map<GenFeature, String> eFeatureToConstantNameMap = constantsPool.getFeatureToConstantNameMap();
+
+		int featureCount = eFeatureToConstantNameMap.keySet().size();
+		sc.add("public static " + E_STRUCTURAL_FEATURE + "[] FEATURES = new " + E_STRUCTURAL_FEATURE + "[" + featureCount + "];");
+		
+		// generate fields for all used features
+		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
+			String fieldName = constantsPool.getFeatureConstantFieldName(genFeature);
+			
+			String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
+			initializationCode.add(fieldName + " = " + featureAccessor + ";");
+		}
+		sc.addLineBreak();
+		return initializationCode;
+	}
+
+	private List<String> addTerminalConstantFields(JavaComposite sc) {
+		GenerationContext context = getContext();
+		ConstantsPool constantsPool = context.getConstantsPool();
+
+		List<String> createTerminalObjectsCode = new ArrayList<String>();
+		Map<EObject, Integer> idMap = constantsPool.getTerminalIdMap();
+		
+		int terminalCount = idMap.keySet().size();
+		sc.add("public static " + iExpectedElementClassName + " TERMINALS[] = new " + iExpectedElementClassName + "[" + terminalCount + "];");
+		
 		for (EObject expectedElement : idMap.keySet()) {
-			String terminalID = idMap.get(expectedElement);
+			int terminalID = idMap.get(expectedElement);
 			
 			if (expectedElement instanceof Placeholder) {
 				Placeholder placeholder = (Placeholder) expectedElement;
@@ -71,73 +185,35 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 					continue;
 				}
 
-				addTerminalConstant(sc, terminalID, placeholder, expectedStructuralFeatureClassName);
+				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, placeholder, expectedStructuralFeatureClassName));
 			} else if (expectedElement instanceof CsString) {
-				addTerminalConstant(sc, terminalID, (CsString) expectedElement, expectedCsStringClassName);
+				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, (CsString) expectedElement, expectedCsStringClassName));
 			} else if (expectedElement instanceof BooleanTerminal) {
-				addTerminalConstant(sc, terminalID, (BooleanTerminal) expectedElement, expectedBooleanTerminalClassName);
+				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, (BooleanTerminal) expectedElement, expectedBooleanTerminalClassName));
 			} else if (expectedElement instanceof EnumTerminal) {
-				addTerminalConstant(sc, terminalID, (EnumTerminal) expectedElement, expectedEnumerationTerminalClassName);
+				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, (EnumTerminal) expectedElement, expectedEnumerationTerminalClassName));
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}
 		}
 		sc.addLineBreak();
+		return createTerminalObjectsCode;
+	}
 
-		Map<String, Set<Expectation>> followSetMap = context.getFollowSetMap();
-		// ask for all features to make sure respective fields are generated
-		
-		for (String firstID : followSetMap.keySet()) {
-			for (Expectation expectation : followSetMap.get(firstID)) {
-				List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
-				for (ContainmentLink link : containmentTrace) {
-					context.getFeatureConstantFieldName(link.getFeature());
-				}
-			}
-		}
-		Map<ContainmentLink, String> containmentLinkToConstantNameMap = context.getContainmentLinkToConstantNameMap();
-		for (ContainmentLink link : containmentLinkToConstantNameMap.keySet()) {
-			context.getFeatureConstantFieldName(link.getFeature());
-		}
-		
-		Map<GenFeature, String> eFeatureToConstantNameMap = context.getFeatureToConstantNameMap();
-		// generate fields for all used features
-		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
-			String fieldName = context.getFeatureConstantFieldName(genFeature);
-			String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
-			sc.add("public final static " + E_STRUCTURAL_FEATURE + " " + fieldName + " = " + featureAccessor + ";");
-		}
-		sc.addLineBreak();
-		
-		// generate fields for all containment links
-		for (ContainmentLink link : containmentLinkToConstantNameMap.keySet()) {
-			String fieldName = context.getContainmentLinkConstantName(link);
-			String classConstant = generatorUtil.getClassifierAccessor(link.getContainerClass());
-			String featureConstant = context.getFeatureConstantFieldName(link.getFeature());
-			sc.add("public final static " + containedFeatureClassName + " " + fieldName + " = new " + containedFeatureClassName + "(" + classConstant + ", " + featureConstant + ");");
-		}
-		sc.addLineBreak();
-		
-		sc.add("public final static " + containedFeatureClassName + "[] EMPTY_LINK_ARRAY = new " + containedFeatureClassName + "[0];");
-		sc.addLineBreak();
-		
-		// we need to split the code to wire the terminals with their
-		// followers, because the code does exceed the 64KB limit for
-		// methods if the grammar is big
-		int bytesUsedInCurrentMethod = 0;
-		boolean methodIsFull = true;
-		int i = 0;
-		int numberOfMethods = 0;
+	private void addWireTerminalsCode(JavaComposite sc) {
+		GenerationContext context = getContext();
+		ConstantsPool constantsPool = context.getConstantsPool();
+		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+
+		int tempCount = 0;
 		// create multiple wireX() methods
+		List<Pair<String, Integer>> statements = new ArrayList<Pair<String, Integer>>();
 		for (String firstID : followSetMap.keySet()) {
-			if (methodIsFull) {
-				sc.add("public static void wire" + numberOfMethods + "() {");
-				numberOfMethods++;
-				methodIsFull = false;
-			}
 			for (Expectation expectation : followSetMap.get(firstID)) {
 				EObject follower = expectation.getExpectedElement();
 				List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
+				// the method call takes 6 bytes
+				int bytesUsed = 6;
 				StringBuilder trace = new StringBuilder();
 				if (containmentTrace.isEmpty()) {
 					trace.append(", EMPTY_LINK_ARRAY");
@@ -150,41 +226,31 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 						trace.append("(");
 						trace.append(generatorUtil.getClassifierAccessor(link.getContainerClass()));
 						trace.append(", ");
-						trace.append(context.getFeatureConstantFieldName(genFeature));
+						trace.append(constantsPool.getFeatureConstantFieldName(genFeature));
 						trace.append("), ");
-						// another 16 bytes for each access to a constant
-						bytesUsedInCurrentMethod += 16;
+						// another 10 bytes for each access to a constant
+						bytesUsed += 10;
+						tempCount++;
 					}
 					trace.append("}");
 				}
-				sc.add(firstID + ".addFollower(" + context.getID(follower) + trace + ");");
-				// the method call takes 19 bytes
-				bytesUsedInCurrentMethod += 19;
+				String methodCall = firstID + ".addFollower(" + constantsPool.getTerminalFieldAccessor(follower) + trace + ");";
+				statements.add(new Pair<String, Integer>(methodCall, bytesUsed));
 			}
-			if (bytesUsedInCurrentMethod >= 63 * 1024) {
-				methodIsFull = true;
-				bytesUsedInCurrentMethod = 0;
+			if (tempCount > 200) {
+				break;
 			}
-			if (methodIsFull || i == followSetMap.keySet().size() - 1) {
-				sc.add("}");
-			}
-			i++;
 		}
-		// call all wireX() methods from the static constructor
-		sc.addComment("wire the terminals");
-		sc.add("static {");
-		for (int c = 0; c < numberOfMethods; c++) {
-			sc.add("wire" + c + "();");
-		}
-		sc.add("}");
+		
+		sc.addLargeMethod("wire", statements);
 	}
 
-	private void addTerminalConstant(
+	private String addTerminalConstant(
 			JavaComposite sc, 
-			String terminalID,
+			int terminalID,
 			SyntaxElement syntaxElement,
 			String className) {
-		sc.add("public final static " + iExpectedElementClassName + " " + terminalID + " = new " + className + 
-				"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(syntaxElement) + ");");
+		return "TERMINALS[" + terminalID + "] = new " + className + 
+				"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(syntaxElement) + ");";
 	}
 }

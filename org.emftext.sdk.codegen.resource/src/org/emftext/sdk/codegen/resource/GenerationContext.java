@@ -14,15 +14,11 @@
 package org.emftext.sdk.codegen.resource;
 
 import java.io.File;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
@@ -33,16 +29,10 @@ import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.IPackage;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.ISyntaxContext;
-import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ContainmentLink;
-import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.util.NameUtil;
-import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
@@ -72,35 +62,9 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	private String licenceText;
 	private boolean antlrGrammarHasChanged;
 	
-	// TODO there are three int fields and three maps that are used to capture
-	//      names of constants that must be generated. maybe these can be
-	//      moved to a separate class.
-	/**
-	 * A counter that is used to indicate the next free id in 'idMap'.
-	 */
-	private int idCounter = 0;
-	
-	/**
-	 * A map that contains the terminal elements of the syntax specification
-	 * (keywords and placeholders) to the name of the field that represents
-	 * them.
-	 */
-	private Map<EObject, String> idMap = new LinkedHashMap<EObject, String>();
-	
-	/**
-	 * A map that contains names of fields representing terminals and their
-	 * follow set. This map is used to create the code that links terminals
-	 * and the potential next elements (i.e., their follow set).
-	 */
-	private Map<String, Set<Expectation>> followSetMap = new LinkedHashMap<String, Set<Expectation>>();
-
-	private int featureCounter = 0;
-	private Map<GenFeature, String> eFeatureToConstantNameMap = new LinkedHashMap<GenFeature, String>();
-	private int linkCounter = 0;
-	private Map<ContainmentLink, String> containmentLinkToConstantNameMap = new LinkedHashMap<ContainmentLink, String>();
+	private ConstantsPool constantsPool = new ConstantsPool();
 	
 	private IPluginDescriptor resourcePlugin;
-
 	private IPluginDescriptor resourceUIPlugin;
 	private IPluginDescriptor antlrPlugin;
 
@@ -290,63 +254,6 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 		this.licenceText = text;
 	}
 
-	public String getID(EObject expectedElement) {
-		if (!idMap.containsKey(expectedElement)) {
-			idMap.put(expectedElement, "TERMINAL_" + idCounter);
-			idCounter++;
-		}
-		return idMap.get(expectedElement);
-	}
-
-	public void addToFollowSetMap(Definition definition, Set<Expectation> expectations) {
-		// only terminals are important here
-		if (definition instanceof Placeholder) {
-			GenFeature feature = ((Placeholder) definition).getFeature();
-			if (feature == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
-				return;
-			}
-			followSetMap.put(getID(definition), expectations);
-		} else if (definition instanceof CsString) {
-			followSetMap.put(getID(definition), expectations);
-		} else if (definition instanceof BooleanTerminal) {
-			followSetMap.put(getID(definition), expectations);
-		}
-	}
-
-	public Map<EObject, String> getIdMap() {
-		return idMap;
-	}
-
-	public Map<String, Set<Expectation>> getFollowSetMap() {
-		return followSetMap;
-	}
-
-	public String getFeatureConstantFieldName(GenFeature genFeature) {
-		if (!eFeatureToConstantNameMap.keySet().contains(genFeature)) {
-			String featureConstantName = "FEATURE_" + featureCounter;
-			featureCounter++;
-			eFeatureToConstantNameMap.put(genFeature, featureConstantName);
-		}
-		return eFeatureToConstantNameMap.get(genFeature);
-	}
-
-	public String getContainmentLinkConstantName(ContainmentLink link) {
-		if (!containmentLinkToConstantNameMap.keySet().contains(link)) {
-			String featureConstantName = "LINK_" + linkCounter;
-			linkCounter++;
-			containmentLinkToConstantNameMap.put(link, featureConstantName);
-		}
-		return containmentLinkToConstantNameMap.get(link);
-	}
-	
-	public Map<GenFeature, String> getFeatureToConstantNameMap() {
-		return eFeatureToConstantNameMap;
-	}
-
-	public Map<ContainmentLink, String> getContainmentLinkToConstantNameMap() {
-		return containmentLinkToConstantNameMap;
-	}
-
 	/**
 	 * The result of this method indicates whether generating 
 	 * the ANTLR commons plug-in is required or not.
@@ -441,5 +348,9 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 
 	public String getEditorRulerID() {
 		return getResourcePlugin().getName() + ".EditorRuler";
+	}
+
+	public ConstantsPool getConstantsPool() {
+		return constantsPool;
 	}
 }
