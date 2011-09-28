@@ -18,6 +18,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * A proposal for completing an incomplete document.
  */
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
+	/**
+	 */
+	private org.eclipse.emf.ecore.EObject root;
+	
+	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal;
 	private String insertString;
 	private String displayString;
 	private String prefix;
@@ -26,8 +31,9 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	private org.eclipse.emf.ecore.EObject container;
 	private org.eclipse.swt.graphics.Image image;
 	
-	public CsCompletionProposal(String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
+	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
 		super();
+		this.expectedTerminal = expectedTerminal;
 		this.insertString = insertString;
 		this.prefix = prefix;
 		this.matchesPrefix = matchesPrefix;
@@ -35,14 +41,22 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		this.container = container;
 	}
 	
-	public CsCompletionProposal(String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
-		this(insertString, prefix, matchesPrefix, structuralFeature, container);
+	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
+		this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container);
 		this.image = image;
 	}
 	
-	public CsCompletionProposal(String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
-		this(insertString, prefix, matchesPrefix, structuralFeature, container, image);
+	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
+		this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container, image);
 		this.displayString = displayString;
+	}
+	
+	public org.eclipse.emf.ecore.EObject getRoot() {
+		return root;
+	}
+	
+	public void setRoot(org.eclipse.emf.ecore.EObject root) {
+		this.root = root;
 	}
 	
 	public String getInsertString() {
@@ -83,6 +97,10 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		return container;
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal getExpectedTerminal() {
+		return expectedTerminal;
+	}
+	
 	public boolean equals(Object object) {
 		if (object instanceof CsCompletionProposal) {
 			CsCompletionProposal other = (CsCompletionProposal) object;
@@ -112,6 +130,34 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		result += (structuralFeature == null ? "null" : structuralFeature.getName());
 		result += ": " + insertString;
 		return result;
+	}
+	
+	/**
+	 * This method create a model that reflects that the state that would be obtained
+	 * if this proposal was accepted. This model can differ from the current model,
+	 * because different proposals can result in different models. The code that is
+	 * passed as argument is executed once the (changed) model was created. After
+	 * exectuing the given code, all changes are reverted.
+	 */
+	public void materialize(Runnable code) {
+		if (root == null) {
+			code.run();
+			return;
+		}
+		org.eclipse.emf.ecore.change.util.ChangeRecorder recorder = new org.eclipse.emf.ecore.change.util.ChangeRecorder();
+		recorder.beginRecording(java.util.Collections.singleton(root));
+		
+		// attach proposal model fragment to main model
+		Runnable attachmentCode = expectedTerminal.getAttachmentCode();
+		if (attachmentCode != null) {
+			// Applying attachment code
+			attachmentCode.run();
+		}
+		
+		org.eclipse.emf.ecore.change.ChangeDescription changes = recorder.endRecording();
+		code.run();
+		// revert changes
+		changes.apply();
 	}
 	
 }

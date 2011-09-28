@@ -23,18 +23,35 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
  */
 public class CsExpectedTerminal {
 	
+	/**
+	 * Run the attachment code to create a model the reflects the state that would be
+	 * reached if the completion was executed. This is required, because different
+	 * completions can yield different models.
+	 */
+	private Runnable attachmentCode;
+	
 	private int followSetID;
+	private org.eclipse.emf.ecore.EObject container;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal;
 	private int startIncludingHiddenTokens;
 	private int startExcludingHiddenTokens;
 	private String prefix;
-	private org.eclipse.emf.ecore.EStructuralFeature[] containmentTrace;
+	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] containmentTrace;
 	
-	public CsExpectedTerminal(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID, org.eclipse.emf.ecore.EStructuralFeature... containmentTrace) {
+	public CsExpectedTerminal(org.eclipse.emf.ecore.EObject container, org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature... containmentTrace) {
 		super();
+		this.container = container;
 		this.terminal = terminal;
 		this.followSetID = followSetID;
 		this.containmentTrace = containmentTrace;
+	}
+	
+	public Runnable getAttachmentCode() {
+		return attachmentCode;
+	}
+	
+	public void setAttachmentCode(Runnable attachmentCode) {
+		this.attachmentCode = attachmentCode;
 	}
 	
 	public int getFollowSetID() {
@@ -46,11 +63,16 @@ public class CsExpectedTerminal {
 	}
 	
 	public String toString() {
-		return terminal == null ? "null" : terminal.toString();
+		return terminal == null ? "null" : terminal.toString() + " at " + startIncludingHiddenTokens + "/" + startExcludingHiddenTokens;
 	}
 	
 	public boolean equals(Object o) {
-		return this.terminal.equals(((CsExpectedTerminal) o).terminal);
+		CsExpectedTerminal otherExpectedTerminal = (CsExpectedTerminal) o;
+		if (this.container == null && otherExpectedTerminal.container != null) {
+			return false;
+		}
+		boolean containersBothNull = this.container == null && otherExpectedTerminal.container == null;
+		return this.terminal.equals((otherExpectedTerminal).terminal) && (containersBothNull || this.container.equals(otherExpectedTerminal.container));
 	}
 	
 	public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {
@@ -76,8 +98,12 @@ public class CsExpectedTerminal {
 		this.prefix = prefix;
 	}
 	
-	public org.eclipse.emf.ecore.EStructuralFeature[] getContainmentTrace() {
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] getContainmentTrace() {
 		return containmentTrace;
+	}
+	
+	public org.eclipse.emf.ecore.EObject getContainer() {
+		return container;
 	}
 	
 }

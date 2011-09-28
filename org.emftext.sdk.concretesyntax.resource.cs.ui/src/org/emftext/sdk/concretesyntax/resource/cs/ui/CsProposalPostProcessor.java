@@ -53,6 +53,7 @@ public class CsProposalPostProcessor {
 					if (OptionManager.INSTANCE.getBooleanOptions().contains(type)) {
 						newProposals.remove(newProposals.size() - 1);
 						newProposals.add(new CsCompletionProposal(
+								null,
 								"\"true\"",
 								proposal.getPrefix(), 
 								proposal.getMatchesPrefix(), 
@@ -60,6 +61,7 @@ public class CsProposalPostProcessor {
 								container 
 						));
 						newProposals.add(new CsCompletionProposal(
+								null,
 								"\"false\"",
 								proposal.getPrefix(), 
 								proposal.getMatchesPrefix(), 
@@ -72,6 +74,7 @@ public class CsProposalPostProcessor {
 			} else if (ConcretesyntaxPackage.eINSTANCE.getCsString_Value() == feature) {
 				newProposals.remove(newProposals.size() - 1);
 				newProposals.add(new CsCompletionProposal(
+						null,
 						"\"keyword\"",
 						proposal.getPrefix(), 
 						proposal.getMatchesPrefix(), 
@@ -81,6 +84,7 @@ public class CsProposalPostProcessor {
 			} else if (ConcretesyntaxPackage.eINSTANCE.getNamedTokenDefinition_Name() == feature) {
 				newProposals.remove(newProposals.size() - 1);
 				newProposals.add(new CsCompletionProposal(
+						null,
 						"TOKEN_NAME",
 						proposal.getPrefix(), 
 						proposal.getMatchesPrefix(), 
@@ -108,6 +112,7 @@ public class CsProposalPostProcessor {
 							for (CsAnalysisProblemType problemType : problemTypes) {
 								if (problemType.getProblemSeverity() == CsEProblemSeverity.WARNING) {
 									newProposals.add(new CsCompletionProposal(
+											null,
 											problemType.getName(),
 											proposal.getPrefix(), 
 											proposal.getMatchesPrefix(), 
@@ -140,6 +145,7 @@ public class CsProposalPostProcessor {
 					}
 				}
 				newProposals.add(new CsCompletionProposal(
+						null,
 						insertString,
 						proposal.getPrefix(), 
 						proposal.getMatchesPrefix(), 
@@ -178,6 +184,7 @@ public class CsProposalPostProcessor {
 				getHex(color.getBlue());
 			rgb = rgb.toUpperCase();
 			newProposals.add(new CsCompletionProposal(
+					null,
 					rgb,
 					prefix, 
 					startsWithPrefix, 

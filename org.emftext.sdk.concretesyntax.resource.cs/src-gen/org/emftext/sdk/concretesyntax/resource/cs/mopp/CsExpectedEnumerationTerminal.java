@@ -44,4 +44,8 @@ public class CsExpectedEnumerationTerminal extends org.emftext.sdk.concretesynta
 	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsEnumerationTerminal getEnumerationTerminal() {
 		return this.enumerationTerminal;
 	}
+	public String toString() {
+		return "EnumTerminal \"" + getEnumerationTerminal() + "\"";
+	}
+	
 }
