@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
@@ -83,6 +84,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		addComputeCompletionProposalsMethod(sc);
 		addParseToExpectedElementsMethod(sc);
 		addRemoveDuplicateEntriesMethod(sc);
+		addRemoveDuplicateEntries2Method(sc);
 		addRemoveInvalidEntriesAtEndMethod(sc);
 		addShouldRemoveMethod(sc);
 		addRemoveKeywordsEndingBeforeIndexMethod(sc);
@@ -336,7 +338,6 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return container;");
 		sc.add("}");
 		sc.addComment("the container is wrong");
-		sc.add("boolean attachedArtificialContainer = false;");
 		sc.add(E_OBJECT + " parent = null;");
 		sc.add(E_OBJECT + " previousParent = null;");
 		sc.add(E_OBJECT + " correctContainer = container;");
@@ -348,11 +349,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (i > 0) {");
 		sc.add("previousLink = containmentTrace[i - 1];");
 		sc.add("}");
-		sc.add("if (attachedArtificialContainer) {");
-		sc.add("break;");
-		sc.add("}");
 		sc.add(E_CLASS + " containerClass = currentLink.getContainerClass();");
-		sc.add("if (containerClass.equals(container.eClass())) {");
+		sc.add("if (container != null && containerClass.equals(container.eClass())) {");
 		sc.addComment("we found the correct parent");
 		sc.add("parent = container;");
 		sc.add("break;");
@@ -372,6 +370,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(eObjectUtilClassName + ".setFeature(parent, previousLink.getFeature(), previousParent, false);");
 		sc.add("}");
 		*/
+		sc.addLineBreak();
+		sc.add("if (currentLink == null) {");
+		sc.add("return correctContainer;");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("final " + E_OBJECT + " finalContainer = container;");
 		sc.add("final " + E_STRUCTURAL_FEATURE + " finalFeature = currentLink.getFeature();");
@@ -552,19 +554,64 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addRemoveDuplicateEntriesMethod(StringComposite sc) {
-		sc.add("private void removeDuplicateEntries(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
-		sc.add("for (int i = 0; i < expectedElements.size() - 1; i++) {");
+	private void addRemoveDuplicateEntries2Method(StringComposite sc) {
+		sc.add("private void removeDuplicateEntries2(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
+		sc.add("int size = expectedElements.size();");
+		sc.add("for (int i = 0; i < size - 1; i++) {");
 		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
-		sc.add("for (int j = i + 1; j < expectedElements.size();) {");
+		sc.add(iExpectedElementClassName + " terminal = elementAtIndex.getTerminal();");
+		sc.add("for (int j = i + 1; j < size;) {");
 		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(j);");
-		sc.add("if (elementAtIndex.equals(elementAtNext) && elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {");
+		sc.add("if (terminal.equals(elementAtNext.getTerminal())) {");
 		sc.add("expectedElements.remove(j);");
+		sc.add("size--;");
 		sc.add("} else {");
 		sc.add("j++;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+		
+	private void addRemoveDuplicateEntriesMethod(JavaComposite sc) {
+		sc.add("private void removeDuplicateEntries(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
+		sc.add("int size = expectedElements.size();");
+		sc.addComment(
+			"We split the list of expected elements into buckets where each bucket " +
+			"contains the elements that start at the same position."
+		);
+		sc.add(MAP + "<Integer, " + LIST + "<" + expectedTerminalClassName + ">> map = new " + LINKED_HASH_MAP + "<Integer, " + LIST + "<" + expectedTerminalClassName + ">>();");
+		sc.add("for (int i = 0; i < size; i++) {");
+		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
+		sc.add("int start1 = elementAtIndex.getStartExcludingHiddenTokens();");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> list = map.get(start1);");
+		sc.add("if (list == null) {");
+		sc.add("list = new " + ARRAY_LIST + "<" + expectedTerminalClassName + ">();");
+		sc.add("map.put(start1, list);");
+		sc.add("}");
+		sc.add("list.add(elementAtIndex);");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.addComment(
+			"Then, we remove all duplicate elements from each bucket individually."
+		);
+		sc.add("for (int position : map.keySet()) {");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> list = map.get(position);");
+		sc.add("removeDuplicateEntries2(list);");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.addComment(
+			"After removing all duplicates, we merge the buckets."
+		);
+		sc.add("expectedElements.clear();");
+		sc.add("for (int position : map.keySet()) {");
+		sc.add(LIST + "<" + expectedTerminalClassName + "> list = map.get(position);");
+		sc.add("expectedElements.addAll(list);");
+		sc.add("}");
+
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -625,7 +672,14 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"propose them until the element before the cursor was completed."
 		);
 		sc.add("allProposals.addAll(leftProposals);");
-		sc.add("if (leftProposals.isEmpty()) {");
+		sc.addComment("Count the proposals before the cursor that match the prefix");
+		sc.add("int leftMatchingProposals = 0;");
+		sc.add("for (" + completionProposalClassName + " leftProposal : leftProposals) {");
+		sc.add("if (leftProposal.getMatchesPrefix()) {");
+		sc.add("leftMatchingProposals++;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("if (leftMatchingProposals == 0) {");
 		sc.add("allProposals.addAll(rightProposals);");
 		sc.add("}");
 		sc.addComment(

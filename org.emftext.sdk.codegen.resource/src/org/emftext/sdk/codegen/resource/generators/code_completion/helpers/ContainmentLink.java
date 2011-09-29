@@ -25,4 +25,8 @@ public class ContainmentLink {
 	public GenFeature getFeature() {
 		return genFeature;
 	}
+	
+	public String toString() {
+		return genFeature.getName() + "->" + containerClass.getName();
+	}
 }

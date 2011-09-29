@@ -76,6 +76,6 @@ public class Expectation {
 	}
 	
 	public String toString() {
-		return "Expectation(" + expectedElement + ")";
+		return "Expectation(" + expectedElement + ") " + containmentTrace;
 	}
 }
