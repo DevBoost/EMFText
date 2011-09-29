@@ -84,7 +84,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		addComputeCompletionProposalsMethod(sc);
 		addParseToExpectedElementsMethod(sc);
 		addRemoveDuplicateEntriesMethod(sc);
-		addRemoveDuplicateEntries2Method(sc);
+		addRemoveDuplicateEntriesFromBucketMethod(sc);
 		addRemoveInvalidEntriesAtEndMethod(sc);
 		addShouldRemoveMethod(sc);
 		addRemoveKeywordsEndingBeforeIndexMethod(sc);
@@ -554,8 +554,13 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addRemoveDuplicateEntries2Method(StringComposite sc) {
-		sc.add("private void removeDuplicateEntries2(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
+	private void addRemoveDuplicateEntriesFromBucketMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Removes all expected elements that refer to the same terminal. " +
+			"Attention: This methods assumes that the given list of expected " +
+			"terminals contains only elements that start at the same position."
+		);
+		sc.add("private void removeDuplicateEntriesFromBucket(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("int size = expectedElements.size();");
 		sc.add("for (int i = 0; i < size - 1; i++) {");
 		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
@@ -575,6 +580,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 		
 	private void addRemoveDuplicateEntriesMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Removes all expected elements that refer to the same terminal and " +
+			"that start at the same position."
+		);
 		sc.add("private void removeDuplicateEntries(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("int size = expectedElements.size();");
 		sc.addComment(
@@ -599,7 +608,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		);
 		sc.add("for (int position : map.keySet()) {");
 		sc.add(LIST + "<" + expectedTerminalClassName + "> list = map.get(position);");
-		sc.add("removeDuplicateEntries2(list);");
+		sc.add("removeDuplicateEntriesFromBucket(list);");
 		sc.add("}");
 		sc.addLineBreak();
 
