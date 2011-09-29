@@ -103,6 +103,10 @@ public class CsCodeCompletionHelper {
 		return expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal[expectedElements.size()]);
 	}
 	
+	/**
+	 * Removes all expected elements that refer to the same terminal and that start at
+	 * the same position.
+	 */
 	private void removeDuplicateEntries(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements) {
 		int size = expectedElements.size();
 		// We split the list of expected elements into buckets where each bucket contains
@@ -122,7 +126,7 @@ public class CsCodeCompletionHelper {
 		// Then, we remove all duplicate elements from each bucket individually.
 		for (int position : map.keySet()) {
 			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> list = map.get(position);
-			removeDuplicateEntries2(list);
+			removeDuplicateEntriesFromBucket(list);
 		}
 		
 		// After removing all duplicates, we merge the buckets.
@@ -133,7 +137,12 @@ public class CsCodeCompletionHelper {
 		}
 	}
 	
-	private void removeDuplicateEntries2(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements) {
+	/**
+	 * Removes all expected elements that refer to the same terminal. Attention: This
+	 * methods assumes that the given list of expected terminals contains only
+	 * elements that start at the same position.
+	 */
+	private void removeDuplicateEntriesFromBucket(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements) {
 		int size = expectedElements.size();
 		for (int i = 0; i < size - 1; i++) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtIndex = expectedElements.get(i);
