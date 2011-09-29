@@ -14,6 +14,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+/**
+ * This class contains some constants that are used during code completion.
+ */
 public class CsExpectationConstants {
 	
 	public final static int EXPECTATIONS[][] = new int[567][];

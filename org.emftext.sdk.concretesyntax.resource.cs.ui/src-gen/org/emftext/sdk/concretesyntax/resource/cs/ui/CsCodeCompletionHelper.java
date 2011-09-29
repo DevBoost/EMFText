@@ -68,7 +68,14 @@ public class CsCodeCompletionHelper {
 		// are discarded, because it does not make sense to propose them until the element
 		// before the cursor was completed.
 		allProposals.addAll(leftProposals);
-		if (leftProposals.isEmpty()) {
+		// Count the proposals before the cursor that match the prefix
+		int leftMatchingProposals = 0;
+		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal leftProposal : leftProposals) {
+			if (leftProposal.getMatchesPrefix()) {
+				leftMatchingProposals++;
+			}
+		}
+		if (leftMatchingProposals == 0) {
 			allProposals.addAll(rightProposals);
 		}
 		// Third, the proposals are sorted according to their relevance. Proposals that
@@ -97,12 +104,45 @@ public class CsCodeCompletionHelper {
 	}
 	
 	private void removeDuplicateEntries(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements) {
-		for (int i = 0; i < expectedElements.size() - 1; i++) {
+		int size = expectedElements.size();
+		// We split the list of expected elements into buckets where each bucket contains
+		// the elements that start at the same position.
+		java.util.Map<Integer, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal>> map = new java.util.LinkedHashMap<Integer, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal>>();
+		for (int i = 0; i < size; i++) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtIndex = expectedElements.get(i);
-			for (int j = i + 1; j < expectedElements.size();) {
+			int start1 = elementAtIndex.getStartExcludingHiddenTokens();
+			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> list = map.get(start1);
+			if (list == null) {
+				list = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal>();
+				map.put(start1, list);
+			}
+			list.add(elementAtIndex);
+		}
+		
+		// Then, we remove all duplicate elements from each bucket individually.
+		for (int position : map.keySet()) {
+			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> list = map.get(position);
+			removeDuplicateEntries2(list);
+		}
+		
+		// After removing all duplicates, we merge the buckets.
+		expectedElements.clear();
+		for (int position : map.keySet()) {
+			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> list = map.get(position);
+			expectedElements.addAll(list);
+		}
+	}
+	
+	private void removeDuplicateEntries2(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements) {
+		int size = expectedElements.size();
+		for (int i = 0; i < size - 1; i++) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtIndex = expectedElements.get(i);
+			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal = elementAtIndex.getTerminal();
+			for (int j = i + 1; j < size;) {
 				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtNext = expectedElements.get(j);
-				if (elementAtIndex.equals(elementAtNext) && elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
+				if (terminal.equals(elementAtNext.getTerminal())) {
 					expectedElements.remove(j);
+					size--;
 				} else {
 					j++;
 				}
@@ -410,7 +450,6 @@ public class CsCodeCompletionHelper {
 			return container;
 		}
 		// the container is wrong
-		boolean attachedArtificialContainer = false;
 		org.eclipse.emf.ecore.EObject parent = null;
 		org.eclipse.emf.ecore.EObject previousParent = null;
 		org.eclipse.emf.ecore.EObject correctContainer = container;
@@ -422,11 +461,8 @@ public class CsCodeCompletionHelper {
 			if (i > 0) {
 				previousLink = containmentTrace[i - 1];
 			}
-			if (attachedArtificialContainer) {
-				break;
-			}
 			org.eclipse.emf.ecore.EClass containerClass = currentLink.getContainerClass();
-			if (containerClass.equals(container.eClass())) {
+			if (container != null && containerClass.equals(container.eClass())) {
 				// we found the correct parent
 				parent = container;
 				break;
@@ -440,6 +476,10 @@ public class CsCodeCompletionHelper {
 					org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(parent, previousLink.getFeature(), previousParent, false);
 				}
 			}
+		}
+		
+		if (currentLink == null) {
+			return correctContainer;
 		}
 		
 		final org.eclipse.emf.ecore.EObject finalContainer = container;
