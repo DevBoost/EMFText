@@ -104,6 +104,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		addGetNamesMethod(sc);
 		addMatchesMethod2(sc);
 		addGetNameMethod(sc);
+		addHasCorrectETypeMethod(sc);
 		addHasCorrectTypeMethod(sc);
 		addLoadResourceMethod(sc);
 		addGetUriMethod(sc);
@@ -345,7 +346,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("boolean hasCorrectType = hasCorrectType(element, type.getInstanceClass());");
+		sc.add("boolean hasCorrectType = hasCorrectEType(element, type);");
 		sc.add("if (!hasCorrectType) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -536,8 +537,18 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
+	private void addHasCorrectETypeMethod(StringComposite sc) {
+		sc.add("protected boolean hasCorrectEType(" + E_OBJECT + " element, " + E_CLASS + " expectedTypeEClass) {");
+		sc.add("if (expectedTypeEClass.getInstanceClass() == null) {");
+		sc.add("return expectedTypeEClass.isInstance(element);");
+		sc.add("}");
+		sc.add("return hasCorrectType(element, expectedTypeEClass.getInstanceClass());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addHasCorrectTypeMethod(StringComposite sc) {
-		sc.add("protected boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {");
+		sc.add("protected boolean hasCorrectType(" + E_OBJECT + " element, Class<?> expectedTypeClass) {");
 		sc.add("return expectedTypeClass.isInstance(element);");
 		sc.add("}");
 		sc.addLineBreak();
