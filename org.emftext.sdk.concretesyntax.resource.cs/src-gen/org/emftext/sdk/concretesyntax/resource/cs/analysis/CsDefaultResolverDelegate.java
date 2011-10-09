@@ -112,7 +112,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * Returns all EObjects that are referenced by EObjects in the resource that
 	 * contains <code>object</code>, but that are located in different resources.
 	 */
-	private java.util.Set<org.eclipse.emf.ecore.EObject> findReferencedExternalObjects(org.eclipse.emf.ecore.EObject object) {
+	protected java.util.Set<org.eclipse.emf.ecore.EObject> findReferencedExternalObjects(org.eclipse.emf.ecore.EObject object) {
 		org.eclipse.emf.ecore.EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(object);
 		java.util.Map<org.eclipse.emf.ecore.EObject, java.util.Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting>> proxies = org.eclipse.emf.ecore.util.EcoreUtil.ProxyCrossReferencer.find(root);
 		int proxyCount = 0;
@@ -139,7 +139,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * Returns all EObjects that are not contained in the same resource as the given
 	 * EObject.
 	 */
-	private java.util.Set<org.eclipse.emf.ecore.EObject> getExternalObjects(java.util.Collection<org.eclipse.emf.ecore.EObject> objects, org.eclipse.emf.ecore.EObject object) {
+	protected java.util.Set<org.eclipse.emf.ecore.EObject> getExternalObjects(java.util.Collection<org.eclipse.emf.ecore.EObject> objects, org.eclipse.emf.ecore.EObject object) {
 		java.util.Set<org.eclipse.emf.ecore.EObject> externalObjects = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
 		for (org.eclipse.emf.ecore.EObject next : objects) {
 			if (next.eResource() != object.eResource()) {
@@ -186,7 +186,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return true;
 	}
 	
-	private boolean tryToResolveIdentifierAsURI(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	protected boolean tryToResolveIdentifierAsURI(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 		org.eclipse.emf.ecore.resource.Resource resource = container.eResource();
 		if (resource != null) {
@@ -202,7 +202,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return true;
 	}
 	
-	private boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	protected boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		org.eclipse.emf.ecore.EClass type = reference.getEReferenceType();
 		
 		final java.util.Map<String, org.eclipse.emf.common.util.URI> packageNsURIToGenModelLocationMap = org.eclipse.emf.ecore.plugin.EcorePlugin.getEPackageNsURIToGenModelLocationMap();
@@ -230,12 +230,12 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return true;
 	}
 	
-	private boolean checkElement(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EReference reference, int position, org.eclipse.emf.ecore.EClass type, String identifier, boolean resolveFuzzy, boolean checkStringWise, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	protected boolean checkElement(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EReference reference, int position, org.eclipse.emf.ecore.EClass type, String identifier, boolean resolveFuzzy, boolean checkStringWise, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		if (element.eIsProxy()) {
 			return true;
 		}
 		
-		boolean hasCorrectType = hasCorrectType(element, type.getInstanceClass());
+		boolean hasCorrectType = hasCorrectEType(element, type);
 		if (!hasCorrectType) {
 			return true;
 		}
@@ -280,7 +280,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * compilation. Thus, an instanceof check cannot be performed at runtime.
 	 */
 	@SuppressWarnings("unchecked")	
-	private ReferenceType cast(org.eclipse.emf.ecore.EObject element) {
+	protected ReferenceType cast(org.eclipse.emf.ecore.EObject element) {
 		return (ReferenceType) element;
 	}
 	
@@ -299,7 +299,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return getName(element);
 	}
 	
-	private StringMatch matches(org.eclipse.emf.ecore.EObject element, String identifier, boolean matchFuzzy) {
+	protected StringMatch matches(org.eclipse.emf.ecore.EObject element, String identifier, boolean matchFuzzy) {
 		for (Object name : getNames(element)) {
 			StringMatch match = matches(identifier, name, matchFuzzy);
 			if (match.getExactMatch() != null) {
@@ -318,7 +318,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return nameProvider.getNames(element);
 	}
 	
-	private StringMatch matches(String identifier, Object attributeValue, boolean matchFuzzy) {
+	protected StringMatch matches(String identifier, Object attributeValue, boolean matchFuzzy) {
 		if (attributeValue != null && attributeValue instanceof String) {
 			String name = (String) attributeValue;
 			if (name.equals(identifier) || matchFuzzy) {
@@ -333,7 +333,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return new StringMatch();
 	}
 	
-	private String getName(ReferenceType element) {
+	protected String getName(ReferenceType element) {
 		String deresolvedReference = null;
 		if (element instanceof org.eclipse.emf.ecore.EObject) {
 			org.eclipse.emf.ecore.EObject eObjectToDeResolve = (org.eclipse.emf.ecore.EObject) element;
@@ -359,11 +359,18 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return null;
 	}
 	
-	private boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {
+	protected boolean hasCorrectEType(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass expectedTypeEClass) {
+		if (expectedTypeEClass.getInstanceClass() == null) {
+			return expectedTypeEClass.isInstance(element);
+		}
+		return hasCorrectType(element, expectedTypeEClass.getInstanceClass());
+	}
+	
+	protected boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {
 		return expectedTypeClass.isInstance(element);
 	}
 	
-	private org.eclipse.emf.ecore.EObject loadResource(org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.emf.common.util.URI uri) {
+	protected org.eclipse.emf.ecore.EObject loadResource(org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.emf.common.util.URI uri) {
 		try {
 			org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(uri, true);
 			org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> contents = resource.getContents();
@@ -377,7 +384,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return null;
 	}
 	
-	private org.eclipse.emf.common.util.URI getURI(String identifier, org.eclipse.emf.common.util.URI baseURI) {
+	protected org.eclipse.emf.common.util.URI getURI(String identifier, org.eclipse.emf.common.util.URI baseURI) {
 		if (identifier == null) {
 			return null;
 		}
@@ -416,7 +423,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 		return enableScoping;
 	}
 	
-	private boolean isSimilar(String identifier, Object attributeValue) {
+	protected boolean isSimilar(String identifier, Object attributeValue) {
 		if (attributeValue != null && attributeValue instanceof String) {
 			String name = (String) attributeValue;
 			if (org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.computeLevenshteinDistance(identifier, name) <= MAX_DISTANCE) {

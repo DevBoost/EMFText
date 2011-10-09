@@ -34,6 +34,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			return tokenName;
 		}
 		
+		public String toString() {
+			return "'" + text + "' [" + tokenName + "]";
+		}
+		
 	}
 	
 	/**
