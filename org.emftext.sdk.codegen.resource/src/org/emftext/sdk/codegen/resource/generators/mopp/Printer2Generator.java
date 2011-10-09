@@ -98,6 +98,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("return tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
+		sc.add("public String toString() {");
+		sc.add("return \"'\" + text + \"' [\" + tokenName + \"]\";");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}
