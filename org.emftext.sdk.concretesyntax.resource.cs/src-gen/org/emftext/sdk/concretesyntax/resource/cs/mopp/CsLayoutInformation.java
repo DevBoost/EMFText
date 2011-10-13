@@ -25,11 +25,39 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
  */
 public class CsLayoutInformation {
 	
+	/**
+	 * The element in the grammar that is associated with this layout information.
+	 * This can be either an attribute, a non-containment reference (placeholder) or a
+	 * terminal (boolean or enumeration).
+	 */
 	private final org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement;
+	
+	/**
+	 * The offset in the document where this piece of layout was found.
+	 */
 	private final int startOffset;
+	
+	/**
+	 * Contains a concatenated version of all hidden tokens that were found before
+	 * this object.
+	 */
 	private final String hiddenTokenText;
+	
+	/**
+	 * Contains the visible token that represented this object in its text form.
+	 */
 	private final String visibleTokenText;
+	
+	/**
+	 * The object the layout information refers to. This can be either the value of an
+	 * attribute or a referenced EObject.
+	 */
 	private Object object;
+	
+	/**
+	 * A flag that is used to remember whether the proxy to which this layout refers
+	 * was resolved.
+	 */
 	private boolean wasResolved;
 	
 	public CsLayoutInformation(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, Object object, int startOffset, String hiddenTokenText, String visibleTokenText) {

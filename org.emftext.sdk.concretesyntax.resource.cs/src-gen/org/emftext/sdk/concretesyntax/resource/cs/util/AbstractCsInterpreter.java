@@ -351,191 +351,191 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		return result;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_GenPackageDependentElement(org.emftext.sdk.concretesyntax.GenPackageDependentElement object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_GenPackageDependentElement(org.emftext.sdk.concretesyntax.GenPackageDependentElement genPackageDependentElement, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_ConcreteSyntax(org.emftext.sdk.concretesyntax.ConcreteSyntax object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_ConcreteSyntax(org.emftext.sdk.concretesyntax.ConcreteSyntax concreteSyntax, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Import(org.emftext.sdk.concretesyntax.Import object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Import(org.emftext.sdk.concretesyntax.Import _import, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_SyntaxElement(org.emftext.sdk.concretesyntax.SyntaxElement object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_SyntaxElement(org.emftext.sdk.concretesyntax.SyntaxElement syntaxElement, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Rule(org.emftext.sdk.concretesyntax.Rule object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Rule(org.emftext.sdk.concretesyntax.Rule rule, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Choice(org.emftext.sdk.concretesyntax.Choice object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Choice(org.emftext.sdk.concretesyntax.Choice choice, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Sequence(org.emftext.sdk.concretesyntax.Sequence object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Sequence(org.emftext.sdk.concretesyntax.Sequence sequence, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Definition(org.emftext.sdk.concretesyntax.Definition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Definition(org.emftext.sdk.concretesyntax.Definition definition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_CardinalityDefinition(org.emftext.sdk.concretesyntax.CardinalityDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_CardinalityDefinition(org.emftext.sdk.concretesyntax.CardinalityDefinition cardinalityDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Terminal(org.emftext.sdk.concretesyntax.Terminal object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Terminal(org.emftext.sdk.concretesyntax.Terminal terminal, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_CsString(org.emftext.sdk.concretesyntax.CsString object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_CsString(org.emftext.sdk.concretesyntax.CsString csString, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_WhiteSpaces(org.emftext.sdk.concretesyntax.WhiteSpaces object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_WhiteSpaces(org.emftext.sdk.concretesyntax.WhiteSpaces whiteSpaces, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_LineBreak(org.emftext.sdk.concretesyntax.LineBreak object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_LineBreak(org.emftext.sdk.concretesyntax.LineBreak lineBreak, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_CompoundDefinition(org.emftext.sdk.concretesyntax.CompoundDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_CompoundDefinition(org.emftext.sdk.concretesyntax.CompoundDefinition compoundDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexComposer(org.emftext.sdk.concretesyntax.RegexComposer object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexComposer(org.emftext.sdk.concretesyntax.RegexComposer regexComposer, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexOwner(org.emftext.sdk.concretesyntax.RegexOwner object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexOwner(org.emftext.sdk.concretesyntax.RegexOwner regexOwner, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexPart(org.emftext.sdk.concretesyntax.RegexPart object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexPart(org.emftext.sdk.concretesyntax.RegexPart regexPart, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexComposite(org.emftext.sdk.concretesyntax.RegexComposite object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexComposite(org.emftext.sdk.concretesyntax.RegexComposite regexComposite, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_AtomicRegex(org.emftext.sdk.concretesyntax.AtomicRegex object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_AtomicRegex(org.emftext.sdk.concretesyntax.AtomicRegex atomicRegex, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexReference(org.emftext.sdk.concretesyntax.RegexReference object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_RegexReference(org.emftext.sdk.concretesyntax.RegexReference regexReference, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenDirective(org.emftext.sdk.concretesyntax.TokenDirective object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenDirective(org.emftext.sdk.concretesyntax.TokenDirective tokenDirective, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_AbstractTokenDefinition(org.emftext.sdk.concretesyntax.AbstractTokenDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_AbstractTokenDefinition(org.emftext.sdk.concretesyntax.AbstractTokenDefinition abstractTokenDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_NamedTokenDefinition(org.emftext.sdk.concretesyntax.NamedTokenDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_NamedTokenDefinition(org.emftext.sdk.concretesyntax.NamedTokenDefinition namedTokenDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_ReferencableTokenDefinition(org.emftext.sdk.concretesyntax.ReferencableTokenDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_ReferencableTokenDefinition(org.emftext.sdk.concretesyntax.ReferencableTokenDefinition referencableTokenDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_PartialTokenDefinition(org.emftext.sdk.concretesyntax.PartialTokenDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_PartialTokenDefinition(org.emftext.sdk.concretesyntax.PartialTokenDefinition partialTokenDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_CompleteTokenDefinition(org.emftext.sdk.concretesyntax.CompleteTokenDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_CompleteTokenDefinition(org.emftext.sdk.concretesyntax.CompleteTokenDefinition completeTokenDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_NormalTokenDefinition(org.emftext.sdk.concretesyntax.NormalTokenDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_NormalTokenDefinition(org.emftext.sdk.concretesyntax.NormalTokenDefinition normalTokenDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenRedefinition(org.emftext.sdk.concretesyntax.TokenRedefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenRedefinition(org.emftext.sdk.concretesyntax.TokenRedefinition tokenRedefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_QuotedTokenDefinition(org.emftext.sdk.concretesyntax.QuotedTokenDefinition object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_QuotedTokenDefinition(org.emftext.sdk.concretesyntax.QuotedTokenDefinition quotedTokenDefinition, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenPriorityDirective(org.emftext.sdk.concretesyntax.TokenPriorityDirective object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenPriorityDirective(org.emftext.sdk.concretesyntax.TokenPriorityDirective tokenPriorityDirective, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Containment(org.emftext.sdk.concretesyntax.Containment object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Containment(org.emftext.sdk.concretesyntax.Containment containment, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Placeholder(org.emftext.sdk.concretesyntax.Placeholder object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Placeholder(org.emftext.sdk.concretesyntax.Placeholder placeholder, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken(org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken(org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken placeholderUsingSpecifiedToken, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken(org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken(org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken placeholderUsingDefaultToken, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_PlaceholderInQuotes(org.emftext.sdk.concretesyntax.PlaceholderInQuotes object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_PlaceholderInQuotes(org.emftext.sdk.concretesyntax.PlaceholderInQuotes placeholderInQuotes, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_BooleanTerminal(org.emftext.sdk.concretesyntax.BooleanTerminal object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_BooleanTerminal(org.emftext.sdk.concretesyntax.BooleanTerminal booleanTerminal, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_EnumTerminal(org.emftext.sdk.concretesyntax.EnumTerminal object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_EnumTerminal(org.emftext.sdk.concretesyntax.EnumTerminal enumTerminal, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_EnumLiteralTerminal(org.emftext.sdk.concretesyntax.EnumLiteralTerminal object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_EnumLiteralTerminal(org.emftext.sdk.concretesyntax.EnumLiteralTerminal enumLiteralTerminal, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Option(org.emftext.sdk.concretesyntax.Option object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Option(org.emftext.sdk.concretesyntax.Option option, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenStyle(org.emftext.sdk.concretesyntax.TokenStyle object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_TokenStyle(org.emftext.sdk.concretesyntax.TokenStyle tokenStyle, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Annotation(org.emftext.sdk.concretesyntax.Annotation object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Annotation(org.emftext.sdk.concretesyntax.Annotation annotation, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_Annotable(org.emftext.sdk.concretesyntax.Annotable object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_Annotable(org.emftext.sdk.concretesyntax.Annotable annotable, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_KeyValuePair(org.emftext.sdk.concretesyntax.KeyValuePair object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_KeyValuePair(org.emftext.sdk.concretesyntax.KeyValuePair keyValuePair, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_GenClassCache(org.emftext.sdk.concretesyntax.GenClassCache object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_GenClassCache(org.emftext.sdk.concretesyntax.GenClassCache genClassCache, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_java_util_Map_Entry(java.util.Map.Entry<?,?> object, ContextType context) {
+	public ResultType interprete_java_util_Map_Entry(java.util.Map.Entry<?,?> genClassCacheEntry, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_EClassUtil(org.emftext.sdk.concretesyntax.EClassUtil object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_EClassUtil(org.emftext.sdk.concretesyntax.EClassUtil eClassUtil, ContextType context) {
 		return null;
 	}
 	
-	public ResultType interprete_org_emftext_sdk_concretesyntax_DefaultTokenStyleAdder(org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder object, ContextType context) {
+	public ResultType interprete_org_emftext_sdk_concretesyntax_DefaultTokenStyleAdder(org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder defaultTokenStyleAdder, ContextType context) {
 		return null;
 	}
 	
