@@ -1938,7 +1938,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ExpectationConstants class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_ECLIPSE_PROXY" value="276" literal="overrideEclipeProxy"/>
+    <eLiterals name="OVERRIDE_ECLIPSE_PROXY" value="276" literal="overrideEclipeProxy">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the EclipseProxy class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

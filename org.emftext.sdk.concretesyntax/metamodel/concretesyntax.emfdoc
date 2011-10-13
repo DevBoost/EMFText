@@ -630,6 +630,8 @@ OptionTypes.OVERRIDE_CONTAINED_FEATURE : "If set to <code>false</code>, the Cont
 
 OptionTypes.OVERRIDE_EXPECTATION_CONSTANTS : "If set to <code>false</code>, the ExpectationConstants class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_ECLIPSE_PROXY : "If set to <code>false</code>, the EclipseProxy class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
