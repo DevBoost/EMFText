@@ -2216,7 +2216,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EXPECTATION_CONSTANTS(275, "OVERRIDE_EXPECTATION_CONSTANTS", "overrideExpectationConstants");
+	OVERRIDE_EXPECTATION_CONSTANTS(275, "OVERRIDE_EXPECTATION_CONSTANTS", "overrideExpectationConstants"), /**
+	 * The '<em><b>OVERRIDE ECLIPSE PROXY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ECLIPSE_PROXY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ECLIPSE_PROXY(276, "OVERRIDE_ECLIPSE_PROXY", "overrideEclipeProxy");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6848,6 +6856,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_EXPECTATION_CONSTANTS_VALUE = 275;
 /**
+	 * The '<em><b>OVERRIDE ECLIPSE PROXY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ECLIPSE PROXY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ECLIPSE_PROXY
+	 * @model literal="overrideEclipeProxy"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ECLIPSE_PROXY_VALUE = 276;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7128,6 +7150,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION,
 			OVERRIDE_CONTAINED_FEATURE,
 			OVERRIDE_EXPECTATION_CONSTANTS,
+			OVERRIDE_ECLIPSE_PROXY,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7448,6 +7471,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION_VALUE: return OVERRIDE_OUTLINE_PAGE_AUTO_EXPAND_ACTION;
 			case OVERRIDE_CONTAINED_FEATURE_VALUE: return OVERRIDE_CONTAINED_FEATURE;
 			case OVERRIDE_EXPECTATION_CONSTANTS_VALUE: return OVERRIDE_EXPECTATION_CONSTANTS;
+			case OVERRIDE_ECLIPSE_PROXY_VALUE: return OVERRIDE_ECLIPSE_PROXY;
 		}
 		return null;
 	}

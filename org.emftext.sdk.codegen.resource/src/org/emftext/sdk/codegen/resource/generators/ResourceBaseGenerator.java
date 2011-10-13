@@ -73,6 +73,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String dotProjectClassName;
 	protected String dummyEObjectClassName;
 	protected String dynamicTokenStyleClassName;
+	protected String eclipseProxyClassName;
 	protected String eClassUtilClassName;
 	protected String eDebugMessageTypesClassName;
 	protected String eObjectUtilClassName;
@@ -239,6 +240,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		dotProjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DOT_PROJECT);
 		dummyEObjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DUMMY_E_OBJECT);
 		dynamicTokenStyleClassName = context.getQualifiedClassName(TextResourceArtifacts.DYNAMIC_TOKEN_STYLER);
+		eclipseProxyClassName = context.getQualifiedClassName(TextResourceArtifacts.ECLIPSE_PROXY);
 		eClassUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_CLASS_UTIL);
 		eDebugMessageTypesClassName = context.getQualifiedClassName(TextResourceArtifacts.E_DEBUG_MESSAGE_TYPES);
 		eObjectUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.E_OBJECT_UTIL);

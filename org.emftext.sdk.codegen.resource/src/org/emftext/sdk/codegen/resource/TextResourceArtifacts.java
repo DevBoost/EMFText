@@ -183,6 +183,7 @@ import org.emftext.sdk.codegen.resource.generators.util.CopiedEListGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.CopiedEObjectInternalEListGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.EClassUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.EObjectUtilGenerator;
+import org.emftext.sdk.codegen.resource.generators.util.EclipseProxyGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.ListUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.MapUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.MinimalModelHelperGenerator;
@@ -368,6 +369,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CAST_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CastUtil", CastUtilGenerator.class, OptionTypes.OVERRIDE_CAST_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COPIED_E_LIST = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CopiedEList", CopiedEListGenerator.class, OptionTypes.OVERRIDE_COPIED_ELIST);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COPIED_E_OBJECT_INTERNAL_E_LIST = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "CopiedEObjectInternalEList", CopiedEObjectInternalEListGenerator.class, OptionTypes.OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ECLIPSE_PROXY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "EclipseProxy", EclipseProxyGenerator.class, OptionTypes.OVERRIDE_ECLIPSE_PROXY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_CLASS_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "EClassUtil", EClassUtilGenerator.class, OptionTypes.OVERRIDE_ECLASS_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_OBJECT_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "EObjectUtil", EObjectUtilGenerator.class, OptionTypes.OVERRIDE_EOBJECT_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LIST_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "ListUtil", ListUtilGenerator.class, OptionTypes.OVERRIDE_LIST_UTIL);

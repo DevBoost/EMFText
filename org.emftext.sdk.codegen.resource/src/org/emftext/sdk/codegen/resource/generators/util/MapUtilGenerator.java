@@ -13,6 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
@@ -33,6 +36,7 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addLineBreak();
 		addCastToMapMethod(sc);
 		addCastToEMapMethod(sc);
+		addPutAndMergeKeysMethod(sc);
 		sc.add("}");
 	}
 
@@ -82,5 +86,46 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addLineBreak();
 	}
 
-	
+	private void addPutAndMergeKeysMethod(JavaComposite sc) {
+		sc.addJavadoc("Adds a new key,value pair to the given map. If there "
+				+ "is already an entry with the same key, the two values are "
+				+ "collected in a list.");
+		sc.add("public static <K> void putAndMergeKeys(" + MAP
+				+ "<K, Object> map, K key, Object value) {");
+		sc.addComment("check if there is already an option set");
+		sc.add("if (map.containsKey(key)) {");
+		sc.add("Object currentValue = map.get(key);");
+		sc.add("if (currentValue instanceof " + LIST + "<?>) {");
+		sc.addComment("if the current value is a list, we add the new value to this list");
+		sc.add(LIST + "<?> currentValueAsList = (" + LIST
+				+ "<?>) currentValue;");
+		sc.add(LIST + "<Object> currentValueAsObjectList = "
+				+ listUtilClassName
+				+ ".copySafelyToObjectList(currentValueAsList);");
+		sc.add("if (value instanceof " + COLLECTION + "<?>) {");
+		sc.add("currentValueAsObjectList.addAll((" + COLLECTION
+				+ "<?>) value);");
+		sc.add("} else {");
+		sc.add("currentValueAsObjectList.add(value);");
+		sc.add("}");
+		sc.add("map.put(key, currentValueAsObjectList);");
+		sc.add("} else {");
+		sc.addComment("if the current value is not a list, we create a fresh list "
+				+ "and add both the old (current) and the new value to this list");
+		sc.add(LIST + "<Object> newValueList = new " + ARRAY_LIST
+				+ "<Object>();");
+		sc.add("newValueList.add(currentValue);");
+		sc.add("if (value instanceof " + COLLECTION + "<?>) {");
+		sc.add("newValueList.addAll((" + COLLECTION + "<?>) value);");
+		sc.add("} else {");
+		sc.add("newValueList.add(value);");
+		sc.add("}");
+		sc.add("map.put(key, newValueList);");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("map.put(key, value);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
 }

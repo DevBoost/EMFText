@@ -272,6 +272,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.CAST_UTIL);
 	    add(creators, TextResourceArtifacts.COPIED_E_LIST);
 	    add(creators, TextResourceArtifacts.COPIED_E_OBJECT_INTERNAL_E_LIST);
+	    add(creators, TextResourceArtifacts.ECLIPSE_PROXY);
 	    add(creators, TextResourceArtifacts.E_CLASS_UTIL);
 	    add(creators, TextResourceArtifacts.E_OBJECT_UTIL);
 	    add(creators, TextResourceArtifacts.LIST_UTIL);

@@ -20,7 +20,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BA
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CONSTRAINT_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTICIAN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
@@ -35,8 +34,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BATCH_VALIDATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
@@ -143,10 +140,7 @@ public class TextResourceGenerator extends
 		addAddWarningMethod1(sc);
 		addAddWarningMethod2(sc);
 		addGetDiagnosticsMethod(sc);
-
 		addAddDefaultLoadOptionsMethod(sc);
-		addLoadOptionsMethod(sc);
-
 		addClearStateMethod(sc);
 		addGetContentsMethod(sc);
 		addGetContentsInternalMethod(sc);
@@ -155,6 +149,7 @@ public class TextResourceGenerator extends
 		addRunValidatorsMethods(sc);
 		addGetQuickFixMethod(sc);
 		addIsMarkerCreationEnabledMethod(sc);
+		addIsEclipsePlatformAvailableMethod(sc);
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -185,7 +180,7 @@ public class TextResourceGenerator extends
 			sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 					+ "This is a bug, which is fixed in the Helios release. Nonetheless, we need to catch the "
 					+ "exception here.");
-			sc.add("if (" + PLATFORM + ".isRunning()) {");
+			sc.add("if (isEclipsePlatformAvailable() && " + PLATFORM + ".isRunning()) {");
 			sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 					+ "This is a workaround for bug 322079.");
 			sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN
@@ -415,49 +410,6 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addLoadOptionsMethod(JavaComposite sc) {
-		sc.addJavadoc("Adds a new key,value pair to the list of options. If there "
-				+ "is already an option with the same key, the two values are "
-				+ "collected in a list.");
-		sc.add("private void addLoadOption(" + MAP
-				+ "<Object, Object> options,Object key, Object value) {");
-		sc.addComment("check if there is already an option set");
-		sc.add("if (options.containsKey(key)) {");
-		sc.add("Object currentValue = options.get(key);");
-		sc.add("if (currentValue instanceof " + LIST + "<?>) {");
-		sc.addComment("if the current value is a list, we add the new value to this list");
-		sc.add(LIST + "<?> currentValueAsList = (" + LIST
-				+ "<?>) currentValue;");
-		sc.add(LIST + "<Object> currentValueAsObjectList = "
-				+ listUtilClassName
-				+ ".copySafelyToObjectList(currentValueAsList);");
-		sc.add("if (value instanceof " + COLLECTION + "<?>) {");
-		sc.add("currentValueAsObjectList.addAll((" + COLLECTION
-				+ "<?>) value);");
-		sc.add("} else {");
-		sc.add("currentValueAsObjectList.add(value);");
-		sc.add("}");
-		sc.add("options.put(key, currentValueAsObjectList);");
-		sc.add("} else {");
-		sc.addComment("if the current value is not a list, we create a fresh list "
-				+ "and add both the old (current) and the new value to this list");
-		sc.add(LIST + "<Object> newValueList = new " + ARRAY_LIST
-				+ "<Object>();");
-		sc.add("newValueList.add(currentValue);");
-		sc.add("if (value instanceof " + COLLECTION + "<?>) {");
-		sc.add("newValueList.addAll((" + COLLECTION + "<?>) value);");
-		sc.add("} else {");
-		sc.add("newValueList.add(value);");
-		sc.add("}");
-		sc.add("options.put(key, newValueList);");
-		sc.add("}");
-		sc.add("} else {");
-		sc.add("options.put(key, value);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addAddDefaultLoadOptionsMethod(JavaComposite sc) {
 		sc.add("protected " + MAP + "<Object, Object> addDefaultLoadOptions("
 				+ MAP + "<?, ?> loadOptions) {");
@@ -465,32 +417,25 @@ public class TextResourceGenerator extends
 				+ ".copySafelyToObjectToObjectMap(loadOptions);");
 		sc.addComment("first add static option provider");
 		sc.add("loadOptionsCopy.putAll(new " + optionProviderClassName + "().getOptions());");
+		sc.addLineBreak();
+		
 		sc.addComment("second, add dynamic option providers that are registered via extension");
-		sc.add("if (" + PLATFORM + ".isRunning()) {");
-		sc.addComment("find default load option providers");
-		sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM
-				+ ".getExtensionRegistry();");
-		sc.add(I_CONFIGURATION_ELEMENT
-				+ " configurationElements[] = extensionRegistry.getConfigurationElementsFor("
-				+ pluginActivatorClassName + ".EP_DEFAULT_LOAD_OPTIONS_ID);");
-		sc.add("for (" + I_CONFIGURATION_ELEMENT
-				+ " element : configurationElements) {");
-		sc.add("try {");
-		sc.add(iOptionProviderClassName + " provider = ("
-				+ iOptionProviderClassName
-				+ ") element.createExecutableExtension(\"class\");");
-		sc.add("final " + MAP + "<?, ?> options = provider.getOptions();");
-		sc.add("final " + COLLECTION + "<?> keys = options.keySet();");
-		sc.add("for (Object key : keys) {");
-		sc.add("addLoadOption(loadOptionsCopy, key, options.get(key));");
-		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-		sc.add(pluginActivatorClassName
-				+ ".logError(\"Exception while getting default options.\", ce);");
-		sc.add("}");
-		sc.add("}");
+		sc.add("if (isEclipsePlatformAvailable()) {");
+		sc.add("new " + eclipseProxyClassName + "().getDefaultLoadOptionProviderExtensions(loadOptionsCopy);");
 		sc.add("}");
 		sc.add("return loadOptionsCopy;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
+		sc.add("protected boolean isEclipsePlatformAvailable() {");
+		sc.add("try {");
+		sc.add("Class.forName(\"" + PLATFORM + "\");");
+		sc.add("return true;");
+		sc.add("} catch (ClassNotFoundException cnfe) {");
+		sc.add("}");
+		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -502,7 +447,7 @@ public class TextResourceGenerator extends
 				+ ELEMENT_BASED_TEXT_DIAGNOSTIC
 				+ "(locationMap, getURI(), problem, element);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
-		sc.add("if (isMarkerCreationEnabled()) {");
+		sc.add("if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
 		sc.add(markerHelperClassName + ".mark(this, diagnostic);");
 		sc.add("}");
 		sc.add("addQuickFixesToQuickFixMap(problem);");
@@ -540,7 +485,7 @@ public class TextResourceGenerator extends
 				+ POSITION_BASED_TEXT_DIAGNOSTIC
 				+ "(getURI(), problem, column, line, charStart, charEnd);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
-		sc.add("if (isMarkerCreationEnabled()) {");
+		sc.add("if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
 		sc.add(markerHelperClassName + ".mark(this, diagnostic);");
 		sc.add("}");
 		sc.add("addQuickFixesToQuickFixMap(problem);");
@@ -641,8 +586,11 @@ public class TextResourceGenerator extends
 	private void addRunPostProcessorsMethod(JavaComposite sc) {
 		sc.add("protected void runPostProcessors(" + MAP
 				+ "<?, ?> loadOptions) {");
+
+		sc.add("if (isEclipsePlatformAvailable()) {");
 		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
 				+ ".ANALYSIS_PROBLEM);");
+		sc.add("}");
 		sc.add("if (terminateReload) {");
 		sc.add("return;");
 		sc.add("}");
@@ -718,7 +666,7 @@ public class TextResourceGenerator extends
 		sc.add("internalURIFragmentMap.clear();");
 		sc.add("getErrors().clear();");
 		sc.add("getWarnings().clear();");
-		sc.add("if (isMarkerCreationEnabled()) {");
+		sc.add("if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
 		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
 				+ ".UNKNOWN);");
 		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
@@ -795,7 +743,9 @@ public class TextResourceGenerator extends
 		sc.add("if (((" + iTextDiagnosticClassName
 				+ ") errorCand).wasCausedBy(cause)) {");
 		sc.add("diagnostics.remove(errorCand);");
+		sc.add("if (isEclipsePlatformAvailable()) {");
 		sc.add(markerHelperClassName + ".unmark(this, cause);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
