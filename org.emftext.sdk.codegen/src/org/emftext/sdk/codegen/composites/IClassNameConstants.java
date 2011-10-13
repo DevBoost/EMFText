@@ -25,10 +25,11 @@ import java.util.Set;
  */
 public interface IClassNameConstants {
 	
-	public static String ARRAY_LIST = ArrayList.class.getName();
-	public static String LINKED_HASH_MAP = LinkedHashMap.class.getName();
-	public static String LINKED_HASH_SET = LinkedHashSet.class.getName();
-	public static String LIST = List.class.getName();
-	public static String MAP = Map.class.getName();
-	public static String SET = Set.class.getName();
+	public String ARRAY_LIST = ArrayList.class.getName();
+	public String LINKED_HASH_MAP = LinkedHashMap.class.getName();
+	public String LINKED_HASH_SET = LinkedHashSet.class.getName();
+	public String LIST = List.class.getName();
+	public String MAP = Map.class.getName();
+	public String MAP_ENTRY = Map.Entry.class.getCanonicalName();
+	public String SET = Set.class.getName();
 }

@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.MAP_ENTRY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMPTY_STACK_EXCEPTION;
@@ -39,6 +40,7 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.util.StringUtil;
 
 @SyntaxDependent
 public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -202,7 +204,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 	private String getTypeName(GenClass genClass) {
 		String typeName = genClassCache.getQualifiedInterfaceName(genClass);
 		// for maps we add type arguments to avoid compiler warnings
-		if ("java.util.Map.Entry".equals(typeName)) {
+		if (MAP_ENTRY.equals(typeName)) {
 			typeName += "<?,?>";
 		}
 		return typeName;
@@ -228,8 +230,11 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 	private void addInterpreteTypeMethod(StringComposite sc, GenClass genClass) {
 		String typeName = getTypeName(genClass);
 		String methodName = getMethodName(genClass);
-		
-		sc.add("public ResultType " + methodName + "(" + typeName + " object, ContextType context) {");
+		String objectName = StringUtil.firstToLower(genClass.getName());
+		if ("content".equals(objectName) || StringUtil.isReserveredWord(objectName)) {
+			objectName = "_" + objectName;
+		}
+		sc.add("public ResultType " + methodName + "(" + typeName + " " + objectName + ", ContextType context) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
