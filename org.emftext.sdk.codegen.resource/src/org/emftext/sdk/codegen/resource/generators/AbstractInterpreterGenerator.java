@@ -231,7 +231,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		String typeName = getTypeName(genClass);
 		String methodName = getMethodName(genClass);
 		String objectName = StringUtil.firstToLower(genClass.getName());
-		if ("content".equals(objectName) || StringUtil.isReserveredWord(objectName)) {
+		if ("context".equals(objectName) || StringUtil.isReserveredWord(objectName)) {
 			objectName = "_" + objectName;
 		}
 		sc.add("public ResultType " + methodName + "(" + typeName + " " + objectName + ", ContextType context) {");
