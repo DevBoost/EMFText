@@ -367,7 +367,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			if (errorCand instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) {
 				if (((org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) errorCand).wasCausedBy(cause)) {
 					diagnostics.remove(errorCand);
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, cause);
+					if (isEclipsePlatformAvailable()) {
+						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, cause);
+					}
 				}
 			}
 		}
@@ -409,7 +411,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
+		if (isEclipsePlatformAvailable()) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
+		}
 		if (terminateReload) {
 			return;
 		}
@@ -469,7 +473,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, org.eclipse.emf.ecore.EObject element) {
 		ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
-		if (isMarkerCreationEnabled()) {
+		if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 		}
 		addQuickFixesToQuickFixMap(problem);
@@ -478,7 +482,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
 		PositionBasedTextDiagnostic diagnostic = new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
-		if (isMarkerCreationEnabled()) {
+		if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 		}
 		addQuickFixesToQuickFixMap(problem);
@@ -525,60 +529,12 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		java.util.Map<Object, Object> loadOptionsCopy = org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil.copySafelyToObjectToObjectMap(loadOptions);
 		// first add static option provider
 		loadOptionsCopy.putAll(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsOptionProvider().getOptions());
+		
 		// second, add dynamic option providers that are registered via extension
-		if (org.eclipse.core.runtime.Platform.isRunning()) {
-			// find default load option providers
-			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
-			org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
-			for (org.eclipse.core.runtime.IConfigurationElement element : configurationElements) {
-				try {
-					org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider provider = (org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider) element.createExecutableExtension("class");
-					final java.util.Map<?, ?> options = provider.getOptions();
-					final java.util.Collection<?> keys = options.keySet();
-					for (Object key : keys) {
-						addLoadOption(loadOptionsCopy, key, options.get(key));
-					}
-				} catch (org.eclipse.core.runtime.CoreException ce) {
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while getting default options.", ce);
-				}
-			}
+		if (isEclipsePlatformAvailable()) {
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getDefaultLoadOptionProviderExtensions(loadOptionsCopy);
 		}
 		return loadOptionsCopy;
-	}
-	
-	/**
-	 * Adds a new key,value pair to the list of options. If there is already an option
-	 * with the same key, the two values are collected in a list.
-	 */
-	private void addLoadOption(java.util.Map<Object, Object> options,Object key, Object value) {
-		// check if there is already an option set
-		if (options.containsKey(key)) {
-			Object currentValue = options.get(key);
-			if (currentValue instanceof java.util.List<?>) {
-				// if the current value is a list, we add the new value to this list
-				java.util.List<?> currentValueAsList = (java.util.List<?>) currentValue;
-				java.util.List<Object> currentValueAsObjectList = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.copySafelyToObjectList(currentValueAsList);
-				if (value instanceof java.util.Collection<?>) {
-					currentValueAsObjectList.addAll((java.util.Collection<?>) value);
-				} else {
-					currentValueAsObjectList.add(value);
-				}
-				options.put(key, currentValueAsObjectList);
-			} else {
-				// if the current value is not a list, we create a fresh list and add both the old
-				// (current) and the new value to this list
-				java.util.List<Object> newValueList = new java.util.ArrayList<Object>();
-				newValueList.add(currentValue);
-				if (value instanceof java.util.Collection<?>) {
-					newValueList.addAll((java.util.Collection<?>) value);
-				} else {
-					newValueList.add(value);
-				}
-				options.put(key, newValueList);
-			}
-		} else {
-			options.put(key, value);
-		}
 	}
 	
 	/**
@@ -591,7 +547,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		internalURIFragmentMap.clear();
 		getErrors().clear();
 		getWarnings().clear();
-		if (isMarkerCreationEnabled()) {
+		if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
@@ -641,4 +597,13 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_CREATING_MARKERS_FOR_PROBLEMS);
 	}
+	protected boolean isEclipsePlatformAvailable() {
+		try {
+			Class.forName("org.eclipse.core.runtime.Platform");
+			return true;
+		} catch (ClassNotFoundException cnfe) {
+		}
+		return false;
+	}
+	
 }
