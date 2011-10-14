@@ -534,9 +534,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		Set<String> imports = new LinkedHashSet<String>();
 		imports.add("org.eclipse.core.resources");
 		imports.add("org.eclipse.emf");
-		imports.add("org.eclipse.emf.codegen.ecore");
 		imports.add("org.eclipse.emf.ecore");
-		imports.add("org.eclipse.emf.ecore.edit");
 		imports.add("org.eclipse.emf.validation");
 		imports.add("org.eclipse.emf.workspace");
 		imports.add("org.emftext.access;resolution:=optional");
