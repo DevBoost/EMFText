@@ -121,7 +121,7 @@ public abstract class CreateResourcePluginsJob extends AbstractCreatePluginJob {
 		}
 		
 		ANTLRGenerationContext antlrGenContext = new ANTLRGenerationContext(context.getFileSystemConnector(), context.getProblemCollector(), concreteSyntax, antlrPlugin);
-		boolean generateUIPlugin = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.GENERATE_UI_PLUGIN);
+		boolean generateUIPlugin = OptionManager.INSTANCE.generateUIPlugin(concreteSyntax);
 		
 		boolean generateAntlrPlugin = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.OVERRIDE_ANTLR_PLUGIN);
 		

@@ -280,14 +280,15 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.PAIR);
 	    add(creators, TextResourceArtifacts.MINIMAL_MODEL_HELPER);
 	    add(creators, TextResourceArtifacts.RESOURCE_UTIL);
+	    add(creators, TextResourceArtifacts.RUNTIME_UTIL);
 	    add(creators, TextResourceArtifacts.STREAM_UTIL);
 	    add(creators, TextResourceArtifacts.STRING_UTIL);
 	    add(creators, TextResourceArtifacts.TEXT_RESOURCE_UTIL);
 	    add(creators, TextResourceArtifacts.UNICODE_CONVERTER);
 	    add(creators, TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER);
-	    add(creators, TextResourceArtifacts.BUILDER);
-	    add(creators, TextResourceArtifacts.BUILDER_ADAPTER);
-	    add(creators, TextResourceArtifacts.I_BUILDER);
+		add(creators, TextResourceArtifacts.BUILDER);
+    	add(creators, TextResourceArtifacts.BUILDER_ADAPTER);
+    	add(creators, TextResourceArtifacts.I_BUILDER);
 	    add(creators, TextResourceArtifacts.NATURE);
 	    add(creators, TextResourceArtifacts.ABSTRACT_INTERPRETER);
 	    add(creators, TextResourceArtifacts.RESOURCE_POST_PROCESSOR);
@@ -530,9 +531,12 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 
 	private Collection<String> getRequiredBundles(GenerationContext context) {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		
 		Set<String> imports = new LinkedHashSet<String>();
-		imports.add("org.eclipse.core.resources");
+		if (!removeEclipseDependentCode) {
+			imports.add("org.eclipse.core.resources");
+		}
 		imports.add("org.eclipse.emf");
 		imports.add("org.eclipse.emf.ecore");
 		imports.add("org.eclipse.emf.validation");

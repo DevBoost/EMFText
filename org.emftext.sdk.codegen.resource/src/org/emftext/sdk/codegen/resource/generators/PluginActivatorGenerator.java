@@ -20,23 +20,32 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc("A singleton class for the text resource plug-in.");
-		sc.add("public class " + getResourceClassName() + " extends " + PLUGIN + " {");
+		String extendsClause = removeEclipseDependentCode ? "" : " extends " + PLUGIN;
+		sc.add("public class " + getResourceClassName() + extendsClause + " {");
 		sc.addLineBreak();
-		addFields(sc);
-		addConstructor(sc);
-		addMethods(sc);
+
+		if (!removeEclipseDependentCode) {
+			addFields(sc);
+			addConstructor(sc);
+			addMethods(sc);
+		} else {
+			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
+		}
 
 		sc.add("}");
 	}

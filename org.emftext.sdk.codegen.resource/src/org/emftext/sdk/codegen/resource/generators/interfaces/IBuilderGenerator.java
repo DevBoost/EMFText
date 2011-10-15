@@ -17,10 +17,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class IBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -30,9 +32,17 @@ public class IBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("public boolean isBuildingNeeded(" + URI + " uri);");
-		sc.addLineBreak();
-		sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor);");
+		
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		if (!removeEclipseDependentCode) {
+			sc.add("public boolean isBuildingNeeded(" + URI + " uri);");
+			sc.addLineBreak();
+			sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor);");
+			sc.addLineBreak();
+		} else {
+			sc.addComment("This interface is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
+		}
+
 		sc.add("}");
 	}
 }

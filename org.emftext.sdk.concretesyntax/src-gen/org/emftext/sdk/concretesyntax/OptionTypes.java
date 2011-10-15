@@ -2224,7 +2224,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ECLIPSE_PROXY(276, "OVERRIDE_ECLIPSE_PROXY", "overrideEclipeProxy");
+	OVERRIDE_ECLIPSE_PROXY(276, "OVERRIDE_ECLIPSE_PROXY", "overrideEclipeProxy"), /**
+	 * The '<em><b>OVERRIDE RUNTIME UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RUNTIME_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_RUNTIME_UTIL(277, "OVERRIDE_RUNTIME_UTIL", "overrideRuntimeUtil"), /**
+	 * The '<em><b>REMOVE ECLIPSE DEPENDENT CODE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	REMOVE_ECLIPSE_DEPENDENT_CODE(278, "REMOVE_ECLIPSE_DEPENDENT_CODE", "removeEclipseDependentCode");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6873,6 +6889,34 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_ECLIPSE_PROXY_VALUE = 276;
 /**
+	 * The '<em><b>OVERRIDE RUNTIME UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE RUNTIME UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RUNTIME_UTIL
+	 * @model literal="overrideRuntimeUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_RUNTIME_UTIL_VALUE = 277;
+/**
+	 * The '<em><b>REMOVE ECLIPSE DEPENDENT CODE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>REMOVE ECLIPSE DEPENDENT CODE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #REMOVE_ECLIPSE_DEPENDENT_CODE
+	 * @model literal="removeEclipseDependentCode"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE = 278;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7154,6 +7198,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_CONTAINED_FEATURE,
 			OVERRIDE_EXPECTATION_CONSTANTS,
 			OVERRIDE_ECLIPSE_PROXY,
+			OVERRIDE_RUNTIME_UTIL,
+			REMOVE_ECLIPSE_DEPENDENT_CODE,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7475,6 +7521,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_CONTAINED_FEATURE_VALUE: return OVERRIDE_CONTAINED_FEATURE;
 			case OVERRIDE_EXPECTATION_CONSTANTS_VALUE: return OVERRIDE_EXPECTATION_CONSTANTS;
 			case OVERRIDE_ECLIPSE_PROXY_VALUE: return OVERRIDE_ECLIPSE_PROXY;
+			case OVERRIDE_RUNTIME_UTIL_VALUE: return OVERRIDE_RUNTIME_UTIL;
+			case REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE: return REMOVE_ECLIPSE_DEPENDENT_CODE;
 		}
 		return null;
 	}

@@ -626,7 +626,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				+ "(actualInputStream, encoding))));");
 		sc.add("}");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"Error while creating parser.\", e);");
+		sc.add("new " + runtimeUtilClassName + "().logError(\"Error while creating parser.\", e);");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");

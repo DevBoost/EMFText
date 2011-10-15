@@ -18,6 +18,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,7 +32,12 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iBuilderClassName + " {");
 		sc.addLineBreak();
-		addMethods(sc);
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		if (!removeEclipseDependentCode) {
+			addMethods(sc);
+		} else {
+			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
+		}
 		sc.add("}");
 	}
 

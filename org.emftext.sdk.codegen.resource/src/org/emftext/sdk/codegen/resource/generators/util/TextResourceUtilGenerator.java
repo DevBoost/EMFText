@@ -18,10 +18,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * Generates a utility class for text resources. This generator is only kept for compatibility
@@ -47,7 +49,11 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addGetResourceMethod1(sc);
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+
+		if (!removeEclipseDependentCode) {
+			addGetResourceMethod1(sc);
+		}
 		addGetResourceMethod2(sc);
 		addGetResourceMethod3(sc);
 		addGetResourceMethod4(sc);
@@ -80,7 +86,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addGetResourceMethod1(JavaComposite sc) {
 		sc.add("@Deprecated").addLineBreak();
 		sc.add("public static " + textResourceClassName + " getResource(" + I_FILE + " file) {");
-		sc.add("return " + resourceUtilClassName + ".getResource(file);");
+		sc.add("return new " + eclipseProxyClassName + "().getResource(file);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

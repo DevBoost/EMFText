@@ -25,6 +25,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MA
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -32,6 +33,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 @SyntaxDependent
 public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -40,13 +42,21 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + INCREMENTAL_PROJECT_BUILDER + " {");
+		String extendsClause = removeEclipseDependentCode ? "" : " extends " + INCREMENTAL_PROJECT_BUILDER;
+		sc.add("public class " + getResourceClassName() + extendsClause + " {");
 		sc.addLineBreak();
-		addFields(sc);
-		addBuildMethod1(sc);
-		addBuildMethod2(sc);
+
+		if (!removeEclipseDependentCode) {
+			addFields(sc);
+			addBuildMethod1(sc);
+			addBuildMethod2(sc);
+		} else {
+			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
+		}
 		sc.add("}");
 	}
 

@@ -13,19 +13,18 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * Generates a factory that delegates to other ResourceFactories based on secondary file 
@@ -41,7 +40,7 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Artifac
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName() + " implements " + RESOURCE + ".Factory {");
+        sc.add("public class " + getResourceClassName() + " implements " + RESOURCE_FACTORY + " {");
         sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -57,12 +56,12 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Artifac
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("protected " + MAP + "<String, " + RESOURCE + ".Factory> factories = null;");
+		sc.add("protected " + MAP + "<String, " + RESOURCE_FACTORY + "> factories = null;");
 		sc.addLineBreak();
 	}
 
 	private void addGetResourceFactoriesMapMethod(JavaComposite sc) {
-		sc.add("public " + MAP + "<String, " + RESOURCE + ".Factory> getResourceFactoriesMap() {");
+		sc.add("public " + MAP + "<String, " + RESOURCE_FACTORY + "> getResourceFactoriesMap() {");
 		sc.add("return factories;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -76,10 +75,10 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Artifac
 	}
 
 	private void addGetFactoryForURIMethod(JavaComposite sc) {
-		sc.add("public " + RESOURCE + ".Factory getFactoryForURI(" + URI + " uri) {");
+		sc.add("public " + RESOURCE_FACTORY + " getFactoryForURI(" + URI + " uri) {");
 		sc.add(URI + " trimmedURI = uri.trimFileExtension();");
 		sc.add("String secondaryFileExtension = trimmedURI.fileExtension();");
-		sc.add(RESOURCE + ".Factory factory = factories.get(secondaryFileExtension);");
+		sc.add(RESOURCE_FACTORY + " factory = factories.get(secondaryFileExtension);");
 		sc.add("if (factory == null) {");
 		sc.add("factory = factories.get(\"\");");
 		sc.add("}");
@@ -96,39 +95,17 @@ public class ResourceFactoryDelegatorGenerator extends JavaBaseGenerator<Artifac
 	}
 	
 	private void addInitMethod(StringComposite sc) {
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+
 		sc.add("protected void init() {");
      	sc.add("if (factories == null) {");
-    	sc.add("factories = new " + LINKED_HASH_MAP + "<String, " + RESOURCE + ".Factory>();");
+    	sc.add("factories = new " + LINKED_HASH_MAP + "<String, " + RESOURCE_FACTORY + ">();");
     	sc.add("}");
-     	sc.add("if (" + PLATFORM + ".isRunning()) {");
-    	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
-    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + pluginActivatorClassName + ".EP_ADDITIONAL_EXTENSION_PARSER_ID);");
-    	sc.add("for (" + I_CONFIGURATION_ELEMENT + " element : configurationElements) {");
-    	sc.add("try {");
-    	sc.add("String type = element.getAttribute(\"type\");");
-    	sc.add(RESOURCE +".Factory factory = (" + RESOURCE + ".Factory) element.createExecutableExtension(\"class\");");
-    	sc.add("if (type == null) {");
-    	sc.add("type = \"\";");
-    	sc.add("}");
-    	sc.add(RESOURCE + ".Factory otherFactory = factories.get(type);");
-		sc.add("if (otherFactory != null) {");
-		sc.add("Class<?> superClass = factory.getClass().getSuperclass();");
-		sc.add("while(superClass != Object.class) {");
-		sc.add("if (superClass.equals(otherFactory.getClass())) {");
-		sc.add("factories.put(type, factory);");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("superClass = superClass.getClass();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("else {");
-		sc.add("factories.put(type, factory);");
-		sc.add("}");
-    	sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-    	sc.add(pluginActivatorClassName + ".logError(\"Exception while getting default options.\", ce);");
-    	sc.add("}");
-    	sc.add("}");
-    	sc.add("}");
+    	if (!removeEclipseDependentCode) {
+    		sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+    		sc.add("new " + eclipseProxyClassName + "().getResourceFactoryExtensions(factories);");
+    		sc.add("}");
+    	}
     	sc.add("if (factories.get(\"\") == null) {");
     	sc.add("factories.put(\"\", new " + resourceFactoryClassName + "());");
     	sc.add("}");

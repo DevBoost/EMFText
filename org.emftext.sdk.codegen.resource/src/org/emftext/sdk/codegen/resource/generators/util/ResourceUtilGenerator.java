@@ -22,7 +22,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
@@ -77,6 +76,13 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addContainsErrorsMethod(sc);
 		addContainsWarningsMethod(sc);
 		addContainsProblemsMethod(sc);
+	}
+
+	private void addGetResourceMethod1(JavaComposite sc) {
+		sc.add("public static " + textResourceClassName + " getResource(" + FILE + " file) {");
+		sc.add("return getResource(file, null);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addFindUnresolvedProxiesMethod2(JavaComposite sc) {
@@ -169,19 +175,6 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addContainsProblemsMethod(JavaComposite sc) {
 		sc.add("public static boolean containsProblems(" + RESOURCE + " resource) {");
 		sc.add("return containsErrors(resource) || containsWarnings(resource);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetResourceMethod1(JavaComposite sc) {
-		sc.add("public static " + textResourceClassName + " getResource(" + I_FILE + " file) {");
-		sc.add(RESOURCE_SET + " rs = new " + RESOURCE_SET_IMPL + "();");
-		sc.add(RESOURCE + " csResource = rs.getResource(" + URI + ".createPlatformResourceURI(file.getFullPath().toString(),true), true);");
-		sc.add("return (" + textResourceClassName + ") csResource;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public static " + textResourceClassName + " getResource(" + FILE + " file) {");
-		sc.add("return getResource(file, null);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -189,6 +189,7 @@ import org.emftext.sdk.codegen.resource.generators.util.MapUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.MinimalModelHelperGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.PairGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.ResourceUtilGenerator;
+import org.emftext.sdk.codegen.resource.generators.util.RuntimeUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.StreamUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.StringUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.TextResourceUtilGenerator;
@@ -377,6 +378,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PAIR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "Pair", PairGenerator.class, OptionTypes.OVERRIDE_PAIR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MINIMAL_MODEL_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "MinimalModelHelper", MinimalModelHelperGenerator.class, OptionTypes.OVERRIDE_MINIMAL_MODEL_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "ResourceUtil", ResourceUtilGenerator.class, OptionTypes.OVERRIDE_RESOURCE_UTIL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RUNTIME_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "RuntimeUtil", RuntimeUtilGenerator.class, OptionTypes.OVERRIDE_RUNTIME_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> STREAM_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "StreamUtil", StreamUtilGenerator.class, OptionTypes.OVERRIDE_STREAM_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> STRING_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "StringUtil", StringUtilGenerator.class, OptionTypes.OVERRIDE_STRING_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TEXT_RESOURCE_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "TextResourceUtil", TextResourceUtilGenerator.class, OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL);

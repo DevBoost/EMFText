@@ -39,7 +39,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODEL_VALIDATION_SERVICE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
@@ -71,6 +70,7 @@ public class TextResourceGenerator extends
 	private ConcreteSyntax concreteSyntax;
 	private String csSyntaxName;
 	private boolean saveChangedResourcesOnly = false;
+	private boolean removeEclipseDependentCode = false;
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -79,6 +79,7 @@ public class TextResourceGenerator extends
 		saveChangedResourcesOnly = OptionManager.INSTANCE
 				.getBooleanOptionValue(concreteSyntax,
 						OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
+		removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -149,7 +150,6 @@ public class TextResourceGenerator extends
 		addRunValidatorsMethods(sc);
 		addGetQuickFixMethod(sc);
 		addIsMarkerCreationEnabledMethod(sc);
-		addIsEclipsePlatformAvailableMethod(sc);
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -158,7 +158,7 @@ public class TextResourceGenerator extends
 						OptionTypes.DISABLE_EVALIDATORS);
 		boolean disableEMFValidationConstraints = OptionManager.INSTANCE
 				.getBooleanOptionValue(concreteSyntax,
-						OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS);
+						OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS)  && !removeEclipseDependentCode;
 
 		if (!disableEMFValidationConstraints) {
 			sc.add("@SuppressWarnings(\"restriction\")");
@@ -180,7 +180,7 @@ public class TextResourceGenerator extends
 			sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 					+ "This is a bug, which is fixed in the Helios release. Nonetheless, we need to catch the "
 					+ "exception here.");
-			sc.add("if (isEclipsePlatformAvailable() && " + PLATFORM + ".isRunning()) {");
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
 			sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 					+ "This is a workaround for bug 322079.");
 			sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN
@@ -192,13 +192,12 @@ public class TextResourceGenerator extends
 			sc.add(I_STATUS + " status = validator.validate(root);");
 			sc.add("addStatus(status, root);");
 			sc.add("} catch (Throwable t) {");
-			sc.add(pluginActivatorClassName
-					+ ".logError(\"Exception while checking contraints provided by EMF validator classes.\", t);");
+			sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while checking contraints provided by EMF validator classes.\", t);");
 			sc.add("}");
 			sc.add("}");
 			sc.add("}");
 		} else {
-			sc.addComment("checking EMF validation constraints was disabled");
+			sc.addComment("checking EMF validation constraints was disabled either by option '" + OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS.getLiteral() + "' or '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE + "'.");
 		}
 		sc.add("}");
 		sc.addLineBreak();
@@ -419,23 +418,13 @@ public class TextResourceGenerator extends
 		sc.add("loadOptionsCopy.putAll(new " + optionProviderClassName + "().getOptions());");
 		sc.addLineBreak();
 		
-		sc.addComment("second, add dynamic option providers that are registered via extension");
-		sc.add("if (isEclipsePlatformAvailable()) {");
-		sc.add("new " + eclipseProxyClassName + "().getDefaultLoadOptionProviderExtensions(loadOptionsCopy);");
-		sc.add("}");
+		if (!removeEclipseDependentCode) {
+			sc.addComment("second, add dynamic option providers that are registered via extension");
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("new " + eclipseProxyClassName + "().getDefaultLoadOptionProviderExtensions(loadOptionsCopy);");
+			sc.add("}");
+		}
 		sc.add("return loadOptionsCopy;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
-		sc.add("protected boolean isEclipsePlatformAvailable() {");
-		sc.add("try {");
-		sc.add("Class.forName(\"" + PLATFORM + "\");");
-		sc.add("return true;");
-		sc.add("} catch (ClassNotFoundException cnfe) {");
-		sc.add("}");
-		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -447,9 +436,11 @@ public class TextResourceGenerator extends
 				+ ELEMENT_BASED_TEXT_DIAGNOSTIC
 				+ "(locationMap, getURI(), problem, element);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
-		sc.add("if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-		sc.add(markerHelperClassName + ".mark(this, diagnostic);");
-		sc.add("}");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
+			sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+			sc.add("}");
+		}
 		sc.add("addQuickFixesToQuickFixMap(problem);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -485,9 +476,11 @@ public class TextResourceGenerator extends
 				+ POSITION_BASED_TEXT_DIAGNOSTIC
 				+ "(getURI(), problem, column, line, charStart, charEnd);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
-		sc.add("if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-		sc.add(markerHelperClassName + ".mark(this, diagnostic);");
-		sc.add("}");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
+			sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+			sc.add("}");
+		}
 		sc.add("addQuickFixesToQuickFixMap(problem);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -587,10 +580,12 @@ public class TextResourceGenerator extends
 		sc.add("protected void runPostProcessors(" + MAP
 				+ "<?, ?> loadOptions) {");
 
-		sc.add("if (isEclipsePlatformAvailable()) {");
-		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
-				+ ".ANALYSIS_PROBLEM);");
-		sc.add("}");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
+					+ ".ANALYSIS_PROBLEM);");
+			sc.add("}");
+		}
 		sc.add("if (terminateReload) {");
 		sc.add("return;");
 		sc.add("}");
@@ -640,8 +635,7 @@ public class TextResourceGenerator extends
 		sc.add("this.runningPostProcessor = postProcessor;");
 		sc.add("postProcessor.process(this);");
 		sc.add("} catch (Exception e) {");
-		sc.add(pluginActivatorClassName
-				+ ".logError(\"Exception while running a post-processor.\", e);");
+		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while running a post-processor.\", e);");
 		sc.add("}");
 		sc.add("this.runningPostProcessor = null;");
 		sc.add("}");
@@ -666,14 +660,16 @@ public class TextResourceGenerator extends
 		sc.add("internalURIFragmentMap.clear();");
 		sc.add("getErrors().clear();");
 		sc.add("getWarnings().clear();");
-		sc.add("if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
-				+ ".UNKNOWN);");
-		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
-				+ ".SYNTAX_ERROR);");
-		sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
-				+ ".UNRESOLVED_REFERENCE);");
-		sc.add("}");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
+			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
+					+ ".UNKNOWN);");
+			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
+					+ ".SYNTAX_ERROR);");
+			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
+					+ ".UNRESOLVED_REFERENCE);");
+			sc.add("}");
+		}
 		sc.add("proxyCounter = 0;");
 		sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
 		sc.add("}");
@@ -743,9 +739,11 @@ public class TextResourceGenerator extends
 		sc.add("if (((" + iTextDiagnosticClassName
 				+ ") errorCand).wasCausedBy(cause)) {");
 		sc.add("diagnostics.remove(errorCand);");
-		sc.add("if (isEclipsePlatformAvailable()) {");
-		sc.add(markerHelperClassName + ".unmark(this, cause);");
-		sc.add("}");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add(markerHelperClassName + ".unmark(this, cause);");
+			sc.add("}");
+		}
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -827,7 +825,7 @@ public class TextResourceGenerator extends
 				+ ", "
 				+ eProblemSeverityClassName + ".ERROR),"
 				+ "uriFragment.getProxy());");
-		sc.add(pluginActivatorClassName + ".logError(message, e);");
+		sc.add("new " + runtimeUtilClassName + "().logError(message, e);");
 		sc.add("}");
 
 		sc.add("if (result == null) {");

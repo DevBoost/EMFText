@@ -108,6 +108,7 @@ public class OptionManager {
 		BOOLEAN_OPTIONS.add(OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING);
 		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_NEW_PROJECT_WIZARD);
 		BOOLEAN_OPTIONS.add(OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING);
+		BOOLEAN_OPTIONS.add(OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {
@@ -271,6 +272,9 @@ public class OptionManager {
 		if (type == OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING) {
 			return false;
 		}
+		if (type == OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE) {
+			return false;
+		}
 		return true;
 	}
 
@@ -316,5 +320,9 @@ public class OptionManager {
 	public boolean doOverride(ConcreteSyntax syntax, OptionTypes overrideOption) {
 		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
 		return doOverride;
+	}
+
+	public boolean generateUIPlugin(ConcreteSyntax syntax) {
+		return getBooleanOptionValue(syntax, OptionTypes.GENERATE_UI_PLUGIN) && !getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 	}
 }

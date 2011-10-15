@@ -315,11 +315,19 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	}
 
 	public boolean isLaunchSupportEnabled() {
-		return !OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.DISABLE_LAUNCH_SUPPORT);
+		ConcreteSyntax syntax = getConcreteSyntax();
+		OptionManager optionManager = OptionManager.INSTANCE;
+		boolean launchSupportDisabled = optionManager.getBooleanOptionValue(syntax, OptionTypes.DISABLE_LAUNCH_SUPPORT);
+		boolean removeEclipseCode = optionManager.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		return !launchSupportDisabled && !removeEclipseCode;
 	}
 
 	public boolean isDebugSupportEnabled() {
-		return !OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.DISABLE_DEBUG_SUPPORT);
+		ConcreteSyntax syntax = getConcreteSyntax();
+		OptionManager optionManager = OptionManager.INSTANCE;
+		boolean disableDebugSupport = optionManager.getBooleanOptionValue(syntax, OptionTypes.DISABLE_DEBUG_SUPPORT);
+		boolean removeEclipseDependentCode = optionManager.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		return !disableDebugSupport && !removeEclipseDependentCode;
 	}
 
 	public String getSourceLocatorID() {

@@ -107,7 +107,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("getResource().save(output, null);");
 		sc.add("return output.toString();");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"Exception while applying quick fix\", e);");
+		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while applying quick fix\", e);");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");

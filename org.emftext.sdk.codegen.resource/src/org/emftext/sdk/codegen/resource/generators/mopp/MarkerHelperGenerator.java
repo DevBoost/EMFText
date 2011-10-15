@@ -32,10 +32,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -44,7 +46,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		"this method return. But, the order of marker additions and removals is preserved.";
 
 	public void generateJavaContents(JavaComposite sc) {
-		
+
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.addJavadoc(
@@ -55,9 +57,14 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 
-		addFields(sc);
-		addInnerClassMarkerCommandQueue(sc);
-		addMethods(sc);
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		if (!removeEclipseDependentCode) {
+			addFields(sc);
+			addInnerClassMarkerCommandQueue(sc);
+			addMethods(sc);
+		} else {
+			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
+		}
 		
 		sc.add("}");
 	}
@@ -343,7 +350,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}else if (ce.getMessage().matches(\"Resource.*does not exist.\")) {");
 		sc.addComment("ignore");
 		sc.add("} else {");
-		sc.add(pluginActivatorClassName + ".logError(\"Error while removing markers from resource:\", ce);");
+		sc.add("new " + runtimeUtilClassName + "().logError(\"Error while removing markers from resource:\", ce);");
 		sc.add("}");	
 		sc.add("}");
 	}

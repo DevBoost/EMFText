@@ -102,7 +102,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 		sc.add("try {");
 		sc.add("printer.print(root);");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"Exception while generating example content.\", e);");
+		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while generating example content.\", e);");
 		sc.add("}");
 		sc.add("return buffer.toString();");
 		sc.add("}");

@@ -90,6 +90,25 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	private void analyseOptionConflicts(ConcreteSyntax syntax, List<Option> options) {
 		checkForClassicPrinterAutomaticTokenSpaceConflict(syntax, options);
 		checkPluginIdConflict(syntax, options);
+		checkEclipseDependencyConflict(syntax, options);
+	}
+
+	private void checkEclipseDependencyConflict(
+			ConcreteSyntax syntax, 
+			List<Option> options) {
+		
+		OptionManager optionManager = OptionManager.INSTANCE;
+		boolean removeEclipseCode = optionManager.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		boolean generateUIPlugin = optionManager.getBooleanOptionValue(syntax, OptionTypes.GENERATE_UI_PLUGIN);
+		
+		if (removeEclipseCode && generateUIPlugin) {
+			String message = "The resource UI plug-in cannot be generated without using Eclipse dependencies. Please set '" + OptionTypes.GENERATE_UI_PLUGIN.getLiteral() + "' to false.";
+			addProblem(
+					CsAnalysisProblemType.ECLIPSE_DEPENDENCY_CONFLICT, 
+					message, 
+					optionManager.findOptionByType(options, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE)
+			);
+		}
 	}
 
 	private void checkPluginIdConflict(

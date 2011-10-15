@@ -84,7 +84,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("outputStream = new " + PRINT_STREAM + "(accept.getOutputStream());");
 		sc.add("} catch (Exception e) {");
 		// TODO this should probably be signaled to the user
-		sc.add(pluginActivatorClassName + ".logError(\"Can't create socket connection while launching.\", e);");
+		sc.add("new " + runtimeUtilClassName + "().logError(\"Can't create socket connection while launching.\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -95,7 +95,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("try {");
 		sc.add("server.close();");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(pluginActivatorClassName + ".logError(\"Exception while closing socket.\", e);");
+		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while closing socket.\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

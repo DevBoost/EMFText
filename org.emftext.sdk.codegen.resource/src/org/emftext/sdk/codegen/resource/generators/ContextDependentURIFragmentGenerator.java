@@ -137,7 +137,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 		sc.add("} else if (list != null) {");
 		sc.add("addResultToList(mapping, proxy, list);");
 		sc.add("} else {");
-		sc.add(pluginActivatorClassName + ".logError(container.eClass().getName() + \".\" + reference.getName() + \" has multiplicity 1 but was resolved to multiple elements\", null);");
+		sc.add("new " + runtimeUtilClassName + "().logError(container.eClass().getName() + \".\" + reference.getName() + \" has multiplicity 1 but was resolved to multiple elements\", null);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
