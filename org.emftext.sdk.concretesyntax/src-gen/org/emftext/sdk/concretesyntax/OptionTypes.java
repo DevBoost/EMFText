@@ -6910,6 +6910,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>true</code>, the generated resource plug-in will not contain any dependencies to Eclipse. The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
 	 * @see #REMOVE_ECLIPSE_DEPENDENT_CODE
 	 * @model literal="removeEclipseDependentCode"
 	 * @generated

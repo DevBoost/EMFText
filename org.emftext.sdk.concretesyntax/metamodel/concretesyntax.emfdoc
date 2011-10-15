@@ -632,6 +632,8 @@ OptionTypes.OVERRIDE_EXPECTATION_CONSTANTS : "If set to <code>false</code>, the 
 
 OptionTypes.OVERRIDE_ECLIPSE_PROXY : "If set to <code>false</code>, the EclipseProxy class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE : "If set to <code>true</code>, the generated resource plug-in will not contain any dependencies to Eclipse. The default value for this option is <code>false</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
