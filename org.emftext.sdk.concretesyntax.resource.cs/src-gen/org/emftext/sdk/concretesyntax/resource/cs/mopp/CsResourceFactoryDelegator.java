@@ -26,34 +26,8 @@ public class CsResourceFactoryDelegator implements org.eclipse.emf.ecore.resourc
 		if (factories == null) {
 			factories = new java.util.LinkedHashMap<String, org.eclipse.emf.ecore.resource.Resource.Factory>();
 		}
-		if (org.eclipse.core.runtime.Platform.isRunning()) {
-			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
-			org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.EP_ADDITIONAL_EXTENSION_PARSER_ID);
-			for (org.eclipse.core.runtime.IConfigurationElement element : configurationElements) {
-				try {
-					String type = element.getAttribute("type");
-					org.eclipse.emf.ecore.resource.Resource.Factory factory = (org.eclipse.emf.ecore.resource.Resource.Factory) element.createExecutableExtension("class");
-					if (type == null) {
-						type = "";
-					}
-					org.eclipse.emf.ecore.resource.Resource.Factory otherFactory = factories.get(type);
-					if (otherFactory != null) {
-						Class<?> superClass = factory.getClass().getSuperclass();
-						while(superClass != Object.class) {
-							if (superClass.equals(otherFactory.getClass())) {
-								factories.put(type, factory);
-								break;
-							}
-							superClass = superClass.getClass();
-						}
-					}
-					else {
-						factories.put(type, factory);
-					}
-				} catch (org.eclipse.core.runtime.CoreException ce) {
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while getting default options.", ce);
-				}
-			}
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getResourceFactoryExtensions(factories);
 		}
 		if (factories.get("") == null) {
 			factories.put("", new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory());

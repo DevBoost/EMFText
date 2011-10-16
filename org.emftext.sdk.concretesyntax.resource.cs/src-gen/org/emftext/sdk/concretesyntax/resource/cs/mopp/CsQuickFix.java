@@ -53,7 +53,7 @@ public abstract class CsQuickFix implements org.emftext.sdk.concretesyntax.resou
 			getResource().save(output, null);
 			return output.toString();
 		} catch (java.io.IOException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while applying quick fix", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while applying quick fix", e);
 		}
 		return null;
 	}

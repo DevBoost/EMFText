@@ -58,15 +58,15 @@ public class CsEObjectUtil {
 				return result;
 			}
 		} catch (SecurityException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while matching proxy URI.", e);
 		} catch (NoSuchMethodException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while matching proxy URI.", e);
 		} catch (IllegalArgumentException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while matching proxy URI.", e);
 		} catch (IllegalAccessException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while matching proxy URI.", e);
 		} catch (java.lang.reflect.InvocationTargetException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while matching proxy URI.", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while matching proxy URI.", e);
 		}
 		return null;
 	}

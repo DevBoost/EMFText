@@ -22,21 +22,41 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
  */
 public class CsTextResourceUtil {
 	
+	/**
+	 * Use
+	 * org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource()
+	 * instead.
+	 */
 	@Deprecated	
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.core.resources.IFile file) {
-		return org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource(file);
+		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getResource(file);
 	}
 	
+	/**
+	 * Use
+	 * org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource()
+	 * instead.
+	 */
 	@Deprecated	
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(java.io.File file, java.util.Map<?,?> options) {
 		return org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource(file, options);
 	}
 	
+	/**
+	 * Use
+	 * org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource()
+	 * instead.
+	 */
 	@Deprecated	
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.emf.common.util.URI uri) {
 		return org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource(uri);
 	}
 	
+	/**
+	 * Use
+	 * org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource()
+	 * instead.
+	 */
 	@Deprecated	
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.emf.common.util.URI uri, java.util.Map<?,?> options) {
 		return org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource(uri, options);

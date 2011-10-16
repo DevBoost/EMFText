@@ -85,7 +85,7 @@ public abstract class CsContextDependentURIFragment<ContainerType extends org.ec
 			} else if (list != null) {
 				addResultToList(mapping, proxy, list);
 			} else {
-				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError(container.eClass().getName() + "." + reference.getName() + " has multiplicity 1 but was resolved to multiple elements", null);
+				new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError(container.eClass().getName() + "." + reference.getName() + " has multiplicity 1 but was resolved to multiple elements", null);
 			}
 		}
 	}

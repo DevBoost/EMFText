@@ -45,7 +45,7 @@ public class CsNewFileContentProvider {
 		try {
 			printer.print(root);
 		} catch (java.io.IOException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while generating example content.", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while generating example content.", e);
 		}
 		return buffer.toString();
 	}

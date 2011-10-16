@@ -276,7 +276,8 @@ public class CsMarkerHelper {
 		}else if (ce.getMessage().matches("Resource.*does not exist.")) {
 			// ignore
 		} else {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Error while removing markers from resource:", ce);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Error while removing markers from resource:", ce);
 		}
 	}
+	
 }

@@ -281,7 +281,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			} catch (Exception e) {
 				String message = "An expection occured while resolving the proxy for: "+ id + ". (" + e.toString() + ")";
 				addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR),uriFragment.getProxy());
-				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError(message, e);
+				new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError(message, e);
 			}
 			if (result == null) {
 				// the resolving did call itself
@@ -367,7 +367,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			if (errorCand instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) {
 				if (((org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) errorCand).wasCausedBy(cause)) {
 					diagnostics.remove(errorCand);
-					if (isEclipsePlatformAvailable()) {
+					if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
 						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, cause);
 					}
 				}
@@ -411,7 +411,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
-		if (isEclipsePlatformAvailable()) {
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
 		}
 		if (terminateReload) {
@@ -449,7 +449,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			this.runningPostProcessor = postProcessor;
 			postProcessor.process(this);
 		} catch (Exception e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while running a post-processor.", e);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while running a post-processor.", e);
 		}
 		this.runningPostProcessor = null;
 	}
@@ -473,7 +473,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, org.eclipse.emf.ecore.EObject element) {
 		ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
-		if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 		}
 		addQuickFixesToQuickFixMap(problem);
@@ -482,7 +482,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
 		PositionBasedTextDiagnostic diagnostic = new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
-		if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
 		}
 		addQuickFixesToQuickFixMap(problem);
@@ -531,7 +531,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		loadOptionsCopy.putAll(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsOptionProvider().getOptions());
 		
 		// second, add dynamic option providers that are registered via extension
-		if (isEclipsePlatformAvailable()) {
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
 			new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getDefaultLoadOptionProviderExtensions(loadOptionsCopy);
 		}
 		return loadOptionsCopy;
@@ -547,7 +547,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		internalURIFragmentMap.clear();
 		getErrors().clear();
 		getWarnings().clear();
-		if (isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
@@ -584,7 +584,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private void runValidators(org.eclipse.emf.ecore.EObject root) {
 		// checking constraints provided by EMF validator classes was disabled
 		
-		// checking EMF validation constraints was disabled
+		// checking EMF validation constraints was disabled either by option
+		// 'disableEMFValidationConstraints' or '278'.
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix getQuickFix(String quickFixContext) {
@@ -597,13 +598,4 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_CREATING_MARKERS_FOR_PROBLEMS);
 	}
-	protected boolean isEclipsePlatformAvailable() {
-		try {
-			Class.forName("org.eclipse.core.runtime.Platform");
-			return true;
-		} catch (ClassNotFoundException cnfe) {
-		}
-		return false;
-	}
-	
 }

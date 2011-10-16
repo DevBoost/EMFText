@@ -79,12 +79,6 @@ public class CsResourceUtil {
 		}
 	}
 	
-	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.core.resources.IFile file) {
-		org.eclipse.emf.ecore.resource.ResourceSet rs = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
-		org.eclipse.emf.ecore.resource.Resource csResource = rs.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
-		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) csResource;
-	}
-	
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(java.io.File file) {
 		return getResource(file, null);
 	}
