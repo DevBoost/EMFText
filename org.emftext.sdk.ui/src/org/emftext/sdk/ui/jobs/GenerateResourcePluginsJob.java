@@ -32,7 +32,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin;
-import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**
@@ -52,7 +52,7 @@ public class GenerateResourcePluginsJob extends AbstractConcreteSyntaxJob {
 	protected IStatus run(IProgressMonitor monitor) {
 
 		try {
-			final CsResource csResource = CsResourceUtil.getResource(csFile);
+			final CsResource csResource = new CsEclipseProxy().getResource(csFile);
 			// remove all generation problems
 			CsMarkerHelper.unmark(csResource, CsEProblemType.BUILDER_ERROR);
 			// create problem collector
