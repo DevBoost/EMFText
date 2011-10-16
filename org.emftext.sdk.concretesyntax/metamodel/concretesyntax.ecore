@@ -1943,7 +1943,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the EclipseProxy class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_RUNTIME_UTIL" value="277" literal="overrideRuntimeUtil"/>
+    <eLiterals name="OVERRIDE_RUNTIME_UTIL" value="277" literal="overrideRuntimeUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the RuntimeUtil class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
     <eLiterals name="REMOVE_ECLIPSE_DEPENDENT_CODE" value="278" literal="removeEclipseDependentCode">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="If set to &lt;code>true&lt;/code>, the generated resource plug-in will not contain any dependencies to Eclipse. The default value for this option is &lt;code>false&lt;/code>."/>
