@@ -3,12 +3,14 @@ package org.emftext.sdk.codegen.resource.generators.util;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+@SyntaxDependent
 public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
 	@Override
