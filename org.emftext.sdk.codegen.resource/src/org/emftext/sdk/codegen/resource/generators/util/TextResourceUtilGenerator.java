@@ -62,6 +62,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetResourceMethod4(JavaComposite sc) {
+		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated").addLineBreak();
 		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri, " + MAP + "<?,?> options) {");
 		sc.add("return " + resourceUtilClassName + ".getResource(uri, options);");
@@ -70,6 +71,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetResourceMethod3(JavaComposite sc) {
+		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated").addLineBreak();
 		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri) {");
 		sc.add("return " + resourceUtilClassName + ".getResource(uri);");
@@ -78,6 +80,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetResourceMethod2(JavaComposite sc) {
+		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated").addLineBreak();
 		sc.add("public static " + textResourceClassName + " getResource(" + FILE + " file, " + MAP + "<?,?> options) {");
 		sc.add("return " + resourceUtilClassName + ".getResource(file, options);");
@@ -86,6 +89,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetResourceMethod1(JavaComposite sc) {
+		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated").addLineBreak();
 		sc.add("public static " + textResourceClassName + " getResource(" + I_FILE + " file) {");
 		sc.add("return new " + eclipseProxyClassName + "().getResource(file);");

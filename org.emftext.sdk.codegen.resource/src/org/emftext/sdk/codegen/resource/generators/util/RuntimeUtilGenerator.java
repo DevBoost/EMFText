@@ -17,7 +17,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-		sc.addComment(
+		sc.addJavadoc(
 			"This utility class provides methods to obtain information about the current runtime, " + 
 			"for example whether Eclipse is available or not."
 		);
@@ -34,6 +34,12 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks whether the class " + PLATFORM +
+			"is available on the classpath. This can be used to " +
+			"determine if Eclipse is available in the current runtime " +
+			"environment."
+		);
 		sc.add("public boolean isEclipsePlatformAvailable() {");
 		sc.add("try {");
 		sc.add("Class.forName(\"" + PLATFORM + "\");");
@@ -46,6 +52,9 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addIsEclipsePlatformRunningMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks whether the Eclipse platform is running."
+		);
 		sc.add("public boolean isEclipsePlatformRunning() {");
 		sc.add("if (!isEclipsePlatformAvailable()) {");
 		sc.add("return false;");
@@ -58,6 +67,10 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addLogErrorMessageMethod(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
+		sc.addJavadoc(
+			"Logs the given error. If Eclipse is running, the error is added to " +
+			"the error log otherwise the message is printed to System.err."
+		);
 		sc.add("public void logError(String message, Throwable exception) {");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (isEclipsePlatformAvailable()) {");

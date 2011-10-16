@@ -353,5 +353,6 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Error while removing markers from resource:\", ce);");
 		sc.add("}");	
 		sc.add("}");
+		sc.addLineBreak();
 	}
 }

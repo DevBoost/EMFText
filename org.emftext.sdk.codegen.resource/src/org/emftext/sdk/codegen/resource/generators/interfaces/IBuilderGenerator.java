@@ -30,13 +30,28 @@ public class IBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	public void generateJavaContents(JavaComposite sc) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
+		sc.addJavadoc(
+			"An interface for builders that can be used to perform operations " +
+			"when resources are changed and saved. This is an abstraction over " +
+			"the Eclipse builder API that is specifically designed for building " +
+			"resources that contain EMF models."
+		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		if (!removeEclipseDependentCode) {
+			sc.addJavadoc(
+				"Check whether building the resource with the given URI is needed." +
+				"This method allows to excluded resource from the build process before " +
+				"these are actually loaded. If this method returns false, the build() " +
+				"method will not be invoked for the resource located at the given URI."
+			);
 			sc.add("public boolean isBuildingNeeded(" + URI + " uri);");
 			sc.addLineBreak();
+			sc.addJavadoc(
+				"Builds the given resource."
+			);
 			sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor);");
 			sc.addLineBreak();
 		} else {
