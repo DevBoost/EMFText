@@ -165,7 +165,7 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 		if (!disableEMFValidationConstraints && !removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add("new " + eclipseProxyClassName + "().checkEMFValidationConstraints();");
+			sc.add("new " + eclipseProxyClassName + "().checkEMFValidationConstraints(this, root);");
 			sc.add("}");
 		} else {
 			sc.addComment("checking EMF validation constraints was disabled either by option '" + OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS.getLiteral() + "' or '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "'.");

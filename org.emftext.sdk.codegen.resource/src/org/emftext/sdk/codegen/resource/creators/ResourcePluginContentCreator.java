@@ -535,7 +535,8 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		
 		Set<String> imports = new LinkedHashSet<String>();
 		if (!removeEclipseDependentCode) {
-			imports.add("org.eclipse.core.resources");
+			//imports.add("org.eclipse.core.resources");
+			imports.add("org.eclipse.core.runtime");
 		}
 		imports.add("org.eclipse.emf");
 		imports.add("org.eclipse.emf.ecore");
