@@ -13,19 +13,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CONSTRAINT_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTICIAN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EVALUATION_MODE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
@@ -33,17 +29,14 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BATCH_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODEL_VALIDATION_SERVICE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
@@ -160,10 +153,6 @@ public class TextResourceGenerator extends
 				.getBooleanOptionValue(concreteSyntax,
 						OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS)  && !removeEclipseDependentCode;
 
-		if (!disableEMFValidationConstraints) {
-			sc.add("@SuppressWarnings(\"restriction\")");
-			sc.addLineBreak();
-		}
 		sc.add("private void runValidators(" + E_OBJECT + " root) {");
 		if (!disableEValidators) {
 			sc.addComment("check constraints provided by EMF Validator classes");
@@ -171,42 +160,21 @@ public class TextResourceGenerator extends
 					+ ".INSTANCE.validate(root);");
 			sc.add("addDiagnostics(diagnostics, root);");
 		} else {
-			sc.addComment("checking constraints provided by EMF validator classes was disabled");
+			sc.addComment("checking constraints provided by EMF validator classes was disabled by option '" + OptionTypes.DISABLE_EVALIDATORS.getLiteral() + "'.");
 		}
 		sc.addLineBreak();
-		if (!disableEMFValidationConstraints) {
-			sc.addComment("check EMF validation constraints");
-			sc.addComment("EMF validation does not work if OSGi is not running");
-			sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
-					+ "This is a bug, which is fixed in the Helios release. Nonetheless, we need to catch the "
-					+ "exception here.");
-			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
-			sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
-					+ "This is a workaround for bug 322079.");
-			sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN
-					+ ".getPlugin() != null) {");
-			sc.add("try {");
-			sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
-			sc.add(I_BATCH_VALIDATOR + " validator = service.<" + E_OBJECT + ", " + I_BATCH_VALIDATOR + ">newValidator(" + EVALUATION_MODE + ".BATCH);");
-			sc.add("validator.setIncludeLiveConstraints(true);");
-			sc.add(I_STATUS + " status = validator.validate(root);");
-			sc.add("addStatus(status, root);");
-			sc.add("} catch (Throwable t) {");
-			sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while checking contraints provided by EMF validator classes.\", t);");
-			sc.add("}");
-			sc.add("}");
+		if (!disableEMFValidationConstraints && !removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("new " + eclipseProxyClassName + "().checkEMFValidationConstraints();");
 			sc.add("}");
 		} else {
-			sc.addComment("checking EMF validation constraints was disabled either by option '" + OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS.getLiteral() + "' or '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE + "'.");
+			sc.addComment("checking EMF validation constraints was disabled either by option '" + OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS.getLiteral() + "' or '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "'.");
 		}
 		sc.add("}");
 		sc.addLineBreak();
 
 		if (!disableEValidators) {
 			addAddDiagnosticsMethod(sc);
-		}
-		if (!disableEMFValidationConstraints) {
-			addAddStatusMethod(sc);
 		}
 	}
 
@@ -233,44 +201,6 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.add("for (" + DIAGNOSTIC + " diagnostic : children) {");
 		sc.add("addDiagnostics(diagnostic, root);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addAddStatusMethod(JavaComposite sc) {
-		sc.add("private void addStatus(" + I_STATUS + " status, " + E_OBJECT
-				+ " root) {");
-		sc.add(LIST + "<" + E_OBJECT + "> causes = new " + ARRAY_LIST + "<"
-				+ E_OBJECT + ">();");
-		sc.add("causes.add(root);");
-		sc.add("if (status instanceof " + CONSTRAINT_STATUS + ") {");
-		sc.add(CONSTRAINT_STATUS + " constraintStatus = (" + CONSTRAINT_STATUS
-				+ ") status;");
-		sc.add(SET + "<" + E_OBJECT
-				+ "> resultLocus = constraintStatus.getResultLocus();");
-		sc.add("causes.clear();");
-		sc.add("causes.addAll(resultLocus);");
-		sc.add("}");
-		sc.add("boolean hasChildren = status.getChildren() != null && status.getChildren().length > 0;");
-		sc.addComment("Ignore composite status objects that have children. "
-				+ "The actual status information is then contained in the child objects.");
-		sc.add("if (!status.isMultiStatus() || !hasChildren) {");
-		sc.add("if (status.getSeverity() == " + I_STATUS + ".ERROR) {");
-		sc.add("for (" + E_OBJECT + " cause : causes) {");
-		sc.add("addError(status.getMessage(), " + eProblemTypeClassName
-				+ ".ANALYSIS_PROBLEM, cause);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("if (status.getSeverity() == " + I_STATUS + ".WARNING) {");
-		sc.add("for (" + E_OBJECT + " cause : causes) {");
-		sc.add("addWarning(status.getMessage(), " + eProblemTypeClassName
-				+ ".ANALYSIS_PROBLEM, cause);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("for (" + I_STATUS + " child : status.getChildren()) {");
-		sc.add("addStatus(child, root);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -685,6 +615,7 @@ public class TextResourceGenerator extends
 				+ IOptionsGenerator.DISABLE_CREATING_MARKERS_FOR_PROBLEMS
 				+ ");");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addAttachResolveWarningsMethod(StringComposite sc) {

@@ -540,7 +540,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		imports.add("org.eclipse.emf");
 		imports.add("org.eclipse.emf.ecore");
 		imports.add("org.eclipse.emf.validation");
-		imports.add("org.eclipse.emf.workspace");
+		//imports.add("org.eclipse.emf.workspace");
 		imports.add("org.emftext.access;resolution:=optional");
 		
 		if (context.isDebugSupportEnabled()) {

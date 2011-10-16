@@ -15,7 +15,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		
+
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
@@ -25,14 +25,18 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		);
         sc.add("public class " + getResourceClassName() + " {");
         sc.addLineBreak();
-		addMethods(sc);
+   		addMethods(sc);
 		sc.add("}");
     }
 
 	private void addMethods(JavaComposite sc) {
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		addIsEclipsePlatformAvailableMethod(sc);
-		addIsEclipsePlatformRunningMethod(sc);
 		addLogErrorMessageMethod(sc);
+        
+		if (!removeEclipseDependentCode) {
+        	addIsEclipsePlatformRunningMethod(sc);
+		}
 	}
 
 	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
