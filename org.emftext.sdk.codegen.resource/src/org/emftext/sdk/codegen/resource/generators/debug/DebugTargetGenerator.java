@@ -42,6 +42,8 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+// TODO all debug-related classes are also syntax-dependent since their generation can be 
+// disabled with 'disableDebugSupport'
 public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
