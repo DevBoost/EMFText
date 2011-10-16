@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.resource.generators.util;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -72,6 +73,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod4(sc);
 		addGetResourceContentMethod1(sc);
 		addGetResourceContentMethod2(sc);
+		addGetResourceContentMethod3(sc);
 		addSaveResourceMethod(sc);
 		addContainsErrorsMethod(sc);
 		addContainsWarningsMethod(sc);
@@ -221,6 +223,32 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public static " + returnType + " getResourceContent(" + URI + " uri, " + MAP + "<?,?> options) {");
 		sc.add(RESOURCE + " resource = getResource(uri, options);");
 		sc.add("if (resource == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
+		sc.add("if (contents == null || contents.isEmpty()) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(E_OBJECT + " root = contents.get(0);");
+		sc.add("return (" + returnType + ") root;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceContentMethod3(JavaComposite sc) {
+		String returnType = getRootElementType();
+		sc.addJavadoc("Returns the root element after parsing the given text.");
+		sc.add("public static " + returnType + " getResourceContent(String text) {");
+		sc.add(URI + " uri = " + URI + ".createURI(\"temp.\" + new " + metaInformationClassName + "().getSyntaxName());");
+		sc.add(RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
+		sc.add(RESOURCE + " resource = resourceSet.createResource(uri);");
+		sc.add("if (resource == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(BYTE_ARRAY_INPUT_STREAM + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM + "(text.getBytes());");
+		sc.add("try {");
+		sc.add("resource.load(inputStream, null);");
+		sc.add("} catch (" + IO_EXCEPTION + " ioe) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add(LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
