@@ -14,12 +14,14 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+@SyntaxDependent
 public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
@@ -36,9 +38,12 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		OptionTypes option = OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE;
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), option);
 		if (!removeEclipseDependentCode) {
 			addMethods(sc);
+		} else {
+			sc.addComment("This class is intentionally left empty because option '" + option.getLiteral() + "' is set to true.");
 		}
 		sc.add("}");
 	}
@@ -50,6 +55,11 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetResourceFactoryExtensions(JavaComposite sc) {
+		sc.addJavadoc(
+			"Adds all registered resource factory extensions to the given map. " +
+			"Such extensions can be used to register multiple resource factories " +
+			"for the same file extension."
+		);
     	sc.add("public void getResourceFactoryExtensions(" + MAP + "<String, " + RESOURCE_FACTORY + "> factories) {");
      	sc.add("if (" + PLATFORM + ".isRunning()) {");
     	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
@@ -85,6 +95,11 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetDefaultLoadOptionProviderExtensions(JavaComposite sc) {
+		sc.addJavadoc(
+			"Adds all registered load option provider extension to the given map. " +
+			"Load option providers can be used to set default options for loading resources " +
+			"(e.g. input stream pre-processors)."
+		);
 		sc.add("public void getDefaultLoadOptionProviderExtensions(" + MAP + "<Object, Object> optionsMap) {");
 		sc.add("if (" + PLATFORM + ".isRunning()) {");
 		sc.addComment("find default load option providers");
@@ -114,10 +129,11 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetResourceMethod(JavaComposite sc) {
+		sc.addJavadoc("Gets the resource that is contained in the give file.");
 		sc.add("public " + textResourceClassName + " getResource(" + I_FILE + " file) {");
 		sc.add(RESOURCE_SET + " rs = new " + RESOURCE_SET_IMPL + "();");
-		sc.add(RESOURCE + " csResource = rs.getResource(" + URI + ".createPlatformResourceURI(file.getFullPath().toString(),true), true);");
-		sc.add("return (" + textResourceClassName + ") csResource;");
+		sc.add(RESOURCE + " resource = rs.getResource(" + URI + ".createPlatformResourceURI(file.getFullPath().toString(),true), true);");
+		sc.add("return (" + textResourceClassName + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
