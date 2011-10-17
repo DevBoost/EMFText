@@ -71,6 +71,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod2(sc);
 		addGetResourceMethod3(sc);
 		addGetResourceMethod4(sc);
+		addGetResourceMethod5(sc);
 		addGetResourceContentMethod1(sc);
 		addGetResourceContentMethod2(sc);
 		addGetResourceContentMethod3(sc);
@@ -240,6 +241,26 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addJavadoc("Returns the root element after parsing the given text.");
 		sc.add("public static " + returnType + " getResourceContent(String text) {");
 		sc.add(URI + " uri = " + URI + ".createURI(\"temp.\" + new " + metaInformationClassName + "().getSyntaxName());");
+		sc.add(RESOURCE + " resource = getResource(uri);");
+		sc.add("if (resource == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
+		sc.add("if (contents == null || contents.isEmpty()) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(E_OBJECT + " root = contents.get(0);");
+		sc.add("return (" + returnType + ") root;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceMethod5(JavaComposite sc) {
+		sc.addJavadoc("Returns the resource after parsing the given text.");
+		sc.add("public static " + RESOURCE + " getResource(String text) {");
+		sc.add(metaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
+		sc.add("metaInformation.registerResourceFactory();");
+		sc.add(URI + " uri = " + URI + ".createURI(\"temp.\" + metaInformation.getSyntaxName());");
 		sc.add(RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
 		sc.add(RESOURCE + " resource = resourceSet.createResource(uri);");
 		sc.add("if (resource == null) {");
@@ -251,12 +272,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("} catch (" + IO_EXCEPTION + " ioe) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(LIST + "<" + E_OBJECT + "> contents = resource.getContents();");
-		sc.add("if (contents == null || contents.isEmpty()) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add(E_OBJECT + " root = contents.get(0);");
-		sc.add("return (" + returnType + ") root;");
+		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
