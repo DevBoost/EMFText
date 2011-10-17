@@ -754,7 +754,7 @@ public class TextResourceGenerator extends
 		sc.add("addProblem(new " + problemClassName + "("
 		 		+ "message, " + eProblemTypeClassName + ".UNRESOLVED_REFERENCE"
 				+ ", "
-				+ eProblemSeverityClassName + ".ERROR),"
+				+ eProblemSeverityClassName + ".ERROR), "
 				+ "uriFragment.getProxy());");
 		sc.add("new " + runtimeUtilClassName + "().logError(message, e);");
 		sc.add("}");
