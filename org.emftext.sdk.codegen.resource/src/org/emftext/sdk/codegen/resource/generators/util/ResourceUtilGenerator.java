@@ -240,8 +240,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		String returnType = getRootElementType();
 		sc.addJavadoc("Returns the root element after parsing the given text.");
 		sc.add("public static " + returnType + " getResourceContent(String text) {");
-		sc.add(URI + " uri = " + URI + ".createURI(\"temp.\" + new " + metaInformationClassName + "().getSyntaxName());");
-		sc.add(RESOURCE + " resource = getResource(uri);");
+		sc.add(RESOURCE + " resource = getResource(text);");
 		sc.add("if (resource == null) {");
 		sc.add("return null;");
 		sc.add("}");
