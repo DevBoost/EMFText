@@ -123,6 +123,7 @@ public class TextResourceGenerator extends
 		addRunPostProcessorsMethod(sc);
 		addRunPostProcessorMethod(sc);
 		addLoadMethod(sc);
+		addResolveAfterParsingMethod(sc);
 		addSetURIMethod(sc);
 		addGetLocationMapMethod(sc);
 
@@ -153,7 +154,7 @@ public class TextResourceGenerator extends
 				.getBooleanOptionValue(concreteSyntax,
 						OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS)  && !removeEclipseDependentCode;
 
-		sc.add("private void runValidators(" + E_OBJECT + " root) {");
+		sc.add("protected void runValidators(" + E_OBJECT + " root) {");
 		if (!disableEValidators) {
 			sc.addComment("check constraints provided by EMF Validator classes");
 			sc.add(DIAGNOSTIC + " diagnostics = " + DIAGNOSTICIAN
@@ -179,7 +180,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAddDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private void addDiagnostics(" + DIAGNOSTIC + " diagnostics, "
+		sc.add("protected void addDiagnostics(" + DIAGNOSTIC + " diagnostics, "
 				+ E_OBJECT + " root) {");
 		sc.add(E_OBJECT + " cause = root;");
 		sc.add(LIST + "<?> data = diagnostics.getData();");
@@ -385,7 +386,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAddQuickFixesToQuickFixMap(StringComposite sc) {
-		sc.add("private void addQuickFixesToQuickFixMap(" + iProblemClassName + " problem) {");
+		sc.add("protected void addQuickFixesToQuickFixMap(" + iProblemClassName + " problem) {");
 		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = problem.getQuickFixes();");
 		sc.add("if (quickFixes != null) {");
 		sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
@@ -454,7 +455,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addGetDiagnosticsMethod(StringComposite sc) {
-		sc.add("private " + LIST + "<" + RESOURCE_DIAGNOSTIC
+		sc.add("protected " + LIST + "<" + RESOURCE_DIAGNOSTIC
 				+ "> getDiagnostics(" + eProblemSeverityClassName
 				+ " severity) {");
 		sc.add("if (severity == " + eProblemSeverityClassName + ".ERROR) {");
@@ -485,15 +486,22 @@ public class TextResourceGenerator extends
 	}
 
 	private void addLoadMethod(StringComposite sc) {
-		boolean resolveProxies = doResolveProxiesAfterParsing();
-
 		sc.add("public void load(" + MAP + "<?, ?> options) throws "
 				+ IO_EXCEPTION + " {");
 		sc.add(MAP
 				+ "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
 		sc.add("super.load(loadOptions);");
+		sc.add("resolveAfterParsing();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addResolveAfterParsingMethod(StringComposite sc) {
+		boolean resolveProxies = doResolveProxiesAfterParsing();
+
+		sc.add("protected void resolveAfterParsing() {");
 		if (resolveProxies) {
-			sc.add(ECORE_UTIL + ".resolveAll(this.getResourceSet());");
+			sc.add(ECORE_UTIL + ".resolveAll(this);");
 		}
 		sc.add("}");
 		sc.addLineBreak();
@@ -619,7 +627,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAttachResolveWarningsMethod(StringComposite sc) {
-		sc.add("private void attachResolveWarnings("
+		sc.add("protected void attachResolveWarnings("
 				+ iReferenceResolveResultClassName + "<? extends " + E_OBJECT
 				+ "> result, " + E_OBJECT + " proxy) {");
 		sc.add("assert result != null;");
@@ -641,7 +649,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAttachResolveErrorMethod(JavaComposite sc) {
-		sc.add("private void attachResolveError("
+		sc.add("protected void attachResolveError("
 				+ iReferenceResolveResultClassName + "<?> result, " + E_OBJECT
 				+ " proxy) {");
 		sc.addComment("attach errors to this resource");
@@ -660,7 +668,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addRemoveDiagnosticsMethod(JavaComposite sc) {
-		sc.add("private void removeDiagnostics(" + E_OBJECT + " cause, " + LIST
+		sc.add("protected void removeDiagnostics(" + E_OBJECT + " cause, " + LIST
 				+ "<" + RESOURCE_DIAGNOSTIC + "> diagnostics) {");
 		sc.addComment("remove all errors/warnings from this resource");
 		sc.add("for (" + RESOURCE_DIAGNOSTIC + " errorCand : new "
@@ -683,7 +691,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addGetResultElementMethod(JavaComposite sc) {
-		sc.add("private " + E_OBJECT + " getResultElement("
+		sc.add("protected " + E_OBJECT + " getResultElement("
 				+ iContextDependentUriFragmentClassName + "<? extends "
 				+ E_OBJECT + "> uriFragment, " + iReferenceMappingClassName
 				+ "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT
@@ -925,7 +933,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addGetPrint(StringComposite sc) {
-		sc.add("private String getPrint(" + MAP + "<?, ?> options) throws "
+		sc.add("protected String getPrint(" + MAP + "<?, ?> options) throws "
 				+ IO_EXCEPTION + " {");
 		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " outputStream = new "
 				+ BYTE_ARRAY_OUTPUT_STREAM + "();");
@@ -1014,8 +1022,6 @@ public class TextResourceGenerator extends
 	}
 
 	private void addReloadMethod(JavaComposite sc) {
-		boolean resolveProxies = doResolveProxiesAfterParsing();
-
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
 		sc.add("try {");
@@ -1023,9 +1029,7 @@ public class TextResourceGenerator extends
 		sc.add(MAP
 				+ "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
 		sc.add("doLoad(inputStream, loadOptions);");
-		if (resolveProxies) {
-			sc.add(ECORE_UTIL + ".resolveAll(this.getResourceSet());");
-		}
+		sc.add("resolveAfterParsing();");
 		sc.add("} catch (" + terminateParsingExceptionClassName + " tpe) {");
 		sc.addComment("do nothing - the resource is left unchanged if this exception is thrown");
 		sc.add("}");
