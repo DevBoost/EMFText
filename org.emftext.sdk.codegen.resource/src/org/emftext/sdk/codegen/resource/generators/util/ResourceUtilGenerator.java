@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.resource.generators.util;
 
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -76,9 +77,39 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceContentMethod2(sc);
 		addGetResourceContentMethod3(sc);
 		addSaveResourceMethod(sc);
+		addGetTextMethod(sc);
 		addContainsErrorsMethod(sc);
 		addContainsWarningsMethod(sc);
 		addContainsProblemsMethod(sc);
+	}
+
+	private void addGetTextMethod(JavaComposite sc) {
+		sc.add("public static String getText(" + E_OBJECT + " eObject) {");
+		sc.add(metaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
+		sc.add("metaInformation.registerResourceFactory();");
+			
+		sc.add(RESOURCE_SET + " rs = null;");
+		sc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") eObject.eResource();");
+		sc.add("if (resource != null) {");
+		sc.add("rs = resource.getResourceSet();");
+		sc.add("}");
+		sc.add("if (rs == null) {");
+		sc.add("rs = new " + RESOURCE_SET_IMPL + "();");
+		sc.add("}");
+		sc.add("if (resource == null) {");
+		sc.add(URI + " uri = " + URI + ".createURI(\"temp.\" + metaInformation.getSyntaxName());");
+		sc.add("resource = (" + iTextResourceClassName + ") rs.createResource(uri);");
+		sc.add("}");
+		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " outputStream = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
+		sc.add(iTextPrinterClassName + " printer = metaInformation.createPrinter(outputStream, resource);");
+		sc.add("try {");
+		sc.add("printer.print(eObject);");
+		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("return outputStream.toString();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetResourceMethod1(JavaComposite sc) {
