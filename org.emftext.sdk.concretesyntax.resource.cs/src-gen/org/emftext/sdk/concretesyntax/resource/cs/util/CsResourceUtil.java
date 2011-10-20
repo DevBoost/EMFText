@@ -102,6 +102,27 @@ public class CsResourceUtil {
 	}
 	
 	/**
+	 * Returns the resource after parsing the given text.
+	 */
+	public static org.eclipse.emf.ecore.resource.Resource getResource(String text) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+		metaInformation.registerResourceFactory();
+		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI("temp." + metaInformation.getSyntaxName());
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.createResource(uri);
+		if (resource == null) {
+			return null;
+		}
+		java.io.ByteArrayInputStream inputStream = new java.io.ByteArrayInputStream(text.getBytes());
+		try {
+			resource.load(inputStream, null);
+		} catch (java.io.IOException ioe) {
+			return null;
+		}
+		return resource;
+	}
+	
+	/**
 	 * Returns the root element of the resource with the given URI.
 	 */
 	public static org.emftext.sdk.concretesyntax.ConcreteSyntax getResourceContent(org.eclipse.emf.common.util.URI uri) {
@@ -124,11 +145,52 @@ public class CsResourceUtil {
 		return (org.emftext.sdk.concretesyntax.ConcreteSyntax) root;
 	}
 	
+	/**
+	 * Returns the root element after parsing the given text.
+	 */
+	public static org.emftext.sdk.concretesyntax.ConcreteSyntax getResourceContent(String text) {
+		org.eclipse.emf.ecore.resource.Resource resource = getResource(text);
+		if (resource == null) {
+			return null;
+		}
+		java.util.List<org.eclipse.emf.ecore.EObject> contents = resource.getContents();
+		if (contents == null || contents.isEmpty()) {
+			return null;
+		}
+		org.eclipse.emf.ecore.EObject root = contents.get(0);
+		return (org.emftext.sdk.concretesyntax.ConcreteSyntax) root;
+	}
+	
 	public static void saveResource(java.io.File file, org.eclipse.emf.ecore.resource.Resource resource) throws java.io.IOException {
 		java.util.Map<?, ?> options = java.util.Collections.EMPTY_MAP;
 		java.io.OutputStream outputStream = new java.io.FileOutputStream(file);
 		resource.save(outputStream, options);
 		outputStream.close();
+	}
+	
+	public static String getText(org.eclipse.emf.ecore.EObject eObject) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+		metaInformation.registerResourceFactory();
+		org.eclipse.emf.ecore.resource.ResourceSet rs = null;
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) eObject.eResource();
+		if (resource != null) {
+			rs = resource.getResourceSet();
+		}
+		if (rs == null) {
+			rs = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		}
+		if (resource == null) {
+			org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI("temp." + metaInformation.getSyntaxName());
+			resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) rs.createResource(uri);
+		}
+		java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = metaInformation.createPrinter(outputStream, resource);
+		try {
+			printer.print(eObject);
+		} catch (java.io.IOException e) {
+			return null;
+		}
+		return outputStream.toString();
 	}
 	
 	public static boolean containsErrors(org.eclipse.emf.ecore.resource.Resource resource) {

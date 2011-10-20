@@ -35,16 +35,6 @@ public class CsRuntimeUtil {
 	}
 	
 	/**
-	 * Checks whether the Eclipse platform is running.
-	 */
-	public boolean isEclipsePlatformRunning() {
-		if (!isEclipsePlatformAvailable()) {
-			return false;
-		}
-		return org.eclipse.core.runtime.Platform.isRunning();
-	}
-	
-	/**
 	 * Logs the given error. If Eclipse is running, the error is added to the error
 	 * log otherwise the message is printed to System.err.
 	 */
@@ -57,6 +47,16 @@ public class CsRuntimeUtil {
 		if (exception != null) {
 			exception.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Checks whether the Eclipse platform is running.
+	 */
+	public boolean isEclipsePlatformRunning() {
+		if (!isEclipsePlatformAvailable()) {
+			return false;
+		}
+		return org.eclipse.core.runtime.Platform.isRunning();
 	}
 	
 }
