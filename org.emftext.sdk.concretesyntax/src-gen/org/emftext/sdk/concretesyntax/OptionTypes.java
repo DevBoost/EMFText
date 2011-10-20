@@ -6938,6 +6938,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the IFunction1 interface will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_IFUNCTION1
 	 * @model name="OVERRIDE_I_FUNCTION1" literal="overrideIFunction1"
 	 * @generated
