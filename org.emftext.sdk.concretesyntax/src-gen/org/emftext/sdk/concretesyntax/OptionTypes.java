@@ -2248,7 +2248,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IFUNCTION1(279, "OVERRIDE_I_FUNCTION1", "overrideIFunction1");
+	OVERRIDE_IFUNCTION1(279, "OVERRIDE_I_FUNCTION1", "overrideIFunction1"), /**
+	 * The '<em><b>OVERRIDE DEV NULL LOCATION MAP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEV_NULL_LOCATION_MAP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEV_NULL_LOCATION_MAP(280, "OVERRIDE_DEV_NULL_LOCATION_MAP", "OVERRIDE_DEV_NULL_LOCATION_MAP");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6948,6 +6956,19 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_IFUNCTION1_VALUE = 279;
 /**
+	 * The '<em><b>OVERRIDE DEV NULL LOCATION MAP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DevNullLocationMap class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_DEV_NULL_LOCATION_MAP
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEV_NULL_LOCATION_MAP_VALUE = 280;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7232,6 +7253,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_RUNTIME_UTIL,
 			REMOVE_ECLIPSE_DEPENDENT_CODE,
 			OVERRIDE_IFUNCTION1,
+			OVERRIDE_DEV_NULL_LOCATION_MAP,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7556,6 +7578,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_RUNTIME_UTIL_VALUE: return OVERRIDE_RUNTIME_UTIL;
 			case REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE: return REMOVE_ECLIPSE_DEPENDENT_CODE;
 			case OVERRIDE_IFUNCTION1_VALUE: return OVERRIDE_IFUNCTION1;
+			case OVERRIDE_DEV_NULL_LOCATION_MAP_VALUE: return OVERRIDE_DEV_NULL_LOCATION_MAP;
 		}
 		return null;
 	}

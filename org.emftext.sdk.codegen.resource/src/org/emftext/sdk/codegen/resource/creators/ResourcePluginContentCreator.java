@@ -185,6 +185,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.EXPECTATION_CONSTANTS);
 	    add(creators, TextResourceArtifacts.FUZZY_RESOLVE_RESULT);
 	    add(creators, TextResourceArtifacts.LOCATION_MAP);
+	    add(creators, TextResourceArtifacts.DEV_NULL_LOCATION_MAP);
 	    add(creators, TextResourceArtifacts.DEFAULT_TOKEN_RESOLVER);
 	    add(creators, TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
 	    add(creators, TextResourceArtifacts.DEFAULT_NAME_PROVIDER);

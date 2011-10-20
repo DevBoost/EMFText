@@ -2493,6 +2493,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_RUNTIME_UTIL);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_IFUNCTION1);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DEV_NULL_LOCATION_MAP);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -4666,6 +4667,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IFunction1 interface will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(277), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the DevNullLocationMap class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 

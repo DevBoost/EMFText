@@ -143,6 +143,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String lineBreakpointClassName;
 	protected String listUtilClassName;
 	protected String locationMapClassName;
+	protected String devNullLocationMapClassName;
 	protected String mapUtilClassName;
 	protected String markerHelperClassName;
 	protected String metaInformationClassName;
@@ -314,6 +315,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		lineBreakpointClassName = context.getQualifiedClassName(TextResourceArtifacts.LINEBREAK_POINT);
 		listUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.LIST_UTIL);
 		locationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.LOCATION_MAP);
+		devNullLocationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.DEV_NULL_LOCATION_MAP);		
 		mapUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
 		markerHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.MARKER_HELPER);
 		metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);

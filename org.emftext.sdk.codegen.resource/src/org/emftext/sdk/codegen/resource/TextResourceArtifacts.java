@@ -44,6 +44,7 @@ import org.emftext.sdk.codegen.resource.generators.ContextDependentURIFragmentFa
 import org.emftext.sdk.codegen.resource.generators.ContextDependentURIFragmentGenerator;
 import org.emftext.sdk.codegen.resource.generators.DefaultTokenResolverGenerator;
 import org.emftext.sdk.codegen.resource.generators.DelegatingResolveResultGenerator;
+import org.emftext.sdk.codegen.resource.generators.DevNullLocationMapGenerator;
 import org.emftext.sdk.codegen.resource.generators.DummyEObjectGenerator;
 import org.emftext.sdk.codegen.resource.generators.EProblemSeverityGenerator;
 import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator;
@@ -223,6 +224,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ELEMENT_MAPPING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ElementMapping", ElementMappingGenerator.class, OptionTypes.OVERRIDE_ELEMENT_MAPPING);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FUZZY_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "FuzzyResolveResult", FuzzyResolveResultGenerator.class, OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LOCATION_MAP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "LocationMap", LocationMapGenerator.class, OptionTypes.OVERRIDE_LOCATION_MAP);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEV_NULL_LOCATION_MAP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "DevNullLocationMap", DevNullLocationMapGenerator.class, OptionTypes.OVERRIDE_DEV_NULL_LOCATION_MAP);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> REFERENCE_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ReferenceResolveResult", ReferenceResolveResultGenerator.class, OptionTypes.OVERRIDE_REFERENCE_RESOLVE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TOKEN_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TokenResolveResult", TokenResolveResultGenerator.class, OptionTypes.OVERRIDE_TOKEN_RESOLVE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> URI_MAPPING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "URIMapping", URIMappingGenerator.class, OptionTypes.OVERRIDE_URI_MAPPING);

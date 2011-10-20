@@ -34,6 +34,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 
 public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -117,6 +118,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
     	generatorUtil.addGetMetaInformationMethod(sc, context);
 		generatorUtil.addGetReferenceResolverSwitchMethod(sc, context);
+		addIsLayoutInformationRecordingEnabledMethod(sc);
 	}
 
 	private void addConstructor1(JavaComposite sc) {
@@ -135,7 +137,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addRetrieveLayoutInformationMethod(JavaComposite sc) {
 		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {");
-		sc.add("if (element == null) {");
+		sc.add("if (!isLayoutInformationRecordingEnabled() || element == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.addComment(
@@ -290,6 +292,18 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("currentTarget = newEObject;");
 		sc.add("}");
 		sc.add("return currentTarget;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addIsLayoutInformationRecordingEnabledMethod(StringComposite sc) {
+		sc.add("protected boolean isLayoutInformationRecordingEnabled() {");
+		sc.add("if (getOptions() == null) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("return !getOptions().containsKey(" + iOptionsClassName + "."
+				+ IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING
+				+ ");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

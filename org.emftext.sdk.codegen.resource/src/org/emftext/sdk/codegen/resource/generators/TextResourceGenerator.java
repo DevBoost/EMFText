@@ -144,6 +144,7 @@ public class TextResourceGenerator extends
 		addRunValidatorsMethods(sc);
 		addGetQuickFixMethod(sc);
 		addIsMarkerCreationEnabledMethod(sc);
+		addIsLocationMapEnabledMethod(sc);
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -626,6 +627,18 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
+	private void addIsLocationMapEnabledMethod(StringComposite sc) {
+		sc.add("protected boolean isLocationMapEnabled() {");
+		sc.add("if (loadOptions == null) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "."
+				+ IOptionsGenerator.DISABLE_LOCATION_MAP
+				+ ");");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addAttachResolveWarningsMethod(StringComposite sc) {
 		sc.add("protected void attachResolveWarnings("
 				+ iReferenceResolveResultClassName + "<? extends " + E_OBJECT
@@ -849,7 +862,11 @@ public class TextResourceGenerator extends
 
 	private void addResetLocationMapMethod(StringComposite sc) {
 		sc.add("protected void resetLocationMap() {");
+		sc.add("if (isLocationMapEnabled()) {");
 		sc.add("locationMap = new " + locationMapClassName + "();");
+		sc.add("} else {");
+		sc.add("locationMap = new " + devNullLocationMapClassName + "();");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -961,6 +978,7 @@ public class TextResourceGenerator extends
 		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
 		sc.add("this.loadOptions = options;");
+		sc.add("resetLocationMap();");
 		sc.add("this.terminateReload = false;");
 		sc.add("String encoding = null;");
 		sc.add(INPUT_STREAM + " actualInputStream = inputStream;");

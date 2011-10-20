@@ -21,7 +21,10 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public static final String DISABLE_CREATING_MARKERS_FOR_PROBLEMS = "DISABLE_CREATING_MARKERS_FOR_PROBLEMS";
+	public static final String DISABLE_LOCATION_MAP                  = "DISABLE_LOCATION_MAP";
+	public static final String DISABLE_LAYOUT_INFORMATION_RECORDING  = "DISABLE_LAYOUT_INFORMATION_RECORDING";
 
+	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
@@ -63,6 +66,27 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 			"triggers the loading of the same resource and so on."
 		);
 		sc.add("public final String " + DISABLE_CREATING_MARKERS_FOR_PROBLEMS + " = \"" + DISABLE_CREATING_MARKERS_FOR_PROBLEMS + "\";");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+				"The key for the options to disable the location map that " +
+				"maps EObjects to the position of their textual representations. " +
+				"If this options is set (the value does not matter), the " +
+				"memory footprint of large models is reduced. Disabling the " +
+				"location map, however, disables functionality that relies on it " +
+				"(e.g. navigation in the text editor)."
+			);
+		sc.add("public final String " + DISABLE_LOCATION_MAP + " = \"" + DISABLE_LOCATION_MAP + "\";");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+				"The key for the options to disable the recording of layout information. " +
+				"If this options is set (the value does not matter), the " +
+				"memory footprint of large models is reduced. When " +
+				"layout information recording is disabled, a new layout is " +
+				"computed during printing and the original layout is not preserved."
+			);
+		sc.add("public final String " + DISABLE_LAYOUT_INFORMATION_RECORDING + " = \"" + DISABLE_LAYOUT_INFORMATION_RECORDING + "\";");
 		sc.addLineBreak();
 		
 		sc.add("}");
