@@ -46,7 +46,9 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addCapitalizeMethod(sc);
 		addGetMissingTailMethod(sc);
 		addConvertAllCapsToCamelCaseMethod(sc);
-		addExplodeMethod(sc);
+		addExplodeMethod1(sc);
+		addExplodeMethod2(sc);
+		addExplodeMethod3(sc);
 		addFormatTokenNameMethod(sc);
 		addGetLineMethod(sc);
 		addGetCharPositionInLineMethod(sc);
@@ -276,24 +278,44 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 	}
 
-	private void addExplodeMethod(JavaComposite sc) {
+	private void addExplodeMethod1(JavaComposite sc) {
 		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
 		sc.add("public static String explode(" + COLLECTION + "<? extends Object> parts, String glue) {");
 		sc.add("return explode(parts.toArray(new Object[parts.size()]), glue);");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addExplodeMethod2(JavaComposite sc) {
 		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
 		sc.add("public static String explode(Object[] parts, String glue) {");
 		sc.add("StringBuilder sb = new StringBuilder();");
-		sc.add("for (int i = 0; i < parts.length; i++) {");
+		sc.add("int length = parts.length;");
+		sc.add("for (int i = 0; i < length; i++) {");
 		sc.add("Object next = parts[i];");
 		sc.add("sb.append(next.toString());");
-		sc.add("if (i < parts.length - 1) {");
+		sc.add("if (i < length - 1) {");
 		sc.add("sb.append(glue);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return sb.toString();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addExplodeMethod3(JavaComposite sc) {
+		sc.addJavadoc(
+			"Concatenates the given parts and puts 'glue' between them. " +
+			"The toStringFunction is used to convert the parts to strings."
+		);
+		sc.add("public static <T> String explode(" + COLLECTION + "<T> parts, String glue, " + iFunction1ClassName + "<String, T> toStringFunction) {");
+		sc.add("String[] partsAsArray = new String[parts.size()];");
+		sc.add("int i = 0;");
+		sc.add("for (T part : parts) {");
+		sc.add("partsAsArray[i] = toStringFunction.execute(part);");
+		sc.add("i++;");
+		sc.add("}");
+		sc.add("return explode(parts.toArray(partsAsArray), glue);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

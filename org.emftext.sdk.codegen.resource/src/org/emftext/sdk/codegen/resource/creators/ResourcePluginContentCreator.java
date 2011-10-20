@@ -227,6 +227,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER);
 	    add(creators, TextResourceArtifacts.I_BRACKET_PAIR);
 	    add(creators, TextResourceArtifacts.I_COMMAND);
+	    add(creators, TextResourceArtifacts.I_FUNCTION1);
 	    add(creators, TextResourceArtifacts.I_CONFIGURABLE);
 	    add(creators, TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
 	    add(creators, TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);

@@ -2240,7 +2240,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REMOVE_ECLIPSE_DEPENDENT_CODE(278, "REMOVE_ECLIPSE_DEPENDENT_CODE", "removeEclipseDependentCode");
+	REMOVE_ECLIPSE_DEPENDENT_CODE(278, "REMOVE_ECLIPSE_DEPENDENT_CODE", "removeEclipseDependentCode"), /**
+	 * The '<em><b>OVERRIDE IFUNCTION1</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IFUNCTION1_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IFUNCTION1(279, "OVERRIDE_I_FUNCTION1", "overrideIFunction1");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6923,6 +6931,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE = 278;
 /**
+	 * The '<em><b>OVERRIDE IFUNCTION1</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IFUNCTION1</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IFUNCTION1
+	 * @model name="OVERRIDE_I_FUNCTION1" literal="overrideIFunction1"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IFUNCTION1_VALUE = 279;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7206,6 +7228,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ECLIPSE_PROXY,
 			OVERRIDE_RUNTIME_UTIL,
 			REMOVE_ECLIPSE_DEPENDENT_CODE,
+			OVERRIDE_IFUNCTION1,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7529,6 +7552,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ECLIPSE_PROXY_VALUE: return OVERRIDE_ECLIPSE_PROXY;
 			case OVERRIDE_RUNTIME_UTIL_VALUE: return OVERRIDE_RUNTIME_UTIL;
 			case REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE: return REMOVE_ECLIPSE_DEPENDENT_CODE;
+			case OVERRIDE_IFUNCTION1_VALUE: return OVERRIDE_IFUNCTION1;
 		}
 		return null;
 	}

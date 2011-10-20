@@ -194,6 +194,8 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String uriMappingClassName;
 	protected String whiteSpaceClassName;
 	
+	protected String iFunction1ClassName;
+	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
 		
@@ -264,6 +266,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		iBracketPairClassName = context.getQualifiedClassName(TextResourceArtifacts.I_BRACKET_PAIR);
 		iBuilderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_BUILDER);
 		iCommandClassName = context.getQualifiedClassName(TextResourceArtifacts.I_COMMAND);
+		iFunction1ClassName = context.getQualifiedClassName(TextResourceArtifacts.I_FUNCTION1);
 		iConfigurableClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONFIGURABLE);
 		iContextDependentUriFragmentClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT);
 		iContextDependentUriFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);

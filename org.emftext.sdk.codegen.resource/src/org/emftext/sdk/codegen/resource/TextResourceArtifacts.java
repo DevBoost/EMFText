@@ -124,6 +124,7 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.IContextDependentU
 import org.emftext.sdk.codegen.resource.generators.interfaces.IContextDependentURIFragmentGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IElementMappingGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IExpectedElementGenerator;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IFunction1Generator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IHoverTextProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IInputStreamProcessorProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IInterpreterListenerGenerator;
@@ -280,6 +281,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_BACKGROUND_PARSING_LISTENER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "BackgroundParsingListener", IBackgroundParsingListenerGenerator.class, OptionTypes.OVERRIDE_IBACKGROUND_PARSING_LISTENER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_BRACKET_PAIR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "BracketPair", IBracketPairGenerator.class, OptionTypes.OVERRIDE_IBRACKET_PAIR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_COMMAND = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "Command", ICommandGenerator.class, OptionTypes.OVERRIDE_ICOMMAND);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_FUNCTION1 = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "Function1", IFunction1Generator.class, OptionTypes.OVERRIDE_IFUNCTION1);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_CONFIGURABLE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "Configurable", IConfigurableGenerator.class, OptionTypes.OVERRIDE_ICONFIGURABLE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_CONTEXT_DEPENDENT_URI_FRAGMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ContextDependentURIFragment", IContextDependentURIFragmentGenerator.class, OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ContextDependentURIFragmentFactory", IContextDependentURIFragmentFactoryGenerator.class, OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
