@@ -244,7 +244,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("public final static String CONTEXT_MENU_ID = \"" + outlineContextMenuID + "\";");
 		sc.addLineBreak();
 		sc.addJavadoc("The auto expand level determines the depth to which the outline tree is expanded by default.");
-		sc.add("public static int AUTO_EXPAND_LEVEL = 3;");
+		sc.add("public static int AUTO_EXPAND_LEVEL = 2;");
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"The provider for the resource that is displayed in the outline page. " +
