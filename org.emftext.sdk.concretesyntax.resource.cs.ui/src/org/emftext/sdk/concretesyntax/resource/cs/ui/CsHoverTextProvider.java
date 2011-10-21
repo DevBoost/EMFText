@@ -32,6 +32,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsFunction1;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil;
 
@@ -95,10 +96,57 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 				// and we want to show the type of the feature
 				EClassifier type = ecoreFeature.getEType();
 				String htmlForEType = getHTML(type);
-				return htmlForEFeature + "<br/><br/>Type: " + htmlForEType;// + "<br/><br/>" + htmlForObject;
+				String htmlForSubTypes = "";
+				if (type instanceof EClass) {
+					htmlForSubTypes = getHTMLForSubTypes((EClass) type);
+				}
+				return htmlForEFeature + "<br/><br/>Type: " + htmlForEType + htmlForSubTypes;// + "<br/><br/>" + htmlForObject;
 			}
 		}
 		return htmlForObject;
+	}
+
+	private String getHTMLForSubTypes(EClass type) {
+		EPackage rootPackage = findRootPackage(type.getEPackage());
+		List<EClass> allClasses = findAllEClasses(rootPackage);
+		List<EClass> subTypes = new ArrayList<EClass>();
+		for (EClass eClass : allClasses) {
+			if (type.isSuperTypeOf(eClass) && !type.equals(eClass)) {
+				subTypes.add(eClass);
+			}
+		}
+		String list = CsStringUtil.explode(subTypes, ", ", new ICsFunction1<String, EClass>() {
+
+			public String execute(EClass eClass) {
+				return eClass.getName();
+			}
+		});
+		return "<br/>Available subtypes: " + list;
+	}
+
+	private List<EClass> findAllEClasses(EPackage ePackage) {
+		List<EClass> result = new ArrayList<EClass>();
+		for (EClassifier eClassifier : ePackage.getEClassifiers()) {
+			if (eClassifier instanceof EClass) {
+				result.add((EClass) eClassifier);
+			}
+		}
+		
+		for (EPackage subPackage : ePackage.getESubpackages()) {
+			result.addAll(findAllEClasses(subPackage));
+		}
+		return result;
+	}
+
+	private EPackage findRootPackage(EPackage ePackage) {
+		EPackage rootPackage = ePackage;
+		while (true) {
+			EPackage superPackage = rootPackage.getESuperPackage();
+			if (superPackage == null) {
+				return rootPackage;
+			}
+			rootPackage = superPackage;
+		}
 	}
 
 	private String getHTML(EObject eObject, String... referencesToPrint) {
