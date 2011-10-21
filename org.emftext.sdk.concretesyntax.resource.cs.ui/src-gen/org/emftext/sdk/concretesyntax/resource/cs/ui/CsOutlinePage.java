@@ -25,7 +25,7 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 	 * The auto expand level determines the depth to which the outline tree is
 	 * expanded by default.
 	 */
-	public static int AUTO_EXPAND_LEVEL = 3;
+	public static int AUTO_EXPAND_LEVEL = 2;
 	
 	/**
 	 * The provider for the resource that is displayed in the outline page. Normally

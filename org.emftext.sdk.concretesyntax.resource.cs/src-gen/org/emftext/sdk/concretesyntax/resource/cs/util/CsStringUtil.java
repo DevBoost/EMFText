@@ -125,7 +125,7 @@ public class CsStringUtil {
 			partsAsArray[i] = toStringFunction.execute(part);
 			i++;
 		}
-		return explode(parts.toArray(partsAsArray), glue);
+		return explode(partsAsArray, glue);
 	}
 	
 	/**
