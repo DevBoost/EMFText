@@ -315,7 +315,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("partsAsArray[i] = toStringFunction.execute(part);");
 		sc.add("i++;");
 		sc.add("}");
-		sc.add("return explode(parts.toArray(partsAsArray), glue);");
+		sc.add("return explode(partsAsArray, glue);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
