@@ -115,6 +115,9 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 				subTypes.add(eClass);
 			}
 		}
+		if (subTypes.isEmpty()) {
+			return "";
+		}
 		String list = CsStringUtil.explode(subTypes, ", ", new ICsFunction1<String, EClass>() {
 
 			public String execute(EClass eClass) {
