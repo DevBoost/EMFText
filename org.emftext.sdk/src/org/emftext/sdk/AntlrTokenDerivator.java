@@ -16,7 +16,7 @@ package org.emftext.sdk;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 
 /**
- * The AntlrTokenDerivator is used to derive implicit Antrl Tokens for
+ * The AntlrTokenDerivator is used to derive implicit ANTLR Tokens for
  * quoted placeholders.
  * 
  * @author Christian Wende
