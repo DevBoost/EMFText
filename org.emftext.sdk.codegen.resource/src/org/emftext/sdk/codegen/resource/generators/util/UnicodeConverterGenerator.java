@@ -65,6 +65,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<ArtifactParamet
 			"converted to UTF-8 byte sequences (i.e., up to four bytes)."
 		);
 		sc.add("@Override");
+		sc.addLineBreak();
 		sc.add("public int read() throws " + IO_EXCEPTION + " {");
 		sc.add("if (!stackIsEmpty()) {");
 		sc.add("int result = pop();");
@@ -145,7 +146,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("encodePush(next);");
 		sc.add("}");
 		sc.add("} else {");
-		sc.add("return encodePushAndReturn(read);");
+		sc.add("return read;");
 		sc.add("}");
 		sc.add("}");
 		sc.addComment("do not encode negative numbers, because they signal EOF");
