@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ENUMERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
@@ -27,9 +28,9 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINTER_WRITER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -116,13 +117,13 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		);
 		sc.add("protected class PrintCountingMap {");
 		sc.addLineBreak();
-		sc.add("private " + MAP + "<String, Integer> featureToValueCountMap = new " + LINKED_HASH_MAP +"<String, Integer>();");
+		sc.add("private " + MAP + "<String, " + LIST + "<Object>> featureToValuesMap = new " + LINKED_HASH_MAP +"<String, " + LIST + "<Object>>();");
 		sc.add("private " + MAP + "<String, " + SET + "<Integer>> featureToPrintedIndicesMap = new " + LINKED_HASH_MAP + "<String, " + SET +"<Integer>>();");
 		sc.addLineBreak();
-		sc.add("public void setFeatureValueCount(String featureName, int values) {");
-		sc.add("featureToValueCountMap.put(featureName, values);");
+		sc.add("public void setFeatureValues(String featureName, " + LIST + "<Object> values) {");
+		sc.add("featureToValuesMap.put(featureName, values);");
 		sc.addComment("If the feature does not have values it won't be printed. An entry in 'featureToPrintedIndicesMap' is therefore not needed in this case.");
-		sc.add("if (values >= 0) {");
+		sc.add("if (values != null) {");
 		sc.add("featureToPrintedIndicesMap.put(featureName, new " + LINKED_HASH_SET + "<Integer>());");
 		sc.add("}");
 		sc.add("}");
@@ -135,12 +136,28 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("featureToPrintedIndicesMap.get(featureName).add(index);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public int getCountLeft(String featureName) {");
-		sc.add("int totalValuesToPrint = featureToValueCountMap.get(featureName);");
-		sc.add("int printedValues = featureToPrintedIndicesMap.get(featureName).size();");
-		sc.add("return totalValuesToPrint - printedValues;");
+		
+		sc.add("public int getCountLeft(String featureName, " + LIST + "<Class<?>> types) {");
+		sc.add(LIST + "<Object> totalValuesToPrint = featureToValuesMap.get(featureName);");
+		sc.add("if (totalValuesToPrint == null) {");
+		sc.add("return 0;");
+		sc.add("}");
+		sc.add(SET + "<Integer> indicesWithCorrectType = new " + LINKED_HASH_SET + "<Integer>();");
+		sc.add("int index = 0;");
+		sc.add("for (Object valueToPrint : totalValuesToPrint) {");
+		sc.add("for (Class<?> type : types) {");
+		sc.add("if (type.isInstance(valueToPrint)) {");
+		sc.add("indicesWithCorrectType.add(index);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("index++;");
+		sc.add("}");
+		sc.add(SET + "<Integer> printedIndices = featureToPrintedIndicesMap.get(featureName);");
+		sc.add("indicesWithCorrectType.removeAll(printedIndices);");
+		sc.add("return indicesWithCorrectType.size();");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public int getNextIndexToPrint(String featureName) {");
 		sc.add("int printedValues = featureToPrintedIndicesMap.get(featureName).size();");
 		sc.add("return printedValues;");
@@ -189,6 +206,27 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintBasicMethod(sc);
 		addPrintSmartMethod(sc);
 		addIsSameMethod(sc);
+		addGetAllowedTypesMethod(sc);
+	}
+
+	private void addGetAllowedTypesMethod(JavaComposite sc) {
+		sc.add("private " + LIST + "<Class<?>> getAllowedTypes(" + terminalClassName + " terminal) {");
+		sc.add(LIST + "<Class<?>> allowedTypes = new " + ARRAY_LIST + "<Class<?>>();");
+		sc.add("allowedTypes.add(terminal.getFeature().getEType().getInstanceClass());");
+			
+		sc.add("if (terminal instanceof " + containmentClassName + ") {");
+		sc.add(containmentClassName + " printingContainment = (" + containmentClassName + ") terminal;");
+		sc.add(E_CLASS + "[] typeRestrictions = printingContainment.getAllowedTypes();");
+		sc.add("if (typeRestrictions != null && typeRestrictions.length > 0) {");
+		sc.add("allowedTypes.clear();");
+		sc.add("for (" + E_CLASS + " eClass : typeRestrictions) {");
+		sc.add("allowedTypes.add(eClass.getInstanceClass());");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return allowedTypes;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addSetTokenSpaceMethod(JavaComposite sc) {
@@ -429,7 +467,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("String featureName = feature.getName();");
-		sc.add("int countLeft = printCountingMap.getCountLeft(featureName);");
+		sc.add(LIST + "<Class<?>> allowedTypes = getAllowedTypes(terminal);");
+		sc.add("int countLeft = printCountingMap.getCountLeft(featureName, allowedTypes);");
 		// TODO mseifert: this condition should be modified to include a check whether
 		// the current syntax element (or the subtree that contains it) is mandatory.
 		// currently the decorator is only decorated if there is enough values left to
@@ -549,7 +588,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addDoesPrintFeatureMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether decorating the given node will use at least one attribute value, or reference holded by eObject. " +
+			"Checks whether decorating the given node will use at least one attribute value, or reference held by eObject. " +
 			"Returns true if a printable attribute value or reference was found. " +
 			"This method is used to decide which choice to pick, when multiple choices are available. " +
 			"We pick the choice that prints at least one attribute or reference."
@@ -562,7 +601,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (feature == " + grammarInformationProviderClassName + ".ANONYMOUS_FEATURE) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("int countLeft = printCountingMap.getCountLeft(feature.getName());");
+		sc.add(LIST + "<Class<?>> allowedTypes = getAllowedTypes(terminal);");
+		sc.add("int countLeft = printCountingMap.getCountLeft(feature.getName(), allowedTypes);");
 		sc.add("if (countLeft > terminal.getMandatoryOccurencesAfter()) {");
 		sc.addComment("found a feature to print");
 		sc.add("return true;");
@@ -644,6 +684,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addInitializePrintCountingMapMethod(JavaComposite sc) {
+		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public PrintCountingMap initializePrintCountingMap(" + E_OBJECT + " eObject) {");
 		sc.addComment(
 			"The PrintCountingMap contains a mapping from feature names to " +
@@ -655,16 +696,16 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("PrintCountingMap printCountingMap = new PrintCountingMap();");
 		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = eObject.eClass().getEAllStructuralFeatures();");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " feature : features) {");
-		sc.add("int count = 0;");
 		sc.add("Object featureValue = eObject.eGet(feature);");
 		sc.add("if (featureValue != null) {");
 		sc.add("if (featureValue instanceof " + LIST + "<?>) {");
-		sc.add("count = ((" + LIST + "<?>) featureValue).size();");
+		sc.add("printCountingMap.setFeatureValues(feature.getName(), (" + LIST + "<Object>) featureValue);");
 		sc.add("} else {");
-		sc.add("count = 1;");
+		sc.add("printCountingMap.setFeatureValues(feature.getName(), " + COLLECTIONS + ".singletonList(featureValue));");
 		sc.add("}");
+		sc.add("} else {");
+		sc.add("printCountingMap.setFeatureValues(feature.getName(), null);");
 		sc.add("}");
-		sc.add("printCountingMap.setFeatureValueCount(feature.getName(), count);");
 		sc.add("}");
 		sc.add("return printCountingMap;");
 		sc.add("}");

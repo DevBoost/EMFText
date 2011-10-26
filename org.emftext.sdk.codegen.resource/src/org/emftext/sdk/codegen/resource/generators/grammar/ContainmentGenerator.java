@@ -63,8 +63,16 @@ public class ContainmentGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addToStringMethod(JavaComposite sc) {
-		sc.add("public String toString() {"); 
-		sc.add("return getFeature().getName();");
+		sc.add("public String toString() {");
+		sc.add("String typeRestrictions = null;");
+		sc.add("if (allowedTypes != null && allowedTypes.length > 0) {"); 
+		sc.add("typeRestrictions = " + stringUtilClassName + ".explode(allowedTypes, \", \", new " + iFunction1ClassName + "<String, " + E_CLASS +">() {");
+		sc.add("public String execute(" + E_CLASS + " eClass) {");
+		sc.add("return eClass.getName();");
+		sc.add("}");
+		sc.add("});");
+		sc.add("}"); 
+		sc.add("return getFeature().getName() + (typeRestrictions == null ? \"\" : \"[\" + typeRestrictions + \"]\");");
 		sc.add("}"); 
 		sc.addLineBreak();
 	}

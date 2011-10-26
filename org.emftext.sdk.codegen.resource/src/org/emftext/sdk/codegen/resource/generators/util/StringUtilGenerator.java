@@ -49,6 +49,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addExplodeMethod1(sc);
 		addExplodeMethod2(sc);
 		addExplodeMethod3(sc);
+		addExplodeMethod4(sc);
 		addFormatTokenNameMethod(sc);
 		addGetLineMethod(sc);
 		addGetCharPositionInLineMethod(sc);
@@ -310,6 +311,23 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		);
 		sc.add("public static <T> String explode(" + COLLECTION + "<T> parts, String glue, " + iFunction1ClassName + "<String, T> toStringFunction) {");
 		sc.add("String[] partsAsArray = new String[parts.size()];");
+		sc.add("int i = 0;");
+		sc.add("for (T part : parts) {");
+		sc.add("partsAsArray[i] = toStringFunction.execute(part);");
+		sc.add("i++;");
+		sc.add("}");
+		sc.add("return explode(partsAsArray, glue);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addExplodeMethod4(JavaComposite sc) {
+		sc.addJavadoc(
+			"Concatenates the given parts and puts 'glue' between them. " +
+			"The toStringFunction is used to convert the parts to strings."
+		);
+		sc.add("public static <T> String explode(T[] parts, String glue, " + iFunction1ClassName + "<String, T> toStringFunction) {");
+		sc.add("String[] partsAsArray = new String[parts.length];");
 		sc.add("int i = 0;");
 		sc.add("for (T part : parts) {");
 		sc.add("partsAsArray[i] = toStringFunction.execute(part);");
