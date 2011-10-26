@@ -1958,7 +1958,7 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IFunction1 interface will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_DEV_NULL_LOCATION_MAP" value="280" literal="OVERRIDE_DEV_NULL_LOCATION_MAP">
+    <eLiterals name="OVERRIDE_DEV_NULL_LOCATION_MAP" value="280" literal="overrideDevNullLocationMap">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DevNullLocationMap class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>

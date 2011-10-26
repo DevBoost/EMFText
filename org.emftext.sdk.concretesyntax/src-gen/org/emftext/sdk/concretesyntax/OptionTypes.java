@@ -2256,7 +2256,7 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DEV_NULL_LOCATION_MAP(280, "OVERRIDE_DEV_NULL_LOCATION_MAP", "OVERRIDE_DEV_NULL_LOCATION_MAP");
+	OVERRIDE_DEV_NULL_LOCATION_MAP(280, "OVERRIDE_DEV_NULL_LOCATION_MAP", "overrideDevNullLocationMap");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6963,7 +6963,7 @@ public enum OptionTypes implements Enumerator {
 	 * If set to <code>false</code>, the DevNullLocationMap class will not be overridden. The default value for this option is <code>true</code>.
 	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DEV_NULL_LOCATION_MAP
-	 * @model
+	 * @model literal="overrideDevNullLocationMap"
 	 * @generated
 	 * @ordered
 	 */
