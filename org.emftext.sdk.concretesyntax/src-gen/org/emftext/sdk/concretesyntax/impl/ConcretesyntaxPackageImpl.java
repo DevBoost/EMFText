@@ -4096,7 +4096,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(181), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to <code>false</code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is <code>false</code>."
+			 "documentation", "If set to <code>true</code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(182), 

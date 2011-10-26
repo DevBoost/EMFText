@@ -1480,7 +1480,7 @@
     </eLiterals>
     <eLiterals name="USE_CLASSIC_PRINTER" value="183" literal="useClassicPrinter">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is &lt;code>false&lt;/code>."/>
+        <details key="documentation" value="If set to &lt;code>true&lt;/code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is &lt;code>false&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="DISABLE_E_VALIDATORS" value="184" literal="disableEValidators">

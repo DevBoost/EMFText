@@ -5336,7 +5336,7 @@ public enum OptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * If set to <code>false</code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is <code>false</code>.
+	 * If set to <code>true</code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is <code>false</code>.
 	 * <!-- end-model-doc -->
 	 * @see #USE_CLASSIC_PRINTER
 	 * @model literal="useClassicPrinter"
