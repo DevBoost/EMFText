@@ -1,6 +1,11 @@
-EMFText currently supports 257 code generation options. However, most of them (220) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
+EMFText currently supports 278 code generation options. However, most of them (238) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
 
-\vspace{1cm}\noindent\texttt{additionalDependencies}
+\vspace{1cm}\noindent\texttt{OVERRIDE_DEV_NULL_LOCATION_MAP}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DevNullLocationMap class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{additionalDependencies}
 \begin{myindentpar}{1cm}
 A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in. The default value for this option is an empty list.
 \end{myindentpar}
@@ -22,7 +27,7 @@ A list of comma separated packages, which will be added as exports to the manife
 
 \noindent\texttt{antlrPluginID}
 \begin{myindentpar}{1cm}
-Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is \texttt{org.emftext.commons.antlr3\_3\_0}.
+Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is \texttt{org.emftext.commons.antlr3\_4\_0}.
 \end{myindentpar}
 
 \noindent\texttt{autofixSimpleLeftrecursion}
@@ -105,6 +110,11 @@ If set to \texttt{true}, EMFText generates a UI action that can be used to test 
 If set to \texttt{false}, EMFText will not generate the resource UI plug-in. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{ignoreTypeRestrictionsForPrinting}
+\begin{myindentpar}{1cm}
+If set to \texttt{true}, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is \texttt{false}.
+\end{myindentpar}
+
 \noindent\texttt{licenceHeader}
 \begin{myindentpar}{1cm}
 A URI pointing to a text file that contains a header which shall be added to all generated Java files. This option is useful to include copyright statements in the generated classes. If this option is not set, a default (empty) header is added to all generated Java classes.
@@ -128,6 +138,11 @@ If set to \texttt{false}, the AbstractExpectedElement class will not be overridd
 \noindent\texttt{overrideAbstractInterpreter}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the AbstractInterpreter class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideAbstractOutlinePageAction}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the AbstractOutlinePageAction class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideAdapterFactory}
@@ -260,6 +275,11 @@ If set to \texttt{false}, the CompletionProposal class will not be overridden. T
 If set to \texttt{false}, the Compound class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideContainedFeature}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the ContainedFeature class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideContainment}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the Containment class will not be overridden. The default value for this option is \texttt{true}.
@@ -355,6 +375,11 @@ If set to \texttt{false}, the DefaultHoverTextProvider class will not be overrid
 If set to \texttt{false}, the extension point schema for default load options is not overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideDefaultNameProvider}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the DefaultNameProvider class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideDefaultResolverDelegate}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the default resolver class will not be overridden. The default value for this option is \texttt{true}.
@@ -415,6 +440,11 @@ If set to \texttt{false}, the EProblemSeverity class will not be overridden. The
 If set to \texttt{false}, the EProblemType class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideEclipeProxy}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the EclipseProxy class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideEditor}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the Editor class will not be overridden. The default value for this option is \texttt{true}.
@@ -433,6 +463,11 @@ If set to \texttt{false}, the ElementMapping class will not be overridden. The d
 \noindent\texttt{overrideEnumerationTerminal}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the EnumerationTerminal class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideExpectationConstants}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the ExpectationConstants class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideExpectedBooleanTerminal}
@@ -575,6 +610,11 @@ If set to \texttt{false}, the IElementMapping class will not be overridden. The 
 If set to \texttt{false}, the IExpectedElement class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideIFunction1}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the IFunction1 interface will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideIHoverTextProvider}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the IHoverTextProvider class will not be overridden. The default value for this option is \texttt{true}.
@@ -598,6 +638,11 @@ If set to \texttt{false}, the ILocationMap class will not be overridden. The def
 \noindent\texttt{overrideIMetaInformation}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the IMetaInformation class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideINameProvider}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the INameProvider class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideIOptionProvider}
@@ -870,14 +915,59 @@ If set to \texttt{false}, the Occurrence class will not be overridden. The defau
 If set to \texttt{false}, the OccurrencePreferencePage class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideOptionProvider}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OptionProvider class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideOutlinePage}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the OutlinePage class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideOutlinePageActionProvider}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageActionProvider class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageAutoExpandAction}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageAutoExpandAction class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageCollapseAllAction}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageCollapseAllAction class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageExpandAllAction}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageExpandAllAction class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageGroupTypesAction}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageGroupTypesAction class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageLexicalSortingAction}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageLexicalSortingAction class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageLinkWithEditorAction}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageLinkWithEditorAction class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideOutlinePageTreeViewer}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the OutlinePageTreeViewer class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideOutlinePageTreeViewerComparator}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the OutlinePageTreeViewerComparator class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overridePair}
@@ -995,6 +1085,11 @@ If set to \texttt{false}, the QuickAssistProcessor class will not be overridden.
 If set to \texttt{false}, the QuickFix class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideReferenceCache}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the ReferenceCache class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideReferenceResolveResult}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the ReferenceResolveResult class will not be overridden. The default value for this option is \texttt{true}.
@@ -1033,6 +1128,11 @@ If set to \texttt{false}, the ResourceUtil class will not be overridden. The def
 \noindent\texttt{overrideRule}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the Rule class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideRuntimeUtil}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the RuntimeUtil class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideScanner}
@@ -1225,6 +1325,11 @@ The name of the parser generator to use. The default value for this option is \t
 If set to \texttt{true}, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is \texttt{false}.
 \end{myindentpar}
 
+\noindent\texttt{removeEclipseDependentCode}
+\begin{myindentpar}{1cm}
+If set to \texttt{true}, the generated resource plug-in will not contain any dependencies to Eclipse. The default value for this option is \texttt{false}.
+\end{myindentpar}
+
 \noindent\texttt{resolveProxyElementsAfterParsing}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the generated resource class will not resolve references after parsing. The default value for this option is \texttt{true}.
@@ -1277,7 +1382,7 @@ The name of the folder EMFText shall store the generated classes of the resource
 
 \noindent\texttt{useClassicPrinter}
 \begin{myindentpar}{1cm}
-If set to \texttt{false}, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is \texttt{false}.
+If set to \texttt{true}, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is \texttt{false}.
 \end{myindentpar}
 
 \noindent\texttt{usePredefinedTokens}
