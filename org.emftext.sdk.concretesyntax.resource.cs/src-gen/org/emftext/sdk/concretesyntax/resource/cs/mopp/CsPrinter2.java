@@ -41,23 +41,23 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	/**
-	 * The PrintCountingMap keeps tracks of the number of values that must be printed
-	 * for each feature of an EObject. It is also used to store the indices of all
-	 * values that have been printed. This knowledge is used to avoid printing values
-	 * twice. We must store the concrete indices of the printed values instead of
-	 * basically counting them, because values may be printed in an order that differs
-	 * from the order in which they are stored in the EObject's feature.
+	 * The PrintCountingMap keeps tracks of the values that must be printed for each
+	 * feature of an EObject. It is also used to store the indices of all values that
+	 * have been printed. This knowledge is used to avoid printing values twice. We
+	 * must store the concrete indices of the printed values instead of basically
+	 * counting them, because values may be printed in an order that differs from the
+	 * order in which they are stored in the EObject's feature.
 	 */
 	protected class PrintCountingMap {
 		
-		private java.util.Map<String, Integer> featureToValueCountMap = new java.util.LinkedHashMap<String, Integer>();
+		private java.util.Map<String, java.util.List<Object>> featureToValuesMap = new java.util.LinkedHashMap<String, java.util.List<Object>>();
 		private java.util.Map<String, java.util.Set<Integer>> featureToPrintedIndicesMap = new java.util.LinkedHashMap<String, java.util.Set<Integer>>();
 		
-		public void setFeatureValueCount(String featureName, int values) {
-			featureToValueCountMap.put(featureName, values);
+		public void setFeatureValues(String featureName, java.util.List<Object> values) {
+			featureToValuesMap.put(featureName, values);
 			// If the feature does not have values it won't be printed. An entry in
 			// 'featureToPrintedIndicesMap' is therefore not needed in this case.
-			if (values >= 0) {
+			if (values != null) {
 				featureToPrintedIndicesMap.put(featureName, new java.util.LinkedHashSet<Integer>());
 			}
 		}
@@ -70,10 +70,41 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			featureToPrintedIndicesMap.get(featureName).add(index);
 		}
 		
-		public int getCountLeft(String featureName) {
-			int totalValuesToPrint = featureToValueCountMap.get(featureName);
-			int printedValues = featureToPrintedIndicesMap.get(featureName).size();
-			return totalValuesToPrint - printedValues;
+		public int getCountLeft(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal) {
+			org.eclipse.emf.ecore.EStructuralFeature feature = terminal.getFeature();
+			String featureName = feature.getName();
+			java.util.List<Object> totalValuesToPrint = featureToValuesMap.get(featureName);
+			java.util.Set<Integer> printedIndices = featureToPrintedIndicesMap.get(featureName);
+			if (totalValuesToPrint == null) {
+				return 0;
+			}
+			if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
+				// for attributes we do not need to check the type, since the CS languages does
+				// not allow type restrictions for attributes.
+				return totalValuesToPrint.size() - printedIndices.size();
+			} else if (feature instanceof org.eclipse.emf.ecore.EReference) {
+				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
+				if (!reference.isContainment()) {
+					// for non-containment references we also do not need to check the type, since the
+					// CS languages does not allow type restrictions for these either.
+					return totalValuesToPrint.size() - printedIndices.size();
+				}
+			}
+			// now we're left with containment references for which we check the type of the
+			// objects to print
+			java.util.List<Class<?>> allowedTypes = getAllowedTypes(terminal);
+			java.util.Set<Integer> indicesWithCorrectType = new java.util.LinkedHashSet<Integer>();
+			int index = 0;
+			for (Object valueToPrint : totalValuesToPrint) {
+				for (Class<?> allowedType : allowedTypes) {
+					if (allowedType.isInstance(valueToPrint)) {
+						indicesWithCorrectType.add(index);
+					}
+				}
+				index++;
+			}
+			indicesWithCorrectType.removeAll(printedIndices);
+			return indicesWithCorrectType.size();
 		}
 		
 		public int getNextIndexToPrint(String featureName) {
@@ -328,7 +359,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 					return false;
 				}
 				String featureName = feature.getName();
-				int countLeft = printCountingMap.getCountLeft(featureName);
+				int countLeft = printCountingMap.getCountLeft(terminal);
 				if (countLeft > terminal.getMandatoryOccurencesAfter()) {
 					// normally we print the element at the next index
 					int indexToPrint = printCountingMap.getNextIndexToPrint(featureName);
@@ -420,7 +451,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	/**
 	 * Checks whether decorating the given node will use at least one attribute value,
-	 * or reference holded by eObject. Returns true if a printable attribute value or
+	 * or reference held by eObject. Returns true if a printable attribute value or
 	 * reference was found. This method is used to decide which choice to pick, when
 	 * multiple choices are available. We pick the choice that prints at least one
 	 * attribute or reference.
@@ -433,7 +464,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			if (feature == org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.ANONYMOUS_FEATURE) {
 				return false;
 			}
-			int countLeft = printCountingMap.getCountLeft(feature.getName());
+			int countLeft = printCountingMap.getCountLeft(terminal);
 			if (countLeft > terminal.getMandatoryOccurencesAfter()) {
 				// found a feature to print
 				return true;
@@ -716,6 +747,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName));
 	}
 	
+	@SuppressWarnings("unchecked")	
 	public PrintCountingMap initializePrintCountingMap(org.eclipse.emf.ecore.EObject eObject) {
 		// The PrintCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with
@@ -725,16 +757,16 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		PrintCountingMap printCountingMap = new PrintCountingMap();
 		java.util.List<org.eclipse.emf.ecore.EStructuralFeature> features = eObject.eClass().getEAllStructuralFeatures();
 		for (org.eclipse.emf.ecore.EStructuralFeature feature : features) {
-			int count = 0;
 			Object featureValue = eObject.eGet(feature);
 			if (featureValue != null) {
 				if (featureValue instanceof java.util.List<?>) {
-					count = ((java.util.List<?>) featureValue).size();
+					printCountingMap.setFeatureValues(feature.getName(), (java.util.List<Object>) featureValue);
 				} else {
-					count = 1;
+					printCountingMap.setFeatureValues(feature.getName(), java.util.Collections.singletonList(featureValue));
 				}
+			} else {
+				printCountingMap.setFeatureValues(feature.getName(), null);
 			}
-			printCountingMap.setFeatureValueCount(feature.getName(), count);
 		}
 		return printCountingMap;
 	}
@@ -935,6 +967,22 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			return o1.equals(o2);
 		}
 		return o1 == o2;
+	}
+	
+	private java.util.List<Class<?>> getAllowedTypes(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal) {
+		java.util.List<Class<?>> allowedTypes = new java.util.ArrayList<Class<?>>();
+		allowedTypes.add(terminal.getFeature().getEType().getInstanceClass());
+		if (terminal instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) {
+			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment printingContainment = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) terminal;
+			org.eclipse.emf.ecore.EClass[] typeRestrictions = printingContainment.getAllowedTypes();
+			if (typeRestrictions != null && typeRestrictions.length > 0) {
+				allowedTypes.clear();
+				for (org.eclipse.emf.ecore.EClass eClass : typeRestrictions) {
+					allowedTypes.add(eClass.getInstanceClass());
+				}
+			}
+		}
+		return allowedTypes;
 	}
 	
 }

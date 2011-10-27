@@ -129,6 +129,20 @@ public class CsStringUtil {
 	}
 	
 	/**
+	 * Concatenates the given parts and puts 'glue' between them. The toStringFunction
+	 * is used to convert the parts to strings.
+	 */
+	public static <T> String explode(T[] parts, String glue, org.emftext.sdk.concretesyntax.resource.cs.ICsFunction1<String, T> toStringFunction) {
+		String[] partsAsArray = new String[parts.length];
+		int i = 0;
+		for (T part : parts) {
+			partsAsArray[i] = toStringFunction.execute(part);
+			i++;
+		}
+		return explode(partsAsArray, glue);
+	}
+	
+	/**
 	 * Removes single quotes at the start and end of tokenName.
 	 */
 	public static String formatTokenName(String tokenName) {

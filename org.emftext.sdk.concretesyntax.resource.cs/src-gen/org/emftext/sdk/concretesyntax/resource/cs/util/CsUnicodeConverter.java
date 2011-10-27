@@ -45,7 +45,8 @@ public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.
 	 * Reads one character from the stream. Escaped unicode characters are converted
 	 * to UTF-8 byte sequences (i.e., up to four bytes).
 	 */
-	@Override	public int read() throws java.io.IOException {
+	@Override	
+	public int read() throws java.io.IOException {
 		if (!stackIsEmpty()) {
 			int result = pop();
 			return result;
@@ -124,7 +125,7 @@ public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.
 					encodePush(next);
 				}
 			} else {
-				return encodePushAndReturn(read);
+				return read;
 			}
 		}
 		// do not encode negative numbers, because they signal EOF
