@@ -137,22 +137,42 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public int getCountLeft(String featureName, " + LIST + "<Class<?>> types) {");
+		sc.add("public int getCountLeft(" + terminalClassName + " terminal) {");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = terminal.getFeature();");
+		sc.add("String featureName = feature.getName();");
 		sc.add(LIST + "<Object> totalValuesToPrint = featureToValuesMap.get(featureName);");
+		sc.add(SET + "<Integer> printedIndices = featureToPrintedIndicesMap.get(featureName);");
 		sc.add("if (totalValuesToPrint == null) {");
 		sc.add("return 0;");
 		sc.add("}");
+		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
+		sc.addComment(
+			"for attributes we do not need to check the type, since the CS languages does not " +
+			"allow type restrictions for attributes."
+		);
+		sc.add("return totalValuesToPrint.size() - printedIndices.size();");
+		sc.add("} else if (feature instanceof " + E_REFERENCE + ") {");
+		sc.add(E_REFERENCE + " reference = (" + E_REFERENCE + ") feature;");
+		sc.add("if (!reference.isContainment()) {");
+		sc.addComment(
+			"for non-containment references we also do not need to check the type, since the CS languages does not " +
+			"allow type restrictions for these either."
+		);
+		sc.add("return totalValuesToPrint.size() - printedIndices.size();");
+		sc.add("}");
+		sc.add("}");
+		sc.addComment("now we're left with containment references for which we check the type of the objects to print");
+		sc.add(LIST + "<Class<?>> allowedTypes = getAllowedTypes(terminal);");
 		sc.add(SET + "<Integer> indicesWithCorrectType = new " + LINKED_HASH_SET + "<Integer>();");
 		sc.add("int index = 0;");
 		sc.add("for (Object valueToPrint : totalValuesToPrint) {");
-		sc.add("for (Class<?> type : types) {");
-		sc.add("if (type.isInstance(valueToPrint)) {");
+		sc.add("for (Class<?> allowedType : allowedTypes) {");
+		sc.add("if (allowedType.isInstance(valueToPrint)) {");
 		sc.add("indicesWithCorrectType.add(index);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("index++;");
 		sc.add("}");
-		sc.add(SET + "<Integer> printedIndices = featureToPrintedIndicesMap.get(featureName);");
 		sc.add("indicesWithCorrectType.removeAll(printedIndices);");
 		sc.add("return indicesWithCorrectType.size();");
 		sc.add("}");
@@ -163,6 +183,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("return printedValues;");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -467,8 +488,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("String featureName = feature.getName();");
-		sc.add(LIST + "<Class<?>> allowedTypes = getAllowedTypes(terminal);");
-		sc.add("int countLeft = printCountingMap.getCountLeft(featureName, allowedTypes);");
+		sc.add("int countLeft = printCountingMap.getCountLeft(terminal);");
 		// TODO mseifert: this condition should be modified to include a check whether
 		// the current syntax element (or the subtree that contains it) is mandatory.
 		// currently the decorator is only decorated if there is enough values left to
@@ -601,8 +621,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (feature == " + grammarInformationProviderClassName + ".ANONYMOUS_FEATURE) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add(LIST + "<Class<?>> allowedTypes = getAllowedTypes(terminal);");
-		sc.add("int countLeft = printCountingMap.getCountLeft(feature.getName(), allowedTypes);");
+		sc.add("int countLeft = printCountingMap.getCountLeft(terminal);");
 		sc.add("if (countLeft > terminal.getMandatoryOccurencesAfter()) {");
 		sc.addComment("found a feature to print");
 		sc.add("return true;");
