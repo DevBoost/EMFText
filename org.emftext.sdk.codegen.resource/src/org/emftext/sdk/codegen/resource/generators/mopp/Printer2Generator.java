@@ -108,8 +108,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addInnerClassPrintCountingMap(JavaComposite sc) {
+		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
+		boolean ignoreTypeRestrictions = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING);
+
 		sc.addJavadoc(
-			"The PrintCountingMap keeps tracks of the number of values that must be printed for each " +
+			"The PrintCountingMap keeps tracks of the values that must be printed for each " +
 			"feature of an EObject. It is also used to store the indices of all values that have been " +
 			"printed. This knowledge is used to avoid printing values twice. We must store the concrete " +
 			"indices of the printed values instead of basically counting them, because values may be printed " +
@@ -145,36 +148,40 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (totalValuesToPrint == null) {");
 		sc.add("return 0;");
 		sc.add("}");
-		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
-		sc.addComment(
-			"for attributes we do not need to check the type, since the CS languages does not " +
-			"allow type restrictions for attributes."
-		);
-		sc.add("return totalValuesToPrint.size() - printedIndices.size();");
-		sc.add("} else if (feature instanceof " + E_REFERENCE + ") {");
-		sc.add(E_REFERENCE + " reference = (" + E_REFERENCE + ") feature;");
-		sc.add("if (!reference.isContainment()) {");
-		sc.addComment(
-			"for non-containment references we also do not need to check the type, since the CS languages does not " +
-			"allow type restrictions for these either."
-		);
-		sc.add("return totalValuesToPrint.size() - printedIndices.size();");
-		sc.add("}");
-		sc.add("}");
-		sc.addComment("now we're left with containment references for which we check the type of the objects to print");
-		sc.add(LIST + "<Class<?>> allowedTypes = getAllowedTypes(terminal);");
-		sc.add(SET + "<Integer> indicesWithCorrectType = new " + LINKED_HASH_SET + "<Integer>();");
-		sc.add("int index = 0;");
-		sc.add("for (Object valueToPrint : totalValuesToPrint) {");
-		sc.add("for (Class<?> allowedType : allowedTypes) {");
-		sc.add("if (allowedType.isInstance(valueToPrint)) {");
-		sc.add("indicesWithCorrectType.add(index);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("index++;");
-		sc.add("}");
-		sc.add("indicesWithCorrectType.removeAll(printedIndices);");
-		sc.add("return indicesWithCorrectType.size();");
+		if (ignoreTypeRestrictions) {
+			sc.add("return totalValuesToPrint.size() - printedIndices.size();");
+		} else {
+			sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
+			sc.addComment(
+				"for attributes we do not need to check the type, since the CS languages does not " +
+				"allow type restrictions for attributes."
+			);
+			sc.add("return totalValuesToPrint.size() - printedIndices.size();");
+			sc.add("} else if (feature instanceof " + E_REFERENCE + ") {");
+			sc.add(E_REFERENCE + " reference = (" + E_REFERENCE + ") feature;");
+			sc.add("if (!reference.isContainment()) {");
+			sc.addComment(
+				"for non-containment references we also do not need to check the type, since the CS languages does not " +
+				"allow type restrictions for these either."
+			);
+			sc.add("return totalValuesToPrint.size() - printedIndices.size();");
+			sc.add("}");
+			sc.add("}");
+			sc.addComment("now we're left with containment references for which we check the type of the objects to print");
+			sc.add(LIST + "<Class<?>> allowedTypes = getAllowedTypes(terminal);");
+			sc.add(SET + "<Integer> indicesWithCorrectType = new " + LINKED_HASH_SET + "<Integer>();");
+			sc.add("int index = 0;");
+			sc.add("for (Object valueToPrint : totalValuesToPrint) {");
+			sc.add("for (Class<?> allowedType : allowedTypes) {");
+			sc.add("if (allowedType.isInstance(valueToPrint)) {");
+			sc.add("indicesWithCorrectType.add(index);");
+			sc.add("}");
+			sc.add("}");
+			sc.add("index++;");
+			sc.add("}");
+			sc.add("indicesWithCorrectType.removeAll(printedIndices);");
+			sc.add("return indicesWithCorrectType.size();");
+		}
 		sc.add("}");
 		sc.addLineBreak();
 		
