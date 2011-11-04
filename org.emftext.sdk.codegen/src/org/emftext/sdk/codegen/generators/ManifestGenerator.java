@@ -69,6 +69,11 @@ public class ManifestGenerator<ContextType extends IContext<ContextType>> extend
 			sc.add("Bundle-Activator: " + activatorClass);
 		}
 
+		Collection<String> importedPackages = parameters.getImportedPackages();
+		if (importedPackages.size() > 0) {
+			sc.add("Import-Package: " + StringUtil.explode(importedPackages, ",\n  "));
+		}
+		
 		return sc.toString();
 	}
 }

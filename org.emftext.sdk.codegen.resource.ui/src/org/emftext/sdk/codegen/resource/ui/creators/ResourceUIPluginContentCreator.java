@@ -112,6 +112,8 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		manifestParameters.setPlugin(resourceUIPlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR));
 		manifestParameters.setBundleName("EMFText UI Plugin: " + context.getConcreteSyntax().getName());
+		manifestParameters.getImportedPackages().add("org.eclipse.ui.texteditor.spelling");
+		
 		creators.add(new ManifestCreator<GenerationContext>(manifestParameters, OptionManager.INSTANCE.doOverride(context.getConcreteSyntax(), OptionTypes.OVERRIDE_UI_MANIFEST)));
 		
 	    add(creators, TextResourceUIArtifacts.NEW_FILE_WIZARD);

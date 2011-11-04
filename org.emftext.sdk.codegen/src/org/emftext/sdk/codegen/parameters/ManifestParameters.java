@@ -35,6 +35,7 @@ public class ManifestParameters<ContextType extends IContext<ContextType>> exten
 	private IPluginDescriptor plugin;
 	private Collection<String> requiredBundles = new LinkedHashSet<String>();
 	private Collection<String> exportedPackages = new LinkedHashSet<String>();
+	private Collection<String> importedPackages = new LinkedHashSet<String>();
 
 	public void setBundleName(String bundleName) {
 		this.bundleName = bundleName;
@@ -66,5 +67,9 @@ public class ManifestParameters<ContextType extends IContext<ContextType>> exten
 
 	public Collection<String> getExportedPackages() {
 		return exportedPackages;
+	}
+
+	public Collection<String> getImportedPackages() {
+		return importedPackages;
 	}
 }

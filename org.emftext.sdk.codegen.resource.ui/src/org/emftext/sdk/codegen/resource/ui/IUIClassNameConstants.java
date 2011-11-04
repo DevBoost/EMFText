@@ -243,6 +243,9 @@ import org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext;
 import org.eclipse.jface.text.quickassist.IQuickAssistProcessor;
 import org.eclipse.jface.text.quickassist.IQuickFixableAnnotation;
 import org.eclipse.jface.text.quickassist.QuickAssistAssistant;
+import org.eclipse.jface.text.reconciler.IReconciler;
+import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
+import org.eclipse.jface.text.reconciler.MonoReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.ITokenScanner;
@@ -366,12 +369,14 @@ import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
+import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.part.Page;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.ITextEditor;
@@ -380,6 +385,10 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
 import org.eclipse.ui.texteditor.ResourceMarkerAnnotationModel;
 import org.eclipse.ui.texteditor.SelectMarkerRulerAction;
+import org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector;
+import org.eclipse.ui.texteditor.spelling.SpellingProblem;
+import org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy;
+import org.eclipse.ui.texteditor.spelling.SpellingService;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
@@ -773,6 +782,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String TEXT_LAYOUT = TextLayout.class.getName();
 	public static String TEXT_PRESENTATION = TextPresentation.class.getName();
 	public static String TEXT_SELECTION = TextSelection.class.getName();
+	public static String TEXT_SOURCE_VIEWER_CONFIGURATION = TextSourceViewerConfiguration.class.getName();
 	public static String TEXT_STYLE = TextStyle.class.getName();
 	public static String TEXT_VIEWER = TextViewer.class.getName();
 	public static String TIMER = Timer.class.getName();
@@ -803,5 +813,14 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String WORKSPACE_MODIFY_OPERATION = WorkspaceModifyOperation.class.getName();
 	public static String SUB_PROGRESS_MONITOR = SubProgressMonitor.class.getName();
 	public static String BASIC_NEW_PROJECT_RESOURCE_WIZARD = BasicNewProjectResourceWizard.class.getName();
+
+	public static String ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS = AbstractDecoratedTextEditorPreferenceConstants.class.getName();
 	
+	public static String I_RECONCILER = IReconciler.class.getName();
+	public static String SPELLING_SERVICE = SpellingService.class.getName();
+	public static String I_RECONCILING_STRATEGY = IReconcilingStrategy.class.getName();
+	public static String SPELLING_RECONCILE_STRATEGY = SpellingReconcileStrategy.class.getName();
+	public static String I_SPELLING_PROBLEM_COLLECTOR = ISpellingProblemCollector.class.getName();
+	public static String SPELLING_PROBLEM = SpellingProblem.class.getName();
+	public static String MONO_RECONCILER = MonoReconciler.class.getName();
 }
