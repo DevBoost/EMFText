@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.ui,
  org.emftext.sdk.codegen.resource.ui,
  org.emftext.sdk.codegen.newproject,
  org.emftext.sdk.concretesyntax.resource.cs,
- org.emftext.sdk.concretesyntax.resource.cs.ui
+ org.emftext.sdk.concretesyntax.resource.cs.ui,
+ org.eclipse.ui.editors
 Export-Package: org.emftext.sdk.ui,org.emftext.sdk.ui.actions,org.emft
  ext.sdk.ui.jobs
 
