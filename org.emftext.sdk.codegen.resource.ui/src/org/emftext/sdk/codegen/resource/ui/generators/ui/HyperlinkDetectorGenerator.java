@@ -56,7 +56,7 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addDetectHyperlinksMethod(StringComposite sc) {
+	private void addDetectHyperlinksMethod(JavaComposite sc) {
 		sc.add("public " + I_HYPERLINK + "[] detectHyperlinks(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " region, boolean canShowMultipleHyperlinks) {");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(region.getOffset());");
@@ -74,8 +74,11 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("text = textViewer.getDocument().get(offset, length);");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
 		sc.add("}");
+		sc.addComment("we skipt elements that are not contained in a resource, because we cannot jump to them anyway");
+		sc.add("if (resolvedEObject.eResource() != null) {");
 		sc.add(I_HYPERLINK + " hyperlink = new " + hyperlinkClassName + "(new " + REGION + "(offset, length), resolvedEObject, text);");
 		sc.add("return new " + I_HYPERLINK + "[] { hyperlink };");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return null;");

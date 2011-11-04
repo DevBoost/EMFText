@@ -80,6 +80,9 @@ public class HyperlinkGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 	private void addGetIFileFromResourceMethod(StringComposite sc) {
 		sc.add("private " + I_FILE + " getIFileFromResource() {");
 		sc.add(RESOURCE + " linkTargetResource = linkTarget.eResource();");
+		sc.add("if (linkTargetResource == null) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add(URI + " resourceURI = linkTargetResource.getURI();");
 		sc.add("if (linkTargetResource.getResourceSet() != null && linkTargetResource.getResourceSet().getURIConverter() != null) {");
 		sc.add("resourceURI = linkTargetResource.getResourceSet().getURIConverter().normalize(resourceURI);");
