@@ -123,7 +123,6 @@ public class CsEditorConfiguration extends org.eclipse.ui.editors.text.TextSourc
 						} catch (org.eclipse.jface.text.BadLocationException e) {
 							return;
 						}
-						System.out.println(text);
 						java.util.Set<String> keywords = org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.INSTANCE.getKeywords();
 						if (keywords.contains(text)) {
 							return;
