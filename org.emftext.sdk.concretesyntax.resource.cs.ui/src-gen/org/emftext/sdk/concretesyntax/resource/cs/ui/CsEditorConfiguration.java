@@ -18,7 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * This class provides the configuration for the generated editor. It registers
  * content assistance and syntax highlighting.
  */
-public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceViewerConfiguration {
+public class CsEditorConfiguration extends org.eclipse.ui.editors.text.TextSourceViewerConfiguration {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
@@ -34,6 +34,10 @@ public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceV
 	 * @param colorManager the color manager to use
 	 */
 	public CsEditorConfiguration(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider bracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+		super(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
+		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.spelling.SpellingService.PREFERENCE_SPELLING_ENABLED, true);
+		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH, 4);
+		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants.EDITOR_HYPERLINK_KEY_MODIFIER, org.eclipse.jface.action.Action.findModifierString(org.eclipse.swt.SWT.MOD1));
 		this.resourceProvider = resourceProvider;
 		this.annotationModelProvider = annotationModelProvider;
 		this.bracketHandlerProvider = bracketHandlerProvider;
@@ -92,6 +96,54 @@ public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceV
 			quickAssistAssistant = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistAssistant(resourceProvider, annotationModelProvider);
 		}
 		return quickAssistAssistant;
+	}
+	
+	public org.eclipse.jface.text.reconciler.IReconciler getReconciler(final org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+		if (fPreferenceStore == null || !fPreferenceStore.getBoolean(org.eclipse.ui.texteditor.spelling.SpellingService.PREFERENCE_SPELLING_ENABLED)) {
+			return null;
+		}
+		
+		org.eclipse.ui.texteditor.spelling.SpellingService spellingService = org.eclipse.ui.editors.text.EditorsUI.getSpellingService();
+		if (spellingService.getActiveSpellingEngineDescriptor(fPreferenceStore) == null) {
+			return null;
+		}
+		
+		org.eclipse.jface.text.reconciler.IReconcilingStrategy strategy = new org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy(sourceViewer, spellingService) {
+			@Override			protected org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector createSpellingProblemCollector() {
+				final org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector collector = super.createSpellingProblemCollector();
+				
+				return new org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector() {
+					
+					public void accept(org.eclipse.ui.texteditor.spelling.SpellingProblem problem) {
+						int offset = problem.getOffset();
+						int length = problem.getLength();
+						String text;
+						try {
+							text = sourceViewer.getDocument().get(offset, length);
+						} catch (org.eclipse.jface.text.BadLocationException e) {
+							return;
+						}
+						System.out.println(text);
+						java.util.Set<String> keywords = org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.INSTANCE.getKeywords();
+						if (keywords.contains(text)) {
+							return;
+						}
+						collector.accept(problem);
+					}
+					
+					public void beginCollecting() {
+						collector.beginCollecting();
+					}
+					
+					public void endCollecting() {
+						collector.endCollecting();
+					}
+				};
+			}
+		};
+		org.eclipse.jface.text.reconciler.MonoReconciler reconciler = new org.eclipse.jface.text.reconciler.MonoReconciler(strategy, false);
+		reconciler.setDelay(500);
+		return reconciler;
 	}
 	
 }
