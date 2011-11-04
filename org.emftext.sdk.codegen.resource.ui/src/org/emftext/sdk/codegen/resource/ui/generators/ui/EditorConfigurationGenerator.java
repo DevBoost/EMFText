@@ -93,7 +93,6 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("System.out.println(text);");
 		sc.add(SET + "<String> keywords = " + grammarInformationProviderClassName + ".INSTANCE.getKeywords();");
 		sc.add("if (keywords.contains(text)) {");
 		sc.add("return;");
