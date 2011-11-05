@@ -1963,7 +1963,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the DevNullLocationMap class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_IGNORED_WORDS_FILTER" value="281" literal="overrideIgnoredWordsFilter"/>
+    <eLiterals name="OVERRIDE_IGNORED_WORDS_FILTER" value="281" literal="overrideIgnoredWordsFilter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

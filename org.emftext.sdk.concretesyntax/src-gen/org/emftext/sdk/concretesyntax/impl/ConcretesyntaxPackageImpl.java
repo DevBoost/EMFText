@@ -4676,6 +4676,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>false</code>, the DevNullLocationMap class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(278), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {

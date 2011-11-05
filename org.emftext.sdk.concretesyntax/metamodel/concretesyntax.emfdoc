@@ -640,6 +640,8 @@ OptionTypes.OVERRIDE_I_FUNCTION1 : "If set to <code>false</code>, the IFunction1
 
 OptionTypes.OVERRIDE_DEV_NULL_LOCATION_MAP : "If set to <code>false</code>, the DevNullLocationMap class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_IGNORED_WORDS_FILTER : "If set to <code>false</code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
