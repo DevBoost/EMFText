@@ -78,7 +78,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add(I_RECONCILING_STRATEGY + " strategy = new " + SPELLING_RECONCILE_STRATEGY + "(sourceViewer, spellingService) {");
-		sc.add("@Override");
+		sc.add("@Override").addLineBreak();
 		sc.add("protected " + I_SPELLING_PROBLEM_COLLECTOR + " createSpellingProblemCollector() {");
 		sc.add("final " + I_SPELLING_PROBLEM_COLLECTOR + " collector = super.createSpellingProblemCollector();");
 		sc.addLineBreak();
@@ -93,8 +93,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(SET + "<String> keywords = " + grammarInformationProviderClassName + ".INSTANCE.getKeywords();");
-		sc.add("if (keywords.contains(text)) {");
+		sc.add("if (new " + ignoredWordsFilterClassName + "().ignoreWord(text)) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("collector.accept(problem);");

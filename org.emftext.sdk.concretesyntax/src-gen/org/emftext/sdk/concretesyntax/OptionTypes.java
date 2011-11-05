@@ -2256,7 +2256,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DEV_NULL_LOCATION_MAP(280, "OVERRIDE_DEV_NULL_LOCATION_MAP", "overrideDevNullLocationMap");
+	OVERRIDE_DEV_NULL_LOCATION_MAP(280, "OVERRIDE_DEV_NULL_LOCATION_MAP", "overrideDevNullLocationMap"), /**
+	 * The '<em><b>OVERRIDE IGNORED WORDS FILTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IGNORED_WORDS_FILTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IGNORED_WORDS_FILTER(281, "OVERRIDE_IGNORED_WORDS_FILTER", "overrideIgnoredWordsFilter");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6969,6 +6977,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_DEV_NULL_LOCATION_MAP_VALUE = 280;
 /**
+	 * The '<em><b>OVERRIDE IGNORED WORDS FILTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IGNORED WORDS FILTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IGNORED_WORDS_FILTER
+	 * @model literal="overrideIgnoredWordsFilter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IGNORED_WORDS_FILTER_VALUE = 281;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7254,6 +7276,7 @@ public enum OptionTypes implements Enumerator {
 			REMOVE_ECLIPSE_DEPENDENT_CODE,
 			OVERRIDE_IFUNCTION1,
 			OVERRIDE_DEV_NULL_LOCATION_MAP,
+			OVERRIDE_IGNORED_WORDS_FILTER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7579,6 +7602,7 @@ public enum OptionTypes implements Enumerator {
 			case REMOVE_ECLIPSE_DEPENDENT_CODE_VALUE: return REMOVE_ECLIPSE_DEPENDENT_CODE;
 			case OVERRIDE_IFUNCTION1_VALUE: return OVERRIDE_IFUNCTION1;
 			case OVERRIDE_DEV_NULL_LOCATION_MAP_VALUE: return OVERRIDE_DEV_NULL_LOCATION_MAP;
+			case OVERRIDE_IGNORED_WORDS_FILTER_VALUE: return OVERRIDE_IGNORED_WORDS_FILTER;
 		}
 		return null;
 	}

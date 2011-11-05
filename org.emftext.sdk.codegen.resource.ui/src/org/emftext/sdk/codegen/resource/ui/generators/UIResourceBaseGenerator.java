@@ -20,6 +20,8 @@ import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
 public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends ResourceBaseGenerator<ParameterType> {
 
+	protected String ignoredWordsFilterClassName;
+
 	protected String abstractOutlinePageActionClassName;
 	protected String annotationModelClassName;
 	protected String annotationModelFactoryClassName;
@@ -91,6 +93,8 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected void initilizeClassNames() {
 		super.initilizeClassNames();
 		GenerationContext context = getContext();
+
+		ignoredWordsFilterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.IGNORED_WORDS_FILTER);
 
 		abstractOutlinePageActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
 		annotationModelClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL);

@@ -214,6 +214,8 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.DEBUG_MODEL_PRESENTATION);
 	    add(creators, TextResourceUIArtifacts.LINE_BREAKPOINT_ADAPTER);
 	    add(creators, TextResourceUIArtifacts.ADAPTER_FACTORY);
+	    
+	    add(creators, TextResourceUIArtifacts.IGNORED_WORDS_FILTER);
 
 		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceUIArtifacts.PLUGIN_XML;
 	    creators.add(new PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));

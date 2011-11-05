@@ -199,7 +199,6 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
-		
 		abstractDebuggableClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_DEBUGGABLE);
 		abstractExpectedElementClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_EXPECTED_ELEMENT);
 		abstractInterpreterClassName = context.getQualifiedClassName(TextResourceArtifacts.ABSTRACT_INTERPRETER);

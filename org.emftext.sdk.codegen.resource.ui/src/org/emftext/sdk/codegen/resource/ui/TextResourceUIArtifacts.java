@@ -56,6 +56,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IAnnotationModelProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerProviderGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.IgnoredWordsFilterGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ImageProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerAnnotationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerResolutionGeneratorGenerator;
@@ -184,4 +185,6 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEBUG_MODEL_PRESENTATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_DEBUG_PACKAGE, "", "DebugModelPresentation", DebugModelPresentationGenerator.class, OptionTypes.OVERRIDE_DEBUG_MODEL_PRESENTATION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LINE_BREAKPOINT_ADAPTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_DEBUG_PACKAGE, "", "LineBreakpointAdapter", LineBreakpointAdapterGenerator.class, OptionTypes.OVERRIDE_LINE_BREAKPOINT_ADAPTER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ADAPTER_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_DEBUG_PACKAGE, "", "AdapterFactory", AdapterFactoryGenerator.class, OptionTypes.OVERRIDE_ADAPTER_FACTORY);
+
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> IGNORED_WORDS_FILTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "IgnoredWordsFilter", IgnoredWordsFilterGenerator.class, OptionTypes.OVERRIDE_IGNORED_WORDS_FILTER);
 }
