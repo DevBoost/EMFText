@@ -73,9 +73,9 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("nextToken = lexer.getNextToken();");
 		sc.add("}");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add("HedlPlugin.logError(\"Exception while searching for task items\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while searching for task items\", e);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add("HedlPlugin.logError(\"Exception while searching for task items\", e);");
+		sc.add(pluginActivatorClassName + ".logError(\"Exception while searching for task items\", e);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("for (" + taskItemClassName + " taskItem : taskItems) {");
