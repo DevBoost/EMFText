@@ -8,13 +8,17 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
 
+import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
+@SyntaxDependent
 public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final NameUtil nameUtil = new NameUtil();
@@ -22,19 +26,26 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
+		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		String builderID = nameUtil.getTaskItemBuilderID(syntax);
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.addJavadoc(
-			"The " + getResourceClassName() + " is used to find task items in " +
-			"text documents. The current implementation uses the generated lexer " +
-			"and the TaskItemDetector to detect task items."
-		);
+		if (removeEclipseDependentCode) {
+			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
+		} else {
+			sc.addJavadoc(
+				"The " + getResourceClassName() + " is used to find task items in " +
+				"text documents. The current implementation uses the generated lexer " +
+				"and the TaskItemDetector to detect task items."
+			);
+		}
 		sc.add("public class " + getResourceClassName() + " extends " + builderAdapterClassName + " {");
 		sc.addLineBreak();
-		addConstants(sc, builderID);
-		addMethods(sc);
+		if (!removeEclipseDependentCode) {
+			addConstants(sc, builderID);
+			addMethods(sc);
+		}
 		sc.add("}");
 	}
 

@@ -583,7 +583,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
-		sc.add("setSourceViewerConfiguration(new " + editorConfigurationClassName + "(this, this, this, colorManager));");
+		sc.add("setSourceViewerConfiguration(new " + sourceViewerConfigurationClassName + "(this, this, this, colorManager));");
 		sc.add("initializeEditingDomain();");
 		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
 		sc.add("addSelectionChangedListener(this);");

@@ -87,6 +87,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String lineBreakpointAdapterClassName;
 	protected String adapterFactoryClassName;
 	protected String outlinePageAutoExpandActionClassName;
+	protected String sourceViewerConfigurationClassName;
 
 	@Override
 	protected void initilizeClassNames() {
@@ -160,5 +161,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		debugModelPresentationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DEBUG_MODEL_PRESENTATION);
 		lineBreakpointAdapterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LINE_BREAKPOINT_ADAPTER);
 		adapterFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ADAPTER_FACTORY);
+		
+		sourceViewerConfigurationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SOURCE_VIEWER_CONFIGURATION);
 	}
 }
