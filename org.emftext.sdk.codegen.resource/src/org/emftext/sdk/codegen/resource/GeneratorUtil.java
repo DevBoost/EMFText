@@ -373,8 +373,8 @@ public class GeneratorUtil {
 		requiredBundles.add(modelPluginID);
 	}
 
-	public void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc) {
-		sc.add("public boolean canBeUsedForSyntaxHighlighting(int tokenType) {");
+	public void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc, boolean tagStatic) {
+		sc.add("public " + (tagStatic ? "static " : "") + "boolean canBeUsedForSyntaxHighlighting(int tokenType) {");
 		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
 		sc.add("return false;");
 		sc.add("}");

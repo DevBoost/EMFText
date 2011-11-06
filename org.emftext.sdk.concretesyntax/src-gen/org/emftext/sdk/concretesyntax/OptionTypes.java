@@ -2264,7 +2264,55 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IGNORED_WORDS_FILTER(281, "OVERRIDE_IGNORED_WORDS_FILTER", "overrideIgnoredWordsFilter");
+	OVERRIDE_IGNORED_WORDS_FILTER(281, "OVERRIDE_IGNORED_WORDS_FILTER", "overrideIgnoredWordsFilter"), /**
+	 * The '<em><b>OVERRIDE TASK ITEM DETECTOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TASK_ITEM_DETECTOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TASK_ITEM_DETECTOR(282, "OVERRIDE_TASK_ITEM_DETECTOR", "overrideTaskItemDetector"), /**
+	 * The '<em><b>OVERRIDE TASK ITEM BUILDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TASK_ITEM_BUILDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TASK_ITEM_BUILDER(283, "OVERRIDE_TASK_ITEM_BUILDER", "overrideTaskItemBuilder"), /**
+	 * The '<em><b>OVERRIDE SOURCE VIEWER CONFIGURATION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_VIEWER_CONFIGURATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SOURCE_VIEWER_CONFIGURATION(284, "OVERRIDE_SOURCE_VIEWER_CONFIGURATION", "overrideSourceViewerConfiguration"), /**
+	 * The '<em><b>OVERRIDE TASK ITEM</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TASK_ITEM_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TASK_ITEM(285, "OVERRIDE_TASK_ITEM", "overrideTaskItem"), /**
+	 * The '<em><b>OVERRIDE URI UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_URI_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_URI_UTIL(286, "OVERRIDE_URI_UTIL", "overrideURIUtil"), /**
+	 * The '<em><b>OVERRIDE ANTLR TEXT TOKEN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANTLR_TEXT_TOKEN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ANTLR_TEXT_TOKEN(287, "OVERRIDE_ANTLR_TEXT_TOKEN", "overrideAntlrTextToken");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6994,6 +7042,90 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_IGNORED_WORDS_FILTER_VALUE = 281;
 /**
+	 * The '<em><b>OVERRIDE TASK ITEM DETECTOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TASK ITEM DETECTOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TASK_ITEM_DETECTOR
+	 * @model literal="overrideTaskItemDetector"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TASK_ITEM_DETECTOR_VALUE = 282;
+/**
+	 * The '<em><b>OVERRIDE TASK ITEM BUILDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TASK ITEM BUILDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TASK_ITEM_BUILDER
+	 * @model literal="overrideTaskItemBuilder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TASK_ITEM_BUILDER_VALUE = 283;
+/**
+	 * The '<em><b>OVERRIDE SOURCE VIEWER CONFIGURATION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SOURCE VIEWER CONFIGURATION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SOURCE_VIEWER_CONFIGURATION
+	 * @model literal="overrideSourceViewerConfiguration"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SOURCE_VIEWER_CONFIGURATION_VALUE = 284;
+/**
+	 * The '<em><b>OVERRIDE TASK ITEM</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TASK ITEM</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TASK_ITEM
+	 * @model literal="overrideTaskItem"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TASK_ITEM_VALUE = 285;
+/**
+	 * The '<em><b>OVERRIDE URI UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE URI UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_URI_UTIL
+	 * @model literal="overrideURIUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_URI_UTIL_VALUE = 286;
+/**
+	 * The '<em><b>OVERRIDE ANTLR TEXT TOKEN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ANTLR TEXT TOKEN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANTLR_TEXT_TOKEN
+	 * @model literal="overrideAntlrTextToken"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ANTLR_TEXT_TOKEN_VALUE = 287;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7280,6 +7412,12 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_IFUNCTION1,
 			OVERRIDE_DEV_NULL_LOCATION_MAP,
 			OVERRIDE_IGNORED_WORDS_FILTER,
+			OVERRIDE_TASK_ITEM_DETECTOR,
+			OVERRIDE_TASK_ITEM_BUILDER,
+			OVERRIDE_SOURCE_VIEWER_CONFIGURATION,
+			OVERRIDE_TASK_ITEM,
+			OVERRIDE_URI_UTIL,
+			OVERRIDE_ANTLR_TEXT_TOKEN,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7606,6 +7744,12 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_IFUNCTION1_VALUE: return OVERRIDE_IFUNCTION1;
 			case OVERRIDE_DEV_NULL_LOCATION_MAP_VALUE: return OVERRIDE_DEV_NULL_LOCATION_MAP;
 			case OVERRIDE_IGNORED_WORDS_FILTER_VALUE: return OVERRIDE_IGNORED_WORDS_FILTER;
+			case OVERRIDE_TASK_ITEM_DETECTOR_VALUE: return OVERRIDE_TASK_ITEM_DETECTOR;
+			case OVERRIDE_TASK_ITEM_BUILDER_VALUE: return OVERRIDE_TASK_ITEM_BUILDER;
+			case OVERRIDE_SOURCE_VIEWER_CONFIGURATION_VALUE: return OVERRIDE_SOURCE_VIEWER_CONFIGURATION;
+			case OVERRIDE_TASK_ITEM_VALUE: return OVERRIDE_TASK_ITEM;
+			case OVERRIDE_URI_UTIL_VALUE: return OVERRIDE_URI_UTIL;
+			case OVERRIDE_ANTLR_TEXT_TOKEN_VALUE: return OVERRIDE_ANTLR_TEXT_TOKEN;
 		}
 		return null;
 	}

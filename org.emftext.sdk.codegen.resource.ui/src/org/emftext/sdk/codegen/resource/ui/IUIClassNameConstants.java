@@ -73,7 +73,6 @@ import org.antlr.runtime3_4_0.MismatchedTokenException;
 import org.antlr.runtime3_4_0.MismatchedTreeNodeException;
 import org.antlr.runtime3_4_0.NoViableAltException;
 import org.antlr.runtime3_4_0.RecognitionException;
-import org.antlr.runtime3_4_0.Token;
 import org.eclipse.core.filebuffers.IAnnotationModelFactory;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
@@ -787,8 +786,6 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String TEXT_VIEWER = TextViewer.class.getName();
 	public static String TIMER = Timer.class.getName();
 	public static String TIMER_TASK = TimerTask.class.getName();
-	public static String TOKEN = Token.class.getName();
-	public static String TOKEN_STREAM = org.antlr.runtime3_4_0.TokenStream.class.getName();
 	public static String TOOL_BAR_MANAGER = ToolBarManager.class.getName();
 	public static String TREE_SELECTION = TreeSelection.class.getName();
 	public static String TREE_VIEWER = TreeViewer.class.getName();

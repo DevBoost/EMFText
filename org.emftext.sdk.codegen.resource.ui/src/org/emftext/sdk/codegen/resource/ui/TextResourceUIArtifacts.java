@@ -33,7 +33,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AbstractOutlinePageActionGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelFactoryGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelGenerator;
-import org.emftext.sdk.codegen.resource.ui.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BracketPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BracketSetGenerator;
@@ -46,7 +45,6 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.CompletionProposalGener
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DefaultHoverTextProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DocBrowserInformationControlInputGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EObjectSelectionGenerator;
-import org.emftext.sdk.codegen.resource.ui.generators.ui.EditorConfigurationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EditorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HTMLPrinterGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HighlightingGenerator;
@@ -86,6 +84,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.PropertyTesterGenerator
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ProposalPostProcessorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.QuickAssistAssistantGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.QuickAssistProcessorGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.SourceViewerConfigurationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.TextHoverGenerator;
@@ -117,7 +116,6 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "HoverTextProvider", HoverTextProviderGenerator.class, OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DefaultHoverTextProvider", DefaultHoverTextProviderGenerator.class, OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER);
 
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_TOKEN_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AntlrTokenHelper", AntlrTokenHelperGenerator.class, OptionTypes.OVERRIDE_ANTLR_TOKEN_HELPER); 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BRACKET_SET = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BracketSet", BracketSetGenerator.class, OptionTypes.OVERRIDE_BRACKET_SET);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> POSITION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PositionHelper", PositionHelperGenerator.class, OptionTypes.OVERRIDE_POSITION_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CODE_FOLDING_MANAGER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CodeFoldingManager", CodeFoldingManagerGenerator.class, OptionTypes.OVERRIDE_CODE_FOLDING_MANAGER);
@@ -145,7 +143,7 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "OutlinePageLinkWithEditorAction", OutlinePageLinkWithEditorActionGenerator.class, OptionTypes.OVERRIDE_OUTLINE_PAGE_LINK_WITH_EDITOR_ACTION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OUTLINE_PAGE_ACTION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "OutlinePageActionProvider", OutlinePageActionProviderGenerator.class, OptionTypes.OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OUTLINE_PAGE_TREE_VIEWER_COMPARATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "OutlinePageTreeViewerComparator", OutlinePageTreeViewerComparatorGenerator.class, OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR);
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EDITOR_CONFIGURATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "EditorConfiguration", EditorConfigurationGenerator.class, OptionTypes.OVERRIDE_EDITOR_CONFIGURATION);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EDITOR_CONFIGURATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "EditorConfiguration", SourceViewerConfigurationGenerator.class, OptionTypes.OVERRIDE_EDITOR_CONFIGURATION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DOC_BROWSER_INFORMATION_CONTROL_INPUT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DocBrowserInformationControlInput", DocBrowserInformationControlInputGenerator.class, OptionTypes.OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProcessor", CompletionProcessorGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROCESSOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BROWSER_INFORMATION_CONTROL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BrowserInformationControl", BrowserInformationControlGenerator.class, OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL);

@@ -32,9 +32,6 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addJavadoc("A class used to initialize default preference values.");
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_PREFERENCE_INITIALIZER + " {");
 		sc.addLineBreak();
-		// TODO this should not be used here!
-		sc.add("private final static " + antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
-		sc.addLineBreak();
 		sc.add("public void initializeDefaultPreferences() {");
 		sc.addLineBreak();
 		sc.add("initializeDefaultSyntaxHighlighting();");
@@ -74,21 +71,14 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("private void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE + " store, " + iMetaInformationClassName + " metaInformation) {");
+		sc.add("private void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE + " store, " + metaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
-		sc.add("String[] tokenNames = metaInformation.getTokenNames();");
+		sc.add("String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();");
 		sc.add("if (tokenNames == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("for (int i = 0; i < tokenNames.length; i++) {");
-		sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("String tokenName = tokenHelper.getTokenName(tokenNames, i);");
-		sc.add("if (tokenName == null) {");
-		sc.add("continue;");
-		sc.add("}");
+		sc.add("String tokenName = tokenNames[i];");
 		sc.add(iTokenStyleClassName + " style = metaInformation.getDefaultTokenStyle(tokenName);");
 		sc.add("if (style != null) {");
 		sc.add("String color = getColorString(style.getColorAsRGB());");

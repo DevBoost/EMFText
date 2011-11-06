@@ -11,17 +11,17 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.resource.ui.generators.ui;
+package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
-import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+public class AntlrTokenHelperGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
@@ -44,7 +44,7 @@ public class AntlrTokenHelperGenerator extends UIJavaBaseGenerator<ArtifactParam
 
 	private void addMethods(JavaComposite sc) {
 		addCanBeUsedForSyntaxColoringMethod(sc);
-		generatorUtil.addCanBeUsedForSyntaxHighlightingMethod(sc);
+		generatorUtil.addCanBeUsedForSyntaxHighlightingMethod(sc, false);
 		addGetTokenNameMethod(sc);
 	}
 

@@ -53,6 +53,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addFields(StringComposite sc) {
 		sc.add("private " + iTextScannerClassName + " lexer;");
 		sc.add("private " + iTextTokenClassName + " currentToken;");
+		sc.add("private " + LIST +  "<" + iTextTokenClassName + "> nextTokens;");
 		sc.add("private int offset;");
 		sc.add("private String languageId;");
 		sc.add("private " + I_PREFERENCE_STORE + " store;");
@@ -68,7 +69,11 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("this.colorManager = colorManager;");
 		sc.add("this.lexer = new " + metaInformationClassName + "().createLexer();");
 		sc.add("this.languageId = new " + metaInformationClassName + "().getSyntaxName();");
-		sc.add("this.store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add(uiPluginActivatorClassName + " plugin = " + uiPluginActivatorClassName + ".getDefault();");
+		sc.add("if (plugin != null) {");
+		sc.add("this.store = plugin.getPreferenceStore();");
+		sc.add("}");
+		sc.add("this.nextTokens = new " + ARRAY_LIST + "<" + iTextTokenClassName + ">();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -80,6 +85,44 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		addSetRangeMethod(sc);
 		addGetTokenTextMethod(sc);
 		addConvertToIntArrayMethod(sc);
+		addGetStaticTokenStyleMethod(sc);
+		addGetDynamicTokenStyleMethod(sc);
+		addGetTextAttributeMethod(sc);
+		addSplitCurrentTokenMethod(sc);
+	}
+
+	private void addGetStaticTokenStyleMethod(JavaComposite sc) {
+		String styleProperty = syntaxColoringHelperClassName + ".StyleProperty";
+
+		sc.add("public " + iTokenStyleClassName + " getStaticTokenStyle() {");
+		sc.add(iTokenStyleClassName + " staticStyle = null;");
+		sc.add("String tokenName = currentToken.getName();");
+		sc.add("String enableKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ENABLE);");
+		sc.add("boolean enabled = store.getBoolean(enableKey);");
+		sc.add("if (enabled) {");
+		sc.add("String colorKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".COLOR);");
+		sc.add(RGB + " foregroundRGB = " + PREFERENCE_CONVERTER + ".getColor(store, colorKey);");
+		// TODO support background color for token styles
+		sc.add(RGB + " backgroundRGB = null;");
+		sc.add("boolean bold = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".BOLD));");
+		sc.add("boolean italic = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ITALIC));");
+		sc.add("boolean strikethrough = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".STRIKETHROUGH));");
+		sc.add("boolean underline = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".UNDERLINE));");
+		sc.addComment("now call dynamic token styler to allow to apply modifications to the static style");
+		sc.add("staticStyle = new " + tokenStyleClassName + "(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);");
+		sc.add("}");
+		sc.add("return staticStyle;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetDynamicTokenStyleMethod(JavaComposite sc) {
+		sc.add("public " + iTokenStyleClassName + " getDynamicTokenStyle(" + iTokenStyleClassName + " staticStyle) {");
+		sc.add(dynamicTokenStyleClassName + " dynamicTokenStyler = new " + dynamicTokenStyleClassName + "();");
+		sc.add(iTokenStyleClassName + " dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, currentToken, staticStyle);");
+		sc.add("return dynamicStyle;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addConvertToIntArrayMethod(JavaComposite sc) {
@@ -110,68 +153,125 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	
+	private void addSplitCurrentTokenMethod(JavaComposite sc) {
+		sc.addJavadoc("Tries to split the current token if it contains task items.");
+		sc.add("public void splitCurrentToken() {");
+		sc.add("final String text = currentToken.getText();");
+		sc.add("final String name = currentToken.getName();");
+		sc.add("final int line = currentToken.getLine();");
+		sc.add("final int charStart = currentToken.getOffset();");
+		sc.add("final int column = currentToken.getColumn();");
+		sc.addLineBreak();
+		sc.add(LIST + "<" + taskItemClassName + "> taskItems = new " + taskItemDetectorClassName + "().findTaskItems(text, line, charStart);");
+		sc.addLineBreak();
+		sc.addComment("this is the offset for the next token to be added");
+		sc.add("int offset = charStart;");
+		sc.add("int itemBeginRelative;");
+		sc.add(sc.declareArrayList("newItems", iTextTokenClassName));
+		sc.add("for (" + taskItemClassName + " taskItem : taskItems) {");
+		sc.add("int itemBegin = taskItem.getCharStart();");
+		sc.add("int itemLine = taskItem.getLine();");
+		sc.add("int itemColumn = 0;");
+		sc.addLineBreak();
+		sc.add("itemBeginRelative = itemBegin - charStart;");
+		sc.addComment("create token before task item (TODO if required)");
+		sc.add("String textBefore = text.substring(offset - charStart, itemBeginRelative);");
+		//sc.add("System.out.println("textBefore = '" + textBefore + "'");");
+		sc.add("int textBeforeLength = textBefore.length();");
+		sc.add("newItems.add(new " + textTokenClassName + "(name, textBefore, offset, textBeforeLength, line, column, true));");
+		sc.addLineBreak();
+		sc.addComment("create token for the task item itself");
+		sc.add("offset = offset + textBeforeLength;");
+		sc.add("String itemText = taskItem.getKeyword();");
+		sc.add("int itemTextLength = itemText.length();");
+		sc.add("newItems.add(new " + textTokenClassName + "(" + tokenStyleInformationProviderClassName + ".TASK_ITEM_TOKEN_NAME, itemText, offset, itemTextLength, itemLine, itemColumn, true));");
+		sc.addLineBreak();
+		sc.add("offset = offset + itemTextLength;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("if (!taskItems.isEmpty()) {");
+		sc.addComment("create token after last task item (TODO if required)");
+		sc.add("String textAfter = text.substring(offset - charStart);");
+		sc.add("newItems.add(new " + textTokenClassName + "(name, textAfter, offset, textAfter.length(), line, column, true));");
+		sc.add("}");
+		sc.addLineBreak();
+		/*
+		sc.add("for (IHedlTextToken iHedlTextToken : newItems) {");
+		sc.add("System.out.println("HedlTokenScanner.splitCurrentToken() " + iHedlTextToken.getOffset() + " - " + iHedlTextToken.getLength());");
+		sc.add("}");
+		sc.addLineBreak();
+		*/
+		sc.add("if (!newItems.isEmpty()) {");
+		sc.addComment("replace tokens");
+		sc.add("currentToken = newItems.remove(0);");
+		sc.add("nextTokens = newItems;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+	}
 
 	private void addNextTokenMethod(JavaComposite sc) {
-		String styleProperty = syntaxColoringHelperClassName + ".StyleProperty";
-
 		sc.add("public " + I_TOKEN + " nextToken() {");
-		sc.add(dynamicTokenStyleClassName + " dynamicTokenStyler = new " + dynamicTokenStyleClassName + "();");
+		sc.add("boolean isOriginalToken = true;");
+		sc.add("if (!nextTokens.isEmpty()) {");
+		sc.add("currentToken = nextTokens.remove(0);");
+		sc.add("isOriginalToken = false;");
+		sc.add("} else {");
 		sc.add("currentToken = lexer.getNextToken();");
+		sc.add("}");
 		sc.add("if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {");
 		sc.add("return " + J_FACE_TOKEN + ".EOF;");
 		sc.add("}");
-		sc.add(TEXT_ATTRIBUTE + " ta = null;");
+		sc.addLineBreak();
+		sc.add("if (isOriginalToken) {");
+		sc.add("splitCurrentToken();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add(TEXT_ATTRIBUTE + " textAttribute = null;");
 		sc.add("String tokenName = currentToken.getName();");
 		sc.add("if (tokenName != null) {");
-		sc.add("String enableKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ENABLE);");
-		sc.add("boolean enabled = store.getBoolean(enableKey);");
-		sc.add(iTokenStyleClassName + " staticStyle = null;");
-		sc.add("if (enabled) {");
-		sc.add("String colorKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".COLOR);");
-		sc.add(RGB + " foregroundRGB = " + PREFERENCE_CONVERTER + ".getColor(store, colorKey);");
-		// TODO support background color for token styles
-		sc.add(RGB + " backgroundRGB = null;");
-		sc.add("boolean bold = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".BOLD));");
-		sc.add("boolean italic = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ITALIC));");
-		sc.add("boolean strikethrough = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".STRIKETHROUGH));");
-		sc.add("boolean underline = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".UNDERLINE));");
-		sc.addComment("now call dynamic token styler to allow to apply modifications to the static style");
-		sc.add("staticStyle = new " + tokenStyleClassName + "(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);");
-		sc.add("}");
-		sc.add(iTokenStyleClassName + " dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, currentToken, staticStyle);");
-		
+		sc.add(iTokenStyleClassName + " staticStyle = getStaticTokenStyle();");
+		sc.add(iTokenStyleClassName + " dynamicStyle = getDynamicTokenStyle(staticStyle);");
 		sc.add("if (dynamicStyle != null) {");
-		sc.add("int[] foregroundColorArray = dynamicStyle.getColorAsRGB();");
+		sc.add("textAttribute = getTextAttribute(dynamicStyle);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		// potential performance improvement for large files in the future:
+		// build a map of tokens and reuse them instead of creating new ones
+		sc.add("return new " + J_FACE_TOKEN + "(textAttribute);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetTextAttributeMethod(StringComposite sc) {
+		sc.add("public " + TEXT_ATTRIBUTE + " getTextAttribute(" + iTokenStyleClassName + " tokeStyle) {");
+		sc.add("int[] foregroundColorArray = tokeStyle.getColorAsRGB();");
 		sc.add(COLOR + " foregroundColor = colorManager.getColor(new " + RGB + "(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));");
-		sc.add("int[] backgroundColorArray = dynamicStyle.getBackgroundColorAsRGB();");
+		sc.add("int[] backgroundColorArray = tokeStyle.getBackgroundColorAsRGB();");
 		sc.add(COLOR + " backgroundColor = null;");
 		sc.add("if (backgroundColorArray != null) {");
 		sc.add(RGB + " backgroundRGB = new " + RGB + "(backgroundColorArray[0], backgroundColorArray[1], backgroundColorArray[2]);");
 		sc.add("backgroundColor = colorManager.getColor(backgroundRGB);");
 		sc.add("}");
 		sc.add("int style = " + SWT + ".NORMAL;");
-		sc.add("if (dynamicStyle.isBold()) {");
+		sc.add("if (tokeStyle.isBold()) {");
 		sc.add("style = style | " + SWT + ".BOLD;");
 		sc.add("}");
-		sc.add("if (dynamicStyle.isItalic()) {");
+		sc.add("if (tokeStyle.isItalic()) {");
 		sc.add("style = style | " + SWT + ".ITALIC;");
 		sc.add("}");
-		sc.add("if (dynamicStyle.isStrikethrough()) {");
+		sc.add("if (tokeStyle.isStrikethrough()) {");
 		sc.add("style = style | " + TEXT_ATTRIBUTE + ".STRIKETHROUGH;");
 		sc.add("}");
-		sc.add("if (dynamicStyle.isUnderline()) {");
+		sc.add("if (tokeStyle.isUnderline()) {");
 		sc.add("style = style | " + TEXT_ATTRIBUTE + ".UNDERLINE;");
 		sc.add("}");
-		sc.add("ta = new " + TEXT_ATTRIBUTE + "(foregroundColor, backgroundColor, style);");
-		sc.add("}");
-		sc.add("}");
-		// potential performance improvement for large files in the future:
-		// build a map of tokens and reuse them instead of creating new ones
-		sc.add("return new " + J_FACE_TOKEN + "(ta);");
+		sc.add("return new " + TEXT_ATTRIBUTE + "(foregroundColor, backgroundColor, style);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
 	private void addGetTokenOffsetMethod(StringComposite sc) {
 		sc.add("public int getTokenOffset() {");
 		sc.add("return offset + currentToken.getOffset();");

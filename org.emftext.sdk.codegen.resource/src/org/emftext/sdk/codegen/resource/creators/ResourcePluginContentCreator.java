@@ -169,6 +169,9 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		
 		add(creators, TextResourceArtifacts.META_INFORMATION);
 	    add(creators, TextResourceArtifacts.TOKEN_STYLE);
+	    add(creators, TextResourceArtifacts.TASK_ITEM);
+	    add(creators, TextResourceArtifacts.TASK_ITEM_DETECTOR);
+	    add(creators, TextResourceArtifacts.TASK_ITEM_BUILDER);
 	    add(creators, TextResourceArtifacts.TOKEN_STYLE_INFORMATION_PROVIDER);
 	    add(creators, TextResourceArtifacts.DYNAMIC_TOKEN_STYLER);
 	    add(creators, TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER);
@@ -287,6 +290,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.STRING_UTIL);
 	    add(creators, TextResourceArtifacts.TEXT_RESOURCE_UTIL);
 	    add(creators, TextResourceArtifacts.UNICODE_CONVERTER);
+	    add(creators, TextResourceArtifacts.URI_UTIL);
 	    add(creators, TextResourceArtifacts.NEW_FILE_CONTENT_PROVIDER);
 		add(creators, TextResourceArtifacts.BUILDER);
     	add(creators, TextResourceArtifacts.BUILDER_ADAPTER);
@@ -296,7 +300,9 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.RESOURCE_POST_PROCESSOR);
 	    
 	    add(creators, TextResourceArtifacts.TEXT_TOKEN);
-	    
+	    add(creators, TextResourceArtifacts.ANTLR_TEXT_TOKEN);
+	    add(creators, TextResourceArtifacts.ANTLR_TOKEN_HELPER);
+
 	    add(creators, TextResourceArtifacts.ABSTRACT_DEBUGGABLE);
 	    add(creators, TextResourceArtifacts.E_DEBUG_MESSAGE_TYPES);
 	    add(creators, TextResourceArtifacts.I_DEBUG_EVENT_LISTENER);
@@ -324,11 +330,12 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	}
 
 	private XMLParameters<GenerationContext> getResourcePluginXMLParameters(GenerationContext context) {
-		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
-		String pluginID = resourcePlugin.getName();
-		String builderID = nameUtil.getBuilderID(context.getConcreteSyntax());
-		
+		final IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+		final String pluginID = resourcePlugin.getName();
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		final String builderID = nameUtil.getBuilderID(concreteSyntax);
+		final String taskBuilderID = nameUtil.getTaskItemBuilderID(concreteSyntax);
+
 		final String primaryConcreteSyntaxName = csUtil.getPrimarySyntaxName(concreteSyntax);
 		final String secondaryConcreteSyntaxName = csUtil.getSecondarySyntaxName(concreteSyntax);
 		final String qualifiedResourceFactoryClassName;
@@ -384,7 +391,8 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		
 		XMLElement natureExtension = root.createChild("extension");
 		natureExtension.setAttribute("id", nameUtil.getNatureID(concreteSyntax));
-		natureExtension.setAttribute("name", concreteSyntax.getName() + " nature");
+		String syntaxName = concreteSyntax.getName();
+		natureExtension.setAttribute("name", syntaxName + " nature");
 		natureExtension.setAttribute("point", "org.eclipse.core.resources.natures");
 		XMLElement runtime = natureExtension.createChild("runtime");
 		XMLElement run = runtime.createChild("run");
@@ -393,18 +401,20 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 			XMLElement builder = natureExtension.createChild("builder");
 			builder.setAttribute("id", builderID);
 		}
+		XMLElement builder = natureExtension.createChild("builder");
+		builder.setAttribute("id", taskBuilderID);
 
 		if (!disableBuilder) {
-			XMLElement builderExtension = root.createChild("extension");
-			builderExtension.setAttribute("point", "org.eclipse.core.resources.builders");
-			builderExtension.setAttribute("id" , builderID);
-			builderExtension.setAttribute("name" , concreteSyntax.getName() + " Builder");
-			XMLElement builder = builderExtension.createChild("builder");
-			builder.setAttribute("hasNature", "true");
-			XMLElement builderRun = builder.createChild("run");
-			builderRun.setAttribute("class", context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER));
+			String builderAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER);
+			String builderName = syntaxName + " Builder";
+			addBuilder(root, builderID, builderAdapterClassName, builderName);
 		}
-		
+
+		// add task builder
+		String taskItemBuilderClassName = context.getQualifiedClassName(TextResourceArtifacts.TASK_ITEM_BUILDER);
+		String builderName = syntaxName + " Task Item Builder";
+		addBuilder(root, taskBuilderID , taskItemBuilderClassName, builderName);
+
 		XMLElement loadOptionsPoint = root.createChild("extension-point");
 		loadOptionsPoint.setAttribute("id", pluginID + ".default_load_options");
 		loadOptionsPoint.setAttribute("name", "Default Load Options");
@@ -441,7 +451,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 			breakpoint.setAttribute("class", lineBreakPointClassName);
 			breakpoint.setAttribute("id", pluginID + ".debug.breakpoint");
 			breakpoint.setAttribute("markerType", lineBreakPointMarkerID);
-			breakpoint.setAttribute("name", concreteSyntax.getName() + " Breakpoint");
+			breakpoint.setAttribute("name", syntaxName + " Breakpoint");
 	
 			XMLElement breakPointMarkerExtension = root.createChild("extension");
 			breakPointMarkerExtension.setAttribute("id", lineBreakPointMarkerID);
@@ -463,6 +473,18 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		}
 		XMLParameters<GenerationContext> parameters = new XMLParameters<GenerationContext>(TextResourceArtifacts.PLUGIN_XML, resourcePlugin, root);
 		return parameters;
+	}
+
+	private void addBuilder(XMLElement root, String builderID,
+			String builderClassName, String builderName) {
+		XMLElement builderExtension = root.createChild("extension");
+		builderExtension.setAttribute("point", "org.eclipse.core.resources.builders");
+		builderExtension.setAttribute("id" , builderID);
+		builderExtension.setAttribute("name" , builderName);
+		XMLElement builder = builderExtension.createChild("builder");
+		builder.setAttribute("hasNature", "true");
+		XMLElement builderRun = builder.createChild("run");
+		builderRun.setAttribute("class", builderClassName);
 	}
 
 	private XMLElement generateLaunchConfigurationTypeExtension(GenerationContext context) {

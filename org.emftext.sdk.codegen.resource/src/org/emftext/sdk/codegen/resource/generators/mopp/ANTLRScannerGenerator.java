@@ -49,7 +49,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (current == null || current.getType() < 0) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(iTextTokenClassName + " result = new " + textTokenClassName + "(current);");
+		sc.add(iTextTokenClassName + " result = new " + antlrTextTokenClassName + "(current);");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();

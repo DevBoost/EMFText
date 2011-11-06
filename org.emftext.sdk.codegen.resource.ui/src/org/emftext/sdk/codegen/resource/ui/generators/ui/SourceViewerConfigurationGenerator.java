@@ -35,7 +35,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		

@@ -26,6 +26,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.JOB;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
@@ -120,6 +121,32 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetFileMethod(sc);
 		addGetObjectURIMethod(sc);
 		addHandleExceptionMethod(sc);
+		addRemoveAllMarkersMethod1(sc);
+		addCreateMarkerMethod(sc);
+	}
+
+	private void addCreateMarkerMethod(JavaComposite sc) {
+		sc.add("public void createMarker(final " + I_RESOURCE + " resource, final String markerId, final " + MAP + "<String, Object> markerAttributes) {");
+		sc.add("if (resource == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
+		sc.add("public boolean execute(Object context) {");
+		sc.add("try {");
+		sc.add(I_MARKER + " marker = resource.createMarker(markerId);");
+		sc.add("for (String key : markerAttributes.keySet()) {");
+		sc.add("marker.setAttribute(key, markerAttributes.get(key));");
+		sc.add("}");
+		sc.add("return true;");
+		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add(pluginActivatorClassName + ".logError(\"Can't create marker.\", e);");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("});");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -164,6 +191,31 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
 		sc.add("file.deleteMarkers(markerType, false, " + I_RESOURCE + ".DEPTH_ZERO);");
+		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("handleException(ce);");
+		sc.add("}");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("});");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addRemoveAllMarkersMethod1(JavaComposite sc) {
+		sc.addJavadoc(
+			"Removes all markers of the given type from the given resource. " +
+			COMMENT_ON_EXECUTION_ORDER,
+			"@param resource The resource where to delete markers from",
+			"@param markerId The id of the marker type to remove"
+		);
+		sc.add("public void removeAllMarkers(final " + I_RESOURCE + " resource, final String markerId) {");
+		sc.add("if (resource == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
+		sc.add("public boolean execute(Object context) {");
+		sc.add("try {");
+		sc.add("resource.deleteMarkers(markerId, false, " + I_RESOURCE + ".DEPTH_ZERO);");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
 		sc.add("handleException(ce);");
 		sc.add("}");
@@ -317,7 +369,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetMarkerIDMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the ID of the marker type that is used to indicate problems of the given type.");
-		sc.add("private static String getMarkerID(" + eProblemTypeClassName + " problemType) {");
+		sc.add("public static String getMarkerID(" + eProblemTypeClassName + " problemType) {");
 		sc.add("String markerID = MARKER_TYPE;");
 		sc.add("String typeID = problemType.getID();");
 		sc.add("if (!\"\".equals(typeID)) {");

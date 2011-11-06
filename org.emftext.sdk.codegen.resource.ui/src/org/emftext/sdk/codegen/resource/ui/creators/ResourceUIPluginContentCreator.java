@@ -145,7 +145,6 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    
 	    // add UI generators
 		add(creators, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
-	    add(creators, TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
 	    add(creators, TextResourceUIArtifacts.BRACKET_SET);
 	    add(creators, TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL);
 	    add(creators, TextResourceUIArtifacts.CODE_FOLDING_MANAGER);

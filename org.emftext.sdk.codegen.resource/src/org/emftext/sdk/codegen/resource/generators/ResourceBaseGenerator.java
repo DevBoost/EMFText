@@ -36,6 +36,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String antlrParserBaseClassName;
 	protected String antlrParserClassName;
 	protected String antlrScannerClassName;
+	protected String antlrTokenHelperClassName;
 	protected String attributeValueProviderClassName;
 	protected String babylonSpecificationClassName;
 	protected String booleanTerminalClassName;
@@ -196,6 +197,11 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String whiteSpaceClassName;
 	
 	protected String iFunction1ClassName;
+	protected String taskItemClassName;
+	protected String taskItemDetectorClassName;
+	protected String taskItemBuilderClassName;
+	protected String uriUtilClassName;
+	protected String antlrTextTokenClassName;
 	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -207,6 +213,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		antlrParserBaseClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER_BASE);
 		antlrParserClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER);
 		antlrScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_SCANNER);
+		antlrTokenHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_TOKEN_HELPER);
 		attributeValueProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
 		booleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.BOOLEAN_TERMINAL);
 		bracketInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);
@@ -365,6 +372,12 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		unicodeConverterClassName = context.getQualifiedClassName(TextResourceArtifacts.UNICODE_CONVERTER);
 		uriMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.URI_MAPPING);
 		whiteSpaceClassName = context.getQualifiedClassName(TextResourceArtifacts.WHITE_SPACE);
+
+		taskItemClassName = context.getQualifiedClassName(TextResourceArtifacts.TASK_ITEM);
+		taskItemDetectorClassName = context.getQualifiedClassName(TextResourceArtifacts.TASK_ITEM_DETECTOR);
+		taskItemBuilderClassName = context.getQualifiedClassName(TextResourceArtifacts.TASK_ITEM_BUILDER);
+		uriUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.URI_UTIL);
+		antlrTextTokenClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_TEXT_TOKEN);
 	}
 
 	protected String getResourceClassName() {

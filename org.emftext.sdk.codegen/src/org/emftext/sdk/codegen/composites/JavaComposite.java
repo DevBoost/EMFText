@@ -173,10 +173,21 @@ public class JavaComposite extends StringComposite {
 	 * @param type the type of the field
 	 */
 	public void addFieldGetSet(String fieldName, String type, String... javadoc) {
+		addFieldGet(fieldName, type, javadoc);
+		setters.put(fieldName, type);
+	}
+
+	/**
+	 * Adds a field with the given name and type and the respective get 
+	 * method.
+	 * 
+	 * @param fieldName the name of the field to add
+	 * @param type the type of the field
+	 */
+	public void addFieldGet(String fieldName, String type, String... javadoc) {
 		fields.put(fieldName, type);
 		fieldDoc.put(fieldName, javadoc);
 		getters.put(fieldName, type);
-		setters.put(fieldName, type);
 	}
 	
 	public void addGettersSetters() {

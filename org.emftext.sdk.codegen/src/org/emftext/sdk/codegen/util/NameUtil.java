@@ -112,6 +112,11 @@ public class NameUtil {
 		return pluginID + ".builder";
 	}
 
+	public String getTaskItemBuilderID(ConcreteSyntax syntax) {
+		String pluginID = getResourcePluginDescriptor(syntax).getName();
+		return pluginID + ".taskItemBuilder";
+	}
+
 	public String getNatureID(ConcreteSyntax syntax) {
 		String pluginID = getResourcePluginDescriptor(syntax).getName();
 		return pluginID + ".nature";

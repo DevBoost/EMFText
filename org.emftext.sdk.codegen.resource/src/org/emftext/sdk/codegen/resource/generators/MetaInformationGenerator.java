@@ -32,10 +32,12 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private boolean useScalesParser;
 	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		
+		useScalesParser = OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax());
+
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
@@ -88,6 +90,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         addGetResourcePostProcessorProviderOptionKeyMethod(sc);
         addGetLaunchConfigurationTypeMethod(sc);
         addCreateNameProviderMethod(sc);
+        addGetSyntaxHighlightableTokenNamesMethod(sc);
 	}
 
 	private void addGetLaunchConfigurationTypeMethod(JavaComposite sc) {
@@ -166,11 +169,37 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addGetTokenNamesMethod(StringComposite sc) {
 		sc.add("public String[] getTokenNames() {");
-		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
+		if (useScalesParser) {
 			sc.add("return new " + scannerlessParserClassName + "().getTokenNames();");
 		} else {
 			sc.add("return new " + antlrParserClassName + "(null).getTokenNames();");
 		}
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetSyntaxHighlightableTokenNamesMethod(JavaComposite sc) {
+		sc.add("public String[] getSyntaxHighlightableTokenNames() {");
+		sc.add(antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
+		sc.add(sc.declareArrayList("highlightableTokens", "String"));
+        sc.add("String[] parserTokenNames = getTokenNames();");
+        sc.add("for (int i = 0; i < parserTokenNames.length; i++) {");
+        sc.add("String nextTokenName = parserTokenNames[i];");
+		if (!useScalesParser) {
+			sc.addComment("If ANTLR is used we need to normalize the token names");
+			sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
+			sc.add("continue;");
+			sc.add("}");
+			
+			sc.add("String tokenName = tokenHelper.getTokenName(parserTokenNames, i);");
+			sc.add("if (tokenName == null) {");
+			sc.add("continue;");
+			sc.add("}");
+		}
+        sc.add("highlightableTokens.add(nextTokenName);");
+        sc.add("}");
+        sc.add("highlightableTokens.add(" + tokenStyleInformationProviderClassName + ".TASK_ITEM_TOKEN_NAME);");
+        sc.add("return highlightableTokens.toArray(new String[highlightableTokens.size()]);");
         sc.add("}");
         sc.addLineBreak();
 	}

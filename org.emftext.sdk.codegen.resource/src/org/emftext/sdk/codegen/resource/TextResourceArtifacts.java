@@ -38,8 +38,6 @@ import org.emftext.sdk.codegen.resource.creators.AdditionalExtensionParserExtens
 import org.emftext.sdk.codegen.resource.creators.DefaultLoadOptionsExtensionPointSchemaCreator;
 import org.emftext.sdk.codegen.resource.generators.AbstractInterpreterGenerator;
 import org.emftext.sdk.codegen.resource.generators.BracketInformationProviderGenerator;
-import org.emftext.sdk.codegen.resource.generators.BuilderAdapterGenerator;
-import org.emftext.sdk.codegen.resource.generators.BuilderGenerator;
 import org.emftext.sdk.codegen.resource.generators.ContextDependentURIFragmentFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.ContextDependentURIFragmentGenerator;
 import org.emftext.sdk.codegen.resource.generators.DefaultTokenResolverGenerator;
@@ -53,7 +51,6 @@ import org.emftext.sdk.codegen.resource.generators.FoldingInformationProviderGen
 import org.emftext.sdk.codegen.resource.generators.FuzzyResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.LocationMapGenerator;
 import org.emftext.sdk.codegen.resource.generators.MetaInformationGenerator;
-import org.emftext.sdk.codegen.resource.generators.NatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.NewFileContentProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.ParseResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.PluginActivatorGenerator;
@@ -65,7 +62,6 @@ import org.emftext.sdk.codegen.resource.generators.ResourceFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.SyntaxCoverageInformationProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.TerminateParsingExceptionGenerator;
 import org.emftext.sdk.codegen.resource.generators.TextResourceGenerator;
-import org.emftext.sdk.codegen.resource.generators.TextTokenGenerator;
 import org.emftext.sdk.codegen.resource.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.URIMappingGenerator;
@@ -163,6 +159,10 @@ import org.emftext.sdk.codegen.resource.generators.launch.LaunchConfigurationHel
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRTextTokenGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.AntlrTokenHelperGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.BuilderAdapterGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.BuilderGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ChangeReferenceQuickFixGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ContainedFeatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.DynamicTokenStylerGenerator;
@@ -170,6 +170,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ExpectationsConstantsGen
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.MarkerHelperGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.NatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.OptionProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.Printer2Generator;
 import org.emftext.sdk.codegen.resource.generators.mopp.PrinterGenerator;
@@ -178,6 +179,10 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ResourcePostProcessorGen
 import org.emftext.sdk.codegen.resource.generators.mopp.ScannerlessParserGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ScannerlessScannerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.SyntaxElementDecoratorGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.TaskItemBuilderGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.TaskItemDetectorGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.TaskItemGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.TextTokenGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.TokenStyleGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.TokenStyleInformationProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.CastUtilGenerator;
@@ -195,6 +200,7 @@ import org.emftext.sdk.codegen.resource.generators.util.RuntimeUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.StreamUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.StringUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.TextResourceUtilGenerator;
+import org.emftext.sdk.codegen.resource.generators.util.URIUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.UnicodeConverterGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -216,6 +222,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_SCANNER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "AntlrScanner", ANTLRScannerGenerator.class, OptionTypes.OVERRIDE_SCANNER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_PARSER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Parser", null, OptionTypes.OVERRIDE_PARSER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_PARSER_BASE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ANTLRParserBase", ANTLRParserBaseGenerator.class, OptionTypes.OVERRIDE_PARSER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_TOKEN_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "AntlrTokenHelper", AntlrTokenHelperGenerator.class, OptionTypes.OVERRIDE_ANTLR_TOKEN_HELPER); 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTEXT_DEPENDENT_URI_FRAGMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ContextDependentURIFragment", ContextDependentURIFragmentGenerator.class, OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ContextDependentURIFragmentFactory", ContextDependentURIFragmentFactoryGenerator.class, OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DELEGATING_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "DelegatingResolveResult", DelegatingResolveResultGenerator.class, OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT);
@@ -250,6 +257,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PARSE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ParseResult", ParseResultGenerator.class, OptionTypes.OVERRIDE_PARSE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PLUGIN_ACTIVATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Plugin", PluginActivatorGenerator.class, OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TEXT_TOKEN = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TextToken", TextTokenGenerator.class, OptionTypes.OVERRIDE_TEXT_TOKEN);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_TEXT_TOKEN = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ANTLRTextToken", ANTLRTextTokenGenerator.class, OptionTypes.OVERRIDE_ANTLR_TEXT_TOKEN);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TERMINATE_PARSING_EXCEPTION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TerminateParsingException", TerminateParsingExceptionGenerator.class, OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UNEXPECTED_CONTENT_TYPE_EXCEPTION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "UnexpectedContentTypeException", UnexpectedContentTypeExceptionGenerator.class, OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TOKEN_STYLE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TokenStyle", TokenStyleGenerator.class, OptionTypes.OVERRIDE_TOKEN_STYLE);
@@ -342,6 +350,10 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ENUMERATION_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "EnumerationTerminal", EnumerationTerminalGenerator.class, OptionTypes.OVERRIDE_ENUMERATION_TERMINAL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RULE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "Rule", RuleGenerator.class, OptionTypes.OVERRIDE_RULE);
 
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TASK_ITEM = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TaskItem", TaskItemGenerator.class, OptionTypes.OVERRIDE_TASK_ITEM);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TASK_ITEM_DETECTOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TaskItemDetector", TaskItemDetectorGenerator.class, OptionTypes.OVERRIDE_TASK_ITEM_DETECTOR);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TASK_ITEM_BUILDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TaskItemBuilder", TaskItemBuilderGenerator.class, OptionTypes.OVERRIDE_TASK_ITEM_BUILDER);
+
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> GRAMMAR_INFORMATION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "GrammarInformationProvider", GrammarInformationProviderGenerator.class, OptionTypes.OVERRIDE_GRAMMAR_INFORMATION_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FOLLOW_SET_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "FollowSetProvider", FollowSetProviderGenerator.class, OptionTypes.OVERRIDE_FOLLOW_SET_PROVIDER);
 	
@@ -387,6 +399,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> STRING_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "StringUtil", StringUtilGenerator.class, OptionTypes.OVERRIDE_STRING_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TEXT_RESOURCE_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "TextResourceUtil", TextResourceUtilGenerator.class, OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UNICODE_CONVERTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "UnicodeConverter", UnicodeConverterGenerator.class, OptionTypes.OVERRIDE_UNICODE_CONVERTER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> URI_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "URIUtil", URIUtilGenerator.class, OptionTypes.OVERRIDE_URI_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ABSTRACT_INTERPRETER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "Abstract", "Interpreter", AbstractInterpreterGenerator.class, OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_GRAMMAR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "ANTLR grammar", "", ANTLRGrammarGenerator.class, OptionTypes.OVERRIDE_PARSER); 

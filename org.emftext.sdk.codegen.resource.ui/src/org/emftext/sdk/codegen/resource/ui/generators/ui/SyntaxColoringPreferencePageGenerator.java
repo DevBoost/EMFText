@@ -209,23 +209,15 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.addLineBreak();
-		sc.add(iMetaInformationClassName + " syntaxPlugin = new " + metaInformationClassName + "();");
+		sc.add(metaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
 		sc.addLineBreak();
-		sc.add("String languageId = syntaxPlugin.getSyntaxName();");
+		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.addLineBreak();
 		sc.add(LIST + "<HighlightingColorListItem> terminals = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
-		sc.add("String[] tokenNames = syntaxPlugin.getTokenNames();");
+		sc.add("String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();");
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < tokenNames.length; i++) {");
-		sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("String tokenName = tokenHelper.getTokenName(tokenNames, i);");
-		sc.add("if (tokenName == null) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.add("HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);");
+		sc.add("HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenNames[i]);");
 		sc.add("terminals.add(item);");
 		sc.add("}");
 		sc.add(COLLECTIONS + ".sort(terminals);");
@@ -751,7 +743,6 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addConstants(JavaComposite sc) {
-		sc.add("private final static " + antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
 		sc.add("private final static " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
 		sc.add("private final static " + COLLECTION + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST + "<IChangedPreference>();");
 		sc.addLineBreak();

@@ -25,7 +25,6 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String abstractOutlinePageActionClassName;
 	protected String annotationModelClassName;
 	protected String annotationModelFactoryClassName;
-	protected String antlrTokenHelperClassName;
 	protected String backgroundParsingStrategyClassName;
 	protected String bracketPreferencePageClassName;
 	protected String bracketSetClassName;
@@ -99,7 +98,6 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		abstractOutlinePageActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
 		annotationModelClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL);
 		annotationModelFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
-		antlrTokenHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
 		backgroundParsingStrategyClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BACKGROUND_PARSING_STRATEGY);
 		bracketPreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);
 		bracketSetClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_SET);

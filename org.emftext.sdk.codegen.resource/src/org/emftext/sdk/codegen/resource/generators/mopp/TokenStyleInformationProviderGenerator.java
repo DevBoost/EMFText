@@ -40,6 +40,8 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
         
         sc.add("public class " + getResourceClassName()+ " {");
         sc.addLineBreak();
+        sc.add("public static String TASK_ITEM_TOKEN_NAME = \"TASK_ITEM\";");
+        sc.addLineBreak();
 		addGetDefaultTokenStyleMethod(sc);
 		sc.add("}");
 	}
