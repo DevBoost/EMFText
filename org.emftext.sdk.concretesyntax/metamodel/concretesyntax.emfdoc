@@ -642,6 +642,18 @@ OptionTypes.OVERRIDE_DEV_NULL_LOCATION_MAP : "If set to <code>false</code>, the 
 
 OptionTypes.OVERRIDE_IGNORED_WORDS_FILTER : "If set to <code>false</code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_TASK_ITEM : "If set to <code>false</code>, the TaskItem class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TASK_ITEM_BUILDER : "If set to <code>false</code>, the TaskItemBuilder class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_TASK_ITEM_DETECTOR : "If set to <code>false</code>, the TaskItemDetector class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_URI_UTIL : "If set to <code>false</code>, the URIUtil class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ANTLR_TEXT_TOKEN : "If set to <code>false</code>, the ANTLRTextToken class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_SOURCE_VIEWER_CONFIGURATION : "If set to <code>false</code>, the SourceViewerConfiguration class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

@@ -4692,6 +4692,42 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>false</code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(279), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the TaskItemDetector class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(280), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the TaskItemBuilder class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(281), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the SourceViewerConfiguration class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(282), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the TaskItem class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(283), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the URIUtil class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(284), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the ANTLRTextToken class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {

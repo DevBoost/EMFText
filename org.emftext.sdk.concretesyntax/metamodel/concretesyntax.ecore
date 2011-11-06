@@ -1968,12 +1968,36 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_TASK_ITEM_DETECTOR" value="282" literal="overrideTaskItemDetector"/>
-    <eLiterals name="OVERRIDE_TASK_ITEM_BUILDER" value="283" literal="overrideTaskItemBuilder"/>
-    <eLiterals name="OVERRIDE_SOURCE_VIEWER_CONFIGURATION" value="284" literal="overrideSourceViewerConfiguration"/>
-    <eLiterals name="OVERRIDE_TASK_ITEM" value="285" literal="overrideTaskItem"/>
-    <eLiterals name="OVERRIDE_URI_UTIL" value="286" literal="overrideURIUtil"/>
-    <eLiterals name="OVERRIDE_ANTLR_TEXT_TOKEN" value="287" literal="overrideAntlrTextToken"/>
+    <eLiterals name="OVERRIDE_TASK_ITEM_DETECTOR" value="282" literal="overrideTaskItemDetector">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the TaskItemDetector class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TASK_ITEM_BUILDER" value="283" literal="overrideTaskItemBuilder">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the TaskItemBuilder class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_SOURCE_VIEWER_CONFIGURATION" value="284" literal="overrideSourceViewerConfiguration">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the SourceViewerConfiguration class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_TASK_ITEM" value="285" literal="overrideTaskItem">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the TaskItem class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_URI_UTIL" value="286" literal="overrideURIUtil">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the URIUtil class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OVERRIDE_ANTLR_TEXT_TOKEN" value="287" literal="overrideAntlrTextToken">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ANTLRTextToken class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
