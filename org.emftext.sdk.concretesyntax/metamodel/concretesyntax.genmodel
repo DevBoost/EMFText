@@ -622,6 +622,10 @@
         <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/getAllPlaceholdersInQuotes/rule"/>
       </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/getKeywordRegex"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStyleForTaskItems">
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStyleForTaskItems/syntax"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//DefaultTokenStyleAdder/addTokenStyleForTaskItems/allStyles"/>
+      </genOperations>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

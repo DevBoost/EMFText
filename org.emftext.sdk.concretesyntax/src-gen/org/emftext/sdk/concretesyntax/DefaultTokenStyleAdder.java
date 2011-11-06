@@ -35,7 +35,7 @@ public interface DefaultTokenStyleAdder extends EObject {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model allStylesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// add default styles\r\n\t\taddTokenStylesForKeywords(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForQuotedTokens(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForComments(syntax, allStyles);\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// add default styles\r\n\t\taddTokenStylesForKeywords(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForQuotedTokens(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForComments(syntax, allStyles);\r\n\r\n\t\taddTokenStyleForTaskItems(syntax, allStyles);\r\n'"
 	 * @generated
 	 */
 	void addDefaultTokenStyles(ConcreteSyntax syntax, EList<TokenStyle> allStyles);
@@ -70,7 +70,7 @@ public interface DefaultTokenStyleAdder extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfinal  java.lang.String SL_COMMENT = \"\'//\'(~(\'\\n\'|\'\\r\'|\'\\uffff\'))*\";\r\n\r\n\t\tfinal  java.lang.String ML_COMMENT = \"\'/*\'.*\'\052/\'\";\r\n\r\n\t\treturn SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfinal  java.lang.String SL_COMMENT = \"\'//\'(~(\'\\n\'|\'\\r\'|\'?\'))*\";\r\n\r\n\t\tfinal  java.lang.String ML_COMMENT = \"\'/*\'.*\'\052/\'\";\r\n\r\n\t\treturn SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);\r\n'"
 	 * @generated
 	 */
 	boolean isCommentPattern(String regex);
@@ -120,5 +120,17 @@ public interface DefaultTokenStyleAdder extends EObject {
 	 * @generated
 	 */
 	String getKeywordRegex();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model allStylesMany="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfinal  java.lang.String TASK_ITEM_COLOR = \"7F9FBF\";\r\n\r\n\r\n\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\r\n\t\tnewStyle.setRgb(TASK_ITEM_COLOR);\r\n\r\n\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\r\n\r\n\t\tnewStyle.getTokenNames().add(\"TASK_ITEM\");\r\n\r\n\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n'"
+	 * @generated
+	 */
+	void addTokenStyleForTaskItems(ConcreteSyntax syntax, EList<TokenStyle> allStyles);
 
 } // DefaultTokenStyleAdder

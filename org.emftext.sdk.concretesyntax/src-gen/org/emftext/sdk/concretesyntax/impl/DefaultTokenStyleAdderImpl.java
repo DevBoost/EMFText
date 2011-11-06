@@ -69,6 +69,8 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 		
 				addTokenStylesForComments(syntax, allStyles);
 		
+				addTokenStyleForTaskItems(syntax, allStyles);
+		
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 */
 	public boolean isCommentPattern(String regex) {
 		
-				final  java.lang.String SL_COMMENT = "'//'(~('\n'|'\r'|'\uffff'))*";
+				final  java.lang.String SL_COMMENT = "'//'(~('\n'|'\r'|'?'))*";
 		
 				final  java.lang.String ML_COMMENT = "'/*'.*'*/'";
 		
@@ -229,6 +231,28 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 				final  java.lang.String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)";
 		
 				return KEYWORD_REGEX;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void addTokenStyleForTaskItems(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
+		
+				final  java.lang.String TASK_ITEM_COLOR = "7F9FBF";
+		
+		
+				 org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+		
+				newStyle.setRgb(TASK_ITEM_COLOR);
+		
+				newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);
+		
+				newStyle.getTokenNames().add("TASK_ITEM");
+		
+				syntax.addTokenStyle(allStyles, newStyle);
 		
 	}
 

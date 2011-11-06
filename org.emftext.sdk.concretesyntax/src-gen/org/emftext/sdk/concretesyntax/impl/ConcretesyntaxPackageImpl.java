@@ -2208,6 +2208,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		addEOperation(defaultTokenStyleAdderEClass, theEcorePackage.getEString(), "getKeywordRegex", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(defaultTokenStyleAdderEClass, null, "addTokenStyleForTaskItems", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConcreteSyntax(), "syntax", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTokenStyle(), "allStyles", 0, -1, IS_UNIQUE, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(cardinalityEEnum, Cardinality.class, "Cardinality");
 		addEEnumLiteral(cardinalityEEnum, Cardinality.NONE);
@@ -4793,7 +4797,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (defaultTokenStyleAdderEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t// add default styles\r\n\t\taddTokenStylesForKeywords(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForQuotedTokens(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForComments(syntax, allStyles);\r\n",
+			 "body", "\r\n\t\t// add default styles\r\n\t\taddTokenStylesForKeywords(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForQuotedTokens(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForComments(syntax, allStyles);\r\n\r\n\t\taddTokenStyleForTaskItems(syntax, allStyles);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -4814,7 +4818,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (defaultTokenStyleAdderEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tfinal  java.lang.String SL_COMMENT = \"\'//\'(~(\'\\n\'|\'\\r\'|\'\\uffff\'))*\";\r\n\r\n\t\tfinal  java.lang.String ML_COMMENT = \"\'/*\'.*\'*/\'\";\r\n\r\n\t\treturn SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);\r\n",
+			 "body", "\r\n\t\tfinal  java.lang.String SL_COMMENT = \"\'//\'(~(\'\\n\'|\'\\r\'|\'?\'))*\";\r\n\r\n\t\tfinal  java.lang.String ML_COMMENT = \"\'/*\'.*\'*/\'\";\r\n\r\n\t\treturn SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -4843,6 +4847,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "\r\n\t\tfinal  java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)\";\r\n\r\n\t\treturn KEYWORD_REGEX;\r\n",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (defaultTokenStyleAdderEClass.getEOperations().get(8), 
+		   source, 
+		   new String[] {
+			 "body", "\r\n\t\tfinal  java.lang.String TASK_ITEM_COLOR = \"7F9FBF\";\r\n\r\n\r\n\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\r\n\t\tnewStyle.setRgb(TASK_ITEM_COLOR);\r\n\r\n\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\r\n\r\n\t\tnewStyle.getTokenNames().add(\"TASK_ITEM\");\r\n\r\n\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n",
 			 "documentation", ""
 		   });
 	}

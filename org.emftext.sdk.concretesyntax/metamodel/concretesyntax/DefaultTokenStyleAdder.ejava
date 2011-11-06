@@ -22,6 +22,17 @@ eclass DefaultTokenStyleAdder {
 		addTokenStylesForKeywords(syntax, allStyles);
 		addTokenStylesForQuotedTokens(syntax, allStyles);
 		addTokenStylesForComments(syntax, allStyles);
+		addTokenStyleForTaskItems(syntax, allStyles);
+	}
+
+	addTokenStyleForTaskItems(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
+		final String TASK_ITEM_COLOR = "7F9FBF";
+
+		TokenStyle newStyle = #TokenStyle;
+		newStyle.setRgb(TASK_ITEM_COLOR);
+		newStyle.getFontStyles().add(FontStyle.BOLD);
+		newStyle.getTokenNames().add("TASK_ITEM");
+		syntax.addTokenStyle(allStyles, newStyle);
 	}
 
 	addTokenStylesForComments(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
