@@ -15,6 +15,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysi
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -29,14 +31,29 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostPro
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 /**
- * A analyser that checks that all token styles refer either to
- * a token definition, a CsString, a BooleanTerminal or a 
- * EnumLiteralTerminal.
+ * The TokenStyleAnalyser checks that all token styles refer either to a token 
+ * definition, a CsString, a BooleanTerminal, an EnumLiteralTerminal or to the 
+ * virtual token TASK_ITEM.
  */
 public class TokenStyleAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
+		Set<String> validTokenNames = getValidTokenNames(syntax);
+		
+		// for each token style we search for a matching token
+		// definition, CsString, BooleanTerminal or EnumLiteralTerminal
+		Collection<TokenStyle> styles = syntax.getAllTokenStyles();
+		for (TokenStyle tokenStyle : styles) {
+			for (String tokenName : tokenStyle.getTokenNames()) {
+				if (!validTokenNames.contains(tokenName)) {
+					addProblem(CsAnalysisProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token " + tokenName + ".", tokenStyle);
+				}
+			}
+		}
+	}
+
+	private Set<String> getValidTokenNames(ConcreteSyntax syntax) {
 		// first we collect all CsStrings, BooleanTerminals and EnumLiteralTerminals from all rules
 		Collection<CsString> csStrings = new ArrayList<CsString>();
 		Collection<BooleanTerminal> booleanTerminals = new ArrayList<BooleanTerminal>();
@@ -54,42 +71,22 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 			enumLiteralTerminals.addAll(enumLiteralTerminalsInRule);
 		}
 
-		// for each token style we search for a matching token
-		// definition, CsString, BooleanTerminal or EnumLiteralTerminal
-		Collection<TokenStyle> styles = syntax.getAllTokenStyles();
-		for (TokenStyle tokenStyle : styles) {
-			for (String tokenName : tokenStyle.getTokenNames()) {
-				if (!refersToExistingToken(syntax, csStrings, booleanTerminals, enumLiteralTerminals, tokenName)) {
-					addProblem(CsAnalysisProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token " + tokenName + ".", tokenStyle);
-				}
-			}
-		}
-	}
-
-	private boolean refersToExistingToken(ConcreteSyntax syntax, Collection<CsString> csStrings, Collection<BooleanTerminal> booleanTerminals, Collection<EnumLiteralTerminal> enumLiteralTerminals, String tokenName) {
+		Set<String> validTokenNames = new LinkedHashSet<String>(); 
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
-			if (tokenName.equals(tokenDefinition.getName())) {
-				return true;
-			}
+			validTokenNames.add(tokenDefinition.getName());
 		}
 		for (CsString csString : csStrings) {
-			if (tokenName.equals(csString.getValue())) {
-				return true;
-			}
+			validTokenNames.add(csString.getValue());
 		}
 		for (BooleanTerminal booleanTerminal : booleanTerminals) {
-			if (tokenName.equals(booleanTerminal.getTrueLiteral())) {
-				return true;
-			}
-			if (tokenName.equals(booleanTerminal.getFalseLiteral())) {
-				return true;
-			}
+			validTokenNames.add(booleanTerminal.getTrueLiteral());
+			validTokenNames.add(booleanTerminal.getFalseLiteral());
 		}
 		for (EnumLiteralTerminal enumLiteralTerminal : enumLiteralTerminals) {
-			if (tokenName.equals(enumLiteralTerminal.getText())) {
-				return true;
-			}
+			validTokenNames.add(enumLiteralTerminal.getText());
 		}
-		return false;
+		// TODO replace this with a constant
+		validTokenNames.add("TASK_ITEM");
+		return validTokenNames;
 	}
 }
