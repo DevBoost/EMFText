@@ -699,7 +699,9 @@ public class Automaton implements Serializable, Cloneable {
 	public static Automaton load(InputStream stream) throws IOException, OptionalDataException, ClassCastException, 
 	                                                        ClassNotFoundException, InvalidClassException {
 		ObjectInputStream s = new ObjectInputStream(stream);
-		return (Automaton)s.readObject();
+		Automaton result = (Automaton)s.readObject();
+		s.close();
+		return result;
 	}
 	
 	/**
@@ -711,6 +713,7 @@ public class Automaton implements Serializable, Cloneable {
 		ObjectOutputStream s = new ObjectOutputStream(stream);
 		s.writeObject(this);
 		s.flush();
+		s.close();
 	}
 
 	/** 

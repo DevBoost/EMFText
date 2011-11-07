@@ -190,7 +190,9 @@ public class RunAutomaton implements Serializable {
 	public static RunAutomaton load(InputStream stream) throws IOException, OptionalDataException, ClassCastException, 
 															   ClassNotFoundException, InvalidClassException {
 		ObjectInputStream s = new ObjectInputStream(stream);
-		return (RunAutomaton) s.readObject();
+		RunAutomaton result = (RunAutomaton) s.readObject();
+		s.close();
+		return result;
 	}
 
 	/**
@@ -202,6 +204,7 @@ public class RunAutomaton implements Serializable {
 		ObjectOutputStream s = new ObjectOutputStream(stream);
 		s.writeObject(this);
 		s.flush();
+		s.close();
 	}
 
 	/**

@@ -388,6 +388,7 @@ public class StringUtil {
 						usedBytes[j] = bytes[j];
 					}
 					result = result.substring(0, index) + new String(usedBytes, "UTF-8") + result.substring(index + 6);
+					converter.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 					assert false;

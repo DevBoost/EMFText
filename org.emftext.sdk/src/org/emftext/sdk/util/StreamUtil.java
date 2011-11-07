@@ -76,6 +76,7 @@ public class StreamUtil {
 		while ((next = reader.read()) >= 0) {
 			content.append((char) next);
 		}
+		reader.close();
 		return content.toString();
 	}
 
