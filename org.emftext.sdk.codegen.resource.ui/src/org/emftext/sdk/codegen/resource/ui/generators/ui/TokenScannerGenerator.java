@@ -248,12 +248,17 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addGetTextAttributeMethod(StringComposite sc) {
 		sc.add("public " + TEXT_ATTRIBUTE + " getTextAttribute(" + iTokenStyleClassName + " tokeStyle) {");
 		sc.add("int[] foregroundColorArray = tokeStyle.getColorAsRGB();");
-		sc.add(COLOR + " foregroundColor = colorManager.getColor(new " + RGB + "(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));");
+		sc.add(COLOR + " foregroundColor = null;");
+		sc.add("if (colorManager != null) {");
+		sc.add("foregroundColor = colorManager.getColor(new " + RGB + "(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));");
+		sc.add("}");
 		sc.add("int[] backgroundColorArray = tokeStyle.getBackgroundColorAsRGB();");
 		sc.add(COLOR + " backgroundColor = null;");
 		sc.add("if (backgroundColorArray != null) {");
 		sc.add(RGB + " backgroundRGB = new " + RGB + "(backgroundColorArray[0], backgroundColorArray[1], backgroundColorArray[2]);");
+		sc.add("if (colorManager != null) {");
 		sc.add("backgroundColor = colorManager.getColor(backgroundRGB);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("int style = " + SWT + ".NORMAL;");
 		sc.add("if (tokeStyle.isBold()) {");
