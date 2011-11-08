@@ -108,7 +108,6 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("boolean italic = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ITALIC));");
 		sc.add("boolean strikethrough = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".STRIKETHROUGH));");
 		sc.add("boolean underline = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".UNDERLINE));");
-		sc.addComment("now call dynamic token styler to allow to apply modifications to the static style");
 		sc.add("staticStyle = new " + tokenStyleClassName + "(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);");
 		sc.add("}");
 		sc.add("return staticStyle;");
@@ -232,6 +231,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("String tokenName = currentToken.getName();");
 		sc.add("if (tokenName != null) {");
 		sc.add(iTokenStyleClassName + " staticStyle = getStaticTokenStyle();");
+		sc.addComment("now call dynamic token styler to allow to apply modifications to the static style");
 		sc.add(iTokenStyleClassName + " dynamicStyle = getDynamicTokenStyle(staticStyle);");
 		sc.add("if (dynamicStyle != null) {");
 		sc.add("textAttribute = getTextAttribute(dynamicStyle);");
