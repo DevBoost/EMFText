@@ -184,7 +184,9 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add(sc.declareArrayList("highlightableTokens", "String"));
         sc.add("String[] parserTokenNames = getTokenNames();");
         sc.add("for (int i = 0; i < parserTokenNames.length; i++) {");
-		if (!useScalesParser) {
+		if (useScalesParser) {
+	        sc.add("highlightableTokens.add(parserTokenNames[i]);");
+		} else {
 			sc.addComment("If ANTLR is used we need to normalize the token names");
 			sc.add("if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {");
 			sc.add("continue;");
@@ -195,8 +197,6 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 			sc.add("continue;");
 			sc.add("}");
 	        sc.add("highlightableTokens.add(tokenName);");
-		} else {
-	        sc.add("highlightableTokens.add(parserTokenNames[i]);");
 		}
         sc.add("}");
         sc.add("highlightableTokens.add(" + tokenStyleInformationProviderClassName + ".TASK_ITEM_TOKEN_NAME);");
