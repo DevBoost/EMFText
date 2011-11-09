@@ -194,8 +194,10 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 			sc.add("if (tokenName == null) {");
 			sc.add("continue;");
 			sc.add("}");
+	        sc.add("highlightableTokens.add(tokenName);");
+		} else {
+	        sc.add("highlightableTokens.add(parserTokenNames[i]);");
 		}
-        sc.add("highlightableTokens.add(tokenName);");
         sc.add("}");
         sc.add("highlightableTokens.add(" + tokenStyleInformationProviderClassName + ".TASK_ITEM_TOKEN_NAME);");
         sc.add("return highlightableTokens.toArray(new String[highlightableTokens.size()]);");
