@@ -37,8 +37,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addJavadoc("A proposal for completing an incomplete document.");
 		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
 		
-		sc.addFieldGetSet("root", E_OBJECT);
+		sc.addFieldGetSet("root", E_OBJECT, "The root object of the resource for which this proposal was computed.");
 
+		sc.addLineBreak();
 		addFields(sc);
 		addConstructor1(sc);
 		addConstructor2(sc);
@@ -68,11 +69,11 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 
 	private void addMaterializeMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"This method create a model that reflects that the state that " +
+			"This method creates a model that reflects the state that " +
 			"would be obtained if this proposal was accepted. This model can " +
 			"differ from the current model, because different proposals can " +
 			"result in different models. The code that is passed as argument " +
-			"is executed once the (changed) model was created. After exectuing " +
+			"is executed once the (changed) model was created. After executing " +
 			"the given code, all changes are reverted."
 		);
 		sc.add("public void materialize(Runnable code) {");
@@ -245,13 +246,57 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	private void addFields(JavaComposite sc) {
 		sc.addFields();
 		
+		sc.addJavadoc("The terminal that was expected at the cursor position.");
 		sc.add("private " + expectedTerminalClassName + " expectedTerminal;");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"The string that will be inserted if the user picks this proposal. " +
+			"This string can differ from 'displayString' because usually only " +
+			"the missing part of the text is inserted and an existing prefix is kept."
+		);
 		sc.add("private String insertString;");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+			"The string that will be shown in the pop-up containing the completion proposals."
+		);
 		sc.add("private String displayString;");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+			"The part of the document right before the cursor that belongs to the proposal. " +
+			"This may for example be a partial name of a cross-referenced element."
+		);
 		sc.add("private String prefix;");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+			"A flag that indicates whether this proposal is valid w.r.t. the prefix (i.e., " +
+			"the text that has already been typed). We do keep proposals that do not match " +
+			"the prefix to allow proposal post processors to access these and add valid proposals " +
+			"even if the built-in proposal engine did not find a matching proposal. " +
+			"The completion pop-up will only show proposals for which this method returns true. " +
+			"See also {@link #getMatchesPrefix()}."
+		);
 		sc.add("private boolean matchesPrefix;");
+		sc.addLineBreak();
+
+		sc.addJavadoc("The structural feature (attribute or non-containment reference) that was expected at the cursor position.");
 		sc.add("private " + E_STRUCTURAL_FEATURE + " structuralFeature;");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+			"The container objects that covers the cursor position. " +
+			"This container object may not be contained in the resource we're " +
+			"computing proposals for. See {@link #materialize(Runnable)} for an explanation of this."
+		);
 		sc.add("private " + E_OBJECT + " container;");
+		sc.addLineBreak();
+
+		sc.addJavadoc(
+				"The image that will be shown in the pop-up containing the completion proposals."
+			);
 		sc.add("private " + IMAGE + " image;");
 		sc.addLineBreak();
 	}
