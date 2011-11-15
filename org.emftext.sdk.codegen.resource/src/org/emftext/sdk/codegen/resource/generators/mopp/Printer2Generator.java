@@ -238,7 +238,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addGetAllowedTypesMethod(JavaComposite sc) {
-		sc.add("private " + LIST + "<Class<?>> getAllowedTypes(" + terminalClassName + " terminal) {");
+		sc.add("protected " + LIST + "<Class<?>> getAllowedTypes(" + terminalClassName + " terminal) {");
 		sc.add(LIST + "<Class<?>> allowedTypes = new " + ARRAY_LIST + "<Class<?>>();");
 		sc.add("allowedTypes.add(terminal.getFeature().getEType().getInstanceClass());");
 			
