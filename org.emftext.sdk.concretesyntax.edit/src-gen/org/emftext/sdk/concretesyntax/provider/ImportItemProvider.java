@@ -199,7 +199,7 @@ public class ImportItemProvider
 			if (genPackage != null && !genPackage.eIsProxy()) {
 				EPackage ecorePackage = genPackage.getEcorePackage();
 				if (ecorePackage != null) {
-					label = label + ecorePackage.getNsPrefix();
+					label = label + ecorePackage.getNsURI();
 				}
 			}
 		}
