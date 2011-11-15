@@ -89,7 +89,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	}
 
 	private void addResolveMethod(JavaComposite sc) {
-		sc.add("public synchronized " + iReferenceResolveResultClassName + "<ReferenceType> resolve() {");
+		sc.add("public " + iReferenceResolveResultClassName + "<ReferenceType> resolve() {");
 		sc.add("if (resolving) {");
 		sc.add("return null;");
 		sc.add("}");
