@@ -73,6 +73,9 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
 		
+		sc.add("protected boolean disableLocationMap = false;");
+		sc.addLineBreak();
+		
 		sc.addJavadoc(
 			"A flag to indicate that the parser should stop parsing as soon as possible. " +
 			"The flag is set to false before parsing starts. It can be set to true by invoking " +
@@ -228,6 +231,9 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	private void addSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
 		sc.add("this.options = options;");
+		sc.add("if (Boolean.TRUE.equals(this.options.get(" + iOptionsClassName + ".DISABLE_LOCATION_MAP))) {");
+		sc.add("this.disableLocationMap = true;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}

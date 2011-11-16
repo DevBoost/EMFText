@@ -814,6 +814,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addCopyLocalizationInfosMethod1(ANTLRGrammarComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT + " source, final "
 				+ E_OBJECT + " target) {");
+		sc.add("if (disableLocationMap) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
 		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
@@ -835,6 +838,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addSetLocalizationEndMethod(ANTLRGrammarComposite sc) {
 		sc.addJavadoc("Sets the end character index and the last line for the given object in the location map.");
 		sc.add("protected void setLocalizationEnd(" + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands , final " + E_OBJECT + " object, final int endChar, final int endLine) {");
+		sc.add("if (disableLocationMap) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
 		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
@@ -854,6 +860,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addCopyLocalizationInfosMethod2(ANTLRGrammarComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN
 				+ " source, final " + E_OBJECT + " target) {");
+		sc.add("if (disableLocationMap) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
 		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
