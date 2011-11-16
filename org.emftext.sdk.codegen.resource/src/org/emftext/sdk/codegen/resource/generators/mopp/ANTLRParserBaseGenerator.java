@@ -78,14 +78,23 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A flag that indicates whether this parser runs in a special mode " +
-			"where the location map is not filled. If this flag is set to true, " +
-			"copying localization information for elements is not performed. " +
-			"This improves time and memory consumption."
-		);
+				"A flag that indicates whether this parser runs in a special mode " +
+				"where the location map is not filled. If this flag is set to true, " +
+				"copying localization information for elements is not performed. " +
+				"This improves time and memory consumption."
+			);
 		sc.add("protected boolean disableLocationMap = false;");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+				"A flag that indicates whether this parser runs in a special mode " +
+				"where layout information is not recorded. If this flag is set to true, " +
+				"no layout information adapters are created. " +
+				"This improves time and memory consumption."
+			);
+		sc.add("protected boolean disableLayoutRecording = false;");
+		sc.addLineBreak();
+			
 		sc.addJavadoc(
 			"A flag to indicate that the parser should stop parsing as soon as possible. " +
 			"The flag is set to false before parsing starts. It can be set to true by invoking " +
@@ -131,7 +140,6 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
     	generatorUtil.addGetMetaInformationMethod(sc, context);
 		generatorUtil.addGetReferenceResolverSwitchMethod(sc, context);
-		addIsLayoutInformationRecordingEnabledMethod(sc);
 	}
 
 	private void addConstructor1(JavaComposite sc) {
@@ -150,7 +158,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addRetrieveLayoutInformationMethod(JavaComposite sc) {
 		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {");
-		sc.add("if (!isLayoutInformationRecordingEnabled() || element == null) {");
+		sc.add("if (disableLayoutRecording || element == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.addComment(
@@ -241,8 +249,14 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	private void addSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
 		sc.add("this.options = options;");
-		sc.add("if (Boolean.TRUE.equals(this.options.get(" + iOptionsClassName + ".DISABLE_LOCATION_MAP))) {");
+		sc.add("if (this.options == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("if (Boolean.TRUE.equals(this.options.get(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LOCATION_MAP + "))) {");
 		sc.add("this.disableLocationMap = true;");
+		sc.add("}");
+		sc.add("if (Boolean.TRUE.equals(this.options.get(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING + "))) {");
+		sc.add("this.disableLayoutRecording = true;");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -308,18 +322,6 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("currentTarget = newEObject;");
 		sc.add("}");
 		sc.add("return currentTarget;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
-	private void addIsLayoutInformationRecordingEnabledMethod(StringComposite sc) {
-		sc.add("protected boolean isLayoutInformationRecordingEnabled() {");
-		sc.add("if (getOptions() == null) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("return !getOptions().containsKey(" + iOptionsClassName + "."
-				+ IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING
-				+ ");");
 		sc.add("}");
 		sc.addLineBreak();
 	}
