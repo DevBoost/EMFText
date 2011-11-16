@@ -54,11 +54,11 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.addJavadoc("the index of the last token that was handled by retrieveLayoutInformation()");
+		sc.addJavadoc("The index of the last token that was handled by retrieveLayoutInformation().");
 		sc.add("private int lastPosition2;");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("a collection to store all anonymous tokens");
+		sc.addJavadoc("A collection to store all anonymous tokens.");
 		sc.add("protected " + sc.declareArrayList("anonymousTokens", COMMON_TOKEN));
 		sc.addLineBreak();
 		
@@ -72,7 +72,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		
 		sc.addJavadoc(
 			"A copy of the options that were used to load the text resource. " +
-			"This map is filled when the parse is created."
+			"This map is filled when the parser is created."
 		);
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
