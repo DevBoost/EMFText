@@ -70,9 +70,19 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("protected " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+			"A copy of the options that were used to load the text resource. " +
+			"This map is filled when the parse is created."
+		);
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+			"A flag that indicates whether this parser runs in a special mode " +
+			"where the location map is not filled. If this flag is set to true, " +
+			"copying localization information for elements is not performed. " +
+			"This improves time and memory consumption."
+		);
 		sc.add("protected boolean disableLocationMap = false;");
 		sc.addLineBreak();
 		
