@@ -110,6 +110,7 @@ public class ANTLRPluginContentCreator {
 			org.antlr.runtime3_4_0.misc.LookaheadStream.class,
 			org.antlr.runtime3_4_0.misc.Stats.class,
 			org.antlr.runtime3_4_0.misc.DoubleKeyMap.class,
+			org.antlr.runtime3_4_0.misc.IntToIntHashMap.class,
 			org.antlr.runtime3_4_0.tree.BaseTree.class,
 			org.antlr.runtime3_4_0.tree.BaseTreeAdaptor.class,
 			org.antlr.runtime3_4_0.tree.BufferedTreeNodeStream.class,
