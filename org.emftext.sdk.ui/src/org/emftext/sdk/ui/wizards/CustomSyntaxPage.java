@@ -46,7 +46,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager;
-import org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorConfiguration;
+import org.emftext.sdk.concretesyntax.resource.cs.ui.CsSourceViewerConfiguration;
 import org.emftext.sdk.ui.AbstractSyntaxGenerator;
 import org.emftext.sdk.ui.wizards.CustomSyntaxConfiguration.KeywordStyle;
 
@@ -126,7 +126,7 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		sourceViewer.setDocument(new Document());
 		sourceViewer.getTextWidget().setLayoutData(gd);
 		csColorManager = new CsColorManager();
-		sourceViewer.configure(new CsEditorConfiguration(this, null, null, csColorManager));
+		sourceViewer.configure(new CsSourceViewerConfiguration(this, null, null, csColorManager));
 
 		Listener changeListener = new Listener() {
 			
