@@ -107,7 +107,7 @@ public class <grammar.recognizerName> extends <@superClassName><superClass><@end
         super(input,state);
 <if(memoize)>
 <if(grammar.grammarIsRoot)>
-        state.ruleMemo = new HashMap[<numRules>+1];<\n> <! index from 1..n !>
+        state.initializeRuleMemo(<numRules> + 1);<\n> <! index from 1..n !>
 <endif>
 <endif>
         <grammar.directDelegates:
@@ -263,7 +263,7 @@ public class <grammar.recognizerName> extends <@superClassName><superClass><@end
 parserCtorBody() ::= <<
 <if(memoize)>
 <if(grammar.grammarIsRoot)>
-this.state.ruleMemo = new HashMap[<length(grammar.allImportedRules)>+1];<\n> <! index from 1..n !>
+this.state.initializeRuleMemo(<length(grammar.allImportedRules)> + 1);<\n> <! index from 1..n !>
 <endif>
 <endif>
 <grammar.delegators:

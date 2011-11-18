@@ -26,7 +26,7 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */package org.antlr.runtime3_4_0;
 
-import java.util.Map;
+import org.antlr.runtime3_4_0.misc.IntToIntHashMap;
 
 /** The set of fields needed by an abstract recognizer to recognize input
  *  and recover from errors etc...  As a separate state object, it can be
@@ -77,7 +77,7 @@ public class RecognizerSharedState {
 	 *
 	 *  This is only used if rule memoization is on (which it is by default).
 	 */
-	public Map[] ruleMemo;
+	public IntToIntHashMap[] ruleMemo;
 
 
 	// LEXER FIELDS (must be in same state object to avoid casting
@@ -131,7 +131,7 @@ public class RecognizerSharedState {
         this.syntaxErrors = state.syntaxErrors;
         this.backtracking = state.backtracking;
         if ( state.ruleMemo!=null ) {
-            this.ruleMemo = new Map[state.ruleMemo.length];
+            this.ruleMemo = new IntToIntHashMap[state.ruleMemo.length];
             System.arraycopy(state.ruleMemo, 0, this.ruleMemo, 0, state.ruleMemo.length);
         }
         this.token = state.token;
@@ -140,5 +140,9 @@ public class RecognizerSharedState {
         this.channel = state.channel;
         this.type = state.type;
         this.text = state.text;
+    }
+    
+    public void initializeRuleMemo(int size) {
+        this.ruleMemo = new IntToIntHashMap[size];
     }
 }

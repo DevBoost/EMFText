@@ -28,9 +28,9 @@
 package org.antlr.runtime3_4_0;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import org.antlr.runtime3_4_0.misc.IntToIntHashMap;
 
 /** A generic recognizer that can handle recognizers generated from
  *  lexer, parser, and tree grammars.  This is all the parsing
@@ -792,7 +792,7 @@ public abstract class BaseRecognizer {
 	 */
 	public int getRuleMemoization(int ruleIndex, int ruleStartIndex) {
 		if ( state.ruleMemo[ruleIndex]==null ) {
-			state.ruleMemo[ruleIndex] = new HashMap();
+			state.ruleMemo[ruleIndex] = new IntToIntHashMap();
 		}
 		Integer stopIndexI =
 			(Integer)state.ruleMemo[ruleIndex].get(new Integer(ruleStartIndex));
@@ -854,7 +854,7 @@ public abstract class BaseRecognizer {
 	public int getRuleMemoizationCacheSize() {
 		int n = 0;
 		for (int i = 0; state.ruleMemo!=null && i < state.ruleMemo.length; i++) {
-			Map ruleMap = state.ruleMemo[i];
+			IntToIntHashMap ruleMap = state.ruleMemo[i];
 			if ( ruleMap!=null ) {
 				n += ruleMap.size(); // how many input indexes are recorded?
 			}
