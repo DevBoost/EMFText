@@ -37,7 +37,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public CsEditor() {
 		super();
-		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorConfiguration(this, this, this, colorManager));
+		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsSourceViewerConfiguration(this, this, this, colorManager));
 		initializeEditingDomain();
 		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
 		addSelectionChangedListener(this);

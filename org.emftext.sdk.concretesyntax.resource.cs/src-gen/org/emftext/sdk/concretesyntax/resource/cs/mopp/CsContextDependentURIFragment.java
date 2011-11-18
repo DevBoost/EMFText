@@ -45,7 +45,7 @@ public abstract class CsContextDependentURIFragment<ContainerType extends org.ec
 		return result != null;
 	}
 	
-	public synchronized org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> resolve() {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> resolve() {
 		if (resolving) {
 			return null;
 		}

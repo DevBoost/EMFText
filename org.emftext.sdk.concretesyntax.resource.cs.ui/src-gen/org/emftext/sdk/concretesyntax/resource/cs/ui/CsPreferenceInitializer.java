@@ -19,8 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsPreferenceInitializer extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer {
 	
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsAntlrTokenHelper tokenHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAntlrTokenHelper();
-	
 	public void initializeDefaultPreferences() {
 		
 		initializeDefaultSyntaxHighlighting();
@@ -56,21 +54,14 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 		store.setDefault(languageId + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSet.getBracketString());
 	}
 	
-	private void initializeDefaultSyntaxHighlighting(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation) {
+	private void initializeDefaultSyntaxHighlighting(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation) {
 		String languageId = metaInformation.getSyntaxName();
-		String[] tokenNames = metaInformation.getTokenNames();
+		String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();
 		if (tokenNames == null) {
 			return;
 		}
 		for (int i = 0; i < tokenNames.length; i++) {
-			if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {
-				continue;
-			}
-			
-			String tokenName = tokenHelper.getTokenName(tokenNames, i);
-			if (tokenName == null) {
-				continue;
-			}
+			String tokenName = tokenNames[i];
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle style = metaInformation.getDefaultTokenStyle(tokenName);
 			if (style != null) {
 				String color = getColorString(style.getColorAsRGB());

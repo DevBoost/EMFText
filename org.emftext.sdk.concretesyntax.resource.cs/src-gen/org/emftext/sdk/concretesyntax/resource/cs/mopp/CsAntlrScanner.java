@@ -30,7 +30,7 @@ public class CsAntlrScanner implements org.emftext.sdk.concretesyntax.resource.c
 		if (current == null || current.getType() < 0) {
 			return null;
 		}
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTextToken(current);
+		org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsANTLRTextToken(current);
 		return result;
 	}
 	

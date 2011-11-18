@@ -18,15 +18,61 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * A proposal for completing an incomplete document.
  */
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
+	
+	/**
+	 * The root object of the resource for which this proposal was computed.
+	 */
 	private org.eclipse.emf.ecore.EObject root;
 	
+	/**
+	 * The terminal that was expected at the cursor position.
+	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal;
+	
+	/**
+	 * The string that will be inserted if the user picks this proposal. This string
+	 * can differ from 'displayString' because usually only the missing part of the
+	 * text is inserted and an existing prefix is kept.
+	 */
 	private String insertString;
+	
+	/**
+	 * The string that will be shown in the pop-up containing the completion proposals.
+	 */
 	private String displayString;
+	
+	/**
+	 * The part of the document right before the cursor that belongs to the proposal.
+	 * This may for example be a partial name of a cross-referenced element.
+	 */
 	private String prefix;
+	
+	/**
+	 * A flag that indicates whether this proposal is valid w.r.t. the prefix (i.e.,
+	 * the text that has already been typed). We do keep proposals that do not match
+	 * the prefix to allow proposal post processors to access these and add valid
+	 * proposals even if the built-in proposal engine did not find a matching
+	 * proposal. The completion pop-up will only show proposals for which this method
+	 * returns true. See also {@link #getMatchesPrefix()}.
+	 */
 	private boolean matchesPrefix;
+	
+	/**
+	 * The structural feature (attribute or non-containment reference) that was
+	 * expected at the cursor position.
+	 */
 	private org.eclipse.emf.ecore.EStructuralFeature structuralFeature;
+	
+	/**
+	 * The container objects that covers the cursor position. This container object
+	 * may not be contained in the resource we're computing proposals for. See {@link
+	 * #materialize(Runnable)} for an explanation of this.
+	 */
 	private org.eclipse.emf.ecore.EObject container;
+	
+	/**
+	 * The image that will be shown in the pop-up containing the completion proposals.
+	 */
 	private org.eclipse.swt.graphics.Image image;
 	
 	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
@@ -131,11 +177,11 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	}
 	
 	/**
-	 * This method create a model that reflects that the state that would be obtained
-	 * if this proposal was accepted. This model can differ from the current model,
+	 * This method creates a model that reflects the state that would be obtained if
+	 * this proposal was accepted. This model can differ from the current model,
 	 * because different proposals can result in different models. The code that is
 	 * passed as argument is executed once the (changed) model was created. After
-	 * exectuing the given code, all changes are reverted.
+	 * executing the given code, all changes are reverted.
 	 */
 	public void materialize(Runnable code) {
 		if (root == null) {

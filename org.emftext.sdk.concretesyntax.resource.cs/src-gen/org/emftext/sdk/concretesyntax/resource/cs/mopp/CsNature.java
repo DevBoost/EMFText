@@ -23,7 +23,7 @@ public class CsNature implements org.eclipse.core.resources.IProjectNature {
 	/**
 	 * the IDs of all builders, IDs of additional builders can be added here
 	 */
-	public final static String[] BUILDER_IDS = {org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilderAdapter.BUILDER_ID};
+	public final static String[] BUILDER_IDS = {org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilderAdapter.BUILDER_ID, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder.BUILDER_ID};
 	
 	public static void activate(org.eclipse.core.resources.IProject project) {
 		try {

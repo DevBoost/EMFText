@@ -16,6 +16,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsTokenStyleInformationProvider {
 	
+	public static String TASK_ITEM_TOKEN_NAME = "TASK_ITEM";
+	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle getDefaultTokenStyle(String tokenName) {
 		if ("HEXNUMBER".equals(tokenName)) {
 			return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(new int[] {0x00, 0xD0, 0xFF}, null, false, false, false, false);
@@ -94,6 +96,9 @@ public class CsTokenStyleInformationProvider {
 		}
 		if ("QUOTED_36_36".equals(tokenName)) {
 			return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(new int[] {0x2A, 0x00, 0xFF}, null, false, false, false, false);
+		}
+		if ("TASK_ITEM".equals(tokenName)) {
+			return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(new int[] {0x7F, 0x9F, 0xBF}, null, true, false, false, false);
 		}
 		return null;
 	}

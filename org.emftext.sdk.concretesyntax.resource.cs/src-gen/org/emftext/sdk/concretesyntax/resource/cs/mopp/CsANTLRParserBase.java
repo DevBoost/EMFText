@@ -17,12 +17,12 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser {
 	
 	/**
-	 * the index of the last token that was handled by retrieveLayoutInformation()
+	 * The index of the last token that was handled by retrieveLayoutInformation().
 	 */
 	private int lastPosition2;
 	
 	/**
-	 * a collection to store all anonymous tokens
+	 * A collection to store all anonymous tokens.
 	 */
 	protected java.util.List<org.antlr.runtime3_4_0.CommonToken> anonymousTokens = new java.util.ArrayList<org.antlr.runtime3_4_0.CommonToken>();
 	
@@ -33,7 +33,26 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	 */
 	protected java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> postParseCommands;
 	
+	/**
+	 * A copy of the options that were used to load the text resource. This map is
+	 * filled when the parser is created.
+	 */
 	private java.util.Map<?, ?> options;
+	
+	/**
+	 * A flag that indicates whether this parser runs in a special mode where the
+	 * location map is not filled. If this flag is set to true, copying localization
+	 * information for elements is not performed. This improves time and memory
+	 * consumption.
+	 */
+	protected boolean disableLocationMap = false;
+	
+	/**
+	 * A flag that indicates whether this parser runs in a special mode where layout
+	 * information is not recorded. If this flag is set to true, no layout information
+	 * adapters are created. This improves time and memory consumption.
+	 */
+	protected boolean disableLayoutRecording = false;
 	
 	/**
 	 * A flag to indicate that the parser should stop parsing as soon as possible. The
@@ -60,7 +79,7 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	}
 	
 	protected void retrieveLayoutInformation(org.eclipse.emf.ecore.EObject element, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {
-		if (!isLayoutInformationRecordingEnabled() || element == null) {
+		if (disableLayoutRecording || element == null) {
 			return;
 		}
 		// null must be accepted, since the layout information that is found at the end of
@@ -172,6 +191,15 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	
 	public void setOptions(java.util.Map<?,?> options) {
 		this.options = options;
+		if (this.options == null) {
+			return;
+		}
+		if (Boolean.TRUE.equals(this.options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP))) {
+			this.disableLocationMap = true;
+		}
+		if (Boolean.TRUE.equals(this.options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING))) {
+			this.disableLayoutRecording = true;
+		}
 	}
 	
 	/**
@@ -263,13 +291,6 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch getReferenceResolverSwitch() {
 		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch) getMetaInformation().getReferenceResolverSwitch();
-	}
-	
-	protected boolean isLayoutInformationRecordingEnabled() {
-		if (getOptions() == null) {
-			return true;
-		}
-		return !getOptions().containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING);
 	}
 	
 }

@@ -112,4 +112,23 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultNameProvider();
 	}
 	
+	public String[] getSyntaxHighlightableTokenNames() {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAntlrTokenHelper tokenHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAntlrTokenHelper();
+		java.util.List<String> highlightableTokens = new java.util.ArrayList<String>();
+		String[] parserTokenNames = getTokenNames();
+		for (int i = 0; i < parserTokenNames.length; i++) {
+			// If ANTLR is used we need to normalize the token names
+			if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {
+				continue;
+			}
+			String tokenName = tokenHelper.getTokenName(parserTokenNames, i);
+			if (tokenName == null) {
+				continue;
+			}
+			highlightableTokens.add(tokenName);
+		}
+		highlightableTokens.add(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyleInformationProvider.TASK_ITEM_TOKEN_NAME);
+		return highlightableTokens.toArray(new String[highlightableTokens.size()]);
+	}
+	
 }

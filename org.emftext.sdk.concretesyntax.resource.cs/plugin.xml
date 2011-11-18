@@ -57,6 +57,15 @@
 			<run class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNature">
 			</run>
 		</runtime>
+		<builder id="org.emftext.sdk.concretesyntax.resource.cs.taskItemBuilder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.sdk.concretesyntax.resource.cs.taskItemBuilder" name="cs Task Item Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder">
+			</run>
+		</builder>
 	</extension>
 	
 	<extension-point id="org.emftext.sdk.concretesyntax.resource.cs.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">

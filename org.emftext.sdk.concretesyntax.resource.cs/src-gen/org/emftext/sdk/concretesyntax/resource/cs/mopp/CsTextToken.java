@@ -16,70 +16,57 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken {
 	
-	private final org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
-	private final org.antlr.runtime3_4_0.Token antlrToken;
+	private String name;
 	
-	public CsTextToken(org.antlr.runtime3_4_0.Token antlrToken) {
+	private String text;
+	
+	private int offset;
+	
+	private int length;
+	
+	private int line;
+	
+	private int column;
+	
+	private boolean canBeUsedForSyntaxHighlighting;
+	
+	public CsTextToken(String name, String text, int offset, int length, int line, int column, boolean canBeUsedForSyntaxHighlighting) {
 		super();
-		this.antlrToken = antlrToken;
+		this.name = name;
+		this.text = text;
+		this.offset = offset;
+		this.length = length;
+		this.line = line;
+		this.column = column;
+		this.canBeUsedForSyntaxHighlighting = canBeUsedForSyntaxHighlighting;
 	}
 	
 	public String getName() {
-		return getTokenName(metaInformation.getTokenNames(), antlrToken.getType());
-	}
-	
-	public int getOffset() {
-		return ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStartIndex();
-	}
-	
-	public int getLength() {
-		return ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStopIndex() - ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStartIndex() + 1;
-	}
-	
-	public int getLine() {
-		return antlrToken.getLine();
-	}
-	
-	public int getColumn() {
-		return antlrToken.getCharPositionInLine();
-	}
-	
-	public boolean canBeUsedForSyntaxHighlighting() {
-		return canBeUsedForSyntaxHighlighting(antlrToken.getType());
-	}
-	
-	public boolean canBeUsedForSyntaxHighlighting(int tokenType) {
-		if (tokenType < 0 || tokenType == org.antlr.runtime3_4_0.Token.EOF) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.UP) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.DOWN) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.EOR_TOKEN_TYPE) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.INVALID_TOKEN_TYPE) {
-			return false;
-		}
-		return true;
+		return name;
 	}
 	
 	public String getText() {
-		return antlrToken.getText();
+		return text;
 	}
 	
-	public String getTokenName(String[] tokenNames, int index) {
-		if (tokenNames == null) {
-			return null;
-		}
-		String tokenName = tokenNames[index];
-		if (tokenName != null && tokenName.startsWith("'")) {
-			tokenName = tokenName.substring(1, tokenName.length() - 1).trim();
-		}
-		return tokenName;
+	public int getOffset() {
+		return offset;
+	}
+	
+	public int getLength() {
+		return length;
+	}
+	
+	public int getLine() {
+		return line;
+	}
+	
+	public int getColumn() {
+		return column;
+	}
+	
+	public boolean canBeUsedForSyntaxHighlighting() {
+		return canBeUsedForSyntaxHighlighting;
 	}
 	
 }

@@ -15,13 +15,18 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 /**
- * This class is deprecated and not used as of EMFText 1.4.1. The original
- * contents of this class have been moved to
- * org.emftext.sdk.concretesyntax.resource.cs.ui.CsSourceViewerConfiguration. This
- * class is only generated to avoid compile errors with existing versions of this
- * class.
+ * The IgnoredWordsFilter can be customized to add additional words that must not
+ * be marked as misspelled. To customize this class, set option
+ * 'overrideIgnoredWordsFilter' to <code>false</code>.
  */
-@Deprecated
-public class CsEditorConfiguration {
+public class CsIgnoredWordsFilter {
+	
+	/**
+	 * Checks whether the given word must be ignored even it is misspelled.
+	 */
+	public boolean ignoreWord(String word) {
+		// By default we ignore all keywords that are defined in the syntax
+		return org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.INSTANCE.getKeywords().contains(word);
+	}
 	
 }

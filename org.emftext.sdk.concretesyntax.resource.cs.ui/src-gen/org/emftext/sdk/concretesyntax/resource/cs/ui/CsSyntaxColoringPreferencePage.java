@@ -20,30 +20,21 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference.PreferencePage implements org.eclipse.ui.IWorkbenchPreferencePage {
 	
-	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsAntlrTokenHelper tokenHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAntlrTokenHelper();
 	private final static java.util.Map<String, java.util.List<HighlightingColorListItem>> content = new java.util.LinkedHashMap<String, java.util.List<HighlightingColorListItem>>();
 	private final static java.util.Collection<IChangedPreference> changedPreferences = new java.util.ArrayList<IChangedPreference>();
 	
 	public CsSyntaxColoringPreferencePage() {
 		super();
 		
-		org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation syntaxPlugin = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 		
-		String languageId = syntaxPlugin.getSyntaxName();
+		String languageId = metaInformation.getSyntaxName();
 		
 		java.util.List<HighlightingColorListItem> terminals = new java.util.ArrayList<HighlightingColorListItem>();
-		String[] tokenNames = syntaxPlugin.getTokenNames();
+		String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();
 		
 		for (int i = 0; i < tokenNames.length; i++) {
-			if (!tokenHelper.canBeUsedForSyntaxHighlighting(i)) {
-				continue;
-			}
-			
-			String tokenName = tokenHelper.getTokenName(tokenNames, i);
-			if (tokenName == null) {
-				continue;
-			}
-			HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);
+			HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenNames[i]);
 			terminals.add(item);
 		}
 		java.util.Collections.sort(terminals);

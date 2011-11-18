@@ -12,16 +12,18 @@
  *      - initial API and implementation
  ******************************************************************************/
 
-package org.emftext.sdk.concretesyntax.resource.cs.ui;
+package org.emftext.sdk.concretesyntax.resource.cs.util;
 
-/**
- * This class is deprecated and not used as of EMFText 1.4.1. The original
- * contents of this class have been moved to
- * org.emftext.sdk.concretesyntax.resource.cs.ui.CsSourceViewerConfiguration. This
- * class is only generated to avoid compile errors with existing versions of this
- * class.
- */
-@Deprecated
-public class CsEditorConfiguration {
+public class CsURIUtil {
+	
+	public boolean isInBinFolder(org.eclipse.emf.common.util.URI uri) {
+		String[] segments = uri.segments();
+		for (String segment : segments) {
+			if ("bin".equals(segment)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

@@ -969,7 +969,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		return o1 == o2;
 	}
 	
-	private java.util.List<Class<?>> getAllowedTypes(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal) {
+	protected java.util.List<Class<?>> getAllowedTypes(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal terminal) {
 		java.util.List<Class<?>> allowedTypes = new java.util.ArrayList<Class<?>>();
 		allowedTypes.add(terminal.getFeature().getEType().getInstanceClass());
 		if (terminal instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment) {

@@ -227,7 +227,7 @@ public class CsMarkerHelper {
 	 * Returns the ID of the marker type that is used to indicate problems of the
 	 * given type.
 	 */
-	private static String getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
+	public static String getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
 		String markerID = MARKER_TYPE;
 		String typeID = problemType.getID();
 		if (!"".equals(typeID)) {
@@ -278,6 +278,52 @@ public class CsMarkerHelper {
 		} else {
 			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Error while removing markers from resource:", ce);
 		}
+	}
+	
+	/**
+	 * Removes all markers of the given type from the given resource. Markers are
+	 * created and removed asynchronously. Thus, they may not appear when calls to
+	 * this method return. But, the order of marker additions and removals is
+	 * preserved.
+	 * 
+	 * @param resource The resource where to delete markers from
+	 * @param markerId The id of the marker type to remove
+	 */
+	public void removeAllMarkers(final org.eclipse.core.resources.IResource resource, final String markerId) {
+		if (resource == null) {
+			return;
+		}
+		COMMAND_QUEUE.addCommand(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>() {
+			public boolean execute(Object context) {
+				try {
+					resource.deleteMarkers(markerId, false, org.eclipse.core.resources.IResource.DEPTH_ZERO);
+				} catch (org.eclipse.core.runtime.CoreException ce) {
+					handleException(ce);
+				}
+				return true;
+			}
+		});
+	}
+	
+	public void createMarker(final org.eclipse.core.resources.IResource resource, final String markerId, final java.util.Map<String, Object> markerAttributes) {
+		if (resource == null) {
+			return;
+		}
+		
+		COMMAND_QUEUE.addCommand(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>() {
+			public boolean execute(Object context) {
+				try {
+					org.eclipse.core.resources.IMarker marker = resource.createMarker(markerId);
+					for (String key : markerAttributes.keySet()) {
+						marker.setAttribute(key, markerAttributes.get(key));
+					}
+					return true;
+				} catch (org.eclipse.core.runtime.CoreException e) {
+					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Can't create marker.", e);
+					return false;
+				}
+			}
+		});
 	}
 	
 }
