@@ -36,7 +36,12 @@ public class IntToIntHashMap {
 	 * size of the map times the load factor.
 	 */
 	private int loadThreshold;
-
+	/**
+	 * This value is returned when calling {@link #get(int)} for a key that is
+	 * not contained in this map. The normal Java HashMap implementation returns
+	 * <code>null</code> in such cases, but since we use primitive integers we 
+	 * can't return <code>null</code>. The default value for this is zero.
+	 */
 	private int valueForMissingEntries;
 	
 	public IntToIntHashMap() {
@@ -152,6 +157,9 @@ public class IntToIntHashMap {
 		return this.entries;
 	}
 
+	/**
+	 * Sets the value that is returned for missing keys.
+	 */
 	public void setValueForMissingEntries(int valueForMissingEntries) {
 		this.valueForMissingEntries = valueForMissingEntries;
 	}
