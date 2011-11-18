@@ -1,7 +1,7 @@
 package org.antlr.runtime3_4_0.misc;
 
 /**
- * This class provides a minimal implementation of a HasMap that uses primitive
+ * This class provides a minimal implementation of a HashMap that uses primitive
  * integers both as keys and as values.
  */
 public class IntToIntHashMap {
