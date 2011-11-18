@@ -793,13 +793,10 @@ public abstract class BaseRecognizer {
 	public int getRuleMemoization(int ruleIndex, int ruleStartIndex) {
 		if ( state.ruleMemo[ruleIndex]==null ) {
 			state.ruleMemo[ruleIndex] = new IntToIntHashMap();
+			state.ruleMemo[ruleIndex].setValueForMissingEntries(MEMO_RULE_UNKNOWN);
 		}
-		Integer stopIndexI =
-			(Integer)state.ruleMemo[ruleIndex].get(new Integer(ruleStartIndex));
-		if ( stopIndexI==null ) {
-			return MEMO_RULE_UNKNOWN;
-		}
-		return stopIndexI.intValue();
+		int stopIndexI = state.ruleMemo[ruleIndex].get(ruleStartIndex);
+		return stopIndexI;
 	}
 
 	/** Has this rule already parsed input at the current index in the
@@ -843,7 +840,7 @@ public abstract class BaseRecognizer {
 		}
 		if ( state.ruleMemo[ruleIndex]!=null ) {
 			state.ruleMemo[ruleIndex].put(
-				new Integer(ruleStartIndex), new Integer(stopTokenIndex)
+				ruleStartIndex, stopTokenIndex
 			);
 		}
 	}

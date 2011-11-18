@@ -36,6 +36,8 @@ public class IntToIntHashMap {
 	 * size of the map times the load factor.
 	 */
 	private int loadThreshold;
+
+	private int valueForMissingEntries;
 	
 	public IntToIntHashMap() {
 		this(16, 0.75);
@@ -124,7 +126,7 @@ public class IntToIntHashMap {
 			}
 			if (hashTable[physicalIndex] == 0) {
 				// found empty bucket, key is not contained in this map
-				return 0;
+				return valueForMissingEntries;
 			}
 			// found a filled bucket that contained the wrong key.
 			// try the next bucket (this situation is caused by hash collisions).
@@ -134,7 +136,7 @@ public class IntToIntHashMap {
 				break;
 			}
 		}
-		return 0;
+		return valueForMissingEntries;
 	}
 
 	private int index(int key) {
@@ -148,5 +150,9 @@ public class IntToIntHashMap {
 	 */
 	public int size() {
 		return this.entries;
+	}
+
+	public void setValueForMissingEntries(int valueForMissingEntries) {
+		this.valueForMissingEntries = valueForMissingEntries;
 	}
 }
