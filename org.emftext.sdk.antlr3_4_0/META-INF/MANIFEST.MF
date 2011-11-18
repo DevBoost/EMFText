@@ -19,7 +19,8 @@ Export-Package: org.antlr,
  org.stringtemplate.v4.debug,
  org.stringtemplate.v4.gui,
  org.stringtemplate.v4.misc
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ org.junit4
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.emftext.sdk.antlr3_4_0.EMFTextSDKAntlrPlugin
 Bundle-ClassPath: .
