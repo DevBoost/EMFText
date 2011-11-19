@@ -159,8 +159,11 @@ public class IntToIntHashMap {
 
 	/**
 	 * Sets the value that is returned for missing keys.
+	 * 
+	 * TODO this should only be used at initialization
 	 */
 	public void setValueForMissingEntries(int valueForMissingEntries) {
 		this.valueForMissingEntries = valueForMissingEntries;
+		this.valueForZero = valueForMissingEntries;
 	}
 }
