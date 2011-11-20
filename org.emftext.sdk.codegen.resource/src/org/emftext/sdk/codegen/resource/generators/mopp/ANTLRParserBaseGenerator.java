@@ -115,6 +115,8 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 				+ " tokenResolveResult = new "
 				+ tokenResolveResultClassName + "();");
 		sc.addLineBreak();
+
+    	generatorUtil.addMetaInformationField(sc, getContext());
 	}
 
 	private void addConstructors(JavaComposite sc) {
@@ -138,7 +140,6 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		generatorUtil.addAddObjectToListMethod2(sc);
 		addApplyMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
-    	generatorUtil.addGetMetaInformationMethod(sc, context);
 		generatorUtil.addGetReferenceResolverSwitchMethod(sc, context);
 	}
 

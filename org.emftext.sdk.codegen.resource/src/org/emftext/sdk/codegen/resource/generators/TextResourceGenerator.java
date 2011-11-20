@@ -901,6 +901,7 @@ public class TextResourceGenerator extends
 		sc.addJavadoc("A flag to indicate whether reloading of the resource shall be cancelled.");
 		sc.add("private boolean terminateReload = false;");
 		sc.addLineBreak();
+		generatorUtil.addMetaInformationField(sc, getContext());
 	}
 
 	private void addGetSyntaxNameMethod(StringComposite sc) {

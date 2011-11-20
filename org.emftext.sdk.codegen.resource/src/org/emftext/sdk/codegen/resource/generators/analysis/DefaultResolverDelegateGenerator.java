@@ -591,7 +591,9 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		);
 		sc.add("private int oldProxyCount = -1;");
 		sc.addLineBreak();
-		sc.add("private " + iNameProviderClassName + " nameProvider = new " + metaInformationClassName +"().createNameProvider();");
+		sc.add("private static " + metaInformationClassName + " metaInformation = new " + metaInformationClassName +"();");
+		sc.addLineBreak();
+		sc.add("private " + iNameProviderClassName + " nameProvider = metaInformation.createNameProvider();");
 		sc.addLineBreak();
 	}
 }

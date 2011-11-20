@@ -461,7 +461,6 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		generatorUtil.addAddObjectToListMethod1(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
 		generatorUtil.addGetReferenceResolverSwitchMethod(sc, context);
-		generatorUtil.addGetMetaInformationMethod(sc, context);
 		// this is the two parameter version
 		addAddErrorToResourceMethod(sc);
 		// this is the four parameter version
@@ -959,7 +958,9 @@ public class ScannerlessParserGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("private " + LIST + "<" + iTextTokenClassName + "> tokens;");
 		sc.add("private " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
 		sc.addLineBreak();
-		
+
+		generatorUtil.addMetaInformationField(sc, getContext());
+
 		addTokensField(sc);
 		sc.addLineBreak();
 		addTokenPatterns(sc);

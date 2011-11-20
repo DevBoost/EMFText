@@ -209,7 +209,7 @@ public class GeneratorUtil {
 	public void addGetReferenceResolverSwitchMethod(StringComposite sc, GenerationContext context) {
 		final String qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
-        sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") getMetaInformation().getReferenceResolverSwitch();");
+        sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") metaInformation.getReferenceResolverSwitch();");
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -395,7 +395,15 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addGetMetaInformationMethod(StringComposite sc, GenerationContext context) {
+	public void addMetaInformationField(StringComposite sc, GenerationContext context) {
+		String metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
+		
+		sc.add("protected " + metaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
+		sc.addLineBreak();
+	}
+
+	public void addGetMetaInformationMethod(JavaComposite sc,
+			GenerationContext context) {
 		String metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
 		
 		sc.add("public " + metaInformationClassName + " getMetaInformation() {");
