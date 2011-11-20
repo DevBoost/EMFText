@@ -70,6 +70,8 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult tokenResolveResult = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult();
 	
+	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+	
 	public CsANTLRParserBase(org.antlr.runtime3_4_0.TokenStream input) {
 		super(input);
 	}
@@ -285,12 +287,8 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 		return tokenResolveResult;
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation getMetaInformation() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
-	}
-	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch getReferenceResolverSwitch() {
-		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch) getMetaInformation().getReferenceResolverSwitch();
+		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch) metaInformation.getReferenceResolverSwitch();
 	}
 	
 }

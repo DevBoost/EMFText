@@ -152,6 +152,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 */
 	private boolean terminateReload = false;
 	
+	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+	
 	public CsResource() {
 		super();
 		resetLocationMap();

@@ -68,7 +68,9 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 */
 	private int oldProxyCount = -1;
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.ICsNameProvider nameProvider = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().createNameProvider();
+	private static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+	
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsNameProvider nameProvider = metaInformation.createNameProvider();
 	
 	/**
 	 * This standard implementation searches for objects in the resource, which have
