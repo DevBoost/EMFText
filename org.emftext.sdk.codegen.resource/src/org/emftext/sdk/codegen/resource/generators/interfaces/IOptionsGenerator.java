@@ -34,7 +34,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addJavadoc(
 			"A list of constants that contains the keys for some options that " +
 			"are built into EMFText. Generated resource plug-ins do automatically " +
-			"recognize this options and use them if they are configured properly."
+			"recognize these options and use them if they are configured properly."
 		);
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
