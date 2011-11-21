@@ -50,7 +50,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addJavadoc(
 			"The key for the option to specify an expected content type in text resources and text parsers. " +
 			"A content type is an EClass that specifies the root object of a text resource. If this option " +
-			"is set, the parser does not use the start symbols defined in the .cs specification, but use the " +
+			"is set, the parser does not use the start symbols defined in the .cs specification, but uses the " +
 			"given EClass as start symbol instead. Note that the value for this option must be an EClass object " +
 			"and not the name of the EClass."
 		);
@@ -62,7 +62,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 			"If this option is set to <code>true</code> when loading resources, " +
 			"reported problems will not be added as Eclipse workspace markers. " +
 			"This option is used by the MarkerResolutionGenerator class, which will end up " +
-			"in an infinite loop if marker are created when loading resources as this creation " +
+			"in an infinite loop if markers are created when loading resources as this creation " +
 			"triggers the loading of the same resource and so on."
 		);
 		sc.add("public final String " + DISABLE_CREATING_MARKERS_FOR_PROBLEMS + " = \"" + DISABLE_CREATING_MARKERS_FOR_PROBLEMS + "\";");
