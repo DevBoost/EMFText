@@ -58,8 +58,8 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"The key for the options to disable marker creation for resource problems. " +
-			"If this options is set (the value does not matter) when loading resources, " +
+			"The key for the option to disable marker creation for resource problems. " +
+			"If this options is set to <code>true</code> when loading resources, " +
 			"reported problems will not be added as Eclipse workspace markers. " +
 			"This option is used by the MarkerResolutionGenerator class, which will end up " +
 			"in an infinite loop if marker are created when loading resources as this creation " +
@@ -69,9 +69,9 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 
 		sc.addJavadoc(
-				"The key for the options to disable the location map that " +
+				"The key for the option to disable the location map that " +
 				"maps EObjects to the position of their textual representations. " +
-				"If this options is set (the value does not matter), the " +
+				"If this options is set to <code>true</code>, the " +
 				"memory footprint of large models is reduced. Disabling the " +
 				"location map, however, disables functionality that relies on it " +
 				"(e.g. navigation in the text editor)."
@@ -80,8 +80,8 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-				"The key for the options to disable the recording of layout information. " +
-				"If this options is set (the value does not matter), the " +
+				"The key for the option to disable the recording of layout information. " +
+				"If this options is set to <code>true</code>, the " +
 				"memory footprint of large models is reduced. When " +
 				"layout information recording is disabled, a new layout is " +
 				"computed during printing and the original layout is not preserved."
