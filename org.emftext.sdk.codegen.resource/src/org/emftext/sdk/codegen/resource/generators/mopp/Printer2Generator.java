@@ -722,7 +722,14 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("PrintCountingMap printCountingMap = new PrintCountingMap();");
 		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = eObject.eClass().getEAllStructuralFeatures();");
 		sc.add("for (" + E_STRUCTURAL_FEATURE + " feature : features) {");
-		sc.add("Object featureValue = eObject.eGet(feature);");
+		sc.addComment(
+			"We get the feature value without resolving it, because resolving " +
+			"is not required to count the number of elements that are referenced " + 
+			"by the feature. Moreover, triggering reference resolving is not desired " +
+			"here, because we'd also like to print models that contain unresolved " +
+			"references."
+		);
+		sc.add("Object featureValue = eObject.eGet(feature, false);");
 		sc.add("if (featureValue != null) {");
 		sc.add("if (featureValue instanceof " + LIST + "<?>) {");
 		sc.add("printCountingMap.setFeatureValues(feature.getName(), (" + LIST + "<Object>) featureValue);");
