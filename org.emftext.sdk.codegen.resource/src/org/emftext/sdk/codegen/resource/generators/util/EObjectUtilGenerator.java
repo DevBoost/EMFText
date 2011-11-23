@@ -58,7 +58,8 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		addInvokeOperationMethod(sc);
 		addSetFeatureMethod(sc);
 		addGetDepthMethod(sc);
-		addGetValueMethod(sc);
+		addGetFeatureValueMethod1(sc);
+		addGetFeatureValueMethod2(sc);
 		addGetEAdapterFromRootMethod(sc);
 		addGetEAdapterMethod(sc);
 	}
@@ -93,14 +94,26 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addGetValueMethod(JavaComposite sc) {
+	private void addGetFeatureValueMethod1(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the value of the given feature. " +
+			"If the feature is a list, the list item at the given index is returned. " +
+			"Proxy objects are resolved."
+		);
+		sc.add("public static Object getFeatureValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int index) {");
+		sc.add("return getFeatureValue(eObject, feature, index, true);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetFeatureValueMethod2(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns the value of the given feature. " +
 			"If the feature is a list, the list item at the given index is returned."
 		);
-		sc.add("public static Object getFeatureValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int index) {");
+		sc.add("public static Object getFeatureValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int index, boolean resolve) {");
 		sc.addComment("get value of feature");
-		sc.add("Object o = eObject.eGet(feature);");
+		sc.add("Object o = eObject.eGet(feature, resolve);");
 		sc.add("if (o instanceof " + LIST + "<?>) {");
 		sc.add(LIST + "<?> list = (" + LIST + "<?>) o;");
 		sc.add("o = list.get(index);");

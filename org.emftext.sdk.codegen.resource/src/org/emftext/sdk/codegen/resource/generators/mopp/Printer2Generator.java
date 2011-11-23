@@ -844,7 +844,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int index, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add("String tokenName = placeholder.getTokenName();");
-		sc.add("Object referencedObject = " + eObjectUtilClassName + ".getFeatureValue(eObject, reference, index);");
+		sc.add("Object referencedObject = " + eObjectUtilClassName + ".getFeatureValue(eObject, reference, index, false);");
 		sc.addComment("first add layout before the reference");
 		sc.add(layoutInformationClassName + " referenceLayout = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
 		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, referenceLayout);");
