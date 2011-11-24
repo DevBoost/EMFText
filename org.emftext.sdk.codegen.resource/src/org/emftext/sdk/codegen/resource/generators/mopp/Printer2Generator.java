@@ -271,13 +271,24 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetLayoutInformationMethod(StringComposite sc) {
+	private void addGetLayoutInformationMethod(JavaComposite sc) {
 		sc.add("private " + layoutInformationClassName + " getLayoutInformation(" + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + syntaxElementClassName + " syntaxElement, Object object, " + E_OBJECT + " container) {");
 		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
 		sc.add("if (syntaxElement == layoutInformation.getSyntaxElement()) {");
 		sc.add("if (object == null) {");
 		sc.add("return layoutInformation;");
-		sc.add("} else if (isSame(object, layoutInformation.getObject(container))) {");
+		sc.add("}");
+		sc.addComment(
+			"The layout information adapter must only try to resolve the object " +
+			"it refers to, if we compare with a non-proxy object. If we're printing " +
+			"a resource that contains proxy objects, resolving must not be triggered."
+		);
+		sc.add("boolean isNoProxy = true;");
+		sc.add("if (object instanceof " + E_OBJECT + ") {");
+		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") object;");
+		sc.add("isNoProxy = !eObject.eIsProxy();");
+		sc.add("}");
+		sc.add("if (isSame(object, layoutInformation.getObject(container, isNoProxy))) {");
 		sc.add("return layoutInformation;");
 		sc.add("}");
 		sc.add("}");

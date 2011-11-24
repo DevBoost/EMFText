@@ -30,10 +30,10 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A " + getResourceClassName() + " is used to store layout information that is " +
+			getResourceClassName() + " objects are used to store layout information that is " +
 			"found while parsing text files. Layout information does include all unused " +
 			"tokens. Usually, these are whitespace characters, line breaks and comments, " +
-			"but depending on the concrete syntax definition it can also include other tokens. " +
+			"but depending on the concrete syntax definition it can also include other tokens.",
 			getResourceClassName() + "s are aggregated in LayoutInformationAdapters. " +
 			"One " + getResourceClassName() + " contains the layout that was " +
 			"found before a keyword, attribute or reference."
@@ -113,8 +113,14 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addGetObjectMethod(JavaComposite sc) {
-		sc.add("public Object getObject(" + E_OBJECT + " container) {");
-		sc.add("if (wasResolved) {");
+		sc.addJavadoc(
+			"Returns the objects that this layout information adapter refers to. " +
+			"This can be either the value of an attribute or a referenced object. " +
+			"If the parameter 'resolve' is set to true and the referenced object " +
+			"is a proxy, this methods tries to resolve the proxy."
+		);
+		sc.add("public Object getObject(" + E_OBJECT + " container, boolean resolve) {");
+		sc.add("if (wasResolved || !resolve) {");
 		sc.add("return object;");
 		sc.add("}");
 		sc.addComment(
