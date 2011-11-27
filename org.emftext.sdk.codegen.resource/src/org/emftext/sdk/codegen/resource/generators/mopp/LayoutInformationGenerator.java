@@ -117,7 +117,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 			"Returns the objects that this layout information adapter refers to. " +
 			"This can be either the value of an attribute or a referenced object. " +
 			"If the parameter 'resolve' is set to true and the referenced object " +
-			"is a proxy, this methods tries to resolve the proxy."
+			"is a proxy, this method tries to resolve the proxy."
 		);
 		sc.add("public Object getObject(" + E_OBJECT + " container, boolean resolve) {");
 		sc.add("if (wasResolved || !resolve) {");
