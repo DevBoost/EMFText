@@ -15,10 +15,10 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 /**
- * A CsLayoutInformation is used to store layout information that is found while
- * parsing text files. Layout information does include all unused tokens. Usually,
- * these are whitespace characters, line breaks and comments, but depending on the
- * concrete syntax definition it can also include other tokens.
+ * CsLayoutInformation objects are used to store layout information that is found
+ * while parsing text files. Layout information does include all unused tokens.
+ * Usually, these are whitespace characters, line breaks and comments, but
+ * depending on the concrete syntax definition it can also include other tokens.
  * CsLayoutInformations are aggregated in LayoutInformationAdapters. One
  * CsLayoutInformation contains the layout that was found before a keyword,
  * attribute or reference.
@@ -77,8 +77,14 @@ public class CsLayoutInformation {
 		return startOffset;
 	}
 	
-	public Object getObject(org.eclipse.emf.ecore.EObject container) {
-		if (wasResolved) {
+	/**
+	 * Returns the objects that this layout information adapter refers to. This can be
+	 * either the value of an attribute or a referenced object. If the parameter
+	 * 'resolve' is set to true and the referenced object is a proxy, this method
+	 * tries to resolve the proxy.
+	 */
+	public Object getObject(org.eclipse.emf.ecore.EObject container, boolean resolve) {
+		if (wasResolved || !resolve) {
 			return object;
 		}
 		// we need to try to resolve proxy objects again, because the proxy might have

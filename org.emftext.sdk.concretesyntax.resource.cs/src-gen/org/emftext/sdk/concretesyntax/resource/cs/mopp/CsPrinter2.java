@@ -715,7 +715,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	@SuppressWarnings("unchecked")	
 	public void printReference(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EReference reference, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int index, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		String tokenName = placeholder.getTokenName();
-		Object referencedObject = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.getFeatureValue(eObject, reference, index);
+		Object referencedObject = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.getFeatureValue(eObject, reference, index, false);
 		// first add layout before the reference
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation referenceLayout = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);
 		printFormattingElements(foundFormattingElements, layoutInformations, referenceLayout);
@@ -757,7 +757,11 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		PrintCountingMap printCountingMap = new PrintCountingMap();
 		java.util.List<org.eclipse.emf.ecore.EStructuralFeature> features = eObject.eClass().getEAllStructuralFeatures();
 		for (org.eclipse.emf.ecore.EStructuralFeature feature : features) {
-			Object featureValue = eObject.eGet(feature);
+			// We get the feature value without resolving it, because resolving is not
+			// required to count the number of elements that are referenced by the feature.
+			// Moreover, triggering reference resolving is not desired here, because we'd also
+			// like to print models that contain unresolved references.
+			Object featureValue = eObject.eGet(feature, false);
 			if (featureValue != null) {
 				if (featureValue instanceof java.util.List<?>) {
 					printCountingMap.setFeatureValues(feature.getName(), (java.util.List<Object>) featureValue);
@@ -812,7 +816,16 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			if (syntaxElement == layoutInformation.getSyntaxElement()) {
 				if (object == null) {
 					return layoutInformation;
-				} else if (isSame(object, layoutInformation.getObject(container))) {
+				}
+				// The layout information adapter must only try to resolve the object it refers
+				// to, if we compare with a non-proxy object. If we're printing a resource that
+				// contains proxy objects, resolving must not be triggered.
+				boolean isNoProxy = true;
+				if (object instanceof org.eclipse.emf.ecore.EObject) {
+					org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) object;
+					isNoProxy = !eObject.eIsProxy();
+				}
+				if (isSame(object, layoutInformation.getObject(container, isNoProxy))) {
 					return layoutInformation;
 				}
 			}

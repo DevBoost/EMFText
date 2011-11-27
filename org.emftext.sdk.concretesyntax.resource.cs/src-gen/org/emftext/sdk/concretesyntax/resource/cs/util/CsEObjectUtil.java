@@ -104,11 +104,19 @@ public class CsEObjectUtil {
 	
 	/**
 	 * Returns the value of the given feature. If the feature is a list, the list item
-	 * at the given index is returned.
+	 * at the given index is returned. Proxy objects are resolved.
 	 */
 	public static Object getFeatureValue(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, int index) {
+		return getFeatureValue(eObject, feature, index, true);
+	}
+	
+	/**
+	 * Returns the value of the given feature. If the feature is a list, the list item
+	 * at the given index is returned.
+	 */
+	public static Object getFeatureValue(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EStructuralFeature feature, int index, boolean resolve) {
 		// get value of feature
-		Object o = eObject.eGet(feature);
+		Object o = eObject.eGet(feature, resolve);
 		if (o instanceof java.util.List<?>) {
 			java.util.List<?> list = (java.util.List<?>) o;
 			o = list.get(index);
