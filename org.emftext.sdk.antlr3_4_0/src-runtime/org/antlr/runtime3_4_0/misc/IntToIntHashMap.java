@@ -127,7 +127,6 @@ public class IntToIntHashMap {
 		if (newLogicalCapacity == logicalHashTableSize) {
 			return;
 		}
-		//System.out.println("resizeHashTable from " + logicalHashTableSize + " to " + newLogicalCapacity + " (" + entries + " entries).");
 		int[] currentTable = hashTable;
 		createHashTable(newLogicalCapacity);
 		// move all entries to the new table
@@ -198,7 +197,6 @@ public class IntToIntHashMap {
 	public void removeEntries(int maxKeyValue) {
 		int[] currentTable = hashTable;
 		createHashTable(logicalHashTableSize);
-		//int oldEntryCount = entries;
 		for (int i = 0; i < currentTable.length; i = i + 2) {
 			int key = currentTable[i];
 			if (key == 0) {
@@ -211,7 +209,6 @@ public class IntToIntHashMap {
 			}
 			entries--;
 		}
-		//System.out.println("removeEntries() removed " + (oldEntryCount - entries) + " entries.");
 		if (maxKeyValue > 0) {
 			this.valueForZero = valueForMissingEntries;
 		}
@@ -220,13 +217,5 @@ public class IntToIntHashMap {
 		if (logicalHashTableSize != DEFAULT_INITIAL_CAPACITY && entries < lowerBound) {
 			shrinkHashTable();
 		}
-	}
-
-	private void removeEntry(int i) {
-		hashTable[i] = 0;
-		// clearing the value is not really needed, but to keep the
-		// hash table clean we do it anyway
-		hashTable[i + 1] = 0;
-		this.entries--;
 	}
 }
