@@ -9,13 +9,36 @@ public class IntToIntHashMapTest {
 	private interface IntFunc {
 		public int calc(int x);
 	}
+	
+	@Test
+	public void testRemoval() {
+		IntToIntHashMap map = new IntToIntHashMap(4, 0.75);
+		map.setValueForMissingEntries(-1);
+		
+		IntToIntHashMap.collisions = 0;
+		map.put(1, 3);
+		assertEquals(1, map.size());
+		map.put(5, 7);
+		assertEquals(2, map.size());
+		map.put(9, 11);
+		assertEquals(3, map.size());
+		
+		assertEquals(3, IntToIntHashMap.collisions);
+		map.removeEntries(6);
+		
+		assertEquals(-1, map.get(1));
+		assertEquals(-1, map.get(5));
+		assertEquals(11, map.get(9));
 
+		assertEquals(1, map.size());
+	}
+	
 	@Test
 	public void test() {
 		// initialize test data
 		runTest(1000000, new IntFunc() {
 			public int calc(int index) {
-				return index;
+				return index + 1;
 			}
 		}, new IntFunc() {
 			public int calc(int index) {
@@ -25,7 +48,7 @@ public class IntToIntHashMapTest {
 
 		runTest(1000000, new IntFunc() {
 			public int calc(int index) {
-				return index * 7;
+				return index * 7 + 1;
 			}
 		}, new IntFunc() {
 			public int calc(int index) {
@@ -58,6 +81,8 @@ public class IntToIntHashMapTest {
 		for (int i = 0; i < keys.length; i++) {
 			map.put(keys[i], values[i]);
 		}
+		// check size
+		assertEquals(size, map.size());
 		
 		for (int i = 0; i < keys.length; i++) {
 			//System.out.println("get(" + i + ")");
@@ -65,6 +90,10 @@ public class IntToIntHashMapTest {
 			int value = map.get(key);
 			assertEquals(values[i], value);
 		}
+		
+		// remove all keys
+		map.removeEntries(Integer.MAX_VALUE);
+		assertEquals(0, map.size());
 	}
 
 }

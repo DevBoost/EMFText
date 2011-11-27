@@ -6,6 +6,8 @@ package org.antlr.runtime3_4_0.misc;
  */
 public class IntToIntHashMap {
 	
+	private static final int DEFAULT_INITIAL_CAPACITY = 16;
+
 	public static int collisions = 0;
 
 	/**
@@ -13,29 +15,35 @@ public class IntToIntHashMap {
 	 * the odd ones). 
 	 */
 	private int hashTable[];
+	
 	/**
 	 * The number of entries that have been stored in this map.
 	 */
 	private int entries = 0;
+	
 	/**
 	 * The maximum load factor. If the number of entries exceeds this factor,
 	 * the map is automatically expanded.
 	 */
 	private double loadFactor;
+	
 	/**
 	 * We can't store the value for key 0 in the hashTable, because
 	 * zero is used to indicate that a bucket is empty.
 	 */
 	private int valueForZero;
+	
 	/**
 	 * The logical size of the map; this is half the physical size.
 	 */
 	private int logicalHashTableSize;
+	
 	/**
 	 * The threshold where to expand the map. This equals the current logical
 	 * size of the map times the load factor.
 	 */
 	private int loadThreshold;
+	
 	/**
 	 * This value is returned when calling {@link #get(int)} for a key that is
 	 * not contained in this map. The normal Java HashMap implementation returns
@@ -45,7 +53,7 @@ public class IntToIntHashMap {
 	private int valueForMissingEntries;
 	
 	public IntToIntHashMap() {
-		this(16, 0.75);
+		this(DEFAULT_INITIAL_CAPACITY, 0.75);
 	}
 
 	public IntToIntHashMap(int initialCapacity, double loadFactor) {
@@ -100,11 +108,28 @@ public class IntToIntHashMap {
 	}
 
 	private void expandHashTable() {
+		int newSize = hashTable.length;
+		// double the size of the table (use current physical size as new 
+		// logical size, which is effectively twice as much)
+		resizeHashTable(newSize);
+	}
+
+	private void shrinkHashTable() {
+		int newSize = logicalHashTableSize;
+		// shrink to a size where all entries fit in w.r.t. the load factor
+		while (entries < (newSize / 2) * loadFactor && newSize != DEFAULT_INITIAL_CAPACITY) {
+			newSize = Math.max(DEFAULT_INITIAL_CAPACITY, newSize / 2);
+		}
+		resizeHashTable(newSize);
+	}
+
+	private void resizeHashTable(int newLogicalCapacity) {
+		if (newLogicalCapacity == logicalHashTableSize) {
+			return;
+		}
+		//System.out.println("resizeHashTable from " + logicalHashTableSize + " to " + newLogicalCapacity + " (" + entries + " entries).");
 		int[] currentTable = hashTable;
-		// double the size of the table (use current
-		// physical size as new logical size, which
-		// is effectively 
-		createHashTable(currentTable.length);
+		createHashTable(newLogicalCapacity);
 		// move all entries to the new table
 		for (int i = 0; i < currentTable.length; i = i + 2) {
 			int key = currentTable[i];
@@ -114,6 +139,9 @@ public class IntToIntHashMap {
 			}
 			int value = currentTable[i + 1];
 			putInternal(key, value);
+			// we must not count this put since the entry was contained in the
+			// map before
+			this.entries--;
 		}
 	}
 
@@ -165,5 +193,40 @@ public class IntToIntHashMap {
 	public void setValueForMissingEntries(int valueForMissingEntries) {
 		this.valueForMissingEntries = valueForMissingEntries;
 		this.valueForZero = valueForMissingEntries;
+	}
+
+	public void removeEntries(int maxKeyValue) {
+		int[] currentTable = hashTable;
+		createHashTable(logicalHashTableSize);
+		//int oldEntryCount = entries;
+		for (int i = 0; i < currentTable.length; i = i + 2) {
+			int key = currentTable[i];
+			if (key == 0) {
+				// found empty bucket, can continue
+				continue;
+			}
+			if (key > maxKeyValue) {
+				int value = currentTable[i + 1];
+				putInternal(key, value);
+			}
+			entries--;
+		}
+		//System.out.println("removeEntries() removed " + (oldEntryCount - entries) + " entries.");
+		if (maxKeyValue > 0) {
+			this.valueForZero = valueForMissingEntries;
+		}
+		// shrink table if required
+		int lowerBound = (int) ((logicalHashTableSize / 2) * loadFactor);
+		if (logicalHashTableSize != DEFAULT_INITIAL_CAPACITY && entries < lowerBound) {
+			shrinkHashTable();
+		}
+	}
+
+	private void removeEntry(int i) {
+		hashTable[i] = 0;
+		// clearing the value is not really needed, but to keep the
+		// hash table clean we do it anyway
+		hashTable[i + 1] = 0;
+		this.entries--;
 	}
 }

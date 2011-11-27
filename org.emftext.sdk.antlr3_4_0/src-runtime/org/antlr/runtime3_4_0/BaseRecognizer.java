@@ -56,6 +56,12 @@ public abstract class BaseRecognizer {
 	 */
 	protected RecognizerSharedState state;
 
+	/**
+	 * This counter is used to clear the memoization hash maps only once in a
+	 * while.
+	 */
+	private int clearMemoizationCounter = 0;
+	
 	public BaseRecognizer() {
 		state = new RecognizerSharedState();
 	}
@@ -819,9 +825,23 @@ public abstract class BaseRecognizer {
 		}
 		else {
 			//System.out.println("seen rule "+ruleIndex+" before; skipping ahead to @"+(stopIndex+1)+" failed="+state.failed);
+			clearMemoization(input.index());
 			input.seek(stopIndex+1); // jump to one past stop token
 		}
 		return true;
+	}
+
+	private void clearMemoization(int tokenIndex) {
+		clearMemoizationCounter = (clearMemoizationCounter + 1) % 10000;
+		if (clearMemoizationCounter > 0) {
+			return;
+		}
+		for (IntToIntHashMap map : state.ruleMemo) {
+			if (map == null) {
+				continue;
+			}
+			map.removeEntries(tokenIndex);
+		}
 	}
 
 	/** Record whether or not this rule parsed the input at this position
