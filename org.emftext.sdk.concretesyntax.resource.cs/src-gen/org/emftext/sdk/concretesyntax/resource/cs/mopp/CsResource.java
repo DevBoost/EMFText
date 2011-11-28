@@ -188,6 +188,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult result = parser.parse();
+		// dispose parser, we don't need it anymore
+		parser = null;
 		clearState();
 		getContentsInternal().clear();
 		org.eclipse.emf.ecore.EObject root = null;
@@ -226,7 +228,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	
 	public void cancelReload() {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parserCopy = parser;
-		parserCopy.terminate();
+		if (parserCopy != null) {
+			parserCopy.terminate();
+		}
 		this.terminateReload = true;
 		org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor runningPostProcessorCopy = runningPostProcessor;
 		if (runningPostProcessorCopy != null) {
