@@ -53,7 +53,7 @@ public class IntToIntHashMap {
 	private int valueForMissingEntries;
 	
 	public IntToIntHashMap() {
-		this(DEFAULT_INITIAL_CAPACITY, 0.75);
+		this(DEFAULT_INITIAL_CAPACITY, 0.5);
 	}
 
 	public IntToIntHashMap(int initialCapacity, double loadFactor) {
