@@ -975,7 +975,7 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addDoLoadMethod(StringComposite sc) {
+	private void addDoLoadMethod(JavaComposite sc) {
 		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
 		sc.add("this.loadOptions = options;");
@@ -1008,6 +1008,8 @@ public class TextResourceGenerator extends
 				+ " referenceResolverSwitch = getReferenceResolverSwitch();");
 		sc.add("referenceResolverSwitch.setOptions(options);");
 		sc.add(iParseResultClassName + " result = parser.parse();");
+		sc.addComment("dispose parser, we don't need it anymore");
+		sc.add("parser = null;");
 		sc.add("clearState();");
 		sc.add("getContentsInternal().clear();");
 		sc.add(E_OBJECT + " root = null;");
@@ -1060,7 +1062,9 @@ public class TextResourceGenerator extends
 	private void addCancelReloadMethod(StringComposite sc) {
 		sc.add("public void cancelReload() {");
 		sc.add(iTextParserClassName + " parserCopy = parser;");
+		sc.add("if (parserCopy != null) {");
 		sc.add("parserCopy.terminate();");
+		sc.add("}");
 		sc.add("this.terminateReload = true;");
 		sc.add(iResourcePostProcessorClassName
 				+ " runningPostProcessorCopy = runningPostProcessor;");
