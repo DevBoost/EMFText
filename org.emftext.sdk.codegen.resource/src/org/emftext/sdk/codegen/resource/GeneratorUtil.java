@@ -329,8 +329,10 @@ public class GeneratorUtil {
 	
 	public void addImports(GenerationContext context, Collection<String> requiredBundles, ConcreteSyntax syntax) {
 		// first add the syntax itself
-		String syntaxPluginID = nameUtil.getResourcePluginDescriptor(syntax).getName();
-		requiredBundles.add(syntaxPluginID);
+		if (!syntax.isAbstract()) {
+			String syntaxPluginID = nameUtil.getResourcePluginDescriptor(syntax).getName();
+			requiredBundles.add(syntaxPluginID);
+		}
 		String antlrPluginID = context.getAntlrPlugin().getName();
 		requiredBundles.add(antlrPluginID);
 		
