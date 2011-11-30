@@ -654,6 +654,8 @@ OptionTypes.OVERRIDE_ANTLR_TEXT_TOKEN : "If set to <code>false</code>, the ANTLR
 
 OptionTypes.OVERRIDE_SOURCE_VIEWER_CONFIGURATION : "If set to <code>false</code>, the SourceViewerConfiguration class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_I_DELEGATING_REFERENCE_RESOLVER : "If set to <code>false</code>, the IDelegatingReferenceResolver interface will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
