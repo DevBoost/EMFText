@@ -151,7 +151,11 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 	private void addGetHoverInfoMethod(JavaComposite sc) {
 		sc.addComment("The warning about overriding or implementing a deprecated API cannot be avoided because the SourceViewerConfiguration class depends on ITextHover.");
 		sc.add("public String getHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
-		sc.add("return ((" + docBrowserInformationControlInputClassName + ") getHoverInfo2(textViewer, hoverRegion)).getHtml();");
+		sc.add("Object hoverInfo = getHoverInfo2(textViewer, hoverRegion);");
+		sc.add("if (hoverInfo == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("return ((" + docBrowserInformationControlInputClassName + ") hoverInfo).getHtml();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -217,6 +221,9 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 	private void addInternalGetHoverInfoMethod(StringComposite sc) {
 		sc.add("private " + docBrowserInformationControlInputClassName + " internalGetHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
 		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
+		sc.add("if (textResource == null) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());");
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() == 0) {");
