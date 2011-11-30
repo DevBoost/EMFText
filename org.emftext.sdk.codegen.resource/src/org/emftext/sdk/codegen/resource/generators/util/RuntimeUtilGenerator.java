@@ -32,7 +32,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addMethods(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		addIsEclipsePlatformAvailableMethod(sc);
-		addLogErrorMessageMethod(sc);
+		addLogMethods(sc);
         
 		if (!removeEclipseDependentCode) {
         	addIsEclipsePlatformRunningMethod(sc);
@@ -70,17 +70,25 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addLogErrorMessageMethod(JavaComposite sc) {
+	private void addLogMethods(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
+		addLogMethod(sc, "Error", removeEclipseDependentCode);
+		addLogMethod(sc, "Warning", removeEclipseDependentCode);
+	}
+
+	private void addLogMethod(
+			JavaComposite sc,
+			String type,
+			boolean removeEclipseDependentCode) {
 		sc.addJavadoc(
-			"Logs the given error. If Eclipse is running, the error is added to " +
+			"Logs the given " + type.toLowerCase() + ". If Eclipse is running, the " + type.toLowerCase() + " is added to " +
 			"the error log otherwise the message is printed to System.err."
 		);
-		sc.add("public void logError(String message, Throwable exception) {");
+		sc.add("public void log" + type + "(String message, Throwable exception) {");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (isEclipsePlatformAvailable()) {");
-			sc.add(pluginActivatorClassName + ".logError(message, exception);");
+			sc.add(pluginActivatorClassName + ".log" + type + "(message, exception);");
 			sc.add("return;");
 			sc.add("}");
 		}

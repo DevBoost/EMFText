@@ -153,11 +153,14 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("if (!(value instanceof " + MAP + ")) {");
 		sc.addComment("send this to the error log");
-		sc.add(pluginActivatorClassName + ".logWarning(\"Found value with invalid type for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + MAP + ".class.getName() + \", but was \" + value.getClass().getName() + \")\", null);");
+		sc.add("new " + runtimeUtilClassName + "().logWarning(\"Found value with invalid type for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + MAP + ".class.getName() + \", but was \" + value.getClass().getName() + \")\", null);");
 		sc.add("return originalResolver;");
 		sc.add("}");
 		sc.add(MAP + "<?,?> resolverMap = (" + MAP + "<?,?>) value;");
 		sc.add("Object resolverValue = resolverMap.get(reference);");
+		sc.add("if (resolverValue == null) {");
+		sc.add("return originalResolver;");
+		sc.add("}");
 		sc.add("if (resolverValue instanceof " + iReferenceResolverClassName + ") {");
 		sc.add(iReferenceResolverClassName + " replacingResolver = (" + iReferenceResolverClassName + ") resolverValue;");
 		sc.add("if (replacingResolver instanceof " + iDelegatingReferenceResolverClassName + ") {");
@@ -178,7 +181,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 		sc.add("replacingResolver = nextResolver;");
 		sc.add("} else {");
 		sc.addComment("The collection contains a non-resolver. Send a warning to the error log.");
-		sc.add(pluginActivatorClassName + ".logWarning(\"Found value with invalid type in value map for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + iDelegatingReferenceResolverClassName + ".class.getName() + \", but was \" + next.getClass().getName() + \")\", null);");
+		sc.add("new " + runtimeUtilClassName + "().logWarning(\"Found value with invalid type in value map for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + iDelegatingReferenceResolverClassName + ".class.getName() + \", but was \" + next.getClass().getName() + \")\", null);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return replacingResolver;");
@@ -186,7 +189,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 		sc.addComment(
 				"The value for the option " + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + 
 				" has an unknown type.");
-		sc.add(pluginActivatorClassName + ".logWarning(\"Found value with invalid type in value map for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + iDelegatingReferenceResolverClassName + ".class.getName() + \", but was \" + resolverValue.getClass().getName() + \")\", null);");
+		sc.add("new " + runtimeUtilClassName + "().logWarning(\"Found value with invalid type in value map for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + iDelegatingReferenceResolverClassName + ".class.getName() + \", but was \" + resolverValue.getClass().getName() + \")\", null);");
 		sc.add("return originalResolver;");
 		sc.add("}");
 		sc.add("}");
