@@ -289,13 +289,6 @@ public class GeneratorUtil {
 		sc.add("if (deresolvedReference != null && deresolvedReference.startsWith(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
 		sc.add("deresolvedReference = deresolvedReference.substring(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
 		sc.add("deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf(\"_\") + 1);");
-		sc.add("} else {");
-		sc.addComment(
-				"If the recovery fails, becaue the proxy was not created by EMFText " +
-				"or its URI has been modified after its creation, we reset the identifier " +
-				"to indicate that it could not be recovered."
-		);
-		sc.add("deresolvedReference = null;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
