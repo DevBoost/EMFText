@@ -2312,7 +2312,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ANTLR_TEXT_TOKEN(287, "OVERRIDE_ANTLR_TEXT_TOKEN", "overrideAntlrTextToken");
+	OVERRIDE_ANTLR_TEXT_TOKEN(287, "OVERRIDE_ANTLR_TEXT_TOKEN", "overrideAntlrTextToken"), /**
+	 * The '<em><b>OVERRIDE IDELEGATING REFERENCE RESOLVER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IDELEGATING_REFERENCE_RESOLVER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IDELEGATING_REFERENCE_RESOLVER(288, "OVERRIDE_I_DELEGATING_REFERENCE_RESOLVER", "overrideIDelegatingReferenceResolver");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7144,6 +7152,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_ANTLR_TEXT_TOKEN_VALUE = 287;
 /**
+	 * The '<em><b>OVERRIDE IDELEGATING REFERENCE RESOLVER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IDELEGATING REFERENCE RESOLVER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IDELEGATING_REFERENCE_RESOLVER
+	 * @model name="OVERRIDE_I_DELEGATING_REFERENCE_RESOLVER" literal="overrideIDelegatingReferenceResolver"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IDELEGATING_REFERENCE_RESOLVER_VALUE = 288;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7436,6 +7458,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TASK_ITEM,
 			OVERRIDE_URI_UTIL,
 			OVERRIDE_ANTLR_TEXT_TOKEN,
+			OVERRIDE_IDELEGATING_REFERENCE_RESOLVER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7768,6 +7791,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TASK_ITEM_VALUE: return OVERRIDE_TASK_ITEM;
 			case OVERRIDE_URI_UTIL_VALUE: return OVERRIDE_URI_UTIL;
 			case OVERRIDE_ANTLR_TEXT_TOKEN_VALUE: return OVERRIDE_ANTLR_TEXT_TOKEN;
+			case OVERRIDE_IDELEGATING_REFERENCE_RESOLVER_VALUE: return OVERRIDE_IDELEGATING_REFERENCE_RESOLVER;
 		}
 		return null;
 	}

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 
@@ -91,12 +92,17 @@ public class GenClassUtil {
 	/**
 	 * Returns the code for a method call that obtains the EClass of the given
 	 * GenClass from the generated EPackage.
-	 * 
-	 * @param genClass
-	 * @return
 	 */
 	public String getAccessor(GenClass genClass) {
 		return genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + genClass.getClassifierAccessorName() + "()";
+	}
+
+	/**
+	 * Returns the code for a method call that obtains the EStructuralFeature of 
+	 * the given GenFeature from the generated EPackage.
+	 */
+	public String getAccessor(GenFeature genFeature) {
+		return genFeature.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + genFeature.getFeatureAccessorName() + "()";
 	}
 
 	/**

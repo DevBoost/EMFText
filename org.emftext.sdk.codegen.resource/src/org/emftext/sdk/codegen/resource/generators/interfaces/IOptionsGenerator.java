@@ -23,7 +23,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	public static final String DISABLE_CREATING_MARKERS_FOR_PROBLEMS = "DISABLE_CREATING_MARKERS_FOR_PROBLEMS";
 	public static final String DISABLE_LOCATION_MAP                  = "DISABLE_LOCATION_MAP";
 	public static final String DISABLE_LAYOUT_INFORMATION_RECORDING  = "DISABLE_LAYOUT_INFORMATION_RECORDING";
-
+	public static final String ADDITIONAL_REFERENCE_RESOLVERS  = "ADDITIONAL_REFERENCE_RESOLVERS";
 	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -45,6 +45,15 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		
 		sc.addJavadoc("The key for the option to provide a resource post-processor.");
 		sc.add("public String RESOURCE_POSTPROCESSOR_PROVIDER = new " + metaInformationClassName + "().getResourcePostProcessorProviderOptionKey();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+			"The key for the option to provide additional reference resolvers. " +
+			"The value for this option must be a map that used EReferences as keys " +
+			"and either single reference resolvers or collections of resolvers as values. " +
+			"By setting this option one can customize the resolving of references at " +
+			"run-time.");
+		sc.add("public String " + ADDITIONAL_REFERENCE_RESOLVERS + " = \"" + ADDITIONAL_REFERENCE_RESOLVERS + "\";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

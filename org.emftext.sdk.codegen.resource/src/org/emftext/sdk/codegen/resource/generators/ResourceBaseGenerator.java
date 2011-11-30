@@ -118,6 +118,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String iReferenceMappingClassName;
 	protected String iReferenceResolveResultClassName;
 	protected String iReferenceResolverClassName;
+	protected String iDelegatingReferenceResolverClassName;
 	protected String iReferenceResolverSwitchClassName;
 	protected String iResourcePostProcessorClassName;
 	protected String iResourcePostProcessorProviderClassName;
@@ -295,6 +296,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		iReferenceMappingClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_MAPPING);
 		iReferenceResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
 		iReferenceResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVER);
+		iDelegatingReferenceResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.I_DELEGATING_REFERENCE_RESOLVER);
 		iReferenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.I_REFERENCE_RESOLVER_SWITCH);
 		iResourcePostProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR);
 		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_RESOURCE_POST_PROCESSOR_PROVIDER);

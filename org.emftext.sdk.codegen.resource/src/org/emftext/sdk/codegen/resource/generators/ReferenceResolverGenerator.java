@@ -23,6 +23,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.ReferenceResolverParameters;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
@@ -51,24 +52,28 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 	}
 
 	public void generateJavaContents(JavaComposite sc) {
-		this.genClassCache = getContext().getConcreteSyntax().getGenClassCache();
-		this.defaultResolverDelegateName = getContext()
-				.getQualifiedDefaultResolverDelegateName();
+		GenerationContext context = getContext();
+		
+		this.genClassCache = context.getConcreteSyntax().getGenClassCache();
+		this.defaultResolverDelegateName = context.getQualifiedDefaultResolverDelegateName();
 		setProxyReference(getParameters().getReference());
 
-		sc.add("package " + getContext().getResolverPackageName() + ";");
+		sc.add("package " + context.getResolverPackageName() + ";");
 		sc.addLineBreak();
 
+		String containerClassName = genClassCache.getQualifiedInterfaceName(proxyReference
+				.getGenClass());
+		String referenceTypeClassName = genClassCache.getQualifiedInterfaceName(proxyReference
+				.getTypeGenClass());
+		
 		sc.add("public class "
 				+ nameUtil.getReferenceResolverClassName(proxyReference)
 				+ " implements "
 				+ iReferenceResolverClassName
 				+ "<"
-				+ genClassCache.getQualifiedInterfaceName(proxyReference
-						.getGenClass())
+				+ containerClassName
 				+ ", "
-				+ genClassCache.getQualifiedInterfaceName(proxyReference
-						.getTypeGenClass()) + "> {");
+				+ referenceTypeClassName + "> {");
 		sc.addLineBreak();
 
 		addFields(sc);

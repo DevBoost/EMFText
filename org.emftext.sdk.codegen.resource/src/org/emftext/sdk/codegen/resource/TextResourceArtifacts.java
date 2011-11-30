@@ -119,6 +119,7 @@ import org.emftext.sdk.codegen.resource.generators.interfaces.ICommandGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IConfigurableGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IContextDependentURIFragmentFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IContextDependentURIFragmentGenerator;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IDelegatingReferenceResolverGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IElementMappingGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IExpectedElementGenerator;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IFunction1Generator;
@@ -304,6 +305,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_CACHE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceCache", IReferenceCacheGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_CACHE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_MAPPING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceMapping", IReferenceMappingGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_MAPPING);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceResolver", IReferenceResolverGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_RESOLVER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_DELEGATING_REFERENCE_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "DelegatingReferenceResolver", IDelegatingReferenceResolverGenerator.class, OptionTypes.OVERRIDE_IDELEGATING_REFERENCE_RESOLVER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceResolveResult", IReferenceResolveResultGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_RESOLVE_RESULT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_REFERENCE_RESOLVER_SWITCH = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ReferenceResolverSwitch", IReferenceResolverSwitchGenerator.class, OptionTypes.OVERRIDE_IREFERENCE_RESOLVER_SWITCH);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_RESOURCE_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "ResourceProvider", IResourceProviderGenerator.class, OptionTypes.OVERRIDE_IRESOURCE_PROVIDER);

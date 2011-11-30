@@ -57,34 +57,64 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		addStopMethod(sc);
 		addGetDefaultMethod(sc);
 		addLogErrorMethod(sc);
+		addLogWarningMethod(sc);
+		addLogMethod(sc);
 	}
 
 	private void addLogErrorMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Helper method for error logging.",
 			"@param message the error message to log",
-			"@param exception the exception that describes the error in detail",
+			"@param throwable the exception that describes the error in detail (can be null)",
 			"@return the status object describing the error"
 		);
-		sc.add("public static " + I_STATUS + " logError(String message, Throwable exception) {");
+		sc.add("public static " + I_STATUS + " logError(String message, Throwable throwable) {");
+		sc.add("return log(" + I_STATUS + ".ERROR, message, throwable);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addLogWarningMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Helper method for logging warnings.",
+			"@param message the warning message to log",
+			"@param throwable the exception that describes the warning in detail (can be null)",
+			"@return the status object describing the warning"
+		);
+		sc.add("public static " + I_STATUS + " logWarning(String message, Throwable throwable) {");
+		sc.add("return log(" + I_STATUS + ".WARNING, message, throwable);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addLogMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Helper method for logging.",
+			"@param type the type of the message to log",
+			"@param message the message to log",
+			"@param throwable the exception that describes the error in detail (can be null)",
+			"@return the status object describing the error"
+		);
+		sc.add("protected static " + I_STATUS + " log(int type, String message, Throwable throwable) {");
 		sc.add(I_STATUS + " status;");
-		sc.add("if (exception != null) {");
-		sc.add("status = new " + STATUS + "(" + I_STATUS + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, 0, message, exception);");
+		sc.add("if (throwable != null) {");
+		sc.add("status = new " + STATUS + "(type, " + getResourceClassName() + ".PLUGIN_ID, 0, message, throwable);");
 		sc.add("} else {");
-		sc.add("status = new " + STATUS + "(" + I_STATUS + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, message);");
+		sc.add("status = new " + STATUS + "(type, " + getResourceClassName() + ".PLUGIN_ID, message);");
 		sc.add("}");
 			
 		sc.add("final " + getResourceClassName() + " pluginInstance = " + getResourceClassName() + ".getDefault();");
 		sc.add("if (pluginInstance == null) {");
 		sc.add("System.err.println(message);");
-		sc.add("if (exception != null) {");
-		sc.add("exception.printStackTrace();");
+		sc.add("if (throwable != null) {");
+		sc.add("throwable.printStackTrace();");
 		sc.add("}");
 		sc.add("} else {");
 		sc.add("pluginInstance.getLog().log(status);");
 		sc.add("}");
 		sc.add("return status;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetDefaultMethod(StringComposite sc) {

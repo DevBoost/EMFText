@@ -13,9 +13,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 
 import java.util.ArrayList;
@@ -31,10 +33,12 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
+import org.emftext.sdk.util.GenClassUtil;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -42,7 +46,9 @@ import org.emftext.sdk.util.StringUtil;
  * Depending on the type of the reference that must be resolved,
  * the generated class delegates the resolve call to the appropriate
  * reference resolver.
- * The generated resolver switch is used during code completion.
+ * 
+ * The generated resolver switch is used while parsing resources and
+ * during code completion.
  */
 @SyntaxDependent
 public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -69,11 +75,12 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 	}
 	
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		generateGetMethods(sc);
         generateSetOptionsMethod(sc);
 		generateResolveFuzzyMethod(sc);
 		addGetResolverMethod(sc);
+		addGetResolverChainMethod(sc);
 	}
 
 	private void generateResolveFuzzyMethod(StringComposite sc) {
@@ -108,6 +115,10 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 
 	private void generateSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
+		sc.add("if (options != null) {");
+		sc.add("this.options = new " + LINKED_HASH_MAP + "<Object, Object>();");
+		sc.add("this.options.putAll(options);");
+		sc.add("}");
 		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			sc.add(StringUtil.low(generatedClassName) + ".setOptions(options);");			
@@ -120,8 +131,9 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 		sc.add("public " + iReferenceResolverClassName + "<? extends " + E_OBJECT + ", ? extends " + E_OBJECT + "> getResolver(" + E_STRUCTURAL_FEATURE + " reference) {");
 		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
-			sc.add("if (reference == " + proxyReference.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + proxyReference.getFeatureAccessorName() + "()) {");
-			sc.add("return " + StringUtil.low(generatedClassName) + ";");
+			String featureAccessor = new GenClassUtil().getAccessor(proxyReference);
+			sc.add("if (reference == " + featureAccessor + ") {");
+			sc.add("return getResolverChain(reference, " + StringUtil.low(generatedClassName) + ");");			
 			sc.add("}");
 		}
 		sc.add("return null;");
@@ -129,7 +141,63 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addGetResolverChainMethod(JavaComposite sc) {
+		sc.add("@SuppressWarnings({\"rawtypes\", \"unchecked\"})").addLineBreak();
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> " + iReferenceResolverClassName + "<ContainerType, ReferenceType> getResolverChain(" + E_STRUCTURAL_FEATURE + " reference, " + iReferenceResolverClassName + "<ContainerType, ReferenceType> originalResolver) {");
+		sc.add("if (options == null) {");
+		sc.add("return originalResolver;");
+		sc.add("}");
+		sc.add("Object value = options.get(" + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + ");");
+		sc.add("if (value == null) {");
+		sc.add("return originalResolver;");
+		sc.add("}");
+		sc.add("if (!(value instanceof " + MAP + ")) {");
+		sc.addComment("send this to the error log");
+		sc.add(pluginActivatorClassName + ".logWarning(\"Found value with invalid type for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + MAP + ".class.getName() + \", but was \" + value.getClass().getName() + \")\", null);");
+		sc.add("return originalResolver;");
+		sc.add("}");
+		sc.add(MAP + "<?,?> resolverMap = (" + MAP + "<?,?>) value;");
+		sc.add("Object resolverValue = resolverMap.get(reference);");
+		sc.add("if (resolverValue instanceof " + iReferenceResolverClassName + ") {");
+		sc.add(iReferenceResolverClassName + " replacingResolver = (" + iReferenceResolverClassName + ") resolverValue;");
+		sc.add("if (replacingResolver instanceof " + iDelegatingReferenceResolverClassName + ") {");
+		sc.addComment("pass original resolver to the replacing one");
+		sc.add("((" + iDelegatingReferenceResolverClassName + ") replacingResolver).setDelegate(originalResolver);");
+		sc.add("}");
+		sc.add("return replacingResolver;");
+		sc.add("} else if (resolverValue instanceof " + COLLECTION + ") {");
+		sc.add(COLLECTION + " replacingResolvers = (" + COLLECTION + ") resolverValue;");
+		sc.add(iReferenceResolverClassName + " replacingResolver = originalResolver;");
+		sc.add("for (Object next : replacingResolvers) {");
+		sc.add("if (next instanceof " + iReferenceCacheClassName + ") {");
+		sc.add(iReferenceResolverClassName + " nextResolver = (" + iReferenceResolverClassName + ") next;");
+		sc.add("if (nextResolver instanceof " + iDelegatingReferenceResolverClassName + ") {");
+		sc.addComment("pass original resolver to the replacing one");
+		sc.add("((" + iDelegatingReferenceResolverClassName + ") nextResolver).setDelegate(replacingResolver);");
+		sc.add("}");
+		sc.add("replacingResolver = nextResolver;");
+		sc.add("} else {");
+		sc.addComment("The collection contains a non-resolver. Send a warning to the error log.");
+		sc.add(pluginActivatorClassName + ".logWarning(\"Found value with invalid type in value map for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + iDelegatingReferenceResolverClassName + ".class.getName() + \", but was \" + next.getClass().getName() + \")\", null);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return replacingResolver;");
+		sc.add("} else {");
+		sc.addComment(
+				"The value for the option " + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + 
+				" has an unknown type.");
+		sc.add(pluginActivatorClassName + ".logWarning(\"Found value with invalid type in value map for option \" + " + iOptionsClassName + "." + IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + " + \" (expected \" + " + iDelegatingReferenceResolverClassName + ".class.getName() + \", but was \" + resolverValue.getClass().getName() + \")\", null);");
+		sc.add("return originalResolver;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.addJavadoc("This map stores a copy of the options the were set for loading the resource.");
+		sc.add("private " + MAP + "<Object, Object> options;");
+		sc.addLineBreak();
+		
     	List<String> generatedResolvers = new ArrayList<String>();
 
 		for (GenFeature proxyReference : nonContainmentReferencesNeedingResolvers) {
@@ -150,9 +218,16 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
-				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference, false);
-				sc.add("public " + fullClassName + " get" + generatedClassName + "() {");
-				sc.add("return " + StringUtil.low(generatedClassName) + ";");			
+				
+				String containerClassName = genClassCache.getQualifiedInterfaceName(proxyReference
+						.getGenClass());
+				String referenceTypeClassName = genClassCache.getQualifiedInterfaceName(proxyReference
+						.getTypeGenClass());
+				String featureAccessor = new GenClassUtil().getAccessor(proxyReference);
+
+				//String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference, false);
+				sc.add("public " + iReferenceResolverClassName + "<" + containerClassName + ", " + referenceTypeClassName + "> get" + generatedClassName + "() {");
+				sc.add("return getResolverChain(" + featureAccessor + ", " + StringUtil.low(generatedClassName) + ");");			
 				sc.add("}");
 			    sc.addLineBreak();
 			}

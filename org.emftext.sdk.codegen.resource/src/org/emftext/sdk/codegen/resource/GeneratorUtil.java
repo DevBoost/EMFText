@@ -209,7 +209,9 @@ public class GeneratorUtil {
 	public void addGetReferenceResolverSwitchMethod(StringComposite sc, GenerationContext context) {
 		final String qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
 		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
-        sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") metaInformation.getReferenceResolverSwitch();");
+        sc.add(qualifiedReferenceResolverSwitchClassName + " resolverSwitch = (" + qualifiedReferenceResolverSwitchClassName + ") metaInformation.getReferenceResolverSwitch();");
+        sc.add("resolverSwitch.setOptions(options);");
+        sc.add("return resolverSwitch;");
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -277,15 +279,23 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 	
-	public void addCodeToDeresolveProxyObject(StringComposite sc, String iContextDependentUriFragmentClassName, String proxyVariable) {
+	public void addCodeToDeresolveProxyObject(JavaComposite sc, String iContextDependentUriFragmentClassName, String proxyVariable) {
 		sc.add("String deresolvedReference = null;");
 		sc.add("if (" + proxyVariable + " instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " eObjectToDeResolve = (" + E_OBJECT + ") " + proxyVariable + ";");
 		sc.add("if (eObjectToDeResolve.eIsProxy()) {");
 		sc.add("deresolvedReference = ((" + INTERNAL_E_OBJECT + ") eObjectToDeResolve).eProxyURI().fragment();");
+		sc.addComment("If the proxy was created by EMFText, we can try to recover the identifier from the proxy URI");
 		sc.add("if (deresolvedReference != null && deresolvedReference.startsWith(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
 		sc.add("deresolvedReference = deresolvedReference.substring(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
 		sc.add("deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf(\"_\") + 1);");
+		sc.add("} else {");
+		sc.addComment(
+				"If the recovery fails, becaue the proxy was not created by EMFText " +
+				"or its URI has been modified after its creation, we reset the identifier " +
+				"to indicate that it could not be recovered."
+		);
+		sc.add("deresolvedReference = null;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
