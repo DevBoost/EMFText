@@ -730,11 +730,6 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				if (deresolvedReference != null && deresolvedReference.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
 					deresolvedReference = deresolvedReference.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
 					deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf("_") + 1);
-				} else {
-					// If the recovery fails, becaue the proxy was not created by EMFText or its URI
-					// has been modified after its creation, we reset the identifier to indicate that
-					// it could not be recovered.
-					deresolvedReference = null;
 				}
 			}
 		}
