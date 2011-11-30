@@ -237,11 +237,14 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		}
 		if (!(value instanceof java.util.Map)) {
 			// send this to the error log
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logWarning("Found value with invalid type for option " + org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.ADDITIONAL_REFERENCE_RESOLVERS + " (expected " + java.util.Map.class.getName() + ", but was " + value.getClass().getName() + ")", null);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logWarning("Found value with invalid type for option " + org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.ADDITIONAL_REFERENCE_RESOLVERS + " (expected " + java.util.Map.class.getName() + ", but was " + value.getClass().getName() + ")", null);
 			return originalResolver;
 		}
 		java.util.Map<?,?> resolverMap = (java.util.Map<?,?>) value;
 		Object resolverValue = resolverMap.get(reference);
+		if (resolverValue == null) {
+			return originalResolver;
+		}
 		if (resolverValue instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver) {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver replacingResolver = (org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver) resolverValue;
 			if (replacingResolver instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsDelegatingReferenceResolver) {
@@ -262,13 +265,13 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 					replacingResolver = nextResolver;
 				} else {
 					// The collection contains a non-resolver. Send a warning to the error log.
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logWarning("Found value with invalid type in value map for option " + org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.ADDITIONAL_REFERENCE_RESOLVERS + " (expected " + org.emftext.sdk.concretesyntax.resource.cs.ICsDelegatingReferenceResolver.class.getName() + ", but was " + next.getClass().getName() + ")", null);
+					new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logWarning("Found value with invalid type in value map for option " + org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.ADDITIONAL_REFERENCE_RESOLVERS + " (expected " + org.emftext.sdk.concretesyntax.resource.cs.ICsDelegatingReferenceResolver.class.getName() + ", but was " + next.getClass().getName() + ")", null);
 				}
 			}
 			return replacingResolver;
 		} else {
 			// The value for the option ADDITIONAL_REFERENCE_RESOLVERS has an unknown type.
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logWarning("Found value with invalid type in value map for option " + org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.ADDITIONAL_REFERENCE_RESOLVERS + " (expected " + org.emftext.sdk.concretesyntax.resource.cs.ICsDelegatingReferenceResolver.class.getName() + ", but was " + resolverValue.getClass().getName() + ")", null);
+			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logWarning("Found value with invalid type in value map for option " + org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.ADDITIONAL_REFERENCE_RESOLVERS + " (expected " + org.emftext.sdk.concretesyntax.resource.cs.ICsDelegatingReferenceResolver.class.getName() + ", but was " + resolverValue.getClass().getName() + ")", null);
 			return originalResolver;
 		}
 	}

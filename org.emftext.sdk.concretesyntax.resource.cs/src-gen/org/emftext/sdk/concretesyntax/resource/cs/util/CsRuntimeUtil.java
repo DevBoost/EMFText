@@ -50,6 +50,21 @@ public class CsRuntimeUtil {
 	}
 	
 	/**
+	 * Logs the given warning. If Eclipse is running, the warning is added to the
+	 * error log otherwise the message is printed to System.err.
+	 */
+	public void logWarning(String message, Throwable exception) {
+		if (isEclipsePlatformAvailable()) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logWarning(message, exception);
+			return;
+		}
+		System.err.println(message);
+		if (exception != null) {
+			exception.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Checks whether the Eclipse platform is running.
 	 */
 	public boolean isEclipsePlatformRunning() {

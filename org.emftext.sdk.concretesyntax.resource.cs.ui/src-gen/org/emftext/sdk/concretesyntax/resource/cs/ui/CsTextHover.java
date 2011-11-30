@@ -215,7 +215,11 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	// The warning about overriding or implementing a deprecated API cannot be avoided
 	// because the SourceViewerConfiguration class depends on ITextHover.
 	public String getHoverInfo(org.eclipse.jface.text.ITextViewer textViewer, org.eclipse.jface.text.IRegion hoverRegion) {
-		return ((org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput) getHoverInfo2(textViewer, hoverRegion)).getHtml();
+		Object hoverInfo = getHoverInfo2(textViewer, hoverRegion);
+		if (hoverInfo == null) {
+			return null;
+		}
+		return ((org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput) hoverInfo).getHtml();
 	}
 	
 	public org.eclipse.jface.text.IRegion getHoverRegion(org.eclipse.jface.text.ITextViewer textViewer, int offset) {
@@ -246,6 +250,9 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput internalGetHoverInfo(org.eclipse.jface.text.ITextViewer textViewer, org.eclipse.jface.text.IRegion hoverRegion) {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = resourceProvider.getResource();
+		if (textResource == null) {
+			return null;
+		}
 		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 		java.util.List<org.eclipse.emf.ecore.EObject> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());
 		if (elementsAtOffset == null || elementsAtOffset.size() == 0) {
