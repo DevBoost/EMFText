@@ -341,9 +341,16 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 			org.eclipse.emf.ecore.EObject eObjectToDeResolve = (org.eclipse.emf.ecore.EObject) element;
 			if (eObjectToDeResolve.eIsProxy()) {
 				deresolvedReference = ((org.eclipse.emf.ecore.InternalEObject) eObjectToDeResolve).eProxyURI().fragment();
+				// If the proxy was created by EMFText, we can try to recover the identifier from
+				// the proxy URI
 				if (deresolvedReference != null && deresolvedReference.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
 					deresolvedReference = deresolvedReference.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
 					deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf("_") + 1);
+				} else {
+					// If the recovery fails, becaue the proxy was not created by EMFText or its URI
+					// has been modified after its creation, we reset the identifier to indicate that
+					// it could not be recovered.
+					deresolvedReference = null;
 				}
 			}
 		}

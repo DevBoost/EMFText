@@ -32,6 +32,14 @@ public interface ICsOptions {
 	public String RESOURCE_POSTPROCESSOR_PROVIDER = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getResourcePostProcessorProviderOptionKey();
 	
 	/**
+	 * The key for the option to provide additional reference resolvers. The value for
+	 * this option must be a map that used EReferences as keys and either single
+	 * reference resolvers or collections of resolvers as values. By setting this
+	 * option one can customize the resolving of references at run-time.
+	 */
+	public String ADDITIONAL_REFERENCE_RESOLVERS = "ADDITIONAL_REFERENCE_RESOLVERS";
+	
+	/**
 	 * The key for the option to specify an expected content type in text resources
 	 * and text parsers. A content type is an EClass that specifies the root object of
 	 * a text resource. If this option is set, the parser does not use the start

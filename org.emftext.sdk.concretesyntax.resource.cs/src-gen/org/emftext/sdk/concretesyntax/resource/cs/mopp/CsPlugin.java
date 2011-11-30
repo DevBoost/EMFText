@@ -56,26 +56,53 @@ public class CsPlugin extends org.eclipse.core.runtime.Plugin {
 	 * Helper method for error logging.
 	 * 
 	 * @param message the error message to log
-	 * @param exception the exception that describes the error in detail
+	 * @param throwable the exception that describes the error in detail (can be null)
 	 * 
 	 * @return the status object describing the error
 	 */
-	public static org.eclipse.core.runtime.IStatus logError(String message, Throwable exception) {
+	public static org.eclipse.core.runtime.IStatus logError(String message, Throwable throwable) {
+		return log(org.eclipse.core.runtime.IStatus.ERROR, message, throwable);
+	}
+	
+	/**
+	 * Helper method for logging warnings.
+	 * 
+	 * @param message the warning message to log
+	 * @param throwable the exception that describes the warning in detail (can be
+	 * null)
+	 * 
+	 * @return the status object describing the warning
+	 */
+	public static org.eclipse.core.runtime.IStatus logWarning(String message, Throwable throwable) {
+		return log(org.eclipse.core.runtime.IStatus.WARNING, message, throwable);
+	}
+	
+	/**
+	 * Helper method for logging.
+	 * 
+	 * @param type the type of the message to log
+	 * @param message the message to log
+	 * @param throwable the exception that describes the error in detail (can be null)
+	 * 
+	 * @return the status object describing the error
+	 */
+	protected static org.eclipse.core.runtime.IStatus log(int type, String message, Throwable throwable) {
 		org.eclipse.core.runtime.IStatus status;
-		if (exception != null) {
-			status = new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, CsPlugin.PLUGIN_ID, 0, message, exception);
+		if (throwable != null) {
+			status = new org.eclipse.core.runtime.Status(type, CsPlugin.PLUGIN_ID, 0, message, throwable);
 		} else {
-			status = new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, CsPlugin.PLUGIN_ID, message);
+			status = new org.eclipse.core.runtime.Status(type, CsPlugin.PLUGIN_ID, message);
 		}
 		final CsPlugin pluginInstance = CsPlugin.getDefault();
 		if (pluginInstance == null) {
 			System.err.println(message);
-			if (exception != null) {
-				exception.printStackTrace();
+			if (throwable != null) {
+				throwable.printStackTrace();
 			}
 		} else {
 			pluginInstance.getLog().log(status);
 		}
 		return status;
 	}
+	
 }

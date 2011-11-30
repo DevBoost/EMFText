@@ -288,7 +288,9 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	}
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch getReferenceResolverSwitch() {
-		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch) metaInformation.getReferenceResolverSwitch();
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch resolverSwitch = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch) metaInformation.getReferenceResolverSwitch();
+		resolverSwitch.setOptions(options);
+		return resolverSwitch;
 	}
 	
 }
