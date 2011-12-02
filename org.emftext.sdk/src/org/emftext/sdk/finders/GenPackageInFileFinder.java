@@ -16,6 +16,7 @@ package org.emftext.sdk.finders;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Map;
 
@@ -170,7 +171,12 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 	private void updateGenModel(final GenModel genModel) throws Exception {
         final Resource genModelResource = genModel.eResource();
  
-		final boolean reconcileSucceeded = genModel.reconcile();
+		boolean reconcileSucceeded = false;
+		try {
+			reconcileSucceeded = genModel.reconcile();
+		} catch (ConcurrentModificationException e) {
+			// ignore concurrent modifications, file will be reconciled again
+		}
 		if (!reconcileSucceeded) {
 			throw new RuntimeException("Reconciliation of genmodel failed.");
 		}
