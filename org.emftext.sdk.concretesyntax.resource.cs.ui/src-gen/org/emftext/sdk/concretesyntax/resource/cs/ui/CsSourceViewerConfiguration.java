@@ -118,9 +118,16 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 					public void accept(org.eclipse.ui.texteditor.spelling.SpellingProblem problem) {
 						int offset = problem.getOffset();
 						int length = problem.getLength();
+						if (sourceViewer == null) {
+							return;
+						}
+						org.eclipse.jface.text.IDocument document = sourceViewer.getDocument();
+						if (document == null) {
+							return;
+						}
 						String text;
 						try {
-							text = sourceViewer.getDocument().get(offset, length);
+							text = document.get(offset, length);
 						} catch (org.eclipse.jface.text.BadLocationException e) {
 							return;
 						}

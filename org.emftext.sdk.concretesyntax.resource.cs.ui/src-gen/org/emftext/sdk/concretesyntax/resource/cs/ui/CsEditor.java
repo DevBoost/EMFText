@@ -497,10 +497,14 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			Object object = structuredSelection.getFirstElement();
 			if (object instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) object;
-				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) element.eResource();
-				if (textResource == null) {
+				org.eclipse.emf.ecore.resource.Resource resource = element.eResource();
+				if (resource == null) {
 					return false;
 				}
+				if (!(resource instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource)) {
+					return false;
+				}
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
 				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 				int destination = locationMap.getCharStart(element);
 				if (destination < 0) {
