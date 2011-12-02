@@ -167,13 +167,13 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("if (object instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " element = (" + E_OBJECT + ") object;");
 		sc.add(RESOURCE + " resource = element.eResource();");
+		sc.add("if (resource == null) {");
+		sc.add("return false;");
+		sc.add("}");
 		sc.add("if (!(resource instanceof " + iTextResourceClassName + ")) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
-		sc.add("if (textResource == null) {");
-		sc.add("return false;");
-		sc.add("}");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add("int destination = locationMap.getCharStart(element);");
 		sc.add("if (destination < 0) {");
