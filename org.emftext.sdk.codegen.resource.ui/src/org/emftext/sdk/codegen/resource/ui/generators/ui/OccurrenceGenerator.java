@@ -301,6 +301,9 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("int caretOffset = textWidget.getCaretOffset();");
 		sc.add("caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);");
+		sc.add("if (textResource == null) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
 		sc.addLineBreak();
