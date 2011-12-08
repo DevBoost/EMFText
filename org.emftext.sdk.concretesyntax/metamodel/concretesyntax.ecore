@@ -2003,6 +2003,16 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the IDelegatingReferenceResolver interface will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="ADDITIONAL_IMPORTED_PACKAGES" value="289" literal="additionalImportedPackages">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource plug-in. The default value for this option is an empty list."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ADDITIONAL_UI_IMPORTED_PACKAGES" value="290" literal="additionalUIImportedPackages">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

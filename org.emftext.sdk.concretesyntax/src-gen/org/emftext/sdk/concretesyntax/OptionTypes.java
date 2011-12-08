@@ -2320,7 +2320,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_IDELEGATING_REFERENCE_RESOLVER(288, "OVERRIDE_I_DELEGATING_REFERENCE_RESOLVER", "overrideIDelegatingReferenceResolver");
+	OVERRIDE_IDELEGATING_REFERENCE_RESOLVER(288, "OVERRIDE_I_DELEGATING_REFERENCE_RESOLVER", "overrideIDelegatingReferenceResolver"), /**
+	 * The '<em><b>ADDITIONAL IMPORTED PACKAGES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_IMPORTED_PACKAGES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADDITIONAL_IMPORTED_PACKAGES(289, "ADDITIONAL_IMPORTED_PACKAGES", "additionalImportedPackages"), /**
+	 * The '<em><b>ADDITIONAL UI IMPORTED PACKAGES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_UI_IMPORTED_PACKAGES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADDITIONAL_UI_IMPORTED_PACKAGES(290, "ADDITIONAL_UI_IMPORTED_PACKAGES", "additionalUIImportedPackages");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7169,6 +7185,40 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_IDELEGATING_REFERENCE_RESOLVER_VALUE = 288;
 /**
+	 * The '<em><b>ADDITIONAL IMPORTED PACKAGES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ADDITIONAL IMPORTED PACKAGES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource plug-in. The default value for this option is an empty list.
+	 * <!-- end-model-doc -->
+	 * @see #ADDITIONAL_IMPORTED_PACKAGES
+	 * @model literal="additionalImportedPackages"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADDITIONAL_IMPORTED_PACKAGES_VALUE = 289;
+/**
+	 * The '<em><b>ADDITIONAL UI IMPORTED PACKAGES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ADDITIONAL UI IMPORTED PACKAGES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list.
+	 * <!-- end-model-doc -->
+	 * @see #ADDITIONAL_UI_IMPORTED_PACKAGES
+	 * @model literal="additionalUIImportedPackages"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADDITIONAL_UI_IMPORTED_PACKAGES_VALUE = 290;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7462,6 +7512,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_URI_UTIL,
 			OVERRIDE_ANTLR_TEXT_TOKEN,
 			OVERRIDE_IDELEGATING_REFERENCE_RESOLVER,
+			ADDITIONAL_IMPORTED_PACKAGES,
+			ADDITIONAL_UI_IMPORTED_PACKAGES,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7795,6 +7847,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_URI_UTIL_VALUE: return OVERRIDE_URI_UTIL;
 			case OVERRIDE_ANTLR_TEXT_TOKEN_VALUE: return OVERRIDE_ANTLR_TEXT_TOKEN;
 			case OVERRIDE_IDELEGATING_REFERENCE_RESOLVER_VALUE: return OVERRIDE_IDELEGATING_REFERENCE_RESOLVER;
+			case ADDITIONAL_IMPORTED_PACKAGES_VALUE: return ADDITIONAL_IMPORTED_PACKAGES;
+			case ADDITIONAL_UI_IMPORTED_PACKAGES_VALUE: return ADDITIONAL_UI_IMPORTED_PACKAGES;
 		}
 		return null;
 	}

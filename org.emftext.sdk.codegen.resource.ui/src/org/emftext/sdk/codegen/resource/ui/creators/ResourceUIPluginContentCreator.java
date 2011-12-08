@@ -109,6 +109,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		exports.add(context.getPackageName(TextResourceUIArtifacts.PACKAGE_UI));
 		exports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_UI_EXPORTS));
 		manifestParameters.getRequiredBundles().addAll(getRequiredBundles(context));
+		manifestParameters.getImportedPackages().addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_UI_IMPORTED_PACKAGES));
 		manifestParameters.setPlugin(resourceUIPlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR));
 		manifestParameters.setBundleName("EMFText UI Plugin: " + context.getConcreteSyntax().getName());

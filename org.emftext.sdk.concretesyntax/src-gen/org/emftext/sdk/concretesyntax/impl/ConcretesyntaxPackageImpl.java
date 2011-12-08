@@ -2506,6 +2506,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_URI_UTIL);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ANTLR_TEXT_TOKEN);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_IDELEGATING_REFERENCE_RESOLVER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_IMPORTED_PACKAGES);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_UI_IMPORTED_PACKAGES);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -4733,6 +4735,18 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IDelegatingReferenceResolver interface will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(286), 
+		   source, 
+		   new String[] {
+			 "documentation", "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource plug-in. The default value for this option is an empty list."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(287), 
+		   source, 
+		   new String[] {
+			 "documentation", "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 

@@ -656,6 +656,10 @@ OptionTypes.OVERRIDE_SOURCE_VIEWER_CONFIGURATION : "If set to <code>false</code>
 
 OptionTypes.OVERRIDE_I_DELEGATING_REFERENCE_RESOLVER : "If set to <code>false</code>, the IDelegatingReferenceResolver interface will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.ADDITIONAL_IMPORTED_PACKAGES : "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource plug-in. The default value for this option is an empty list."
+
+OptionTypes.ADDITIONAL_UI_IMPORTED_PACKAGES : "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

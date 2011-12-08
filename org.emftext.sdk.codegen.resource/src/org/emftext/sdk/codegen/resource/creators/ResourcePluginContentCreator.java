@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.resource.creators;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -162,6 +163,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		}
 		exports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_EXPORTS));
 		manifestParameters.getRequiredBundles().addAll(getRequiredBundles(context));
+		manifestParameters.getImportedPackages().addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_IMPORTED_PACKAGES));
 		manifestParameters.setPlugin(resourcePlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR));
 		manifestParameters.setBundleName("EMFText Parser Plugin: " + context.getConcreteSyntax().getName());
