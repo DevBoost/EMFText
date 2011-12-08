@@ -101,12 +101,18 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 				}
 			};
 			
-			Result result = null;	 
-			File wsFolder = new File(ResourcesPlugin.getWorkspace().getRoot().getLocationURI());	
-			if(Platform.isRunning()&&rootFolder.equals(wsFolder)){
+			Result result = null;	
+			
+			boolean useUIJob = false;
+			if(Platform.isRunning()){
+				File wsFolder = new File(ResourcesPlugin.getWorkspace().getRoot().getLocationURI());	
+				if(rootFolder.equals(wsFolder))
+					useUIJob = true;
+			}
+			
+			if(useUIJob){
 				UIGenerationContext context = new UIGenerationContext(folderConnector,  new AntProblemCollector(this), syntax);
 				UICreateResourcePluginsJob job = new UICreateResourcePluginsJob();
-
 				result = job.run(
 							context, 
 							new AntLogMarker(this), 
@@ -116,7 +122,7 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			else{
 				AntGenerationContext context = new AntGenerationContext(folderConnector, new AntProblemCollector(this), syntax, rootFolder, syntaxProjectName, generateANTLRPlugin, generateModelCode);
 				AntResourcePluginGenerator generator = new AntResourcePluginGenerator();
-				generator.run(
+				result = generator.run(
 						context, 
 						new AntLogMarker(this), 
 						new AntDelegateProgressMonitor(this)
