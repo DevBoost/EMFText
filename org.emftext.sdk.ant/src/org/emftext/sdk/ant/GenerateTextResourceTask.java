@@ -21,6 +21,8 @@ import java.util.Set;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -38,6 +40,8 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
+import org.emftext.sdk.ui.jobs.UICreateResourcePluginsJob;
+import org.emftext.sdk.ui.jobs.UIGenerationContext;
 
 /**
  * A custom task for the ANT build tool that generates
@@ -90,7 +94,6 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			ConcreteSyntax syntax = (ConcreteSyntax) contents.get(0);
 			performPreprocessing(syntax);
 			
-			AntResourcePluginGenerator generator = new AntResourcePluginGenerator();
 			IFileSystemConnector folderConnector = new IFileSystemConnector() {
 				
 				public File getProjectFolder(IPluginDescriptor plugin) {
@@ -98,12 +101,28 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 				}
 			};
 			
-			AntGenerationContext context = new AntGenerationContext(folderConnector, new AntProblemCollector(this), syntax, rootFolder, syntaxProjectName, generateANTLRPlugin, generateModelCode);
-			Result result = generator.run(
-					context, 
-					new AntLogMarker(this), 
-					new AntDelegateProgressMonitor(this)
-			);
+			Result result = null;	 
+			File wsFolder = new File(ResourcesPlugin.getWorkspace().getRoot().getLocationURI());	
+			if(Platform.isRunning()&&rootFolder.equals(wsFolder)){
+				UIGenerationContext context = new UIGenerationContext(folderConnector,  new AntProblemCollector(this), syntax);
+				UICreateResourcePluginsJob job = new UICreateResourcePluginsJob();
+
+				result = job.run(
+							context, 
+							new AntLogMarker(this), 
+							new AntDelegateProgressMonitor(this)
+					);
+			}
+			else{
+				AntGenerationContext context = new AntGenerationContext(folderConnector, new AntProblemCollector(this), syntax, rootFolder, syntaxProjectName, generateANTLRPlugin, generateModelCode);
+				AntResourcePluginGenerator generator = new AntResourcePluginGenerator();
+				generator.run(
+						context, 
+						new AntLogMarker(this), 
+						new AntDelegateProgressMonitor(this)
+				);
+			}
+
 			if (result != Result.SUCCESS) {
 				if (result == Result.ERROR_FOUND_UNRESOLVED_PROXIES) {
 					for (EObject unresolvedProxy : result.getUnresolvedProxies()) {
@@ -123,7 +142,7 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 		}
 		resetClassLoader(taskloader);
 	}
-
+	
 	private void performPreprocessing(ConcreteSyntax syntax) {
 		if (preprocessor == null) {
 			return;
