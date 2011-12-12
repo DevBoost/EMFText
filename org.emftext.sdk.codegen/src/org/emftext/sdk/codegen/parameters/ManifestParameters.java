@@ -36,6 +36,7 @@ public class ManifestParameters<ContextType extends IContext<ContextType>> exten
 	private Collection<String> requiredBundles = new LinkedHashSet<String>();
 	private Collection<String> exportedPackages = new LinkedHashSet<String>();
 	private Collection<String> importedPackages = new LinkedHashSet<String>();
+	private Collection<String> bundleClasspath = new LinkedHashSet<String>();
 
 	public void setBundleName(String bundleName) {
 		this.bundleName = bundleName;
@@ -71,5 +72,9 @@ public class ManifestParameters<ContextType extends IContext<ContextType>> exten
 
 	public Collection<String> getImportedPackages() {
 		return importedPackages;
+	}
+
+	public Collection<String> getBundleClasspath() {
+		return bundleClasspath;
 	}
 }

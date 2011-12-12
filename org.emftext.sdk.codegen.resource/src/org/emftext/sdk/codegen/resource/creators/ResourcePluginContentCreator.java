@@ -81,6 +81,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		
 		cpp.getSourceFolders().add(sourceFolderName);
 		cpp.getSourceFolders().add(sourceGenFolderName);
+		cpp.getAdditionalLibraries().addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_LIBRARIES));
 	    creators.add(new DotClasspathCreator<GenerationContext>(cpp, doOverride(syntax, TextResourceArtifacts.DOT_CLASSPATH)));
 	    
 	    DotProjectParameters<GenerationContext> dpp = new DotProjectParameters<GenerationContext>(TextResourceArtifacts.DOT_PROJECT, resourcePlugin);
@@ -94,6 +95,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		bpp.getBinIncludes().add("META-INF/");
 		bpp.getBinIncludes().add(".");
 		bpp.getBinIncludes().add("plugin.xml");
+		bpp.getBinIncludes().addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_LIBRARIES));
 		creators.add(new BuildPropertiesCreator<GenerationContext>(bpp, doOverride(syntax, buildProperties)));
 		
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
@@ -163,6 +165,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		exports.addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_EXPORTS));
 		manifestParameters.getRequiredBundles().addAll(getRequiredBundles(context));
 		manifestParameters.getImportedPackages().addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_IMPORTED_PACKAGES));
+		manifestParameters.getBundleClasspath().addAll(OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_LIBRARIES));
 		manifestParameters.setPlugin(resourcePlugin);
 		manifestParameters.setActivatorClass(context.getQualifiedClassName(TextResourceArtifacts.PLUGIN_ACTIVATOR));
 		manifestParameters.setBundleName("EMFText Parser Plugin: " + context.getConcreteSyntax().getName());

@@ -41,6 +41,9 @@ public class DotClasspathGenerator<ContextType extends IContext<ContextType>> ex
 		for (String sourceFolder : getParameters().getSourceFolders()) {
 			sc.add("<classpathentry kind=\"src\" path=\"" + sourceFolder + "\"/>");
 		}
+		for (String libraryPath : getParameters().getAdditionalLibraries()) {
+			sc.add("<classpathentry exported=\"true\" kind=\"lib\" path=\"" + libraryPath + "\"/>");
+		}
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5\"/>");
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.pde.core.requiredPlugins\"/>");
 		sc.add("<classpathentry kind=\"output\" path=\"bin\"/>");

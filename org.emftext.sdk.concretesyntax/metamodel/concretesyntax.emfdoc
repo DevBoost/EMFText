@@ -660,6 +660,8 @@ OptionTypes.ADDITIONAL_IMPORTED_PACKAGES : "A list of comma separated packages, 
 
 OptionTypes.ADDITIONAL_UI_IMPORTED_PACKAGES : "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
 
+OptionTypes.ADDITIONAL_LIBRARIES : "A list of comma separated libraries, which will be added to the manifest file, the .classpath file and the build.properties file of the generated resource plug-in. The default value for this option is an empty list."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

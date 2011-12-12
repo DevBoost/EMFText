@@ -28,6 +28,7 @@ public class ClassPathParameters<ContextType extends IContext<ContextType>>
 	extends AbstractArtifactParameter<ContextType, ClassPathParameters<ContextType>> {
 
 	private Set<String> sourceFolders = new LinkedHashSet<String>();
+	private Set<String> additionalLibraries = new LinkedHashSet<String>();
 	private IPluginDescriptor plugin;
 	
 	public ClassPathParameters(ArtifactDescriptor<ContextType, ClassPathParameters<ContextType>> artifact, IPluginDescriptor plugin) {
@@ -41,5 +42,9 @@ public class ClassPathParameters<ContextType extends IContext<ContextType>>
 
 	public IPluginDescriptor getPlugin() {
 		return plugin;
+	}
+
+	public Set<String> getAdditionalLibraries() {
+		return additionalLibraries;
 	}
 }

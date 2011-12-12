@@ -2336,7 +2336,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITIONAL_UI_IMPORTED_PACKAGES(290, "ADDITIONAL_UI_IMPORTED_PACKAGES", "additionalUIImportedPackages");
+	ADDITIONAL_UI_IMPORTED_PACKAGES(290, "ADDITIONAL_UI_IMPORTED_PACKAGES", "additionalUIImportedPackages"), /**
+	 * The '<em><b>ADDITIONAL LIBRARIES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_LIBRARIES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADDITIONAL_LIBRARIES(291, "ADDITIONAL_LIBRARIES", "additionalLibraries");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7219,6 +7227,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int ADDITIONAL_UI_IMPORTED_PACKAGES_VALUE = 290;
 /**
+	 * The '<em><b>ADDITIONAL LIBRARIES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ADDITIONAL LIBRARIES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ADDITIONAL_LIBRARIES
+	 * @model literal="additionalLibraries"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADDITIONAL_LIBRARIES_VALUE = 291;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7514,6 +7536,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_IDELEGATING_REFERENCE_RESOLVER,
 			ADDITIONAL_IMPORTED_PACKAGES,
 			ADDITIONAL_UI_IMPORTED_PACKAGES,
+			ADDITIONAL_LIBRARIES,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7849,6 +7872,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_IDELEGATING_REFERENCE_RESOLVER_VALUE: return OVERRIDE_IDELEGATING_REFERENCE_RESOLVER;
 			case ADDITIONAL_IMPORTED_PACKAGES_VALUE: return ADDITIONAL_IMPORTED_PACKAGES;
 			case ADDITIONAL_UI_IMPORTED_PACKAGES_VALUE: return ADDITIONAL_UI_IMPORTED_PACKAGES;
+			case ADDITIONAL_LIBRARIES_VALUE: return ADDITIONAL_LIBRARIES;
 		}
 		return null;
 	}

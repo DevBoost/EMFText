@@ -74,6 +74,11 @@ public class ManifestGenerator<ContextType extends IContext<ContextType>> extend
 			sc.add("Import-Package: " + StringUtil.explode(importedPackages, ",\n  "));
 		}
 		
+		Collection<String> bundleClasspath = parameters.getBundleClasspath();
+		if (bundleClasspath.size() > 0) {
+			sc.add("Bundle-ClassPath: " + StringUtil.explode(bundleClasspath, ",\n  "));
+		}
+		
 		return sc.toString();
 	}
 }
