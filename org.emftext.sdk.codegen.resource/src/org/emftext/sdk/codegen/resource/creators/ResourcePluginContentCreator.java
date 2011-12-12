@@ -16,7 +16,6 @@ package org.emftext.sdk.codegen.resource.creators;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
