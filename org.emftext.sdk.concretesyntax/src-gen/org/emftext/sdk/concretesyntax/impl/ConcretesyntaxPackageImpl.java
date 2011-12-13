@@ -4750,6 +4750,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(288), 
+		   source, 
+		   new String[] {
+			 "documentation", "A list of comma separated libraries, which will be added to the manifest file, the .classpath file and the build.properties file of the generated resource plug-in. The default value for this option is an empty list."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {
