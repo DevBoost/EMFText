@@ -19,6 +19,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IJavaProject;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.IFileSystemConnector;
@@ -72,7 +73,19 @@ public class UIGenerationContext extends GenerationContext {
 	}
 
 	private IFile getWorkspaceFile() {
-		return (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(getConcreteSyntax().eResource().getURI().toPlatformString(true));
+		URI resourceURI = getConcreteSyntax().eResource().getURI();
+		if(!resourceURI.isRelative()&&resourceURI.isFile()){
+			IFile[] candidates =  ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(java.net.URI.create(resourceURI.toString()));
+			if(candidates.length==1){
+				return candidates[0];
+			}
+			else{
+				return null;				
+			}
+		}
+		else{
+			return (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(getConcreteSyntax().eResource().getURI().toPlatformString(true));
+		}
 	}
 
 	@Override
