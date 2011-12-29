@@ -1,20 +1,7 @@
-/*******************************************************************************
- * Copyright (c) 2006-2011
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 /*
  * dk.brics.automaton - AutomatonMatcher
  *
- * Copyright (c) 2008 John Gibson
+ * Copyright (c) 2008-2011 John Gibson
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,12 +63,22 @@ public class AutomatonMatcher implements MatchResult {
 	 */
 	public boolean find() {
 		int begin;
-		if (getMatchStart() == -2) {
+		switch(getMatchStart()) {
+			case -2:
 			return false;
-		} else if (getMatchStart() == -1) {
+			case -1:
 			begin = 0;
-		} else {
+				break;
+			default:
 			begin = getMatchEnd();
+				// This occurs when a previous find() call matched the empty string. This can happen when the pattern is a* for example.
+				if(begin == getMatchStart()) {
+					begin += 1;
+					if(begin > getChars().length()) {
+						setMatch(-2, -2);
+						return false;
+					}
+				}
 		}
 
 		int match_start;
@@ -96,26 +93,25 @@ public class AutomatonMatcher implements MatchResult {
 		int l = getChars().length();
 		while (begin < l) {
 			int p = automaton.getInitialState();
-			for (int i = begin; i < l; i += 1) {
+			for (int i = begin; i < l; i++) {
 				final int new_state = automaton.step(p, getChars().charAt(i));
 				if (new_state == -1) {
-					break;
+				    break;
 				} else if (automaton.isAccept(new_state)) {
-					if (match_start == -1) {
-						match_start = begin;
-					}
-					match_end = i;
+				    // found a match from begin to (i+1)
+				    match_start = begin;
+				    match_end=(i+1);
 				}
 				p = new_state;
 			}
 			if (match_start != -1) {
-				setMatch(match_start, match_end + 1);
+				setMatch(match_start, match_end);
 				return true;
 			}
 			begin += 1;
 		}
 		if (match_start != -1) {
-			setMatch(match_start, match_end + 1);
+			setMatch(match_start, match_end);
 			return true;
 		} else {
 			setMatch(-2, -2);
@@ -250,6 +246,21 @@ public class AutomatonMatcher implements MatchResult {
 	public int start(int group) throws IndexOutOfBoundsException, IllegalStateException {
 		onlyZero(group);
 		return start();
+	}
+
+	/**
+	 * Returns the current state of this {@code AutomatonMatcher} as a
+	 * {@code MatchResult}.
+	 * The result is unaffected by subsequent operations on this object.
+	 *
+	 * @return a {@code MatchResult} with the state of this
+	 *  {@code AutomatonMatcher}.
+	 */
+	public MatchResult toMatchResult() {
+		final AutomatonMatcher match = new AutomatonMatcher(chars, automaton);
+		match.matchStart = this.matchStart;
+		match.matchEnd = this.matchEnd;
+		return match;
 	}
 
 	/** Helper method that requires the group argument to be 0. */

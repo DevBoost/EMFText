@@ -1,20 +1,7 @@
-/*******************************************************************************
- * Copyright (c) 2006-2011
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2010 Anders Moeller
+ * Copyright (c) 2001-2011 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -442,19 +429,20 @@ final public class SpecialOperations {
 	public static boolean isFinite(Automaton a) {
 		if (a.isSingleton())
 			return true;
-		return isFinite(a.initial, new HashSet<State>());
+		return isFinite(a.initial, new HashSet<State>(), new HashSet<State>());
 	}
 	
 	/** 
 	 * Checks whether there is a loop containing s. (This is sufficient since 
 	 * there are never transitions to dead states.) 
 	 */
-	private static boolean isFinite(State s, HashSet<State> path) {
+	private static boolean isFinite(State s, HashSet<State> path, HashSet<State> visited) {
 		path.add(s);
 		for (Transition t : s.transitions)
-			if (path.contains(t.to) || !isFinite(t.to, path))
+			if (path.contains(t.to) || (!visited.contains(t.to) && !isFinite(t.to, path, visited)))
 				return false;
 		path.remove(s);
+		visited.add(s);
 		return true;
 	}
 	

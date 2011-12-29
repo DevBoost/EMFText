@@ -1,20 +1,7 @@
-/*******************************************************************************
- * Copyright (c) 2006-2011
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2010 Anders Moeller
+ * Copyright (c) 2001-2011 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -134,6 +121,9 @@ public class Automaton implements Serializable, Cloneable {
 	/** Selects whether operations may modify the input automata (default: <code>false</code>). */
 	static boolean allow_mutation = false;
 	
+	/** Caches the <code>isDebug</code> state. */
+	static Boolean is_debug = null;
+	
 	/** 
 	 * Constructs a new automaton that accepts the empty language.
 	 * Using this constructor, automata can be constructed manually from
@@ -149,7 +139,9 @@ public class Automaton implements Serializable, Cloneable {
 	}
 	
 	boolean isDebug() {
-		return System.getProperty("dk.brics.automaton.debug") != null;
+		if (is_debug == null)
+			is_debug = Boolean.valueOf(System.getProperty("dk.brics.automaton.debug") != null);
+		return is_debug.booleanValue();
 	}
 	
 	/** 
@@ -699,9 +691,7 @@ public class Automaton implements Serializable, Cloneable {
 	public static Automaton load(InputStream stream) throws IOException, OptionalDataException, ClassCastException, 
 	                                                        ClassNotFoundException, InvalidClassException {
 		ObjectInputStream s = new ObjectInputStream(stream);
-		Automaton result = (Automaton)s.readObject();
-		s.close();
-		return result;
+		return (Automaton)s.readObject();
 	}
 	
 	/**
@@ -713,7 +703,6 @@ public class Automaton implements Serializable, Cloneable {
 		ObjectOutputStream s = new ObjectOutputStream(stream);
 		s.writeObject(this);
 		s.flush();
-		s.close();
 	}
 
 	/** 

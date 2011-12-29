@@ -1,20 +1,7 @@
-/*******************************************************************************
- * Copyright (c) 2006-2011
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 /*
  * dk.brics.automaton
  * 
- * Copyright (c) 2001-2010 Anders Moeller
+ * Copyright (c) 2001-2011 Anders Moeller
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -190,9 +177,7 @@ public class RunAutomaton implements Serializable {
 	public static RunAutomaton load(InputStream stream) throws IOException, OptionalDataException, ClassCastException, 
 															   ClassNotFoundException, InvalidClassException {
 		ObjectInputStream s = new ObjectInputStream(stream);
-		RunAutomaton result = (RunAutomaton) s.readObject();
-		s.close();
-		return result;
+		return (RunAutomaton) s.readObject();
 	}
 
 	/**
@@ -204,7 +189,6 @@ public class RunAutomaton implements Serializable {
 		ObjectOutputStream s = new ObjectOutputStream(stream);
 		s.writeObject(this);
 		s.flush();
-		s.close();
 	}
 
 	/**
