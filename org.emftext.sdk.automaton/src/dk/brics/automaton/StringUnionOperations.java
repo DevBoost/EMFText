@@ -99,6 +99,9 @@ final public class StringUnionOperations {
 		 */
 		@Override
 		public boolean equals(Object obj) {
+			if (obj == null) {
+				return false;
+			}
 			final State other = (State) obj;
 			return is_final == other.is_final
 			&& Arrays.equals(this.labels, other.labels)
