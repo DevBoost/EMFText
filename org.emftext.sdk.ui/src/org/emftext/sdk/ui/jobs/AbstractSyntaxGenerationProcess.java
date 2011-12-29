@@ -55,6 +55,10 @@ public abstract class AbstractSyntaxGenerationProcess extends AbstractSyntaxGene
 				csResource = rs.createResource(uri);
 			}
 		}
+		if (csResource == null) {
+			EMFTextSDKPlugin.logError("Can't create or get resource.", null);
+			return;
+		}
 		
 		EObject currentSyntax = null;
 		if (csResource != null && csResource.getContents().size() > 0) {
