@@ -69,15 +69,14 @@ public class OccurrenceCountHelper {
 			if (childCount < 0) {
 				// feature was not found yet
 			} else {
-				if (childCount >= 0) {
-					// feature was found in the subtree
-					if (count < 0) {
-						// but not before
-						count = 0;
-					}
-					if (isMandatory) {
-						count += childCount;
-					}
+				// childCount >= 0
+				// feature was found in the subtree
+				if (count < 0) {
+					// but not before
+					count = 0;
+				}
+				if (isMandatory) {
+					count += childCount;
 				}
 			}
 			if (syntaxElement instanceof Choice) {

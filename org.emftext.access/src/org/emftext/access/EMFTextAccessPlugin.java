@@ -81,53 +81,61 @@ public class EMFTextAccessPlugin extends Plugin {
 	 * @return The map. 
 	 */
 	public static Map<String, URI> getURIToConcreteSyntaxLocationMap() {
-		if (URIToConcreteSyntaxLocationMap == null) {
-			URIToConcreteSyntaxLocationMap = new HashMap<String, URI>();
+		synchronized (EMFTextAccessPlugin.class) {
+			if (URIToConcreteSyntaxLocationMap == null) {
+				URIToConcreteSyntaxLocationMap = new HashMap<String, URI>();
 
-	        List<IMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
-	        for (IMetaInformation syntaxPlugin : syntaxPlugins) {
-	        	String uri       = syntaxPlugin.getURI();
-	            String csName    = syntaxPlugin.getSyntaxName();
-	            String file      = syntaxPlugin.getPathToCSDefinition();
-	            URI fileURI = URI.createPlatformPluginURI("/" + file, true);	            
-	            URIToConcreteSyntaxLocationMap.put(uri + "%%" + csName, fileURI);
-	        }
+		        List<IMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
+		        for (IMetaInformation syntaxPlugin : syntaxPlugins) {
+		        	String uri       = syntaxPlugin.getURI();
+		            String csName    = syntaxPlugin.getSyntaxName();
+		            String file      = syntaxPlugin.getPathToCSDefinition();
+		            URI fileURI = URI.createPlatformPluginURI("/" + file, true);	            
+		            URIToConcreteSyntaxLocationMap.put(uri + "%%" + csName, fileURI);
+		        }
+			}
 		}
 		return URIToConcreteSyntaxLocationMap;
 	}
 	
 	public static List<String> getConcreteSyntaxNamesList() {
-		if (concreteSyntaxNamesList == null) {
-			concreteSyntaxNamesList = new ArrayList<String>();
+		synchronized (EMFTextAccessPlugin.class) {
+			if (concreteSyntaxNamesList == null) {
+				concreteSyntaxNamesList = new ArrayList<String>();
 
-	        List<IMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
-	        for (IMetaInformation syntaxPlugin : syntaxPlugins) {
-	            String csName = syntaxPlugin.getSyntaxName();
-	            concreteSyntaxNamesList.add(csName);
+		        List<IMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
+		        for (IMetaInformation syntaxPlugin : syntaxPlugins) {
+		            String csName = syntaxPlugin.getSyntaxName();
+		            concreteSyntaxNamesList.add(csName);
+				}
 			}
 		}
 		return concreteSyntaxNamesList;
 	}
 	
 	public static List<IMetaInformation> getConcreteSyntaxRegistry() {
-		if (concreteSyntaxRegistry == null) {
-			concreteSyntaxRegistry = new ArrayList<IMetaInformation>();
-			// check for syntax extensions
-			List<Object> extensions = findExtensions(org.emftext.access.EMFTextAccessPlugin.EP_SYNTAX_ID);
-			for (Object metaInformation : extensions) {
-				registerConcreteSyntax(metaInformation);
+		synchronized (EMFTextAccessPlugin.class) {
+			if (concreteSyntaxRegistry == null) {
+				concreteSyntaxRegistry = new ArrayList<IMetaInformation>();
+				// check for syntax extensions
+				List<Object> extensions = findExtensions(org.emftext.access.EMFTextAccessPlugin.EP_SYNTAX_ID);
+				for (Object metaInformation : extensions) {
+					registerConcreteSyntax(metaInformation);
+				}
 			}
 		}
 		return concreteSyntaxRegistry;
 	}
 
 	public static List<IUIMetaInformation> getUIPluginRegistry() {
-		if (uiPluginRegistry == null) {
-			uiPluginRegistry = new ArrayList<IUIMetaInformation>();
-			// check for UI plug-in extensions
-			List<Object> extensions = findExtensions(org.emftext.access.EMFTextAccessPlugin.EP_UI_PLUGIN_ID);
-			for (Object uiMetaInformation : extensions) {
-				registerUIPlugin(uiMetaInformation);
+		synchronized (EMFTextAccessPlugin.class) {
+			if (uiPluginRegistry == null) {
+				uiPluginRegistry = new ArrayList<IUIMetaInformation>();
+				// check for UI plug-in extensions
+				List<Object> extensions = findExtensions(org.emftext.access.EMFTextAccessPlugin.EP_UI_PLUGIN_ID);
+				for (Object uiMetaInformation : extensions) {
+					registerUIPlugin(uiMetaInformation);
+				}
 			}
 		}
 		return uiPluginRegistry;

@@ -72,6 +72,9 @@ public class AutomatonRexpParser extends Parser {
      }
      
      private String removeTicks(String st) {
+    	 if (st == null) {
+			return null;
+		}
      		String test = st;
     		String subString = test.substring(1, test.length()-1);
     		return subString;

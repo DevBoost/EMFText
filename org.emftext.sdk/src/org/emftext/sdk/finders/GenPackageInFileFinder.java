@@ -69,9 +69,10 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 		if (contents != null && contents.size() > 0) {
 			GenModel genModel = (GenModel) contents.get(0);
 			GenPackageResolveResult resolveResult = new GenPackageResolveResult();
-			if (genModel != null) {
-				resolveResult.setLocationHintCorrect();
+			if (genModel == null) {
+				return resolveResult;
 			}
+			resolveResult.setLocationHintCorrect();
 			File ecoreFile = null;
 			File genmodelFile = null;
 			
