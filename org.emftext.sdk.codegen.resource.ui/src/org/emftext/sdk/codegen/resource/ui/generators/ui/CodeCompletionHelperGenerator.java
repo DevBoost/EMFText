@@ -395,7 +395,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		// TODO mseifert: remove parameter 'resource'?
 		// TODO mseifert: all method that are called by this method and that
 		// take a parameter 'expectedTerminal' do not need the parameter 'prefix'
-		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(" + expectedTerminalClassName + " expectedTerminal, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
+		sc.add("private " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(final " + expectedTerminalClassName + " expectedTerminal, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
 		//sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
 		sc.add(iExpectedElementClassName + " expectedElement = (" + iExpectedElementClassName + ") expectedTerminal.getTerminal();");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
@@ -408,65 +408,23 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(expectedEnumerationTerminalClassName + " expectedEnumerationTerminal = (" + expectedEnumerationTerminalClassName + ") expectedElement;");
 		sc.add("return handleEnumerationTerminal(expectedTerminal, expectedEnumerationTerminal, expectedTerminal.getPrefix());");
 		sc.add("} else if (expectedElement instanceof " + expectedStructuralFeatureClassName + ") {");
-		sc.add(expectedStructuralFeatureClassName + " expectedFeature = (" + expectedStructuralFeatureClassName + ") expectedElement;");
-		sc.add(E_STRUCTURAL_FEATURE + " feature = expectedFeature.getFeature();");
-		sc.add(E_CLASSIFIER + " featureType = feature.getEType();");
-		//sc.add(LIST + "<" + E_OBJECT + "> elementsAtCursor = locationMap.getElementsAt(cursorOffset);");
-		sc.add(E_OBJECT + " container = findCorrectContainer(expectedTerminal);");
-		/*
-		sc.addComment("we need to skip the proxy elements at the cursor, because they are not the container for the reference we try to complete");
-		sc.add("for (int i = 0; i < elementsAtCursor.size(); i++) {");
-		sc.add("container = elementsAtCursor.get(i);");
-		sc.add("if (!container.eIsProxy()) {");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("}");
-		
-		sc.addComment(
-			"if no container can be found, the cursor is probably at the " +
-			"end of the document. we need to create artificial containers."
-		);
-		sc.add("if (container == null) {");
-		sc.add("boolean attachedArtificialContainer = false;");
-		sc.add(E_CLASS + " containerClass = expectedTerminal.getTerminal().getRuleMetaclass();");
-		sc.add(containedFeatureClassName + "[] containmentTrace = expectedTerminal.getContainmentTrace();");
-		sc.add(LIST + "<" + E_OBJECT + "> contentList = null;");
-		sc.add("for (" + containedFeatureClassName + " link : containmentTrace) {");
-		sc.add("if (attachedArtificialContainer) {");
-		sc.add("break;");
-		sc.add("}");
-		sc.add(E_CLASS + " neededClass = eStructuralFeature.getEContainingClass();");
-		sc.addComment("fill the content list during the first iteration of the loop");
-		sc.add("if (contentList == null) {");
-		sc.add("contentList = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
-		sc.add(ITERATOR + "<" + E_OBJECT + "> allContents = resource.getAllContents();");
-		sc.add("while (allContents.hasNext()) {");
-		sc.add(E_OBJECT + " next = allContents.next();");
-		sc.add("contentList.add(next);");
-		sc.add("}");
-		sc.add("}");
-		sc.addComment("find object to attach artificial container to");
-		sc.add("for (int i = contentList.size() - 1; i >= 0; i--) {");
-		sc.add(E_OBJECT + " object = contentList.get(i);");
-		sc.add("if (neededClass.isInstance(object)) {");
-		if (INSERT_DEBUG_OUTPUT_CODE) {
-			sc.add("System.out.println(\"Found \" + object);");
-		}
-		sc.add(E_OBJECT + " newContainer = containerClass.getEPackage().getEFactoryInstance().create(containerClass);");
-		sc.add("if (eStructuralFeature.getEType().isInstance(newContainer)) {");
-		sc.add(eObjectUtilClassName + ".setFeature(object, eStructuralFeature, newContainer, false);");
-		if (INSERT_DEBUG_OUTPUT_CODE) {
-			sc.add("System.out.println(\"Attached \" + newContainer);");
-		}
-		sc.add("container = newContainer;");
-		sc.add("attachedArtificialContainer = true;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		*/
+		sc.add("final " + expectedStructuralFeatureClassName + " expectedFeature = (" + expectedStructuralFeatureClassName + ") expectedElement;");
+		sc.add("final " + E_STRUCTURAL_FEATURE + " feature = expectedFeature.getFeature();");
+		sc.add("final " + E_CLASSIFIER + " featureType = feature.getEType();");
+		sc.add("final " + E_OBJECT + " container = findCorrectContainer(expectedTerminal);");
 		sc.addLineBreak();
+		sc.addComment(
+			"Here it gets really crazy. We need to modify the model in a way that reflects a " +
+			"a state the model would be in if the expected terminal were present. After computing the " +
+			"corresponding completion proposals, the original state of the model is restored. " +
+			"This procedure is required, because different models can be required for different " +
+			"completion situations. This can be particularly observed when the use has not yet " +
+			"typed a characted that starts an element to be completed."
+		);
+		sc.add("final " + COLLECTION + "<" + completionProposalClassName + "> proposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">();");
+		sc.add("expectedTerminal.materialize(new Runnable() {");
+		sc.addLineBreak();
+		sc.add("public void run() {");
 		sc.add("if (feature instanceof " + E_REFERENCE + ") {");
 		sc.add(E_REFERENCE + " reference = (" + E_REFERENCE + ") feature;");
 		sc.add("if (featureType instanceof " + E_CLASS + ") {");
@@ -474,26 +432,30 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addComment("the FOLLOW set should contain only non-containment references");
 		sc.add("assert false;");
 		sc.add("} else {");
-		sc.add("return handleNCReference(expectedTerminal, container, reference, expectedTerminal.getPrefix(), expectedFeature.getTokenName());");
+		sc.add("proposals.addAll(handleNCReference(expectedTerminal, container, reference, expectedTerminal.getPrefix(), expectedFeature.getTokenName()));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("} else if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
 		sc.add("if (featureType instanceof " + E_ENUM + ") {");
 		sc.add(E_ENUM + " enumType = (" + E_ENUM + ") featureType;");
-		sc.add("return handleEnumAttribute(expectedTerminal, expectedFeature, enumType, expectedTerminal.getPrefix(), container);");
+		sc.add("proposals.addAll(handleEnumAttribute(expectedTerminal, expectedFeature, enumType, expectedTerminal.getPrefix(), container));");
 		sc.add("} else {");
 		sc.addComment(
 			"handle EAttributes (derive default value depending on " +
 			"the type of the attribute, figure out token resolver, and " + 
 			"call deResolve())"
 		);
-		sc.add("return handleAttribute(expectedTerminal, expectedFeature, container, attribute, expectedTerminal.getPrefix());");
+		sc.add("proposals.addAll(handleAttribute(expectedTerminal, expectedFeature, container, attribute, expectedTerminal.getPrefix()));");
 		sc.add("}");
 		sc.add("} else {");
 		sc.addComment("there should be no other subclass of EStructuralFeature");
 		sc.add("assert false;");
 		sc.add("}");
+		sc.add("}");
+		sc.add("});");
+		sc.addComment("Return the proposals that were computed in the closure call.");
+		sc.add("return proposals;");
 		sc.add("} else {");
 		sc.addComment("there should be no other class implementing IExpectedElement");
 		sc.add("assert false;");

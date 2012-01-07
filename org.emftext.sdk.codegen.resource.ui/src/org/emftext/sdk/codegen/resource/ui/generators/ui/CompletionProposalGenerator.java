@@ -13,9 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CHANGE_DESCRIPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CHANGE_RECORDER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
@@ -26,6 +23,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedTerminalGenerator;
 
 public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -68,36 +66,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addMaterializeMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"This method creates a model that reflects the state that " +
-			"would be obtained if this proposal was accepted. This model can " +
-			"differ from the current model, because different proposals can " +
-			"result in different models. The code that is passed as argument " +
-			"is executed once the (changed) model was created. After executing " +
-			"the given code, all changes are reverted."
-		);
+		sc.addJavadoc(ExpectedTerminalGenerator.JAVADOC_MATERIALIZE_METHOD);
 		sc.add("public void materialize(Runnable code) {");
-		sc.add("if (root == null) {");
-		sc.add("code.run();");
-		sc.add("return;");
-		sc.add("}");
-		sc.add(CHANGE_RECORDER + " recorder = new " + CHANGE_RECORDER + "();");
-		sc.add("recorder.beginRecording(" + COLLECTIONS + ".singleton(root));");
-		sc.addLineBreak();
-		sc.addComment("attach proposal model fragment to main model");
-		sc.add("Runnable attachmentCode = expectedTerminal.getAttachmentCode();");
-		sc.add("if (attachmentCode != null) {");
-		sc.addComment("Applying attachment code");
-		sc.add("attachmentCode.run();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add(CHANGE_DESCRIPTION + " changes = recorder.endRecording();");
-		//sc.add("changes.applyAndReverse();");
-		sc.add("code.run();");
-		sc.addComment("revert changes");
-		//sc.add("System.out.println("materialize() Reverting changes");");
-		sc.add("changes.apply();");
-		//sc.add("System.out.println("materialize() Reverting changes (end)");");
+		sc.add("expectedTerminal.materialize(code);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

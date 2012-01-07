@@ -17,10 +17,19 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+
+	public static final String JAVADOC_MATERIALIZE_METHOD = 
+			"This method creates a model that reflects the state that " +
+			"would be obtained if this proposal was accepted. This model can " +
+			"differ from the current model, because different proposals can " +
+			"result in different models. The code that is passed as argument " +
+			"is executed once the (changed) model was created. After executing " +
+			"the given code, all changes are reverted.";
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -67,6 +76,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		addSetPrefixMethod(sc);
 		addGetContainmentTraceMethod(sc);
 		addGetContainerMethod(sc);
+		addMaterializeMethod(sc);
 	}
 
 	private void addSetPrefixMethod(StringComposite sc) {
@@ -175,6 +185,32 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("private int startExcludingHiddenTokens;");
 		sc.add("private String prefix;");
 		sc.add("private " + containedFeatureClassName + "[] containmentTrace;");
+		sc.addLineBreak();
+	}
+
+	private void addMaterializeMethod(JavaComposite sc) {
+		sc.addJavadoc(JAVADOC_MATERIALIZE_METHOD);
+		sc.add("public void materialize(Runnable code) {");
+		sc.add(E_OBJECT + " root = " + ECORE_UTIL + ".getRootContainer(getContainer());");
+		sc.add("if (root == null) {");
+		sc.add("code.run();");
+		sc.add("return;");
+		sc.add("}");
+		sc.add(CHANGE_RECORDER + " recorder = new " + CHANGE_RECORDER + "();");
+		sc.add("recorder.beginRecording(" + COLLECTIONS + ".singleton(root));");
+		sc.addLineBreak();
+		sc.addComment("attach proposal model fragment to main model");
+		sc.add("Runnable attachmentCode = getAttachmentCode();");
+		sc.add("if (attachmentCode != null) {");
+		sc.addComment("Applying attachment code");
+		sc.add("attachmentCode.run();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add(CHANGE_DESCRIPTION + " changes = recorder.endRecording();");
+		sc.add("code.run();");
+		sc.addComment("revert changes");
+		sc.add("changes.apply();");
+		sc.add("}");
 		sc.addLineBreak();
 	}
 }
