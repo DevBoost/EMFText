@@ -106,4 +106,33 @@ public class CsExpectedTerminal {
 		return container;
 	}
 	
+	/**
+	 * This method creates a model that reflects the state that would be obtained if
+	 * this proposal was accepted. This model can differ from the current model,
+	 * because different proposals can result in different models. The code that is
+	 * passed as argument is executed once the (changed) model was created. After
+	 * executing the given code, all changes are reverted.
+	 */
+	public void materialize(Runnable code) {
+		org.eclipse.emf.ecore.EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(getContainer());
+		if (root == null) {
+			code.run();
+			return;
+		}
+		org.eclipse.emf.ecore.change.util.ChangeRecorder recorder = new org.eclipse.emf.ecore.change.util.ChangeRecorder();
+		recorder.beginRecording(java.util.Collections.singleton(root));
+		
+		// attach proposal model fragment to main model
+		Runnable attachmentCode = getAttachmentCode();
+		if (attachmentCode != null) {
+			// Applying attachment code
+			attachmentCode.run();
+		}
+		
+		org.eclipse.emf.ecore.change.ChangeDescription changes = recorder.endRecording();
+		code.run();
+		// revert changes
+		changes.apply();
+	}
+	
 }

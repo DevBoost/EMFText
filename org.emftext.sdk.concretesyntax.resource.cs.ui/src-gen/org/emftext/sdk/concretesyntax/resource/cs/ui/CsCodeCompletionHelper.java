@@ -221,7 +221,7 @@ public class CsCodeCompletionHelper {
 		return resultSet;
 	}
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> deriveProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String content, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, int cursorOffset) {
+	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> deriveProposals(final org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String content, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, int cursorOffset) {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement = (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement) expectedTerminal.getTerminal();
 		if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) expectedElement;
@@ -233,35 +233,50 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedEnumerationTerminal expectedEnumerationTerminal = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedEnumerationTerminal) expectedElement;
 			return handleEnumerationTerminal(expectedTerminal, expectedEnumerationTerminal, expectedTerminal.getPrefix());
 		} else if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) expectedElement;
-			org.eclipse.emf.ecore.EStructuralFeature feature = expectedFeature.getFeature();
-			org.eclipse.emf.ecore.EClassifier featureType = feature.getEType();
-			org.eclipse.emf.ecore.EObject container = findCorrectContainer(expectedTerminal);
+			final org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature expectedFeature = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature) expectedElement;
+			final org.eclipse.emf.ecore.EStructuralFeature feature = expectedFeature.getFeature();
+			final org.eclipse.emf.ecore.EClassifier featureType = feature.getEType();
+			final org.eclipse.emf.ecore.EObject container = findCorrectContainer(expectedTerminal);
 			
-			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
-				if (featureType instanceof org.eclipse.emf.ecore.EClass) {
-					if (reference.isContainment()) {
-						// the FOLLOW set should contain only non-containment references
-						assert false;
+			// Here it gets really crazy. We need to modify the model in a way that reflects a
+			// a state the model would be in if the expected terminal were present. After
+			// computing the corresponding completion proposals, the original state of the
+			// model is restored. This procedure is required, because different models can be
+			// required for different completion situations. This can be particularly observed
+			// when the use has not yet typed a characted that starts an element to be
+			// completed.
+			final java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> proposals = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
+			expectedTerminal.materialize(new Runnable() {
+				
+				public void run() {
+					if (feature instanceof org.eclipse.emf.ecore.EReference) {
+						org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
+						if (featureType instanceof org.eclipse.emf.ecore.EClass) {
+							if (reference.isContainment()) {
+								// the FOLLOW set should contain only non-containment references
+								assert false;
+							} else {
+								proposals.addAll(handleNCReference(expectedTerminal, container, reference, expectedTerminal.getPrefix(), expectedFeature.getTokenName()));
+							}
+						}
+					} else if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
+						org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
+						if (featureType instanceof org.eclipse.emf.ecore.EEnum) {
+							org.eclipse.emf.ecore.EEnum enumType = (org.eclipse.emf.ecore.EEnum) featureType;
+							proposals.addAll(handleEnumAttribute(expectedTerminal, expectedFeature, enumType, expectedTerminal.getPrefix(), container));
+						} else {
+							// handle EAttributes (derive default value depending on the type of the
+							// attribute, figure out token resolver, and call deResolve())
+							proposals.addAll(handleAttribute(expectedTerminal, expectedFeature, container, attribute, expectedTerminal.getPrefix()));
+						}
 					} else {
-						return handleNCReference(expectedTerminal, container, reference, expectedTerminal.getPrefix(), expectedFeature.getTokenName());
+						// there should be no other subclass of EStructuralFeature
+						assert false;
 					}
 				}
-			} else if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
-				org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
-				if (featureType instanceof org.eclipse.emf.ecore.EEnum) {
-					org.eclipse.emf.ecore.EEnum enumType = (org.eclipse.emf.ecore.EEnum) featureType;
-					return handleEnumAttribute(expectedTerminal, expectedFeature, enumType, expectedTerminal.getPrefix(), container);
-				} else {
-					// handle EAttributes (derive default value depending on the type of the
-					// attribute, figure out token resolver, and call deResolve())
-					return handleAttribute(expectedTerminal, expectedFeature, container, attribute, expectedTerminal.getPrefix());
-				}
-			} else {
-				// there should be no other subclass of EStructuralFeature
-				assert false;
-			}
+			});
+			// Return the proposals that were computed in the closure call.
+			return proposals;
 		} else {
 			// there should be no other class implementing IExpectedElement
 			assert false;

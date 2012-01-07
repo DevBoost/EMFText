@@ -184,24 +184,7 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	 * executing the given code, all changes are reverted.
 	 */
 	public void materialize(Runnable code) {
-		if (root == null) {
-			code.run();
-			return;
-		}
-		org.eclipse.emf.ecore.change.util.ChangeRecorder recorder = new org.eclipse.emf.ecore.change.util.ChangeRecorder();
-		recorder.beginRecording(java.util.Collections.singleton(root));
-		
-		// attach proposal model fragment to main model
-		Runnable attachmentCode = expectedTerminal.getAttachmentCode();
-		if (attachmentCode != null) {
-			// Applying attachment code
-			attachmentCode.run();
-		}
-		
-		org.eclipse.emf.ecore.change.ChangeDescription changes = recorder.endRecording();
-		code.run();
-		// revert changes
-		changes.apply();
+		expectedTerminal.materialize(code);
 	}
 	
 }
