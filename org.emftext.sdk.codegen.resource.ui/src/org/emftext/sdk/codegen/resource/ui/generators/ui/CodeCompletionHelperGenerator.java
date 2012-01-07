@@ -414,8 +414,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("final " + E_OBJECT + " container = findCorrectContainer(expectedTerminal);");
 		sc.addLineBreak();
 		sc.addComment(
-			"Here it gets really crazy. We need to modify the model in a way that reflects a " +
-			"a state the model would be in if the expected terminal were present. After computing the " +
+			"Here it gets really crazy. We need to modify the model in a way that reflects the " +
+			"state the model would be in if the expected terminal were present. After computing the " +
 			"corresponding completion proposals, the original state of the model is restored. " +
 			"This procedure is required, because different models can be required for different " +
 			"completion situations. This can be particularly observed when the use has not yet " +
