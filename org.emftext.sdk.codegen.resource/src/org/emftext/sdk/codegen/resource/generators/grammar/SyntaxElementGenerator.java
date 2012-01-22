@@ -73,7 +73,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator<ArtifactParameter<
 				"Returns the parent of this syntax element. This parent " +
 				"is determined by the containment hierarchy in the CS model."
 		);
-		sc.add("public CsSyntaxElement getParent() {");
+		sc.add("public " + syntaxElementClassName + " getParent() {");
 		sc.add("return parent;");
 		sc.add("}");
 		sc.addLineBreak();
