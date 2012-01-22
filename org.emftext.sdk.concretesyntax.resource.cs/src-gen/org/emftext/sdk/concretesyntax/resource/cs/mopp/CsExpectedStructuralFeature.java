@@ -31,6 +31,13 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 		return placeholder.getFeature();
 	}
 	
+	/**
+	 * Returns the expected placeholder.
+	 */
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement() {
+		return placeholder;
+	}
+	
 	public String getTokenName() {
 		return placeholder.getTokenName();
 	}

@@ -163,16 +163,22 @@ public class CsCodeCompletionHelper {
 		for (int i = 0; i < expectedElements.size() - 1;) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtIndex = expectedElements.get(i);
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtNext = expectedElements.get(i + 1);
-			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() && shouldRemove(elementAtIndex.getFollowSetID(), elementAtNext.getFollowSetID())) {
+			
+			// If the two expected elements have a different parent in the syntax definition,
+			// we must not discard the second element, because is probably stems from a parent
+			// rule.
+			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement symtaxElementOfThis = elementAtIndex.getTerminal().getSymtaxElement();
+			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement symtaxElementOfNext = elementAtNext.getTerminal().getSymtaxElement();
+			boolean differentParent = symtaxElementOfNext.getParent() != symtaxElementOfThis.getParent();
+			
+			boolean sameStartExcludingHiddenTokens = elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens();
+			boolean differentFollowSet = elementAtIndex.getFollowSetID() != elementAtNext.getFollowSetID();
+			if (sameStartExcludingHiddenTokens && differentFollowSet && !differentParent) {
 				expectedElements.remove(i + 1);
 			} else {
 				i++;
 			}
 		}
-	}
-	
-	private boolean shouldRemove(int followSetID1, int followSetID2) {
-		return followSetID1 != followSetID2;
 	}
 	
 	/**
@@ -238,8 +244,8 @@ public class CsCodeCompletionHelper {
 			final org.eclipse.emf.ecore.EClassifier featureType = feature.getEType();
 			final org.eclipse.emf.ecore.EObject container = findCorrectContainer(expectedTerminal);
 			
-			// Here it gets really crazy. We need to modify the model in a way that reflects a
-			// a state the model would be in if the expected terminal were present. After
+			// Here it gets really crazy. We need to modify the model in a way that reflects
+			// the state the model would be in if the expected terminal were present. After
 			// computing the corresponding completion proposals, the original state of the
 			// model is restored. This procedure is required, because different models can be
 			// required for different completion situations. This can be particularly observed

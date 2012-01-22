@@ -31,6 +31,13 @@ public class CsExpectedBooleanTerminal extends org.emftext.sdk.concretesyntax.re
 		return booleanTerminal;
 	}
 	
+	/**
+	 * Returns the expected boolean terminal.
+	 */
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement() {
+		return booleanTerminal;
+	}
+	
 	private org.eclipse.emf.ecore.EStructuralFeature getFeature() {
 		return booleanTerminal.getFeature();
 	}

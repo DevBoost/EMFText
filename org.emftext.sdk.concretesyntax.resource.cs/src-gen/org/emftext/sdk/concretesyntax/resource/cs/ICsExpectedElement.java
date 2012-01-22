@@ -30,6 +30,11 @@ public interface ICsExpectedElement {
 	public org.eclipse.emf.ecore.EClass getRuleMetaclass();
 	
 	/**
+	 * Returns the syntax element that is expected.
+	 */
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement();
+	
+	/**
 	 * Adds an element that is a valid follower for this element.
 	 */
 	public void addFollower(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement follower, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] path);

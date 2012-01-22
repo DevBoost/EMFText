@@ -31,6 +31,13 @@ public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.
 		return keyword.getValue();
 	}
 	
+	/**
+	 * Returns the expected keyword.
+	 */
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement() {
+		return keyword;
+	}
+	
 	public java.util.Set<String> getTokenNames() {
 		return java.util.Collections.singleton("'" + getValue() + "'");
 	}
