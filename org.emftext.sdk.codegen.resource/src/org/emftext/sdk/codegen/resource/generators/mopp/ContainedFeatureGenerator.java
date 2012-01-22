@@ -18,7 +18,7 @@ public class ContainedFeatureGenerator extends JavaBaseGenerator<ArtifactParamet
 			"A ContainedFeature represents a specific path to a metaclass " +
 			"by navigating a structural feature. " +
 			"ContainedFeatures are used during code completion to reconstruct " +
-			"containment trees that are not create by the parser, for example, " +
+			"containment trees that are not created by the parser, for example, " +
 			"if the first character of the contained object has not been typed " +
 			"yet."
 		);
