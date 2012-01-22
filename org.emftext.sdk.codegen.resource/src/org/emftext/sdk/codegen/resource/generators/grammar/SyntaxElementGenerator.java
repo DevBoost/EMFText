@@ -80,7 +80,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator<ArtifactParameter<
 	}
 
 	private void addSetParentMethod(JavaComposite sc) {
-		sc.addJavadoc("Set the parent of this syntax element. This method must be invoked at most once.");
+		sc.addJavadoc("Sets the parent of this syntax element. This method must be invoked at most once.");
 		sc.add("public void setParent(" + getResourceClassName() + " parent) {");
 		sc.add("assert this.parent == null;");
 		sc.add("this.parent = parent;");
