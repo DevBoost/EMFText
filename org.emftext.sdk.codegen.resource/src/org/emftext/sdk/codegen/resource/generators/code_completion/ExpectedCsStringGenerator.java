@@ -52,8 +52,9 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 	
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetValueMethod(sc);
+		addGetSyntaxElementMethod(sc);
 		addGetTokenNameMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
@@ -79,6 +80,14 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addGetValueMethod(StringComposite sc) {
 		sc.add("public String getValue() {");
 		sc.add("return keyword.getValue();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetSyntaxElementMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the expected keyword.");
+		sc.add("public " + syntaxElementClassName +" getSymtaxElement() {");
+		sc.add("return keyword;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

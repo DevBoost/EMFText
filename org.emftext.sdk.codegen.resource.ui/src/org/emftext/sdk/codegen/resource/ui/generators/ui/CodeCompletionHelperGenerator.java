@@ -86,7 +86,6 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		addRemoveDuplicateEntriesMethod(sc);
 		addRemoveDuplicateEntriesFromBucketMethod(sc);
 		addRemoveInvalidEntriesAtEndMethod(sc);
-		addShouldRemoveMethod(sc);
 		addRemoveKeywordsEndingBeforeIndexMethod(sc);
 		addFindPrefixMethod(sc);
 		addDeriveProposalsMethod1(sc);
@@ -501,12 +500,23 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addRemoveInvalidEntriesAtEndMethod(StringComposite sc) {
+	private void addRemoveInvalidEntriesAtEndMethod(JavaComposite sc) {
 		sc.add("private void removeInvalidEntriesAtEnd(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("for (int i = 0; i < expectedElements.size() - 1;) {");
 		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
 		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(i + 1);");
-		sc.add("if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() && shouldRemove(elementAtIndex.getFollowSetID(), elementAtNext.getFollowSetID())) {");
+		sc.addLineBreak();
+		sc.addComment(
+				"If the two expected elements have a different parent in the syntax definition, " +
+				"we must not discard the second element, because is probably stems from a parent rule."
+		);
+		sc.add(syntaxElementClassName + " symtaxElementOfThis = elementAtIndex.getTerminal().getSymtaxElement();");
+		sc.add(syntaxElementClassName + " symtaxElementOfNext = elementAtNext.getTerminal().getSymtaxElement();");
+		sc.add("boolean differentParent = symtaxElementOfNext.getParent() != symtaxElementOfThis.getParent();");
+		sc.addLineBreak();
+		sc.add("boolean sameStartExcludingHiddenTokens = elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens();");
+		sc.add("boolean differentFollowSet = elementAtIndex.getFollowSetID() != elementAtNext.getFollowSetID();");
+		sc.add("if (sameStartExcludingHiddenTokens && differentFollowSet && !differentParent) {");
 		sc.add("expectedElements.remove(i + 1);");
 		sc.add("} else {");
 		sc.add("i++;");
@@ -583,13 +593,6 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("expectedElements.addAll(list);");
 		sc.add("}");
 
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addShouldRemoveMethod(StringComposite sc) {
-		sc.add("private boolean shouldRemove(int followSetID1, int followSetID2) {");
-		sc.add("return followSetID1 != followSetID2;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

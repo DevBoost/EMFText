@@ -42,6 +42,10 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("public " + E_CLASS +" getRuleMetaclass();");
 		sc.addLineBreak();
 		
+		sc.addJavadoc("Returns the syntax element that is expected.");
+		sc.add("public " + syntaxElementClassName +" getSymtaxElement();");
+		sc.addLineBreak();
+		
 		sc.addJavadoc("Adds an element that is a valid follower for this element.");
 		sc.add("public void addFollower(" + iExpectedElementClassName + " follower, " + containedFeatureClassName + "[] path);");
 		sc.addLineBreak();

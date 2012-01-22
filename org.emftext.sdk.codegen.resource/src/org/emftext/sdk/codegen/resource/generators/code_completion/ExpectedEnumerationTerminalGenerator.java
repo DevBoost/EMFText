@@ -55,12 +55,21 @@ public class ExpectedEnumerationTerminalGenerator extends JavaBaseGenerator<Arti
 	private void addMethods(JavaComposite sc) {
 		addGetTokenNamesMethod(sc);
 		addGetEnumerationTerminalMethod(sc);
+		addGetSyntaxElementMethod(sc);
 		addToStringMethod(sc);
 	}
 	
 	private void addGetEnumerationTerminalMethod(JavaComposite sc) {
 		sc.add("public " + enumerationTerminalClassName + " getEnumerationTerminal() {");
 		sc.add("return this.enumerationTerminal;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetSyntaxElementMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the expected enumeration terminal.");
+		sc.add("public " + syntaxElementClassName +" getSymtaxElement() {");
+		sc.add("return enumerationTerminal;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

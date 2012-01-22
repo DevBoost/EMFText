@@ -60,14 +60,27 @@ public class SyntaxElementGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addSetParentMethod(sc);
+		addGetParentMethod(sc);
 		addGetChildrenMethod(sc);
 		addGetMetaClassMethod(sc);
 		addGetCardinalityMethod(sc);
 	}
 
-	private void addSetParentMethod(StringComposite sc) {
+	private void addGetParentMethod(JavaComposite sc) {
+		sc.addJavadoc(
+				"Returns the parent of this syntax element. This parent " +
+				"is determined by the containment hierarchy in the CS model."
+		);
+		sc.add("public CsSyntaxElement getParent() {");
+		sc.add("return parent;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetParentMethod(JavaComposite sc) {
+		sc.addJavadoc("Set the parent of this syntax element. This method must be invoked at most once.");
 		sc.add("public void setParent(" + getResourceClassName() + " parent) {");
 		sc.add("assert this.parent == null;");
 		sc.add("this.parent = parent;");

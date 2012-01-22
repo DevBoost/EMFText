@@ -52,8 +52,9 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 		sc.addLineBreak();
 	}
 	
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetFeatureMethod(sc);
+		addGetSyntaxElementMethod(sc);
 		addGetTokenNameMethod(sc);
 		addGetTokenNamesMethod(sc);
 		addToStringMethod(sc);
@@ -93,6 +94,14 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 	private void addGetFeatureMethod(StringComposite sc) {
 		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
 		sc.add("return placeholder.getFeature();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetSyntaxElementMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the expected placeholder.");
+		sc.add("public " + syntaxElementClassName +" getSymtaxElement() {");
+		sc.add("return placeholder;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

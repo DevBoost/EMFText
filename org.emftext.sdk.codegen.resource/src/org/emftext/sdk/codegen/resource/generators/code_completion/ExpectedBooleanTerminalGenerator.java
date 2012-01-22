@@ -54,6 +54,7 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 	
 	private void addMethods(JavaComposite sc) {
 		addGetBooleanTerminalMethod(sc);
+		addGetSyntaxElementMethod(sc);
 		addGetFeatureMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
@@ -86,6 +87,14 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 
 	private void addGetBooleanTerminalMethod(StringComposite sc) {
 		sc.add("public " + booleanTerminalClassName + " getBooleanTerminal() {");
+		sc.add("return booleanTerminal;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetSyntaxElementMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the expected boolean terminal.");
+		sc.add("public " + syntaxElementClassName +" getSymtaxElement() {");
 		sc.add("return booleanTerminal;");
 		sc.add("}");
 		sc.addLineBreak();
