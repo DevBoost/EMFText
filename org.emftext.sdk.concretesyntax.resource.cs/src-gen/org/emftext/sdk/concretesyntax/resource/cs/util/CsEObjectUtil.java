@@ -91,10 +91,10 @@ public class CsEObjectUtil {
 	}
 	
 	/**
-	 * Returns the depth of the given element in the containment tree
+	 * Returns the depth of the given element in the containment tree.
 	 */
-	public static int getDepth(org.eclipse.emf.ecore.EObject current) {
-		org.eclipse.emf.ecore.EObject parent = current.eContainer();
+	public static int getDepth(org.eclipse.emf.ecore.EObject element) {
+		org.eclipse.emf.ecore.EObject parent = element.eContainer();
 		if (parent == null) {
 			return 0;
 		} else {
