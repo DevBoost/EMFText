@@ -376,7 +376,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return correctContainer;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(E_OBJECT + "  hookableParent = findHookParent(container, currentLink, parent);");
+		sc.add(E_OBJECT + " hookableParent = findHookParent(container, currentLink, parent);");
 		sc.add("if (hookableParent != null) {");
 		sc.addComment("we found the correct parent");
 		//assert hookableParent.eClass().getEAllStructuralFeatures().contains(currentLink.getFeature());
