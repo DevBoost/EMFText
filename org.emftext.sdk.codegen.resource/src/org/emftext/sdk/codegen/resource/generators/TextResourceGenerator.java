@@ -167,7 +167,7 @@ public class TextResourceGenerator extends
 		sc.add("try {");
 		sc.add("return file.getCharset();");
 		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-		sc.add(pluginActivatorClassName + ".logWarning(\"Could not determine encoding of platform resource: \" + uri.toString(), ce);");
+		sc.add("new " + runtimeUtilClassName + "().logWarning(\"Could not determine encoding of platform resource: \" + uri.toString(), ce);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
