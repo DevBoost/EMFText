@@ -384,6 +384,7 @@ public class ExpectationComputer {
 				for (Expectation expectation : firstSetOfSubRule) {
 					ContainmentLink link = new ContainmentLink(metaclass, containment.getFeature());
 					expectation.getContainmentTrace().add(link);
+					expectation.setMetaClass(rule.getMetaclass());
 				}
 				firstSet.addAll(firstSetOfSubRule);
 			}

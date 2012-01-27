@@ -144,7 +144,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetContainmentTraceMethod(StringComposite sc) {
-		sc.add("public " + containedFeatureClassName + "[] getContainmentTrace() {");
+		sc.add("public " + containmentTraceClassName + " getContainmentTrace() {");
 		sc.add("return containmentTrace;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -165,7 +165,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_OBJECT + " container, " + iExpectedElementClassName + " terminal, int followSetID, " + containedFeatureClassName + "... containmentTrace) {");
+		sc.add("public " + getResourceClassName() + "(" + E_OBJECT + " container, " + iExpectedElementClassName + " terminal, int followSetID, " + containmentTraceClassName + " containmentTrace) {");
 		sc.add("super();");
 		sc.add("this.container = container;");
 		sc.add("this.terminal = terminal;");
@@ -184,7 +184,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("private int startIncludingHiddenTokens;");
 		sc.add("private int startExcludingHiddenTokens;");
 		sc.add("private String prefix;");
-		sc.add("private " + containedFeatureClassName + "[] containmentTrace;");
+		sc.add("private " + containmentTraceClassName + " containmentTrace;");
 		sc.addLineBreak();
 	}
 

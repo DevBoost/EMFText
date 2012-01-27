@@ -219,6 +219,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.ENUMERATION_TERMINAL);
 	    add(creators, TextResourceArtifacts.CHOICE);
 	    add(creators, TextResourceArtifacts.CONTAINMENT);
+	    add(creators, TextResourceArtifacts.CONTAINMENT_TRACE);
 	    add(creators, TextResourceArtifacts.COMPOUND);
 	    add(creators, TextResourceArtifacts.SEQUENCE);
 	    add(creators, TextResourceArtifacts.LINE_BREAK);

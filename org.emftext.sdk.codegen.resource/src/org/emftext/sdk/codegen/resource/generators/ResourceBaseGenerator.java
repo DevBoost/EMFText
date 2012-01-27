@@ -51,6 +51,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String compoundClassName;
 	protected String containedFeatureClassName;
 	protected String containmentClassName;
+	protected String containmentTraceClassName;
 	protected String contextDependentUriFragmentClassName;
 	protected String contextDependentUriFragmentFactoryClassName;
 	protected String copiedEListClassName;
@@ -228,6 +229,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		compoundClassName = context.getQualifiedClassName(TextResourceArtifacts.COMPOUND);
 		containedFeatureClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTAINED_FEATURE);
 		containmentClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTAINMENT);
+		containmentTraceClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTAINMENT_TRACE);
 		contextDependentUriFragmentClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT);
 		contextDependentUriFragmentFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 		copiedEListClassName = context.getQualifiedClassName(TextResourceArtifacts.COPIED_E_LIST);

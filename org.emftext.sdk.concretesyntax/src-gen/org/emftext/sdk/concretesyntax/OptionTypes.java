@@ -2344,7 +2344,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITIONAL_LIBRARIES(291, "ADDITIONAL_LIBRARIES", "additionalLibraries");
+	ADDITIONAL_LIBRARIES(291, "ADDITIONAL_LIBRARIES", "additionalLibraries"), /**
+	 * The '<em><b>OVERRIDE CONTAINMENT TRACE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTAINMENT_TRACE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CONTAINMENT_TRACE(292, "OVERRIDE_CONTAINMENT_TRACE", "overrideContainmentTrace");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7244,6 +7252,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int ADDITIONAL_LIBRARIES_VALUE = 291;
 /**
+	 * The '<em><b>OVERRIDE CONTAINMENT TRACE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CONTAINMENT TRACE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTAINMENT_TRACE
+	 * @model literal="overrideContainmentTrace"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CONTAINMENT_TRACE_VALUE = 292;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7540,6 +7562,7 @@ public enum OptionTypes implements Enumerator {
 			ADDITIONAL_IMPORTED_PACKAGES,
 			ADDITIONAL_UI_IMPORTED_PACKAGES,
 			ADDITIONAL_LIBRARIES,
+			OVERRIDE_CONTAINMENT_TRACE,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7876,6 +7899,7 @@ public enum OptionTypes implements Enumerator {
 			case ADDITIONAL_IMPORTED_PACKAGES_VALUE: return ADDITIONAL_IMPORTED_PACKAGES;
 			case ADDITIONAL_UI_IMPORTED_PACKAGES_VALUE: return ADDITIONAL_UI_IMPORTED_PACKAGES;
 			case ADDITIONAL_LIBRARIES_VALUE: return ADDITIONAL_LIBRARIES;
+			case OVERRIDE_CONTAINMENT_TRACE_VALUE: return OVERRIDE_CONTAINMENT_TRACE;
 		}
 		return null;
 	}

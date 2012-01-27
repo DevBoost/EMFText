@@ -166,6 +166,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.BuilderAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.BuilderGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ChangeReferenceQuickFixGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ContainedFeatureGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.ContainmentTraceGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.DynamicTokenStylerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ExpectationsConstantsGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationAdapterGenerator;
@@ -344,6 +345,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CHOICE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "Choice", ChoiceGenerator.class, OptionTypes.OVERRIDE_CHOICE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPOUND = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "Compound", CompoundGenerator.class, OptionTypes.OVERRIDE_COMPOUND);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTAINMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "Containment", ContainmentGenerator.class, OptionTypes.OVERRIDE_CONTAINMENT);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTAINMENT_TRACE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "ContainmentTrace", ContainmentTraceGenerator.class, OptionTypes.OVERRIDE_CONTAINMENT_TRACE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LINE_BREAK = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "LineBreak", LineBreakGenerator.class, OptionTypes.OVERRIDE_LINE_BREAK);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SEQUENCE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "Sequence", SequenceGenerator.class, OptionTypes.OVERRIDE_SEQUENCE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> WHITE_SPACE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "WhiteSpace", WhiteSpaceGenerator.class, OptionTypes.OVERRIDE_WHITE_SPACE);

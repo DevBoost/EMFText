@@ -340,20 +340,22 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addComment("the container is wrong");
 		sc.add(E_OBJECT + " parent = null;");
 		sc.add(E_OBJECT + " previousParent = null;");
-		sc.add(E_OBJECT + " correctContainer = container;");
+		sc.add(E_OBJECT + " correctContainer = null;");
+		sc.add(E_OBJECT + " hookableParent = null;");
+		sc.add(containmentTraceClassName + " containmentTrace = expectedTerminal.getContainmentTrace();");
+		sc.add(E_CLASS + " startClass = containmentTrace.getStartClass();");
 		sc.add(containedFeatureClassName + " currentLink = null;");
 		sc.add(containedFeatureClassName + " previousLink = null;");
-		sc.add(containedFeatureClassName + "[] containmentTrace = expectedTerminal.getContainmentTrace();");
-		sc.add("for (int i = 0; i < containmentTrace.length; i++) {");
-		sc.add("currentLink = containmentTrace[i];");
+		sc.add(containedFeatureClassName + "[] containedFeatures = containmentTrace.getPath();");
+		sc.add("for (int i = 0; i < containedFeatures.length; i++) {");
+		sc.add("currentLink = containedFeatures[i];");
 		sc.add("if (i > 0) {");
-		sc.add("previousLink = containmentTrace[i - 1];");
+		sc.add("previousLink = containedFeatures[i - 1];");
 		sc.add("}");
 		sc.add(E_CLASS + " containerClass = currentLink.getContainerClass();");
-		sc.add(E_OBJECT + " hookableParent = findHookParent(container, currentLink, parent);");
+		sc.add("hookableParent = findHookParent(container, startClass, currentLink, parent);");
 		sc.add("if (hookableParent != null) {");
 		sc.addComment("we found the correct parent");
-		sc.add("correctContainer = hookableParent;");
 		sc.add("break;");
 		sc.add("} else {");
 		sc.add("previousParent = parent;");
@@ -372,26 +374,25 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		*/
 		sc.addLineBreak();
+		sc.add("if (correctContainer == null) {");
+		sc.add("correctContainer = container;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("if (currentLink == null) {");
 		sc.add("return correctContainer;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(E_OBJECT + " hookableParent = findHookParent(container, currentLink, parent);");
-		sc.add("if (hookableParent != null) {");
-		sc.addComment("we found the correct parent");
-		//assert hookableParent.eClass().getEAllStructuralFeatures().contains(currentLink.getFeature());
-		sc.add("correctContainer = hookableParent;");
-		sc.add("}");
+		sc.add("hookableParent = findHookParent(container, startClass, currentLink, parent);");
 		sc.addLineBreak();
 
-		sc.add("final " + E_OBJECT + " finalContainer = correctContainer;");
+		sc.add("final " + E_OBJECT + " finalHookableParent = hookableParent;");
 		sc.add("final " + E_STRUCTURAL_FEATURE + " finalFeature = currentLink.getFeature();");
 		sc.add("final " + E_OBJECT + " finalParent = parent;");
 		sc.add("if (parent != null) {");
 		sc.add("expectedTerminal.setAttachmentCode(new Runnable() {");
 		sc.addLineBreak();
 		sc.add("public void run() {");
-		sc.add(eObjectUtilClassName + ".setFeature(finalContainer, finalFeature, finalParent, false);");
+		sc.add(eObjectUtilClassName + ".setFeature(finalHookableParent, finalFeature, finalParent, false);");
 		sc.add("}");
 		sc.add("});");
 		sc.add("}");
@@ -404,13 +405,11 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addJavadoc(
 			"Walks up the containment hierarchy to find an EObject that is able " +
 			"to hold (contain) the given object.");
-		sc.add("protected " + E_OBJECT + " findHookParent(" + E_OBJECT + " container, " + containedFeatureClassName + " currentLink, " + E_OBJECT + " object) {");
+		sc.add("protected " + E_OBJECT + " findHookParent(" + E_OBJECT + " container, " + E_CLASS + " startClass, " + containedFeatureClassName + " currentLink, " + E_OBJECT + " object) {");
 		sc.add(E_CLASS + " containerClass = currentLink.getContainerClass();");
-		sc.add(E_STRUCTURAL_FEATURE + " feature = currentLink.getFeature();");
-		
 		sc.add("while (container != null) {");
 		sc.add("if (containerClass.isInstance(object)) {");
-		sc.add("if (container.eClass().getEAllStructuralFeatures().contains(feature)) {");
+		sc.add("if (startClass.equals(container.eClass())) {");
 		sc.add("return container;");
 		sc.add("}");
 		sc.add("}");

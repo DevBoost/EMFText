@@ -116,6 +116,7 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.GenClassUtil;
 import org.emftext.sdk.util.StringUtil;
+import org.emftext.sdk.util.ToStringConverter;
 
 /**
  * The text parser generator maps from one or more concrete syntaxes (*.cs) and
@@ -785,7 +786,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("for (" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]> newFollowerPair : newFollowers) {");
 		sc.add(iExpectedElementClassName + " newFollower = newFollowerPair.getLeft();");
 		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
-		sc.add(expectedTerminalClassName + " newFollowTerminal = new " + expectedTerminalClassName + "(container, newFollower, followSetID, newFollowerPair.getRight());");
+		// TODO mseifert: null is not the correct metaclass for the trace, but what is?
+		sc.add(containmentTraceClassName + " containmentTrace = new " + containmentTraceClassName + "(null, newFollowerPair.getRight());");
+		sc.add(expectedTerminalClassName + " newFollowTerminal = new " + expectedTerminalClassName + "(container, newFollower, followSetID, containmentTrace);");
 		sc.add("newFollowSet.add(newFollowTerminal);");
 		sc.add("expectedElements.add(newFollowTerminal);");
 		sc.add("}");
@@ -895,17 +898,18 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// however, unless there is no serious performance problems I'd
 		// stick with keeping all the expected elements. they will be 
 		// garbage collected right afterwards anyway
-		sc.add("public void addExpectedElement(int[] ids) {");
+		sc.add("public void addExpectedElement(" + E_CLASS + " eClass, int[] ids) {");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("int terminalID = ids[0];");
 		sc.add("int followSetID = ids[1];");
 		sc.add(iExpectedElementClassName + " terminal = " + followSetProviderClassName + ".TERMINALS[terminalID];");
-		sc.add(containedFeatureClassName + "[] containmentTrace = new " + containedFeatureClassName + "[ids.length - 2];");
+		sc.add(containedFeatureClassName + "[] containmentFeatures = new " + containedFeatureClassName + "[ids.length - 2];");
 		sc.add("for (int i = 2; i < ids.length; i++) {");
-		sc.add("containmentTrace[i - 2] = " + followSetProviderClassName + ".LINKS[ids[i]];");
+		sc.add("containmentFeatures[i - 2] = " + followSetProviderClassName + ".LINKS[ids[i]];");
 		sc.add("}");
+		sc.add(containmentTraceClassName + " containmentTrace = new " + containmentTraceClassName + "(eClass, containmentFeatures);");
 		
 		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
 		sc.add(expectedTerminalClassName + " expectedElement = new " + expectedTerminalClassName + "(container, terminal, followSetID, containmentTrace);"); 
@@ -1645,7 +1649,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 	}
 
-	private void addExpectationsCode(StringComposite sc, Set<Expectation> expectations) {
+	private void addExpectationsCode(ANTLRGrammarComposite sc, Set<Expectation> expectations) {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
 		List<Integer[]> expectationCalls = constantsPool.getExpectationCalls();
@@ -1653,9 +1657,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		for (Expectation expectation : expectations) {
 			EObject expectedElement = expectation.getExpectedElement();
 			int terminalID = constantsPool.getTerminalID(expectedElement);
-			// here the containment trace is used
-			// TODO mseifert: figure out whether this is really needed
-			//StringBuilder methodCall = new StringBuilder();
 			List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
 
 			Integer[] o = new Integer[2 +  containmentTrace.size()];
@@ -1667,8 +1668,18 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				o[i] = constantsPool.getContainmentLinkID(link);
 				i++;
 			}
-			
-			sc.add("addExpectedElement(" + expectationConstantsClassName + ".EXPECTATIONS["+ expectationCalls.size() + "]);");
+			String metaclassAccessor = "null";
+			GenClass metaClass = expectation.getMetaClass();
+			if (metaClass != null) {
+				metaclassAccessor = genClassUtil.getAccessor(metaClass);
+			}
+			sc.addComment(expectation.getExpectedElement().toString() + ", " + StringUtil.explode(containmentTrace, ",", new ToStringConverter<ContainmentLink>() {
+
+				public String toString(ContainmentLink link) {
+					return link.toString();
+				}
+			}));
+			sc.add("addExpectedElement(" + metaclassAccessor + ", " + expectationConstantsClassName + ".EXPECTATIONS["+ expectationCalls.size() + "]);");
 			expectationCalls.add(o);
 		}
 		followSetID++;
