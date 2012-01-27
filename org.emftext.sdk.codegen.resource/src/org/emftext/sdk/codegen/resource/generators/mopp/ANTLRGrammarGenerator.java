@@ -116,7 +116,6 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.GenClassUtil;
 import org.emftext.sdk.util.StringUtil;
-import org.emftext.sdk.util.ToStringConverter;
 
 /**
  * The text parser generator maps from one or more concrete syntaxes (*.cs) and
