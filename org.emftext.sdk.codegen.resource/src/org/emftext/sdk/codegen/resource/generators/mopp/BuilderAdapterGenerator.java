@@ -84,6 +84,11 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("public boolean visit(" + I_RESOURCE_DELTA + " delta) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_RESOURCE + " resource = delta.getResource();");
 		sc.add("if (delta.getKind() == " + I_RESOURCE_DELTA + ".REMOVED) {");
+		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
+		sc.add(iBuilderClassName + " builder = getBuilder();");
+		sc.add("if (builder.isBuildingNeeded(uri)) {");
+		sc.add("builder.handleDeletion(uri, monitor);");
+		sc.add("}");
     	sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, getBuilderMarkerId());");
 		sc.add("return false;");
 		sc.add("}");

@@ -52,9 +52,15 @@ public class IBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 			sc.add("public boolean isBuildingNeeded(" + URI + " uri);");
 			sc.addLineBreak();
 			sc.addJavadoc(
-				"Builds the given resource."
-			);
+					"Builds the given resource."
+				);
 			sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor);");
+			sc.addLineBreak();
+			
+			sc.addJavadoc(
+				"Handles the deletion of the given resource."
+			);
+			sc.add("public " + I_STATUS + " handleDeletion(" + URI + " uri, " + I_PROGRESS_MONITOR + " monitor);");
 			sc.addLineBreak();
 		} else {
 			sc.addComment("This interface is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");

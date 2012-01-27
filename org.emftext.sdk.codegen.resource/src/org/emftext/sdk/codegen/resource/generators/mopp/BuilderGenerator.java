@@ -47,6 +47,7 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 	private void addMethods(JavaComposite sc) {
 		addIsBuildingNeededMethod(sc);
 		addBuildMethod(sc);
+		addHandleDeletionMethod(sc);
 	}
 
 	private void addIsBuildingNeededMethod(JavaComposite sc) {
@@ -60,6 +61,17 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 	private void addBuildMethod(JavaComposite sc) {
 		sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor) {");
 		sc.addComment("set option " + OptionTypes.OVERRIDE_BUILDER + " to 'false' and then perform build here");
+		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addHandleDeletionMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Handles the deletion of the given resource."
+		);
+		sc.add("public " + I_STATUS + " handleDeletion(" + URI + " uri, " + I_PROGRESS_MONITOR + " monitor) {");
+		sc.addComment("by default nothing is done when a resource is deleted");
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();
