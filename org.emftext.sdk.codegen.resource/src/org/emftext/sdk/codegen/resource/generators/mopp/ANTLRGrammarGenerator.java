@@ -1673,12 +1673,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			if (metaClass != null) {
 				metaclassAccessor = genClassUtil.getAccessor(metaClass);
 			}
+			/*
 			sc.addComment(expectation.getExpectedElement().toString() + ", " + StringUtil.explode(containmentTrace, ",", new ToStringConverter<ContainmentLink>() {
 
 				public String toString(ContainmentLink link) {
 					return link.toString();
 				}
 			}));
+			*/
 			sc.add("addExpectedElement(" + metaclassAccessor + ", " + expectationConstantsClassName + ".EXPECTATIONS["+ expectationCalls.size() + "]);");
 			expectationCalls.add(o);
 		}
