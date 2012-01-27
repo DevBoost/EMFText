@@ -4757,6 +4757,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "A list of comma separated libraries, which will be added to the manifest file, the .classpath file and the build.properties file of the generated resource plug-in. The default value for this option is an empty list."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(289), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the ContainmentTrace class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {
