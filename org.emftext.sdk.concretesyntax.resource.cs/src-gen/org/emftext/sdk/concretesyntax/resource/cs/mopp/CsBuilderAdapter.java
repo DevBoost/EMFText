@@ -32,6 +32,11 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 			public boolean visit(org.eclipse.core.resources.IResourceDelta delta) throws org.eclipse.core.runtime.CoreException {
 				org.eclipse.core.resources.IResource resource = delta.getResource();
 				if (delta.getKind() == org.eclipse.core.resources.IResourceDelta.REMOVED) {
+					org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
+					org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder builder = getBuilder();
+					if (builder.isBuildingNeeded(uri)) {
+						builder.handleDeletion(uri, monitor);
+					}
 					new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, getBuilderMarkerId());
 					return false;
 				}

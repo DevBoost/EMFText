@@ -36,9 +36,9 @@ public class CsExpectedTerminal {
 	private int startIncludingHiddenTokens;
 	private int startExcludingHiddenTokens;
 	private String prefix;
-	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] containmentTrace;
+	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace;
 	
-	public CsExpectedTerminal(org.eclipse.emf.ecore.EObject container, org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature... containmentTrace) {
+	public CsExpectedTerminal(org.eclipse.emf.ecore.EObject container, org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace) {
 		super();
 		this.container = container;
 		this.terminal = terminal;
@@ -98,7 +98,7 @@ public class CsExpectedTerminal {
 		this.prefix = prefix;
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] getContainmentTrace() {
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace getContainmentTrace() {
 		return containmentTrace;
 	}
 	

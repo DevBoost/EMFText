@@ -482,20 +482,22 @@ public class CsCodeCompletionHelper {
 		// the container is wrong
 		org.eclipse.emf.ecore.EObject parent = null;
 		org.eclipse.emf.ecore.EObject previousParent = null;
-		org.eclipse.emf.ecore.EObject correctContainer = container;
+		org.eclipse.emf.ecore.EObject correctContainer = null;
+		org.eclipse.emf.ecore.EObject hookableParent = null;
+		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace = expectedTerminal.getContainmentTrace();
+		org.eclipse.emf.ecore.EClass startClass = containmentTrace.getStartClass();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature currentLink = null;
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature previousLink = null;
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] containmentTrace = expectedTerminal.getContainmentTrace();
-		for (int i = 0; i < containmentTrace.length; i++) {
-			currentLink = containmentTrace[i];
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] containedFeatures = containmentTrace.getPath();
+		for (int i = 0; i < containedFeatures.length; i++) {
+			currentLink = containedFeatures[i];
 			if (i > 0) {
-				previousLink = containmentTrace[i - 1];
+				previousLink = containedFeatures[i - 1];
 			}
 			org.eclipse.emf.ecore.EClass containerClass = currentLink.getContainerClass();
-			org.eclipse.emf.ecore.EObject hookableParent = findHookParent(container, currentLink, parent);
+			hookableParent = findHookParent(container, startClass, currentLink, parent);
 			if (hookableParent != null) {
 				// we found the correct parent
-				correctContainer = hookableParent;
 				break;
 			} else {
 				previousParent = parent;
@@ -509,24 +511,24 @@ public class CsCodeCompletionHelper {
 			}
 		}
 		
+		if (correctContainer == null) {
+			correctContainer = container;
+		}
+		
 		if (currentLink == null) {
 			return correctContainer;
 		}
 		
-		org.eclipse.emf.ecore.EObject  hookableParent = findHookParent(container, currentLink, parent);
-		if (hookableParent != null) {
-			// we found the correct parent
-			correctContainer = hookableParent;
-		}
+		hookableParent = findHookParent(container, startClass, currentLink, parent);
 		
-		final org.eclipse.emf.ecore.EObject finalContainer = correctContainer;
+		final org.eclipse.emf.ecore.EObject finalHookableParent = hookableParent;
 		final org.eclipse.emf.ecore.EStructuralFeature finalFeature = currentLink.getFeature();
 		final org.eclipse.emf.ecore.EObject finalParent = parent;
 		if (parent != null) {
 			expectedTerminal.setAttachmentCode(new Runnable() {
 				
 				public void run() {
-					org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(finalContainer, finalFeature, finalParent, false);
+					org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(finalHookableParent, finalFeature, finalParent, false);
 				}
 			});
 		}
@@ -537,12 +539,11 @@ public class CsCodeCompletionHelper {
 	 * Walks up the containment hierarchy to find an EObject that is able to hold
 	 * (contain) the given object.
 	 */
-	protected org.eclipse.emf.ecore.EObject findHookParent(org.eclipse.emf.ecore.EObject container, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature currentLink, org.eclipse.emf.ecore.EObject object) {
+	protected org.eclipse.emf.ecore.EObject findHookParent(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EClass startClass, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature currentLink, org.eclipse.emf.ecore.EObject object) {
 		org.eclipse.emf.ecore.EClass containerClass = currentLink.getContainerClass();
-		org.eclipse.emf.ecore.EStructuralFeature feature = currentLink.getFeature();
 		while (container != null) {
 			if (containerClass.isInstance(object)) {
-				if (container.eClass().getEAllStructuralFeatures().contains(feature)) {
+				if (startClass.equals(container.eClass())) {
 					return container;
 				}
 			}

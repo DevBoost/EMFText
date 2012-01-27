@@ -26,4 +26,12 @@ public class CsBuilder implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		return org.eclipse.core.runtime.Status.OK_STATUS;
 	}
 	
+	/**
+	 * Handles the deletion of the given resource.
+	 */
+	public org.eclipse.core.runtime.IStatus handleDeletion(org.eclipse.emf.common.util.URI uri, org.eclipse.core.runtime.IProgressMonitor monitor) {
+		// by default nothing is done when a resource is deleted
+		return org.eclipse.core.runtime.Status.OK_STATUS;
+	}
+	
 }

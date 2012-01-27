@@ -34,4 +34,9 @@ public interface ICsBuilder {
 	 */
 	public org.eclipse.core.runtime.IStatus build(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource resource, org.eclipse.core.runtime.IProgressMonitor monitor);
 	
+	/**
+	 * Handles the deletion of the given resource.
+	 */
+	public org.eclipse.core.runtime.IStatus handleDeletion(org.eclipse.emf.common.util.URI uri, org.eclipse.core.runtime.IProgressMonitor monitor);
+	
 }
