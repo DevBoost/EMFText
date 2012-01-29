@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -106,9 +106,9 @@ public abstract class AbstractArtifactCreator<ContextType extends IContext<Conte
 			return new ByteArrayInputStream(stream.toByteArray());
 		} catch (Exception e) {
 			// we do not need to propagate the exception, because in the
-			// case if an exception this method returns null. This is then
+			// case of an exception this method returns null. This is then
 			// handled in createArtifact() by adding a generation problem
-			// to the problem collector
+			// to the problem collector.
 			EMFTextSDKPlugin.logError("Exception while invoking code generator.", e);
 		}
 		return null;

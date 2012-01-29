@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -16,6 +16,7 @@ package org.emftext.sdk.ant;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.sdk.IPluginDescriptor;
+import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IFileSystemConnector;
 import org.emftext.sdk.codegen.resource.ui.CreateResourcePluginsJob.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -44,11 +46,8 @@ import org.emftext.sdk.ui.jobs.UICreateResourcePluginsJob;
 import org.emftext.sdk.ui.jobs.UIGenerationContext;
 
 /**
- * A custom task for the ANT build tool that generates
- * a resource plug-in for a given syntax specification.
- * 
- * TODO there should be a build exception when the syntax
- * contains errors (e.g., issued by ANTLR)
+ * A custom task for the ANT build tool that generates a resource plug-in for a 
+ * given syntax specification.
  */
 public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 
@@ -104,23 +103,23 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			Result result = null;	
 			
 			boolean useUIJob = false;
-			if(Platform.isRunning()){
+			if (Platform.isRunning()) {
 				File wsFolder = new File(ResourcesPlugin.getWorkspace().getRoot().getLocationURI());	
 				if(rootFolder.equals(wsFolder))
 					useUIJob = true;
 			}
 			
-			if(useUIJob){
-				UIGenerationContext context = new UIGenerationContext(folderConnector,  new AntProblemCollector(this), syntax);
+			AntProblemCollector problemCollector = new AntProblemCollector(this);
+			if (useUIJob) {
+				UIGenerationContext context = new UIGenerationContext(folderConnector,  problemCollector, syntax);
 				UICreateResourcePluginsJob job = new UICreateResourcePluginsJob();
 				result = job.run(
 							context, 
 							new AntLogMarker(this), 
 							new AntDelegateProgressMonitor(this)
 					);
-			}
-			else{
-				AntGenerationContext context = new AntGenerationContext(folderConnector, new AntProblemCollector(this), syntax, rootFolder, syntaxProjectName, generateANTLRPlugin, generateModelCode);
+			} else {
+				AntGenerationContext context = new AntGenerationContext(folderConnector, problemCollector, syntax, rootFolder, syntaxProjectName, generateANTLRPlugin, generateModelCode);
 				AntResourcePluginGenerator generator = new AntResourcePluginGenerator();
 				result = generator.run(
 						context, 
@@ -141,8 +140,14 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 					throw new BuildException("Generation failed " + result);
 				}
 			}
+			
+			Collection<GenerationProblem> errors = problemCollector.getErrors();
+			if (!errors.isEmpty()) {
+				throw new BuildException("Generation failed. Found " + errors.size() + " while generation text resource plug-ins.");
+			}
 		} catch (Exception e) {
 			resetClassLoader(taskloader);
+			System.out.println("Exception while generation text resource: " + e.getMessage());
 			e.printStackTrace();
 			throw new BuildException(e);
 		}

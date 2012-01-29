@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -12,6 +12,9 @@
  *      - initial API and implementation
  ******************************************************************************/
 package org.emftext.sdk.ant;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.apache.tools.ant.Task;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -26,6 +29,7 @@ import org.emftext.sdk.codegen.IProblemCollector;
 public class AntProblemCollector implements IProblemCollector {
 	
 	private Task antTask;
+	private Collection<GenerationProblem> errors = new ArrayList<GenerationProblem>();
 
 	public AntProblemCollector(Task antTask) {
 		this.antTask = antTask;
@@ -34,8 +38,13 @@ public class AntProblemCollector implements IProblemCollector {
 	public void addProblem(GenerationProblem problem) {
 		if (problem.getSeverity() == Severity.ERROR) {
 			antTask.log("Error while generating text resource: " + problem.getMessage());
+			errors.add(problem);
 		} else {
 			antTask.log("Warning while generating text resource: " + problem.getMessage());
 		}
+	}
+
+	public Collection<GenerationProblem> getErrors() {
+		return errors;
 	}
 }
