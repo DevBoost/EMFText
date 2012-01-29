@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion.helpers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -49,16 +50,14 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
 
 /**
- * The ExpectationComputer can be used to compute all possible
- * elements that can follow a given element in a syntax. It uses
- * the well-known construction of FIRST and FOLLOW sets from
- * context-free grammars.
+ * The ExpectationComputer can be used to compute all possible elements that can 
+ * follow a given element in a syntax. It uses the well-known construction of 
+ * FIRST and FOLLOW sets from context-free grammars.
  * 
- * Instances of this class can be reused for multiple computations
- * of FIRST and FOLLOW sets if the concrete syntax did not change.
- * If the syntax has changed, a fresh instance must be used, because
- * the ExpectationComputer does hold internal caches, which can yield
- * invalid results.
+ * Instances of this class can be reused for multiple computations of FIRST and 
+ * FOLLOW sets if the concrete syntax did not change. If the syntax has changed, 
+ * a fresh instance must be used, because the ExpectationComputer does hold 
+ * internal caches, which can yield invalid results.
  */
 public class ExpectationComputer {
 
@@ -68,7 +67,17 @@ public class ExpectationComputer {
 			return "EPSILON";
 		}
 	};
-	public final static Expectation EPSILON = new Expectation(EPSILON_OBJECT);
+	public final static Expectation EPSILON = new Expectation(EPSILON_OBJECT) {
+		
+		public void setMetaClass(GenClass metaClass) {
+			// ignore this, the EPSILON does not start at a specific class
+		}
+		
+		public List<ContainmentLink> getContainmentTrace() {
+			// we do not save the containment trace for epsilon
+			return new ArrayList<ContainmentLink>();
+		}
+	};
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
@@ -112,7 +121,8 @@ public class ExpectationComputer {
 	 * @return
 	 */
 	public Set<Expectation> computeFollowSet(ConcreteSyntax syntax, SyntaxElement syntaxElement) {
-		return computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>(), new LinkedHashSet<GenClass>());
+		Set<Expectation> result = computeFollowSet(syntax, syntaxElement, new LinkedHashSet<Rule>(), new LinkedHashSet<GenClass>());
+		return result;
 	}
 
 	private Set<Expectation> computeFirstSet(ConcreteSyntax syntax, SyntaxElement syntaxElement, Set<GenClass> contributingNonterminals) {
