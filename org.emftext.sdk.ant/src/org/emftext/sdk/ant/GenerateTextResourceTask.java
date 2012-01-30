@@ -143,6 +143,9 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			
 			Collection<GenerationProblem> errors = problemCollector.getErrors();
 			if (!errors.isEmpty()) {
+				for (GenerationProblem error : errors) {
+					System.out.println("Found problem: " + error.getMessage());
+				}
 				throw new BuildException("Generation failed. Found " + errors.size() + " problem(s) while generating text resource plug-ins.");
 			}
 		} catch (Exception e) {
