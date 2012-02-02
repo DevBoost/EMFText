@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
@@ -144,13 +145,13 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			Collection<GenerationProblem> errors = problemCollector.getErrors();
 			if (!errors.isEmpty()) {
 				for (GenerationProblem error : errors) {
-					log("Found problem: " + error.getMessage());
+					log("Found problem: " + error.getMessage(), Project.MSG_ERR);
 				}
 				throw new BuildException("Generation failed. Found " + errors.size() + " problem(s) while generating text resource plug-ins.");
 			}
 		} catch (Exception e) {
 			resetClassLoader(taskloader);
-			log("Exception while generation text resource: " + e.getMessage());
+			log("Exception while generation text resource: " + e.getMessage(), Project.MSG_ERR);
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
