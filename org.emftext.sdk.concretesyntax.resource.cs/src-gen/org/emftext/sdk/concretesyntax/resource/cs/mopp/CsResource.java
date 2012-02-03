@@ -628,7 +628,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * properties or determined by the default workspace encoding in Eclipse.
 	 */
 	protected String getPlatformResourceEncoding() {
-		if (uri.isPlatform()) {
+		if (uri != null && uri.isPlatform()) {
 			String platformString = uri.toPlatformString(true);
 			org.eclipse.core.resources.IResource platformResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
 			if (platformResource instanceof org.eclipse.core.resources.IFile) {
