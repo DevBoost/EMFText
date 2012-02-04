@@ -16,7 +16,7 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTIC;
@@ -505,7 +505,12 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addGetLocationMapMethod(StringComposite sc) {
+	private void addGetLocationMapMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the location map that contains information about " +
+			"the position of the contents of this resource in the original " +
+			"textual representation."
+		);
 		sc.add("public " + iLocationMapClassName + " getLocationMap() {");
 		sc.add("return locationMap;");
 		sc.add("}");
@@ -534,12 +539,14 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 	
-	private void addResolveAfterParsingMethod(StringComposite sc) {
+	private void addResolveAfterParsingMethod(JavaComposite sc) {
 		boolean resolveProxies = doResolveProxiesAfterParsing();
 
 		sc.add("protected void resolveAfterParsing() {");
 		if (resolveProxies) {
 			sc.add(ECORE_UTIL + ".resolveAll(this);");
+		} else {
+			sc.addComment("Automatic proxy resolving after parsing was disabled by option " + OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING.getLiteral() + ".");
 		}
 		sc.add("}");
 		sc.addLineBreak();
@@ -553,6 +560,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addRunPostProcessorsMethod(JavaComposite sc) {
+		sc.addJavadoc("Runs all post processors to process this resource.");
 		sc.add("protected void runPostProcessors(" + MAP
 				+ "<?, ?> loadOptions) {");
 
@@ -604,7 +612,8 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addRunPostProcessorMethod(StringComposite sc) {
+	private void addRunPostProcessorMethod(JavaComposite sc) {
+		sc.addJavadoc("Runs the given post processor to process this resource.");
 		sc.add("protected void runPostProcessor("
 				+ iResourcePostProcessorClassName + " postProcessor) {");
 		sc.add("try {");
@@ -897,7 +906,8 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addResetLocationMapMethod(StringComposite sc) {
+	private void addResetLocationMapMethod(JavaComposite sc) {
+		sc.addJavadoc("Clears the location map by replacing it with a new instance.");
 		sc.add("protected void resetLocationMap() {");
 		sc.add("if (isLocationMapEnabled()) {");
 		sc.add("locationMap = new " + locationMapClassName + "();");
@@ -961,7 +971,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addDoSaveMethod(StringComposite sc) {
-		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
+		sc.add("protected void doSave(" + OUTPUT_STREAM + " outputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
 		sc.add(iTextPrinterClassName
 				+ " printer = getMetaInformation().createPrinter(outputStream, this);");
 		sc.add(iReferenceResolverSwitchClassName
@@ -1080,6 +1090,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addReloadMethod(JavaComposite sc) {
+		sc.addJavadoc("Reloads the contents of this resource from the given stream.");
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
 		sc.add("try {");
@@ -1096,7 +1107,8 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addCancelReloadMethod(StringComposite sc) {
+	private void addCancelReloadMethod(JavaComposite sc) {
+		sc.addJavadoc("Cancels reloading this resource. The running parser and post processors are terminated.");
 		sc.add("public void cancelReload() {");
 		sc.add(iTextParserClassName + " parserCopy = parser;");
 		sc.add("if (parserCopy != null) {");
@@ -1125,7 +1137,8 @@ public class TextResourceGenerator extends
 	}
 
 	private void addGetContentsInternalMethod(JavaComposite sc) {
-		sc.addJavadoc("Returns the raw contents of this resource.");
+		sc.addJavadoc("Returns the raw contents of this resource. In contrast to getContents(), " +
+				"this methods does not return a copy of the content list, but the original list.");
 		sc.add("public " + E_LIST + "<" + E_OBJECT
 				+ "> getContentsInternal() {");
 		sc.add("return super.getContents();");
@@ -1133,7 +1146,8 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addGetWarningsMethod(StringComposite sc) {
+	private void addGetWarningsMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns all warnings that are associated with this resource.");
 		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC
 				+ "> getWarnings() {");
 		sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC
@@ -1142,7 +1156,8 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addGetErrorsMethod(StringComposite sc) {
+	private void addGetErrorsMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns all errors that are associated with this resource.");
 		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC
 				+ "> getErrors() {");
 		sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC
