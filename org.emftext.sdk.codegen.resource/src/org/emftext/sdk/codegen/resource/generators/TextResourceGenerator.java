@@ -95,7 +95,7 @@ public class TextResourceGenerator extends
 
 	private void addInnerClasses(StringComposite sc) {
 		addElementBasedTextDiagnosticClass(sc);
-		addPositionBasedTestDiagnosticClass(sc);
+		addPositionBasedTextDiagnosticClass(sc);
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -245,7 +245,7 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addPositionBasedTestDiagnosticClass(StringComposite sc) {
+	private void addPositionBasedTextDiagnosticClass(StringComposite sc) {
 		sc.add("public class " + POSITION_BASED_TEXT_DIAGNOSTIC
 				+ " implements " + iTextDiagnosticClassName + " {");
 		sc.addLineBreak();
