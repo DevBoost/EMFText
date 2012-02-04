@@ -214,6 +214,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
+	/**
+	 * Reloads the contents of this resource from the given stream.
+	 */
 	public void reload(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		try {
 			isLoaded = false;
@@ -226,6 +229,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		isLoaded = true;
 	}
 	
+	/**
+	 * Cancels reloading this resource. The running parser and post processors are
+	 * terminated.
+	 */
 	public void cancelReload() {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parserCopy = parser;
 		if (parserCopy != null) {
@@ -262,6 +269,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	}
 	
+	/**
+	 * Clears the location map by replacing it with a new instance.
+	 */
 	protected void resetLocationMap() {
 		if (isLocationMapEnabled()) {
 			locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
@@ -422,6 +432,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		loadOptions = null;
 	}
 	
+	/**
+	 * Runs all post processors to process this resource.
+	 */
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
 		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
@@ -456,6 +469,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
+	/**
+	 * Runs the given post processor to process this resource.
+	 */
 	protected void runPostProcessor(org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor postProcessor) {
 		try {
 			this.runningPostProcessor = postProcessor;
@@ -473,6 +489,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void resolveAfterParsing() {
+		// Automatic proxy resolving after parsing was disabled by option
+		// resolveProxyElementsAfterParsing.
 	}
 	
 	public void setURI(org.eclipse.emf.common.util.URI uri) {
@@ -482,6 +500,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		super.setURI(uri);
 	}
 	
+	/**
+	 * Returns the location map that contains information about the position of the
+	 * contents of this resource in the original textual representation.
+	 */
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap getLocationMap() {
 		return locationMap;
 	}
@@ -583,16 +605,23 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	/**
-	 * Returns the raw contents of this resource.
+	 * Returns the raw contents of this resource. In contrast to getContents(), this
+	 * methods does not return a copy of the content list, but the original list.
 	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContentsInternal() {
 		return super.getContents();
 	}
 	
+	/**
+	 * Returns all warnings that are associated with this resource.
+	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getWarnings() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getWarnings());
 	}
 	
+	/**
+	 * Returns all errors that are associated with this resource.
+	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getErrors() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getErrors());
 	}
@@ -628,6 +657,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * properties or determined by the default workspace encoding in Eclipse.
 	 */
 	protected String getPlatformResourceEncoding() {
+		// We can't determine the encoding if the platform is not running.
+		if (!new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformRunning()) {
+			return null;
+		}
 		if (uri != null && uri.isPlatform()) {
 			String platformString = uri.toPlatformString(true);
 			org.eclipse.core.resources.IResource platformResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
