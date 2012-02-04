@@ -159,6 +159,10 @@ public class TextResourceGenerator extends
 			"encoding in Eclipse."
 		);
 		sc.add("protected String getPlatformResourceEncoding() {");
+		sc.addComment("We can't determine the encoding if the platform is not running.");
+		sc.add("if (!new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add("if (uri != null && uri.isPlatform()) {");
 		sc.add("String platformString = uri.toPlatformString(true);");
 		sc.add(I_RESOURCE + " platformResource = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
