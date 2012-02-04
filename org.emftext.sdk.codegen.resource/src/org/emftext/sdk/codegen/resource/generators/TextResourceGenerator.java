@@ -159,22 +159,26 @@ public class TextResourceGenerator extends
 			"encoding in Eclipse."
 		);
 		sc.add("protected String getPlatformResourceEncoding() {");
-		sc.addComment("We can't determine the encoding if the platform is not running.");
-		sc.add("if (!new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add("if (uri != null && uri.isPlatform()) {");
-		sc.add("String platformString = uri.toPlatformString(true);");
-		sc.add(I_RESOURCE + " platformResource = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
-		sc.add("if (platformResource instanceof " + I_FILE + ") {");
-		sc.add(I_FILE + " file = (" + I_FILE + ") platformResource;");
-		sc.add("try {");
-		sc.add("return file.getCharset();");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-		sc.add("new " + runtimeUtilClassName + "().logWarning(\"Could not determine encoding of platform resource: \" + uri.toString(), ce);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
+		if (removeEclipseDependentCode) {
+			sc.addComment("We can't determine the encoding since all Eclipse dependencies have been removed by setting the option " + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + ".");
+		} else {
+			sc.addComment("We can't determine the encoding if the platform is not running.");
+			sc.add("if (!new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
+			sc.add("return null;");
+			sc.add("}");
+			sc.add("if (uri != null && uri.isPlatform()) {");
+			sc.add("String platformString = uri.toPlatformString(true);");
+			sc.add(I_RESOURCE + " platformResource = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
+			sc.add("if (platformResource instanceof " + I_FILE + ") {");
+			sc.add(I_FILE + " file = (" + I_FILE + ") platformResource;");
+			sc.add("try {");
+			sc.add("return file.getCharset();");
+			sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+			sc.add("new " + runtimeUtilClassName + "().logWarning(\"Could not determine encoding of platform resource: \" + uri.toString(), ce);");
+			sc.add("}");
+			sc.add("}");
+			sc.add("}");
+		}
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
