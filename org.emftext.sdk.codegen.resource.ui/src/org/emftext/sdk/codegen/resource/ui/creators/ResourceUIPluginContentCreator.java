@@ -275,7 +275,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		editor.setAttribute("extensions", primaryConcreteSyntaxName);
 		editor.setAttribute("icon", "icons/" + UIConstants.Icon.DEFAULT_EDITOR_ICON.getFilename());
 		editor.setAttribute("id", editorClassName);
-		editor.setAttribute("name", "EMFText " + concreteSyntax.getName() + " Editor");
+		String editorName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.EDITOR_NAME);
+		if(editorName == null) {
+			editorName = "EMFText " + concreteSyntax.getName() + " Editor";
+		}
+		editor.setAttribute("name", editorName);
 		
 		XMLElement contentTypeBinding = editor.createChild("contentTypeBinding");
 		contentTypeBinding.setAttribute("contentTypeId", resourcePluginID);

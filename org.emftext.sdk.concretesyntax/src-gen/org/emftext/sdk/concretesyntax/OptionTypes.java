@@ -2352,7 +2352,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_CONTAINMENT_TRACE(292, "OVERRIDE_CONTAINMENT_TRACE", "overrideContainmentTrace");
+	OVERRIDE_CONTAINMENT_TRACE(292, "OVERRIDE_CONTAINMENT_TRACE", "overrideContainmentTrace"), /**
+	 * The '<em><b>EDITOR NAME</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EDITOR_NAME_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	EDITOR_NAME(293, "EDITOR_NAME", "editorName");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7269,6 +7277,19 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_CONTAINMENT_TRACE_VALUE = 292;
 /**
+	 * The '<em><b>EDITOR NAME</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The default editor name can be changed with this option. Default name is 'EMFText <yourSyntaxExtension> Editor'
+	 * <!-- end-model-doc -->
+	 * @see #EDITOR_NAME
+	 * @model literal="editorName"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int EDITOR_NAME_VALUE = 293;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7566,6 +7587,7 @@ public enum OptionTypes implements Enumerator {
 			ADDITIONAL_UI_IMPORTED_PACKAGES,
 			ADDITIONAL_LIBRARIES,
 			OVERRIDE_CONTAINMENT_TRACE,
+			EDITOR_NAME,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7903,6 +7925,7 @@ public enum OptionTypes implements Enumerator {
 			case ADDITIONAL_UI_IMPORTED_PACKAGES_VALUE: return ADDITIONAL_UI_IMPORTED_PACKAGES;
 			case ADDITIONAL_LIBRARIES_VALUE: return ADDITIONAL_LIBRARIES;
 			case OVERRIDE_CONTAINMENT_TRACE_VALUE: return OVERRIDE_CONTAINMENT_TRACE;
+			case EDITOR_NAME_VALUE: return EDITOR_NAME;
 		}
 		return null;
 	}

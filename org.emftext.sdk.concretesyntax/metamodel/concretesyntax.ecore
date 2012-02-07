@@ -2023,6 +2023,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the ContainmentTrace class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="EDITOR_NAME" value="293" literal="editorName">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The default editor name can be changed with this option. Default name is 'EMFText &lt;yourSyntaxExtension> Editor'"/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

@@ -2510,6 +2510,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_UI_IMPORTED_PACKAGES);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_LIBRARIES);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_CONTAINMENT_TRACE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.EDITOR_NAME);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -4761,6 +4762,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ContainmentTrace class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(290), 
+		   source, 
+		   new String[] {
+			 "documentation", "The default editor name can be changed with this option. Default name is \'EMFText <yourSyntaxExtension> Editor\'"
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 
