@@ -8,7 +8,7 @@ Bundle-Version: 1.2.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.emftext.sdk.concretesyntax,org.emftext.sdk.concret
  esyntax.impl,org.emftext.sdk.concretesyntax.util
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil

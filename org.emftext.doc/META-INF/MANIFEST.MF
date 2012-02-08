@@ -6,7 +6,7 @@ Bundle-Name: EMFText Documentation
 Bundle-SymbolicName: org.emftext.doc; singleton:=true
 Bundle-Version: 1.3.1.v201008081937
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf,
  org.emftext.sdk,
  org.emftext.sdk.concretesyntax,

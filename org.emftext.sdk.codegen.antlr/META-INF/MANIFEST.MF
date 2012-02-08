@@ -7,6 +7,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.emftext.sdk,
  org.emftext.sdk.antlr3_4_0,
  org.emftext.sdk.codegen
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.emftext.sdk.codegen.antlr,
  org.emftext.sdk.codegen.antlr.creators

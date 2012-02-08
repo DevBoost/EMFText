@@ -5,7 +5,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText SDK
 Bundle-SymbolicName: org.emftext.sdk; singleton:=true
 Bundle-Version: 1.2.0.qualifier
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,org
  .eclipse.emf.workspace,org.eclipse.jdt.core,org.eclipse.jdt.launching
  ,org.emftext.sdk.antlr3_4_0,org.emftext.sdk.concretesyntax;visibility:=ree
