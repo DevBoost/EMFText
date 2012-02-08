@@ -60,7 +60,8 @@ public class ManifestGenerator<ContextType extends IContext<ContextType>> extend
 			sc.add("Require-Bundle: " + StringUtil.explode(requiredBundles, ",\n  "));
 		}
 		sc.add("Bundle-ActivationPolicy: lazy");
-		sc.add("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
+		// TODO Consider CS option to configure JDK here
+		sc.add("Bundle-RequiredExecutionEnvironment: JavaSE-1.6");
 		if (exportedPackages.size() > 0) {
 			sc.add("Export-Package: " + StringUtil.explode(exportedPackages, ",\n  "));
 		}
