@@ -41,8 +41,8 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the class " + PLATFORM +
-			"is available on the classpath. This can be used to " +
+			"Checks whether the class <code>" + PLATFORM +
+			"</code> is available on the classpath. This can be used to " +
 			"determine if Eclipse is available in the current runtime " +
 			"environment."
 		);
