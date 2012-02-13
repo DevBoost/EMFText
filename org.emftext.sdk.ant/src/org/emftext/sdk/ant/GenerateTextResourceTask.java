@@ -86,7 +86,7 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			EcoreUtil.resolveAll(resourceSet);
 			Set<EObject> unresolvedProxies = CsResourceUtil.findUnresolvedProxies(resourceSet);
 			for (EObject unresolvedProxy : unresolvedProxies) {
-				log("Found unresolved proxy: " + unresolvedProxy);
+				log("Found unresolved proxy: " + unresolvedProxy, Project.MSG_ERR);
 			}
 			if (unresolvedProxies.size() > 0) {
 				throw new BuildException("Generation failed, because the syntax file contains unresolved proxy objects.");
