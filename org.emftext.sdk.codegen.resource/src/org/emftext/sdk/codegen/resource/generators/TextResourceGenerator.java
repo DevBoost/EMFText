@@ -1034,6 +1034,10 @@ public class TextResourceGenerator extends
 		sc.add("if (options != null) {");
 		sc.add("inputStreamPreProcessorProvider = options.get("
 				+ iOptionsClassName + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
+		sc.add("Object encodingOption = options.get(\"OPTION_ENCODING\");");
+		sc.add("if (encodingOption != null) {");
+		sc.add("encoding = encodingOption.toString();");
+		sc.add("}");
 		sc.add("}");
 		sc.add("if (inputStreamPreProcessorProvider != null) {");
 		sc.add("if (inputStreamPreProcessorProvider instanceof "
