@@ -16,9 +16,8 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTICIAN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
@@ -30,15 +29,13 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
@@ -149,39 +146,6 @@ public class TextResourceGenerator extends
 		addGetQuickFixMethod(sc);
 		addIsMarkerCreationEnabledMethod(sc);
 		addIsLocationMapEnabledMethod(sc);
-		addGetPlatformResourceEncoding(sc);
-	}
-
-	private void addGetPlatformResourceEncoding(JavaComposite sc) {
-		sc.addJavadoc(
-			"Returns the encoding for this resource that is specified in the " +
-			"workspace file properties or determined by the default workspace " +
-			"encoding in Eclipse."
-		);
-		sc.add("protected String getPlatformResourceEncoding() {");
-		if (removeEclipseDependentCode) {
-			sc.addComment("We can't determine the encoding since all Eclipse dependencies have been removed by setting the option " + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + ".");
-		} else {
-			sc.addComment("We can't determine the encoding if the platform is not running.");
-			sc.add("if (!new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
-			sc.add("return null;");
-			sc.add("}");
-			sc.add("if (uri != null && uri.isPlatform()) {");
-			sc.add("String platformString = uri.toPlatformString(true);");
-			sc.add(I_RESOURCE + " platformResource = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
-			sc.add("if (platformResource instanceof " + I_FILE + ") {");
-			sc.add(I_FILE + " file = (" + I_FILE + ") platformResource;");
-			sc.add("try {");
-			sc.add("return file.getCharset();");
-			sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-			sc.add("new " + runtimeUtilClassName + "().logWarning(\"Could not determine encoding of platform resource: \" + uri.toString(), ce);");
-			sc.add("}");
-			sc.add("}");
-			sc.add("}");
-		}
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -1028,7 +992,12 @@ public class TextResourceGenerator extends
 		sc.add("this.loadOptions = options;");
 		sc.add("resetLocationMap();");
 		sc.add("this.terminateReload = false;");
-		sc.add("String encoding = getPlatformResourceEncoding();");
+		sc.add("String encoding = null;");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("encoding = new " + eclipseProxyClassName + "().getPlatformResourceEncoding(uri);");
+			sc.add("}");
+		}
 		sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
 		sc.add("Object inputStreamPreProcessorProvider = null;");
 		sc.add("if (options != null) {");

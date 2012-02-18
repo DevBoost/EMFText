@@ -12,11 +12,13 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODEL_VALIDATION_SERVICE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
@@ -65,6 +67,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod(sc);
 		addCheckEMFValidationConstraints(sc);
 		addAddStatusMethod(sc);
+		addGetPlatformResourceEncoding(sc);
 	}
 
 	private void addGetResourceFactoryExtensions(JavaComposite sc) {
@@ -219,4 +222,33 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	
+	private void addGetPlatformResourceEncoding(JavaComposite sc) {
+		sc.addJavadoc(
+			"Returns the encoding for this resource that is specified in the " +
+			"workspace file properties or determined by the default workspace " +
+			"encoding in Eclipse."
+		);
+		sc.add("public String getPlatformResourceEncoding(" + URI +" uri) {");
+		sc.addComment("We can't determine the encoding if the platform is not running.");
+		sc.add("if (!new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("if (uri != null && uri.isPlatform()) {");
+		sc.add("String platformString = uri.toPlatformString(true);");
+		sc.add(I_RESOURCE + " platformResource = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
+		sc.add("if (platformResource instanceof " + I_FILE + ") {");
+		sc.add(I_FILE + " file = (" + I_FILE + ") platformResource;");
+		sc.add("try {");
+		sc.add("return file.getCharset();");
+		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("new " + runtimeUtilClassName + "().logWarning(\"Could not determine encoding of platform resource: \" + uri.toString(), ce);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 }
