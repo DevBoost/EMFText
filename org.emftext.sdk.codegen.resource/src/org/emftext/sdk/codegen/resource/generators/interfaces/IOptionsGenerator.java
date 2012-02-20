@@ -24,7 +24,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	public static final String DISABLE_LOCATION_MAP                  = "DISABLE_LOCATION_MAP";
 	public static final String DISABLE_LAYOUT_INFORMATION_RECORDING  = "DISABLE_LAYOUT_INFORMATION_RECORDING";
 	public static final String ADDITIONAL_REFERENCE_RESOLVERS  = "ADDITIONAL_REFERENCE_RESOLVERS";
-	public static final String ENCODING = "ENCODING";
+	public static final String OPTION_ENCODING = "OPTION_ENCODING";
 	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -103,7 +103,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 				"The key for the option to set the encoding to use when loading or " +
 				"saving resources."
 			);
-		sc.add("public final String " + ENCODING + " = \"" + ENCODING + "\";");
+		sc.add("public final String " + OPTION_ENCODING + " = \"" + OPTION_ENCODING + "\";");
 		sc.addLineBreak();
 		
 		sc.add("}");
