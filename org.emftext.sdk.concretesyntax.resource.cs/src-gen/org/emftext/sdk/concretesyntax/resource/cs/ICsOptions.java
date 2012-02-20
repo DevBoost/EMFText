@@ -80,6 +80,6 @@ public interface ICsOptions {
 	 * The key for the option to set the encoding to use when loading or saving
 	 * resources.
 	 */
-	public final String ENCODING = "ENCODING";
+	public final String OPTION_ENCODING = "OPTION_ENCODING";
 	
 }
