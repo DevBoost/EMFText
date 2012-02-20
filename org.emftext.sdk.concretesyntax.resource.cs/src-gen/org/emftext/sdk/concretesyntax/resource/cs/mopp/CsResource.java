@@ -176,7 +176,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		Object inputStreamPreProcessorProvider = null;
 		if (options != null) {
 			inputStreamPreProcessorProvider = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
-			Object encodingOption = options.get("OPTION_ENCODING");
+			Object encodingOption = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.ENCODING);
 			if (encodingOption != null) {
 				encoding = encodingOption.toString();
 			}

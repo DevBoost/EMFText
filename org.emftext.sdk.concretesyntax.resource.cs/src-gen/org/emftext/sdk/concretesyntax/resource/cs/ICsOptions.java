@@ -76,4 +76,10 @@ public interface ICsOptions {
 	 */
 	public final String DISABLE_LAYOUT_INFORMATION_RECORDING = "DISABLE_LAYOUT_INFORMATION_RECORDING";
 	
+	/**
+	 * The key for the option to set the encoding to use when loading or saving
+	 * resources.
+	 */
+	public final String ENCODING = "ENCODING";
+	
 }
