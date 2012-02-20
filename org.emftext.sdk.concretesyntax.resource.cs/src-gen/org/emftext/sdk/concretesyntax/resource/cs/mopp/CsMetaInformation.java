@@ -57,7 +57,7 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 	}
 	
 	public String[] getTokenNames() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParser(null).getTokenNames();
+		return org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParser.tokenNames;
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle getDefaultTokenStyle(String tokenName) {
