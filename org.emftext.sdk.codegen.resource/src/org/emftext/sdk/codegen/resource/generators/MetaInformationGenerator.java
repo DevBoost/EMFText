@@ -172,7 +172,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		if (useScalesParser) {
 			sc.add("return new " + scannerlessParserClassName + "().getTokenNames();");
 		} else {
-			sc.add("return new " + antlrParserClassName + "(null).getTokenNames();");
+			sc.add("return " + antlrParserClassName + ".tokenNames;");
 		}
         sc.add("}");
         sc.addLineBreak();
