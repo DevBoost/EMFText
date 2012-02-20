@@ -101,7 +101,9 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		
 		sc.addJavadoc(
 				"The key for the option to set the encoding to use when loading or " +
-				"saving resources."
+				"saving resources. This is equivalent to the same option specified in " +
+				"class <code>org.eclipse.emf.ecore.xmi.XMLResource</code>.",
+				"@see org.eclipse.emf.ecore.xmi.XMLResource"
 			);
 		sc.add("public final String " + OPTION_ENCODING + " = \"ENCODING\";");
 		sc.addLineBreak();
