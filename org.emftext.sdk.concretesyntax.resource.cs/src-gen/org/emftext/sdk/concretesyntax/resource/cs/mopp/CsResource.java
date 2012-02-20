@@ -168,11 +168,18 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		this.loadOptions = options;
 		resetLocationMap();
 		this.terminateReload = false;
-		String encoding = getPlatformResourceEncoding();
+		String encoding = null;
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
+			encoding = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getPlatformResourceEncoding(uri);
+		}
 		java.io.InputStream actualInputStream = inputStream;
 		Object inputStreamPreProcessorProvider = null;
 		if (options != null) {
 			inputStreamPreProcessorProvider = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
+			Object encodingOption = options.get("OPTION_ENCODING");
+			if (encodingOption != null) {
+				encoding = encodingOption.toString();
+			}
 		}
 		if (inputStreamPreProcessorProvider != null) {
 			if (inputStreamPreProcessorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider) {
@@ -650,30 +657,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			return true;
 		}
 		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP);
-	}
-	
-	/**
-	 * Returns the encoding for this resource that is specified in the workspace file
-	 * properties or determined by the default workspace encoding in Eclipse.
-	 */
-	protected String getPlatformResourceEncoding() {
-		// We can't determine the encoding if the platform is not running.
-		if (!new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformRunning()) {
-			return null;
-		}
-		if (uri != null && uri.isPlatform()) {
-			String platformString = uri.toPlatformString(true);
-			org.eclipse.core.resources.IResource platformResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
-			if (platformResource instanceof org.eclipse.core.resources.IFile) {
-				org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) platformResource;
-				try {
-					return file.getCharset();
-				} catch (org.eclipse.core.runtime.CoreException ce) {
-					new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logWarning("Could not determine encoding of platform resource: " + uri.toString(), ce);
-				}
-			}
-		}
-		return null;
 	}
 	
 }

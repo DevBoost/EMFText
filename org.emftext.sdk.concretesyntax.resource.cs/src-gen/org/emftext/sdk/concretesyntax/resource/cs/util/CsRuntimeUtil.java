@@ -21,9 +21,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 public class CsRuntimeUtil {
 	
 	/**
-	 * Checks whether the class org.eclipse.core.runtime.Platformis available on the
-	 * classpath. This can be used to determine if Eclipse is available in the current
-	 * runtime environment.
+	 * Checks whether the class <code>org.eclipse.core.runtime.Platform</code> is
+	 * available on the classpath. This can be used to determine if Eclipse is
+	 * available in the current runtime environment.
 	 */
 	public boolean isEclipsePlatformAvailable() {
 		try {

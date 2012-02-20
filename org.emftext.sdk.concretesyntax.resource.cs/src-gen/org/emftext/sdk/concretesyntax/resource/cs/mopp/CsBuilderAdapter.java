@@ -28,6 +28,7 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 		if (delta == null) {
 			return null;
 		}
+		final org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
 		delta.accept(new org.eclipse.core.resources.IResourceDeltaVisitor() {
 			public boolean visit(org.eclipse.core.resources.IResourceDelta delta) throws org.eclipse.core.runtime.CoreException {
 				org.eclipse.core.resources.IResource resource = delta.getResource();
@@ -41,7 +42,7 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 					return false;
 				}
 				if (resource instanceof org.eclipse.core.resources.IFile && resource.getName().endsWith("." + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName())) {
-					build((org.eclipse.core.resources.IFile) resource, monitor);
+					build((org.eclipse.core.resources.IFile) resource, resourceSet, monitor);
 					return false;
 				}
 				return true;
@@ -50,11 +51,11 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 		return null;
 	}
 	
-	public void build(org.eclipse.core.resources.IFile resource, org.eclipse.core.runtime.IProgressMonitor monitor) {
+	public void build(org.eclipse.core.resources.IFile resource, org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.core.runtime.IProgressMonitor monitor) {
 		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder builder = getBuilder();
 		if (builder.isBuildingNeeded(uri)) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource customResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl().getResource(uri, true);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource customResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) resourceSet.getResource(uri, true);
 			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, getBuilderMarkerId());
 			builder.build(customResource, monitor);
 		}

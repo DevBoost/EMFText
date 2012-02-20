@@ -149,4 +149,28 @@ public class CsEclipseProxy {
 		}
 	}
 	
+	/**
+	 * Returns the encoding for this resource that is specified in the workspace file
+	 * properties or determined by the default workspace encoding in Eclipse.
+	 */
+	public String getPlatformResourceEncoding(org.eclipse.emf.common.util.URI uri) {
+		// We can't determine the encoding if the platform is not running.
+		if (!new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformRunning()) {
+			return null;
+		}
+		if (uri != null && uri.isPlatform()) {
+			String platformString = uri.toPlatformString(true);
+			org.eclipse.core.resources.IResource platformResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
+			if (platformResource instanceof org.eclipse.core.resources.IFile) {
+				org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) platformResource;
+				try {
+					return file.getCharset();
+				} catch (org.eclipse.core.runtime.CoreException ce) {
+					new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logWarning("Could not determine encoding of platform resource: " + uri.toString(), ce);
+				}
+			}
+		}
+		return null;
+	}
+	
 }

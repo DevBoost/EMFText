@@ -27,7 +27,7 @@ public class CsTaskItemBuilder extends org.emftext.sdk.concretesyntax.resource.c
 	public final static String BUILDER_ID = "org.emftext.sdk.concretesyntax.resource.cs.taskItemBuilder";
 	
 	@Override	
-	public void build(org.eclipse.core.resources.IFile resource, org.eclipse.core.runtime.IProgressMonitor monitor) {
+	public void build(org.eclipse.core.resources.IFile resource, org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.core.runtime.IProgressMonitor monitor) {
 		monitor.setTaskName("Searching for task items");
 		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, org.eclipse.core.resources.IMarker.TASK);
 		if (isInBinFolder(resource)) {
