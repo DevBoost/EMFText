@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -22,7 +22,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_DELTA;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_DELTA_VISITOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
@@ -80,6 +80,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("if (delta == null) {");
 		sc.add("return null;");
 		sc.add("}");
+		sc.add("final " + RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
 		sc.add("delta.accept(new " + I_RESOURCE_DELTA_VISITOR + "() {");
 		sc.add("public boolean visit(" + I_RESOURCE_DELTA + " delta) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_RESOURCE + " resource = delta.getResource();");
@@ -93,7 +94,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("if (resource instanceof " + I_FILE + " && resource.getName().endsWith(\".\" + new " + metaInformationClassName + "().getSyntaxName())) {");
-		sc.add("build((" + I_FILE + ") resource, monitor);");
+		sc.add("build((" + I_FILE + ") resource, resourceSet, monitor);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");
@@ -105,11 +106,11 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 	
 	private void addBuildMethod3(JavaComposite sc) {
-		sc.add("public void build(" + I_FILE + " resource, " + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("public void build(" + I_FILE + " resource, " + RESOURCE_SET + " resourceSet, " + I_PROGRESS_MONITOR + " monitor) {");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
 		sc.add(iBuilderClassName + " builder = getBuilder();");
 		sc.add("if (builder.isBuildingNeeded(uri)) {");
-		sc.add(textResourceClassName + " customResource = (" + textResourceClassName + ") new " + RESOURCE_SET_IMPL + "().getResource(uri, true);");
+		sc.add(textResourceClassName + " customResource = (" + textResourceClassName + ") resourceSet.getResource(uri, true);");
     	sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, getBuilderMarkerId());");
 		sc.add("builder.build(customResource, monitor);");
 		sc.add("}");
