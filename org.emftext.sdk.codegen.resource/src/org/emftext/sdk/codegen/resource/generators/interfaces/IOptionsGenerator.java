@@ -103,7 +103,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 				"The key for the option to set the encoding to use when loading or " +
 				"saving resources."
 			);
-		sc.add("public final String " + OPTION_ENCODING + " = \"" + OPTION_ENCODING + "\";");
+		sc.add("public final String " + OPTION_ENCODING + " = \"ENCODING\";");
 		sc.addLineBreak();
 		
 		sc.add("}");
