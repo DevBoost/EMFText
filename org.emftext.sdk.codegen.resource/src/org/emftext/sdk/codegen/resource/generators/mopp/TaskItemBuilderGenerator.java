@@ -1,3 +1,16 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2012
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0 
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Software Technology Group - TU Dresden, Germany 
+ *      - initial API and implementation
+ ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
@@ -7,6 +20,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -63,7 +77,7 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addBuildMethod(JavaComposite sc) {
 		sc.add("@Override").addLineBreak();
-		sc.add("public void build(" + I_FILE + " resource, " + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("public void build(" + I_FILE + " resource, " + RESOURCE_SET + " resourceSet, " + I_PROGRESS_MONITOR + " monitor) {");
 		sc.add("monitor.setTaskName(\"Searching for task items\");");
 		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, " + I_MARKER + ".TASK);");
 		sc.add("if (isInBinFolder(resource)) {");
