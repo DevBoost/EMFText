@@ -78,8 +78,11 @@ public interface ICsOptions {
 	
 	/**
 	 * The key for the option to set the encoding to use when loading or saving
-	 * resources.
+	 * resources. This is equivalent to the same option specified in class
+	 * <code>org.eclipse.emf.ecore.xmi.XMLResource</code>.
+	 * 
+	 * @see org.eclipse.emf.ecore.xmi.XMLResource
 	 */
-	public final String OPTION_ENCODING = "OPTION_ENCODING";
+	public final String OPTION_ENCODING = "ENCODING";
 	
 }
