@@ -265,9 +265,14 @@ multiple concrete syntax is allowed for the same DSL concept.
 
 Registered post processors are automatically called by the generated DSL tooling
 whenever a model is created from text. This does also include the case where the
-editor parses text in the background to show errors immediately. Thus, post
+editor parses text in the background to show errors immediately. Thus, some
+special restrictions apply to post processors. First, post
 processors must be able to deal with partial models or explicitly abort their
 execution if errors (e.g., syntactical problems) have been detected beforehand.
+Second, post processors must be sufficiently fast to make sure that editing is
+not disturbed. In particular attaching large amounts of errors to resources can
+slow down Eclipse a lot. In such cases, it is recommended to attach a maximum
+number of errors only.
 
 Post processors should not be used to solely implement semantic checks (i.e.,
 to validate models). This should rather be done using the \EMF Validation
