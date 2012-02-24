@@ -123,6 +123,23 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addHandleExceptionMethod(sc);
 		addRemoveAllMarkersMethod1(sc);
 		addCreateMarkerMethod(sc);
+		
+		addBeginDeferMarkerUpdatesMethod(sc);
+		addEndDeferMarkerUpdatesMethod(sc);
+	}
+
+	private void addBeginDeferMarkerUpdatesMethod(JavaComposite sc) {
+		sc.add("public void beginDeferMarkerUpdates() {");
+		// TODO 
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addEndDeferMarkerUpdatesMethod(JavaComposite sc) {
+		sc.add("public void endDeferMarkerUpdates() {");
+		// TODO 
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCreateMarkerMethod(JavaComposite sc) {
