@@ -74,7 +74,7 @@ public class CsMarkerHelper {
 					}
 					return org.eclipse.core.runtime.Status.OK_STATUS;
 				}
-			}.schedule();
+			}.schedule(500);
 		}
 		
 	}

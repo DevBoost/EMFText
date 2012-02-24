@@ -125,7 +125,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 			"builder. This allows subclasses to produce different kinds of markers."
 		);
 		sc.add("public String getBuilderMarkerId() {");
-		sc.add("return " + markerHelperClassName + ".getMarkerID(" + eProblemTypeClassName + ".BUILDER_ERROR);");
+		sc.add("return new " + markerHelperClassName + "().getMarkerID(" + eProblemTypeClassName + ".BUILDER_ERROR);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

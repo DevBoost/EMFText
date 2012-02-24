@@ -371,7 +371,7 @@ public class TextResourceGenerator extends
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-			sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+			sc.add("new " + markerHelperClassName + "().mark(this, diagnostic);");
 			sc.add("}");
 		}
 		sc.add("addQuickFixesToQuickFixMap(problem);");
@@ -411,7 +411,7 @@ public class TextResourceGenerator extends
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-			sc.add(markerHelperClassName + ".mark(this, diagnostic);");
+			sc.add("new " + markerHelperClassName + "().mark(this, diagnostic);");
 			sc.add("}");
 		}
 		sc.add("addQuickFixesToQuickFixMap(problem);");
@@ -530,7 +530,7 @@ public class TextResourceGenerator extends
 
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
+			sc.add("new " + markerHelperClassName + "().unmark(this, " + eProblemTypeClassName
 					+ ".ANALYSIS_PROBLEM);");
 			sc.add("}");
 		}
@@ -611,12 +611,10 @@ public class TextResourceGenerator extends
 		sc.add("getWarnings().clear();");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
-					+ ".UNKNOWN);");
-			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
-					+ ".SYNTAX_ERROR);");
-			sc.add(markerHelperClassName + ".unmark(this, " + eProblemTypeClassName
-					+ ".UNRESOLVED_REFERENCE);");
+			sc.add(markerHelperClassName + " markerHelper = new " + markerHelperClassName + "();");
+			sc.add("markerHelper.unmark(this, " + eProblemTypeClassName + ".UNKNOWN);");
+			sc.add("markerHelper.unmark(this, " + eProblemTypeClassName + ".SYNTAX_ERROR);");
+			sc.add("markerHelper.unmark(this, " + eProblemTypeClassName + ".UNRESOLVED_REFERENCE);");
 			sc.add("}");
 		}
 		sc.add("proxyCounter = 0;");
@@ -703,7 +701,7 @@ public class TextResourceGenerator extends
 		sc.add("diagnostics.remove(errorCand);");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add(markerHelperClassName + ".unmark(this, cause);");
+			sc.add("new " + markerHelperClassName + "().unmark(this, cause);");
 			sc.add("}");
 		}
 		sc.add("}");
