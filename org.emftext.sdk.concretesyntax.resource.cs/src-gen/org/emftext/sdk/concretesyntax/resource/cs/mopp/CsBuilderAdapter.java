@@ -74,7 +74,7 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 	 * subclasses to produce different kinds of markers.
 	 */
 	public String getBuilderMarkerId() {
-		return org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.BUILDER_ERROR);
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.BUILDER_ERROR);
 	}
 	
 }

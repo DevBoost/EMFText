@@ -74,7 +74,7 @@ public class CsMarkerHelper {
 					}
 					return org.eclipse.core.runtime.Status.OK_STATUS;
 				}
-			}.schedule(500);
+			}.schedule();
 		}
 		
 	}
@@ -88,7 +88,7 @@ public class CsMarkerHelper {
 	 * @param resource The resource that is the file to mark.
 	 * @param diagnostic The diagnostic with information for the marker.
 	 */
-	public static void mark(org.eclipse.emf.ecore.resource.Resource resource, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
+	public void mark(org.eclipse.emf.ecore.resource.Resource resource, org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
 		final org.eclipse.core.resources.IFile file = getFile(resource);
 		if (file == null) {
 			return;
@@ -96,7 +96,7 @@ public class CsMarkerHelper {
 		createMarkerFromDiagnostic(file, diagnostic);
 	}
 	
-	private static void createMarkerFromDiagnostic(final org.eclipse.core.resources.IFile file, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
+	protected void createMarkerFromDiagnostic(final org.eclipse.core.resources.IFile file, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
 		final org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem = diagnostic.getProblem();
 		org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType = problem.getType();
 		final String markerID = getMarkerID(problemType);
@@ -154,7 +154,7 @@ public class CsMarkerHelper {
 	 * 
 	 * @param resource The resource where to delete markers from
 	 */
-	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource) {
+	public void unmark(org.eclipse.emf.ecore.resource.Resource resource) {
 		for (org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType nextType : org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.values()) {
 			unmark(resource, nextType);
 		}
@@ -169,7 +169,7 @@ public class CsMarkerHelper {
 	 * @param resource The resource where to delete markers from
 	 * @param problemType The type of problem to remove
 	 */
-	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
+	public void unmark(org.eclipse.emf.ecore.resource.Resource resource, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
 		final org.eclipse.core.resources.IFile file = getFile(resource);
 		if (file == null) {
 			return;
@@ -196,7 +196,7 @@ public class CsMarkerHelper {
 	 * @param resource The resource where to delete markers from
 	 * @param causingObject The cause of the problems to remove
 	 */
-	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource, final org.eclipse.emf.ecore.EObject causingObject) {
+	public void unmark(org.eclipse.emf.ecore.resource.Resource resource, final org.eclipse.emf.ecore.EObject causingObject) {
 		final org.eclipse.core.resources.IFile file = getFile(resource);
 		if (file == null) {
 			return;
@@ -227,7 +227,7 @@ public class CsMarkerHelper {
 	 * Returns the ID of the marker type that is used to indicate problems of the
 	 * given type.
 	 */
-	public static String getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
+	public String getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
 		String markerID = MARKER_TYPE;
 		String typeID = problemType.getID();
 		if (!"".equals(typeID)) {
@@ -241,7 +241,7 @@ public class CsMarkerHelper {
 	 * running, the resource is not a platform resource, or the resource cannot be
 	 * found in the workspace, this method returns <code>null</code>.
 	 */
-	private static org.eclipse.core.resources.IFile getFile(org.eclipse.emf.ecore.resource.Resource resource) {
+	protected org.eclipse.core.resources.IFile getFile(org.eclipse.emf.ecore.resource.Resource resource) {
 		if (resource == null || !org.eclipse.core.runtime.Platform.isRunning()) {
 			return null;
 		}
@@ -256,7 +256,7 @@ public class CsMarkerHelper {
 	/**
 	 * Returns an URI that identifies the given object.
 	 */
-	private static String getObjectURI(org.eclipse.emf.ecore.EObject object) {
+	protected String getObjectURI(org.eclipse.emf.ecore.EObject object) {
 		if (object == null) {
 			return null;
 		}
@@ -270,7 +270,7 @@ public class CsMarkerHelper {
 		return eResource.getURI().toString() + "#" + eResource.getURIFragment(object);
 	}
 	
-	private static void handleException(org.eclipse.core.runtime.CoreException ce) {
+	protected void handleException(org.eclipse.core.runtime.CoreException ce) {
 		if (ce.getMessage().matches("Marker.*not found.")) {
 			// ignore
 		}else if (ce.getMessage().matches("Resource.*does not exist.")) {

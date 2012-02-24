@@ -397,7 +397,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				if (((org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) errorCand).wasCausedBy(cause)) {
 					diagnostics.remove(errorCand);
 					if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
-						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, cause);
+						new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().unmark(this, cause);
 					}
 				}
 			}
@@ -444,7 +444,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 */
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
 		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
+			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
 		}
 		if (terminateReload) {
 			return;
@@ -519,7 +519,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
 		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
+			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().mark(this, diagnostic);
 		}
 		addQuickFixesToQuickFixMap(problem);
 	}
@@ -528,7 +528,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		PositionBasedTextDiagnostic diagnostic = new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
 		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.mark(this, diagnostic);
+			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().mark(this, diagnostic);
 		}
 		addQuickFixesToQuickFixMap(problem);
 	}
@@ -593,9 +593,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		getErrors().clear();
 		getWarnings().clear();
 		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
+			markerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
+			markerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
+			markerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
 		}
 		proxyCounter = 0;
 		resolverSwitch = null;

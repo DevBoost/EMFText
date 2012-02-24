@@ -161,7 +161,7 @@ public class PostProcessingContext {
 	}
 
 	public void addProblemsToResource() {
-		CsMarkerHelper.unmark(getResource(), CsEProblemType.ANALYSIS_PROBLEM);
+		new CsMarkerHelper().unmark(getResource(), CsEProblemType.ANALYSIS_PROBLEM);
 		for (IProblemWrapper problem : problems) {
 			if (problem instanceof WrappedElementBasedProblem) {
 				WrappedElementBasedProblem elementBasedProblem = (WrappedElementBasedProblem) problem;
