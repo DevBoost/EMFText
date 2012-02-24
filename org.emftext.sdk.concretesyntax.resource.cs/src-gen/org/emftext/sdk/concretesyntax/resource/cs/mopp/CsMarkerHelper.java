@@ -63,18 +63,22 @@ public class CsMarkerHelper {
 				@Override				
 				protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
 					synchronized(jobLock) {
-						java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>> commandsToProcess = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>>();
-						synchronized(commands) {
-							commandsToProcess.addAll(commands);
-							commands.clear();
-						}
-						for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object> command : commandsToProcess) {
-							command.execute(null);
-						}
+						runCommands();
 					}
 					return org.eclipse.core.runtime.Status.OK_STATUS;
 				}
 			}.schedule();
+		}
+		
+		public void runCommands() {
+			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>> commandsToProcess = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>>();
+			synchronized(commands) {
+				commandsToProcess.addAll(commands);
+				commands.clear();
+			}
+			for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object> command : commandsToProcess) {
+				command.execute(null);
+			}
 		}
 		
 	}
@@ -330,6 +334,10 @@ public class CsMarkerHelper {
 	}
 	
 	public void endDeferMarkerUpdates() {
+	}
+	
+	public void runCommands() {
+		COMMAND_QUEUE.runCommands();
 	}
 	
 }
