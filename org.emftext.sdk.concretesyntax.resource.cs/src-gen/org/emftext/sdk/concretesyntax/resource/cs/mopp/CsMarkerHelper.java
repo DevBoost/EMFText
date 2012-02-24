@@ -326,4 +326,10 @@ public class CsMarkerHelper {
 		});
 	}
 	
+	public void beginDeferMarkerUpdates() {
+	}
+	
+	public void endDeferMarkerUpdates() {
+	}
+	
 }
