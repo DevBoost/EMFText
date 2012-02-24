@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -54,7 +54,7 @@ public class GenerateResourcePluginsJob extends AbstractConcreteSyntaxJob {
 		try {
 			final CsResource csResource = new CsEclipseProxy().getResource(csFile);
 			// remove all generation problems
-			CsMarkerHelper.unmark(csResource, CsEProblemType.BUILDER_ERROR);
+			new CsMarkerHelper().unmark(csResource, CsEProblemType.BUILDER_ERROR);
 			// create problem collector
 			IProblemCollector problemCollector = new IProblemCollector() {
 				public void addProblem(GenerationProblem problem) {

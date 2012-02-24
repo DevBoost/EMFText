@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -37,7 +37,7 @@ public class WorkspaceMarker implements IResourceMarker {
 	private void mark(Resource resource, EList<Diagnostic> diagnostics) {
 		for (Resource.Diagnostic diagnostic : diagnostics) {
 			if (diagnostic instanceof ICsTextDiagnostic) {
-				CsMarkerHelper.mark(resource, (ICsTextDiagnostic) diagnostic);
+				new CsMarkerHelper().mark(resource, (ICsTextDiagnostic) diagnostic);
 			}
 		}
 	}
@@ -45,7 +45,7 @@ public class WorkspaceMarker implements IResourceMarker {
 	public void unmark(Resource resource) throws CoreException {
 		// remove all kinds of problem markers
 		for (CsEProblemType type : CsEProblemType.values()) {
-			CsMarkerHelper.unmark(resource, type);
+			new CsMarkerHelper().unmark(resource, type);
 		}
 	}
 }
