@@ -93,6 +93,15 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("@Override").addLineBreak();	
 		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
 		sc.add("synchronized(jobLock) {");
+		sc.add("runCommands();");
+		sc.add("}");
+		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("}");
+		sc.add("}.schedule();");
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.add("public void runCommands() {");
 		sc.add(LIST + "<" + iCommandClassName + "<Object>> commandsToProcess = new " + ARRAY_LIST + "<" + iCommandClassName + "<Object>>();");
 		sc.add("synchronized(commands) {");
 		sc.add("commandsToProcess.addAll(commands);");
@@ -101,10 +110,6 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("for (" + iCommandClassName +"<Object> command : commandsToProcess) {");	
 		sc.add("command.execute(null);");
 		sc.add("}");
-		sc.add("}");
-		sc.add("return " + STATUS + ".OK_STATUS;");
-		sc.add("}");
-		sc.add("}.schedule();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");
@@ -126,6 +131,14 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		
 		addBeginDeferMarkerUpdatesMethod(sc);
 		addEndDeferMarkerUpdatesMethod(sc);
+		addRunCommandsMethod(sc);
+	}
+
+	private void addRunCommandsMethod(JavaComposite sc) {
+		sc.add("public void runCommands() {");
+		sc.add("COMMAND_QUEUE.runCommands();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addBeginDeferMarkerUpdatesMethod(JavaComposite sc) {
