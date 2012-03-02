@@ -57,10 +57,16 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 			checkRulesWithOperatorAnnotation(syntax);
 			checkOperatorTypes(syntax);
 
+			//we check this for all operator annotations
 			Set<GenClass> operatorGenClasses = getOperatorClasses(syntax);
 			checkStartSymbols(syntax, operatorGenClasses);
 			checkContainmentsInOperatorRules(syntax, operatorGenClasses);
-			checkContainmentsInNormalRules(syntax, operatorGenClasses);
+			
+			//we disallow containment references to expression rules in normal rules
+			//for all expression rules, except the primitive ones, since such reference.
+			//can be considered as safe.
+			Set<GenClass> nonPrimitiveOperatorGenClasses = getNonPrimitiveOperatorClasses(syntax);
+			checkContainmentsInNormalRules(syntax, nonPrimitiveOperatorGenClasses);
 		}
 	}
 
@@ -216,6 +222,16 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		Set<GenClass> operatorClasses = new LinkedHashSet<GenClass>(syntax.getOperatorRules().size());
 		for (Rule operatorRule : syntax.getOperatorRules()) {
 			operatorClasses.add(operatorRule.getMetaclass());
+		}
+		return operatorClasses;
+	}
+	
+	private Set<GenClass> getNonPrimitiveOperatorClasses(ConcreteSyntax syntax) {
+		Set<GenClass> operatorClasses = new LinkedHashSet<GenClass>(syntax.getOperatorRules().size());
+		for (Rule operatorRule : syntax.getOperatorRules()) {
+			OperatorAnnotationType operatorType = csUtil.getOperatorAnnotationType(operatorRule.getOperatorAnnotation());
+		if(operatorType!=OperatorAnnotationType.PRIMITIVE)
+				operatorClasses.add(operatorRule.getMetaclass());
 		}
 		return operatorClasses;
 	}
