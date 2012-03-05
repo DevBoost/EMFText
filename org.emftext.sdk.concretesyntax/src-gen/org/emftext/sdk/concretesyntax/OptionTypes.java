@@ -2360,7 +2360,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EDITOR_NAME(293, "EDITOR_NAME", "editorName");
+	EDITOR_NAME(293, "EDITOR_NAME", "editorName"), /**
+	 * The '<em><b>OVERRIDE LAYOUT UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LAYOUT_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LAYOUT_UTIL(294, "OVERRIDE_LAYOUT_UTIL", "overrideLayoutUtil");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7290,6 +7298,19 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int EDITOR_NAME_VALUE = 293;
 /**
+	 * The '<em><b>OVERRIDE LAYOUT UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LayoutUtil class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_LAYOUT_UTIL
+	 * @model literal="overrideLayoutUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LAYOUT_UTIL_VALUE = 294;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7588,6 +7609,7 @@ public enum OptionTypes implements Enumerator {
 			ADDITIONAL_LIBRARIES,
 			OVERRIDE_CONTAINMENT_TRACE,
 			EDITOR_NAME,
+			OVERRIDE_LAYOUT_UTIL,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7926,6 +7948,7 @@ public enum OptionTypes implements Enumerator {
 			case ADDITIONAL_LIBRARIES_VALUE: return ADDITIONAL_LIBRARIES;
 			case OVERRIDE_CONTAINMENT_TRACE_VALUE: return OVERRIDE_CONTAINMENT_TRACE;
 			case EDITOR_NAME_VALUE: return EDITOR_NAME;
+			case OVERRIDE_LAYOUT_UTIL_VALUE: return OVERRIDE_LAYOUT_UTIL;
 		}
 		return null;
 	}

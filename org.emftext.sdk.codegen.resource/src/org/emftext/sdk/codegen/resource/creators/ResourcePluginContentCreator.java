@@ -286,6 +286,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.ECLIPSE_PROXY);
 	    add(creators, TextResourceArtifacts.E_CLASS_UTIL);
 	    add(creators, TextResourceArtifacts.E_OBJECT_UTIL);
+	    add(creators, TextResourceArtifacts.LAYOUT_UTIL);
 	    add(creators, TextResourceArtifacts.LIST_UTIL);
 	    add(creators, TextResourceArtifacts.MAP_UTIL);
 	    add(creators, TextResourceArtifacts.PAIR);

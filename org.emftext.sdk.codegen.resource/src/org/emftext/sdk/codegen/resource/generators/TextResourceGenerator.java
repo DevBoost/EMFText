@@ -157,6 +157,7 @@ public class TextResourceGenerator extends
 
 		addIsMarkerCreationEnabledMethod(sc);
 		addIsLocationMapEnabledMethod(sc);
+		addIsLayoutInformationRecordingEnabled(sc);
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -640,6 +641,18 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 	
+	private void addIsLayoutInformationRecordingEnabled(StringComposite sc) {
+		sc.add("protected boolean isLayoutInformationRecordingEnabled() {");
+		sc.add("if (loadOptions == null) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "."
+				+ IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING
+				+ ");");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	private void addAttachResolveWarningsMethod(StringComposite sc) {
 		sc.add("protected void attachResolveWarnings("
 				+ iReferenceResolveResultClassName + "<? extends " + E_OBJECT
@@ -957,7 +970,13 @@ public class TextResourceGenerator extends
 		sc.add("printer.setEncoding(getEncoding(options));");
 		sc.add("referenceResolverSwitch.setOptions(options);");
 		sc.add("for (" + E_OBJECT + " root : getContentsInternal()) {");
+		sc.add("if (isLayoutInformationRecordingEnabled()) {");
+		sc.add(layoutUtilClassName + ".transferAllLayoutInformationFromModel(root);");
+		sc.add("}");
 		sc.add("printer.print(root);");
+		sc.add("if (isLayoutInformationRecordingEnabled()) {");
+		sc.add(layoutUtilClassName + ".transferAllLayoutInformationToModel(root);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -1052,6 +1071,9 @@ public class TextResourceGenerator extends
 		sc.add("if (result != null) {");
 		sc.add("root = result.getRoot();");
 		sc.add("if (root != null) {");
+		sc.add("if (isLayoutInformationRecordingEnabled()) {");
+		sc.add(layoutUtilClassName + ".transferAllLayoutInformationToModel(root);");
+		sc.add("}");
 		sc.add("getContentsInternal().add(root);");
 		sc.add("}");
 		sc.add(COLLECTION + "<" + iCommandClassName + "<"

@@ -193,6 +193,7 @@ import org.emftext.sdk.codegen.resource.generators.util.CopiedEObjectInternalELi
 import org.emftext.sdk.codegen.resource.generators.util.EClassUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.EObjectUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.EclipseProxyGenerator;
+import org.emftext.sdk.codegen.resource.generators.util.LayoutUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.ListUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.MapUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.MinimalModelHelperGenerator;
@@ -393,6 +394,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ECLIPSE_PROXY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "EclipseProxy", EclipseProxyGenerator.class, OptionTypes.OVERRIDE_ECLIPSE_PROXY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_CLASS_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "EClassUtil", EClassUtilGenerator.class, OptionTypes.OVERRIDE_ECLASS_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_OBJECT_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "EObjectUtil", EObjectUtilGenerator.class, OptionTypes.OVERRIDE_EOBJECT_UTIL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LAYOUT_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "LayoutUtil", LayoutUtilGenerator.class, OptionTypes.OVERRIDE_LAYOUT_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LIST_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "ListUtil", ListUtilGenerator.class, OptionTypes.OVERRIDE_LIST_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MAP_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "MapUtil", MapUtilGenerator.class, OptionTypes.OVERRIDE_MAP_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PAIR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "Pair", PairGenerator.class, OptionTypes.OVERRIDE_PAIR);

@@ -2511,6 +2511,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_LIBRARIES);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_CONTAINMENT_TRACE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.EDITOR_NAME);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_LAYOUT_UTIL);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -4768,6 +4769,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "The default editor name can be changed with this option. Default name is \'EMFText <yourSyntaxExtension> Editor\'"
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(291), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the LayoutUtil class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 

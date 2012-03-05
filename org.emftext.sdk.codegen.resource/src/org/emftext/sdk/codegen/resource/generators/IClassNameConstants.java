@@ -169,6 +169,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -265,6 +266,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String E_DATA_TYPE = EDataType.class.getName();
 	public static String E_ENUM = EEnum.class.getName();
 	public static String E_ENUM_LITERAL = EEnumLiteral.class.getName();
+	public static String E_FACTORY = EFactory.class.getName();
 	public static String E_LIST = EList.class.getName();
 	public static String E_MAP = EMap.class.getName();
 	public static String E_OBJECT = EObject.class.getName();

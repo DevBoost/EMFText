@@ -144,6 +144,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String layoutInformationClassName;
 	protected String lineBreakClassName;
 	protected String lineBreakpointClassName;
+	protected String layoutUtilClassName;
 	protected String listUtilClassName;
 	protected String locationMapClassName;
 	protected String devNullLocationMapClassName;
@@ -323,6 +324,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		layoutInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_INFORMATION);
 		lineBreakClassName = context.getQualifiedClassName(TextResourceArtifacts.LINE_BREAK);
 		lineBreakpointClassName = context.getQualifiedClassName(TextResourceArtifacts.LINEBREAK_POINT);
+		layoutUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.LAYOUT_UTIL);
 		listUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.LIST_UTIL);
 		locationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.LOCATION_MAP);
 		devNullLocationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.DEV_NULL_LOCATION_MAP);		
