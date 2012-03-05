@@ -15,7 +15,6 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STATUS;
@@ -51,6 +50,8 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		addParseMethod2(sc);
 		addParseMethod3(sc);
 		
+		addInnerClassParsingJob(sc);
+		
 		sc.add("}");
 	}
 
@@ -66,7 +67,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		
 		sc.addJavadoc("the background parsing task (may be null)");
-		sc.add("private " + JOB + " job;");
+		sc.add("private ParsingJob job = null;");
 		sc.addLineBreak();
 	}
 
@@ -105,46 +106,51 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 			"editor are created, which is not desired."
 		);
 		sc.add("synchronized (lock) {");
-		sc.addComment("cancel old task");
-		sc.add("if (job != null) {");
-		sc.addComment("stop current parser (if there is one)");
-		sc.add("job.cancel();");
-		sc.add("try {");
-		sc.add("job.join();");
-		sc.add("} catch (InterruptedException e) {}");
+		sc.add("if (job == null || job.getState() != " + JOB + ".RUNNING) {");
+		sc.addComment("schedule new task");
+		sc.add("job = new ParsingJob();");
+		sc.add("job.resource = resource;");
+		sc.add("job.editor = editor;");
+		sc.add("job.newContents = contents;");
+		sc.add("job.schedule();");
+		sc.add("} else {");
+		sc.add("job.newContents = contents;");
+		sc.add("}");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.addComment("schedule new task");
-		sc.add("job = new " + JOB + "(\"parsing document\") {");
+	}
+	
+	private void addInnerClassParsingJob(JavaComposite sc) {
+		sc.add("private class ParsingJob extends " + JOB + "{");
+		sc.add("private " + editorClassName + " editor;");
+		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.addLineBreak();
-		
+		sc.add("public ParsingJob() {");
+		sc.add("super(\"parsing document\");");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("private String newContents = null;");
+		sc.addLineBreak();	
 		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("while (newContents != null ) {");
+		sc.add("while (newContents != null) {");
 		sc.add("try {");
-		sc.add("resource.reload(new " + BYTE_ARRAY_INPUT_STREAM + "(contents.getBytes()), null);");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("String currentContent = newContents;");
+		sc.add("newContents = null;");
+		sc.add("resource.reload(new " + BYTE_ARRAY_INPUT_STREAM + "(currentContent.getBytes()), null);");
+		sc.add("if (newContents != null) {");
+		sc.add("Thread.sleep(DELAY);");
+		sc.add("}");
+		sc.add("} catch (java.lang.Exception e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("}");
-		sc.addComment(
-			"the post parsing stuff must be executed in a separate job to avoid " +
-			"deadlocks on the document"
-		);
-		sc.add(JOB + " finishJob = new " + JOB + "(\"refreshing views\") {");
-		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("}");
 		sc.add("editor.notifyBackgroundParsingFinished();");
+		sc.add("}");
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
 		sc.add("};");
-		sc.add("finishJob.schedule(10);");
-		sc.add("return " + STATUS + ".OK_STATUS;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("protected void canceling() {");
-		sc.add("resource.cancelReload();");
-		sc.add("}");
-		sc.add("};");
-		sc.add("job.schedule(delay);");
-		sc.add("}");
-		sc.add("}");
 		sc.addLineBreak();
 	}
 }
