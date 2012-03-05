@@ -113,6 +113,7 @@ public class TextResourceGenerator extends
 		}
 
 		addGetSyntaxNameMethod(sc);
+		addGetEncoding(sc);
 		addGetReferenceResolverSwitchMethod(sc);
 		generatorUtil.addGetMetaInformationMethod(sc, getContext());
 
@@ -915,6 +916,25 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	
+	private void addGetEncoding(JavaComposite sc) {
+		sc.add("protected String getEncoding(" + MAP + "<?, ?> options) {");
+		sc.add("String encoding = null;");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("encoding = new " + eclipseProxyClassName + "().getPlatformResourceEncoding(uri);");
+			sc.add("}");
+		}
+		sc.add("if (options != null) {");
+		sc.add("Object encodingOption = options.get(" + iOptionsClassName + "." + IOptionsGenerator.OPTION_ENCODING + ");");
+		sc.add("if (encodingOption != null) {");
+		sc.add("encoding = encodingOption.toString();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return encoding;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("public " + iReferenceResolverSwitchClassName
@@ -934,6 +954,7 @@ public class TextResourceGenerator extends
 				+ " printer = getMetaInformation().createPrinter(outputStream, this);");
 		sc.add(iReferenceResolverSwitchClassName
 				+ " referenceResolverSwitch = getReferenceResolverSwitch();");
+		sc.add("printer.setEncoding(getEncoding(options));");
 		sc.add("referenceResolverSwitch.setOptions(options);");
 		sc.add("for (" + E_OBJECT + " root : getContentsInternal()) {");
 		sc.add("printer.print(root);");
@@ -990,21 +1011,12 @@ public class TextResourceGenerator extends
 		sc.add("this.loadOptions = options;");
 		sc.add("delayNotifications = true;");
 		sc.add("resetLocationMap();");
-		sc.add("String encoding = null;");
-		if (!removeEclipseDependentCode) {
-			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add("encoding = new " + eclipseProxyClassName + "().getPlatformResourceEncoding(uri);");
-			sc.add("}");
-		}
+		sc.add("String encoding = getEncoding(options);");
 		sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
 		sc.add("Object inputStreamPreProcessorProvider = null;");
 		sc.add("if (options != null) {");
 		sc.add("inputStreamPreProcessorProvider = options.get("
 				+ iOptionsClassName + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
-		sc.add("Object encodingOption = options.get(" + iOptionsClassName + "." + IOptionsGenerator.OPTION_ENCODING + ");");
-		sc.add("if (encodingOption != null) {");
-		sc.add("encoding = encodingOption.toString();");
-		sc.add("}");
 		sc.add("}");
 		sc.add("if (inputStreamPreProcessorProvider != null) {");
 		sc.add("if (inputStreamPreProcessorProvider instanceof "

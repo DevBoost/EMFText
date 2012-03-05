@@ -79,6 +79,21 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Artifac
 		sc.addLineBreak();
 	}
 
+	protected void addGetEncoding(JavaComposite sc) {
+		sc.add("public String getEncoding() {");
+		sc.add("return encoding;");
+		sc.add("}");
+		sc.addLineBreak();	
+	}
+	protected void addSetEncoding(JavaComposite sc) {
+		sc.add("public void setEncoding(String encoding) {");
+		sc.add("if (encoding != null) {");
+		sc.add("this.encoding = encoding;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
 	protected void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("protected " + referenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
         sc.add("return (" + referenceResolverSwitchClassName + ") new " + metaInformationClassName + "().getReferenceResolverSwitch();");

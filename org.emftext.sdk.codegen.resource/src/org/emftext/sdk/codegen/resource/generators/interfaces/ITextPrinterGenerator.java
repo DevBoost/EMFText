@@ -41,6 +41,12 @@ public class ITextPrinterGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + ";");
 		sc.addLineBreak();
 		
+		sc.addJavadoc(
+				"Sets the encoding used for printing."
+			);
+			sc.add("public void setEncoding(String encoding);");
+			sc.addLineBreak();
+		
 		sc.add("}");
 	}
 }

@@ -29,6 +29,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINTER_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
@@ -219,6 +220,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addInitializePrintCountingMapMethod(sc);
 		addGetOptionsMethod(sc);
 		addSetOptionsMethod(sc);
+		addGetEncoding(sc);
+		addSetEncoding(sc);
 		addGetResourceMethod(sc);
 		addGetReferenceResolverSwitchMethod(sc);
 		addAddWarningToResourceMethod(sc);
@@ -409,6 +412,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + OUTPUT_STREAM + " outputStream;");
+		sc.add("private String encoding = System.getProperty(\"file.encoding\");");
 		sc.add("protected " + LIST + "<PrintToken> tokenOutputStream;");
 		sc.add("private " + iTokenResolverFactoryClassName + " tokenResolverFactory = new " + tokenResolverFactoryClassName + "();");
 		sc.add("private boolean handleTokenSpaceAutomatically = " + handleTokenSpaceAutomatically + ";");
@@ -989,7 +993,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = getCopyOfLayoutInformation(element);");
 		sc.add(layoutInformationClassName + " eofLayoutInformation = getLayoutInformation(layoutInformations, null, null, null);");
 		sc.add("printFormattingElements(formattingElements, layoutInformations, eofLayoutInformation);");
-		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + OUTPUT_STREAM_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream), encoding));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
 		sc.add("printSmart(writer);");
 		sc.add("} else {");

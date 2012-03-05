@@ -25,6 +25,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST_ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINTER_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING_WRITER;
 
@@ -198,6 +199,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		addAddWarningToResourceMethod(sc);
 		addSetOptionsMethod(sc);
 		addGetOptionsMethod(sc);
+		addSetEncoding(sc);
+		addGetEncoding(sc);
 		addGetResourceMethod(sc);
 		addPrintMethod(sc);
         for (Rule rule : rules) {
@@ -209,8 +212,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addJavadoc(
 			"Calls {@link #doPrint(EObject, PrintWriter, String)} and writes the result to the underlying output stream."
 		);
-		sc.add("public void print(" + E_OBJECT + " element) {");
-		sc.add(PRINTER_WRITER + " out = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
+		sc.add("public void print(" + E_OBJECT + " element) throws java.io.IOException {");
+		sc.add(PRINTER_WRITER + " out = new " + PRINTER_WRITER + "(new " + OUTPUT_STREAM_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream), encoding));");	
 		sc.add("doPrint(element, out, \"\");");
 		sc.add("out.flush();");
 		sc.add("out.close();");
@@ -273,6 +276,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 
 		sc.add("private " + MAP + "<?, ?> options;");
+		sc.add("private String encoding = System.getProperty(\"file.encoding\");");
 		sc.addLineBreak();
 	}
 
