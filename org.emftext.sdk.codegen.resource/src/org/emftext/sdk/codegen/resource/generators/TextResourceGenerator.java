@@ -1132,7 +1132,7 @@ public class TextResourceGenerator extends
 		sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(latestReloadOptions);");
 		sc.add("try {");
 		sc.add("doLoad(latestReloadInputStream, loadOptions);");
-		sc.add("} catch (de.devboost.smarttext.resource.stxt.mopp.StxtTerminateParsingException tpe) {");
+		sc.add("} catch (" + terminateParsingExceptionClassName + " tpe) {");
 		sc.addComment("do nothing - the resource is left unchanged if this exception is thrown");
 		sc.add("}");
 		sc.add("resolveAfterParsing();");
