@@ -63,14 +63,6 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Try to cancel a current reload of this resource. It is not guaranteed " +
-			"that canceling is successful. If this resource has already finished " +
-			"parsing the new content, it will replace its content unconditionally."
-		);
-		sc.add("public void cancelReload();");
-		sc.addLineBreak();
-		
-		sc.addJavadoc(
 			"Returns a map containing information about the location of model elements in the text.",
 			"@return the model element to text location mapping"
 		);

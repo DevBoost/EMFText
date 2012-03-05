@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_LIST;
@@ -33,6 +34,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
@@ -98,6 +100,9 @@ public class TextResourceGenerator extends
 	private void addMethods(JavaComposite sc) {
 		addConstructors(sc);
 		addDoLoadMethod(sc);
+		addProcessTerminationRequestedMethod(sc);
+		addNotifyDelayedMethod(sc);
+		addENotifyMethod(sc);
 		addReloadMethod(sc);
 		addCancelReloadMethod(sc);
 		addDoSaveMethod(sc);
@@ -144,6 +149,11 @@ public class TextResourceGenerator extends
 		addGetErrorsMethod(sc);
 		addRunValidatorsMethods(sc);
 		addGetQuickFixMethod(sc);
+
+		addMarkMethod(sc);
+		addUnmarkMethod1(sc);
+		addUnmarkMethod2(sc);
+
 		addIsMarkerCreationEnabledMethod(sc);
 		addIsLocationMapEnabledMethod(sc);
 	}
@@ -369,11 +379,7 @@ public class TextResourceGenerator extends
 				+ ELEMENT_BASED_TEXT_DIAGNOSTIC
 				+ "(locationMap, getURI(), problem, element);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
-		if (!removeEclipseDependentCode) {
-			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-			sc.add("new " + markerHelperClassName + "().mark(this, diagnostic);");
-			sc.add("}");
-		}
+		sc.add("mark(diagnostic);");
 		sc.add("addQuickFixesToQuickFixMap(problem);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -409,11 +415,7 @@ public class TextResourceGenerator extends
 				+ POSITION_BASED_TEXT_DIAGNOSTIC
 				+ "(getURI(), problem, column, line, charStart, charEnd);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
-		if (!removeEclipseDependentCode) {
-			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-			sc.add("new " + markerHelperClassName + "().mark(this, diagnostic);");
-			sc.add("}");
-		}
+		sc.add("mark(diagnostic);");
 		sc.add("addQuickFixesToQuickFixMap(problem);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -525,23 +527,17 @@ public class TextResourceGenerator extends
 
 	private void addRunPostProcessorsMethod(JavaComposite sc) {
 		sc.addJavadoc("Runs all post processors to process this resource.");
-		sc.add("protected void runPostProcessors(" + MAP
+		sc.add("protected boolean runPostProcessors(" + MAP
 				+ "<?, ?> loadOptions) {");
-
-		if (!removeEclipseDependentCode) {
-			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add("new " + markerHelperClassName + "().unmark(this, " + eProblemTypeClassName
-					+ ".ANALYSIS_PROBLEM);");
-			sc.add("}");
-		}
-		sc.add("if (terminateReload) {");
-		sc.add("return;");
+		sc.add("unmark(" + eProblemTypeClassName + ".ANALYSIS_PROBLEM);");
+		sc.add("if (processTerminationRequested()) {");
+		sc.add("return false;");
 		sc.add("}");
 		sc.addComment("first, run the generated post processor");
 		sc.add("runPostProcessor(new " + resourcePostProcessorClassName
 				+ "());");
 		sc.add("if (loadOptions == null) {");
-		sc.add("return;");
+		sc.add("return true;");
 		sc.add("}");
 		sc.addComment("then, run post processors that are registered via the load options extension point");
 		sc.add("Object resourcePostProcessorProvider = loadOptions.get("
@@ -556,8 +552,8 @@ public class TextResourceGenerator extends
 				+ COLLECTION + "<?>) {");
 		sc.add("java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;");
 		sc.add("for (Object processorProvider : resourcePostProcessorProviderCollection) {");
-		sc.add("if (terminateReload) {");
-		sc.add("return;");
+		sc.add("if (processTerminationRequested()) {");
+		sc.add("return false;");
 		sc.add("}");
 		sc.add("if (processorProvider instanceof "
 				+ iResourcePostProcessorProviderClassName + ") {");
@@ -572,6 +568,7 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
+		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -609,14 +606,9 @@ public class TextResourceGenerator extends
 		sc.add("internalURIFragmentMap.clear();");
 		sc.add("getErrors().clear();");
 		sc.add("getWarnings().clear();");
-		if (!removeEclipseDependentCode) {
-			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {");
-			sc.add(markerHelperClassName + " markerHelper = new " + markerHelperClassName + "();");
-			sc.add("markerHelper.unmark(this, " + eProblemTypeClassName + ".UNKNOWN);");
-			sc.add("markerHelper.unmark(this, " + eProblemTypeClassName + ".SYNTAX_ERROR);");
-			sc.add("markerHelper.unmark(this, " + eProblemTypeClassName + ".UNRESOLVED_REFERENCE);");
-			sc.add("}");
-		}
+		sc.add("unmark(" + eProblemTypeClassName + ".UNKNOWN);");
+		sc.add("unmark(" + eProblemTypeClassName + ".SYNTAX_ERROR);");
+		sc.add("unmark(" + eProblemTypeClassName + ".UNRESOLVED_REFERENCE);");
 		sc.add("proxyCounter = 0;");
 		sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
 		sc.add("}");
@@ -699,11 +691,7 @@ public class TextResourceGenerator extends
 		sc.add("if (((" + iTextDiagnosticClassName
 				+ ") errorCand).wasCausedBy(cause)) {");
 		sc.add("diagnostics.remove(errorCand);");
-		if (!removeEclipseDependentCode) {
-			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add("new " + markerHelperClassName + "().unmark(this, cause);");
-			sc.add("}");
-		}
+		sc.add("unmark(cause);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -886,6 +874,7 @@ public class TextResourceGenerator extends
 		sc.add("private " + iLocationMapClassName + " locationMap;");
 		sc.add("private int proxyCounter = 0;");
 		sc.add("private " + iTextParserClassName + " parser;");
+		sc.add("private " + markerHelperClassName + " markerHelper;");
 		sc.add("private " + MAP + "<String, "
 				+ iContextDependentUriFragmentClassName + "<? extends "
 				+ E_OBJECT + ">> internalURIFragmentMap = new "
@@ -907,9 +896,16 @@ public class TextResourceGenerator extends
 				+ " runningPostProcessor;");
 		sc.addLineBreak();
 
-		sc.addJavadoc("A flag to indicate whether reloading of the resource shall be cancelled.");
-		sc.add("private boolean terminateReload = false;");
+		sc.addJavadoc("A flag (and lock) to indicate whether reloading of the resource shall be cancelled.");
+		sc.add("private Boolean terminateReload = false;");
+		sc.add("private Object loadingLock = new Object();");
+		sc.add("private boolean delayNotifications = false;");
+		sc.add("private " + LIST + "<" + NOTIFICATION + "> delayedNotifications = new " + ARRAY_LIST + "<" + NOTIFICATION + ">();");
+		sc.add("private " + INPUT_STREAM + " latestReloadInputStream = null;");
+		sc.add("private " + MAP + "<?, ?> latestReloadOptions = null;");
+		
 		sc.addLineBreak();
+		
 		generatorUtil.addMetaInformationField(sc, getContext());
 	}
 
@@ -987,9 +983,13 @@ public class TextResourceGenerator extends
 	private void addDoLoadMethod(JavaComposite sc) {
 		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
+		sc.add("synchronized (loadingLock) {");
+		sc.add("if (processTerminationRequested()) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("this.loadOptions = options;");
+		sc.add("delayNotifications = true;");
 		sc.add("resetLocationMap();");
-		sc.add("this.terminateReload = false;");
 		sc.add("String encoding = null;");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
@@ -1028,6 +1028,12 @@ public class TextResourceGenerator extends
 		sc.add(iParseResultClassName + " result = parser.parse();");
 		sc.addComment("dispose parser, we don't need it anymore");
 		sc.add("parser = null;");
+		sc.addLineBreak();
+		sc.add("if (processTerminationRequested()) {");
+		sc.addComment("do nothing if reload was already restarted");
+		sc.add("return;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("clearState();");
 		sc.add("getContentsInternal().clear();");
 		sc.add(E_OBJECT + " root = null;");
@@ -1048,44 +1054,101 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.add("getReferenceResolverSwitch().setOptions(options);");
 		sc.add("if (getErrors().isEmpty()) {");
-		sc.add("runPostProcessors(options);");
+		sc.add("if (!runPostProcessors(options)) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("if (root != null) {");
 		sc.add("runValidators(root);");
 		sc.add("}");
 		sc.add("}");
+		sc.add("if (root != null) {");
+		sc.add("getContentsInternal().clear();");
+		sc.add("if (processTerminationRequested()) {");
+		sc.addComment("the next reload will add new content");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("getContentsInternal().add(root);");
+		sc.add("}");
+		sc.add("notifyDelayed();");
 		if (saveChangedResourcesOnly) {
 			sc.add("textPrintAfterLoading = getPrint(options);");
 		}
 		sc.add("}");
+		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addProcessTerminationRequestedMethod(JavaComposite sc) {
+		sc.add("protected boolean processTerminationRequested() {");
+		sc.add("if (terminateReload) {");
+		sc.add("delayNotifications = false;");
+		sc.add("delayedNotifications.clear();");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("return false;");
+		sc.add("}");
+	}
+	
+	private void addNotifyDelayedMethod(JavaComposite sc) {
+		sc.add("protected void notifyDelayed() {");
+		sc.add("delayNotifications = false;");
+		sc.add("for (" + NOTIFICATION + " delayedNotification : delayedNotifications) {");
+		sc.add("super.eNotify(delayedNotification);");
+		sc.add("}");
+		sc.add("delayedNotifications.clear();");
+		sc.add("}");
+	}
+	
+	private void addENotifyMethod(JavaComposite sc) {
+		sc.add("public void eNotify(" + NOTIFICATION + " notification) {");
+		sc.add("if (delayNotifications) {");
+		sc.add("delayedNotifications.add(notification);");
+		sc.add("} else {");
+		sc.add("super.eNotify(notification);");
+		sc.add("}");
+		sc.add("}");
 	}
 
 	private void addReloadMethod(JavaComposite sc) {
 		sc.addJavadoc("Reloads the contents of this resource from the given stream.");
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
-		sc.add("try {");
+		sc.add("synchronized (terminateReload) {");
+		sc.add("latestReloadInputStream = inputStream;");
+		sc.add("latestReloadOptions = options;");
+		sc.add("if (terminateReload == true) {");
+		sc.addComment("//reload already requested");
+		sc.add("}");
+		sc.add("terminateReload = true;");
+		sc.add("}");
+
+		sc.add("cancelReload();");
+		
+		sc.add("synchronized (loadingLock) {");
+		sc.add("synchronized (terminateReload) {");
+		sc.add("terminateReload = false;");
+		sc.add("}");
 		sc.add("isLoaded = false;");
-		sc.add(MAP
-				+ "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
-		sc.add("doLoad(inputStream, loadOptions);");
-		sc.add("resolveAfterParsing();");
-		sc.add("} catch (" + terminateParsingExceptionClassName + " tpe) {");
+		sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(latestReloadOptions);");
+		sc.add("try {");
+		sc.add("doLoad(latestReloadInputStream, loadOptions);");
+		sc.add("} catch (de.devboost.smarttext.resource.stxt.mopp.StxtTerminateParsingException tpe) {");
 		sc.addComment("do nothing - the resource is left unchanged if this exception is thrown");
 		sc.add("}");
+		sc.add("resolveAfterParsing();");
 		sc.add("isLoaded = true;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCancelReloadMethod(JavaComposite sc) {
 		sc.addJavadoc("Cancels reloading this resource. The running parser and post processors are terminated.");
-		sc.add("public void cancelReload() {");
+		sc.add("protected void cancelReload() {");
 		sc.add(iTextParserClassName + " parserCopy = parser;");
 		sc.add("if (parserCopy != null) {");
 		sc.add("parserCopy.terminate();");
 		sc.add("}");
-		sc.add("this.terminateReload = true;");
 		sc.add(iResourcePostProcessorClassName
 				+ " runningPostProcessorCopy = runningPostProcessor;");
 		sc.add("if (runningPostProcessorCopy != null) {");
@@ -1101,6 +1164,10 @@ public class TextResourceGenerator extends
 				+ "to make sure that clients which obtain a reference to the list of contents "
 				+ "do not interfere when changing the list.");
 		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
+		sc.add("if (terminateReload) {");
+		sc.addComment("the contents' state is currently unclear");
+		sc.add("return new " + BASIC_E_LIST + "<"+  E_OBJECT + ">();");
+		sc.add("}");
 		sc.add("return new " + copiedEObjectInternalEListClassName + "(("
 				+ INTERNAL_E_LIST + "<" + E_OBJECT + ">) super.getContents());");
 		sc.add("}");
@@ -1112,6 +1179,10 @@ public class TextResourceGenerator extends
 				"this methods does not return a copy of the content list, but the original list.");
 		sc.add("public " + E_LIST + "<" + E_OBJECT
 				+ "> getContentsInternal() {");
+		sc.add("if (terminateReload) {");
+		sc.addComment("the contents' state is currently unclear");
+		sc.add("return new " + BASIC_E_LIST + "<"+  E_OBJECT + ">();");
+		sc.add("}");
 		sc.add("return super.getContents();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -1121,6 +1192,10 @@ public class TextResourceGenerator extends
 		sc.addJavadoc("Returns all warnings that are associated with this resource.");
 		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC
 				+ "> getWarnings() {");
+		sc.add("if (terminateReload) {");
+		sc.addComment("the contents' state is currently unclear");
+		sc.add("return new " + BASIC_E_LIST + "<"+  RESOURCE_DIAGNOSTIC + ">();");
+		sc.add("}");
 		sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC
 				+ ">(super.getWarnings());");
 		sc.add("}");
@@ -1131,9 +1206,59 @@ public class TextResourceGenerator extends
 		sc.addJavadoc("Returns all errors that are associated with this resource.");
 		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC
 				+ "> getErrors() {");
+		sc.add("if (terminateReload) {");
+		sc.addComment("the contents' state is currently unclear");
+		sc.add("return new " + BASIC_E_LIST + "<"+  RESOURCE_DIAGNOSTIC + ">();");
+		sc.add("}");
 		sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC
 				+ ">(super.getErrors());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	
+	private void addMarkMethod(JavaComposite sc) {
+		sc.add("protected void mark(" + iTextDiagnosticClassName + " diagnostic) {");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (isMarkerCreationEnabled() && new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("if (markerHelper == null) {");
+			sc.add("markerHelper = new " + markerHelperClassName + "();");
+			sc.add("}");
+			sc.add("markerHelper.mark(this, diagnostic);");
+			sc.add("}");
+		} else {
+			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
+		}
+		sc.add("}");
+	}
+	
+	private void addUnmarkMethod1(JavaComposite sc) {
+		sc.add("protected void unmark(" + E_OBJECT + " cause) {");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (isMarkerCreationEnabled() && new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("if (markerHelper == null) {");
+			sc.add("markerHelper = new " + markerHelperClassName + "();");
+			sc.add("}");
+			sc.add("markerHelper.unmark(this, cause);");
+			sc.add("}");
+		} else {
+			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
+		}
+		sc.add("}");
+	}
+	
+	private void addUnmarkMethod2(JavaComposite sc) {
+		sc.add("protected void unmark(" + eProblemTypeClassName + " analysisProblem) {");
+		if (!removeEclipseDependentCode) {
+			sc.add("if (isMarkerCreationEnabled() && new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("if (markerHelper == null) {");
+			sc.add("markerHelper = new " + markerHelperClassName + "();");
+			sc.add("}");
+			sc.add("markerHelper.unmark(this, analysisProblem);");
+			sc.add("}");
+		} else {
+			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
+		}
+		sc.add("}");
+	}
+
 }
