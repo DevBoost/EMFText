@@ -34,11 +34,11 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.CardinalityComputer;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.MinMax;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
 
 /**
@@ -62,7 +62,7 @@ public class DuplicateFeatureAnalyser extends AbstractPostProcessor {
 			Collection<Terminal> allTerminals = collectAllTerminals(rule);
 			Map<GenFeature, Set<Terminal>> featureToTerminalsMap = groupTerminalsByFeature(allTerminals);
 			for (GenFeature feature : featureToTerminalsMap.keySet()) {
-				if (CsGrammarInformationProvider.ANONYMOUS_FEATURE.getName().equals(feature.getName())) {
+				if (ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE.equals(feature)) {
 					// do not analyse the anonymous features as they are not
 					// printed anyway
 					continue;
