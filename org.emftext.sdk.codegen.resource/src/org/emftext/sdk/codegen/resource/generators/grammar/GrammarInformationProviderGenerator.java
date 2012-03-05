@@ -13,7 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
@@ -81,8 +81,14 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		addStaticConstants(sc);
 		addFields(sc);
 		addConstantsForSyntaxElements(sc);
+		addStaticMethods(sc);
 		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addStaticMethods(JavaComposite sc) {
+		addGetSyntaxElementID(sc);
+		addGetSyntaxElementByID(sc);
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -98,6 +104,35 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		}
 		sc.addLineBreak();
 	}
+	
+	private void addGetSyntaxElementID(JavaComposite sc) {
+		sc.add("public static String getSyntaxElementID(" + syntaxElementClassName + " syntaxElement) {");
+		sc.add("for (" + FIELD + " field : " + grammarInformationProviderClassName + ".class.getFields()) {");
+		sc.add("Object fieldValue;");
+		sc.add("try {");
+		sc.add("fieldValue = field.get(null);");
+		sc.add("if (fieldValue == syntaxElement) {");
+		sc.add("String id = field.getName();");
+		sc.add("return id;");
+		sc.add("}");
+		sc.add("} catch (Exception e) { }"); 
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetSyntaxElementByID(JavaComposite sc) {
+		sc.add("public static " + syntaxElementClassName + " getSyntaxElementByID(String syntaxElementID) {");
+		sc.add("try {");
+		sc.add("return (" + syntaxElementClassName + ") " + grammarInformationProviderClassName + ".class.getField(syntaxElementID).get(null);");
+		sc.add("} catch (Exception e) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 
 	private void addStaticConstants(StringComposite sc) {
 		sc.add("public final static " + E_STRUCTURAL_FEATURE + " " + ANONYMOUS_FEATURE + " = " + ECORE_FACTORY + ".eINSTANCE.createEAttribute();");
