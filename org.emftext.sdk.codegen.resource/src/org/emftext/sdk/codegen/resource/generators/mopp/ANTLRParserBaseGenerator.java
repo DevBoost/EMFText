@@ -253,10 +253,10 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("if (this.options == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("if (Boolean.TRUE.equals(this.options.get(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LOCATION_MAP + "))) {");
+		sc.add("if (this.options.containsKey(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LOCATION_MAP + ")) {");
 		sc.add("this.disableLocationMap = true;");
 		sc.add("}");
-		sc.add("if (Boolean.TRUE.equals(this.options.get(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING + "))) {");
+		sc.add("if (this.options.containsKey(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING + ")) {");
 		sc.add("this.disableLayoutRecording = true;");
 		sc.add("}");
 		sc.add("}");
