@@ -196,10 +196,10 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 		if (this.options == null) {
 			return;
 		}
-		if (Boolean.TRUE.equals(this.options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP))) {
+		if (this.options.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP)) {
 			this.disableLocationMap = true;
 		}
-		if (Boolean.TRUE.equals(this.options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING))) {
+		if (this.options.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING)) {
 			this.disableLayoutRecording = true;
 		}
 	}

@@ -42,13 +42,6 @@ public interface ICsTextResource extends org.eclipse.emf.ecore.resource.Resource
 	public void reload(java.io.InputStream stream, java.util.Map<?,?> options) throws java.io.IOException;
 	
 	/**
-	 * Try to cancel a current reload of this resource. It is not guaranteed that
-	 * canceling is successful. If this resource has already finished parsing the new
-	 * content, it will replace its content unconditionally.
-	 */
-	public void cancelReload();
-	
-	/**
 	 * Returns a map containing information about the location of model elements in
 	 * the text.
 	 * 

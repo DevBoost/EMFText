@@ -27,6 +27,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 	
 	private java.util.Map<?, ?> options;
+	private String encoding = System.getProperty("file.encoding");
 	
 	public CsPrinter(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		super();
@@ -188,6 +189,16 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		return options;
 	}
 	
+	public void setEncoding(String encoding) {
+		if (encoding != null) {
+			this.encoding = encoding;
+		}
+	}
+	
+	public String getEncoding() {
+		return encoding;
+	}
+	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource getResource() {
 		return resource;
 	}
@@ -196,8 +207,8 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	 * Calls {@link #doPrint(EObject, PrintWriter, String)} and writes the result to
 	 * the underlying output stream.
 	 */
-	public void print(org.eclipse.emf.ecore.EObject element) {
-		java.io.PrintWriter out = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
+	public void print(org.eclipse.emf.ecore.EObject element) throws java.io.IOException {
+		java.io.PrintWriter out = new java.io.PrintWriter(new java.io.OutputStreamWriter(new java.io.BufferedOutputStream(outputStream), encoding));
 		doPrint(element, out, "");
 		out.flush();
 		out.close();

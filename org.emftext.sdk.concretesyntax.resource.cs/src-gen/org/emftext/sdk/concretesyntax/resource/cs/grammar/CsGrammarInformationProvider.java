@@ -435,6 +435,28 @@ public class CsGrammarInformationProvider {
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice CS_25_0 = new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_25_0_0);
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_25 = new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), CS_25_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
 	
+	public static String getSyntaxElementID(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement) {
+		for (java.lang.reflect.Field field : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.class.getFields()) {
+			Object fieldValue;
+			try {
+				fieldValue = field.get(null);
+				if (fieldValue == syntaxElement) {
+					String id = field.getName();
+					return id;
+				}
+			} catch (Exception e) { }
+		}
+		return null;
+	}
+	
+	public static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSyntaxElementByID(String syntaxElementID) {
+		try {
+			return (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement) org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.class.getField(syntaxElementID).get(null);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule[] RULES = new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule[] {
 		CS_0,
 		CS_1,

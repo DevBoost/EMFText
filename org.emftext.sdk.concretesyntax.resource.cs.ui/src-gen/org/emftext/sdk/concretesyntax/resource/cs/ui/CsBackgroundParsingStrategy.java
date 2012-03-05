@@ -32,7 +32,7 @@ public class CsBackgroundParsingStrategy {
 	/**
 	 * the background parsing task (may be null)
 	 */
-	private org.eclipse.core.runtime.jobs.Job job;
+	private ParsingJob job = null;
 	
 	/**
 	 * Schedules a task for background parsing that will be started after a delay.
@@ -64,42 +64,47 @@ public class CsBackgroundParsingStrategy {
 		// multiple threads. the creation of multiple tasks would imply that multiple
 		// background parsing threads for one editor are created, which is not desired.
 		synchronized (lock) {
-			// cancel old task
-			if (job != null) {
-				// stop current parser (if there is one)
-				job.cancel();
-				try {
-					job.join();
-				} catch (InterruptedException e) {}
+			if (job == null || job.getState() != org.eclipse.core.runtime.jobs.Job.RUNNING) {
+				// schedule new task
+				job = new ParsingJob();
+				job.resource = resource;
+				job.editor = editor;
+				job.newContents = contents;
+				job.schedule();
+			} else {
+				job.newContents = contents;
 			}
-			
-			// schedule new task
-			job = new org.eclipse.core.runtime.jobs.Job("parsing document") {
-				
-				protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
-					try {
-						resource.reload(new java.io.ByteArrayInputStream(contents.getBytes()), null);
-					} catch (java.io.IOException e) {
-						e.printStackTrace();
-					}
-					// the post parsing stuff must be executed in a separate job to avoid deadlocks on
-					// the document
-					org.eclipse.core.runtime.jobs.Job finishJob = new org.eclipse.core.runtime.jobs.Job("refreshing views") {
-						protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
-							editor.notifyBackgroundParsingFinished();
-							return org.eclipse.core.runtime.Status.OK_STATUS;
-						}
-					};
-					finishJob.schedule(10);
-					return org.eclipse.core.runtime.Status.OK_STATUS;
-				}
-				
-				protected void canceling() {
-					resource.cancelReload();
-				}
-			};
-			job.schedule(delay);
 		}
 	}
+	
+	private class ParsingJob extends org.eclipse.core.runtime.jobs.Job{
+		private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
+		private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
+		
+		public ParsingJob() {
+			super("parsing document");
+		}
+		
+		private String newContents = null;
+		
+		protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
+			while (newContents != null ) {
+				while (newContents != null) {
+					try {
+						String currentContent = newContents;
+						newContents = null;
+						resource.reload(new java.io.ByteArrayInputStream(currentContent.getBytes()), null);
+						if (newContents != null) {
+							Thread.sleep(DELAY);
+						}
+					} catch (java.lang.Exception e) {
+						e.printStackTrace();
+					}
+				}
+				editor.notifyBackgroundParsingFinished();
+			}
+			return org.eclipse.core.runtime.Status.OK_STATUS;
+		}
+	};
 	
 }

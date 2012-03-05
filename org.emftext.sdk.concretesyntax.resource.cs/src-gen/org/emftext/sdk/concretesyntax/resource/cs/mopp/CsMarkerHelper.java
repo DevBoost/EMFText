@@ -46,7 +46,6 @@ public class CsMarkerHelper {
 	private static class MarkerCommandQueue {
 		
 		private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>> commands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>>();
-		private final Object jobLock = new Object();
 		
 		public void addCommand(org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object> command) {
 			synchronized(commands) {
@@ -59,15 +58,17 @@ public class CsMarkerHelper {
 		}
 		
 		private void scheduleRunCommandsJob() {
-			new org.eclipse.core.runtime.jobs.Job("updating markers") {
-				@Override				
-				protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
-					synchronized(jobLock) {
+			org.eclipse.core.runtime.jobs.Job job = null;
+			if (job == null || job.getState() != org.eclipse.core.runtime.jobs.Job.RUNNING) {
+				job = new org.eclipse.core.runtime.jobs.Job("updating markers") {
+					@Override					
+					protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
 						runCommands();
+						return org.eclipse.core.runtime.Status.OK_STATUS;
 					}
-					return org.eclipse.core.runtime.Status.OK_STATUS;
-				}
-			}.schedule();
+				};
+				job.schedule();
+			}
 		}
 		
 		public void runCommands() {

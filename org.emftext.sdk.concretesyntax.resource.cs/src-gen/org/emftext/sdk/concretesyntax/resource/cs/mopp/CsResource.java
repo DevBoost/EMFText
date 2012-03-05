@@ -137,6 +137,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
 	private int proxyCounter = 0;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser;
+	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper markerHelper;
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 	private java.util.Map<?, ?> loadOptions;
@@ -148,9 +149,15 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor runningPostProcessor;
 	
 	/**
-	 * A flag to indicate whether reloading of the resource shall be cancelled.
+	 * A flag (and lock) to indicate whether reloading of the resource shall be
+	 * cancelled.
 	 */
-	private boolean terminateReload = false;
+	private Boolean terminateReload = false;
+	private Object loadingLock = new Object();
+	private boolean delayNotifications = false;
+	private java.util.List<org.eclipse.emf.common.notify.Notification> delayedNotifications = new java.util.ArrayList<org.eclipse.emf.common.notify.Notification>();
+	private java.io.InputStream latestReloadInputStream = null;
+	private java.util.Map<?, ?> latestReloadOptions = null;
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	
@@ -165,87 +172,140 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		this.loadOptions = options;
-		resetLocationMap();
-		this.terminateReload = false;
-		String encoding = null;
-		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
-			encoding = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getPlatformResourceEncoding(uri);
-		}
-		java.io.InputStream actualInputStream = inputStream;
-		Object inputStreamPreProcessorProvider = null;
-		if (options != null) {
-			inputStreamPreProcessorProvider = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
-			Object encodingOption = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.OPTION_ENCODING);
-			if (encodingOption != null) {
-				encoding = encodingOption.toString();
+		synchronized (loadingLock) {
+			if (processTerminationRequested()) {
+				return;
 			}
-		}
-		if (inputStreamPreProcessorProvider != null) {
-			if (inputStreamPreProcessorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider) {
-				org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider provider = (org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider) inputStreamPreProcessorProvider;
-				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsInputStreamProcessor processor = provider.getInputStreamProcessor(inputStream);
-				actualInputStream = processor;
-				encoding = processor.getOutputEncoding();
+			this.loadOptions = options;
+			delayNotifications = true;
+			resetLocationMap();
+			String encoding = getEncoding(options);
+			java.io.InputStream actualInputStream = inputStream;
+			Object inputStreamPreProcessorProvider = null;
+			if (options != null) {
+				inputStreamPreProcessorProvider = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
 			}
-		}
-		
-		parser = getMetaInformation().createParser(actualInputStream, encoding);
-		parser.setOptions(options);
-		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
-		referenceResolverSwitch.setOptions(options);
-		org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult result = parser.parse();
-		// dispose parser, we don't need it anymore
-		parser = null;
-		clearState();
-		getContentsInternal().clear();
-		org.eclipse.emf.ecore.EObject root = null;
-		if (result != null) {
-			root = result.getRoot();
-			if (root != null) {
-				getContentsInternal().add(root);
-			}
-			java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> commands = result.getPostParseCommands();
-			if (commands != null) {
-				for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>  command : commands) {
-					command.execute(this);
+			if (inputStreamPreProcessorProvider != null) {
+				if (inputStreamPreProcessorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider) {
+					org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider provider = (org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider) inputStreamPreProcessorProvider;
+					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsInputStreamProcessor processor = provider.getInputStreamProcessor(inputStream);
+					actualInputStream = processor;
+					encoding = processor.getOutputEncoding();
 				}
 			}
-		}
-		getReferenceResolverSwitch().setOptions(options);
-		if (getErrors().isEmpty()) {
-			runPostProcessors(options);
-			if (root != null) {
-				runValidators(root);
+			
+			parser = getMetaInformation().createParser(actualInputStream, encoding);
+			parser.setOptions(options);
+			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
+			referenceResolverSwitch.setOptions(options);
+			org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult result = parser.parse();
+			// dispose parser, we don't need it anymore
+			parser = null;
+			
+			if (processTerminationRequested()) {
+				// do nothing if reload was already restarted
+				return;
 			}
+			
+			clearState();
+			getContentsInternal().clear();
+			org.eclipse.emf.ecore.EObject root = null;
+			if (result != null) {
+				root = result.getRoot();
+				if (root != null) {
+					if (isLayoutInformationRecordingEnabled()) {
+						org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil.transferAllLayoutInformationToModel(root);
+					}
+					getContentsInternal().add(root);
+				}
+				java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> commands = result.getPostParseCommands();
+				if (commands != null) {
+					for (org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>  command : commands) {
+						command.execute(this);
+					}
+				}
+			}
+			getReferenceResolverSwitch().setOptions(options);
+			if (getErrors().isEmpty()) {
+				if (!runPostProcessors(options)) {
+					return;
+				}
+				if (root != null) {
+					runValidators(root);
+				}
+			}
+			if (root != null) {
+				getContentsInternal().clear();
+				if (processTerminationRequested()) {
+					// the next reload will add new content
+					return;
+				}
+				getContentsInternal().add(root);
+			}
+			notifyDelayed();
 		}
 	}
 	
+	protected boolean processTerminationRequested() {
+		if (terminateReload) {
+			delayNotifications = false;
+			delayedNotifications.clear();
+			return true;
+		}
+		return false;
+	}
+	protected void notifyDelayed() {
+		delayNotifications = false;
+		for (org.eclipse.emf.common.notify.Notification delayedNotification : delayedNotifications) {
+			super.eNotify(delayedNotification);
+		}
+		delayedNotifications.clear();
+	}
+	public void eNotify(org.eclipse.emf.common.notify.Notification notification) {
+		if (delayNotifications) {
+			delayedNotifications.add(notification);
+		} else {
+			super.eNotify(notification);
+		}
+	}
 	/**
 	 * Reloads the contents of this resource from the given stream.
 	 */
 	public void reload(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		try {
-			isLoaded = false;
-			java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
-			doLoad(inputStream, loadOptions);
-			resolveAfterParsing();
-		} catch (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException tpe) {
-			// do nothing - the resource is left unchanged if this exception is thrown
+		synchronized (terminateReload) {
+			latestReloadInputStream = inputStream;
+			latestReloadOptions = options;
+			if (terminateReload == true) {
+				// //reload already requested
+			}
+			terminateReload = true;
 		}
-		isLoaded = true;
+		cancelReload();
+		synchronized (loadingLock) {
+			synchronized (terminateReload) {
+				terminateReload = false;
+			}
+			isLoaded = false;
+			java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(latestReloadOptions);
+			try {
+				doLoad(latestReloadInputStream, loadOptions);
+			} catch (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException tpe) {
+				// do nothing - the resource is left unchanged if this exception is thrown
+			}
+			resolveAfterParsing();
+			isLoaded = true;
+		}
 	}
 	
 	/**
 	 * Cancels reloading this resource. The running parser and post processors are
 	 * terminated.
 	 */
-	public void cancelReload() {
+	protected void cancelReload() {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parserCopy = parser;
 		if (parserCopy != null) {
 			parserCopy.terminate();
 		}
-		this.terminateReload = true;
 		org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor runningPostProcessorCopy = runningPostProcessor;
 		if (runningPostProcessorCopy != null) {
 			runningPostProcessorCopy.terminate();
@@ -255,14 +315,35 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getMetaInformation().createPrinter(outputStream, this);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
+		printer.setEncoding(getEncoding(options));
 		referenceResolverSwitch.setOptions(options);
 		for (org.eclipse.emf.ecore.EObject root : getContentsInternal()) {
+			if (isLayoutInformationRecordingEnabled()) {
+				org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil.transferAllLayoutInformationFromModel(root);
+			}
 			printer.print(root);
+			if (isLayoutInformationRecordingEnabled()) {
+				org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil.transferAllLayoutInformationToModel(root);
+			}
 		}
 	}
 	
 	protected String getSyntaxName() {
 		return "cs";
+	}
+	
+	protected String getEncoding(java.util.Map<?, ?> options) {
+		String encoding = null;
+		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
+			encoding = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getPlatformResourceEncoding(uri);
+		}
+		if (options != null) {
+			Object encodingOption = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.OPTION_ENCODING);
+			if (encodingOption != null) {
+				encoding = encodingOption.toString();
+			}
+		}
+		return encoding;
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch getReferenceResolverSwitch() {
@@ -396,9 +477,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			if (errorCand instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) {
 				if (((org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) errorCand).wasCausedBy(cause)) {
 					diagnostics.remove(errorCand);
-					if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
-						new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().unmark(this, cause);
-					}
+					unmark(cause);
 				}
 			}
 		}
@@ -442,17 +521,15 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	/**
 	 * Runs all post processors to process this resource.
 	 */
-	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
-		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
-			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
-		}
-		if (terminateReload) {
-			return;
+	protected boolean runPostProcessors(java.util.Map<?, ?> loadOptions) {
+		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM);
+		if (processTerminationRequested()) {
+			return false;
 		}
 		// first, run the generated post processor
 		runPostProcessor(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourcePostProcessor());
 		if (loadOptions == null) {
-			return;
+			return true;
 		}
 		// then, run post processors that are registered via the load options extension
 		// point
@@ -463,8 +540,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			} else if (resourcePostProcessorProvider instanceof java.util.Collection<?>) {
 				java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;
 				for (Object processorProvider : resourcePostProcessorProviderCollection) {
-					if (terminateReload) {
-						return;
+					if (processTerminationRequested()) {
+						return false;
 					}
 					if (processorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {
 						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider csProcessorProvider = (org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) processorProvider;
@@ -474,6 +551,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				}
 			}
 		}
+		return true;
 	}
 	
 	/**
@@ -518,18 +596,14 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, org.eclipse.emf.ecore.EObject element) {
 		ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
-		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
-			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().mark(this, diagnostic);
-		}
+		mark(diagnostic);
 		addQuickFixesToQuickFixMap(problem);
 	}
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
 		PositionBasedTextDiagnostic diagnostic = new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);
-		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
-			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().mark(this, diagnostic);
-		}
+		mark(diagnostic);
 		addQuickFixesToQuickFixMap(problem);
 	}
 	
@@ -592,12 +666,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		internalURIFragmentMap.clear();
 		getErrors().clear();
 		getWarnings().clear();
-		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable() && isMarkerCreationEnabled()) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
-			markerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
-			markerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
-			markerHelper.unmark(this, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
-		}
+		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
+		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
+		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
 		proxyCounter = 0;
 		resolverSwitch = null;
 	}
@@ -609,6 +680,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * interfere when changing the list.
 	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContents() {
+		if (terminateReload) {
+			// the contents' state is currently unclear
+			return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.EObject>();
+		}
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEObjectInternalEList((org.eclipse.emf.ecore.util.InternalEList<org.eclipse.emf.ecore.EObject>) super.getContents());
 	}
 	
@@ -617,6 +692,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * methods does not return a copy of the content list, but the original list.
 	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContentsInternal() {
+		if (terminateReload) {
+			// the contents' state is currently unclear
+			return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.EObject>();
+		}
 		return super.getContents();
 	}
 	
@@ -624,6 +703,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * Returns all warnings that are associated with this resource.
 	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getWarnings() {
+		if (terminateReload) {
+			// the contents' state is currently unclear
+			return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>();
+		}
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getWarnings());
 	}
 	
@@ -631,6 +714,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * Returns all errors that are associated with this resource.
 	 */
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getErrors() {
+		if (terminateReload) {
+			// the contents' state is currently unclear
+			return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>();
+		}
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getErrors());
 	}
 	
@@ -646,6 +733,30 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		return quickFixMap.get(quickFixContext);
 	}
 	
+	protected void mark(org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
+		if (isMarkerCreationEnabled() && new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
+			if (markerHelper == null) {
+				markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
+			}
+			markerHelper.mark(this, diagnostic);
+		}
+	}
+	protected void unmark(org.eclipse.emf.ecore.EObject cause) {
+		if (isMarkerCreationEnabled() && new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
+			if (markerHelper == null) {
+				markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
+			}
+			markerHelper.unmark(this, cause);
+		}
+	}
+	protected void unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType analysisProblem) {
+		if (isMarkerCreationEnabled() && new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
+			if (markerHelper == null) {
+				markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
+			}
+			markerHelper.unmark(this, analysisProblem);
+		}
+	}
 	public boolean isMarkerCreationEnabled() {
 		if (loadOptions == null) {
 			return true;
@@ -658,6 +769,13 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			return true;
 		}
 		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP);
+	}
+	
+	protected boolean isLayoutInformationRecordingEnabled() {
+		if (loadOptions == null) {
+			return true;
+		}
+		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING);
 	}
 	
 }

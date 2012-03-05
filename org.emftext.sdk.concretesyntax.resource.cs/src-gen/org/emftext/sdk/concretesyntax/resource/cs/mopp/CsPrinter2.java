@@ -130,6 +130,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	private java.util.Map<?, ?> options;
 	private java.io.OutputStream outputStream;
+	private String encoding = System.getProperty("file.encoding");
 	protected java.util.List<PrintToken> tokenOutputStream;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
 	private boolean handleTokenSpaceAutomatically = false;
@@ -180,7 +181,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = getCopyOfLayoutInformation(element);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation eofLayoutInformation = getLayoutInformation(layoutInformations, null, null, null);
 		printFormattingElements(formattingElements, layoutInformations, eofLayoutInformation);
-		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
+		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.OutputStreamWriter(new java.io.BufferedOutputStream(outputStream), encoding));
 		if (handleTokenSpaceAutomatically) {
 			printSmart(writer);
 		} else {
@@ -783,6 +784,16 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public void setOptions(java.util.Map<?,?> options) {
 		this.options = options;
+	}
+	
+	public String getEncoding() {
+		return encoding;
+	}
+	
+	public void setEncoding(String encoding) {
+		if (encoding != null) {
+			this.encoding = encoding;
+		}
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource getResource() {
