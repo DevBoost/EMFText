@@ -76,7 +76,6 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("private static class MarkerCommandQueue {");
 		sc.addLineBreak();
 		sc.add("private " + LIST + "<" + iCommandClassName + "<Object>> commands = new " + ARRAY_LIST + "<" + iCommandClassName + "<Object>>();");
-		sc.add("private final Object jobLock = new Object();");
 		sc.addLineBreak();
 		sc.add("public void addCommand(" + iCommandClassName + "<Object> command) {");
 		sc.add("synchronized(commands) {");
@@ -89,15 +88,17 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void scheduleRunCommandsJob() {");
-		sc.add("new " + JOB + "(\"updating markers\") {");
+		sc.add(JOB + " job = null;");
+		sc.add("if (job == null || job.getState() != " + JOB + ".RUNNING) {");
+		sc.add("job = new " + JOB + "(\"updating markers\") {");
 		sc.add("@Override").addLineBreak();	
 		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
-		sc.add("synchronized(jobLock) {");
 		sc.add("runCommands();");
-		sc.add("}");
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
-		sc.add("}.schedule();");
+		sc.add("};");
+		sc.add("job.schedule();");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		
