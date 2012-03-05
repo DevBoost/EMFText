@@ -194,7 +194,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 
 	private void addSetEObjectSelectionMethod(StringComposite sc) {
 		sc.add("public void setEObjectSelection() {");
-		sc.add("display.syncExec(new Runnable() {");
+		sc.add("display.asyncExec(new Runnable() {");
 		sc.add("public void run() {");
 		sc.add(E_OBJECT + " selectedEObject = occurrence.getEObjectAtCurrentPosition();");
 		sc.add("if (selectedEObject != null) {");
@@ -372,7 +372,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource) {");
-		sc.add("display.syncExec(new Runnable() {");
+		sc.add("display.asyncExec(new Runnable() {");
 		sc.addLineBreak();
 		sc.add("public void run() {");
 		sc.add("refreshHighlighting();");
