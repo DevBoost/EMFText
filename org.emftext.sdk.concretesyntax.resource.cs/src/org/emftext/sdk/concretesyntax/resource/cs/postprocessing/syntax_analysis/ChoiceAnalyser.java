@@ -13,19 +13,19 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
-import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
@@ -60,13 +60,23 @@ public class ChoiceAnalyser extends AbstractPostProcessor {
 		int childrenWithTerminals = 0;
 		List<SyntaxElement> children = choice.getChildren();
 		for (SyntaxElement child : children) {
-			Collection<Terminal> terminals = CsEObjectUtil.getObjectsByType(child.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
-			for (Terminal terminal : terminals) {
-				if (terminal.getFeature() == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
-					continue;
+			TreeIterator<EObject> eAllContents = child.eAllContents();
+			while (eAllContents.hasNext()) {
+				EObject next = (EObject) eAllContents.next();
+				if (next instanceof CsString) {
+					childrenWithTerminals++;
+					break;
+				} else if (next instanceof Terminal) {
+					Terminal terminal = (Terminal) next;
+					if (terminal.getFeature() == ConcreteSyntaxUtil.ANONYMOUS_GEN_FEATURE) {
+						continue;
+					}
+					childrenWithTerminals++;
+					break;
+				} else if (next instanceof Containment) {
+					childrenWithTerminals++;
+					break;
 				}
-				childrenWithTerminals++;
-				break;
 			}
 		}
 		return childrenWithTerminals;
