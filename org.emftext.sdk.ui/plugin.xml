@@ -79,6 +79,21 @@
       </objectContribution>
    </extension>
 
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.emftext.ui.generate_all_contributor"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IResource">
+         <action
+               class="org.emftext.sdk.ui.actions.GenerateAllAction"
+               enablesFor="*"
+               id="org.emftext.ui.actions.generate_all_contributor"
+               label="Generate Metamodel and Resource plug-ins"
+               menubarPath="additions"/>
+      </objectContribution>
+   </extension>
+
    <extension
          point="org.eclipse.ui.newWizards">
       <category
