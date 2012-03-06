@@ -303,7 +303,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addIsSameMethod(StringComposite sc) {
 		sc.add("private boolean isSame(Object o1, Object o2) {");
-		sc.add("if (o1 instanceof Integer || o1 instanceof Long || o1 instanceof Byte || o1 instanceof Short || o1 instanceof Float || o2 instanceof Double) {");
+		sc.add("if (o1 instanceof String || o1 instanceof Integer || o1 instanceof Long || o1 instanceof Byte || o1 instanceof Short || o1 instanceof Float || o2 instanceof Double) {");
 		sc.add("return o1.equals(o2);");
 		sc.add("}");
 		sc.add("return o1 == o2;");
