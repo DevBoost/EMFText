@@ -156,7 +156,6 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addComment("attribute");
 		sc.add("layoutInformationEClass = (" + E_CLASS + ") layoutPackage.getEClassifier(ATTRIBUTE_LAYOUT_INFORMATION_ECLASS_NAME);");
 		sc.add("layoutInformationModelElement = factory.create(layoutInformationEClass);");
-		sc.add("layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(OBJECT_EATTRIBUTE_NAME), object);");
 		sc.add("}");
 		sc.add("layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(START_OFFSET_EATTRIBUTE_NAME), layoutInformation.getStartOffset());");
 		sc.add("layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(HIDDEN_TOKEN_TEXT_EATTRIBUTE_NAME), layoutInformation.getHiddenTokenText());");
@@ -171,14 +170,20 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("public static " + layoutInformationClassName + " createLayoutInformation(" + E_OBJECT + " layoutInformationModelElement) {");
 		sc.add("Object object = null;");
 		sc.add(E_STRUCTURAL_FEATURE + " objectFeature = layoutInformationModelElement.eClass().getEStructuralFeature(OBJECT_EATTRIBUTE_NAME);");
-		sc.add("if (objectFeature != null) {");
-		sc.add("object = layoutInformationModelElement.eGet(objectFeature);");
-		sc.add("}");
 		sc.add("int startOffset = (Integer) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(START_OFFSET_EATTRIBUTE_NAME));");
 		sc.add("String hiddenTokenText = (String) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(HIDDEN_TOKEN_TEXT_EATTRIBUTE_NAME));");
 		sc.add("String visibleTokenText = (String) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(VISIBLE_TOKEN_TEXT_EATTRIBUTE_NAME));");
 		sc.add(syntaxElementClassName + " syntaxElement = " + grammarInformationProviderClassName + ".getSyntaxElementByID((String) layoutInformationModelElement.eGet(" +
 				"layoutInformationModelElement.eClass().getEStructuralFeature(SYNTAX_ELEMENT_ID_EATTRIBUTE_NAME)));");
+		sc.add("if (objectFeature != null) {");
+		sc.add("object = layoutInformationModelElement.eGet(objectFeature);");
+		sc.add("} else if (syntaxElement instanceof " + placeholderClassName + ") {");
+		sc.add(placeholderClassName + " placeholder = (" + placeholderClassName + ") syntaxElement;");
+		sc.add(iTokenResolverClassName + " tokenResolver = new " + tokenResolverFactoryClassName + "().createTokenResolver(placeholder.getTokenName());");
+		sc.add(iTokenResolveResultClassName + " result = new " + tokenResolveResultClassName + "();");
+		sc.add("tokenResolver.resolve(visibleTokenText, placeholder.getFeature(), result);");
+		sc.add("object = result.getResolvedToken();");
+		sc.add("}");
 		sc.add("return new " + layoutInformationClassName + "(syntaxElement, object, startOffset, hiddenTokenText, visibleTokenText);");
 		sc.add("}");
 		sc.addLineBreak();

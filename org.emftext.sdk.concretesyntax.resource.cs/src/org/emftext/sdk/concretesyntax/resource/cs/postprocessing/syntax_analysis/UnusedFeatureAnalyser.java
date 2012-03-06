@@ -35,6 +35,7 @@ import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.quickfixes.AddSuppressWarningsAnnotationQuickFix;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil;
 
 /**
  * A analyser that looks for features defined in the meta model that do
@@ -72,13 +73,16 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 					if (opposite != null) {
 						unusedReferencesWithOpposite.put(ecoreFeature, rule);
 					} else {
-						CsAnalysisProblemType problemType = CsAnalysisProblemType.FEATURE_WITHOUT_SYNTAX;
-						addProblem(
-								problemType, 
-								"Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", 
-								rule,
-								new AddSuppressWarningsAnnotationQuickFix(rule, problemType)
-						);
+						//do not warn if the layout reference has no syntax
+						if (CsLayoutUtil.findLayoutReference(genFeature.getGenClass().getEcoreClass()) != genFeature.getEcoreFeature()) {
+							CsAnalysisProblemType problemType = CsAnalysisProblemType.FEATURE_WITHOUT_SYNTAX;
+							addProblem(
+									problemType, 
+									"Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", 
+									rule,
+									new AddSuppressWarningsAnnotationQuickFix(rule, problemType)
+							);
+						}
 					}
 				}
 			}

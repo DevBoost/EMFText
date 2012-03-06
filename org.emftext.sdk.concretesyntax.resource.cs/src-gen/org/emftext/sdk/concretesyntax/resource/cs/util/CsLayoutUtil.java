@@ -99,7 +99,6 @@ public class CsLayoutUtil {
 			// attribute
 			layoutInformationEClass = (org.eclipse.emf.ecore.EClass) layoutPackage.getEClassifier(ATTRIBUTE_LAYOUT_INFORMATION_ECLASS_NAME);
 			layoutInformationModelElement = factory.create(layoutInformationEClass);
-			layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(OBJECT_EATTRIBUTE_NAME), object);
 		}
 		layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(START_OFFSET_EATTRIBUTE_NAME), layoutInformation.getStartOffset());
 		layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(HIDDEN_TOKEN_TEXT_EATTRIBUTE_NAME), layoutInformation.getHiddenTokenText());
@@ -111,13 +110,19 @@ public class CsLayoutUtil {
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation createLayoutInformation(org.eclipse.emf.ecore.EObject layoutInformationModelElement) {
 		Object object = null;
 		org.eclipse.emf.ecore.EStructuralFeature objectFeature = layoutInformationModelElement.eClass().getEStructuralFeature(OBJECT_EATTRIBUTE_NAME);
-		if (objectFeature != null) {
-			object = layoutInformationModelElement.eGet(objectFeature);
-		}
 		int startOffset = (Integer) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(START_OFFSET_EATTRIBUTE_NAME));
 		String hiddenTokenText = (String) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(HIDDEN_TOKEN_TEXT_EATTRIBUTE_NAME));
 		String visibleTokenText = (String) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(VISIBLE_TOKEN_TEXT_EATTRIBUTE_NAME));
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement = org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.getSyntaxElementByID((String) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(SYNTAX_ELEMENT_ID_EATTRIBUTE_NAME)));
+		if (objectFeature != null) {
+			object = layoutInformationModelElement.eGet(objectFeature);
+		} else if (syntaxElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) {
+			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder = (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder) syntaxElement;
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver tokenResolver = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory().createTokenResolver(placeholder.getTokenName());
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult result = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult();
+			tokenResolver.resolve(visibleTokenText, placeholder.getFeature(), result);
+			object = result.getResolvedToken();
+		}
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, startOffset, hiddenTokenText, visibleTokenText);
 	}
 	

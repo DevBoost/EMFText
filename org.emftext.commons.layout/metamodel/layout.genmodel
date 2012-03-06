@@ -7,18 +7,16 @@
   <foreignModel>layout.ecore</foreignModel>
   <genPackages prefix="Layout" basePackage="org.emftext.commons" disposableProviderFactory="true"
       ecorePackage="layout.ecore#/">
-    <genClasses ecoreClass="layout.ecore#//LayoutInformation">
+    <genClasses image="false" ecoreClass="layout.ecore#//LayoutInformation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute layout.ecore#//LayoutInformation/startOffset"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute layout.ecore#//LayoutInformation/hiddenTokenText"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute layout.ecore#//LayoutInformation/visibleTokenText"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute layout.ecore#//LayoutInformation/hiddenTokenText"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute layout.ecore#//LayoutInformation/visibleTokenText"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute layout.ecore#//LayoutInformation/syntaxElementID"/>
     </genClasses>
     <genClasses ecoreClass="layout.ecore#//ReferenceLayoutInformation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference layout.ecore#//ReferenceLayoutInformation/object"/>
     </genClasses>
-    <genClasses ecoreClass="layout.ecore#//AttributeLayoutInformation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute layout.ecore#//AttributeLayoutInformation/object"/>
-    </genClasses>
+    <genClasses ecoreClass="layout.ecore#//AttributeLayoutInformation"/>
     <genClasses ecoreClass="layout.ecore#//KeywordLayoutInformation"/>
   </genPackages>
 </genmodel:GenModel>
