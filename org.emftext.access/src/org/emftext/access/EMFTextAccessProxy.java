@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.access;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -113,7 +114,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	 * @return a dynamic proxy object implementing 'accessInterface' that
 	 *         delegates all method calls to 'impl'
 	 */
-	public static Object get(Object impl, Class<?> accessInterface) {
+	public static <T> T get(Object impl, Class<T> accessInterface) {
 		//proxies are not cached because also new objects (e.g., Parser, Printer) might be created
 		return get(impl, accessInterface, DEFAULT_ACCESS_INTERFACES);
 	}
@@ -148,6 +149,11 @@ public class EMFTextAccessProxy implements InvocationHandler {
 
 		boolean foundAllMethods = true;
 		for (Method wrapperMethod : wrapperMethods) {
+			// we ignore deprecated wrapper methods as these may not be
+			// present anymore
+			if (isDeprecated(wrapperMethod)) {
+				continue;
+			}
 			boolean foundMethod = false;
 			for (Method targetMethod : targetMethods) {
 				// compare names
@@ -193,6 +199,16 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		return foundAllMethods;
 	}
 	
+	private static boolean isDeprecated(Method method) {
+		Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
+		for (Annotation annotation : declaredAnnotations) {
+			if (annotation.annotationType().equals(Deprecated.class)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Returns an instance of the given access interface that can be
 	 * used to call the methods of 'impl'. In addition to the default
@@ -205,7 +221,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	 * @return a dynamic proxy object implementing 'accessInterface' that
 	 *         delegates all method calls to 'impl'
 	 */
-	public static Object get(Object impl, Class<?> accessInterface, Class<?>[] additionalAccessInterfaces) {
+	public static <T> T get(Object impl, Class<T> accessInterface, Class<?>[] additionalAccessInterfaces) {
 		Class<?>[] allAccessInterfaces = new Class<?>[DEFAULT_ACCESS_INTERFACES.length + additionalAccessInterfaces.length];
 		int i = 0;
 		for (Class<?> nextInterface : DEFAULT_ACCESS_INTERFACES) {
@@ -222,10 +238,10 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			implObject = accessProxy.impl;
 		}
 		//proxies are not cached because also new objects (e.g., Parser, Printer) might be created
-		return Proxy.newProxyInstance(
+		return accessInterface.cast(Proxy.newProxyInstance(
 				EMFTextAccessProxy.class.getClassLoader(),
 				new Class[] { accessInterface },
-				new EMFTextAccessProxy(implObject, accessInterface, allAccessInterfaces));
+				new EMFTextAccessProxy(implObject, accessInterface, allAccessInterfaces)));
 	}
 
 	private boolean isAccessInterface(Class<?> type) {
@@ -246,8 +262,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		Object result = null;
 		Object[] proxyArgs = null;
 		try {
-			Method implMethod;
-			implMethod = getMethod(method);
+			Method implMethod = getMethod(method);
 			if (args != null) {
 				proxyArgs = new Object[args.length];
 				for (int a = 0; a < args.length; a++) {
@@ -268,9 +283,15 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			// returned result
 			result = wrapArrayIfNeeded(result, returnType);
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			EMFTextAccessPlugin.logError("Illegal arguments for method: " + impl.getClass().getCanonicalName() + "." + method.getName(), null);
+			throw e;
 		} catch (NoSuchMethodException e) {
+			//for deprecated methods we do nothing and return null
+			if (isDeprecated(method)) {
+				return null;
+			}
 			EMFTextAccessPlugin.logError("Required method not defined: " + impl.getClass().getCanonicalName() + "." + method.getName(), null);
+			throw e;
 		} catch (InvocationTargetException e) {
 			Throwable cause = e.getCause();
 			if (cause instanceof IllegalArgumentException) {
@@ -329,6 +350,13 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		return result;
 	}
 
+	/**
+	 * Searches for a matching method in the target object.
+	 * 
+	 * @param method the method that was invoked on the proxy object
+	 * @return
+	 * @throws NoSuchMethodException
+	 */
 	private Method getMethod(Method method) throws NoSuchMethodException {
 		String methodName = method.getName();
 		Class<?>[] parameterTypes = method.getParameterTypes();

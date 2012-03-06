@@ -45,7 +45,10 @@ public interface IResource extends Resource {
 	 * Try to cancel a current reload of this resource. It is not guaranteed
 	 * that canceling is successful. If this resource has already finished
 	 * parsing the new content, it will replace its content unconditionally.
+	 * 
+	 * As of version 1.4.2 of EMFText this method is not available anymore.
 	 */
+	@Deprecated
 	public void cancelReload();
 	
 	/**
