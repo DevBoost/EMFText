@@ -18,8 +18,10 @@ OPTIONS {
 	overrideOutlinePageActionProvider = "false";
 	overrideUIPluginActivator = "false";
 
-	// dependencies
+	// adjust dependencies
 	additionalUIDependencies = "org.emftext.sdk";
+	antlrPluginID = "org.emftext.sdk";
+	overrideAntlrPlugin = "false";
 
 	// disable stuff we don't need	
 	disableBuilder = "true";
