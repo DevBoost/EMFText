@@ -888,6 +888,7 @@ public class TextResourceGenerator extends
 		sc.add("private " + iLocationMapClassName + " locationMap;");
 		sc.add("private int proxyCounter = 0;");
 		sc.add("private " + iTextParserClassName + " parser;");
+		sc.add("private " + layoutUtilClassName + " layoutUtil = new " + layoutUtilClassName + "();");
 		sc.add("private " + markerHelperClassName + " markerHelper;");
 		sc.add("private " + MAP + "<String, "
 				+ iContextDependentUriFragmentClassName + "<? extends "
@@ -971,11 +972,11 @@ public class TextResourceGenerator extends
 		sc.add("referenceResolverSwitch.setOptions(options);");
 		sc.add("for (" + E_OBJECT + " root : getContentsInternal()) {");
 		sc.add("if (isLayoutInformationRecordingEnabled()) {");
-		sc.add(layoutUtilClassName + ".transferAllLayoutInformationFromModel(root);");
+		sc.add("layoutUtil.transferAllLayoutInformationFromModel(root);");
 		sc.add("}");
 		sc.add("printer.print(root);");
 		sc.add("if (isLayoutInformationRecordingEnabled()) {");
-		sc.add(layoutUtilClassName + ".transferAllLayoutInformationToModel(root);");
+		sc.add("layoutUtil.transferAllLayoutInformationToModel(root);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -1072,7 +1073,7 @@ public class TextResourceGenerator extends
 		sc.add("root = result.getRoot();");
 		sc.add("if (root != null) {");
 		sc.add("if (isLayoutInformationRecordingEnabled()) {");
-		sc.add(layoutUtilClassName + ".transferAllLayoutInformationToModel(root);");
+		sc.add("layoutUtil.transferAllLayoutInformationToModel(root);");
 		sc.add("}");
 		sc.add("getContentsInternal().add(root);");
 		sc.add("}");
