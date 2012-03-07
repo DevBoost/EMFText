@@ -107,6 +107,10 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 	
 	private void addGetSyntaxElementID(JavaComposite sc) {
 		sc.add("public static String getSyntaxElementID(" + syntaxElementClassName + " syntaxElement) {");
+		sc.add("if (syntaxElement == null) {");
+		sc.addComment("null indicates EOF");
+		sc.add("return \"<EOF>\";");
+		sc.add("}");
 		sc.add("for (" + FIELD + " field : " + grammarInformationProviderClassName + ".class.getFields()) {");
 		sc.add("Object fieldValue;");
 		sc.add("try {");
