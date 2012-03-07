@@ -1049,6 +1049,8 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"stores the text that was already successfully checked (i.e., is can be scanned correctly and can thus be printed)."
 		);
 		sc.add("String validBlock = \"\";");
+		
+		sc.add("char lastCharWritten = ' ';");
 
 		sc.add("for (int i = 0; i < tokenOutputStream.size(); i++) {");
 		
@@ -1057,7 +1059,11 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		
 		sc.addComment("if declared or preserved whitespace is found - print block");
 		sc.add("if (tokenI.getTokenName() == null) {");
-		sc.add("writer.write(currentBlock.toString());");
+		sc.add("char[] charArray = currentBlock.toString().toCharArray();");
+		sc.add("writer.write(charArray);");
+		sc.add("if (charArray.length > 0) {");
+		sc.add("lastCharWritten = charArray[charArray.length - 1];");
+		sc.add("}");
 		sc.addComment("reset all values");
 		sc.add("currentBlock = new StringBuilder();");
 		sc.add("currentBlockStart = i + 1;");
@@ -1104,12 +1110,25 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("} else {");
 		sc.addComment("sequence is not valid, must print whitespace to separate tokens");
 		sc.addComment("print text that is valid so far");
-		sc.add("writer.write(validBlock);");
+		sc.add("char[] charArray = validBlock.toString().toCharArray();");
+		sc.add("writer.write(charArray);");
+		sc.add("if (charArray.length > 0) {");
+		sc.add("lastCharWritten = charArray[charArray.length - 1];");
+		sc.add("}");
 		sc.addComment("print separating whitespace");
+		sc.addComment("if no whitespace (or tab or linebreak) is already there");
 		// TODO we need some way to specify the string that is used for
 		// automatic whitespace handling. probably another code generation
 		// option is required.
-		sc.add("writer.write(\" \");");
+		//
+		// The situation, that we end up here with a whitespace as lastCharWritten may occur 
+		// if a reference resolver de-resolves to a non-existing token.
+		// This is currently the case in JaMoPP when the option 
+		// OPTION_ALWAYS_USE_FULLY_QUALIFIED_NAMESis turned on.
+		sc.add("if (lastCharWritten != ' ' && lastCharWritten != '\\t' && lastCharWritten != '\\n' && lastCharWritten != '\\r') {");
+		sc.add("lastCharWritten = ' ';");
+		sc.add("writer.write(lastCharWritten);");
+		sc.add("}");
 		sc.addComment("add current token as initial value for next iteration");
 		sc.add("currentBlock = new StringBuilder(tokenI.getText());");
 		sc.add("currentBlockStart = i;");
