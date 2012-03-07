@@ -89,7 +89,7 @@
                class="org.emftext.sdk.ui.actions.GenerateAllAction"
                enablesFor="*"
                id="org.emftext.ui.actions.generate_all_contributor"
-               label="Generate Metamodel and Resource plug-ins"
+               label="Generate All (EMFText)"
                menubarPath="additions"/>
       </objectContribution>
    </extension>
