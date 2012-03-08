@@ -1047,7 +1047,8 @@ public class TextResourceGenerator extends
 		sc.add(inputStreamProcessorClassName
 				+ " processor = provider.getInputStreamProcessor(inputStream);");
 		sc.add("actualInputStream = processor;");
-		sc.add("encoding = processor.getOutputEncoding();");
+		//TODO #1827: do not override the encoding! Instead #1827 needs to be fixed.
+		//sc.add("encoding = processor.getOutputEncoding();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
