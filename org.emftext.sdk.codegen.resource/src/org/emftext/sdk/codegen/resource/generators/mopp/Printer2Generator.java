@@ -1124,7 +1124,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		// The situation, that we end up here with a whitespace as lastCharWritten may occur 
 		// if a reference resolver de-resolves to a non-existing token.
 		// This is currently the case in JaMoPP when the option 
-		// OPTION_ALWAYS_USE_FULLY_QUALIFIED_NAMESis turned on.
+		// OPTION_ALWAYS_USE_FULLY_QUALIFIED_NAMES is turned on.
 		sc.add("if (lastCharWritten != ' ' && lastCharWritten != '\\t' && lastCharWritten != '\\n' && lastCharWritten != '\\r') {");
 		sc.add("lastCharWritten = ' ';");
 		sc.add("writer.write(lastCharWritten);");
