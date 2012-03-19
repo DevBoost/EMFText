@@ -30,6 +30,7 @@ import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -48,10 +49,6 @@ import org.emftext.sdk.ui.jobs.GenerateResourcePluginsJob;
  * found models the respective code generator is invoked (Ecode model code for
  * all generator models and EMFText resource plug-in code for all syntax
  * definitions).
- * 
- * TODO emulate behavior of EMF GenModel editor that finds referenced generator
- * models in the workspace even if they are referenced by a platform:/plugin URI 
- * instead of a platform:/resource URI.
  */
 public class GenerateAllAction implements IObjectActionDelegate {
 
@@ -104,6 +101,7 @@ public class GenerateAllAction implements IObjectActionDelegate {
 					protected IStatus run(IProgressMonitor monitor) {
 						URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 						ResourceSet rs = new ResourceSetImpl();
+						rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 						Resource genModelResource = rs.getResource(uri, true);
 						EList<EObject> contents = genModelResource.getContents();
 						for (EObject eObject : contents) {
