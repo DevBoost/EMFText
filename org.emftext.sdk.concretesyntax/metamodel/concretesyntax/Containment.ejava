@@ -19,7 +19,7 @@ eclass Containment {
 	 * @return
 	 */
 	getAllowedSubTypes() {
-		EList<GenClass> types = new BasicEList<GenClass>();
+		EList<GenClass> types;
 		// is there an explicit type defined?
 		if (!getTypes().isEmpty()) {
 			types = getTypes();

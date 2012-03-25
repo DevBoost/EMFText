@@ -2959,7 +2959,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (containmentEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> types = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\t\t// is there an explicit type defined?\r\n\t\tif (!getTypes().isEmpty()) {\r\n\t\t\ttypes = getTypes();\r\n\t\t} else {\r\n\t\t\ttypes = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\t\t\ttypes.add(getFeature().getTypeGenClass());\r\n\t\t}\r\n\r\n\t\treturn types;\r\n",
+			 "body", "org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass >types;\r\nif (!getTypes().isEmpty()) {\r\n\ttypes = getTypes();\r\n}else {\r\n\ttypes = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass >();\r\n\ttypes.add(getFeature().getTypeGenClass());\r\n}\r\nreturn types;\r\n",
 			 "documentation", "\r\n Returns all types that are allowed for the given containment.\r\n If type restrictions are specified in the syntax rule, this\r\n list contains the allowed types. If no restriction are present\r\n the type of the feature references by the containment is \r\n returned.\r\n \r\n @param containment\r\n @return\r\n"
 		   });		
 		addAnnotation

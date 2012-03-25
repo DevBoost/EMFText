@@ -86,18 +86,14 @@ public class ContainmentImpl extends TerminalImpl implements Containment {
 	 * @generated
 	 */
 	public EList<GenClass> getAllowedSubTypes() {
-		
-				 org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> types = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
-		
-				// is there an explicit type defined?
-				if (!getTypes().isEmpty()) {
-					types = getTypes();
-				} else {
-					types = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
-					types.add(getFeature().getTypeGenClass());
-				}
-		
-				return types;
+		org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass >types;
+		if (!getTypes().isEmpty()) {
+			types = getTypes();
+		}else {
+			types = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass >();
+			types.add(getFeature().getTypeGenClass());
+		}
+		return types;
 		
 	}
 
