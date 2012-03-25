@@ -193,8 +193,9 @@ public class ImportItemProvider
 	@Override
 	public String getText(Object object) {
 		Import _import = (Import) object;
-		String label = _import.getPrefix() + " : ";
+		String label = "";
 		if (_import != null && !_import.eIsProxy()) {
+			label = _import.getPrefix() + " : ";
 			GenPackage genPackage = _import.getPackage();
 			if (genPackage != null && !genPackage.eIsProxy()) {
 				EPackage ecorePackage = genPackage.getEcorePackage();
