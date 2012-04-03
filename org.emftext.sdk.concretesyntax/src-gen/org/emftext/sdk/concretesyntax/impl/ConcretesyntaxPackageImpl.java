@@ -4888,63 +4888,63 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (defaultTokenStyleAdderEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t// add default styles\r\n\t\taddTokenStylesForKeywords(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForQuotedTokens(syntax, allStyles);\r\n\r\n\t\taddTokenStylesForComments(syntax, allStyles);\r\n\r\n\t\taddTokenStyleForTaskItems(syntax, allStyles);\r\n",
+			 "body", "addTokenStylesForKeywords(syntax,allStyles);\r\naddTokenStylesForQuotedTokens(syntax,allStyles);\r\naddTokenStylesForComments(syntax,allStyles);\r\naddTokenStyleForTaskItems(syntax,allStyles);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t/**\r\n\t\t * All CsStrings that match this regular expression will be recognized\r\n\t\t * as keywords and a default token style (purple and bold face font) \r\n\t\t * will be assigned.\r\n\t\t */\r\n\t\tfinal  java.util.regex.Pattern KEYWORD_PATTERN =  java.util.regex.Pattern.compile(getKeywordRegex());\r\n\r\n\t\tfinal  java.lang.String KEYWORD_COLOR = \"800055\";\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\r\n\t\t\t org.eclipse.emf.common.util.EList< java.lang.String> keywords = getAllKeywords(rule);\r\n\t\t\tfor ( java.lang.String keyword : keywords) {\r\n\t\t\t\tif (KEYWORD_PATTERN.matcher(keyword).matches()) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\r\n\t\t\t\t\tnewStyle.getTokenNames().add(keyword);\r\n\t\t\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\r\n\t\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "body", "final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern .compile(getKeywordRegex());\r\nfinal java.lang.String KEYWORD_COLOR = \"800055\";\r\nfor ( org.emftext.sdk.concretesyntax.Rule rule:syntax.getAllRules()) {\r\n\torg.eclipse.emf.common.util.EList < java.lang.String >keywords = getAllKeywords(rule);\r\n\tfor ( java.lang.String keyword:keywords) {\r\n\t\tif (KEYWORD_PATTERN.matcher(keyword).matches()) {\r\n\t\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle() ;\r\n\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\r\n\t\t\tnewStyle.getTokenNames().add(keyword);\r\n\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle .BOLD);\r\n\t\t\tsyntax.addTokenStyle(allStyles,newStyle);\r\n\t\t}\r\n\t}\r\n}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t java.lang.String QUOTED_TOKEN_COLOR = \"2A00FF\";\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\r\n\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> placeholders = getAllPlaceholdersInQuotes(rule);\r\n\t\t\tfor ( org.emftext.sdk.concretesyntax.PlaceholderInQuotes placeholder : placeholders) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.ReferencableTokenDefinition token = placeholder.getToken();\r\n\t\t\t\tif (token == null) {\r\n\t\t\t\t\tcontinue;\r\n\t\t\t\t}\r\n\t\t\t\t java.lang.String tokenName = token.getName();\r\n\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewStyle.setRgb(QUOTED_TOKEN_COLOR);\r\n\t\t\t\tnewStyle.getTokenNames().add(tokenName);\r\n\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "body", "java.lang.String QUOTED_TOKEN_COLOR = \"2A00FF\";\r\nfor ( org.emftext.sdk.concretesyntax.Rule rule:syntax.getAllRules()) {\r\n\torg.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.PlaceholderInQuotes >placeholders = getAllPlaceholdersInQuotes(rule);\r\n\tfor ( org.emftext.sdk.concretesyntax.PlaceholderInQuotes placeholder:placeholders) {\r\n\t\torg.emftext.sdk.concretesyntax.ReferencableTokenDefinition token = placeholder.getToken();\r\n\t\tif (token == null) {\r\n\t\t\tcontinue;\r\n\t\t}\r\n\t\tjava.lang.String tokenName = token.getName();\r\n\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle() ;\r\n\t\tnewStyle.setRgb(QUOTED_TOKEN_COLOR);\r\n\t\tnewStyle.getTokenNames().add(tokenName);\r\n\t\tsyntax.addTokenStyle(allStyles,newStyle);\r\n\t}\r\n}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tfinal  java.lang.String SL_COMMENT = \"\'//\'(~(\'\\n\'|\'\\r\'|\'?\'))*\";\r\n\r\n\t\tfinal  java.lang.String ML_COMMENT = \"\'/*\'.*\'*/\'\";\r\n\r\n\t\treturn SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);\r\n",
+			 "body", "final java.lang.String SL_COMMENT = \"\\\'//\\\'(~(\\\'\\n\\\'|\\\'\\r\\\'|\\\'\u00ef\u00bf\u00bf\\\'))*\";\r\nfinal java.lang.String ML_COMMENT = \"\\\'/*\\\'.*\\\'*/\\\'\";\r\nreturn SL_COMMENT.equals(regex)||ML_COMMENT.equals(regex);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tfinal  java.lang.String COMMENT_COLOR = \"3F805D\";\r\n\r\n\t\t java.util.Collection< org.emftext.sdk.concretesyntax.CompleteTokenDefinition> tokens = syntax.getActiveTokens();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.CompleteTokenDefinition tokenDefinition : tokens) {\r\n\t\t\t java.lang.String regex = tokenDefinition.getRegex();\r\n\t\t\tif (isCommentPattern(regex)) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewStyle.setRgb(COMMENT_COLOR);\r\n\t\t\t\tnewStyle.getTokenNames().add(tokenDefinition.getName());\r\n\t\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n\t\t\t}\r\n\t\t}\r\n",
+			 "body", "final java.lang.String COMMENT_COLOR = \"3F805D\";\r\njava.util.Collection < org.emftext.sdk.concretesyntax.CompleteTokenDefinition >tokens = syntax.getActiveTokens();\r\nfor ( org.emftext.sdk.concretesyntax.CompleteTokenDefinition tokenDefinition:tokens) {\r\n\tjava.lang.String regex = tokenDefinition.getRegex();\r\n\tif (isCommentPattern(regex)) {\r\n\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle() ;\r\n\t\tnewStyle.setRgb(COMMENT_COLOR);\r\n\t\tnewStyle.getTokenNames().add(tokenDefinition.getName());\r\n\t\tsyntax.addTokenStyle(allStyles,newStyle);\r\n\t}\r\n}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< java.lang.String> allKeywords = new  org.eclipse.emf.common.util.BasicEList< java.lang.String>();\r\n\r\n\t\t org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();\r\n\r\n\t\twhile (iterator.hasNext()) {\r\n\t\t\t org.eclipse.emf.ecore.EObject next = iterator.next();\r\n\t\t\tif (next instanceof  org.emftext.sdk.concretesyntax.CsString) {\r\n\t\t\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.CsString) next).getValue());\r\n\t\t\t} else if (next instanceof  org.emftext.sdk.concretesyntax.BooleanTerminal) {\r\n\t\t\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getTrueLiteral());\r\n\t\t\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getFalseLiteral());\r\n\t\t\t} else if (next instanceof  org.emftext.sdk.concretesyntax.EnumTerminal) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.EnumTerminal enumTerminal = ( org.emftext.sdk.concretesyntax.EnumTerminal) next;\r\n\t\t\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : enumTerminal.getLiterals()) {\r\n\t\t\t\t\tallKeywords.add(literal.getText());\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn allKeywords;\r\n",
+			 "body", "org.eclipse.emf.common.util.EList < java.lang.String >allKeywords = new org.eclipse.emf.common.util.BasicEList < java.lang.String >();\r\norg.eclipse.emf.common.util.TreeIterator < org.eclipse.emf.ecore.EObject >iterator = rule.eAllContents();\r\nwhile (iterator.hasNext()) {\r\n\torg.eclipse.emf.ecore.EObject next = iterator.next();\r\n\tif (next instanceof org.emftext.sdk.concretesyntax.CsString ) {\r\n\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.CsString ) next).getValue());\r\n\t}else if (next instanceof org.emftext.sdk.concretesyntax.BooleanTerminal ) {\r\n\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal ) next).getTrueLiteral());\r\n\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal ) next).getFalseLiteral());\r\n\t}else if (next instanceof org.emftext.sdk.concretesyntax.EnumTerminal ) {\r\n\t\torg.emftext.sdk.concretesyntax.EnumTerminal enumTerminal = ( org.emftext.sdk.concretesyntax.EnumTerminal ) next;\r\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal:enumTerminal.getLiterals()) {\r\n\t\t\tallKeywords.add(literal.getText());\r\n\t\t}\r\n\t}\r\n}\r\nreturn allKeywords;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(6), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> allPlaceholders = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes>();\r\n\r\n\t\t org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();\r\n\r\n\t\twhile (iterator.hasNext()) {\r\n\t\t\t org.eclipse.emf.ecore.EObject next = iterator.next();\r\n\t\t\tif (next instanceof  org.emftext.sdk.concretesyntax.PlaceholderInQuotes) {\r\n\t\t\t\tallPlaceholders.add(( org.emftext.sdk.concretesyntax.PlaceholderInQuotes) next);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn allPlaceholders;\r\n",
+			 "body", "org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.PlaceholderInQuotes >allPlaceholders = new org.eclipse.emf.common.util.BasicEList < org.emftext.sdk.concretesyntax.PlaceholderInQuotes >();\r\norg.eclipse.emf.common.util.TreeIterator < org.eclipse.emf.ecore.EObject >iterator = rule.eAllContents();\r\nwhile (iterator.hasNext()) {\r\n\torg.eclipse.emf.ecore.EObject next = iterator.next();\r\n\tif (next instanceof org.emftext.sdk.concretesyntax.PlaceholderInQuotes ) {\r\n\t\tallPlaceholders.add(( org.emftext.sdk.concretesyntax.PlaceholderInQuotes ) next);\r\n\t}\r\n}\r\nreturn allPlaceholders;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(7), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tfinal  java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_])+)\";\r\n\r\n\t\treturn KEYWORD_REGEX;\r\n",
+			 "body", "final java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][ ])+)\";\r\nreturn KEYWORD_REGEX;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(8), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tfinal  java.lang.String TASK_ITEM_COLOR = \"7F9FBF\";\r\n\r\n\r\n\t\t org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\r\n\t\tnewStyle.setRgb(TASK_ITEM_COLOR);\r\n\r\n\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\r\n\r\n\t\tnewStyle.getTokenNames().add(\"TASK_ITEM\");\r\n\r\n\t\tsyntax.addTokenStyle(allStyles, newStyle);\r\n",
+			 "body", "final java.lang.String TASK_ITEM_COLOR = \"7F9FBF\";\r\norg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle() ;\r\nnewStyle.setRgb(TASK_ITEM_COLOR);\r\nnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle .BOLD);\r\nnewStyle.getTokenNames().add(\"TASK_ITEM\");\r\nsyntax.addTokenStyle(allStyles,newStyle);\r\n",
 			 "documentation", ""
 		   });
 	}
