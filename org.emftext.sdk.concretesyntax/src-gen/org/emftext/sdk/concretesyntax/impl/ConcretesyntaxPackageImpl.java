@@ -4937,7 +4937,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (defaultTokenStyleAdderEClass.getEOperations().get(7), 
 		   source, 
 		   new String[] {
-			 "body", "final java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][\\\\s])+)\";\r\nreturn KEYWORD_REGEX;\r\n",
+			 "body", "final java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_]|\\\\s)+)\";\r\nreturn KEYWORD_REGEX;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation

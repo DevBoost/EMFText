@@ -116,7 +116,7 @@ public interface DefaultTokenStyleAdder extends EObject {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='final java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][\\\\s])+)\";\r\nreturn KEYWORD_REGEX;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='final java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_]|\\\\s)+)\";\r\nreturn KEYWORD_REGEX;\r\n'"
 	 * @generated
 	 */
 	String getKeywordRegex();

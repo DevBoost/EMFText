@@ -2249,7 +2249,7 @@
     </eOperations>
     <eOperations name="getKeywordRegex" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="final java.lang.String KEYWORD_REGEX = &quot;([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][\\s])+)&quot;;&#xD;&#xA;return KEYWORD_REGEX;&#xD;&#xA;"/>
+        <details key="body" value="final java.lang.String KEYWORD_REGEX = &quot;([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_]|\\s)+)&quot;;&#xD;&#xA;return KEYWORD_REGEX;&#xD;&#xA;"/>
         <details key="documentation" value=""/>
       </eAnnotations>
     </eOperations>
