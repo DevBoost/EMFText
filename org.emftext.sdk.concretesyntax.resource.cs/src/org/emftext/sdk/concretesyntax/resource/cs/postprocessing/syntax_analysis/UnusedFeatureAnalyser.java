@@ -74,7 +74,7 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 						unusedReferencesWithOpposite.put(ecoreFeature, rule);
 					} else {
 						//do not warn if the layout reference has no syntax
-						if (CsLayoutUtil.findLayoutReference(genFeature.getGenClass().getEcoreClass()) != genFeature.getEcoreFeature()) {
+						if (new CsLayoutUtil().findLayoutReference(genFeature.getGenClass().getEcoreClass()) != genFeature.getEcoreFeature()) {
 							CsAnalysisProblemType problemType = CsAnalysisProblemType.FEATURE_WITHOUT_SYNTAX;
 							addProblem(
 									problemType, 

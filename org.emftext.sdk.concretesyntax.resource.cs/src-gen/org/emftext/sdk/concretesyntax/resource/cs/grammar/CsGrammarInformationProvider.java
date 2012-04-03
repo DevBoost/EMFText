@@ -436,6 +436,10 @@ public class CsGrammarInformationProvider {
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_25 = new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), CS_25_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
 	
 	public static String getSyntaxElementID(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement) {
+		if (syntaxElement == null) {
+			// null indicates EOF
+			return "<EOF>";
+		}
 		for (java.lang.reflect.Field field : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.class.getFields()) {
 			Object fieldValue;
 			try {

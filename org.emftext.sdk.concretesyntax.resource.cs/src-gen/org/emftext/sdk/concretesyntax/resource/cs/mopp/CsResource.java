@@ -137,6 +137,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
 	private int proxyCounter = 0;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser;
+	private org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil layoutUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil();
 	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper markerHelper;
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
 	private java.util.Map<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixMap = new java.util.LinkedHashMap<String, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
@@ -190,7 +191,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 					org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider provider = (org.emftext.sdk.concretesyntax.resource.cs.ICsInputStreamProcessorProvider) inputStreamPreProcessorProvider;
 					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsInputStreamProcessor processor = provider.getInputStreamProcessor(inputStream);
 					actualInputStream = processor;
-					encoding = processor.getOutputEncoding();
 				}
 			}
 			
@@ -214,7 +214,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				root = result.getRoot();
 				if (root != null) {
 					if (isLayoutInformationRecordingEnabled()) {
-						org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil.transferAllLayoutInformationToModel(root);
+						layoutUtil.transferAllLayoutInformationToModel(root);
 					}
 					getContentsInternal().add(root);
 				}
@@ -319,11 +319,11 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		referenceResolverSwitch.setOptions(options);
 		for (org.eclipse.emf.ecore.EObject root : getContentsInternal()) {
 			if (isLayoutInformationRecordingEnabled()) {
-				org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil.transferAllLayoutInformationFromModel(root);
+				layoutUtil.transferAllLayoutInformationFromModel(root);
 			}
 			printer.print(root);
 			if (isLayoutInformationRecordingEnabled()) {
-				org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil.transferAllLayoutInformationToModel(root);
+				layoutUtil.transferAllLayoutInformationToModel(root);
 			}
 		}
 	}

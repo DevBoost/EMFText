@@ -927,12 +927,17 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		// stores the text that was already successfully checked (i.e., is can be scanned
 		// correctly and can thus be printed).
 		String validBlock = "";
+		char lastCharWritten = ' ';
 		for (int i = 0; i < tokenOutputStream.size(); i++) {
 			PrintToken tokenI = tokenOutputStream.get(i);
 			currentBlock.append(tokenI.getText());
 			// if declared or preserved whitespace is found - print block
 			if (tokenI.getTokenName() == null) {
-				writer.write(currentBlock.toString());
+				char[] charArray = currentBlock.toString().toCharArray();
+				writer.write(charArray);
+				if (charArray.length > 0) {
+					lastCharWritten = charArray[charArray.length - 1];
+				}
 				// reset all values
 				currentBlock = new StringBuilder();
 				currentBlockStart = i + 1;
@@ -975,9 +980,17 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			} else {
 				// sequence is not valid, must print whitespace to separate tokens
 				// print text that is valid so far
-				writer.write(validBlock);
+				char[] charArray = validBlock.toString().toCharArray();
+				writer.write(charArray);
+				if (charArray.length > 0) {
+					lastCharWritten = charArray[charArray.length - 1];
+				}
 				// print separating whitespace
-				writer.write(" ");
+				// if no whitespace (or tab or linebreak) is already there
+				if (lastCharWritten != ' ' && lastCharWritten != '\t' && lastCharWritten != '\n' && lastCharWritten != '\r') {
+					lastCharWritten = ' ';
+					writer.write(lastCharWritten);
+				}
 				// add current token as initial value for next iteration
 				currentBlock = new StringBuilder(tokenI.getText());
 				currentBlockStart = i;
@@ -989,7 +1002,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	private boolean isSame(Object o1, Object o2) {
-		if (o1 instanceof Integer || o1 instanceof Long || o1 instanceof Byte || o1 instanceof Short || o1 instanceof Float || o2 instanceof Double) {
+		if (o1 instanceof String || o1 instanceof Integer || o1 instanceof Long || o1 instanceof Byte || o1 instanceof Short || o1 instanceof Float || o2 instanceof Double) {
 			return o1.equals(o2);
 		}
 		return o1 == o2;

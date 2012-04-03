@@ -19,33 +19,33 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
  */
 public class CsLayoutUtil {
 	
-	public static final String LAYOUT_PACKAGE_NS_URI = "http://www.emftext.org/commons/layout";
-	public static final String LAYOUT_INFORMATION_ECLASS_NAME = "LayoutInformation";
-	public static final String ATTRIBUTE_LAYOUT_INFORMATION_ECLASS_NAME = "AttributeLayoutInformation";
-	public static final String REFERENCE_LAYOUT_INFORMATION_ECLASS_NAME = "ReferenceLayoutInformation";
-	public static final String KEYWORD_LAYOUT_INFORMATION_ECLASS_NAME = "KeywordLayoutInformation";
+	public final String LAYOUT_PACKAGE_NS_URI = "http://www.emftext.org/commons/layout";
+	public final String LAYOUT_INFORMATION_ECLASS_NAME = "LayoutInformation";
+	public final String ATTRIBUTE_LAYOUT_INFORMATION_ECLASS_NAME = "AttributeLayoutInformation";
+	public final String REFERENCE_LAYOUT_INFORMATION_ECLASS_NAME = "ReferenceLayoutInformation";
+	public final String KEYWORD_LAYOUT_INFORMATION_ECLASS_NAME = "KeywordLayoutInformation";
 	
-	public static final String SYNTAX_ELEMENT_ID_EATTRIBUTE_NAME = "syntaxElementID";
-	public static final String OBJECT_EATTRIBUTE_NAME = "object";
-	public static final String VISIBLE_TOKEN_TEXT_EATTRIBUTE_NAME = "visibleTokenText";
-	public static final String HIDDEN_TOKEN_TEXT_EATTRIBUTE_NAME = "hiddenTokenText";
-	public static final String START_OFFSET_EATTRIBUTE_NAME = "startOffset";
+	public final String SYNTAX_ELEMENT_ID_EATTRIBUTE_NAME = "syntaxElementID";
+	public final String OBJECT_EATTRIBUTE_NAME = "object";
+	public final String VISIBLE_TOKEN_TEXT_EATTRIBUTE_NAME = "visibleTokenText";
+	public final String HIDDEN_TOKEN_TEXT_EATTRIBUTE_NAME = "hiddenTokenText";
+	public final String START_OFFSET_EATTRIBUTE_NAME = "startOffset";
 	
-	public static void transferAllLayoutInformationToModel(org.eclipse.emf.ecore.EObject root) {
+	public void transferAllLayoutInformationToModel(org.eclipse.emf.ecore.EObject root) {
 		transferLayoutInformationToModel(root);
 		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> i = root.eAllContents(); i.hasNext(); ) {
 			transferLayoutInformationToModel(i.next());
 		}
 	}
 	
-	public static void transferAllLayoutInformationFromModel(org.eclipse.emf.ecore.EObject root) {
+	public void transferAllLayoutInformationFromModel(org.eclipse.emf.ecore.EObject root) {
 		transferLayoutInformationFromModel(root);
-		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> i = root.eAllContents(); i.hasNext(); ) {
-			transferLayoutInformationFromModel(i.next());
+		for (org.eclipse.emf.ecore.EObject next : new java.util.ArrayList<org.eclipse.emf.ecore.EObject>(root.eContents())) {
+			transferAllLayoutInformationFromModel(next);
 		}
 	}
 	
-	public static void transferLayoutInformationToModel(org.eclipse.emf.ecore.EObject element) {
+	public void transferLayoutInformationToModel(org.eclipse.emf.ecore.EObject element) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
 		layoutInformationAdapter.getLayoutInformations();
 		for (java.util.Iterator<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> i = layoutInformationAdapter.getLayoutInformations().iterator(); i.hasNext(); ) {
@@ -63,7 +63,7 @@ public class CsLayoutUtil {
 		}
 	}
 	
-	public static void transferLayoutInformationFromModel(org.eclipse.emf.ecore.EObject element) {
+	public void transferLayoutInformationFromModel(org.eclipse.emf.ecore.EObject element) {
 		org.eclipse.emf.ecore.EReference layoutReference = findLayoutReference(element.eClass());
 		if (layoutReference != null) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
@@ -80,7 +80,7 @@ public class CsLayoutUtil {
 		}
 	}
 	
-	public static org.eclipse.emf.ecore.EObject createLayoutInformationModelElement(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation, org.eclipse.emf.ecore.EPackage layoutPackage) {
+	public org.eclipse.emf.ecore.EObject createLayoutInformationModelElement(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation, org.eclipse.emf.ecore.EPackage layoutPackage) {
 		org.eclipse.emf.ecore.EFactory factory = layoutPackage.getEFactoryInstance();
 		Object object = layoutInformation.getObject(null, false);
 		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement = layoutInformation.getSyntaxElement();
@@ -107,7 +107,7 @@ public class CsLayoutUtil {
 		return layoutInformationModelElement;
 	}
 	
-	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation createLayoutInformation(org.eclipse.emf.ecore.EObject layoutInformationModelElement) {
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation createLayoutInformation(org.eclipse.emf.ecore.EObject layoutInformationModelElement) {
 		Object object = null;
 		org.eclipse.emf.ecore.EStructuralFeature objectFeature = layoutInformationModelElement.eClass().getEStructuralFeature(OBJECT_EATTRIBUTE_NAME);
 		int startOffset = (Integer) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(START_OFFSET_EATTRIBUTE_NAME));
@@ -126,7 +126,7 @@ public class CsLayoutUtil {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation(syntaxElement, object, startOffset, hiddenTokenText, visibleTokenText);
 	}
 	
-	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter getLayoutInformationAdapter(org.eclipse.emf.ecore.EObject element) {
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter getLayoutInformationAdapter(org.eclipse.emf.ecore.EObject element) {
 		for (org.eclipse.emf.common.notify.Adapter adapter : element.eAdapters()) {
 			if (adapter instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter) {
 				return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter) adapter;
@@ -137,7 +137,7 @@ public class CsLayoutUtil {
 		return newAdapter;
 	}
 	
-	public static org.eclipse.emf.ecore.EReference findLayoutReference(org.eclipse.emf.ecore.EClass eClass) {
+	public org.eclipse.emf.ecore.EReference findLayoutReference(org.eclipse.emf.ecore.EClass eClass) {
 		for (org.eclipse.emf.ecore.EReference ref : eClass.getEAllReferences()) {
 			org.eclipse.emf.ecore.EClass type = ref.getEReferenceType();
 			if (LAYOUT_PACKAGE_NS_URI.equals(type.getEPackage().getNsURI()) && ref.isMany() && LAYOUT_INFORMATION_ECLASS_NAME.equals(type.getName())) {
