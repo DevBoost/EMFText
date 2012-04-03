@@ -197,7 +197,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * @generated
 	 */
 	public String getKeywordRegex() {
-		final java.lang.String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][ ])+)";
+		final java.lang.String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][\\s])+)";
 		return KEYWORD_REGEX;
 		
 	}

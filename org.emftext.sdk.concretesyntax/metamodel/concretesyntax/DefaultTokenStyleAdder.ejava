@@ -75,7 +75,7 @@ eclass DefaultTokenStyleAdder {
 	}
 	
 	getKeywordRegex() {
-		final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][ ])+)";
+		final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_][\\s])+)";
 		return KEYWORD_REGEX;
 	}
 
