@@ -200,6 +200,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.I_BACKET_HANDLER_PROVIDER);
 
 	    add(creators, TextResourceUIArtifacts.ANNOTATION_MODEL);
+	    add(creators, TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
 	    add(creators, TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
 	    add(creators, TextResourceUIArtifacts.MARKER_ANNOTATION);
 	    add(creators, TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);

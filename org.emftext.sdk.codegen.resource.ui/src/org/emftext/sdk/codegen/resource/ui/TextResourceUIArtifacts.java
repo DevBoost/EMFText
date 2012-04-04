@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AbstractOutlinePageActionGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelFactoryGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BracketPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BracketSetGenerator;
@@ -171,6 +172,7 @@ public class TextResourceUIArtifacts {
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANNOTATION_MODEL_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AnnotationModelFactory", AnnotationModelFactoryGenerator.class, OptionTypes.OVERRIDE_ANNOTATION_MODEL_FACTORY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANNOTATION_MODEL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AnnotationModel", AnnotationModelGenerator.class, OptionTypes.OVERRIDE_ANNOTATION_MODEL);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_TOKEN_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AntlrTokenHelper", AntlrTokenHelperGenerator.class, OptionTypes.OVERRIDE_UI_ANTLR_TOKEN_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MARKER_ANNOTATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "MarkerAnnotation", MarkerAnnotationGenerator.class, OptionTypes.OVERRIDE_MARKER_ANNOTATION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> MARKER_RESOLUTION_GENERATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "MarkerResolutionGenerator", MarkerResolutionGeneratorGenerator.class, OptionTypes.OVERRIDE_MARKER_RESOLUTION_GENERATOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> QUICK_ASSIST_ASSISTANT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "QuickAssistAssistant", QuickAssistAssistantGenerator.class, OptionTypes.OVERRIDE_QUICK_ASSIST_ASSISTANT);

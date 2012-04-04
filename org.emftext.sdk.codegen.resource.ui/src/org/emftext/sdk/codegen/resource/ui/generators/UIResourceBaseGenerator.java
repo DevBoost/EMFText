@@ -88,6 +88,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String adapterFactoryClassName;
 	protected String outlinePageAutoExpandActionClassName;
 	protected String sourceViewerConfigurationClassName;
+	protected String uiAntlrTokenHelperClassName;
 
 	@Override
 	protected void initilizeClassNames() {
@@ -98,6 +99,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 
 		abstractOutlinePageActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
 		annotationModelClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL);
+		uiAntlrTokenHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
 		annotationModelFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
 		backgroundParsingStrategyClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BACKGROUND_PARSING_STRATEGY);
 		bracketPreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE);

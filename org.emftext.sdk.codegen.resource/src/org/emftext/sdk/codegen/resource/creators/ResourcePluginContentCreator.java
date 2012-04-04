@@ -341,7 +341,6 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		final String pluginID = resourcePlugin.getName();
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		final String builderID = nameUtil.getBuilderID(concreteSyntax);
-		final String taskBuilderID = nameUtil.getTaskItemBuilderID(concreteSyntax);
 
 		final String primaryConcreteSyntaxName = csUtil.getPrimarySyntaxName(concreteSyntax);
 		final String secondaryConcreteSyntaxName = csUtil.getSecondarySyntaxName(concreteSyntax);
@@ -351,7 +350,6 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		} else {
 			qualifiedResourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
 		}
-		final boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_BUILDER);
 
 		// register the syntax meta information
 		final String metaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.META_INFORMATION);
@@ -404,23 +402,13 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		XMLElement runtime = natureExtension.createChild("runtime");
 		XMLElement run = runtime.createChild("run");
 		run.setAttribute("class", context.getQualifiedClassName(TextResourceArtifacts.NATURE)); 
-		if (!disableBuilder) {
-			XMLElement builder = natureExtension.createChild("builder");
-			builder.setAttribute("id", builderID);
-		}
+
 		XMLElement builder = natureExtension.createChild("builder");
-		builder.setAttribute("id", taskBuilderID);
+		builder.setAttribute("id", builderID);
 
-		if (!disableBuilder) {
-			String builderAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER);
-			String builderName = syntaxName + " Builder";
-			addBuilder(root, builderID, builderAdapterClassName, builderName);
-		}
-
-		// add task builder
-		String taskItemBuilderClassName = context.getQualifiedClassName(TextResourceArtifacts.TASK_ITEM_BUILDER);
-		String builderName = syntaxName + " Task Item Builder";
-		addBuilder(root, taskBuilderID , taskItemBuilderClassName, builderName);
+		String builderAdapterClassName = context.getQualifiedClassName(TextResourceArtifacts.BUILDER_ADAPTER);
+		String builderName = syntaxName + " Builder";
+		addBuilder(root, builderID, builderAdapterClassName, builderName);
 
 		XMLElement loadOptionsPoint = root.createChild("extension-point");
 		loadOptionsPoint.setAttribute("id", pluginID + ".default_load_options");
