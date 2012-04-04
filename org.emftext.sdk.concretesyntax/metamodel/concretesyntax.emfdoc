@@ -668,6 +668,8 @@ OptionTypes.EDITOR_NAME : "The default editor name can be changed with this opti
 
 OptionTypes.OVERRIDE_LAYOUT_UTIL : "If set to <code>false</code>, the LayoutUtil class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_UI_ANTLR_TOKEN_HELPER : "If set to <code>false</code>, the AntlrTokenHelper class in the UI plug-in will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
