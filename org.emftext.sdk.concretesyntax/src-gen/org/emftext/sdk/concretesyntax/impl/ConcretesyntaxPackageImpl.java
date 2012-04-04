@@ -2512,6 +2512,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_CONTAINMENT_TRACE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.EDITOR_NAME);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_LAYOUT_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_UI_ANTLR_TOKEN_HELPER);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -4909,7 +4910,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (defaultTokenStyleAdderEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "final java.lang.String SL_COMMENT = \"\\\'//\\\'(~(\\\'\\n\\\'|\\\'\\r\\\'|\\\'\u00ef\u00bf\u00bf\\\'))*\";\r\nfinal java.lang.String ML_COMMENT = \"\\\'/*\\\'.*\\\'*/\\\'\";\r\nreturn SL_COMMENT.equals(regex)||ML_COMMENT.equals(regex);\r\n",
+			 "body", "final java.lang.String SL_COMMENT = \"\\\'//\\\'(~(\\\'\\n\\\'|\\\'\\r\\\'|\\\'\" + ((char) 0xffff) + \"\\\'))*\";\r\nfinal java.lang.String ML_COMMENT = \"\\\'/*\\\'.*\\\'*/\\\'\";\r\nreturn SL_COMMENT.equals(regex)||ML_COMMENT.equals(regex);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation

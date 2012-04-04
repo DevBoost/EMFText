@@ -70,7 +70,7 @@ public interface DefaultTokenStyleAdder extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='final java.lang.String SL_COMMENT = \"\\\'//\\\'(~(\\\'\\n\\\'|\\\'\\r\\\'|\\\'\357\277\277\\\'))*\";\r\nfinal java.lang.String ML_COMMENT = \"\\\'/*\\\'.*\\\'\052/\\\'\";\r\nreturn SL_COMMENT.equals(regex)||ML_COMMENT.equals(regex);\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='final java.lang.String SL_COMMENT = \"\\\'//\\\'(~(\\\'\\n\\\'|\\\'\\r\\\'|\\\'\" + ((char) 0xffff) + \"\\\'))*\";\r\nfinal java.lang.String ML_COMMENT = \"\\\'/*\\\'.*\\\'\052/\\\'\";\r\nreturn SL_COMMENT.equals(regex)||ML_COMMENT.equals(regex);\r\n'"
 	 * @generated
 	 */
 	boolean isCommentPattern(String regex);

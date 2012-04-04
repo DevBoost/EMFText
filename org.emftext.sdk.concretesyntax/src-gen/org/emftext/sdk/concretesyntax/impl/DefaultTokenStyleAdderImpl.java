@@ -121,7 +121,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * @generated
 	 */
 	public boolean isCommentPattern(String regex) {
-		final java.lang.String SL_COMMENT = "\'//\'(~(\'\n\'|\'\r\'|\'￿\'))*";
+		final java.lang.String SL_COMMENT = "\'//\'(~(\'\n\'|\'\r\'|\'" + ((char) 0xffff) + "\'))*";
 		final java.lang.String ML_COMMENT = "\'/*\'.*\'*/\'";
 		return SL_COMMENT.equals(regex)||ML_COMMENT.equals(regex);
 		

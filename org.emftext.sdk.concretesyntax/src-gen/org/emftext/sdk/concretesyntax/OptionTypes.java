@@ -2368,7 +2368,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_LAYOUT_UTIL(294, "OVERRIDE_LAYOUT_UTIL", "overrideLayoutUtil");
+	OVERRIDE_LAYOUT_UTIL(294, "OVERRIDE_LAYOUT_UTIL", "overrideLayoutUtil"), /**
+	 * The '<em><b>OVERRIDE UI ANTLR TOKEN HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_ANTLR_TOKEN_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_ANTLR_TOKEN_HELPER(295, "OVERRIDE_UI_ANTLR_TOKEN_HELPER", "overrideUIAntlrTokenHelper");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7311,6 +7319,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_LAYOUT_UTIL_VALUE = 294;
 /**
+	 * The '<em><b>OVERRIDE UI ANTLR TOKEN HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI ANTLR TOKEN HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_ANTLR_TOKEN_HELPER
+	 * @model literal="overrideUIAntlrTokenHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_ANTLR_TOKEN_HELPER_VALUE = 295;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7610,6 +7632,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_CONTAINMENT_TRACE,
 			EDITOR_NAME,
 			OVERRIDE_LAYOUT_UTIL,
+			OVERRIDE_UI_ANTLR_TOKEN_HELPER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7949,6 +7972,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_CONTAINMENT_TRACE_VALUE: return OVERRIDE_CONTAINMENT_TRACE;
 			case EDITOR_NAME_VALUE: return EDITOR_NAME;
 			case OVERRIDE_LAYOUT_UTIL_VALUE: return OVERRIDE_LAYOUT_UTIL;
+			case OVERRIDE_UI_ANTLR_TOKEN_HELPER_VALUE: return OVERRIDE_UI_ANTLR_TOKEN_HELPER;
 		}
 		return null;
 	}

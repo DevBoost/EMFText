@@ -50,7 +50,7 @@ eclass DefaultTokenStyleAdder {
 	}
 
 	isCommentPattern(/*String regex*/) {
-		final String SL_COMMENT = "'//'(~('\n'|'\r'|'\uffff'))*";
+		final String SL_COMMENT = "'//'(~('\n'|'\r'|'" + ((char) 0xFFFF) + "'))*";
 		final String ML_COMMENT = "'/*'.*'*/'";
 		return SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);
 	}
