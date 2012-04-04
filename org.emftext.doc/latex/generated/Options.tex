@@ -1,4 +1,4 @@
-EMFText currently supports 291 code generation options. However, most of them (248) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
+EMFText currently supports 293 code generation options. However, most of them (250) are only used to specify which generated artifacts shall be customized. Subsequently, a list of all options and their description can be found.
 
 \vspace{1cm}\noindent\texttt{additionalDependencies}
 \begin{myindentpar}{1cm}
@@ -860,6 +860,11 @@ If set to \texttt{false}, the LayoutInformation class will not be overridden. Th
 If set to \texttt{false}, the LayoutInformationAdapter class will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
+\noindent\texttt{overrideLayoutUtil}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the LayoutUtil class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
 \noindent\texttt{overrideLineBreak}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the LineBreak class will not be overridden. The default value for this option is \texttt{true}.
@@ -1318,6 +1323,11 @@ If set to \texttt{false}, the TokenStyle class will not be overridden. The defau
 \noindent\texttt{overrideTokenStyleInformationProvider}
 \begin{myindentpar}{1cm}
 If set to \texttt{false}, the TokenStyleInformationProvider class will not be overridden. The default value for this option is \texttt{true}.
+\end{myindentpar}
+
+\noindent\texttt{overrideUIAntlrTokenHelper}
+\begin{myindentpar}{1cm}
+If set to \texttt{false}, the AntlrTokenHelper class in the UI plug-in will not be overridden. The default value for this option is \texttt{true}.
 \end{myindentpar}
 
 \noindent\texttt{overrideUIBuildProperties}
