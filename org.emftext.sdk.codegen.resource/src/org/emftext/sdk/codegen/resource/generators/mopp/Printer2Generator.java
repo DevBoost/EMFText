@@ -86,10 +86,12 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 		sc.add("private String text;");
 		sc.add("private String tokenName;");
+		sc.add("private " + E_OBJECT + " container;");
 		sc.addLineBreak();
-		sc.add("public PrintToken(String text, String tokenName) {");
+		sc.add("public PrintToken(String text, String tokenName, " + E_OBJECT + " container) {");
 		sc.add("this.text = text;");
 		sc.add("this.tokenName = tokenName;");
+		sc.add("this.container = container;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String getText() {");
@@ -98,6 +100,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 		sc.add("public String getTokenName() {");
 		sc.add("return tokenName;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + E_OBJECT + " getContainer() {");
+		sc.add("return container;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String toString() {");
@@ -238,6 +244,30 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		addPrintSmartMethod(sc);
 		addIsSameMethod(sc);
 		addGetAllowedTypesMethod(sc);
+		addCreateSpaceTokenMethod(sc);
+		addCreateTabTokenMethod(sc);
+		addCreateNewLineTokenMethod(sc);
+	}
+
+	private void addCreateSpaceTokenMethod(JavaComposite sc) {
+		sc.add("protected PrintToken createSpaceToken(" + E_OBJECT + " container) {");
+		sc.add("return new PrintToken(\" \", null, container);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateTabTokenMethod(JavaComposite sc) {
+		sc.add("protected PrintToken createTabToken(" + E_OBJECT + " container) {");
+		sc.add("return new PrintToken(\"\\t\", null, container);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateNewLineTokenMethod(JavaComposite sc) {
+		sc.add("protected PrintToken createNewLineToken(" + E_OBJECT + " container) {");
+		sc.add("return new PrintToken(NEW_LINE, null, container);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetAllowedTypesMethod(JavaComposite sc) {
@@ -398,10 +428,6 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("public final static String NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.addLineBreak();
 		
-		sc.add("private final PrintToken SPACE_TOKEN = new PrintToken(\" \", null);");
-		sc.add("private final PrintToken TAB_TOKEN = new PrintToken(\"\\t\", null);");
-		sc.add("private final PrintToken NEW_LINE_TOKEN = new PrintToken(NEW_LINE, null);");
-		sc.addLineBreak();
 		sc.add("private final " + eClassUtilClassName + " eClassUtil = new " + eClassUtilClassName + "();");
 		sc.addLineBreak();
 		
@@ -763,10 +789,10 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	private void addPrintKeywordMethod(StringComposite sc) {
 		sc.add("public void printKeyword(" + E_OBJECT + " eObject, " + keywordClassName + " keyword, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add(layoutInformationClassName + " keywordLayout = getLayoutInformation(layoutInformations, keyword, null, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, keywordLayout);");
+		sc.add("printFormattingElements(eObject, foundFormattingElements, layoutInformations, keywordLayout);");
 		sc.add("String value = keyword.getValue();");
 		// TODO using single quotes and escapeToANTLRKeyword() to obtain the token name here is ANTLR specific
-		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(value) + \"'\"));");
+		sc.add("tokenOutputStream.add(new PrintToken(value, \"'\" + " + stringUtilClassName + ".escapeToANTLRKeyword(value) + \"'\", eObject));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -847,9 +873,9 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (result != null && !\"\".equals(result)) {");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);");
+		sc.add("printFormattingElements(eObject, foundFormattingElements, layoutInformations, attributeLayout);");
 		sc.addComment("write result to the output stream");
-		sc.add("tokenOutputStream.add(new PrintToken(result, " + tokenName + "));");
+		sc.add("tokenOutputStream.add(new PrintToken(result, " + tokenName + ", eObject));");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -862,7 +888,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("Object referencedObject = " + eObjectUtilClassName + ".getFeatureValue(eObject, reference, index, false);");
 		sc.addComment("first add layout before the reference");
 		sc.add(layoutInformationClassName + " referenceLayout = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);");
-		sc.add("printFormattingElements(foundFormattingElements, layoutInformations, referenceLayout);");
+		sc.add("printFormattingElements(eObject, foundFormattingElements, layoutInformations, referenceLayout);");
 		sc.addComment("proxy objects must be printed differently");
 		generatorUtil.addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "referencedObject");
 		sc.add("if (deresolvedReference == null) {");
@@ -882,7 +908,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add("String deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);");
 		sc.addComment("write result to output stream");
-		sc.add("tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName));");
+		sc.add("tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName, eObject));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -911,7 +937,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintFormattingElementsMethod(JavaComposite sc) {
-		sc.add("public void printFormattingElements(" + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + layoutInformationClassName + " layoutInformation) {");
+		sc.add("public void printFormattingElements(" + E_OBJECT + " eObject, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations, " + layoutInformationClassName + " layoutInformation) {");
 		// (a) if the element to print is at the correct printing spot (the
 		// one it was parsed at, print whitespace collected while parsing
 		sc.add("String hiddenTokenText = getHiddenTokenText(layoutInformation);");
@@ -920,7 +946,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (layoutInformations != null) {");
 		sc.add("layoutInformations.remove(layoutInformation);");
 		sc.add("}");
-		sc.add("tokenOutputStream.add(new PrintToken(hiddenTokenText, null));");
+		sc.add("tokenOutputStream.add(new PrintToken(hiddenTokenText, null, eObject));");
 		sc.add("foundFormattingElements.clear();");
 		sc.add("startedPrintingObject = false;");
 		sc.add("setTabsBeforeCurrentObject(0);");
@@ -933,15 +959,15 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("if (foundFormattingElement instanceof " + whiteSpaceClassName + ") {");
 		sc.add("int amount = ((" + whiteSpaceClassName + ") foundFormattingElement).getAmount();");
 		sc.add("for (int i = 0; i < amount; i++) {");
-		sc.add("tokenOutputStream.add(SPACE_TOKEN);");
+		sc.add("tokenOutputStream.add(createSpaceToken(eObject));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (foundFormattingElement instanceof " + lineBreakClassName + ") {");
 		sc.add("currentTabs = ((" + lineBreakClassName + ") foundFormattingElement).getTabs();");
 		sc.add("printedTabs += currentTabs;");
-		sc.add("tokenOutputStream.add(NEW_LINE_TOKEN);");
+		sc.add("tokenOutputStream.add(createNewLineToken(eObject));");
 		sc.add("for (int i = 0; i < tabsBeforeCurrentObject + currentTabs; i++) {");
-		sc.add("tokenOutputStream.add(TAB_TOKEN);");
+		sc.add("tokenOutputStream.add(createTabToken(eObject));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -957,7 +983,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.add("startedPrintingObject = false;");
 		sc.add("} else {");
 		sc.add("if (!handleTokenSpaceAutomatically) {");
-		sc.add("tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null));");
+		sc.add("tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null, eObject));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -992,7 +1018,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 		sc.addComment("print all remaining formatting elements");
 		sc.add(LIST + "<" + layoutInformationClassName + "> layoutInformations = getCopyOfLayoutInformation(element);");
 		sc.add(layoutInformationClassName + " eofLayoutInformation = getLayoutInformation(layoutInformations, null, null, null);");
-		sc.add("printFormattingElements(formattingElements, layoutInformations, eofLayoutInformation);");
+		sc.add("printFormattingElements(element, formattingElements, layoutInformations, eofLayoutInformation);");
 		sc.add(PRINTER_WRITER + " writer = new " + PRINTER_WRITER + "(new " + OUTPUT_STREAM_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream), encoding));");
 		sc.add("if (handleTokenSpaceAutomatically) {");
 		sc.add("printSmart(writer);");
