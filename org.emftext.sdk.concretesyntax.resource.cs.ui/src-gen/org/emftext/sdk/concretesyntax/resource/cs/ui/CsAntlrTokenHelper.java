@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2011
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
  * 
  * All rights reserved. This program and the accompanying materials
@@ -15,43 +15,10 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 /**
- * A helper class that decides which tokens can be used for custom syntax
- * highlighting.
+ * This class is only generated for backwards compatiblity. The original contents
+ * of this class have been moved to class
+ * org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAntlrTokenHelper.
  */
 public class CsAntlrTokenHelper {
-	
-	public boolean canBeUsedForSyntaxColoring(org.antlr.runtime3_4_0.Token token) {
-		return canBeUsedForSyntaxHighlighting(token.getType());
-	}
-	
-	public boolean canBeUsedForSyntaxHighlighting(int tokenType) {
-		if (tokenType < 0 || tokenType == org.antlr.runtime3_4_0.Token.EOF) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.UP) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.DOWN) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.EOR_TOKEN_TYPE) {
-			return false;
-		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.INVALID_TOKEN_TYPE) {
-			return false;
-		}
-		return true;
-	}
-	
-	public String getTokenName(String[] tokenNames, int index) {
-		if (tokenNames == null) {
-			return null;
-		}
-		String tokenName = tokenNames[index];
-		if (tokenName != null && tokenName.startsWith("'")) {
-			tokenName = tokenName.substring(1, tokenName.length() - 1).trim();
-		}
-		return tokenName;
-	}
-	
+	// This class is intentionally left empty.
 }

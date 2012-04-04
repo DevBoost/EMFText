@@ -42,7 +42,11 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 					return false;
 				}
 				if (resource instanceof org.eclipse.core.resources.IFile && resource.getName().endsWith("." + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName())) {
-					build((org.eclipse.core.resources.IFile) resource, resourceSet, monitor);
+					// Calling the default generated builder is disabled because of syntax option
+					// 'disableBuilder'.
+					// Second, call the task item builder that searches for task items in DSL
+					// documents and creates task markers.
+					runTaskItemBuilder((org.eclipse.core.resources.IFile) resource, resourceSet, monitor);
 					return false;
 				}
 				return true;
@@ -75,6 +79,15 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 	 */
 	public String getBuilderMarkerId() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().getMarkerID(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.BUILDER_ERROR);
+	}
+	
+	/**
+	 * Runs the task item builder to search for new task items in changed resources.
+	 */
+	public void runTaskItemBuilder(org.eclipse.core.resources.IFile resource, org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.core.runtime.IProgressMonitor monitor) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder taskItemBuilder = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder();
+		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, taskItemBuilder.getBuilderMarkerId());
+		taskItemBuilder.build(resource, resourceSet, monitor);
 	}
 	
 }

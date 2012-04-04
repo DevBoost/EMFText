@@ -17,16 +17,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 /**
  * The CsTaskItemBuilder is used to find task items in text documents. The current
  * implementation uses the generated lexer and the TaskItemDetector to detect task
- * items.
+ * items. This class is called by the BuilderAdapter, which runs both this builder
+ * and the default builder that is intended to be customized.
  */
-public class CsTaskItemBuilder extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilderAdapter {
+public class CsTaskItemBuilder {
 	
-	/**
-	 * The ID of the item task builder.
-	 */
-	public final static String BUILDER_ID = "org.emftext.sdk.concretesyntax.resource.cs.taskItemBuilder";
-	
-	@Override	
 	public void build(org.eclipse.core.resources.IFile resource, org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.core.runtime.IProgressMonitor monitor) {
 		monitor.setTaskName("Searching for task items");
 		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, org.eclipse.core.resources.IMarker.TASK);
