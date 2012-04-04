@@ -59,7 +59,7 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		sc.add("private " + I_PROJECT + " project;");
 		sc.addLineBreak();
 		sc.addJavadoc("the IDs of all builders, IDs of additional builders can be added here");
-		sc.add("public final static String[] BUILDER_IDS = {" + builderAdapterClassName + ".BUILDER_ID, " + taskItemBuilderClassName + ".BUILDER_ID};");
+		sc.add("public final static String[] BUILDER_IDS = {" + builderAdapterClassName + ".BUILDER_ID};");
 		sc.addLineBreak();
 	}
 

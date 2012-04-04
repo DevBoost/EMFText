@@ -28,20 +28,16 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
-import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 @SyntaxDependent
 public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	private final NameUtil nameUtil = new NameUtil();
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
-		String builderID = nameUtil.getTaskItemBuilderID(syntax);
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -51,22 +47,17 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 			sc.addJavadoc(
 				"The " + getResourceClassName() + " is used to find task items in " +
 				"text documents. The current implementation uses the generated lexer " +
-				"and the TaskItemDetector to detect task items."
+				"and the TaskItemDetector to detect task items. This class is called by " +
+				"the BuilderAdapter, which runs both this builder and the default builder " +
+				"that is intended to be customized."
 			);
 		}
-		sc.add("public class " + getResourceClassName() + " extends " + builderAdapterClassName + " {");
+		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		if (!removeEclipseDependentCode) {
-			addConstants(sc, builderID);
 			addMethods(sc);
 		}
 		sc.add("}");
-	}
-
-	private void addConstants(JavaComposite sc, String builderID) {
-		sc.addJavadoc("The ID of the item task builder.");
-		sc.add("public final static String BUILDER_ID = \"" + builderID + "\";");
-		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -76,7 +67,6 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addBuildMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
 		sc.add("public void build(" + I_FILE + " resource, " + RESOURCE_SET + " resourceSet, " + I_PROGRESS_MONITOR + " monitor) {");
 		sc.add("monitor.setTaskName(\"Searching for task items\");");
 		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, " + I_MARKER + ".TASK);");
