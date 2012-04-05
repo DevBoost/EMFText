@@ -1,24 +1,26 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *  *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  *
  * Contributors:
- * Software Technology Group - TU Dresden, Germany 
- *       - initial API and implementation
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
+ *      - initial API and implementation
+ *  
  * 
- *
- * $Id$
  */
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -26,7 +28,9 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -115,14 +119,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ruleEClass = null;
+	private EClass syntaxElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass syntaxElementEClass = null;
+	private EClass ruleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -192,13 +196,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass tokenDirectiveEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass regexComposerEClass = null;
 
 	/**
@@ -235,6 +232,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass regexReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tokenDirectiveEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -745,6 +749,24 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSyntaxElement() {
+		return syntaxElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSyntaxElement_Children() {
+		return (EReference)syntaxElementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRule() {
 		return ruleEClass;
 	}
@@ -765,24 +787,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EReference getRule_Syntax() {
 		return (EReference)ruleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSyntaxElement() {
-		return syntaxElementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSyntaxElement_Children() {
-		return (EReference)syntaxElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -907,26 +911,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getCardinality() {
-		return cardinalityEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getCompoundDefinition() {
 		return compoundDefinitionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getTokenDirective() {
-		return tokenDirectiveEClass;
 	}
 
 	/**
@@ -1017,6 +1003,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EReference getRegexReference_Target() {
 		return (EReference)regexReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTokenDirective() {
+		return tokenDirectiveEClass;
 	}
 
 	/**
@@ -1539,6 +1534,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EClass getDefaultTokenStyleAdder() {
 		return defaultTokenStyleAdderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getCardinality() {
+		return cardinalityEEnum;
 	}
 
 	/**

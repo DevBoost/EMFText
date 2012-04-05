@@ -1,22 +1,24 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *  *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  *
  * Contributors:
- * Software Technology Group - TU Dresden, Germany 
- *       - initial API and implementation
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
+ *      - initial API and implementation
+ *  
  * 
- *
- * $Id$
  */
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -165,10 +167,6 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * Returns the value of the '<em><b>Synthetic Tokens</b></em>' containment reference list.
 	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.CompleteTokenDefinition}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Synthetic Tokens</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens.
@@ -195,63 +193,6 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @generated
 	 */
 	EList<TokenStyle> getTokenStyles();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>All Token Styles</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();\r\n\r\n\t\tallStyles.addAll(getTokenStyles());\r\n\r\n\t\taddImportedTokenStyles(allStyles);\r\n\r\n\t\t org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();\r\n\r\n\t\tadder.addDefaultTokenStyles(this, allStyles);\r\n\r\n\t\treturn allStyles;\r\n'"
-	 * @generated
-	 */
-	EList<TokenStyle> getAllTokenStyles();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model existingStylesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( java.lang.String tokenName : newStyle.getTokenNames()) {\r\n\t\t\tboolean exists = containsTokenStyle(existingStyles, tokenName);\r\n\t\t\tif (!exists) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewTokenStyle.getTokenNames().add(tokenName);\r\n\t\t\t\tnewTokenStyle.setRgb(newStyle.getRgb());\r\n\t\t\t\tnewTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());\r\n\t\t\t\texistingStyles.add(newTokenStyle);\r\n\t\t\t}\r\n\t\t}\r\n'"
-	 * @generated
-	 */
-	void addTokenStyle(EList<TokenStyle> existingStyles, TokenStyle newStyle);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model stylesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {\r\n\t\t\tfor ( java.lang.String existingName : existingStyle.getTokenNames()) {\r\n\t\t\t\tif (existingName.equals(tokenName)) {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
-	 * @generated
-	 */
-	boolean containsTokenStyle(EList<TokenStyle> styles, String tokenName);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 *  Reads all token styles from imported syntaxes and
-	 *  merges them with the styles defined in the current syntax. If a token
-	 *  styles exists both in an imported and in the current syntax the one from
-	 *  the current syntax overrides the imported one.
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model allStylesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// add the imported token styles\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\r\n\t\t\t org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\r\n\t\t\tif (importedSyntax != null) {\r\n\t\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\r\n\t\t\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\r\n\t\t\t\t\taddTokenStyle(allStyles, importedStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n'"
-	 * @generated
-	 */
-	void addImportedTokenStyles(EList<TokenStyle> allStyles);
 
 	/**
 	 * Returns the value of the '<em><b>All Token Directives</b></em>' reference list.
@@ -398,6 +339,31 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	void set_eClassUtil(EClassUtil value);
 
 	/**
+	 * Returns the value of the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A flag that is used to tag syntax definitions as abstract.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Abstract</em>' attribute.
+	 * @see #setAbstract(boolean)
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_Abstract()
+	 * @model
+	 * @generated
+	 */
+	boolean isAbstract();
+
+	/**
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#isAbstract <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Abstract</em>' attribute.
+	 * @see #isAbstract()
+	 * @generated
+	 */
+	void setAbstract(boolean value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -481,31 +447,6 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	GenClassCache getGenClassCache();
 
 	/**
-	 * Returns the value of the '<em><b>Abstract</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * A flag that is used to tag syntax definitions as abstract.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Abstract</em>' attribute.
-	 * @see #setAbstract(boolean)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_Abstract()
-	 * @model
-	 * @generated
-	 */
-	boolean isAbstract();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#isAbstract <em>Abstract</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Abstract</em>' attribute.
-	 * @see #isAbstract()
-	 * @generated
-	 */
-	void setAbstract(boolean value);
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -554,5 +495,58 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @generated
 	 */
 	EList<GenClass> getSubClassesWithSyntax(GenClass superClass, boolean excludeOperatorRules);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();\r\n\r\n\t\tallStyles.addAll(getTokenStyles());\r\n\r\n\t\taddImportedTokenStyles(allStyles);\r\n\r\n\t\t org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();\r\n\r\n\t\tadder.addDefaultTokenStyles(this, allStyles);\r\n\r\n\t\treturn allStyles;\r\n'"
+	 * @generated
+	 */
+	EList<TokenStyle> getAllTokenStyles();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model existingStylesMany="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( java.lang.String tokenName : newStyle.getTokenNames()) {\r\n\t\t\tboolean exists = containsTokenStyle(existingStyles, tokenName);\r\n\t\t\tif (!exists) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewTokenStyle.getTokenNames().add(tokenName);\r\n\t\t\t\tnewTokenStyle.setRgb(newStyle.getRgb());\r\n\t\t\t\tnewTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());\r\n\t\t\t\texistingStyles.add(newTokenStyle);\r\n\t\t\t}\r\n\t\t}\r\n'"
+	 * @generated
+	 */
+	void addTokenStyle(EList<TokenStyle> existingStyles, TokenStyle newStyle);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model stylesMany="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {\r\n\t\t\tfor ( java.lang.String existingName : existingStyle.getTokenNames()) {\r\n\t\t\t\tif (existingName.equals(tokenName)) {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
+	 * @generated
+	 */
+	boolean containsTokenStyle(EList<TokenStyle> styles, String tokenName);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Reads all token styles from imported syntaxes and
+	 *  merges them with the styles defined in the current syntax. If a token
+	 *  styles exists both in an imported and in the current syntax the one from
+	 *  the current syntax overrides the imported one.
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model allStylesMany="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// add the imported token styles\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\r\n\t\t\t org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\r\n\t\t\tif (importedSyntax != null) {\r\n\t\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\r\n\t\t\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\r\n\t\t\t\t\taddTokenStyle(allStyles, importedStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n'"
+	 * @generated
+	 */
+	void addImportedTokenStyles(EList<TokenStyle> allStyles);
 
 } // ConcreteSyntax

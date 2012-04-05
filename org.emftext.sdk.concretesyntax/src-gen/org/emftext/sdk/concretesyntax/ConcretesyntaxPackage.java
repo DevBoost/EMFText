@@ -1,18 +1,19 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *  *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  *
  * Contributors:
- * Software Technology Group - TU Dresden, Germany 
- *       - initial API and implementation
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
+ *      - initial API and implementation
+ *  
  * 
- *
- * $Id$
  */
 package org.emftext.sdk.concretesyntax;
 
@@ -371,26 +372,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int IMPORT_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.AnnotableImpl <em>Annotable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.AnnotableImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
-	 * @generated
-	 */
-	int ANNOTABLE = 41;
-
-	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.RuleImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRule()
-	 * @generated
-	 */
-	int RULE = 4;
-
-	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl <em>Syntax Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -419,6 +400,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int SYNTAX_ELEMENT_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.AnnotableImpl <em>Annotable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.AnnotableImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAnnotable()
+	 * @generated
+	 */
+	int ANNOTABLE = 41;
+
+	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -435,6 +426,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @ordered
 	 */
 	int ANNOTABLE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.RuleImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getRule()
+	 * @generated
+	 */
+	int RULE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -760,16 +761,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int LINE_BREAK_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.Cardinality
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
-	 * @generated
-	 */
-	int CARDINALITY = 47;
-
-	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.CompoundDefinitionImpl <em>Compound Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -805,16 +796,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @ordered
 	 */
 	int COMPOUND_DEFINITION_FEATURE_COUNT = CARDINALITY_DEFINITION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
-	 * @generated
-	 */
-	int TOKEN_DIRECTIVE = 20;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.RegexComposerImpl <em>Regex Composer</em>}' class.
@@ -1001,6 +982,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @ordered
 	 */
 	int REGEX_REFERENCE_FEATURE_COUNT = REGEX_PART_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
+	 * @generated
+	 */
+	int TOKEN_DIRECTIVE = 20;
 
 	/**
 	 * The number of structural features of the '<em>Token Directive</em>' class.
@@ -2207,6 +2198,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int DEFAULT_TOKEN_STYLE_ADDER_FEATURE_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.Cardinality
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
+	 * @generated
+	 */
+	int CARDINALITY = 47;
+
+	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2519,6 +2520,27 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getImport_CsLocationHint();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.SyntaxElement <em>Syntax Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Syntax Element</em>'.
+	 * @see org.emftext.sdk.concretesyntax.SyntaxElement
+	 * @generated
+	 */
+	EClass getSyntaxElement();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.SyntaxElement#getChildren <em>Children</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Children</em>'.
+	 * @see org.emftext.sdk.concretesyntax.SyntaxElement#getChildren()
+	 * @see #getSyntaxElement()
+	 * @generated
+	 */
+	EReference getSyntaxElement_Children();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Rule <em>Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2549,27 +2571,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRule_Syntax();
-
-	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.SyntaxElement <em>Syntax Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Syntax Element</em>'.
-	 * @see org.emftext.sdk.concretesyntax.SyntaxElement
-	 * @generated
-	 */
-	EClass getSyntaxElement();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.SyntaxElement#getChildren <em>Children</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Children</em>'.
-	 * @see org.emftext.sdk.concretesyntax.SyntaxElement#getChildren()
-	 * @see #getSyntaxElement()
-	 * @generated
-	 */
-	EReference getSyntaxElement_Children();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Choice <em>Choice</em>}'.
@@ -2707,16 +2708,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getLineBreak_Tab();
 
 	/**
-	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Cardinality</em>'.
-	 * @see org.emftext.sdk.concretesyntax.Cardinality
-	 * @generated
-	 */
-	EEnum getCardinality();
-
-	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.CompoundDefinition <em>Compound Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2725,16 +2716,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCompoundDefinition();
-
-	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenDirective <em>Token Directive</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Token Directive</em>'.
-	 * @see org.emftext.sdk.concretesyntax.TokenDirective
-	 * @generated
-	 */
-	EClass getTokenDirective();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.RegexComposer <em>Regex Composer</em>}'.
@@ -2839,6 +2820,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRegexReference_Target();
+
+	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenDirective <em>Token Directive</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Token Directive</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenDirective
+	 * @generated
+	 */
+	EClass getTokenDirective();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.AbstractTokenDefinition <em>Abstract Token Definition</em>}'.
@@ -3455,6 +3446,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getDefaultTokenStyleAdder();
 
 	/**
+	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Cardinality</em>'.
+	 * @see org.emftext.sdk.concretesyntax.Cardinality
+	 * @generated
+	 */
+	EEnum getCardinality();
+
+	/**
 	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3725,6 +3726,24 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EAttribute IMPORT__CS_LOCATION_HINT = eINSTANCE.getImport_CsLocationHint();
 
 		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl <em>Syntax Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSyntaxElement()
+		 * @generated
+		 */
+		EClass SYNTAX_ELEMENT = eINSTANCE.getSyntaxElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYNTAX_ELEMENT__CHILDREN = eINSTANCE.getSyntaxElement_Children();
+
+		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.RuleImpl <em>Rule</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3749,24 +3768,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference RULE__SYNTAX = eINSTANCE.getRule_Syntax();
-
-		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl <em>Syntax Element</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.SyntaxElementImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getSyntaxElement()
-		 * @generated
-		 */
-		EClass SYNTAX_ELEMENT = eINSTANCE.getSyntaxElement();
-
-		/**
-		 * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SYNTAX_ELEMENT__CHILDREN = eINSTANCE.getSyntaxElement_Children();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.ChoiceImpl <em>Choice</em>}' class.
@@ -3889,16 +3890,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EAttribute LINE_BREAK__TAB = eINSTANCE.getLineBreak_Tab();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.Cardinality
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
-		 * @generated
-		 */
-		EEnum CARDINALITY = eINSTANCE.getCardinality();
-
-		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.CompoundDefinitionImpl <em>Compound Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3907,16 +3898,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass COMPOUND_DEFINITION = eINSTANCE.getCompoundDefinition();
-
-		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
-		 * @generated
-		 */
-		EClass TOKEN_DIRECTIVE = eINSTANCE.getTokenDirective();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.RegexComposerImpl <em>Regex Composer</em>}' class.
@@ -4009,6 +3990,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference REGEX_REFERENCE__TARGET = eINSTANCE.getRegexReference_Target();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
+		 * @generated
+		 */
+		EClass TOKEN_DIRECTIVE = eINSTANCE.getTokenDirective();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.AbstractTokenDefinitionImpl <em>Abstract Token Definition</em>}' class.
@@ -4525,6 +4516,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass DEFAULT_TOKEN_STYLE_ADDER = eINSTANCE.getDefaultTokenStyleAdder();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.Cardinality
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getCardinality()
+		 * @generated
+		 */
+		EEnum CARDINALITY = eINSTANCE.getCardinality();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.

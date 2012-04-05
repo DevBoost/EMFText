@@ -1,33 +1,40 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *  *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  *
  * Contributors:
- * Software Technology Group - TU Dresden, Germany 
- *       - initial API and implementation
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
+ *      - initial API and implementation
+ *  
  * 
- *
- * $Id$
  */
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -101,113 +108,6 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 			children = new EObjectContainmentEList<SyntaxElement>(SyntaxElement.class, this, ConcretesyntaxPackage.RULE__CHILDREN);
 		}
 		return children;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Choice getDefinition() {
-		
-				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();
-		
-				// there should be at most one child
-				assert children == null || children.size() == 1;
-		
-				
-				if (children.size() > 0) {
-					 org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);
-					if (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {
-						return ( org.emftext.sdk.concretesyntax.Choice) firstChild;
-					} else {
-						// there should be no element other than Choice
-						assert false;
-						return null;
-					}
-				}
-		
-				return null;
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean hasAnnotation(AnnotationType type, String key, String value) {
-		
-				for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {
-					if (annotation.getType() == type) {
-						if (key != null) {
-							for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {
-								if (key.equals(parameter.getKey())
-										&& parameter.getValue().equals(value)) {
-									return true;
-								}
-							}
-						} else {
-							return true;
-						}
-					}
-				}
-		
-				return false;
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isOverrideRemoveRule() {
-		
-				// TODO mseifert: use constant here
-				return hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, "remove", "true");
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isOverrideRule(GenClass metaClass) {
-		
-						if (metaClass == null || getMetaclass() == metaClass) {
-					if (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {
-						return true;
-					}
-				}
-		
-				return false;
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Rule getContainingRule() {
-		
-				 org.emftext.sdk.concretesyntax.Rule rule = null;
-		
-				 org.eclipse.emf.ecore.EObject o = this;
-		
-				do {
-					if (o instanceof  org.emftext.sdk.concretesyntax.Rule) {
-						rule = ( org.emftext.sdk.concretesyntax.Rule) o;
-					}
-					else {
-						o = o.eContainer();
-					}
-				} while (rule == null && o != null);
-		
-				return rule;
-		
 	}
 
 	/**
@@ -328,6 +228,113 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 				}
 		
 				return  java.lang.Integer.MIN_VALUE;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Choice getDefinition() {
+		
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();
+		
+				// there should be at most one child
+				assert children == null || children.size() == 1;
+		
+				
+				if (children.size() > 0) {
+					 org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);
+					if (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {
+						return ( org.emftext.sdk.concretesyntax.Choice) firstChild;
+					} else {
+						// there should be no element other than Choice
+						assert false;
+						return null;
+					}
+				}
+		
+				return null;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean hasAnnotation(AnnotationType type, String key, String value) {
+		
+				for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {
+					if (annotation.getType() == type) {
+						if (key != null) {
+							for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {
+								if (key.equals(parameter.getKey())
+										&& parameter.getValue().equals(value)) {
+									return true;
+								}
+							}
+						} else {
+							return true;
+						}
+					}
+				}
+		
+				return false;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOverrideRemoveRule() {
+		
+				// TODO mseifert: use constant here
+				return hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, "remove", "true");
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOverrideRule(GenClass metaClass) {
+		
+						if (metaClass == null || getMetaclass() == metaClass) {
+					if (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {
+						return true;
+					}
+				}
+		
+				return false;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Rule getContainingRule() {
+		
+				 org.emftext.sdk.concretesyntax.Rule rule = null;
+		
+				 org.eclipse.emf.ecore.EObject o = this;
+		
+				do {
+					if (o instanceof  org.emftext.sdk.concretesyntax.Rule) {
+						rule = ( org.emftext.sdk.concretesyntax.Rule) o;
+					}
+					else {
+						o = o.eContainer();
+					}
+				} while (rule == null && o != null);
+		
+				return rule;
 		
 	}
 

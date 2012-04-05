@@ -1,18 +1,19 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *  *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  *
  * Contributors:
- * Software Technology Group - TU Dresden, Germany 
- *       - initial API and implementation
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
+ *      - initial API and implementation
+ *  
  * 
- *
- * $Id$
  */
 package org.emftext.sdk.concretesyntax;
 
@@ -40,64 +41,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
  * @generated
  */
 public interface Rule extends Annotable, SyntaxElement {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Definition</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" required="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\r\n\r\n\t\t// there should be at most one child\r\n\t\tassert children == null || children.size() == 1;\r\n\r\n\t\t\r\n\t\tif (children.size() > 0) {\r\n\t\t\t org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\r\n\t\t\tif (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {\r\n\t\t\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no element other than Choice\r\n\t\t\t\tassert false;\r\n\t\t\t\treturn null;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n'"
-	 * @generated
-	 */
-	Choice getDefinition();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 *  Checks whether this rule is annotated with the given AnnotationType.
-	 *  If a key and a value is given it is further checked whether the
-	 *  annotation specifies this key and value. 
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\r\n\t\t\tif (annotation.getType() == type) {\r\n\t\t\t\tif (key != null) {\r\n\t\t\t\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {\r\n\t\t\t\t\t\tif (key.equals(parameter.getKey())\r\n\t\t\t\t\t\t\t\t&& parameter.getValue().equals(value)) {\r\n\t\t\t\t\t\t\treturn true;\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t} else {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
-	 * @generated
-	 */
-	boolean hasAnnotation(AnnotationType type, String key, String value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 *  Checks whether this rule is annotated with @Override(remove="true").
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// TODO mseifert: use constant here\r\n\t\treturn hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, \"remove\", \"true\");\r\n'"
-	 * @generated
-	 */
-	boolean isOverrideRemoveRule();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 *  Checks whether this rule is annotated with @Override.
-	 * 
-	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t\t\tif (metaClass == null || getMetaclass() == metaClass) {\r\n\t\t\tif (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
-	 * @generated
-	 */
-	boolean isOverrideRule(GenClass metaClass);
-
 	/**
 	 * Returns the value of the '<em><b>Metaclass</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -180,5 +123,59 @@ public interface Rule extends Annotable, SyntaxElement {
 	 * @generated
 	 */
 	int getOperatorWeight();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\r\n\r\n\t\t// there should be at most one child\r\n\t\tassert children == null || children.size() == 1;\r\n\r\n\t\t\r\n\t\tif (children.size() > 0) {\r\n\t\t\t org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\r\n\t\t\tif (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {\r\n\t\t\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no element other than Choice\r\n\t\t\t\tassert false;\r\n\t\t\t\treturn null;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n'"
+	 * @generated
+	 */
+	Choice getDefinition();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Checks whether this rule is annotated with the given AnnotationType.
+	 *  If a key and a value is given it is further checked whether the
+	 *  annotation specifies this key and value. 
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\r\n\t\t\tif (annotation.getType() == type) {\r\n\t\t\t\tif (key != null) {\r\n\t\t\t\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {\r\n\t\t\t\t\t\tif (key.equals(parameter.getKey())\r\n\t\t\t\t\t\t\t\t&& parameter.getValue().equals(value)) {\r\n\t\t\t\t\t\t\treturn true;\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t} else {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
+	 * @generated
+	 */
+	boolean hasAnnotation(AnnotationType type, String key, String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Checks whether this rule is annotated with @Override(remove="true").
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// TODO mseifert: use constant here\r\n\t\treturn hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, \"remove\", \"true\");\r\n'"
+	 * @generated
+	 */
+	boolean isOverrideRemoveRule();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *  Checks whether this rule is annotated with @Override.
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t\t\tif (metaClass == null || getMetaclass() == metaClass) {\r\n\t\t\tif (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
+	 * @generated
+	 */
+	boolean isOverrideRule(GenClass metaClass);
 
 } // Rule

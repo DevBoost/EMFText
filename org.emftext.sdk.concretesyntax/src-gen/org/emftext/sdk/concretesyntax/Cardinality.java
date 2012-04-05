@@ -1,18 +1,19 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *  *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  *
  * Contributors:
- * Software Technology Group - TU Dresden, Germany 
- *       - initial API and implementation
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
+ *      - initial API and implementation
+ *  
  * 
- *
- * $Id$
  */
 package org.emftext.sdk.concretesyntax;
 
@@ -24,14 +25,14 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Cardinality</b></em>'.
+ * A representation of the literals of the enumeration '<em><b>Cardinality</b></em>',
+ * and utility methods for working with them.
  * <!-- end-user-doc -->
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCardinality()
  * @model
  * @generated
  */
-public enum Cardinality implements Enumerator
-{
+public enum Cardinality implements Enumerator {
 	/**
 	 * The '<em><b>None</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -41,6 +42,7 @@ public enum Cardinality implements Enumerator
 	 * @ordered
 	 */
 	NONE(0, "none", ""),
+
 	/**
 	 * The '<em><b>Plus</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -50,6 +52,7 @@ public enum Cardinality implements Enumerator
 	 * @ordered
 	 */
 	PLUS(1, "plus", "+"),
+
 	/**
 	 * The '<em><b>Star</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -59,6 +62,7 @@ public enum Cardinality implements Enumerator
 	 * @ordered
 	 */
 	STAR(2, "star", "*"),
+
 	/**
 	 * The '<em><b>Questionmark</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -68,6 +72,7 @@ public enum Cardinality implements Enumerator
 	 * @ordered
 	 */
 	QUESTIONMARK(3, "questionmark", "?");
+
 	/**
 	 * The '<em><b>None</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -86,10 +91,6 @@ public enum Cardinality implements Enumerator
 	/**
 	 * The '<em><b>Plus</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Plus</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Allows to repeat the preceding syntax element multiple times.
@@ -104,10 +105,6 @@ public enum Cardinality implements Enumerator
 	/**
 	 * The '<em><b>Star</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Star</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Allows to repeat the preceding syntax element multiple times (including zero times).
@@ -122,10 +119,6 @@ public enum Cardinality implements Enumerator
 	/**
 	 * The '<em><b>Questionmark</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Questionmark</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Tags the preceding syntax element as optional.
@@ -277,4 +270,5 @@ public enum Cardinality implements Enumerator
 	public String toString() {
 		return literal;
 	}
-}
+	
+} //Cardinality

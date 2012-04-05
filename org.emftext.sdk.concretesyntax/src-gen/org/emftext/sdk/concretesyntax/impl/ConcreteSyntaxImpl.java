@@ -1,36 +1,43 @@
 /**
- * Copyright (c) 2006-2011 
+ * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *  *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  *
  * Contributors:
- * Software Technology Group - TU Dresden, Germany 
- *       - initial API and implementation
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
+ *      - initial API and implementation
+ *  
  * 
- *
- * $Id$
  */
 package org.emftext.sdk.concretesyntax.impl;
 
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
@@ -415,88 +422,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TokenStyle> getAllTokenStyles() {
-		
-				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();
-		
-				allStyles.addAll(getTokenStyles());
-		
-				addImportedTokenStyles(allStyles);
-		
-				 org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();
-		
-				adder.addDefaultTokenStyles(this, allStyles);
-		
-				return allStyles;
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void addTokenStyle(EList<TokenStyle> existingStyles, TokenStyle newStyle) {
-		
-				for ( java.lang.String tokenName : newStyle.getTokenNames()) {
-					boolean exists = containsTokenStyle(existingStyles, tokenName);
-					if (!exists) {
-						 org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
-						newTokenStyle.getTokenNames().add(tokenName);
-						newTokenStyle.setRgb(newStyle.getRgb());
-						newTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());
-						existingStyles.add(newTokenStyle);
-					}
-				}
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean containsTokenStyle(EList<TokenStyle> styles, String tokenName) {
-		
-				for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {
-					for ( java.lang.String existingName : existingStyle.getTokenNames()) {
-						if (existingName.equals(tokenName)) {
-							return true;
-						}
-					}
-				}
-		
-				return false;
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void addImportedTokenStyles(EList<TokenStyle> allStyles) {
-		
-				// add the imported token styles
-				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();
-		
-				for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {
-					 org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
-					if (importedSyntax != null) {
-						 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
-						for ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {
-							addTokenStyle(allStyles, importedStyle);
-						}
-					}
-				}
-		
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<TokenDirective> getAllTokenDirectives() {
 		if (allTokenDirectives == null) {
 			allTokenDirectives = new EObjectResolvingEList<TokenDirective>(TokenDirective.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES);
@@ -645,6 +570,27 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__ECLASS_UTIL, new_eClassUtil, new_eClassUtil));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isAbstract() {
+		return abstract_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstract(boolean newAbstract) {
+		boolean oldAbstract = abstract_;
+		abstract_ = newAbstract;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT, oldAbstract, abstract_));
 	}
 
 	/**
@@ -825,27 +771,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isAbstract() {
-		return abstract_;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAbstract(boolean newAbstract) {
-		boolean oldAbstract = abstract_;
-		abstract_ = newAbstract;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__ABSTRACT, oldAbstract, abstract_));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isImportedRule(Rule rule) {
 		
 				return rule.getSyntax() != this;
@@ -912,6 +837,88 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				}
 		
 				return subClasses;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<TokenStyle> getAllTokenStyles() {
+		
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();
+		
+				allStyles.addAll(getTokenStyles());
+		
+				addImportedTokenStyles(allStyles);
+		
+				 org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();
+		
+				adder.addDefaultTokenStyles(this, allStyles);
+		
+				return allStyles;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void addTokenStyle(EList<TokenStyle> existingStyles, TokenStyle newStyle) {
+		
+				for ( java.lang.String tokenName : newStyle.getTokenNames()) {
+					boolean exists = containsTokenStyle(existingStyles, tokenName);
+					if (!exists) {
+						 org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+						newTokenStyle.getTokenNames().add(tokenName);
+						newTokenStyle.setRgb(newStyle.getRgb());
+						newTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());
+						existingStyles.add(newTokenStyle);
+					}
+				}
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean containsTokenStyle(EList<TokenStyle> styles, String tokenName) {
+		
+				for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {
+					for ( java.lang.String existingName : existingStyle.getTokenNames()) {
+						if (existingName.equals(tokenName)) {
+							return true;
+						}
+					}
+				}
+		
+				return false;
+		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void addImportedTokenStyles(EList<TokenStyle> allStyles) {
+		
+				// add the imported token styles
+				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();
+		
+				for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {
+					 org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+					if (importedSyntax != null) {
+						 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
+						for ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {
+							addTokenStyle(allStyles, importedStyle);
+						}
+					}
+				}
 		
 	}
 
