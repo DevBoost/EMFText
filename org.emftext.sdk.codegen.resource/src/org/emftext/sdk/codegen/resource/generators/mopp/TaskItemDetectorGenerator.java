@@ -91,6 +91,7 @@ public class TaskItemDetectorGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("if (message.endsWith(\"*/\")) {");
 		sc.add("message = message.substring(0, message.length() - 2);");
 		sc.add("}");
+		sc.add("message = message.trim();");
 		sc.addLineBreak();
 		sc.add("int offset = index + localCharStart;");
 		sc.add("int end = offset + keyword.length();");
