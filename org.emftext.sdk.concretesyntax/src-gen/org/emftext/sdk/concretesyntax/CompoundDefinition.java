@@ -40,7 +40,7 @@ public interface CompoundDefinition extends CardinalityDefinition {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\r\n\r\n\t\t// there should be at most one child\r\n\t\tassert children == null || children.size() == 1;\r\n\r\n\t\t\r\n\t\tif (children.size() > 0) {\r\n\t\t\t org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\r\n\t\t\tif (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {\r\n\t\t\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\r\n\t\t\t} else {\r\n\t\t\t\t// there should be no element other than Choice\r\n\t\t\t\tassert false;\r\n\t\t\t\treturn null;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement >children = getChildren();\r\nassert children == null||children.size() == 1;\r\nif (children != null&&children.size() > 0) {\r\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\r\n\tif (firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) {\r\n\t\treturn( org.emftext.sdk.concretesyntax.Choice ) firstChild;\r\n\t}else {\r\n\t\tassert false;\r\n\t\treturn null;\r\n\t}\r\n}\r\nreturn null;\r\n'"
 	 * @generated
 	 */
 	Choice getDefinition();

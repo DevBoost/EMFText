@@ -58,25 +58,18 @@ public class CompoundDefinitionImpl extends CardinalityDefinitionImpl implements
 	 * @generated
 	 */
 	public Choice getDefinition() {
-		
-				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();
-		
-				// there should be at most one child
-				assert children == null || children.size() == 1;
-		
-				
-				if (children.size() > 0) {
-					 org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);
-					if (firstChild instanceof  org.emftext.sdk.concretesyntax.Choice) {
-						return ( org.emftext.sdk.concretesyntax.Choice) firstChild;
-					} else {
-						// there should be no element other than Choice
-						assert false;
-						return null;
-					}
-				}
-		
+		org.eclipse.emf.common.util.EList < org.emftext.sdk.concretesyntax.SyntaxElement >children = getChildren();
+		assert children == null||children.size() == 1;
+		if (children != null&&children.size() > 0) {
+			org.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);
+			if (firstChild instanceof org.emftext.sdk.concretesyntax.Choice ) {
+				return( org.emftext.sdk.concretesyntax.Choice ) firstChild;
+			}else {
+				assert false;
 				return null;
+			}
+		}
+		return null;
 		
 	}
 

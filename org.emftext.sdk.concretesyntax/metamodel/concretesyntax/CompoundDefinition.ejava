@@ -10,7 +10,7 @@ eclass CompoundDefinition {
 		// there should be at most one child
 		assert children == null || children.size() == 1;
 		
-		if (children.size() > 0) {
+		if (children != null && children.size() > 0) {
 			SyntaxElement firstChild = children.get(0);
 			if (firstChild instanceof Choice) {
 				return (Choice) firstChild;
