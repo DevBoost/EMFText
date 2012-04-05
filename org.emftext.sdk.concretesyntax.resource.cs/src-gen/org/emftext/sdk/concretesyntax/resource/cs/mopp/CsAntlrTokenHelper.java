@@ -27,7 +27,7 @@ public class CsAntlrTokenHelper {
 	}
 	
 	public boolean canBeUsedForSyntaxHighlighting(int tokenType) {
-		if (tokenType < 0 || tokenType == org.antlr.runtime3_4_0.Token.EOF) {
+		if (tokenType < 0) {
 			return false;
 		}
 		if (tokenType == org.antlr.runtime3_4_0.Token.UP) {

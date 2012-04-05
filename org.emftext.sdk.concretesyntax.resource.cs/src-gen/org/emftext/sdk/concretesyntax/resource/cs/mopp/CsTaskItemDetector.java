@@ -63,6 +63,7 @@ public class CsTaskItemDetector {
 					if (message.endsWith("*/")) {
 						message = message.substring(0, message.length() - 2);
 					}
+					message = message.trim();
 					
 					int offset = index + localCharStart;
 					int end = offset + keyword.length();

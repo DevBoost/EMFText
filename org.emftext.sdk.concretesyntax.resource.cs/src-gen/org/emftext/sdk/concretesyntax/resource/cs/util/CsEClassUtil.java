@@ -60,7 +60,14 @@ public class CsEClassUtil {
 	org.eclipse.emf.ecore.EClass classB) {
 		String nsURI_A = classA.getEPackage().getNsURI();
 		String nsURI_B = classB.getEPackage().getNsURI();
-		return (nsURI_A == null && nsURI_B == null) || nsURI_A.equals(nsURI_B);
+		if (nsURI_A == null && nsURI_B == null) {
+			return true;
+		}
+		if (nsURI_A != null) {
+			return nsURI_A.equals(nsURI_B);
+		} else {
+			return false;
+		}
 	}
 	
 	public boolean namesAreEqual(org.eclipse.emf.ecore.EClass classA, org.eclipse.emf.ecore.EClass classB) {

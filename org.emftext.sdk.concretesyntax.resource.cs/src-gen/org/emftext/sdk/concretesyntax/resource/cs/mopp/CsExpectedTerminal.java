@@ -69,6 +69,9 @@ public class CsExpectedTerminal {
 	}
 	
 	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
 		CsExpectedTerminal otherExpectedTerminal = (CsExpectedTerminal) o;
 		if (this.container == null && otherExpectedTerminal.container != null) {
 			return false;
@@ -77,9 +80,18 @@ public class CsExpectedTerminal {
 		return this.terminal.equals((otherExpectedTerminal).terminal) && (containersBothNull || this.container.equals(otherExpectedTerminal.container));
 	}
 	
+	@Override	
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((container == null) ? 0 : container.hashCode());
+		result = prime * result + ((terminal == null) ? 0 : terminal.hashCode());
+		return result;
+	}
+	
 	public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {
-		assert startExcludingHiddenTokens <= startExcludingHiddenTokens;
-		assert startIncludingHiddenTokens <= startExcludingHiddenTokens;
+		assert this.startExcludingHiddenTokens <= startExcludingHiddenTokens;
+		assert this.startIncludingHiddenTokens <= startExcludingHiddenTokens;
 		this.startIncludingHiddenTokens = startIncludingHiddenTokens;
 		this.startExcludingHiddenTokens = startExcludingHiddenTokens;
 	}

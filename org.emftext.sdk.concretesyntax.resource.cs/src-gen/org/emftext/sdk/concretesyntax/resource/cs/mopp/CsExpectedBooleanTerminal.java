@@ -55,6 +55,11 @@ public class CsExpectedBooleanTerminal extends org.emftext.sdk.concretesyntax.re
 		return false;
 	}
 	
+	@Override	
+	public int hashCode() {
+		return getFeature().hashCode();
+	}
+	
 	public java.util.Set<String> getTokenNames() {
 		// BooleanTerminals are associated with two or one token(s)
 		java.util.Set<String> tokenNames = new java.util.LinkedHashSet<String>(2);

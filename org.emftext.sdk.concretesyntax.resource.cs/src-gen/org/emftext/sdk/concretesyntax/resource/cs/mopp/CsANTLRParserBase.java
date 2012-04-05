@@ -177,7 +177,7 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	
 	protected String formatTokenName(int tokenType)  {
 		String tokenName = "<unknown>";
-		if (tokenType < 0 || tokenType == org.antlr.runtime3_4_0.Token.EOF) {
+		if (tokenType < 0) {
 			tokenName = "EOF";
 		} else {
 			if (tokenType < 0) {
