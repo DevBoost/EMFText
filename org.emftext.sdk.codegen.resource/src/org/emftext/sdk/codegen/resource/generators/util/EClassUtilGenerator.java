@@ -87,7 +87,14 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add(E_CLASS + " classB) {");
 		sc.add("String nsURI_A = classA.getEPackage().getNsURI();");
 		sc.add("String nsURI_B = classB.getEPackage().getNsURI();");
-		sc.add("return (nsURI_A == null && nsURI_B == null) || nsURI_A.equals(nsURI_B);");
+		sc.add("if (nsURI_A == null && nsURI_B == null) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("if (nsURI_A != null) {");
+		sc.add("return nsURI_A.equals(nsURI_B);");
+		sc.add("} else {");
+		sc.add("return false;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}

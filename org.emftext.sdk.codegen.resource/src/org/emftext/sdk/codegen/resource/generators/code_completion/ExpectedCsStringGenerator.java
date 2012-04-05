@@ -58,6 +58,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 		addGetTokenNameMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
+		addHashCodeMethod(sc);
 	}
 
 	private void addEqualsMethod(StringComposite sc) {
@@ -66,6 +67,14 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("return getValue().equals(((" + getResourceClassName() + ") o).getValue());");
 		sc.add("}");
 		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addHashCodeMethod(JavaComposite sc) {
+		sc.add("@Override").addLineBreak();
+		sc.add("public int hashCode() {");
+		sc.add("return getValue().hashCode();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -58,7 +58,16 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 		addGetFeatureMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
+		addHashCodeMethod(sc);
 		addGetTokenNamesMethod(sc);
+	}
+
+	private void addHashCodeMethod(JavaComposite sc) {
+		sc.add("@Override").addLineBreak();
+		sc.add("public int hashCode() {");
+		sc.add("return getFeature().hashCode();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addEqualsMethod(StringComposite sc) {

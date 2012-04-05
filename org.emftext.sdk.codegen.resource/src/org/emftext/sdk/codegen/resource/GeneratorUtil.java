@@ -380,7 +380,7 @@ public class GeneratorUtil {
 
 	public void addCanBeUsedForSyntaxHighlightingMethod(JavaComposite sc, boolean tagStatic) {
 		sc.add("public " + (tagStatic ? "static " : "") + "boolean canBeUsedForSyntaxHighlighting(int tokenType) {");
-		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
+		sc.add("if (tokenType < 0) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("if (tokenType == " + TOKEN + ".UP) {");

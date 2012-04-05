@@ -226,7 +226,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	private void addFormatTokenNameMethod(JavaComposite sc) {
 		sc.add("protected String formatTokenName(int tokenType)  {");
 		sc.add("String tokenName = \"<unknown>\";");
-		sc.add("if (tokenType < 0 || tokenType == " + TOKEN + ".EOF) {");
+		sc.add("if (tokenType < 0) {");
 		sc.add("tokenName = \"EOF\";");
 		sc.add("} else {");
 		sc.add("if (tokenType < 0) {");

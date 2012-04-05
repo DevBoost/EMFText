@@ -69,6 +69,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		addGetTerminalMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
+		addHashCodeMethod(sc);
 		addSetPositionMethod(sc);
 		addGetStartIncludingHiddenTokensMethod(sc);
 		addGetStartExcludingHiddenTokensMethod(sc);
@@ -109,8 +110,8 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addSetPositionMethod(StringComposite sc) {
 		sc.add("public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {");
-		sc.add("assert startExcludingHiddenTokens <= startExcludingHiddenTokens;");
-		sc.add("assert startIncludingHiddenTokens <= startExcludingHiddenTokens;");
+		sc.add("assert this.startExcludingHiddenTokens <= startExcludingHiddenTokens;");
+		sc.add("assert this.startIncludingHiddenTokens <= startExcludingHiddenTokens;");
 		sc.add("this.startIncludingHiddenTokens = startIncludingHiddenTokens;");
 		sc.add("this.startExcludingHiddenTokens = startExcludingHiddenTokens;");
 		sc.add("}");
@@ -119,12 +120,27 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addEqualsMethod(StringComposite sc) {
 		sc.add("public boolean equals(Object o) {");
+		sc.add("if (o == null) {");
+		sc.add("return false;");
+		sc.add("}");
 		sc.add(getResourceClassName() + " otherExpectedTerminal = (" + getResourceClassName() + ") o;");
 		sc.add("if (this.container == null && otherExpectedTerminal.container != null) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("boolean containersBothNull = this.container == null && otherExpectedTerminal.container == null;");
 		sc.add("return this.terminal.equals((otherExpectedTerminal).terminal) && (containersBothNull || this.container.equals(otherExpectedTerminal.container));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addHashCodeMethod(JavaComposite sc) {
+		sc.add("@Override").addLineBreak();
+		sc.add("public int hashCode() {");
+		sc.add("final int prime = 31;");
+		sc.add("int result = 1;");
+		sc.add("result = prime * result + ((container == null) ? 0 : container.hashCode());");
+		sc.add("result = prime * result + ((terminal == null) ? 0 : terminal.hashCode());");
+		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

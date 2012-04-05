@@ -59,6 +59,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 		addGetTokenNamesMethod(sc);
 		addToStringMethod(sc);
 		addEqualsMethod(sc);
+		addHashCodeMethod(sc);
 	}
 
 	private void addEqualsMethod(StringComposite sc) {
@@ -68,6 +69,14 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
+	}
+
+	private void addHashCodeMethod(JavaComposite sc) {
+		sc.add("@Override").addLineBreak();
+		sc.add("public int hashCode() {");
+		sc.add("return getFeature().hashCode();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addToStringMethod(StringComposite sc) {
