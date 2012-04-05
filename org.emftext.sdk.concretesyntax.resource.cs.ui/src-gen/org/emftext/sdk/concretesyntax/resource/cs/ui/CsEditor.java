@@ -445,8 +445,8 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 						continue;
 					}
 					
-					int annotationLayer = annotationAccess.getLayer(annotation);
 					if (annotationAccess != null) {
+						int annotationLayer = annotationAccess.getLayer(annotation);
 						if (annotationLayer < layer) {
 							continue;
 						}
