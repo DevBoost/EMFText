@@ -648,8 +648,8 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("continue;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("int annotationLayer = annotationAccess.getLayer(annotation);");
 		sc.add("if (annotationAccess != null) {");
+		sc.add("int annotationLayer = annotationAccess.getLayer(annotation);");
 		sc.add("if (annotationLayer < layer) {");
 		sc.add("continue;");
 		sc.add("}");

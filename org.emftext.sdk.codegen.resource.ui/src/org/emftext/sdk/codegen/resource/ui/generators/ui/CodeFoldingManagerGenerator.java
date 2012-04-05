@@ -213,6 +213,7 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 		sc.add("encryptMsg = md.digest(text.getBytes());");
 		sc.add("} catch (" + NO_SUCH_ALGORITHM_EXCEPTION + " e) {");
 		sc.add(uiPluginActivatorClassName + ".logError(\"NoSuchAlgorithmException while creating MD5 checksum.\", e);");
+		sc.add("return \"\";");
 		sc.add("}");
 		sc.add("String swap = \"\";");
 		sc.add("String byteStr = \"\";");
