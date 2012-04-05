@@ -66,6 +66,17 @@ public class TaskItemDetectorGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("} else {");
 		sc.add("remainingText = null;");
 		sc.add("}");
+		sc.addComment(
+			"This is a somewhat arbitrary heuristics to remove the end delimiters " +
+			"from multi-line comments. Since comments are usually implemented using " +
+			"hidden (unused) tokens, there are no token resolvers that could be used " +
+			"to strip delimiters. Thus, this is a reasonable default which reflects " +
+			"the fact that many languages use Java-style multi-line comments."
+		);
+		sc.add("if (message.endsWith(\"*/\")) {");
+		sc.add("message = message.substring(0, message.length() - 2);");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("int offset = index + localCharStart;");
 		sc.add("int end = offset + keyword.length();");
 		sc.add("int localLine = line + text.substring(0, offset - charStart).split(\"(\\r\\n|\\r|\\n)\").length - 1;");
