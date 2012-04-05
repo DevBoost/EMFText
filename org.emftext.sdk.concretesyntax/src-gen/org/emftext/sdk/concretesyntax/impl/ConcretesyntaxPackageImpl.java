@@ -4850,49 +4850,49 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (eClassUtilEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\tfor ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\r\n\t\t\t// There seem to be multiple instances of meta classes when accessed\r\n\t\t\t// through the generator model. Therefore, we compare by name.\r\n\t\t\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n",
+			 "body", "for ( org.eclipse.emf.ecore.EClass superClassCandidate:subClassCandidate.getEAllSuperTypes()) {\r\n\tif (namesAndPackageURIsAreEqual(superClassCandidate,superClass)) {\r\n\t\treturn true;\r\n\t}\r\n}\r\nreturn false;\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.ecore.EClass> result = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.ecore.EClass>();\r\n\r\n\t\tfor ( org.eclipse.emf.ecore.EClass next : availableClasses) {\r\n\t\t\tif (isSubClass(next, superClass) &&\r\n\t\t\t\tisConcrete(next)) {\r\n\t\t\t\tresult.add(next);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn result;\r\n",
+			 "body", "org.eclipse.emf.common.util.EList < org.eclipse.emf.ecore.EClass >result = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.ecore.EClass >();\r\nfor ( org.eclipse.emf.ecore.EClass next:availableClasses) {\r\n\tif (isSubClass(next,superClass)&&isConcrete(next)) {\r\n\t\tresult.add(next);\r\n\t}\r\n}\r\nreturn result;\r\n",
 			 "documentation", "\r\n Returns all subclasses of \'superClass\' that are contained\r\n in \'availableClasses\'.\r\n \r\n @param superClass the superclass\r\n @param availableClasses the set of classes to search in\r\n @return a list of all subclasses of \'superClass\'\r\n"
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\treturn namesAreEqual(classA, classB) && \r\n\t\t\tpackageURIsAreEqual(classA, classB);\r\n",
+			 "body", "return namesAreEqual(classA,classB)&&packageURIsAreEqual(classA,classB);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\t java.lang.String nsURI_A = classA.getEPackage().getNsURI();\r\n\r\n\t\t java.lang.String nsURI_B = classB.getEPackage().getNsURI();\r\n\r\n\t\treturn (nsURI_A == null && nsURI_B == null) || nsURI_A.equals(nsURI_B);\r\n",
+			 "body", "java.lang.String nsURI_A = classA.getEPackage().getNsURI();\r\njava.lang.String nsURI_B = classB.getEPackage().getNsURI();\r\nif (nsURI_A == null&&nsURI_B == null) {\r\n\treturn true;\r\n}\r\nif (nsURI_A != null) {\r\n\treturn nsURI_A.equals(nsURI_B);\r\n}else {\r\n\treturn false;\r\n}\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\treturn classA.getName().equals(classB.getName());\r\n",
+			 "body", "return classA.getName().equals(classB.getName());\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\treturn !eClass.isAbstract() && !eClass.isInterface();\r\n",
+			 "body", "return!eClass.isAbstract()&&!eClass.isInterface();\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(6), 
 		   source, 
 		   new String[] {
-			 "body", "\r\n\t\treturn !isConcrete(eClass);\r\n",
+			 "body", "return!isConcrete(eClass);\r\n",
 			 "documentation", ""
 		   });		
 		addAnnotation

@@ -49,7 +49,15 @@ eclass EClassUtil {
 	packageURIsAreEqual() {
 		String nsURI_A = classA.getEPackage().getNsURI();
 		String nsURI_B = classB.getEPackage().getNsURI();
-		return (nsURI_A == null && nsURI_B == null) || nsURI_A.equals(nsURI_B);
+		if (nsURI_A == null && nsURI_B == null) {
+			return true;
+		}
+		if (nsURI_A != null) {
+			return nsURI_A.equals(nsURI_B);
+		} else {
+			// nsURI_A is null, but nsURI_B is not
+			return false;
+		}
 	}
 
 	namesAreEqual() {
