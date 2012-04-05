@@ -21,6 +21,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_DELTA;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_DELTA_VISITOR;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_VISITOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
@@ -50,7 +51,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		String extendsClause = removeEclipseDependentCode ? "" : " extends " + INCREMENTAL_PROJECT_BUILDER;
+		String extendsClause = removeEclipseDependentCode ? "" : " extends " + INCREMENTAL_PROJECT_BUILDER + " implements " + I_RESOURCE_DELTA_VISITOR + ", " + I_RESOURCE_VISITOR;
 		sc.add("public class " + getResourceClassName() + extendsClause + " {");
 		sc.addLineBreak();
 
@@ -64,11 +65,14 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addMethods(JavaComposite sc, boolean disableBuilder) {
-		addBuildMethod1(sc, disableBuilder);
+		addBuildMethod1(sc);
 		addBuildMethod2(sc);
 		addGetBuilderMethod(sc);
 		addGetBuilderMarkerIdMethod(sc);
 		addRunTaskItemBuilderMethod(sc);
+		addVisitMethod1(sc);
+		addVisitMethod2(sc);
+		addDoVisitMethod(sc, disableBuilder);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -80,19 +84,56 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 		sc.add("private " + iBuilderClassName + " defaultBuilder = new " + builderClassName + "();");
 		sc.addLineBreak();
+		sc.addJavadoc("This resource set is used during the whole build.");
+		sc.add("private " + RESOURCE_SET + " resourceSet;");
+		sc.addLineBreak();
+		sc.addJavadoc("This monitor is used during the build.");
+		sc.add("private " + I_PROGRESS_MONITOR + " monitor;");
+		sc.addLineBreak();
 	}
 
-	private void addBuildMethod1(JavaComposite sc, boolean disableBuilder) {
+	private void addBuildMethod1(JavaComposite sc) {
 		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + "<String, String> args, final " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
+		sc.addComment("Set context for build");
+		sc.add("this.monitor = monitor;");
+		sc.add("this.resourceSet = new " + RESOURCE_SET_IMPL + "();");
+		sc.addComment("Perform build by calling the resource visitors");
 		sc.add(I_RESOURCE_DELTA + " delta = getDelta(getProject());");
-		sc.add("if (delta == null) {");
+		sc.add("if (delta != null) {");
+		sc.addComment("This is an incremental build");
+		sc.add("delta.accept(this);");
+		sc.add("} else {");
+		sc.addComment("This is a full build");
+		sc.add("getProject().accept(this);");
+		sc.add("}");
+		sc.addComment("Reset build context");
+		sc.add("this.resourceSet = null;");
+		sc.add("this.monitor = null;");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("final " + RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
-		sc.add("delta.accept(new " + I_RESOURCE_DELTA_VISITOR + "() {");
+		sc.addLineBreak();
+	}
+	
+	private void addVisitMethod1(JavaComposite sc) {
+		sc.add("@Override").addLineBreak();
 		sc.add("public boolean visit(" + I_RESOURCE_DELTA + " delta) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_RESOURCE + " resource = delta.getResource();");
-		sc.add("if (delta.getKind() == " + I_RESOURCE_DELTA + ".REMOVED) {");
+		sc.add("return doVisit(resource, delta.getKind() == " + I_RESOURCE_DELTA + ".REMOVED);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addVisitMethod2(JavaComposite sc) {
+		sc.add("@Override").addLineBreak();
+		sc.add("public boolean visit(" + I_RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
+		sc.add("return doVisit(resource, false);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addDoVisitMethod(JavaComposite sc, boolean disableBuilder) {
+		sc.add("protected boolean doVisit(" + I_RESOURCE + " resource, boolean removed) throws " + CORE_EXCEPTION + " {");
+		sc.add("if (removed) {");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
 		sc.add(iBuilderClassName + " builder = getBuilder();");
 		sc.add("if (builder.isBuildingNeeded(uri)) {");
@@ -119,9 +160,6 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");
-		sc.add("}");
-		sc.add("});");
-		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

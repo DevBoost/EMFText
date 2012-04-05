@@ -99,6 +99,7 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -286,6 +287,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String I_RESOURCE_CHANGE_LISTENER = IResourceChangeListener.class.getName();
 	public static String I_RESOURCE_DELTA = IResourceDelta.class.getName();
 	public static String I_RESOURCE_DELTA_VISITOR = IResourceDeltaVisitor.class.getName();
+	public static String I_RESOURCE_VISITOR = IResourceVisitor.class.getName();
 	public static String I_STATUS = IStatus.class.getName();
 	public static String I_WORKSPACE = IWorkspace.class.getName();
 	public static String I_WORKSPACE_ROOT = IWorkspaceRoot.class.getName();
