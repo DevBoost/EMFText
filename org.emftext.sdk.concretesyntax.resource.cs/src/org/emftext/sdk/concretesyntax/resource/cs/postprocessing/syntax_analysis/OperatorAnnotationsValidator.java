@@ -46,7 +46,7 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
  */
 public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 
-	private static final String OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY = "Operator classes cannot be used directly. Use the abstract expression superclass instead.";
+	private static final String OPERATOR_CLASSES_CANNOT_BE_USED_DIRECTLY = "Non-primitive operator classes cannot be used directly. Use the abstract expression superclass instead.";
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	
@@ -226,12 +226,17 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 		return operatorClasses;
 	}
 	
+	/**
+	 * Returns all GenClasses that are annotated with an operator annotations
+	 * that are not of type primitive.
+	 */
 	private Set<GenClass> getNonPrimitiveOperatorClasses(ConcreteSyntax syntax) {
 		Set<GenClass> operatorClasses = new LinkedHashSet<GenClass>(syntax.getOperatorRules().size());
 		for (Rule operatorRule : syntax.getOperatorRules()) {
 			OperatorAnnotationType operatorType = csUtil.getOperatorAnnotationType(operatorRule.getOperatorAnnotation());
-		if(operatorType!=OperatorAnnotationType.PRIMITIVE)
+			if (operatorType != OperatorAnnotationType.PRIMITIVE) {
 				operatorClasses.add(operatorRule.getMetaclass());
+			}
 		}
 		return operatorClasses;
 	}
