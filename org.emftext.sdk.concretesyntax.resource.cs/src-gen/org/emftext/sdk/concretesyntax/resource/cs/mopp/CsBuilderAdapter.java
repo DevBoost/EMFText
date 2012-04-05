@@ -16,7 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProjectBuilder {
+public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProjectBuilder implements org.eclipse.core.resources.IResourceDeltaVisitor, org.eclipse.core.resources.IResourceVisitor {
 	
 	/**
 	 * The ID of the default, generated builder.
@@ -25,35 +25,32 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder defaultBuilder = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilder();
 	
+	/**
+	 * This resource set is used during the whole build.
+	 */
+	private org.eclipse.emf.ecore.resource.ResourceSet resourceSet;
+	
+	/**
+	 * This monitor is used during the build.
+	 */
+	private org.eclipse.core.runtime.IProgressMonitor monitor;
+	
 	public org.eclipse.core.resources.IProject[] build(int kind, java.util.Map<String, String> args, final org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
+		// Set context for build
+		this.monitor = monitor;
+		this.resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		// Perform build by calling the resource visitors
 		org.eclipse.core.resources.IResourceDelta delta = getDelta(getProject());
-		if (delta == null) {
-			return null;
+		if (delta != null) {
+			// This is an incremental build
+			delta.accept(this);
+		} else {
+			// This is a full build
+			getProject().accept(this);
 		}
-		final org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
-		delta.accept(new org.eclipse.core.resources.IResourceDeltaVisitor() {
-			public boolean visit(org.eclipse.core.resources.IResourceDelta delta) throws org.eclipse.core.runtime.CoreException {
-				org.eclipse.core.resources.IResource resource = delta.getResource();
-				if (delta.getKind() == org.eclipse.core.resources.IResourceDelta.REMOVED) {
-					org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
-					org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder builder = getBuilder();
-					if (builder.isBuildingNeeded(uri)) {
-						builder.handleDeletion(uri, monitor);
-					}
-					new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, getBuilderMarkerId());
-					return false;
-				}
-				if (resource instanceof org.eclipse.core.resources.IFile && resource.getName().endsWith("." + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName())) {
-					// Calling the default generated builder is disabled because of syntax option
-					// 'disableBuilder'.
-					// Second, call the task item builder that searches for task items in DSL
-					// documents and creates task markers.
-					runTaskItemBuilder((org.eclipse.core.resources.IFile) resource, resourceSet, monitor);
-					return false;
-				}
-				return true;
-			}
-		});
+		// Reset build context
+		this.resourceSet = null;
+		this.monitor = null;
 		return null;
 	}
 	
@@ -90,6 +87,38 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder taskItemBuilder = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder();
 		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, taskItemBuilder.getBuilderMarkerId());
 		taskItemBuilder.build(resource, resourceSet, monitor);
+	}
+	
+	@Override	
+	public boolean visit(org.eclipse.core.resources.IResourceDelta delta) throws org.eclipse.core.runtime.CoreException {
+		org.eclipse.core.resources.IResource resource = delta.getResource();
+		return doVisit(resource, delta.getKind() == org.eclipse.core.resources.IResourceDelta.REMOVED);
+	}
+	
+	@Override	
+	public boolean visit(org.eclipse.core.resources.IResource resource) throws org.eclipse.core.runtime.CoreException {
+		return doVisit(resource, false);
+	}
+	
+	protected boolean doVisit(org.eclipse.core.resources.IResource resource, boolean removed) throws org.eclipse.core.runtime.CoreException {
+		if (removed) {
+			org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
+			org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder builder = getBuilder();
+			if (builder.isBuildingNeeded(uri)) {
+				builder.handleDeletion(uri, monitor);
+			}
+			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, getBuilderMarkerId());
+			return false;
+		}
+		if (resource instanceof org.eclipse.core.resources.IFile && resource.getName().endsWith("." + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName())) {
+			// Calling the default generated builder is disabled because of syntax option
+			// 'disableBuilder'.
+			// Second, call the task item builder that searches for task items in DSL
+			// documents and creates task markers.
+			runTaskItemBuilder((org.eclipse.core.resources.IFile) resource, resourceSet, monitor);
+			return false;
+		}
+		return true;
 	}
 	
 }
