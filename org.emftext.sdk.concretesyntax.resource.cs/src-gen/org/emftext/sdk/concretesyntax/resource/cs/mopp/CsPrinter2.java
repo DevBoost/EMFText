@@ -1,14 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -20,10 +22,12 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		
 		private String text;
 		private String tokenName;
+		private org.eclipse.emf.ecore.EObject container;
 		
-		public PrintToken(String text, String tokenName) {
+		public PrintToken(String text, String tokenName, org.eclipse.emf.ecore.EObject container) {
 			this.text = text;
 			this.tokenName = tokenName;
+			this.container = container;
 		}
 		
 		public String getText() {
@@ -32,6 +36,10 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		
 		public String getTokenName() {
 			return tokenName;
+		}
+		
+		public org.eclipse.emf.ecore.EObject getContainer() {
+			return container;
 		}
 		
 		public String toString() {
@@ -116,10 +124,6 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public final static String NEW_LINE = java.lang.System.getProperties().getProperty("line.separator");
 	
-	private final PrintToken SPACE_TOKEN = new PrintToken(" ", null);
-	private final PrintToken TAB_TOKEN = new PrintToken("\t", null);
-	private final PrintToken NEW_LINE_TOKEN = new PrintToken(NEW_LINE, null);
-	
 	private final org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil eClassUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil();
 	
 	/**
@@ -180,7 +184,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		// print all remaining formatting elements
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations = getCopyOfLayoutInformation(element);
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation eofLayoutInformation = getLayoutInformation(layoutInformations, null, null, null);
-		printFormattingElements(formattingElements, layoutInformations, eofLayoutInformation);
+		printFormattingElements(element, formattingElements, layoutInformations, eofLayoutInformation);
 		java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.OutputStreamWriter(new java.io.BufferedOutputStream(outputStream), encoding));
 		if (handleTokenSpaceAutomatically) {
 			printSmart(writer);
@@ -544,9 +548,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	
 	public void printKeyword(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword keyword, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation keywordLayout = getLayoutInformation(layoutInformations, keyword, null, eObject);
-		printFormattingElements(foundFormattingElements, layoutInformations, keywordLayout);
+		printFormattingElements(eObject, foundFormattingElements, layoutInformations, keywordLayout);
 		String value = keyword.getValue();
-		tokenOutputStream.add(new PrintToken(value, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(value) + "'"));
+		tokenOutputStream.add(new PrintToken(value, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(value) + "'", eObject));
 	}
 	
 	public void printFeature(org.eclipse.emf.ecore.EObject eObject, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int count, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
@@ -578,9 +582,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		}
 		
 		if (result != null && !"".equals(result)) {
-			printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);
+			printFormattingElements(eObject, foundFormattingElements, layoutInformations, attributeLayout);
 			// write result to the output stream
-			tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName()));
+			tokenOutputStream.add(new PrintToken(result, placeholder.getTokenName(), eObject));
 		}
 	}
 	
@@ -607,9 +611,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		}
 		
 		if (result != null && !"".equals(result)) {
-			printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);
+			printFormattingElements(eObject, foundFormattingElements, layoutInformations, attributeLayout);
 			// write result to the output stream
-			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'"));
+			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'", eObject));
 		}
 	}
 	
@@ -633,9 +637,9 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		}
 		
 		if (result != null && !"".equals(result)) {
-			printFormattingElements(foundFormattingElements, layoutInformations, attributeLayout);
+			printFormattingElements(eObject, foundFormattingElements, layoutInformations, attributeLayout);
 			// write result to the output stream
-			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'"));
+			tokenOutputStream.add(new PrintToken(result, "'" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.escapeToANTLRKeyword(result) + "'", eObject));
 		}
 	}
 	
@@ -657,14 +661,14 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		currentTabs = oldCurrentTabs;
 	}
 	
-	public void printFormattingElements(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
+	public void printFormattingElements(org.eclipse.emf.ecore.EObject eObject, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation layoutInformation) {
 		String hiddenTokenText = getHiddenTokenText(layoutInformation);
 		if (hiddenTokenText != null) {
 			// removed used information
 			if (layoutInformations != null) {
 				layoutInformations.remove(layoutInformation);
 			}
-			tokenOutputStream.add(new PrintToken(hiddenTokenText, null));
+			tokenOutputStream.add(new PrintToken(hiddenTokenText, null, eObject));
 			foundFormattingElements.clear();
 			startedPrintingObject = false;
 			setTabsBeforeCurrentObject(0);
@@ -676,15 +680,15 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) {
 					int amount = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace) foundFormattingElement).getAmount();
 					for (int i = 0; i < amount; i++) {
-						tokenOutputStream.add(SPACE_TOKEN);
+						tokenOutputStream.add(createSpaceToken(eObject));
 					}
 				}
 				if (foundFormattingElement instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) {
 					currentTabs = ((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak) foundFormattingElement).getTabs();
 					printedTabs += currentTabs;
-					tokenOutputStream.add(NEW_LINE_TOKEN);
+					tokenOutputStream.add(createNewLineToken(eObject));
 					for (int i = 0; i < tabsBeforeCurrentObject + currentTabs; i++) {
-						tokenOutputStream.add(TAB_TOKEN);
+						tokenOutputStream.add(createTabToken(eObject));
 					}
 				}
 			}
@@ -697,7 +701,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 				startedPrintingObject = false;
 			} else {
 				if (!handleTokenSpaceAutomatically) {
-					tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null));
+					tokenOutputStream.add(new PrintToken(getWhiteSpaceString(tokenSpace), null, eObject));
 				}
 			}
 		}
@@ -719,7 +723,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		Object referencedObject = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.getFeatureValue(eObject, reference, index, false);
 		// first add layout before the reference
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation referenceLayout = getLayoutInformation(layoutInformations, placeholder, referencedObject, eObject);
-		printFormattingElements(foundFormattingElements, layoutInformations, referenceLayout);
+		printFormattingElements(eObject, foundFormattingElements, layoutInformations, referenceLayout);
 		// proxy objects must be printed differently
 		String deresolvedReference = null;
 		if (referencedObject instanceof org.eclipse.emf.ecore.EObject) {
@@ -747,7 +751,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		tokenResolver.setOptions(getOptions());
 		String deresolvedToken = tokenResolver.deResolve(deresolvedReference, reference, eObject);
 		// write result to output stream
-		tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName));
+		tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName, eObject));
 	}
 	
 	@SuppressWarnings("unchecked")	
@@ -1022,6 +1026,18 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			}
 		}
 		return allowedTypes;
+	}
+	
+	protected PrintToken createSpaceToken(org.eclipse.emf.ecore.EObject container) {
+		return new PrintToken(" ", null, container);
+	}
+	
+	protected PrintToken createTabToken(org.eclipse.emf.ecore.EObject container) {
+		return new PrintToken("\t", null, container);
+	}
+	
+	protected PrintToken createNewLineToken(org.eclipse.emf.ecore.EObject container) {
+		return new PrintToken(NEW_LINE, null, container);
 	}
 	
 }

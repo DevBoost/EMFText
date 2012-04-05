@@ -1,14 +1,16 @@
 /*******************************************************************************
  * Copyright (c) 2006-2012
  * Software Technology Group, Dresden University of Technology
- * 
+ * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ *
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
+ *   Software Technology Group - TU Dresden, Germany;
+ *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -53,6 +55,15 @@ public class CsTaskItemDetector {
 					} else {
 						remainingText = null;
 					}
+					// This is a somewhat arbitrary heuristics to remove the end delimiters from
+					// multi-line comments. Since comments are usually implemented using hidden
+					// (unused) tokens, there are no token resolvers that could be used to strip
+					// delimiters. Thus, this is a reasonable default which reflects the fact that
+					// many languages use Java-style multi-line comments.
+					if (message.endsWith("*/")) {
+						message = message.substring(0, message.length() - 2);
+					}
+					
 					int offset = index + localCharStart;
 					int end = offset + keyword.length();
 					int localLine = line + text.substring(0, offset - charStart).split("(\r\n|\r|\n)").length - 1;
