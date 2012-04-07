@@ -40,7 +40,7 @@ import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
 /**
  * The OperatorAnnotationsValidator inspects all rules that are annotated with
- * the 'operator' annotation. It checks whether the arguments of the annotation
+ * the 'Operator' annotation. It checks whether the arguments of the annotation
  * have the correct type and whether the right sides of the annotated rule match
  * the annotation.
  */
@@ -166,42 +166,55 @@ public class OperatorAnnotationsValidator extends AbstractPostProcessor {
 	private void checkOperatorTypes(ConcreteSyntax syntax) {
 		for (String subsetIdent : syntax.getOperatorRuleSubsets()) {
 			List<Rule> subset = syntax.getOperatorRuleSubset(subsetIdent);
-			for (int i = 0; i < subset.size(); i++) {
-				Rule firstRule = subset.get(i);
-				Annotation firstAnnotation = firstRule.getOperatorAnnotation();
-				String firstWeight = firstAnnotation
-						.getValue(OperatorAnnotationProperty.WEIGHT.toString());
-				firstWeight = firstWeight == null ? "" : firstWeight;
-				for (int j = i + 1; j < subset.size(); j++) {
-					Rule rule = subset.get(j);
-					Annotation annotation = rule.getOperatorAnnotation();
-					String weight = annotation
-							.getValue(OperatorAnnotationProperty.WEIGHT
-									.toString());
-					if (!firstWeight.equals(weight)) {
-						i = j - 1;
-						break;
-					} else if (firstAnnotation.getType() != annotation
-							.getType()) {
-						addProblem(
-								CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
-								"All equal weight operators must be of the same operator type.",
-								annotation
-						);
-					}
+			checkEqualTypes(subset);
+			checkPrimitiveOperatorExistsAndHasHighestWeight(subset);
+		}
+	}
+
+	private void checkPrimitiveOperatorExistsAndHasHighestWeight(
+			List<Rule> subset) {
+		//We need at least one primitive operator rule with highest priority
+		Rule lastRule = subset.get(subset.size()-1);
+		Annotation annotation = lastRule.getOperatorAnnotation();
+		OperatorAnnotationType annotationType = csUtil.getOperatorAnnotationType(annotation);
+		if(annotationType != OperatorAnnotationType.PRIMITIVE){
+			addProblem(
+					CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+					"Each expression subset needs at least 1 primitive operator declaration with the greatest weight value of the subset.",
+					annotation
+			);
+		}
+	}
+
+	private void checkEqualTypes(List<Rule> subset) {
+		Set<Annotation> invalidAnnotations = new LinkedHashSet<Annotation>();
+		ConcreteSyntaxUtil util = new ConcreteSyntaxUtil();
+		for (int i = 0; i < subset.size(); i++) {
+			Rule firstRule = subset.get(i);
+			Annotation firstAnnotation = firstRule.getOperatorAnnotation();
+			int firstWeight = firstRule.getOperatorWeight();
+			OperatorAnnotationType firstType = util.getOperatorAnnotationType(firstAnnotation);
+			for (int j = i + 1; j < subset.size(); j++) {
+				Rule rule = subset.get(j);
+				int weight = rule.getOperatorWeight();
+				Annotation annotation = rule.getOperatorAnnotation();
+				OperatorAnnotationType type = util.getOperatorAnnotationType(annotation);
+				if (firstWeight != weight) {
+					i = j - 1;
+					break;
+				} else if (firstType != type) {
+					invalidAnnotations.add(annotation);
+					invalidAnnotations.add(firstAnnotation);
 				}
 			}
-			//We need at least one primitive operator rule with highest priority
-			Rule lastRule = subset.get(subset.size()-1);
-			Annotation annotation = lastRule.getOperatorAnnotation();
-			OperatorAnnotationType annotationType = csUtil.getOperatorAnnotationType(annotation);
-			if(annotationType != OperatorAnnotationType.PRIMITIVE){
-				addProblem(
-						CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
-						"Each expression subset needs at least 1 primitive operator declaration with the greatest weight value of the subset.",
-						annotation
-				);
-			}
+		}
+		
+		for (Annotation annotation : invalidAnnotations) {
+			addProblem(
+					CsAnalysisProblemType.OPERATOR_ANNOTATION_INVALID_PROPERTY,
+					"Operators with same weight must have the same operator type.",
+					annotation
+			);
 		}
 	}
 
