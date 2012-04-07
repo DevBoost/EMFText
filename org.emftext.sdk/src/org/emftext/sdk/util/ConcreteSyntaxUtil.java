@@ -224,6 +224,7 @@ public class ConcreteSyntaxUtil {
 		return OptionManager.INSTANCE.getStringOptionValue(syntax, option, defaultValue);
 	}
 	
+	// TODO move this to the CS metamodel
 	public OperatorAnnotationType getOperatorAnnotationType(Annotation annotation) {
 		return OperatorAnnotationType.get(annotation.getValue(OperatorAnnotationProperty.TYPE.getLiteral()));
 	}
