@@ -16,15 +16,15 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.core.search.TypeNameRequestor;
-import org.emftext.commons.jdt.JDTJavaClass;
+import org.emftext.commons.jdt.JDTJavaClassifier;
 import org.emftext.commons.jdt.JdtFactory;
 import org.emftext.commons.jdt.JdtPackage;
 
 /**
- * This class can be used to find all Java classes that are available in a given
- * JDT Java project.
+ * This class can be used to find all Java classifiers that are available in a 
+ * given JDT Java project.
  */
-public class JDTClassResolver {
+public class JDTClassifierResolver {
 
 	public IJavaProject getJavaProject(URI uri) {
 		IProject project = getProject(uri);
@@ -58,15 +58,15 @@ public class JDTClassResolver {
 		return (isJavaProject(project) ? JavaCore.create(project) : null);
 	}
 
-	public List<JDTJavaClass> getAllClassesInClassPath(final IJavaProject javaProject) {
-		List<JDTJavaClass> classes = new ArrayList<JDTJavaClass>();
+	public List<JDTJavaClassifier> getAllClassifiersInClassPath(final IJavaProject javaProject) {
+		List<JDTJavaClassifier> classes = new ArrayList<JDTJavaClassifier>();
 		try {
 			SearchEngine searchEngine = new SearchEngine();
-			ClasspathFiller visitor = new ClasspathFiller();
+			ClassifierVisitor visitor = new ClassifierVisitor();
 			searchEngine.searchAllTypeNames(null, null, 
 					SearchEngine.createJavaSearchScope(new IJavaProject[] {javaProject}), 
 					visitor, IJavaSearchConstants.FORCE_IMMEDIATE_SEARCH, null);
-			classes = visitor.getClassesInClasspath();
+			classes = visitor.getClassifiersInClasspath();
 		} catch (JavaModelException e) { 
 			log("Problem building classpath", e);
 		}
@@ -79,26 +79,28 @@ public class JDTClassResolver {
 		ResourcesPlugin.getPlugin().getLog().log(status);
 	}	
 
-	private static final class ClasspathFiller extends TypeNameRequestor {
+	private static final class ClassifierVisitor extends TypeNameRequestor {
 		
-		private List<JDTJavaClass> classesInClasspath = new ArrayList<JDTJavaClass>();
+		private List<JDTJavaClassifier> classifiersInClasspath = new ArrayList<JDTJavaClassifier>();
 
 		@Override
 		public void acceptType(int modifiers,
 				char[] packageName, char[] simpleTypeName,
 				char[][] enclosingTypeNames, String path) {
 			
-			JDTJavaClass javaClass = JdtFactory.eINSTANCE.createJDTJavaClass();
+			JDTJavaClassifier javaClass = JdtFactory.eINSTANCE.createJDTJavaClassifier();
 			javaClass.setPackageName(String.valueOf(packageName));
 			for (char[] enclosingType : enclosingTypeNames) {
 				javaClass.getEnclosingTypeNames().add(String.valueOf(enclosingType));
 			}
 			javaClass.setSimpleName(String.valueOf(simpleTypeName));
-			classesInClasspath.add(javaClass);			
+			javaClass.setPackageName(path);
+			// TODO set modifiers (flags)
+			classifiersInClasspath.add(javaClass);			
 		}
 
-		public List<JDTJavaClass> getClassesInClasspath() {
-			return classesInClasspath;
+		public List<JDTJavaClassifier> getClassifiersInClasspath() {
+			return classifiersInClasspath;
 		}
 	}
 }

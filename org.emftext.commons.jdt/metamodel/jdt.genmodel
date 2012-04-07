@@ -7,11 +7,12 @@
   <foreignModel>jdt.ecore</foreignModel>
   <genPackages prefix="Jdt" basePackage="org.emftext.commons" disposableProviderFactory="true"
       ecorePackage="jdt.ecore#/">
-    <genClasses ecoreClass="jdt.ecore#//JDTJavaClass">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClass/simpleName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClass/packageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClass/enclosingTypeNames"/>
-      <genOperations ecoreOperation="jdt.ecore#//JDTJavaClass/getQualifiedName"/>
+    <genClasses ecoreClass="jdt.ecore#//JDTJavaClassifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/simpleName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/enclosingTypeNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/path"/>
+      <genOperations ecoreOperation="jdt.ecore#//JDTJavaClassifier/getQualifiedName"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

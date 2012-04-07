@@ -1,8 +1,8 @@
 epackage jdt;
 
-import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.EObject;
 
-eclass JDTJavaClass{
+eclass JDTJavaClassifier {
 
 	getQualifiedName() {
 		StringBuilder qualifiedName = new StringBuilder();
