@@ -94,7 +94,7 @@ public class JDTClassifierResolver {
 				javaClass.getEnclosingTypeNames().add(String.valueOf(enclosingType));
 			}
 			javaClass.setSimpleName(String.valueOf(simpleTypeName));
-			javaClass.setPackageName(path);
+			javaClass.setPath(path);
 			// TODO set modifiers (flags)
 			classifiersInClasspath.add(javaClass);			
 		}
