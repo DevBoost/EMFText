@@ -100,7 +100,7 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 				if (type instanceof EClass) {
 					htmlForSubTypes = getHTMLForSubTypes((EClass) type);
 				}
-				return htmlForEFeature + "<br/><br/>Type: " + htmlForEType + htmlForSubTypes;// + "<br/><br/>" + htmlForObject;
+				return htmlForEFeature + "<br/><br/>Type: " + htmlForEType + htmlForSubTypes;
 			}
 		}
 		return htmlForObject;
@@ -111,7 +111,7 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 		List<EClass> allClasses = findAllEClasses(rootPackage);
 		List<EClass> subTypes = new ArrayList<EClass>();
 		for (EClass eClass : allClasses) {
-			if (type.isSuperTypeOf(eClass) && !type.equals(eClass)) {
+			if (type.isSuperTypeOf(eClass) && !type.equals(eClass) && !eClass.isAbstract() && !eClass.isInterface()) {
 				subTypes.add(eClass);
 			}
 		}
