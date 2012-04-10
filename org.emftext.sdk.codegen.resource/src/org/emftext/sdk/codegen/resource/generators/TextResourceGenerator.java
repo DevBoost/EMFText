@@ -915,7 +915,7 @@ public class TextResourceGenerator extends
 
 		sc.addJavadoc("A flag (and lock) to indicate whether reloading of the resource shall be cancelled.");
 		sc.add("private Boolean terminateReload = false;");
-		sc.add("private Boolean terminateReloadLock = new Object();");
+		sc.add("private Object terminateReloadLock = new Object();");
 		sc.add("private Object loadingLock = new Object();");
 		sc.add("private boolean delayNotifications = false;");
 		sc.add("private " + LIST + "<" + NOTIFICATION + "> delayedNotifications = new " + ARRAY_LIST + "<" + NOTIFICATION + ">();");
