@@ -155,6 +155,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * cancelled.
 	 */
 	private Boolean terminateReload = false;
+	private Object terminateReloadLock = new Object();
 	private Object loadingLock = new Object();
 	private boolean delayNotifications = false;
 	private java.util.List<org.eclipse.emf.common.notify.Notification> delayedNotifications = new java.util.ArrayList<org.eclipse.emf.common.notify.Notification>();
@@ -273,7 +274,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * Reloads the contents of this resource from the given stream.
 	 */
 	public void reload(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		synchronized (terminateReload) {
+		synchronized (terminateReloadLock) {
 			latestReloadInputStream = inputStream;
 			latestReloadOptions = options;
 			if (terminateReload == true) {
@@ -283,7 +284,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 		cancelReload();
 		synchronized (loadingLock) {
-			synchronized (terminateReload) {
+			synchronized (terminateReloadLock) {
 				terminateReload = false;
 			}
 			isLoaded = false;

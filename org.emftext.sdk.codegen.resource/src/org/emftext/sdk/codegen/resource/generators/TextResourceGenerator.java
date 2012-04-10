@@ -915,6 +915,7 @@ public class TextResourceGenerator extends
 
 		sc.addJavadoc("A flag (and lock) to indicate whether reloading of the resource shall be cancelled.");
 		sc.add("private Boolean terminateReload = false;");
+		sc.add("private Boolean terminateReloadLock = new Object();");
 		sc.add("private Object loadingLock = new Object();");
 		sc.add("private boolean delayNotifications = false;");
 		sc.add("private " + LIST + "<" + NOTIFICATION + "> delayedNotifications = new " + ARRAY_LIST + "<" + NOTIFICATION + ">();");
@@ -1151,7 +1152,7 @@ public class TextResourceGenerator extends
 		sc.addJavadoc("Reloads the contents of this resource from the given stream.");
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP
 				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
-		sc.add("synchronized (terminateReload) {");
+		sc.add("synchronized (terminateReloadLock) {");
 		sc.add("latestReloadInputStream = inputStream;");
 		sc.add("latestReloadOptions = options;");
 		sc.add("if (terminateReload == true) {");
@@ -1163,7 +1164,7 @@ public class TextResourceGenerator extends
 		sc.add("cancelReload();");
 		
 		sc.add("synchronized (loadingLock) {");
-		sc.add("synchronized (terminateReload) {");
+		sc.add("synchronized (terminateReloadLock) {");
 		sc.add("terminateReload = false;");
 		sc.add("}");
 		sc.add("isLoaded = false;");
