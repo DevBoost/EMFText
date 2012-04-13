@@ -44,31 +44,33 @@ public class AntlrTokenDerivator {
 		return escaped.toString();
 	}
 
+	/**
+	 * Used to escape a single character to conform the ANTLR syntax for regular
+	 * expressions. Single quotes are replaced by a backslash followed by a
+	 * single quote. Backslashes are escaped by adding a second backslash.
+	 */
 	private String escapeLiteralChar(char candidate) {
 		String result = "";
 		switch (candidate) {
-		case '\'':
-		case '\\':
-			result += "\\";
-		default:
-			result += candidate;
+			case '\'':
+			case '\\':
+				result += "\\";
+			default:
+				result += candidate;
 		}
 		return result;
 	}
 
 	/**
-     * <p>Derives a TokenDefinition from the given prefix and suffix char. If the suffix is valued -1,
-     * a standard Definition using the static values STD_TOKEN_NAME and STD_TOKEN_DEF will be created and registered 
-     * (if not yet been done) and returned. If additionally a prefix is given, the tokens name will be the conjunction
-     * of the value STD_TOKEN_NAME, "_", "prefix", "_". The resulting regular expression is constructed by prepending
-     * the prefix to the value STD_TOKEN_DEF.  </p>
-     * <p>
-     * If suffix is given a TokenDefinition, matching the given prefix (if there) first and than matching all characters,
-     * excepting the suffix, is created and returned. The name of this definition is the conjunction of the value 
-     * in DERIVED_TOKEN_NAME, "_", prefix, "_" and suffix. </p>
+     * Derives a regular expression from the given prefix and suffix. This 
+     * regular expression matches anything that is enclosed by the prefix and
+     * the suffix. If an escaped character sequence was specified, the suffix
+     * can appear between prefix and suffix if it is prepended by the escaped
+     * sequence. The escape sequences itself must then be represented by two
+     * occurrences of itself.
      * 
      * @param placeholder the Placeholder to derive an expression for
-     * @return
+     * @return a regular expression
      */
 	public String deriveTokenExpression(PlaceholderInQuotes placeholder) {
 		String prefix = placeholder.getNormalizedPrefix();
@@ -84,18 +86,21 @@ public class AntlrTokenDerivator {
 		String escapedSuffix = escapeLiteralChars(suffix);
 		String escapedPrefix = escapeLiteralChars(prefix);
 		
-		String derivedExpression = "('" + escapedPrefix + "')";
+		StringBuilder derivedExpression = new StringBuilder(); 
+		
+		derivedExpression.append("('");
+		derivedExpression.append(escapedPrefix);
+		derivedExpression.append("')");
+		
 		if (escapeCharacter != null) {
 			String escapedEscapeCharacter = escapeLiteralChars(escapeCharacter);
 			// this derived regular expression with escaping has the following meaning:
 			// start with prefix
-			//   arbitrary many characters except the suffix and the escape character OR
+			//   arbitrary many characters except the suffix and the escape character 
+			//   (notSuffixNotEscapeCharacter) OR
 			//   the suffix prepended by the escape character (escaped suffix) OR
 			//   two escape characters (escaped escape character)
 			// end with suffix
-
-			String notSuffixNotEscapeCharacter = 
-				"~('" + escapedSuffix + "'|'" + escapedEscapeCharacter + "')";
 
 			String escapeCharacterAndSuffix = 
 				"('" + escapedEscapeCharacter + "''" + escapedSuffix + "')";
@@ -103,21 +108,109 @@ public class AntlrTokenDerivator {
 			String escapeCharacterTwice = 
 				"('" + escapedEscapeCharacter + "''" + escapedEscapeCharacter + "')";
 
-			derivedExpression += "(" + escapeCharacterAndSuffix + "|" + escapeCharacterTwice + "|" + notSuffixNotEscapeCharacter + ")*";
+			String notSuffixNotEscapeCharacter = 
+				"(" + getOrNegation(suffix, escapeCharacter) + ")";
+
+			derivedExpression.append("(" + escapeCharacterAndSuffix + "|" + escapeCharacterTwice + "|" + notSuffixNotEscapeCharacter + ")*");
 		} else {
 			// this derived regular expression without escaping has the following meaning:
 			// start with prefix
 			//   arbitrary many characters except the suffix
 			// end with suffix
-
-			String notSuffix = 
-				"~('" + escapedSuffix + "')";
-
-			derivedExpression += "(" + notSuffix + ")*";
+			String notSuffix = getNegation(suffix);
+			derivedExpression.append("(" + notSuffix + ")*");
 		}
-		derivedExpression += "('" + escapedSuffix + "')";
+		derivedExpression.append("('" + escapedSuffix + "')");
 
-		return derivedExpression;
+		return derivedExpression.toString();
+	}
+
+	/**
+	 * Returns a regular expression that matches anything except text1 and 
+	 * text2 (in pseudo regular expression syntax: ~(text1|text2)). Constructing
+	 * this expression is quite complex, since the basic composition of the
+	 * strings to form a regular expression does only work if both texts contain 
+	 * a single character.
+	 */
+	public String getOrNegation(String text1, String text2) {
+		
+		int length1 = text1.length();
+		int length2 = text2.length();
+		
+		int commonLength = Math.min(length1, length2);
+		int maxLength = Math.max(length1, length2);
+		
+		StringBuilder negation = new StringBuilder();
+		StringBuilder previous = new StringBuilder();
+		// first process the characters up to the length of the shorter text
+		for (int i = 0; i < commonLength; i++) {
+			char char1AtI = text1.charAt(i);
+			char char2AtI = text2.charAt(i);
+			boolean isLast = (i == maxLength - 1);
+			negation.append(previous.toString() + "~('" + escapeLiteralChar(char1AtI) + "'|'" + escapeLiteralChar(char2AtI) + "')");
+			if (!isLast) {
+				negation.append("|");
+			}
+			previous.append("('" + escapeLiteralChar(char1AtI) + "'|'" + escapeLiteralChar(char2AtI) + "')");
+		}
+		
+		// the process remaining characters
+		negation.append(getRegexToMatchHeadNotTail(text1, commonLength));
+		negation.append(getRegexToMatchHeadNotTail(text2, commonLength));
+		
+		return negation.toString();
+	}
+
+	private StringBuilder getRegexToMatchHeadNotTail(String text, int startOfTail) {
+		StringBuilder expression = new StringBuilder();
+
+		String head = text.substring(0, startOfTail);
+		String tail = text.substring(startOfTail);
+		String notTail = getNegation(tail);
+		
+		String escapedHead = escapeLiteralChars(head);
+		if (notTail.length() > 0) {
+			if (escapedHead.length() > 0) {
+				expression.append("'" + escapedHead + "'");
+			}
+			expression.append(notTail);
+		}
+		return expression;
+	}
+
+	/**
+	 * Returns a regular expression that matches anything except the given text.
+	 * Note that this expression is not trivial, because matching the negation
+	 * of a text requires to NOT match the first character OR to match the first
+	 * character and NOT to match the second character and so on.
+	 * 
+	 * This method is not applicable to negate regular expressions! It can 
+	 * only be applied to negate plain texts.
+	 */
+	private String getNegation(String text) {
+		// this variable holds the constructed regular expression
+		StringBuilder negation = new StringBuilder();
+		// this variable holds an expression that matches the prefix of 'text'
+		// up to the character at position 'i'
+		StringBuilder previous = new StringBuilder();
+		for (int i = 0; i < text.length(); i++) {
+			char charAtI = text.charAt(i);
+			boolean isLast = (i == text.length() - 1);
+			
+			negation.append(previous);
+			negation.append("~('");
+			negation.append(escapeLiteralChar(charAtI));
+			negation.append("')");
+			
+			if (!isLast) {
+				negation.append("|");
+			}
+			
+			previous.append("'");
+			previous.append(escapeLiteralChar(charAtI));
+			previous.append("'");
+		}
+		return negation.toString();
 	}
 	
     public String deriveTokenName(PlaceholderInQuotes placeholder) {
