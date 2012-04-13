@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2012
- * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
- *      - initial API and implementation
- ******************************************************************************/
 // $ANTLR 3.4
 
 	package org.emftext.sdk.concretesyntax.resource.cs.mopp;
@@ -1579,11 +1564,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_39_39_92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cs.g:5579:16: ( ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) |~ ( '\\'' | '\\\\' ) )* ( '\\'' ) ) )
-            // Cs.g:5580:2: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) |~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
+            // Cs.g:5579:16: ( ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | (~ ( '\\'' | '\\\\' ) ) )* ( '\\'' ) ) )
+            // Cs.g:5580:2: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | (~ ( '\\'' | '\\\\' ) ) )* ( '\\'' ) )
             {
-            // Cs.g:5580:2: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) |~ ( '\\'' | '\\\\' ) )* ( '\\'' ) )
-            // Cs.g:5580:3: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) |~ ( '\\'' | '\\\\' ) )* ( '\\'' )
+            // Cs.g:5580:2: ( ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | (~ ( '\\'' | '\\\\' ) ) )* ( '\\'' ) )
+            // Cs.g:5580:3: ( '\\'' ) ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | (~ ( '\\'' | '\\\\' ) ) )* ( '\\'' )
             {
             // Cs.g:5580:3: ( '\\'' )
             // Cs.g:5580:4: '\\''
@@ -1593,7 +1578,7 @@ public class CsLexer extends Lexer {
             }
 
 
-            // Cs.g:5580:9: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) |~ ( '\\'' | '\\\\' ) )*
+            // Cs.g:5580:9: ( ( '\\\\' '\\'' ) | ( '\\\\' '\\\\' ) | (~ ( '\\'' | '\\\\' ) ) )*
             loop10:
             do {
                 int alt10=4;
@@ -1648,7 +1633,7 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // Cs.g:5580:32: ~ ( '\\'' | '\\\\' )
+            	    // Cs.g:5580:32: (~ ( '\\'' | '\\\\' ) )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&')||(input.LA(1) >= '(' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1669,8 +1654,8 @@ public class CsLexer extends Lexer {
             } while (true);
 
 
-            // Cs.g:5580:46: ( '\\'' )
-            // Cs.g:5580:47: '\\''
+            // Cs.g:5580:48: ( '\\'' )
+            // Cs.g:5580:49: '\\''
             {
             match('\''); 
 
