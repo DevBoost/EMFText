@@ -93,6 +93,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -104,7 +105,12 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.addJavadoc("A text editor for '" + getContext().getConcreteSyntax().getName() + "' models.");
+		sc.addJavadoc("A text editor for '" + getContext().getConcreteSyntax().getName() + "' models."
+				, "<p>"
+				, "This editor has id <code>" + getContext().getQualifiedClassName(TextResourceUIArtifacts.EDITOR) + "</code>"
+				, "The editor's context menu has id <code>" + getContext().getEditorContextID() + "</code>. "
+				, "The editor's ruler context menu has id <code>" + getContext().getEditorRulerID() + "</code>."
+				, "</p>");
 		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + ", " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + ", " + I_VIEWER_PROVIDER + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
 		sc.addLineBreak();
 
