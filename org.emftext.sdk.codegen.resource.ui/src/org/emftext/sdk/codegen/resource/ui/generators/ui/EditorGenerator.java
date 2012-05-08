@@ -517,6 +517,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	private void addDisposeMethod(StringComposite sc) {
 		sc.add("public void dispose() {");
 		sc.add("colorManager.dispose();");
+		sc.add(RESOURCES_PLUGIN + ".getWorkspace().removeResourceChangeListener(resourceChangeListener);"); 
 		sc.add("super.dispose();");
 		sc.add("}");
 		sc.addLineBreak();
