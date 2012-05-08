@@ -18,6 +18,14 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 /**
  * A text editor for 'cs' models.
+ * <p>
+ * This editor has id
+ * <code>org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor</code>
+ * The editor's context menu has id
+ * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorContext</code>.
+ * The editor's ruler context menu has id
+ * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorRuler</code>.
+ * </p>
  */
 public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements org.eclipse.emf.edit.domain.IEditingDomainProvider, org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener, org.eclipse.emf.common.ui.viewer.IViewerProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
 	
@@ -183,6 +191,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public void dispose() {
 		colorManager.dispose();
+		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
 		super.dispose();
 	}
 	
