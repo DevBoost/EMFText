@@ -935,7 +935,7 @@ public class TextResourceGenerator extends
 	}
 	
 	private void addGetEncoding(JavaComposite sc) {
-		sc.add("protected String getEncoding(" + MAP + "<?, ?> options) {");
+		sc.add("public String getEncoding(" + MAP + "<?, ?> options) {");
 		sc.add("String encoding = null;");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");

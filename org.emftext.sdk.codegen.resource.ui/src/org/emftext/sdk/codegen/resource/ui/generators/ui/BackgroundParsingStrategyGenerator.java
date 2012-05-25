@@ -124,7 +124,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 	}
 	
 	private void addInnerClassParsingJob(JavaComposite sc) {
-		sc.add("private class ParsingJob extends " + JOB + "{");
+		sc.add("private class ParsingJob extends " + JOB + " {");
 		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.addLineBreak();
@@ -140,7 +140,19 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("try {");
 		sc.add("String currentContent = newContents;");
 		sc.add("newContents = null;");
-		sc.add("resource.reload(new " + BYTE_ARRAY_INPUT_STREAM + "(currentContent.getBytes()), null);");
+		sc.add("String encoding = null;");
+		sc.add("if (resource instanceof " + textResourceClassName + ") {");
+		sc.add(textResourceClassName + " concreteResource = (" + textResourceClassName + ") resource;");
+		// TODO we should pass the load options here
+		sc.add("encoding = concreteResource.getEncoding(null);");
+		sc.add("}");
+		sc.add("byte[] bytes = null;");
+		sc.add("if (encoding != null) {");
+		sc.add("bytes = currentContent.getBytes(encoding);");
+		sc.add("} else {");
+		sc.add("bytes = currentContent.getBytes();");
+		sc.add("}");
+		sc.add("resource.reload(new " + BYTE_ARRAY_INPUT_STREAM + "(bytes), null);");
 		sc.add("if (newContents != null) {");
 		sc.add("Thread.sleep(DELAY);");
 		sc.add("}");
