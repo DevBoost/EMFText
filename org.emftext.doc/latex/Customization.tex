@@ -729,3 +729,36 @@ The WebTest\footnote{\url{http://www.emftext.org/language/webtest}} and the
 Pico\footnote{\url{http://www.emftext.org/language/pico}} language in the
 EMFText Syntax Zoo contain custom interpreters and launch configurations. They
 can serve as a starting point to see how debugging support can be realized.
+
+\subsection{Working with Layout Information}
+
+Layout information is the information that is usually discarded when text
+is parsed into a model. It usually includes whitespaces, linebreaks and often
+comments. That is, all the tokens (cf. Section~\ref{sec:tokens}) that are not
+used in grammar rules.
+
+By default, layout information is collected by EMFText in the background
+and used durign printing to restore the orginal layout of model elements.
+However, sometimes it is also useful to have access to this information
+in the model and, if applicable, modify this information. This can for 
+example be used to access and modify comments.
+
+For this purpose, EMFText offers a dedicated layout metamodel 
+\emph{layout.ecore} 
+(with the namespace \emph{http://www.emftext.org/commons/layout}).
+It is located in the plugin
+\emph{org.emftext. commons.layout}.
+If you import the layout metamodel in your metamodel, you can obtain access
+to layout information. For this, you need to add references with multiplicity
+\texttt{*} to the EClass \emph{LayoutInformation} to each of your EClasses.
+(The preferred way of doing this is to have a comment super class for all your
+EClasses that contains this reference.) EMFText will then fill this reference with
+layout information during parsing. An example for using the layout metamodel
+is JaMoPP's Java metamodel.\footnote{\url{http://www.jamopp.org}}
+
+If you do not use layout information and want to discard it during parsing (to
+optimse memory usage) you may use the following option:
+\lstset{language=Java}
+\begin{lstlisting}
+IXyzOptions.DISABLE_LAYOUT_INFORMATION_RECORDING
+\end{lstlisting}
