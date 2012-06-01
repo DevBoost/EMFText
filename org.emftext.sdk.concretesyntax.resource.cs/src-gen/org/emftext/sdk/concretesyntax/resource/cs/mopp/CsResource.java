@@ -335,7 +335,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		return "cs";
 	}
 	
-	protected String getEncoding(java.util.Map<?, ?> options) {
+	public String getEncoding(java.util.Map<?, ?> options) {
 		String encoding = null;
 		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
 			encoding = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getPlatformResourceEncoding(uri);

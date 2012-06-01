@@ -79,7 +79,7 @@ public class CsBackgroundParsingStrategy {
 		}
 	}
 	
-	private class ParsingJob extends org.eclipse.core.runtime.jobs.Job{
+	private class ParsingJob extends org.eclipse.core.runtime.jobs.Job {
 		private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
 		private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 		
@@ -95,7 +95,18 @@ public class CsBackgroundParsingStrategy {
 					try {
 						String currentContent = newContents;
 						newContents = null;
-						resource.reload(new java.io.ByteArrayInputStream(currentContent.getBytes()), null);
+						String encoding = null;
+						if (resource instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) {
+							org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource concreteResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) resource;
+							encoding = concreteResource.getEncoding(null);
+						}
+						byte[] bytes = null;
+						if (encoding != null) {
+							bytes = currentContent.getBytes(encoding);
+						} else {
+							bytes = currentContent.getBytes();
+						}
+						resource.reload(new java.io.ByteArrayInputStream(bytes), null);
 						if (newContents != null) {
 							Thread.sleep(DELAY);
 						}
