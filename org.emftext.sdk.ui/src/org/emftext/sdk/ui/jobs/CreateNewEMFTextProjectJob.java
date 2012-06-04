@@ -114,8 +114,7 @@ public class CreateNewEMFTextProjectJob extends AbstractCreatePluginJob {
 
 	public IProject createProject(IProgressMonitor progress, IPluginDescriptor plugin, String pluginName) throws Exception {
 		progress.beginTask("Creating project", 2);
-		IProject getProject = getProject(pluginName);
-		IProject project = getProject;
+		IProject project = getProject(pluginName);
 		if (!project.exists()) {
 			project.create(new NullProgressMonitor());
 		}
