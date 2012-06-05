@@ -737,29 +737,36 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected void mark(org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic diagnostic) {
-		if (isMarkerCreationEnabled() && new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
-			if (markerHelper == null) {
-				markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
-			}
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper markerHelper = getMarkerHelper();
+		if (markerHelper != null) {
 			markerHelper.mark(this, diagnostic);
 		}
 	}
+	
 	protected void unmark(org.eclipse.emf.ecore.EObject cause) {
-		if (isMarkerCreationEnabled() && new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
-			if (markerHelper == null) {
-				markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
-			}
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper markerHelper = getMarkerHelper();
+		if (markerHelper != null) {
 			markerHelper.unmark(this, cause);
 		}
 	}
+	
 	protected void unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType analysisProblem) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper markerHelper = getMarkerHelper();
+		if (markerHelper != null) {
+			markerHelper.unmark(this, analysisProblem);
+		}
+	}
+	
+	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper getMarkerHelper() {
 		if (isMarkerCreationEnabled() && new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformAvailable()) {
 			if (markerHelper == null) {
 				markerHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper();
 			}
-			markerHelper.unmark(this, analysisProblem);
+			return markerHelper;
 		}
+		return null;
 	}
+	
 	public boolean isMarkerCreationEnabled() {
 		if (loadOptions == null) {
 			return true;
