@@ -94,6 +94,9 @@ public class GenerateAllAction implements IObjectActionDelegate {
 			final IFile file = (IFile) resource;
 			String fileExtension = file.getFileExtension();
 			Job job = null;
+			if (fileExtension == null) {
+				return;
+			}
 			if (fileExtension.equals(new CsMetaInformation().getSyntaxName())) {
 				job = new GenerateResourcePluginsJob("Generating resource project for " + file.getName(), file);
 			} else if (fileExtension.equals("genmodel")) {
