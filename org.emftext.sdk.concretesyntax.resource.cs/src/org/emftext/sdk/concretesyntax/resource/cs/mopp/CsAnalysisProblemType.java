@@ -91,7 +91,10 @@ public enum CsAnalysisProblemType {
 	INVALID_START_SYMBOL(CsEProblemSeverity.ERROR),
 	NO_SYNTAX_FOR_CONTAINMENT_REFERENCE(CsEProblemSeverity.ERROR),
 	UNREACHABLE_RULE(CsEProblemSeverity.WARNING), 
-	ECLIPSE_DEPENDENCY_CONFLICT(CsEProblemSeverity.ERROR),
+	ECLIPSE_DEPENDENCY_CONFLICT(CsEProblemSeverity.ERROR), 
+	UNCHANGABLE_REFERENCE(CsEProblemSeverity.ERROR), 
+	DERIVED_REFERENCE(CsEProblemSeverity.ERROR), 
+	VOLATILE_REFERENCE(CsEProblemSeverity.ERROR),
 	;
 
 	private CsEProblemSeverity severity;

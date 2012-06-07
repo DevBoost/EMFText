@@ -22,6 +22,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.IFunction1;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
@@ -53,6 +54,14 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
+		checkReferencedTypes(syntax);
+		checkReferenceProperties(syntax);
+	}
+
+	/**
+	 * Checks whether the is syntax defined for referenced types.
+	 */
+	private void checkReferencedTypes(ConcreteSyntax syntax) {
 		Collection<Containment> cReferencesToAbstractClassesWithoutConcreteSubtypes = new ArrayList<Containment>();
 		Collection<Containment> cReferencesToClassesWithoutSyntax = new ArrayList<Containment>();
 		
@@ -65,19 +74,52 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 		addDiagnostics(
 				syntax, 
 				cReferencesToAbstractClassesWithoutConcreteSubtypes,
-				"The type (%s) of containment reference '%s' is abstract and has no concrete sub classes with defined syntax."
+				"The type (%s) of containment reference '%s' is abstract and has no concrete sub classes with defined syntax.",
+				CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX,
+				CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_CONCRETE_SYNTAX
 		);
 		addDiagnostics(
 				syntax, 
 				cReferencesToClassesWithoutSyntax,
-				"There is no syntax for the type (%s) of reference '%s'."
+				"There is no syntax for the type (%s) of reference '%s'.",
+				CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX,
+				CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_CONCRETE_SYNTAX
 		);
-		
+	}
+
+	/**
+	 * Checks whether the used references have the correct properties (
+	 * changeable, not derived, not volatile).
+	 */
+	private void checkReferenceProperties(ConcreteSyntax syntax) {
+		// there must not be syntax for unchangeable references
 		Collection<Terminal> unchangeableReferences = findUnchangeableReferences(syntax);
 		addDiagnostics(
 				syntax, 
 				unchangeableReferences,
-				"Reference '%2$s' is not changeable."
+				"Reference '%2$s' is not changeable.",
+				CsAnalysisProblemType.UNCHANGABLE_REFERENCE,
+				CsAnalysisProblemType.UNCHANGABLE_REFERENCE
+		);
+		
+		// there must not be syntax for derived references
+		Collection<Terminal> derivedReferences = findDerivedReferences(syntax);
+		addDiagnostics(
+				syntax, 
+				derivedReferences,
+				"Reference '%2$s' is derived.",
+				CsAnalysisProblemType.DERIVED_REFERENCE,
+				CsAnalysisProblemType.DERIVED_REFERENCE
+		);
+		
+		// there must not be syntax for volatile references
+		Collection<Terminal> volatileReferences = findVolatileReferences(syntax);
+		addDiagnostics(
+				syntax, 
+				volatileReferences,
+				"Reference '%2$s' is volatile.",
+				CsAnalysisProblemType.VOLATILE_REFERENCE,
+				CsAnalysisProblemType.VOLATILE_REFERENCE
 		);
 	}
 	
@@ -86,22 +128,54 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 		return false;
 	}
 
-	private Collection<Terminal> findUnchangeableReferences(
-			ConcreteSyntax syntax) {
-		Collection<Terminal> unchangeableReferences = new ArrayList<Terminal>(); 
-		Collection<Terminal> teminals = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
-		for (Terminal terminal : teminals) {
-			if (!terminal.getFeature().isChangeable()) {
-				unchangeableReferences.add(terminal);
+	private Collection<Terminal> findUnchangeableReferences(ConcreteSyntax syntax) {
+		return findDerivedReferences(syntax, new IFunction1<Boolean, GenFeature>() {
+
+			@Override
+			public Boolean call(GenFeature genFeature) {
+				return !genFeature.isChangeable();
+			}
+		});
+	}
+
+	private Collection<Terminal> findDerivedReferences(ConcreteSyntax syntax) {
+		return findDerivedReferences(syntax, new IFunction1<Boolean, GenFeature>() {
+
+			@Override
+			public Boolean call(GenFeature genFeature) {
+				return genFeature.isDerived();
+			}
+		});
+	}
+
+	private Collection<Terminal> findVolatileReferences(ConcreteSyntax syntax) {
+		return findDerivedReferences(syntax, new IFunction1<Boolean, GenFeature>() {
+
+			@Override
+			public Boolean call(GenFeature genFeature) {
+				return genFeature.isVolatile();
+			}
+		});
+	}
+
+	private Collection<Terminal> findDerivedReferences(ConcreteSyntax syntax, IFunction1<Boolean, GenFeature> filter) {
+		Collection<Terminal> references = new ArrayList<Terminal>(); 
+		Collection<Terminal> terminals = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
+		for (Terminal terminal : terminals) {
+			if (filter.call(terminal.getFeature())) {
+				references.add(terminal);
 			}
 		}
-		return unchangeableReferences;
+		return references;
 	}
 
 	private void addDiagnostics(
 			ConcreteSyntax syntax,
 			Collection<? extends Terminal> cReferencesToAbstractClassesWithoutConcreteSubtypes,
-			String message) {
+			String message, 
+			CsAnalysisProblemType problemTypeForAbstractSyntax, 
+			CsAnalysisProblemType problemTypeForConcreteSyntax) {
+		
 		for (Terminal next : cReferencesToAbstractClassesWithoutConcreteSubtypes) {
 			GenFeature genFeature = next.getFeature();
 			if (genFeature == null) {
@@ -114,9 +188,9 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 			String formattedMessage = String.format(message, typeGenClass.getName(), genFeature.getName());
 			if (syntax.isAbstract()) {
 				// for abstract syntaxes a warning is sufficient
-				addProblem(CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_ABSTRACT_SYNTAX, formattedMessage, next);
+				addProblem(problemTypeForAbstractSyntax, formattedMessage, next);
 			} else {
-				addProblem(CsAnalysisProblemType.REFERENCE_TO_ABSTRACT_CLASS_WITHOUT_CONCRETE_SUBTYPES_IN_CONCRETE_SYNTAX, formattedMessage, next);
+				addProblem(problemTypeForConcreteSyntax, formattedMessage, next);
 			}
 		}
 	}
