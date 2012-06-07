@@ -94,7 +94,7 @@ public enum CsAnalysisProblemType {
 	ECLIPSE_DEPENDENCY_CONFLICT(CsEProblemSeverity.ERROR), 
 	UNCHANGABLE_REFERENCE(CsEProblemSeverity.ERROR), 
 	DERIVED_REFERENCE(CsEProblemSeverity.ERROR), 
-	VOLATILE_REFERENCE(CsEProblemSeverity.ERROR),
+	VOLATILE_REFERENCE(CsEProblemSeverity.WARNING),
 	;
 
 	private CsEProblemSeverity severity;
