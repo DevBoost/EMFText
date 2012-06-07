@@ -52,6 +52,9 @@ public class RegexReferenceTargetReferenceResolver implements ICsReferenceResolv
 		EList<Import> imports = syntax.getImports();
 		for (Import i : imports) {
 			ConcreteSyntax imported = i.getConcreteSyntax();
+			if (imported == null) {
+				continue;
+			}
 			Collection<NamedTokenDefinition> tokenDefs = CsEObjectUtil.getObjectsByType(imported.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getNamedTokenDefinition());
 			for (NamedTokenDefinition namedTokenDefinition : tokenDefs) {
 				String prefixedTokenName = i.getPrefix() +"." + namedTokenDefinition.getName();
