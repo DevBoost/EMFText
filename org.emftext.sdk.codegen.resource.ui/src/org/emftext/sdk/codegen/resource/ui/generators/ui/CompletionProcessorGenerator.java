@@ -102,6 +102,9 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 	private void addComputeCompletionProposalsMethod(JavaComposite sc) {
 		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeCompletionProposals(" + I_TEXT_VIEWER + " viewer, int offset) {");
 		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
+		sc.add("if (textResource == null) {");
+		sc.add("return new " + I_COMPLETION_PROPOSAL + "[0];");
+		sc.add("}");
 		sc.add("String content = viewer.getDocument().get();");
 		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
 		sc.add(completionProposalClassName + "[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);");
