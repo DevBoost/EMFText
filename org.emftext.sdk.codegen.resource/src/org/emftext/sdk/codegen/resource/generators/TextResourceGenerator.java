@@ -1258,25 +1258,29 @@ public class TextResourceGenerator extends
 	
 	private void addMarkMethod(JavaComposite sc) {
 		sc.add("protected void mark(" + iTextDiagnosticClassName + " diagnostic) {");
-		sc.add(markerHelperClassName + " markerHelper = getMarkerHelper();");
-		sc.add("if (markerHelper != null) {");
-		sc.add("markerHelper.mark(this, diagnostic);");
-		sc.add("}");
+		if (removeEclipseDependentCode) {
+			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
+		} else {
+			sc.add(markerHelperClassName + " markerHelper = getMarkerHelper();");
+			sc.add("if (markerHelper != null) {");
+			sc.add("markerHelper.mark(this, diagnostic);");
+			sc.add("}");
+		}
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addGetMarkerHelperMethod(JavaComposite sc) {
 		sc.add("protected " + markerHelperClassName + " getMarkerHelper() {");
-		if (!removeEclipseDependentCode) {
+		if (removeEclipseDependentCode) {
+			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
+		} else {
 			sc.add("if (isMarkerCreationEnabled() && new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
 			sc.add("if (markerHelper == null) {");
 			sc.add("markerHelper = new " + markerHelperClassName + "();");
 			sc.add("}");
 			sc.add("return markerHelper;");
 			sc.add("}");
-		} else {
-			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
 		}
 		sc.add("return null;");
 		sc.add("}");
@@ -1285,20 +1289,28 @@ public class TextResourceGenerator extends
 	
 	private void addUnmarkMethod1(JavaComposite sc) {
 		sc.add("protected void unmark(" + E_OBJECT + " cause) {");
-		sc.add(markerHelperClassName + " markerHelper = getMarkerHelper();");
-		sc.add("if (markerHelper != null) {");
-		sc.add("markerHelper.unmark(this, cause);");
-		sc.add("}");
+		if (removeEclipseDependentCode) {
+			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
+		} else {
+			sc.add(markerHelperClassName + " markerHelper = getMarkerHelper();");
+			sc.add("if (markerHelper != null) {");
+			sc.add("markerHelper.unmark(this, cause);");
+			sc.add("}");
+		}
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addUnmarkMethod2(JavaComposite sc) {
 		sc.add("protected void unmark(" + eProblemTypeClassName + " analysisProblem) {");
-		sc.add(markerHelperClassName + " markerHelper = getMarkerHelper();");
-		sc.add("if (markerHelper != null) {");
-		sc.add("markerHelper.unmark(this, analysisProblem);");
-		sc.add("}");
+		if (removeEclipseDependentCode) {
+			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
+		} else {
+			sc.add(markerHelperClassName + " markerHelper = getMarkerHelper();");
+			sc.add("if (markerHelper != null) {");
+			sc.add("markerHelper.unmark(this, analysisProblem);");
+			sc.add("}");
+		}
 		sc.add("}");
 		sc.addLineBreak();
 	}
