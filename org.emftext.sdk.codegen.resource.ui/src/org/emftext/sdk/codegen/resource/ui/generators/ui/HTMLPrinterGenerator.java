@@ -63,7 +63,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	private void addHtml2textMethod(JavaComposite sc) {
 		sc.add("public static String html2text(" + STRING_READER + " stringReader, " + TEXT_PRESENTATION + " presentation) throws " + IO_EXCEPTION + " {");
 		sc.add("HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);");
-		sc.add("return html2TextReader.getString();");
+		sc.add("String text = html2TextReader.getString();");
+		sc.add("html2TextReader.close();");
+		sc.add("return text;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
