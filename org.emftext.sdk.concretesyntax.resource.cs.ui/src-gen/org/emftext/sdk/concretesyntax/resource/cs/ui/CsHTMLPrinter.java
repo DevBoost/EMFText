@@ -562,7 +562,6 @@ public class CsHTMLPrinter {
 		HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);
 		String text = html2TextReader.getString();
 		html2TextReader.close();
-		System.out.println("CsHTMLPrinter.html2text()");
 		return text;
 	}
 	
