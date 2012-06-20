@@ -195,6 +195,7 @@ import org.emftext.sdk.codegen.resource.generators.util.CopiedEObjectInternalELi
 import org.emftext.sdk.codegen.resource.generators.util.EClassUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.EObjectUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.EclipseProxyGenerator;
+import org.emftext.sdk.codegen.resource.generators.util.InterruptibleEcoreResolverGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.LayoutUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.ListUtilGenerator;
 import org.emftext.sdk.codegen.resource.generators.util.MapUtilGenerator;
@@ -409,6 +410,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UNICODE_CONVERTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "UnicodeConverter", UnicodeConverterGenerator.class, OptionTypes.OVERRIDE_UNICODE_CONVERTER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> URI_UTIL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "URIUtil", URIUtilGenerator.class, OptionTypes.OVERRIDE_URI_UTIL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ABSTRACT_INTERPRETER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "Abstract", "Interpreter", AbstractInterpreterGenerator.class, OptionTypes.OVERRIDE_ABSTRACT_INTERPRETER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> INTERRUPTIBLE_ECORE_RESOLVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UTIL_PACKAGE, "", "InterruptibleEcoreResolver", InterruptibleEcoreResolverGenerator.class, OptionTypes.OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_GRAMMAR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "ANTLR grammar", "", ANTLRGrammarGenerator.class, OptionTypes.OVERRIDE_PARSER); 
 	

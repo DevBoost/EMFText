@@ -192,8 +192,6 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 	}
 
-
-
 	private void addGetLayoutInformationAdapterMethod(StringComposite sc) {
 		sc.add("public " + layoutInformationAdapterClassName + " getLayoutInformationAdapter(" + E_OBJECT + " element) {");
 		sc.add("for (" + ADAPTER + " adapter : element.eAdapters()) {");

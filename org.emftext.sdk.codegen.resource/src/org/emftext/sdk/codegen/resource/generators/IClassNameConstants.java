@@ -123,6 +123,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -368,6 +369,8 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String URL = URL.class.getName();
 	public static String ZIP_ENTRY = ZipEntry.class.getName();
 	public static String ZIP_FILE = ZipFile.class.getName();
+	
+	public static String I_SCHEDULING_RULE = ISchedulingRule.class.getName();
 
 	// for the classes contained in the org.eclipse.debug plug-in, we use string 
 	// constants instead of referencing the class objects, because this cause

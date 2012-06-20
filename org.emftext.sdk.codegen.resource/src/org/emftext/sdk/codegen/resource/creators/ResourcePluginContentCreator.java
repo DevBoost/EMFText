@@ -306,6 +306,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
     	add(creators, TextResourceArtifacts.I_BUILDER);
 	    add(creators, TextResourceArtifacts.NATURE);
 	    add(creators, TextResourceArtifacts.ABSTRACT_INTERPRETER);
+	    add(creators, TextResourceArtifacts.INTERRUPTIBLE_ECORE_RESOLVER);
 	    add(creators, TextResourceArtifacts.RESOURCE_POST_PROCESSOR);
 	    
 	    add(creators, TextResourceArtifacts.TEXT_TOKEN);

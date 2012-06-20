@@ -2960,7 +2960,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UI_ANTLR_TOKEN_HELPER(295, "OVERRIDE_UI_ANTLR_TOKEN_HELPER", "overrideUIAntlrTokenHelper");
+	OVERRIDE_UI_ANTLR_TOKEN_HELPER(295, "OVERRIDE_UI_ANTLR_TOKEN_HELPER", "overrideUIAntlrTokenHelper"), /**
+	 * The '<em><b>OVERRIDE INTERRUPTIBLE ECORE RESOLVER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER(296, "OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER", "overrideInterruptibleEcoreResolver");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7065,6 +7073,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_UI_ANTLR_TOKEN_HELPER_VALUE = 295;
 
 	/**
+	 * The '<em><b>OVERRIDE INTERRUPTIBLE ECORE RESOLVER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE INTERRUPTIBLE ECORE RESOLVER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER
+	 * @model literal="overrideInterruptibleEcoreResolver"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER_VALUE = 296;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7365,6 +7388,7 @@ public enum OptionTypes implements Enumerator {
 			EDITOR_NAME,
 			OVERRIDE_LAYOUT_UTIL,
 			OVERRIDE_UI_ANTLR_TOKEN_HELPER,
+			OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER,
 		};
 
 	/**
@@ -7706,6 +7730,7 @@ public enum OptionTypes implements Enumerator {
 			case EDITOR_NAME_VALUE: return EDITOR_NAME;
 			case OVERRIDE_LAYOUT_UTIL_VALUE: return OVERRIDE_LAYOUT_UTIL;
 			case OVERRIDE_UI_ANTLR_TOKEN_HELPER_VALUE: return OVERRIDE_UI_ANTLR_TOKEN_HELPER;
+			case OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER_VALUE: return OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER;
 		}
 		return null;
 	}

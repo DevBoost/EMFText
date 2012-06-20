@@ -26,6 +26,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SCHEDULING_RULE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.JOB;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
@@ -65,6 +66,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		if (!removeEclipseDependentCode) {
 			addFields(sc);
+			addInnerClassMutexRule(sc);
 			addInnerClassMarkerCommandQueue(sc);
 			addMethods(sc);
 		} else {
@@ -74,10 +76,26 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 	}
 
+	private void addInnerClassMutexRule(JavaComposite sc) {
+		sc.add("public static class MutexRule implements " + I_SCHEDULING_RULE + " {");
+		sc.addLineBreak();
+		sc.add("public boolean isConflicting(" + I_SCHEDULING_RULE + " rule) {");
+		sc.add("return rule == this;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public boolean contains(" + I_SCHEDULING_RULE + " rule) {");
+		sc.add("return rule == this;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addInnerClassMarkerCommandQueue(JavaComposite sc) {
 		sc.add("private static class MarkerCommandQueue {");
 		sc.addLineBreak();
 		sc.add("private " + LIST + "<" + iCommandClassName + "<Object>> commands = new " + ARRAY_LIST + "<" + iCommandClassName + "<Object>>();");
+		sc.addLineBreak();
+		sc.add("private MutexRule schedulingRule = new MutexRule();");
 		sc.addLineBreak();
 		sc.add("public void addCommand(" + iCommandClassName + "<Object> command) {");
 		sc.add("synchronized(commands) {");
@@ -99,6 +117,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
 		sc.add("};");
+		sc.add("job.setRule(schedulingRule);");
 		sc.add("job.schedule();");
 		sc.add("}");
 		sc.add("}");
