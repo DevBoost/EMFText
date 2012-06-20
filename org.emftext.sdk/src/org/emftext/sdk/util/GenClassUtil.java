@@ -84,6 +84,9 @@ public class GenClassUtil {
 	public boolean isSuperClass(GenClass superClass, GenClass subClass, GenClassCache genClassCache) {
 		List<GenClass> superClasses = subClass.getAllBaseGenClasses();
 		for (GenClass nextSuperclass : superClasses) {
+			if (nextSuperclass == null) {
+				continue;
+			}
 			if (genClassCache.getQualifiedInterfaceName(nextSuperclass).equals(genClassCache.getQualifiedInterfaceName(superClass))) {
 				return true;
 			}
