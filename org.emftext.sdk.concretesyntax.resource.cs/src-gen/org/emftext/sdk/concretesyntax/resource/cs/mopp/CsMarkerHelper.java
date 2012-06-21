@@ -45,9 +45,22 @@ public class CsMarkerHelper {
 	 */
 	private final static MarkerCommandQueue COMMAND_QUEUE = new MarkerCommandQueue();
 	
+	public static class MutexRule implements org.eclipse.core.runtime.jobs.ISchedulingRule {
+		
+		public boolean isConflicting(org.eclipse.core.runtime.jobs.ISchedulingRule rule) {
+			return rule == this;
+		}
+		
+		public boolean contains(org.eclipse.core.runtime.jobs.ISchedulingRule rule) {
+			return rule == this;
+		}
+	}
+	
 	private static class MarkerCommandQueue {
 		
 		private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>> commands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object>>();
+		
+		private MutexRule schedulingRule = new MutexRule();
 		
 		public void addCommand(org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<Object> command) {
 			synchronized(commands) {
@@ -69,6 +82,7 @@ public class CsMarkerHelper {
 						return org.eclipse.core.runtime.Status.OK_STATUS;
 					}
 				};
+				job.setRule(schedulingRule);
 				job.schedule();
 			}
 		}
