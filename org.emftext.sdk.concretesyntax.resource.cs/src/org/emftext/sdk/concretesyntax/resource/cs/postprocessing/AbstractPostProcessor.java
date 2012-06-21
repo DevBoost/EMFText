@@ -28,6 +28,7 @@ import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsInterruptibleEcoreResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 import org.emftext.sdk.regex.TokenSorter;
 
@@ -46,6 +47,7 @@ public abstract class AbstractPostProcessor {
 	protected static final TokenSorter tokenSorter = new TokenSorter();
 	
 	private PostProcessingContext context;
+	private CsInterruptibleEcoreResolver resolveUtil = new CsInterruptibleEcoreResolver();
 
 	private boolean terminate;
 
@@ -64,7 +66,8 @@ public abstract class AbstractPostProcessor {
 			// which carries this information. this adapter must also react to all changes
 			// made to the resource in order to trigger proxy resolution again after the
 			// resource has changed.
-			if (!CsResourceUtil.resolveAll(resource)) {
+			resolveUtil.resolveAll(resource);
+			if (CsResourceUtil.findUnresolvedProxies(resource).size() > 0) {
 				return;
 			}
 		}
@@ -142,6 +145,7 @@ public abstract class AbstractPostProcessor {
 	public abstract void analyse(ConcreteSyntax syntax);
 
 	public void terminate() {
+		this.resolveUtil.terminate();
 		this.terminate = true;
 	}
 	
