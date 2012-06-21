@@ -162,6 +162,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private java.util.List<org.eclipse.emf.common.notify.Notification> delayedNotifications = new java.util.ArrayList<org.eclipse.emf.common.notify.Notification>();
 	private java.io.InputStream latestReloadInputStream = null;
 	private java.util.Map<?, ?> latestReloadOptions = null;
+	private org.emftext.sdk.concretesyntax.resource.cs.util.CsInterruptibleEcoreResolver interruptibleResolver;
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	
@@ -305,13 +306,20 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * terminated.
 	 */
 	protected void cancelReload() {
+		// Cancel parser
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parserCopy = parser;
 		if (parserCopy != null) {
 			parserCopy.terminate();
 		}
+		// Cancel post processor(s)
 		org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor runningPostProcessorCopy = runningPostProcessor;
 		if (runningPostProcessorCopy != null) {
 			runningPostProcessorCopy.terminate();
+		}
+		// Cancel reference resolving
+		org.emftext.sdk.concretesyntax.resource.cs.util.CsInterruptibleEcoreResolver interruptibleResolverCopy = interruptibleResolver;
+		if (interruptibleResolverCopy != null) {
+			interruptibleResolverCopy.terminate();
 		}
 	}
 	
