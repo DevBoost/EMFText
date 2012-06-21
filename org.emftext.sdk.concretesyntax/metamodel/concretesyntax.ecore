@@ -2038,7 +2038,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the AntlrTokenHelper class in the UI plug-in will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER" value="296" literal="overrideInterruptibleEcoreResolver"/>
+    <eLiterals name="OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER" value="296" literal="overrideInterruptibleEcoreResolver">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the InterruptibleEcoreResolver class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

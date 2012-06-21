@@ -4788,6 +4788,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>false</code>, the AntlrTokenHelper class in the UI plug-in will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(293), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the InterruptibleEcoreResolver class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {
