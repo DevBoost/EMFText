@@ -515,7 +515,9 @@ public class TextResourceGenerator extends
 
 		sc.add("protected void resolveAfterParsing() {");
 		if (resolveProxies) {
-			sc.add(ECORE_UTIL + ".resolveAll(this);");
+			sc.add("interruptibleResolver = new " + interruptibleEcoreResolverClassName + "();");
+			sc.add("interruptibleResolver.resolveAll(this);");
+			sc.add("interruptibleResolver = null;");
 		} else {
 			sc.addComment("Automatic proxy resolving after parsing was disabled by option " + OptionTypes.RESOLVE_PROXY_ELEMENTS_AFTER_PARSING.getLiteral() + ".");
 		}
@@ -923,6 +925,7 @@ public class TextResourceGenerator extends
 		sc.add("private " + INPUT_STREAM + " latestReloadInputStream = null;");
 		sc.add("private " + MAP + "<?, ?> latestReloadOptions = null;");
 		
+		sc.add("private " + interruptibleEcoreResolverClassName + " interruptibleResolver;");
 		sc.addLineBreak();
 		
 		generatorUtil.addMetaInformationField(sc, getContext());
@@ -1185,14 +1188,21 @@ public class TextResourceGenerator extends
 	private void addCancelReloadMethod(JavaComposite sc) {
 		sc.addJavadoc("Cancels reloading this resource. The running parser and post processors are terminated.");
 		sc.add("protected void cancelReload() {");
+		sc.addComment("Cancel parser");
 		sc.add(iTextParserClassName + " parserCopy = parser;");
 		sc.add("if (parserCopy != null) {");
 		sc.add("parserCopy.terminate();");
 		sc.add("}");
+		sc.addComment("Cancel post processor(s)");
 		sc.add(iResourcePostProcessorClassName
 				+ " runningPostProcessorCopy = runningPostProcessor;");
 		sc.add("if (runningPostProcessorCopy != null) {");
 		sc.add("runningPostProcessorCopy.terminate();");
+		sc.add("}");
+		sc.addComment("Cancel reference resolving");
+		sc.add(interruptibleEcoreResolverClassName + " interruptibleResolverCopy = interruptibleResolver;");
+		sc.add("if (interruptibleResolverCopy != null) {");
+		sc.add("interruptibleResolverCopy.terminate();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

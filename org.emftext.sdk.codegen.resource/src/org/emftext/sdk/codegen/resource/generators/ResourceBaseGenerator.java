@@ -112,6 +112,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String iLocationMapClassName;
 	protected String iMetaInformationClassName;
 	protected String iNameProviderClassName;
+	protected String interruptibleEcoreResolverClassName;
 	protected String iOptionProviderClassName;
 	protected String iOptionsClassName;
 	protected String iParseResultClassName;
@@ -292,6 +293,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		iLocationMapClassName = context.getQualifiedClassName(TextResourceArtifacts.I_LOCATION_MAP);
 		iMetaInformationClassName = context.getQualifiedClassName(TextResourceArtifacts.I_META_INFORMATION);
 		iNameProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_NAME_PROVIDER);
+		interruptibleEcoreResolverClassName = context.getQualifiedClassName(TextResourceArtifacts.INTERRUPTIBLE_ECORE_RESOLVER);
 		iOptionProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTION_PROVIDER);
 		iOptionsClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
 		iParseResultClassName = context.getQualifiedClassName(TextResourceArtifacts.I_PARSE_RESULT);
