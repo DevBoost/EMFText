@@ -42,6 +42,7 @@ import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -70,6 +71,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addFindUnresolvedProxiesMethod2(sc);
 		addFindUnresolvedProxiesMethod1(sc);
 		addResolveAllMethod(sc);
+		addGetProxyIdentifierMethod(sc);
 		addGetResourceMethod1(sc);
 		addGetResourceMethod2(sc);
 		addGetResourceMethod3(sc);
@@ -83,6 +85,14 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addContainsErrorsMethod(sc);
 		addContainsWarningsMethod(sc);
 		addContainsProblemsMethod(sc);
+	}
+
+	private void addGetProxyIdentifierMethod(JavaComposite sc) {
+		sc.add("public static String getProxyIdentifier(" + E_OBJECT + " eObject) {");
+		new GeneratorUtil().addCodeToDeresolveProxyObject(sc, iContextDependentUriFragmentClassName, "eObject");
+		sc.add("return deresolvedReference;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetTextMethod(JavaComposite sc) {
