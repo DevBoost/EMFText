@@ -317,10 +317,8 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		String css = styleSheet;
 		// Sets background color for the hover text window
 		css += "body {background-color:#FFFFE1;}\n";
-		if (css != null) {
-			org.eclipse.swt.graphics.FontData fontData = org.eclipse.jface.resource.JFaceResources.getFontRegistry().getFontData(FONT)[0];
-			css = org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.convertTopLevelFont(css, fontData);
-		}
+		org.eclipse.swt.graphics.FontData fontData = org.eclipse.jface.resource.JFaceResources.getFontRegistry().getFontData(FONT)[0];
+		css = org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.convertTopLevelFont(css, fontData);
 		
 		return css;
 	}

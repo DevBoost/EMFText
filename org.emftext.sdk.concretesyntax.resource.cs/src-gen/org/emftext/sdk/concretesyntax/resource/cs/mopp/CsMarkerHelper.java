@@ -73,18 +73,15 @@ public class CsMarkerHelper {
 		}
 		
 		private void scheduleRunCommandsJob() {
-			org.eclipse.core.runtime.jobs.Job job = null;
-			if (job == null || job.getState() != org.eclipse.core.runtime.jobs.Job.RUNNING) {
-				job = new org.eclipse.core.runtime.jobs.Job("updating markers") {
-					@Override					
-					protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
-						runCommands();
-						return org.eclipse.core.runtime.Status.OK_STATUS;
-					}
-				};
-				job.setRule(schedulingRule);
-				job.schedule();
-			}
+			org.eclipse.core.runtime.jobs.Job job = new org.eclipse.core.runtime.jobs.Job("updating markers") {
+				@Override				
+				protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
+					runCommands();
+					return org.eclipse.core.runtime.Status.OK_STATUS;
+				}
+			};
+			job.setRule(schedulingRule);
+			job.schedule();
 		}
 		
 		public void runCommands() {
