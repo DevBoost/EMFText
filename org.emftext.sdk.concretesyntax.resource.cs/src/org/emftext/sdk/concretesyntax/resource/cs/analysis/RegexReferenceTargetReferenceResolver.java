@@ -61,7 +61,7 @@ public class RegexReferenceTargetReferenceResolver implements ICsReferenceResolv
 				if (resolveFuzzy) {
 					result.addMapping(prefixedTokenName, namedTokenDefinition);
 				} else {
-					if (prefixedTokenName != null && prefixedTokenName.equals(identifier)) {
+					if (prefixedTokenName.equals(identifier)) {
 						result.addMapping(prefixedTokenName, namedTokenDefinition);
 						return;
 					}
