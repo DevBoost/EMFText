@@ -37,7 +37,7 @@ public class GenPackageDependentElementPackageReferenceResolver implements ICsRe
 		if (searchResult == null || searchResult.getFoundPackages().isEmpty()) {
 			String message = "Generator model \"" + nsURI + "\" could not be resolved.";
 			if (locationHint != null) {
-				if (searchResult.isLocationHintCorrect()) {
+				if (searchResult != null && searchResult.isLocationHintCorrect()) {
 					message += " The GenModel at the given URI (" + locationHint + ") does not contain a matching GenPackage.";
 				} else {
 					message += " Maybe " + locationHint + " is wrong?";
