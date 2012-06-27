@@ -289,10 +289,8 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("String css = styleSheet;");
 		sc.addComment("Sets background color for the hover text window");
 		sc.add("css += \"body {background-color:#FFFFE1;}\\n\";");
-		sc.add("if (css != null) {");
 		sc.add(FONT_DATA + " fontData = " + J_FACE_RESOURCES + ".getFontRegistry().getFontData(FONT)[0];");
 		sc.add("css = " + htmlPrinterClassName + ".convertTopLevelFont(css, fontData);");
-		sc.add("}");
 		sc.addLineBreak();
 		sc.add("return css;");
 		sc.add("}");
