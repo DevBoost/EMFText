@@ -159,7 +159,7 @@ public class BooleanTerminalItemProvider
 		label += " : ";
 		label += "".equals(falseLiteral) ? "EMPTY" : falseLiteral;
 		label += " (false)";
-		return label == null || label.length() == 0 ?
+		return label.length() == 0 ?
 			getString("_UI_BooleanTerminal_type") :
 			getString("_UI_BooleanTerminal_type") + " " + label;
 	}
