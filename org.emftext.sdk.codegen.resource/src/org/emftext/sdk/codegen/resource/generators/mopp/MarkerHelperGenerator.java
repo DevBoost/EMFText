@@ -108,9 +108,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void scheduleRunCommandsJob() {");
-		sc.add(JOB + " job = null;");
-		sc.add("if (job == null || job.getState() != " + JOB + ".RUNNING) {");
-		sc.add("job = new " + JOB + "(\"updating markers\") {");
+		sc.add(JOB + " job = new " + JOB + "(\"updating markers\") {");
 		sc.add("@Override").addLineBreak();	
 		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
 		sc.add("runCommands();");
@@ -119,7 +117,6 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("};");
 		sc.add("job.setRule(schedulingRule);");
 		sc.add("job.schedule();");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		
