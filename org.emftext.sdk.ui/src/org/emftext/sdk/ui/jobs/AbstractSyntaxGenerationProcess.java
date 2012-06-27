@@ -63,7 +63,7 @@ public abstract class AbstractSyntaxGenerationProcess extends AbstractSyntaxGene
 		}
 		
 		EObject currentSyntax = null;
-		if (csResource != null && csResource.getContents().size() > 0) {
+		if (csResource.getContents().size() > 0) {
 			currentSyntax = csResource.getContents().get(0);
 		}
 		
