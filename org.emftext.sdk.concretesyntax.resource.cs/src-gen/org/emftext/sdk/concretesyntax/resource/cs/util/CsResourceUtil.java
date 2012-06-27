@@ -81,6 +81,23 @@ public class CsResourceUtil {
 		}
 	}
 	
+	public static String getProxyIdentifier(org.eclipse.emf.ecore.EObject eObject) {
+		String deresolvedReference = null;
+		if (eObject instanceof org.eclipse.emf.ecore.EObject) {
+			org.eclipse.emf.ecore.EObject eObjectToDeResolve = (org.eclipse.emf.ecore.EObject) eObject;
+			if (eObjectToDeResolve.eIsProxy()) {
+				deresolvedReference = ((org.eclipse.emf.ecore.InternalEObject) eObjectToDeResolve).eProxyURI().fragment();
+				// If the proxy was created by EMFText, we can try to recover the identifier from
+				// the proxy URI
+				if (deresolvedReference != null && deresolvedReference.startsWith(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
+					deresolvedReference = deresolvedReference.substring(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
+					deresolvedReference = deresolvedReference.substring(deresolvedReference.indexOf("_") + 1);
+				}
+			}
+		}
+		return deresolvedReference;
+	}
+	
 	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(java.io.File file) {
 		return getResource(file, null);
 	}

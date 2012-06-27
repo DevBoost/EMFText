@@ -362,11 +362,13 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("} else {");
 		sc.add("previousParent = parent;");
 		sc.add("parent = containerClass.getEPackage().getEFactoryInstance().create(containerClass);");
+		sc.add("if (parent != null) {");
 		sc.add("if (previousParent == null) {");
 		sc.addComment("replace container for expectedTerminal with correctContainer");
 		sc.add("correctContainer = parent;");
 		sc.add("} else {");
 		sc.add(eObjectUtilClassName + ".setFeature(parent, previousLink.getFeature(), previousParent, false);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -390,7 +392,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("final " + E_OBJECT + " finalHookableParent = hookableParent;");
 		sc.add("final " + E_STRUCTURAL_FEATURE + " finalFeature = currentLink.getFeature();");
 		sc.add("final " + E_OBJECT + " finalParent = parent;");
-		sc.add("if (parent != null) {");
+		sc.add("if (parent != null && hookableParent != null) {");
 		sc.add("expectedTerminal.setAttachmentCode(new Runnable() {");
 		sc.addLineBreak();
 		sc.add("public void run() {");

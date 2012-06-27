@@ -504,11 +504,13 @@ public class CsCodeCompletionHelper {
 			} else {
 				previousParent = parent;
 				parent = containerClass.getEPackage().getEFactoryInstance().create(containerClass);
-				if (previousParent == null) {
-					// replace container for expectedTerminal with correctContainer
-					correctContainer = parent;
-				} else {
-					org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(parent, previousLink.getFeature(), previousParent, false);
+				if (parent != null) {
+					if (previousParent == null) {
+						// replace container for expectedTerminal with correctContainer
+						correctContainer = parent;
+					} else {
+						org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(parent, previousLink.getFeature(), previousParent, false);
+					}
 				}
 			}
 		}
@@ -526,7 +528,7 @@ public class CsCodeCompletionHelper {
 		final org.eclipse.emf.ecore.EObject finalHookableParent = hookableParent;
 		final org.eclipse.emf.ecore.EStructuralFeature finalFeature = currentLink.getFeature();
 		final org.eclipse.emf.ecore.EObject finalParent = parent;
-		if (parent != null) {
+		if (parent != null && hookableParent != null) {
 			expectedTerminal.setAttachmentCode(new Runnable() {
 				
 				public void run() {
