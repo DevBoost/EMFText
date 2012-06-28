@@ -247,7 +247,7 @@ public class AutomatonRexpParser extends Parser {
 
 
             if (sign != null) {
-            	buf.append((sign!=null?sign.getText():null));
+            	buf.append(sign.getText());
             }
 
 
@@ -360,10 +360,10 @@ public class AutomatonRexpParser extends Parser {
 
 
             	if (signTerminal != null) {
-            		String resultString = transformIntoRegExpQuotes((signTerminal!=null?signTerminal.getText():null));
+            		String resultString = transformIntoRegExpQuotes(signTerminal.getText());
             		buf.append(resultString);
             	} else if (signTerminalDot != null) {
-            		buf.append((signTerminalDot!=null?signTerminalDot.getText():null));
+            		buf.append(signTerminalDot.getText());
             	}
 
 
@@ -835,7 +835,7 @@ public class AutomatonRexpParser extends Parser {
 
             buf.append(exp);
             if (sign != null) {
-            	buf.append((sign!=null?sign.getText():null));
+            	buf.append(sign.getText());
             }
 
 
