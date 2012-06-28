@@ -211,7 +211,7 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 	private void addDeResolveMethod2(JavaComposite sc) {
 		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container, String prefix, String suffix, String escapeCharacter) {");
 		sc.addComment("Step 1: convert Java object to text");
-		sc.add("String result = null;");
+		sc.add("String result = \"\";");
 		sc.add("if (value != null) {");
 		sc.add("result = value.toString();");
 		sc.add("}");
