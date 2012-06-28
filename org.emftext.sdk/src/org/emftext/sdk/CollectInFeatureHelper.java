@@ -52,12 +52,12 @@ public class CollectInFeatureHelper {
 
 	private boolean isCollectInFeatureWithoutImports(ConcreteSyntax syntax, EStructuralFeature feature) {
 		for (CompleteTokenDefinition tokenDefinition : syntax.getActiveTokens()) {
-			final String attributeName = tokenDefinition.getAttributeName();
-			final boolean isCollectToken = attributeName != null;
-			if (!isCollectToken) {
+			String attributeName = tokenDefinition.getAttributeName();
+			if (attributeName == null) {
+				// this is not a collect-in token. thus, ignore it.
 				continue;
 			}
-			final boolean namesMatch = attributeName.equals(feature.getName());
+			boolean namesMatch = attributeName.equals(feature.getName());
 			if (namesMatch) {
 				return true;
 			}
