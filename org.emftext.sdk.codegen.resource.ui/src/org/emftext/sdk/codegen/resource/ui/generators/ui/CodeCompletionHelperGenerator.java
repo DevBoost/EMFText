@@ -367,7 +367,14 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addComment("replace container for expectedTerminal with correctContainer");
 		sc.add("correctContainer = parent;");
 		sc.add("} else {");
-		sc.add(eObjectUtilClassName + ".setFeature(parent, previousLink.getFeature(), previousParent, false);");
+		sc.addComment(
+			"This assignment is only performed to get rid of a warning about a potential null pointer access. " +
+			"Variable 'previousLink' cannot be null here, because it is initialized for a loop iterations where " +
+			"i is greather than 0 and for the case where i equals zero, this path is never executed, because " +
+			"'previousParent' is null in this case."
+		);
+		sc.add(containedFeatureClassName + " link = previousLink;");
+		sc.add(eObjectUtilClassName + ".setFeature(parent, link.getFeature(), previousParent, false);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
