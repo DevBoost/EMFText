@@ -196,8 +196,7 @@ public class CsOccurrence {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 		org.eclipse.jface.text.rules.IToken token;
 		int defPosition = -1;
-		boolean isNull = definitionElement == null;
-		if (isNull) {
+		if (definitionElement == null) {
 			definitionElement = elementsAtDefinition.get(0);
 		}
 		org.eclipse.emf.ecore.resource.Resource resource = definitionElement.eResource();
@@ -225,7 +224,7 @@ public class CsOccurrence {
 			if (text != null && text.equals(tokenText) && tokenScanner.getTokenOffset() != defPosition) {
 				occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));
 				if (occEO != null) {
-					if ((isNull && elementsAtDefinition.contains(occEO)) || !isNull && definitionElement.equals(occEO)) {
+					if ((definitionElement == null && elementsAtDefinition.contains(occEO)) || definitionElement != null && definitionElement.equals(occEO)) {
 						addAnnotation(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY, text);
 					}
 				}
