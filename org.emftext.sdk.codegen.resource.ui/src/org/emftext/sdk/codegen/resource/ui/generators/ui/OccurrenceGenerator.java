@@ -160,8 +160,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.add(I_TOKEN + " token;");
 		sc.add("int defPosition = -1;");
-		sc.add("boolean isNull = definitionElement == null;");
-		sc.add("if (isNull) {");
+		sc.add("if (definitionElement == null) {");
 		sc.add("definitionElement = elementsAtDefinition.get(0);");
 		sc.add("}");
 		sc.add(RESOURCE + " resource = definitionElement.eResource();");
@@ -189,7 +188,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (text != null && text.equals(tokenText) && tokenScanner.getTokenOffset() != defPosition) {");
 		sc.add("occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));");
 		sc.add("if (occEO != null) {");
-		sc.add("if ((isNull && elementsAtDefinition.contains(occEO)) || !isNull && definitionElement.equals(occEO)) {");
+		sc.add("if ((definitionElement == null && elementsAtDefinition.contains(occEO)) || definitionElement != null && definitionElement.equals(occEO)) {");
 		sc.add("addAnnotation(document, " + positionCategoryClassName + ".PROXY, text);");
 		sc.add("}");
 		sc.add("}");
