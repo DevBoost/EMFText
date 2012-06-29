@@ -509,7 +509,13 @@ public class CsCodeCompletionHelper {
 						// replace container for expectedTerminal with correctContainer
 						correctContainer = parent;
 					} else {
-						org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(parent, previousLink.getFeature(), previousParent, false);
+						// This assignment is only performed to get rid of a warning about a potential
+						// null pointer access. Variable 'previousLink' cannot be null here, because it is
+						// initialized for all loop iterations where 'i' is greather than 0 and for the
+						// case where 'i' equals zero, this path is never executed, because
+						// 'previousParent' is null in this case.
+						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature link = previousLink;
+						org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.setFeature(parent, link.getFeature(), previousParent, false);
 					}
 				}
 			}
