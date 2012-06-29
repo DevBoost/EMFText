@@ -219,10 +219,28 @@ public class CsHoverTextProvider implements ICsHoverTextProvider {
 		}
 		String documentation = EcoreUtil.getDocumentation(eClass);
 		String documentationHTML = documentation == null ? "" : " (" + documentation +")";
-		String label = "<strong>" + eClass.getName() + "</strong>" + nameValue + booleanAttributeValue + documentationHTML;
+		String superClassText = getSuperClassesString(eObject);
+		String label = "<strong>" + eClass.getName() + "</strong>" + nameValue + superClassText + booleanAttributeValue + documentationHTML;
 		label += nonBooleanAttributes.toString();
 		label += referencesHTML;
 		return label;
+	}
+
+	private String getSuperClassesString(EObject eObject) {
+		List<EClass> superTypes = new ArrayList<EClass>();
+		if (eObject instanceof EClass) {
+			EClass casted = (EClass) eObject;
+			superTypes = casted.getEAllSuperTypes();
+		}
+		List<String> superClasses = new ArrayList<String>();
+		for (EClass superType : superTypes) {
+			superClasses.add(superType.getName());
+		}
+		String superClassText = CsStringUtil.explode(superClasses, ", ");
+		if (!superClassText.trim().isEmpty()) {
+			superClassText = " <strong>extends</strong> " + superClassText;
+		}
+		return superClassText;
 	}
 
 	private String getBooleanString(EObject eObject) {
