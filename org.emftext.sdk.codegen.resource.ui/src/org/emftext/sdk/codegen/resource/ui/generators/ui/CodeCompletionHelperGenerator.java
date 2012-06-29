@@ -369,8 +369,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("} else {");
 		sc.addComment(
 			"This assignment is only performed to get rid of a warning about a potential null pointer access. " +
-			"Variable 'previousLink' cannot be null here, because it is initialized for a loop iterations where " +
-			"i is greather than 0 and for the case where i equals zero, this path is never executed, because " +
+			"Variable 'previousLink' cannot be null here, because it is initialized for all loop iterations where " +
+			"'i' is greather than 0 and for the case where 'i' equals zero, this path is never executed, because " +
 			"'previousParent' is null in this case."
 		);
 		sc.add(containedFeatureClassName + " link = previousLink;");
