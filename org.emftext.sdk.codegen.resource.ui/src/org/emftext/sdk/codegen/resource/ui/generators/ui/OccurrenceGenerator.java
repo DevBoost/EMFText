@@ -188,7 +188,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (text != null && text.equals(tokenText) && tokenScanner.getTokenOffset() != defPosition) {");
 		sc.add("occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));");
 		sc.add("if (occEO != null) {");
-		sc.add("if ((definitionElement == null && elementsAtDefinition.contains(occEO)) || definitionElement != null && definitionElement.equals(occEO)) {");
+		sc.add("if (elementsAtDefinition.contains(occEO) || definitionElement.equals(occEO)) {");
 		sc.add("addAnnotation(document, " + positionCategoryClassName + ".PROXY, text);");
 		sc.add("}");
 		sc.add("}");
