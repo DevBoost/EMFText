@@ -224,7 +224,7 @@ public class CsOccurrence {
 			if (text != null && text.equals(tokenText) && tokenScanner.getTokenOffset() != defPosition) {
 				occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));
 				if (occEO != null) {
-					if ((definitionElement == null && elementsAtDefinition.contains(occEO)) || definitionElement != null && definitionElement.equals(occEO)) {
+					if (elementsAtDefinition.contains(occEO) || definitionElement.equals(occEO)) {
 						addAnnotation(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.PROXY, text);
 					}
 				}
