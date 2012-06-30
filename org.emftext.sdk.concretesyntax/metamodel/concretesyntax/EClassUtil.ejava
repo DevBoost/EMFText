@@ -61,7 +61,12 @@ eclass EClassUtil {
 	}
 
 	namesAreEqual() {
-		return classA.getName().equals(classB.getName());
+		String nameA = classA.getName();
+		String nameB = classB.getName();
+		if (nameA == null) {
+			return nameB == null;
+		}
+		return nameA.equals(nameB);
 	}
 
 	isNotConcrete() {

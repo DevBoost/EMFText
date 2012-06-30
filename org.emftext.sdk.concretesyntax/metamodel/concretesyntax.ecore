@@ -2181,7 +2181,7 @@
     </eOperations>
     <eOperations name="namesAreEqual" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return classA.getName().equals(classB.getName());"/>
+        <details key="body" value="java.lang.String nameA = classA.getName();&#xA;java.lang.String nameB = classB.getName();&#xA;if (nameA == null) {&#xA;&#x9;return nameB == null;&#xA;}&#xA;return nameA.equals(nameB);"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="classA" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
