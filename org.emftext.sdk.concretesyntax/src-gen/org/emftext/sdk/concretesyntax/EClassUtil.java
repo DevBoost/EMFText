@@ -89,7 +89,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String nameA = classA.getName();\njava.lang.String nameB = classB.getName();\nif (nameA == null) {\n\treturn nameB == null;\n}\nreturn nameA.equals(nameB);'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if (classA == null || classB == null) {\n\treturn false;\n}\njava.lang.String nameA = classA.getName();\njava.lang.String nameB = classB.getName();\nif (nameA == null) {\n\treturn nameB == null;\n}\nreturn nameA.equals(nameB);'"
 	 * @generated
 	 */
 	boolean namesAreEqual(EClass classA, EClass classB);
@@ -115,5 +115,17 @@ public interface EClassUtil extends EObject {
 	 * @generated
 	 */
 	boolean isNotConcrete(EClass eClass);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * <!-- end-model-doc -->
+	 * @model required="true" subclassCandidateRequired="true" superTypeRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='boolean isEqual = namesAndPackageURIsAreEqual(subclassCandidate, superType);\nboolean isSubclass = isSubClass(subclassCandidate, superType);\nreturn isEqual || isSubclass;'"
+	 * @generated
+	 */
+	boolean isSubClassOrEqual(EClass subclassCandidate, EClass superType);
 
 } // EClassUtil

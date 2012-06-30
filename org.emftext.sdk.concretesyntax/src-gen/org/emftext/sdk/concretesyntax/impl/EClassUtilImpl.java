@@ -118,6 +118,9 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public boolean namesAreEqual(EClass classA, EClass classB) {
+		if (classA == null || classB == null) {
+			return false;
+		}
 		java.lang.String nameA = classA.getName();
 		java.lang.String nameB = classB.getName();
 		if (nameA == null) {
@@ -142,6 +145,17 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 */
 	public boolean isNotConcrete(EClass eClass) {
 		return !isConcrete(eClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSubClassOrEqual(EClass subclassCandidate, EClass superType) {
+		boolean isEqual = namesAndPackageURIsAreEqual(subclassCandidate, superType);
+		boolean isSubclass = isSubClass(subclassCandidate, superType);
+		return isEqual || isSubclass;
 	}
 
 } //EClassUtilImpl

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2006-2012&#xA;Software Technology Group, Dresden University of Technology&#xA;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Software Technology Group - TU Dresden, Germany;&#xA;  DevBoost GmbH - Berlin, Germany&#xA;     - initial API and implementation&#xA; "
     modelDirectory="/org.emftext.sdk.concretesyntax/src-gen" editDirectory="/org.emftext.sdk.concretesyntax.edit/src-gen"
     editorDirectory="/org.emftext.sdk.concretesyntax.editor/src" modelPluginID="org.emftext.sdk.concretesyntax"
@@ -608,6 +607,10 @@
       </genOperations>
       <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/isNotConcrete">
         <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isNotConcrete/eClass"/>
+      </genOperations>
+      <genOperations ecoreOperation="concretesyntax.ecore#//EClassUtil/isSubClassOrEqual">
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isSubClassOrEqual/subclassCandidate"/>
+        <genParameters ecoreParameter="concretesyntax.ecore#//EClassUtil/isSubClassOrEqual/superType"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//DefaultTokenStyleAdder">

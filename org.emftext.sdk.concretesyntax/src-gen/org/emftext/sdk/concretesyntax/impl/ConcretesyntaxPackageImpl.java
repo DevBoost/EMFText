@@ -2179,6 +2179,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "isNotConcrete", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEClass(), "eClass", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(eClassUtilEClass, theEcorePackage.getEBoolean(), "isSubClassOrEqual", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "subclassCandidate", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEClass(), "superType", 1, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(defaultTokenStyleAdderEClass, DefaultTokenStyleAdder.class, "DefaultTokenStyleAdder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(defaultTokenStyleAdderEClass, null, "addDefaultTokenStyles", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -4881,7 +4885,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (eClassUtilEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "java.lang.String nameA = classA.getName();\njava.lang.String nameB = classB.getName();\nif (nameA == null) {\n\treturn nameB == null;\n}\nreturn nameA.equals(nameB);",
+			 "body", "if (classA == null || classB == null) {\n\treturn false;\n}\njava.lang.String nameA = classA.getName();\njava.lang.String nameB = classB.getName();\nif (nameA == null) {\n\treturn nameB == null;\n}\nreturn nameA.equals(nameB);",
 			 "documentation", ""
 		   });		
 		addAnnotation
@@ -4896,6 +4900,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "return !isConcrete(eClass);",
+			 "documentation", ""
+		   });		
+		addAnnotation
+		  (eClassUtilEClass.getEOperations().get(7), 
+		   source, 
+		   new String[] {
+			 "body", "boolean isEqual = namesAndPackageURIsAreEqual(subclassCandidate, superType);\nboolean isSubclass = isSubClass(subclassCandidate, superType);\nreturn isEqual || isSubclass;",
 			 "documentation", ""
 		   });		
 		addAnnotation
