@@ -51,6 +51,10 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 		
 		// compare counts with lower and upper bounds
 		for (GenFeature feature : featureToCountMap.keySet()) {
+			// skip the feature if it is a proxy
+			if (feature.getEcoreFeature() == null) {
+				continue;
+			}
 			String lowerBoundString = feature.getLowerBound();
 			String upperBoundString = feature.getUpperBound();
 			int lowerBound = Integer.parseInt(lowerBoundString);

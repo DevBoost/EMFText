@@ -123,6 +123,8 @@ public class PostProcessingContext {
 	
 	private CsResource resource;
 	private List<IProblemWrapper> problems;
+	private boolean resolveWasPerformed;
+	private boolean foundResolveErrors;
 
 	public PostProcessingContext(CsResource resource) {
 		super();
@@ -143,6 +145,9 @@ public class PostProcessingContext {
 	}
 
 	public boolean hasErrors() {
+		if (this.foundResolveErrors) {
+			return true;
+		}
 		for (IProblemWrapper wrappedProblem : problems) {
 			ICsProblem problem = wrappedProblem.getProblem();
 			if (problem.getSeverity() == CsEProblemSeverity.ERROR) {
@@ -179,5 +184,14 @@ public class PostProcessingContext {
 
 	public void removeWarning(IProblemWrapper warningToRemove) {
 		problems.remove(warningToRemove);
+	}
+
+	public void setResolveWasPerformed(boolean foundResolveErrors) {
+		resolveWasPerformed = true;
+		this.foundResolveErrors = foundResolveErrors;
+	}
+
+	public boolean resolveWasPerformed() {
+		return resolveWasPerformed;
 	}
 }

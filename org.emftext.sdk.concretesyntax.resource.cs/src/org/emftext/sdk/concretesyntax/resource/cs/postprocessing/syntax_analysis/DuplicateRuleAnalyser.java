@@ -27,8 +27,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
 
 /**
- * An analyser that checks that there is not more than one rule
- * per meta class.
+ * An analyser that checks that there is not more than one rule per meta class.
  */
 public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 

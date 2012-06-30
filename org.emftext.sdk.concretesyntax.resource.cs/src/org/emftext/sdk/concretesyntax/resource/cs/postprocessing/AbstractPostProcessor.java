@@ -29,7 +29,6 @@ import org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsInterruptibleEcoreResolver;
-import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 import org.emftext.sdk.regex.TokenSorter;
 
 /**
@@ -58,18 +57,15 @@ public abstract class AbstractPostProcessor {
 			return;
 		}
 		Resource resource = getContext().getResource();
-		if (doResolveProxiesBeforeAnalysis()) {
-			// it is actually sufficient to do this once (for the first post processor)
-			// but, since all post processors work in isolation, we cannot pass on the
-			// information that proxy objects have already been resolved. if this turns
-			// out to be a performance problem one can attach an adapter to the resource
-			// which carries this information. this adapter must also react to all changes
-			// made to the resource in order to trigger proxy resolution again after the
-			// resource has changed.
+		if (doResolveProxiesBeforeAnalysis() && !context.resolveWasPerformed()) {
+			// it is actually sufficient to do this once (for the first post 
+			// processor that requires proxy resolving)
 			resolveUtil.resolveAll(resource);
-			if (CsResourceUtil.findUnresolvedProxies(resource).size() > 0) {
+			if (resolveUtil.findUnresolvedProxies(resource).size() > 0) {
+				context.setResolveWasPerformed(true);
 				return;
 			}
+			context.setResolveWasPerformed(false);
 		}
 		List<EObject> objects = resource.getContents();
 		for (EObject next : objects) {

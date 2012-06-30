@@ -132,6 +132,10 @@ public class LeftRecursionDetector {
 		String metaclassName = genClassCache.getQualifiedInterfaceName(metaclass);
 		Collection<String> superNames = genClassNames2superNames.get(metaclassName);
 		for (GenClass featureType : featureTypes) {
+			// skip if this is a proxy
+			if (featureType.getEcoreClass() == null) {
+				continue;
+			}
 			String featureTypeName = genClassCache.getQualifiedInterfaceName(featureType);
 			if (superNames.contains(featureTypeName)) {
 				return true;
