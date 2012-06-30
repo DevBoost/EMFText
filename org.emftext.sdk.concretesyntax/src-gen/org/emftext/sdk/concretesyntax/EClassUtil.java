@@ -37,7 +37,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\n\t// There seem to be multiple instances of meta classes when accessed\n\t// through the generator model. Therefore, we compare by name.\n\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\n\t\treturn true;\n\t}\n}\nreturn false;'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if (subClassCandidate == null) {\n\treturn false;\n}\nfor ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\n\t// There seem to be multiple instances of meta classes when accessed\n\t// through the generator model. Therefore, we compare by name.\n\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\n\t\treturn true;\n\t}\n}\nreturn false;'"
 	 * @generated
 	 */
 	boolean isSubClass(EClass subClassCandidate, EClass superClass);

@@ -12,6 +12,9 @@ eclass EClassUtil {
 	}
 
 	isSubClass() {
+		if (subClassCandidate == null) {
+			return false;
+		}
 		for (EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {
 			// There seem to be multiple instances of meta classes when accessed
 			// through the generator model. Therefore, we compare by name.

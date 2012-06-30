@@ -4857,7 +4857,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (eClassUtilEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
-			 "body", "for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\n\t// There seem to be multiple instances of meta classes when accessed\n\t// through the generator model. Therefore, we compare by name.\n\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\n\t\treturn true;\n\t}\n}\nreturn false;",
+			 "body", "if (subClassCandidate == null) {\n\treturn false;\n}\nfor ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\n\t// There seem to be multiple instances of meta classes when accessed\n\t// through the generator model. Therefore, we compare by name.\n\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\n\t\treturn true;\n\t}\n}\nreturn false;",
 			 "documentation", ""
 		   });		
 		addAnnotation

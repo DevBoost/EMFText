@@ -57,6 +57,9 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public boolean isSubClass(EClass subClassCandidate, EClass superClass) {
+		if (subClassCandidate == null) {
+			return false;
+		}
 		for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {
 			// There seem to be multiple instances of meta classes when accessed
 			// through the generator model. Therefore, we compare by name.
