@@ -17,11 +17,8 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.EClassUtil;
 
@@ -60,13 +57,14 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public boolean isSubClass(EClass subClassCandidate, EClass superClass) {
-		for ( org.eclipse.emf.ecore.EClass superClassCandidate:subClassCandidate.getEAllSuperTypes()) {
-			if (namesAndPackageURIsAreEqual(superClassCandidate,superClass)) {
+		for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {
+			// There seem to be multiple instances of meta classes when accessed
+			// through the generator model. Therefore, we compare by name.
+			if (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {
 				return true;
 			}
 		}
 		return false;
-		
 	}
 
 	/**
@@ -75,14 +73,14 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public EList<EClass> getSubClasses(EClass superClass, EList<EClass> availableClasses) {
-		org.eclipse.emf.common.util.EList < org.eclipse.emf.ecore.EClass >result = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.ecore.EClass >();
-		for ( org.eclipse.emf.ecore.EClass next:availableClasses) {
-			if (isSubClass(next,superClass)&&isConcrete(next)) {
+		org.eclipse.emf.common.util.EList< org.eclipse.emf.ecore.EClass> result = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.ecore.EClass>();
+		for ( org.eclipse.emf.ecore.EClass next : availableClasses) {
+			if (isSubClass(next, superClass) &&
+				isConcrete(next)) {
 				result.add(next);
 			}
 		}
 		return result;
-		
 	}
 
 	/**
@@ -91,8 +89,8 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public boolean namesAndPackageURIsAreEqual(EClass classA, EClass classB) {
-		return namesAreEqual(classA,classB)&&packageURIsAreEqual(classA,classB);
-		
+		return namesAreEqual(classA, classB) && 
+			packageURIsAreEqual(classA, classB);
 	}
 
 	/**
@@ -103,15 +101,15 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	public boolean packageURIsAreEqual(EClass classA, EClass classB) {
 		java.lang.String nsURI_A = classA.getEPackage().getNsURI();
 		java.lang.String nsURI_B = classB.getEPackage().getNsURI();
-		if (nsURI_A == null&&nsURI_B == null) {
+		if (nsURI_A == null && nsURI_B == null) {
 			return true;
 		}
 		if (nsURI_A != null) {
 			return nsURI_A.equals(nsURI_B);
-		}else {
+		} else {
+			// nsURI_A is null, but nsURI_B is not
 			return false;
 		}
-		
 	}
 
 	/**
@@ -121,7 +119,6 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 */
 	public boolean namesAreEqual(EClass classA, EClass classB) {
 		return classA.getName().equals(classB.getName());
-		
 	}
 
 	/**
@@ -130,8 +127,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public boolean isConcrete(EClass eClass) {
-		return!eClass.isAbstract()&&!eClass.isInterface();
-		
+		return !eClass.isAbstract() && !eClass.isInterface();
 	}
 
 	/**
@@ -140,8 +136,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public boolean isNotConcrete(EClass eClass) {
-		return!isConcrete(eClass);
-		
+		return !isConcrete(eClass);
 	}
 
 } //EClassUtilImpl

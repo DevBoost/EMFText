@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -369,7 +368,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model identifierRequired="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> subset = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>();\r\n\r\n\t\tif (identifier == null) {\r\n\t\t\treturn subset;\r\n\t\t}\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.Annotation annotation = rule.getOperatorAnnotation();\r\n\t\t\t java.lang.String value = annotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\r\n\t\t\tif (identifier.equals(value)) {\r\n\t\t\t\tsubset.add(rule);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn subset;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> subset = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>();\nif (identifier == null) {\n\treturn subset;\n}\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules()) {\n\torg.emftext.sdk.concretesyntax.Annotation annotation = rule.getOperatorAnnotation();\n\tjava.lang.String value = annotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\n\tif (identifier.equals(value)) {\n\t\tsubset.add(rule);\n\t}\n}\nreturn subset;'"
 	 * @generated
 	 */
 	EList<Rule> getOperatorRuleSubset(String identifier);
@@ -381,7 +380,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> symbols = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\t\tsymbols.addAll(getStartSymbols());\r\n\r\n\t\tif (symbols.size() > 0) {\r\n\t\t\treturn symbols;\r\n\t\t}\r\n\r\n\t\t\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\r\n\t\t\tfinal  org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\r\n\t\t\tif (importedSyntax != null) {\r\n\t\t\t\tsymbols.addAll(importedSyntax.getActiveStartSymbols());\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn symbols;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> symbols = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\nsymbols.addAll(getStartSymbols());\nif (symbols.size() > 0) {\n\treturn symbols;\n}\n\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\n\tfinal org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\n\tif (importedSyntax != null) {\n\t\tsymbols.addAll(importedSyntax.getActiveStartSymbols());\n\t}\n}\nreturn symbols;'"
 	 * @generated
 	 */
 	EList<GenClass> getActiveStartSymbols();
@@ -393,7 +392,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> l = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>(getRules().size());\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\r\n\t\t\t// don\'t add rules that are @override rules with remove=true\r\n\t\t\tif (!rule.isOverrideRemoveRule()) {\r\n\t\t\t\tl.add(rule);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import aImport : getImports()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport.getConcreteSyntax();\r\n\t\t\tif (importedCS != null) {\r\n\t\t\t\touter: for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS.getAllRules()) {\r\n\t\t\t\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\r\n\t\t\t\t\t\t// don\'t add rules that have @override rules for same\r\n\t\t\t\t\t\t// meta-class\r\n\t\t\t\t\t\tif (rule.isOverrideRule(importedRule.getMetaclass())) {\r\n\t\t\t\t\t\t\tcontinue outer;\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\tl.add(importedRule);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn  org.eclipse.emf.common.util.ECollections.unmodifiableEList(l);\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> l = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>(getRules().size());\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\n\t// don\'t add rules that are @override rules with remove=true\n\tif (!rule.isOverrideRemoveRule()) {\n\t\tl.add(rule);\n\t}\n}\nfor ( org.emftext.sdk.concretesyntax.Import aImport : getImports()) {\n\torg.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport.getConcreteSyntax();\n\tif (importedCS != null) {\n\t\touter: for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS.getAllRules()) {\n\t\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\n\t\t\t\t// don\'t add rules that have @override rules for same\n\t\t\t\t// meta-class\n\t\t\t\tif (rule.isOverrideRule(importedRule.getMetaclass())) {\n\t\t\t\t\tcontinue outer;\n\t\t\t\t}\n\t\t\t}\n\t\t\tl.add(importedRule);\n\t\t}\n\t}\n}\nreturn org.eclipse.emf.common.util.ECollections.unmodifiableEList(l);'"
 	 * @generated
 	 */
 	EList<Rule> getAllRules();
@@ -405,7 +404,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tinitialiseAnnotatedOperatorRules();\r\n\r\n\t\treturn get_operatorRules();\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='initialiseAnnotatedOperatorRules();\nreturn get_operatorRules();'"
 	 * @generated
 	 */
 	EList<Rule> getOperatorRules();
@@ -416,7 +415,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tif (is_operatorRulesInitialized()) {\r\n\t\t\treturn;\r\n\t\t}\r\n\r\n\t\tset_operatorRulesInitialized(true);\r\n\r\n\t\t java.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();\r\n\r\n\t\t java.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {\r\n\t\t\t org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();\r\n\t\t\tif (operatorAnnotation != null) {\r\n\t\t\t\tboolean added = false;\r\n\t\t\t\tfor ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {\r\n\t\t\t\t\t org.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); \r\n\t\t\t\t\tif (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {\r\n\t\t\t\t\t\toperatorRules.add(it.previousIndex(), rule);\r\n\t\t\t\t\t\tadded = true;\r\n\t\t\t\t\t\tbreak;\r\n\t\t\t\t\t}\t\t\t\r\n\t\t\t\t}\r\n\t\t\t\tif (!added) {\r\n\t\t\t\t\toperatorRules.add(rule);\r\n\t\t\t\t}\r\n\t\t\t\t java.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\r\n\t\t\t\tif (identifier != null) {\r\n\t\t\t\t\toperatorRuleSubsets.add(identifier);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if (is_operatorRulesInitialized()) {\n\treturn;\n}\nset_operatorRulesInitialized(true);\njava.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();\njava.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {\n\torg.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();\n\tif (operatorAnnotation != null) {\n\t\tboolean added = false;\n\t\tfor ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {\n\t\t\torg.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); \n\t\t\tif (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {\n\t\t\t\toperatorRules.add(it.previousIndex(), rule);\n\t\t\t\tadded = true;\n\t\t\t\tbreak;\n\t\t\t}\t\t\t\n\t\t}\n\t\tif (!added) {\n\t\t\toperatorRules.add(rule);\n\t\t}\n\t\tjava.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\n\t\tif (identifier != null) {\n\t\t\toperatorRuleSubsets.add(identifier);\n\t\t}\n\t}\n}'"
 	 * @generated
 	 */
 	void initialiseAnnotatedOperatorRules();
@@ -428,7 +427,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tinitialiseAnnotatedOperatorRules();\r\n\r\n\t\treturn get_operatorRuleSubsets();\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='initialiseAnnotatedOperatorRules();\nreturn get_operatorRuleSubsets();'"
 	 * @generated
 	 */
 	EList<String> getOperatorRuleSubsets();
@@ -440,7 +439,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tif (get_genClassCache() == null) {\r\n\t\t\tset_genClassCache( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache());\r\n\t\t}\r\n\r\n\t\treturn get_genClassCache();\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if (get_genClassCache() == null) {\n\tset_genClassCache( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache());\n}\nreturn get_genClassCache();'"
 	 * @generated
 	 */
 	GenClassCache getGenClassCache();
@@ -456,7 +455,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * @param rule the rule to check
 	 * @return true if the rule is contained, false if it is imported
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn rule.getSyntax() != this;\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return rule.getSyntax() != this;'"
 	 * @generated
 	 */
 	boolean isImportedRule(Rule rule);
@@ -468,7 +467,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tif (get_eClassUtil() == null) {\r\n\t\t\tset_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());\r\n\t\t}\r\n\r\n\t\treturn get_eClassUtil();\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if (get_eClassUtil() == null) {\n\tset_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());\n}\nreturn get_eClassUtil();'"
 	 * @generated
 	 */
 	EClassUtil getEClassUtil();
@@ -479,7 +478,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- begin-model-doc -->
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\r\n\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\r\n\t\t\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\r\n\t\t\t\tcontinue;\r\n\t\t\t}\r\n\t\t\t org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\r\n\t\t\tfoundGenClasses.add(subClassCand);\r\n\t\t}\r\n\r\n\t\treturn foundGenClasses;\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\norg.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\n\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\n\t\tcontinue;\n\t}\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\n\tfoundGenClasses.add(subClassCand);\n}\nreturn foundGenClasses;'"
 	 * @generated
 	 */
 	EList<GenClass> getClassesWithSyntax(boolean excludeOperatorRules);
@@ -490,7 +489,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- begin-model-doc -->
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new  org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\r\n\r\n\t\t org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\r\n\r\n\t\t org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\r\n\r\n\t\tfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\r\n\t\t\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\r\n\t\t\t\tsubClasses.add(subClassCand);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn subClasses;\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\norg.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\n\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\n\t\tsubClasses.add(subClassCand);\n\t}\n}\nreturn subClasses;'"
 	 * @generated
 	 */
 	EList<GenClass> getSubClassesWithSyntax(GenClass superClass, boolean excludeOperatorRules);
@@ -502,7 +501,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();\r\n\r\n\t\tallStyles.addAll(getTokenStyles());\r\n\r\n\t\taddImportedTokenStyles(allStyles);\r\n\r\n\t\t org.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();\r\n\r\n\t\tadder.addDefaultTokenStyles(this, allStyles);\r\n\r\n\t\treturn allStyles;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();\nallStyles.addAll(getTokenStyles());\naddImportedTokenStyles(allStyles);\norg.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();\nadder.addDefaultTokenStyles(this, allStyles);\nreturn allStyles;'"
 	 * @generated
 	 */
 	EList<TokenStyle> getAllTokenStyles();
@@ -514,7 +513,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model existingStylesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( java.lang.String tokenName : newStyle.getTokenNames()) {\r\n\t\t\tboolean exists = containsTokenStyle(existingStyles, tokenName);\r\n\t\t\tif (!exists) {\r\n\t\t\t\t org.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\r\n\t\t\t\tnewTokenStyle.getTokenNames().add(tokenName);\r\n\t\t\t\tnewTokenStyle.setRgb(newStyle.getRgb());\r\n\t\t\t\tnewTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());\r\n\t\t\t\texistingStyles.add(newTokenStyle);\r\n\t\t\t}\r\n\t\t}\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( java.lang.String tokenName : newStyle.getTokenNames()) {\n\tboolean exists = containsTokenStyle(existingStyles, tokenName);\n\tif (!exists) {\n\t\torg.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\n\t\tnewTokenStyle.getTokenNames().add(tokenName);\n\t\tnewTokenStyle.setRgb(newStyle.getRgb());\n\t\tnewTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());\n\t\texistingStyles.add(newTokenStyle);\n\t}\n}'"
 	 * @generated
 	 */
 	void addTokenStyle(EList<TokenStyle> existingStyles, TokenStyle newStyle);
@@ -526,7 +525,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model stylesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {\r\n\t\t\tfor ( java.lang.String existingName : existingStyle.getTokenNames()) {\r\n\t\t\t\tif (existingName.equals(tokenName)) {\r\n\t\t\t\t\treturn true;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn false;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {\n\tfor ( java.lang.String existingName : existingStyle.getTokenNames()) {\n\t\tif (existingName.equals(tokenName)) {\n\t\t\treturn true;\n\t\t}\n\t}\n}\nreturn false;'"
 	 * @generated
 	 */
 	boolean containsTokenStyle(EList<TokenStyle> styles, String tokenName);
@@ -543,7 +542,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model allStylesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t// add the imported token styles\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\r\n\t\t\t org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\r\n\t\t\tif (importedSyntax != null) {\r\n\t\t\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\r\n\t\t\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\r\n\t\t\t\t\taddTokenStyle(allStyles, importedStyle);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='// add the imported token styles\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\n\torg.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\n\tif (importedSyntax != null) {\n\t\torg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\n\t\t\taddTokenStyle(allStyles, importedStyle);\n\t\t}\n\t}\n}'"
 	 * @generated
 	 */
 	void addImportedTokenStyles(EList<TokenStyle> allStyles);

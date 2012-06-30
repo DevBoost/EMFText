@@ -20,17 +20,12 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -207,13 +202,9 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public boolean isHidden() {
-		
-				boolean isReferenced = !getAttributeReferences().isEmpty();
-		
-				boolean isCollectInToken = getAttributeName() != null;
-		
-				return !isReferenced || isCollectInToken;
-		
+		boolean isReferenced = !getAttributeReferences().isEmpty();
+		boolean isCollectInToken = getAttributeName() != null;
+		return !isReferenced || isCollectInToken;
 	}
 
 	/**
@@ -222,13 +213,9 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public boolean isUsed() {
-		
-				boolean isReferenced = !getAttributeReferences().isEmpty();
-		
-				boolean isCollectInToken = getAttributeName() != null;
-		
-				return isReferenced || isCollectInToken;
-		
+		boolean isReferenced = !getAttributeReferences().isEmpty();
+		boolean isCollectInToken = getAttributeName() != null;
+		return isReferenced || isCollectInToken;
 	}
 
 	/**
@@ -237,9 +224,7 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public boolean isImported(ConcreteSyntax syntax) {
-		
-				return !syntax.equals(getContainingSyntax(syntax));
-		
+		return !syntax.equals(getContainingSyntax(syntax));
 	}
 
 	/**
@@ -248,15 +233,11 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * @generated
 	 */
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax) {
-		
-				 org.eclipse.emf.ecore.EObject container = this.eContainer();
-		
-				if (container instanceof  org.emftext.sdk.concretesyntax.ConcreteSyntax) {
-					return ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;
-				}
-		
-				return syntax;
-		
+		org.eclipse.emf.ecore.EObject container = this.eContainer();
+		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
+			return ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;
+		}
+		return syntax;
 	}
 
 	/**

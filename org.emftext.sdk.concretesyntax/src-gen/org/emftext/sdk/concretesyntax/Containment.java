@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -73,7 +72,7 @@ public interface Containment extends Terminal {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.eclipse.emf.codegen.ecore.genmodel.GenClass >types;\r\nif (!getTypes().isEmpty()) {\r\n\ttypes = getTypes();\r\n}else {\r\n\ttypes = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.codegen.ecore.genmodel.GenClass >();\r\n\ttypes.add(getFeature().getTypeGenClass());\r\n}\r\nreturn types;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> types;\n// is there an explicit type defined?\nif (!getTypes().isEmpty()) {\n\ttypes = getTypes();\n} else {\n\ttypes = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\n\ttypes.add(getFeature().getTypeGenClass());\n}\nreturn types;'"
 	 * @generated
 	 */
 	EList<GenClass> getAllowedSubTypes();

@@ -93,7 +93,7 @@ public interface BooleanTerminal extends Terminal {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn \"\".equals(getTrueLiteral()) || \"\".equals(getFalseLiteral());\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return \"\".equals(getTrueLiteral()) || \"\".equals(getFalseLiteral());'"
 	 * @generated
 	 */
 	boolean containsEmptyLiteral();

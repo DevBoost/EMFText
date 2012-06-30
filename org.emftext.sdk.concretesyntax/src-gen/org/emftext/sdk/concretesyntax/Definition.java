@@ -34,7 +34,7 @@ public interface Definition extends SyntaxElement {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn true;\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return true;'"
 	 * @generated
 	 */
 	boolean hasMinimalCardinalityOneOrHigher();
@@ -45,7 +45,7 @@ public interface Definition extends SyntaxElement {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn false;\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return false;'"
 	 * @generated
 	 */
 	boolean hasNoOptionalPart();
@@ -63,7 +63,7 @@ public interface Definition extends SyntaxElement {
 	 *  @return
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.emftext.sdk.concretesyntax.Cardinality cardinality =  org.emftext.sdk.concretesyntax.Cardinality.NONE;\r\n\r\n\t\tif (this instanceof  org.emftext.sdk.concretesyntax.CardinalityDefinition) {\r\n\t\t\tcardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();\r\n\t\t}\r\n\r\n\t\tif (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.NONE) {\r\n\t\t\treturn \"\";\r\n\t\t} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS) {\r\n\t\t\treturn \"+\";\r\n\t\t} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {\r\n\t\t\treturn \"?\";\r\n\t\t} else {\r\n\t\t\treturn \"*\";\r\n\t\t}\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality.NONE;\nif (this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition) {\n\tcardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();\n}\nif (cardinality == org.emftext.sdk.concretesyntax.Cardinality.NONE) {\n\treturn \"\";\n} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.PLUS) {\n\treturn \"+\";\n} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {\n\treturn \"?\";\n} else {\n\treturn \"*\";\n}'"
 	 * @generated
 	 */
 	String computeCardinalityString();

@@ -57,7 +57,7 @@ public interface EnumTerminal extends Terminal {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn !getEmptyLiterals().isEmpty();\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return !getEmptyLiterals().isEmpty();'"
 	 * @generated
 	 */
 	boolean containsEmptyLiteral();
@@ -69,7 +69,7 @@ public interface EnumTerminal extends Terminal {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> nonEmptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\r\n\t\t\t java.lang.String text = literal.getText();\r\n\t\t\tif (text != null && !\"\".equals(text)) {\r\n\t\t\t\tnonEmptyLiterals.add(literal);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn nonEmptyLiterals;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> nonEmptyLiterals = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\nfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\n\tjava.lang.String text = literal.getText();\n\tif (text != null && !\"\".equals(text)) {\n\t\tnonEmptyLiterals.add(literal);\n\t}\n}\nreturn nonEmptyLiterals;'"
 	 * @generated
 	 */
 	EList<EnumLiteralTerminal> getNonEmptyLiterals();
@@ -81,7 +81,7 @@ public interface EnumTerminal extends Terminal {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> emptyLiterals = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\r\n\r\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\r\n\t\t\t java.lang.String text = literal.getText();\r\n\t\t\tif (\"\".equals(text)) {\r\n\t\t\t\temptyLiterals.add(literal);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn emptyLiterals;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> emptyLiterals = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\nfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\n\tjava.lang.String text = literal.getText();\n\tif (\"\".equals(text)) {\n\t\temptyLiterals.add(literal);\n\t}\n}\nreturn emptyLiterals;'"
 	 * @generated
 	 */
 	EList<EnumLiteralTerminal> getEmptyLiterals();

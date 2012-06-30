@@ -17,12 +17,9 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NamedTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexReference;
@@ -114,16 +111,13 @@ public class RegexReferenceImpl extends RegexPartImpl implements RegexReference 
 	 * @generated
 	 */
 	public String getRegex() {
-		
-				 org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();
-		
-				if (target == null || target.eIsProxy()) {
-					return "";
-				} else {
-					assert target instanceof  org.emftext.sdk.concretesyntax.RegexOwner;
-					return (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();
-				}
-		
+		org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();
+		if (target == null || target.eIsProxy()) {
+			return "";
+		} else {
+			assert target instanceof org.emftext.sdk.concretesyntax.RegexOwner;
+			return (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();
+		}
 	}
 
 	/**

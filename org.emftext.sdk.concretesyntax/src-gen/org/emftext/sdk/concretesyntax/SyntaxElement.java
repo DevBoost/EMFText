@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -60,7 +59,7 @@ public interface SyntaxElement extends EObject {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.emftext.sdk.concretesyntax.Rule rule = null;\r\n\r\n\t\t org.eclipse.emf.ecore.EObject o = this;\r\n\r\n\t\tdo {\r\n\t\t\tif (o instanceof  org.emftext.sdk.concretesyntax.Rule) {\r\n\t\t\t\trule = ( org.emftext.sdk.concretesyntax.Rule) o;\r\n\t\t\t}\r\n\t\t\telse {\r\n\t\t\t\to = o.eContainer();\r\n\t\t\t}\r\n\t\t} while (rule == null && o != null);\r\n\r\n\t\treturn rule;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.emftext.sdk.concretesyntax.Rule rule = null;\norg.eclipse.emf.ecore.EObject o = this;\ndo {\n\tif (o instanceof org.emftext.sdk.concretesyntax.Rule) {\n\t\trule = ( org.emftext.sdk.concretesyntax.Rule) o;\n\t}\n\telse {\n\t\to = o.eContainer();\n\t}\n} while (rule == null && o != null);\nreturn rule;'"
 	 * @generated
 	 */
 	Rule getContainingRule();

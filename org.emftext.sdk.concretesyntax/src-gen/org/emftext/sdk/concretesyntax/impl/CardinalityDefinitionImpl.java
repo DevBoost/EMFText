@@ -17,11 +17,8 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -106,9 +103,7 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	 * @generated
 	 */
 	public boolean hasMinimalCardinalityOneOrHigher() {
-		
-				return getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS;
-		
+		return getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.PLUS;
 	}
 
 	/**
@@ -117,11 +112,9 @@ public abstract class CardinalityDefinitionImpl extends DefinitionImpl implement
 	 * @generated
 	 */
 	public boolean hasNoOptionalPart() {
-		
-				return !
-					(getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||
-					 getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.STAR);
-		
+		return !
+			(getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||
+			 getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.STAR);
 	}
 
 	/**

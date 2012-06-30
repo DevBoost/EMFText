@@ -17,11 +17,8 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 
@@ -231,9 +228,7 @@ public class QuotedTokenDefinitionImpl extends CompleteTokenDefinitionImpl imple
 	 * @generated
 	 */
 	public String getRegex() {
-		
-				return getSynthesizedRegex();
-		
+		return getSynthesizedRegex();
 	}
 
 	/**

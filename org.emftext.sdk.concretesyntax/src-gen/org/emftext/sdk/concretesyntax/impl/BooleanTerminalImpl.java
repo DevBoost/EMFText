@@ -17,11 +17,8 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 
@@ -147,9 +144,7 @@ public class BooleanTerminalImpl extends TerminalImpl implements BooleanTerminal
 	 * @generated
 	 */
 	public boolean containsEmptyLiteral() {
-		
-				return "".equals(getTrueLiteral()) || "".equals(getFalseLiteral());
-		
+		return "".equals(getTrueLiteral()) || "".equals(getFalseLiteral());
 	}
 
 	/**

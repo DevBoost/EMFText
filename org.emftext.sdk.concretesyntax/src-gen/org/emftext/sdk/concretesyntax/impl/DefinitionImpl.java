@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Definition;
 
@@ -56,9 +55,7 @@ public abstract class DefinitionImpl extends SyntaxElementImpl implements Defini
 	 * @generated
 	 */
 	public boolean hasMinimalCardinalityOneOrHigher() {
-		
-				return true;
-		
+		return true;
 	}
 
 	/**
@@ -67,9 +64,7 @@ public abstract class DefinitionImpl extends SyntaxElementImpl implements Defini
 	 * @generated
 	 */
 	public boolean hasNoOptionalPart() {
-		
-				return false;
-		
+		return false;
 	}
 
 	/**
@@ -78,23 +73,19 @@ public abstract class DefinitionImpl extends SyntaxElementImpl implements Defini
 	 * @generated
 	 */
 	public String computeCardinalityString() {
-		
-				 org.emftext.sdk.concretesyntax.Cardinality cardinality =  org.emftext.sdk.concretesyntax.Cardinality.NONE;
-		
-				if (this instanceof  org.emftext.sdk.concretesyntax.CardinalityDefinition) {
-					cardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();
-				}
-		
-				if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.NONE) {
-					return "";
-				} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS) {
-					return "+";
-				} else if (cardinality ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {
-					return "?";
-				} else {
-					return "*";
-				}
-		
+		org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality.NONE;
+		if (this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition) {
+			cardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();
+		}
+		if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.NONE) {
+			return "";
+		} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.PLUS) {
+			return "+";
+		} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {
+			return "?";
+		} else {
+			return "*";
+		}
 	}
 
 } //DefinitionImpl

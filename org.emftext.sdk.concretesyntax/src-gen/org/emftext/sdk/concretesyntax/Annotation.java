@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -90,7 +89,7 @@ public interface Annotation extends EObject {
 	 * Returns the annotation value for the given key.
 	 * <!-- end-model-doc -->
 	 * @model keyRequired="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {\r\n\t\t\tif (key.equals(parameter.getKey())){\r\n\t\t\t\t java.lang.String value = parameter.getValue();\r\n\t\t\t\treturn value;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn null;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {\n\tif (key.equals(parameter.getKey())){\n\t\tjava.lang.String value = parameter.getValue();\n\t\treturn value;\n\t}\n}\nreturn null;'"
 	 * @generated
 	 */
 	String getValue(String key);

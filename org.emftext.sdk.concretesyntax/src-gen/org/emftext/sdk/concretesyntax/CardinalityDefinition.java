@@ -69,7 +69,7 @@ public interface CardinalityDefinition extends Definition {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.PLUS;\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.PLUS;'"
 	 * @generated
 	 */
 	boolean hasMinimalCardinalityOneOrHigher();
@@ -80,7 +80,7 @@ public interface CardinalityDefinition extends Definition {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn !\r\n\t\t\t(getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||\r\n\t\t\t getCardinality() ==  org.emftext.sdk.concretesyntax.Cardinality.STAR);\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return !\n\t(getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||\n\t getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.STAR);'"
 	 * @generated
 	 */
 	boolean hasNoOptionalPart();

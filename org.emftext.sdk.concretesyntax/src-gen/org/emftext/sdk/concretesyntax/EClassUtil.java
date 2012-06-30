@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
@@ -38,7 +37,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.eclipse.emf.ecore.EClass superClassCandidate:subClassCandidate.getEAllSuperTypes()) {\r\n\tif (namesAndPackageURIsAreEqual(superClassCandidate,superClass)) {\r\n\t\treturn true;\r\n\t}\r\n}\r\nreturn false;\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\n\t// There seem to be multiple instances of meta classes when accessed\n\t// through the generator model. Therefore, we compare by name.\n\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\n\t\treturn true;\n\t}\n}\nreturn false;'"
 	 * @generated
 	 */
 	boolean isSubClass(EClass subClassCandidate, EClass superClass);
@@ -57,7 +56,7 @@ public interface EClassUtil extends EObject {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model availableClassesMany="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList < org.eclipse.emf.ecore.EClass >result = new org.eclipse.emf.common.util.BasicEList < org.eclipse.emf.ecore.EClass >();\r\nfor ( org.eclipse.emf.ecore.EClass next:availableClasses) {\r\n\tif (isSubClass(next,superClass)&&isConcrete(next)) {\r\n\t\tresult.add(next);\r\n\t}\r\n}\r\nreturn result;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.eclipse.emf.ecore.EClass> result = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.ecore.EClass>();\nfor ( org.eclipse.emf.ecore.EClass next : availableClasses) {\n\tif (isSubClass(next, superClass) &&\n\t\tisConcrete(next)) {\n\t\tresult.add(next);\n\t}\n}\nreturn result;'"
 	 * @generated
 	 */
 	EList<EClass> getSubClasses(EClass superClass, EList<EClass> availableClasses);
@@ -68,7 +67,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return namesAreEqual(classA,classB)&&packageURIsAreEqual(classA,classB);\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return namesAreEqual(classA, classB) && \n\tpackageURIsAreEqual(classA, classB);'"
 	 * @generated
 	 */
 	boolean namesAndPackageURIsAreEqual(EClass classA, EClass classB);
@@ -79,7 +78,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String nsURI_A = classA.getEPackage().getNsURI();\r\njava.lang.String nsURI_B = classB.getEPackage().getNsURI();\r\nif (nsURI_A == null&&nsURI_B == null) {\r\n\treturn true;\r\n}\r\nif (nsURI_A != null) {\r\n\treturn nsURI_A.equals(nsURI_B);\r\n}else {\r\n\treturn false;\r\n}\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String nsURI_A = classA.getEPackage().getNsURI();\njava.lang.String nsURI_B = classB.getEPackage().getNsURI();\nif (nsURI_A == null && nsURI_B == null) {\n\treturn true;\n}\nif (nsURI_A != null) {\n\treturn nsURI_A.equals(nsURI_B);\n} else {\n\t// nsURI_A is null, but nsURI_B is not\n\treturn false;\n}'"
 	 * @generated
 	 */
 	boolean packageURIsAreEqual(EClass classA, EClass classB);
@@ -90,7 +89,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return classA.getName().equals(classB.getName());\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return classA.getName().equals(classB.getName());'"
 	 * @generated
 	 */
 	boolean namesAreEqual(EClass classA, EClass classB);
@@ -101,7 +100,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return!eClass.isAbstract()&&!eClass.isInterface();\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return !eClass.isAbstract() && !eClass.isInterface();'"
 	 * @generated
 	 */
 	boolean isConcrete(EClass eClass);
@@ -112,7 +111,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return!isConcrete(eClass);\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return !isConcrete(eClass);'"
 	 * @generated
 	 */
 	boolean isNotConcrete(EClass eClass);

@@ -123,7 +123,7 @@ public interface PlaceholderInQuotes extends Placeholder {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t java.lang.String prefix = getPrefix();\r\n\r\n\t\tif (prefix == null) return prefix;\r\n\r\n\t\tif (prefix.length() == 0) return null;\r\n\r\n\t\treturn prefix;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String prefix = getPrefix();\nif (prefix == null) return prefix;\nif (prefix.length() == 0) return null;\nreturn prefix;'"
 	 * @generated
 	 */
 	String getNormalizedPrefix();
@@ -135,7 +135,7 @@ public interface PlaceholderInQuotes extends Placeholder {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t java.lang.String suffix = getSuffix();\r\n\r\n\t\tif (suffix == null) return suffix;\r\n\r\n\t\tif (suffix.length() == 0) return null;\r\n\r\n\t\treturn suffix;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String suffix = getSuffix();\nif (suffix == null) return suffix;\nif (suffix.length() == 0) return null;\nreturn suffix;'"
 	 * @generated
 	 */
 	String getNormalizedSuffix();
@@ -147,7 +147,7 @@ public interface PlaceholderInQuotes extends Placeholder {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t java.lang.String escapeCharacter = getEscapeCharacter();\r\n\r\n\t\tif (escapeCharacter == null) return escapeCharacter;\r\n\r\n\t\tif (escapeCharacter.length() == 0) return null;\r\n\r\n\t\treturn escapeCharacter;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String escapeCharacter = getEscapeCharacter();\nif (escapeCharacter == null) return escapeCharacter;\nif (escapeCharacter.length() == 0) return null;\nreturn escapeCharacter;'"
 	 * @generated
 	 */
 	String getNormalizedEscapeCharacter();
@@ -158,7 +158,7 @@ public interface PlaceholderInQuotes extends Placeholder {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tif (eIsProxy()) return super.toString();\r\n\r\n\r\n\t\t java.lang.StringBuffer result = new  java.lang.StringBuffer();\r\n\r\n\t\t org.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature();\r\n\r\n\t\tif (feature != null && feature.getEcoreFeature() != null) {\r\n\t\t\tresult.append(feature.getName());\r\n\t\t}\r\n\r\n\t\tresult.append(\"[\'\");\r\n\r\n\t\tresult.append(getPrefix());\r\n\r\n\t\tresult.append(\"\', \'\");\r\n\r\n\t\tresult.append(getSuffix());\r\n\r\n\t\tresult.append(\"\']\");\r\n\r\n\t\treturn result.toString();\r\n'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if (eIsProxy()) return super.toString();\r\n\njava.lang.StringBuffer result = new java.lang.StringBuffer();\norg.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature();\nif (feature != null && feature.getEcoreFeature() != null) {\n\tresult.append(feature.getName());\n}\nresult.append(\"[\'\");\nresult.append(getPrefix());\nresult.append(\"\', \'\");\nresult.append(getSuffix());\nresult.append(\"\']\");\nreturn result.toString();'"
 	 * @generated
 	 */
 	String toString();

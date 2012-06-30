@@ -150,7 +150,7 @@ public interface QuotedTokenDefinition extends CompleteTokenDefinition {
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn getSynthesizedRegex();\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return getSynthesizedRegex();'"
 	 * @generated
 	 */
 	String getRegex();

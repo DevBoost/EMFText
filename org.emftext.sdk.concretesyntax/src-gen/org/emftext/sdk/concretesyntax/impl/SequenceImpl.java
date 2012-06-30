@@ -17,9 +17,7 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -59,21 +57,17 @@ public class SequenceImpl extends SyntaxElementImpl implements Sequence {
 	 * @generated
 	 */
 	public EList<Definition> getParts() {
-		
-				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Definition> parts = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Definition>();
-		
-				for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {
-					if (child instanceof  org.emftext.sdk.concretesyntax.Definition) {
-						parts.add(( org.emftext.sdk.concretesyntax.Definition) child);
-					} else {
-						// there should be no elements other than Definition elements in the
-						// list of children
-						assert false;
-					}
-				}
-		
-				return parts;
-		
+		org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Definition> parts = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Definition>();
+		for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {
+			if (child instanceof org.emftext.sdk.concretesyntax.Definition) {
+				parts.add(( org.emftext.sdk.concretesyntax.Definition) child);
+			} else {
+				// there should be no elements other than Definition elements in the
+				// list of children
+				assert false;
+			}
+		}
+		return parts;
 	}
 
 } //SequenceImpl

@@ -17,9 +17,7 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -59,21 +57,17 @@ public class ChoiceImpl extends SyntaxElementImpl implements Choice {
 	 * @generated
 	 */
 	public EList<Sequence> getOptions() {
-		
-				 org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Sequence> options = new  org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Sequence>();
-		
-				for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {
-					if (child instanceof  org.emftext.sdk.concretesyntax.Sequence) {
-						options.add(( org.emftext.sdk.concretesyntax.Sequence) child);
-					} else {
-						// there should be no elements other than Sequence elements in the
-						// list of children
-						assert false;
-					}
-				}
-		
-				return options;
-		
+		org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Sequence> options = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Sequence>();
+		for ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {
+			if (child instanceof org.emftext.sdk.concretesyntax.Sequence) {
+				options.add(( org.emftext.sdk.concretesyntax.Sequence) child);
+			} else {
+				// there should be no elements other than Sequence elements in the
+				// list of children
+				assert false;
+			}
+		}
+		return options;
 	}
 
 } //ChoiceImpl

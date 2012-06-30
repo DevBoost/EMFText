@@ -67,7 +67,7 @@ public interface CompleteTokenDefinition extends TokenDirective, RegexOwner, Ref
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tboolean isReferenced = !getAttributeReferences().isEmpty();\r\n\r\n\t\tboolean isCollectInToken = getAttributeName() != null;\r\n\r\n\t\treturn !isReferenced || isCollectInToken;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='boolean isReferenced = !getAttributeReferences().isEmpty();\nboolean isCollectInToken = getAttributeName() != null;\nreturn !isReferenced || isCollectInToken;'"
 	 * @generated
 	 */
 	boolean isHidden();
@@ -79,7 +79,7 @@ public interface CompleteTokenDefinition extends TokenDirective, RegexOwner, Ref
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\tboolean isReferenced = !getAttributeReferences().isEmpty();\r\n\r\n\t\tboolean isCollectInToken = getAttributeName() != null;\r\n\r\n\t\treturn isReferenced || isCollectInToken;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='boolean isReferenced = !getAttributeReferences().isEmpty();\nboolean isCollectInToken = getAttributeName() != null;\nreturn isReferenced || isCollectInToken;'"
 	 * @generated
 	 */
 	boolean isUsed();
@@ -91,7 +91,7 @@ public interface CompleteTokenDefinition extends TokenDirective, RegexOwner, Ref
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model syntaxRequired="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\treturn !syntax.equals(getContainingSyntax(syntax));\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return !syntax.equals(getContainingSyntax(syntax));'"
 	 * @generated
 	 */
 	boolean isImported(ConcreteSyntax syntax);
@@ -103,7 +103,7 @@ public interface CompleteTokenDefinition extends TokenDirective, RegexOwner, Ref
 	 * 
 	 * <!-- end-model-doc -->
 	 * @model syntaxRequired="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='\r\n\t\t org.eclipse.emf.ecore.EObject container = this.eContainer();\r\n\r\n\t\tif (container instanceof  org.emftext.sdk.concretesyntax.ConcreteSyntax) {\r\n\t\t\treturn ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;\r\n\t\t}\r\n\r\n\t\treturn syntax;\r\n'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.ecore.EObject container = this.eContainer();\nif (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {\n\treturn ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;\n}\nreturn syntax;'"
 	 * @generated
 	 */
 	ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax);

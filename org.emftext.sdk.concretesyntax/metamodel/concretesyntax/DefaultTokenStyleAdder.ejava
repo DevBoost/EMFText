@@ -74,17 +74,17 @@ eclass DefaultTokenStyleAdder {
 		}
 	}
 	
+	/**
+	 * All CsStrings that match the regular expression returned by this method will 
+	 * be recognized as keywords and a default token style (purple and bold face font) 
+	 * will be assigned.
+	 */
 	getKeywordRegex() {
-		final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[:]|[-]|[_]|\\s)+)";
+		final String KEYWORD_REGEX = "([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[0-9]|[:]|[-]|[_]|\\s)+)";
 		return KEYWORD_REGEX;
 	}
 
 	addTokenStylesForKeywords(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
-		/**
-		 * All CsStrings that match this regular expression will be recognized
-		 * as keywords and a default token style (purple and bold face font) 
-		 * will be assigned.
-		 */
 		final Pattern KEYWORD_PATTERN = Pattern.compile(getKeywordRegex());
 		final String KEYWORD_COLOR = "800055";
 		for (Rule rule : syntax.getAllRules()) {

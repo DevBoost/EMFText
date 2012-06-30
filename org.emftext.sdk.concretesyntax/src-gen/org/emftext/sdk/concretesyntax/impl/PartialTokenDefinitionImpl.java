@@ -19,15 +19,11 @@ package org.emftext.sdk.concretesyntax.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.PartialTokenDefinition;
 import org.emftext.sdk.concretesyntax.RegexComposite;
@@ -95,15 +91,11 @@ public class PartialTokenDefinitionImpl extends NamedTokenDefinitionImpl impleme
 	 * @generated
 	 */
 	public String getRegex() {
-		
-				 java.lang.StringBuilder result = new  java.lang.StringBuilder();
-		
-				for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {
-					result.append(part.getRegex());
-				}
-		
-				return result.toString();
-		
+		java.lang.StringBuilder result = new java.lang.StringBuilder();
+		for ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {
+			result.append(part.getRegex());
+		}
+		return result.toString();
 	}
 
 	/**
