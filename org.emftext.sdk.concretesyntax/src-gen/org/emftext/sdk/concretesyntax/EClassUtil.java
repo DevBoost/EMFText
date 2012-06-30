@@ -89,7 +89,7 @@ public interface EClassUtil extends EObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * <!-- end-model-doc -->
-	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return classA.getName().equals(classB.getName());'"
+	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String nameA = classA.getName();\njava.lang.String nameB = classB.getName();\nif (nameA == null) {\n\treturn nameB == null;\n}\nreturn nameA.equals(nameB);'"
 	 * @generated
 	 */
 	boolean namesAreEqual(EClass classA, EClass classB);

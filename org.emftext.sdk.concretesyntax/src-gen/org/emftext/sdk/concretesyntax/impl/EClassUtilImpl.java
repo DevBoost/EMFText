@@ -118,7 +118,12 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * @generated
 	 */
 	public boolean namesAreEqual(EClass classA, EClass classB) {
-		return classA.getName().equals(classB.getName());
+		java.lang.String nameA = classA.getName();
+		java.lang.String nameB = classB.getName();
+		if (nameA == null) {
+			return nameB == null;
+		}
+		return nameA.equals(nameB);
 	}
 
 	/**

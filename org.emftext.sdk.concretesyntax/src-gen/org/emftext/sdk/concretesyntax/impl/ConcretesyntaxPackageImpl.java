@@ -4881,7 +4881,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (eClassUtilEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
-			 "body", "return classA.getName().equals(classB.getName());",
+			 "body", "java.lang.String nameA = classA.getName();\njava.lang.String nameB = classB.getName();\nif (nameA == null) {\n\treturn nameB == null;\n}\nreturn nameA.equals(nameB);",
 			 "documentation", ""
 		   });		
 		addAnnotation
