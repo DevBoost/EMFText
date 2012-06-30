@@ -93,14 +93,14 @@ public class CsInterruptibleEcoreResolver {
 		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> elementIt = org.eclipse.emf.ecore.util.EcoreUtil.getAllContents(resource, true); elementIt.hasNext(); ) {
 			org.eclipse.emf.ecore.InternalEObject nextElement = (org.eclipse.emf.ecore.InternalEObject) elementIt.next();
 			if (terminate) {
-				return;
+				return unresolvedProxies;
 			}
 			if (nextElement.eIsProxy()) {
 				unresolvedProxies.add(nextElement);
 			}
 			for (org.eclipse.emf.ecore.EObject crElement : nextElement.eCrossReferences()) {
 				if (terminate) {
-					return;
+					return unresolvedProxies;
 				}
 				crElement = org.eclipse.emf.ecore.util.EcoreUtil.resolve(crElement, resource);
 				if (crElement.eIsProxy()) {
@@ -123,7 +123,7 @@ public class CsInterruptibleEcoreResolver {
 		
 		for (org.eclipse.emf.ecore.resource.Resource resource : resourceSet.getResources()) {
 			if (terminate) {
-				return;
+				return unresolvedProxies;
 			}
 			unresolvedProxies.addAll(findUnresolvedProxies(resource));
 		}
