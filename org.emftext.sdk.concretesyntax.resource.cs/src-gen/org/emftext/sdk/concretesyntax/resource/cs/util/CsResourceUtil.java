@@ -30,12 +30,7 @@ public class CsResourceUtil {
 	 * @return all proxy objects that are not resolvable
 	 */
 	public static java.util.Set<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.ResourceSet resourceSet) {
-		java.util.Set<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
-		
-		for (org.eclipse.emf.ecore.resource.Resource resource : resourceSet.getResources()) {
-			unresolvedProxies.addAll(findUnresolvedProxies(resource));
-		}
-		return unresolvedProxies;
+		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsInterruptibleEcoreResolver().findUnresolvedProxies(resourceSet);
 	}
 	
 	/**
@@ -46,21 +41,7 @@ public class CsResourceUtil {
 	 * @return all proxy objects that are not resolvable
 	 */
 	public static java.util.Set<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.Resource resource) {
-		java.util.Set<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
-		
-		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> elementIt = org.eclipse.emf.ecore.util.EcoreUtil.getAllContents(resource, true); elementIt.hasNext(); ) {
-			org.eclipse.emf.ecore.InternalEObject nextElement = (org.eclipse.emf.ecore.InternalEObject) elementIt.next();
-			if (nextElement.eIsProxy()) {
-				unresolvedProxies.add(nextElement);
-			}
-			for (org.eclipse.emf.ecore.EObject crElement : nextElement.eCrossReferences()) {
-				crElement = org.eclipse.emf.ecore.util.EcoreUtil.resolve(crElement, resource);
-				if (crElement.eIsProxy()) {
-					unresolvedProxies.add(crElement);
-				}
-			}
-		}
-		return unresolvedProxies;
+		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsInterruptibleEcoreResolver().findUnresolvedProxies(resource);
 	}
 	
 	/**

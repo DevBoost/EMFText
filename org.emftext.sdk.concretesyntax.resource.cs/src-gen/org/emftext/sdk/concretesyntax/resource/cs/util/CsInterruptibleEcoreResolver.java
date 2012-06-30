@@ -80,4 +80,54 @@ public class CsInterruptibleEcoreResolver {
 		}
 	}
 	
+	/**
+	 * Searches for all unresolved proxy objects in the given resource.
+	 * 
+	 * @param resource
+	 * 
+	 * @return all proxy objects that are not resolvable
+	 */
+	public java.util.Set<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.Resource resource) {
+		java.util.Set<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
+		
+		for (java.util.Iterator<org.eclipse.emf.ecore.EObject> elementIt = org.eclipse.emf.ecore.util.EcoreUtil.getAllContents(resource, true); elementIt.hasNext(); ) {
+			org.eclipse.emf.ecore.InternalEObject nextElement = (org.eclipse.emf.ecore.InternalEObject) elementIt.next();
+			if (terminate) {
+				return;
+			}
+			if (nextElement.eIsProxy()) {
+				unresolvedProxies.add(nextElement);
+			}
+			for (org.eclipse.emf.ecore.EObject crElement : nextElement.eCrossReferences()) {
+				if (terminate) {
+					return;
+				}
+				crElement = org.eclipse.emf.ecore.util.EcoreUtil.resolve(crElement, resource);
+				if (crElement.eIsProxy()) {
+					unresolvedProxies.add(crElement);
+				}
+			}
+		}
+		return unresolvedProxies;
+	}
+	
+	/**
+	 * Searches for all unresolved proxy objects in the given resource set.
+	 * 
+	 * @param resourceSet
+	 * 
+	 * @return all proxy objects that are not resolvable
+	 */
+	public java.util.Set<org.eclipse.emf.ecore.EObject> findUnresolvedProxies(org.eclipse.emf.ecore.resource.ResourceSet resourceSet) {
+		java.util.Set<org.eclipse.emf.ecore.EObject> unresolvedProxies = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EObject>();
+		
+		for (org.eclipse.emf.ecore.resource.Resource resource : resourceSet.getResources()) {
+			if (terminate) {
+				return;
+			}
+			unresolvedProxies.addAll(findUnresolvedProxies(resource));
+		}
+		return unresolvedProxies;
+	}
+	
 }
