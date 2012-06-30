@@ -23,10 +23,7 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EC
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
@@ -138,12 +135,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@return all proxy objects that are not resolvable"
 		);
 		sc.add("public static " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE_SET + " resourceSet) {");
-		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
-		sc.addLineBreak();
-		sc.add("for (" + RESOURCE + " resource : resourceSet.getResources()) {");
-		sc.add("unresolvedProxies.addAll(findUnresolvedProxies(resource));");
-		sc.add("}");
-		sc.add("return unresolvedProxies;");
+		sc.add("return new " + interruptibleEcoreResolverClassName + "().findUnresolvedProxies(resourceSet);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -155,21 +147,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@return all proxy objects that are not resolvable"
 		);
 		sc.add("public static " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
-		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
-		sc.addLineBreak();
-		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> elementIt = " + ECORE_UTIL + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
-		sc.add(INTERNAL_E_OBJECT + " nextElement = (" + INTERNAL_E_OBJECT + ") elementIt.next();");
-		sc.add("if (nextElement.eIsProxy()) {");
-		sc.add("unresolvedProxies.add(nextElement);");
-		sc.add("}");
-		sc.add("for (" + E_OBJECT + " crElement : nextElement.eCrossReferences()) {");
-		sc.add("crElement = " + ECORE_UTIL + ".resolve(crElement, resource);");
-		sc.add("if (crElement.eIsProxy()) {");
-		sc.add("unresolvedProxies.add(crElement);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return unresolvedProxies;");
+		sc.add("return new " + interruptibleEcoreResolverClassName + "().findUnresolvedProxies(resource);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

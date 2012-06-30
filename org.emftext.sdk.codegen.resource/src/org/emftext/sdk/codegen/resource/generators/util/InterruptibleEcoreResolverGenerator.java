@@ -19,6 +19,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -43,6 +44,8 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 		addResolveAllMethod2(sc);
 		addResolveAllMethod3(sc);
 		addResolveCrossReferencesMethod(sc);
+		addFindUnresolvedProxiesMethod1(sc);
+		addFindUnresolvedProxiesMethod2(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -114,6 +117,58 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFindUnresolvedProxiesMethod1(JavaComposite sc) {
+		sc.addJavadoc(
+			"Searches for all unresolved proxy objects in the given resource.",
+			"@param resource",
+			"@return all proxy objects that are not resolvable"
+		);
+		sc.add("public " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
+		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
+		sc.addLineBreak();
+		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> elementIt = " + ECORE_UTIL + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
+		sc.add(INTERNAL_E_OBJECT + " nextElement = (" + INTERNAL_E_OBJECT + ") elementIt.next();");
+		sc.add("if (terminate) {");
+		sc.add("return unresolvedProxies;");
+		sc.add("}");
+		sc.add("if (nextElement.eIsProxy()) {");
+		sc.add("unresolvedProxies.add(nextElement);");
+		sc.add("}");
+		sc.add("for (" + E_OBJECT + " crElement : nextElement.eCrossReferences()) {");
+		sc.add("if (terminate) {");
+		sc.add("return unresolvedProxies;");
+		sc.add("}");
+		sc.add("crElement = " + ECORE_UTIL + ".resolve(crElement, resource);");
+		sc.add("if (crElement.eIsProxy()) {");
+		sc.add("unresolvedProxies.add(crElement);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return unresolvedProxies;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFindUnresolvedProxiesMethod2(JavaComposite sc) {
+		sc.addJavadoc(
+			"Searches for all unresolved proxy objects in the given resource set.",
+			"@param resourceSet",
+			"@return all proxy objects that are not resolvable"
+		);
+		sc.add("public " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE_SET + " resourceSet) {");
+		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
+		sc.addLineBreak();
+		sc.add("for (" + RESOURCE + " resource : resourceSet.getResources()) {");
+		sc.add("if (terminate) {");
+		sc.add("return unresolvedProxies;");
+		sc.add("}");
+		sc.add("unresolvedProxies.addAll(findUnresolvedProxies(resource));");
+		sc.add("}");
+		sc.add("return unresolvedProxies;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
