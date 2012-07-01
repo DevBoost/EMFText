@@ -220,6 +220,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 					if (isLayoutInformationRecordingEnabled()) {
 						layoutUtil.transferAllLayoutInformationToModel(root);
 					}
+					if (processTerminationRequested()) {
+						// the next reload will add new content
+						return;
+					}
 					getContentsInternal().add(root);
 				}
 				java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> commands = result.getPostParseCommands();
@@ -237,14 +241,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				if (root != null) {
 					runValidators(root);
 				}
-			}
-			if (root != null) {
-				getContentsInternal().clear();
-				if (processTerminationRequested()) {
-					// the next reload will add new content
-					return;
-				}
-				getContentsInternal().add(root);
 			}
 			notifyDelayed();
 		}

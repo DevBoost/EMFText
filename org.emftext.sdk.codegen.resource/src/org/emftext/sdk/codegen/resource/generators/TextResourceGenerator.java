@@ -1083,6 +1083,10 @@ public class TextResourceGenerator extends
 		sc.add("if (isLayoutInformationRecordingEnabled()) {");
 		sc.add("layoutUtil.transferAllLayoutInformationToModel(root);");
 		sc.add("}");
+		sc.add("if (processTerminationRequested()) {");
+		sc.addComment("the next reload will add new content");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("getContentsInternal().add(root);");
 		sc.add("}");
 		sc.add(COLLECTION + "<" + iCommandClassName + "<"
@@ -1103,14 +1107,6 @@ public class TextResourceGenerator extends
 		sc.add("if (root != null) {");
 		sc.add("runValidators(root);");
 		sc.add("}");
-		sc.add("}");
-		sc.add("if (root != null) {");
-		sc.add("getContentsInternal().clear();");
-		sc.add("if (processTerminationRequested()) {");
-		sc.addComment("the next reload will add new content");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("getContentsInternal().add(root);");
 		sc.add("}");
 		sc.add("notifyDelayed();");
 		if (saveChangedResourcesOnly) {
