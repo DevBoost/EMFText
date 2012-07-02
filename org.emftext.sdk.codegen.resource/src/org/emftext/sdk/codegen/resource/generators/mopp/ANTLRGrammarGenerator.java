@@ -1206,18 +1206,20 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			EList<GenClass> eClassesWithSyntax,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 
+		boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(
+				concreteSyntax,
+				OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+
+		LeftRecursionDetector lrd = new LeftRecursionDetector(
+				genClassNames2superClassNames, concreteSyntax);
+
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			// operator rules must be handled separately
 			if (concreteSyntax.getOperatorRules().contains(rule)) {
 				continue;
 			}
-			LeftRecursionDetector lrd = new LeftRecursionDetector(
-					genClassNames2superClassNames, concreteSyntax);
 			Rule recursionRule = lrd.findLeftRecursion(rule);
 			if (recursionRule != null) {
-				boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(
-						concreteSyntax,
-						OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
 				if (lrd.isDirectLeftRecursive(rule)) {// direct left recursion
 					if (autofix) {
 						printRightRecursion(sc, rule, eClassesWithSyntax,
@@ -1270,6 +1272,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 						eClassesReferenced);
 			}
 		}
+		
 		// handle operator rules
 		if (!concreteSyntax.getOperatorRules().isEmpty()) {
 			for (String expressionIdent : concreteSyntax.getOperatorRuleSubsets()) {
@@ -1295,7 +1298,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 		sc.add("@init{");
 		sc.add("}");
-		sc.add(":");	
+		sc.add(":");
 	}
 	
 	private void printGrammarRuleSuffix(StringComposite sc) {
@@ -1430,19 +1433,20 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 	}
 	
-	private void printUnaryPrefixOperatorRule(ANTLRGrammarComposite sc,
+	private void printUnaryPrefixOperatorRule(
+			ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
-			Rule firstRule, List<Rule> equalWeightOPs, final String nextRuleName) {
+			Rule firstRule, 
+			List<Rule> equalWeightOPs, 
+			String nextRuleName) {
+		
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
-			// TODO skarol: this assertion fails both for the simplemath and the threevaluedlogic
-			// languages
-			//assert definitions.size() > 2;
-			// sven: should be this: 
-			assert definitions.size() >=2;
-			// TODO skarol: we should not alter the syntax models during code generation
-			//sven: actually we don't, this definition is just a copy
-			Definition right = definitions.remove(definitions.size()-1);
+			assert definitions.size() >= 2;
+			// in general, we do not alter the syntax models during code 
+			// generation, but we can remove the last definition here, since 
+			// this list of definitions is just a copy
+			Definition right = definitions.remove(definitions.size() - 1);
 			
 			assert right instanceof Containment;
 			
@@ -1459,12 +1463,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("arg = " + nextRuleName + "{ element = arg; }");
 	}
 
-	private void printUnaryPostfixOperatorRule(ANTLRGrammarComposite sc,
+	private void printUnaryPostfixOperatorRule(
+			ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
-			List<Rule> equalWeightOPs, Sequence firstSequence,
-			final String nextRuleName) {
+			List<Rule> equalWeightOPs, 
+			Sequence firstSequence,
+			String nextRuleName) {
+		
 		sc.add("arg = "+ nextRuleName);
 		sc.add("(");
+		
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
 			assert definitions.size() > 2;
@@ -1485,9 +1493,12 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(")");
 	}
 
-	private void printBinaryLeftAssociativeRule(ANTLRGrammarComposite sc,
+	private void printBinaryLeftAssociativeRule(
+			ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
-			List<Rule> equalWeightOPs, final String nextRuleName) {
+			List<Rule> equalWeightOPs, 
+			String nextRuleName) {
+		
 		sc.add("leftArg = " + nextRuleName);
 		sc.add("((");
 		Iterator<Rule> ruleIterator = equalWeightOPs.iterator();
@@ -1526,12 +1537,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(")");
 	}
 
-	private void printBinaryRightAssociativeRule(ANTLRGrammarComposite sc,
+	private void printBinaryRightAssociativeRule(
+			ANTLRGrammarComposite sc,
 			Map<GenClass, Collection<Terminal>> eClassesReferenced,
-			List<Rule> equalWeightOPs, String ruleName,
-			final String nextRuleName) {
+			List<Rule> equalWeightOPs, 
+			String ruleName,
+			String nextRuleName) {
+		
 		sc.add("leftArg = " + nextRuleName);
 		sc.add("((");
+
 		Iterator<Rule> ruleIterator = equalWeightOPs.iterator();
 		while (ruleIterator.hasNext()) {
 			Rule rule = ruleIterator.next();
@@ -1550,15 +1565,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			Containment rightContainment = (Containment) right;
 			
 			printDefinitions(definitions, rule, sc, new Counter(), eClassesReferenced, "0");		
-			
-			//if (operator instanceof CsString) {
-			//	CsString csString = (CsString) operator;
-			//	printCsString(csString, rule, sc, 0, eClassesReferenced);									
-			//} else {
-			//	assert operator instanceof Placeholder;
-			//	Placeholder placeholder = (Placeholder) operator;
-			//	printTerminal(placeholder, rule, sc, 0, eClassesReferenced);									
-			//}
 			
 			sc.add("rightArg = " + ruleName);
 			printTerminalAction(leftContainment, rule, sc, "leftArg", "", "leftArg", null, "null", true);
