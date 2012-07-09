@@ -5,6 +5,8 @@ import ecore.EClass;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.BasicEList;
 
+import org.eclipse.emf.ecore.EcorePackage;
+
 eclass EClassUtil {
 	
 	isConcrete() {
@@ -14,6 +16,10 @@ eclass EClassUtil {
 	isSubClass() {
 		if (subClassCandidate == null) {
 			return false;
+		}
+		if (EcorePackage.eINSTANCE.getEObject().equals(superClass)) {
+			// EObject is super type of all EClasses
+			return true;
 		}
 		for (EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {
 			// There seem to be multiple instances of meta classes when accessed
