@@ -116,13 +116,15 @@ public class ConcreteSyntaxUtil {
 	// is not known there, it must stay here until this is resolved
 	public Collection<Rule> getRules(ConcreteSyntax concreteSyntax, GenClass genClass) {
 		GenClassCache genClassCache = concreteSyntax.getGenClassCache();
+		String genClassInterfaceName = genClassCache.getQualifiedInterfaceName(genClass);
+
 		Collection<Rule> foundRules = new ArrayList<Rule>();
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			GenClass metaclass = rule.getMetaclass();
-			if (genClassCache.getQualifiedInterfaceName(metaclass).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
+			if (genClassCache.getQualifiedInterfaceName(metaclass).equals(genClassInterfaceName)) {
 				foundRules.add(rule);
 			}
-			if (genClassUtil.contains(metaclass.getAllBaseGenClasses(), genClass, concreteSyntax.getGenClassCache())) {
+			if (genClassUtil.isSuperClass(genClass, metaclass, genClassCache)) {
 				foundRules.add(rule);
 			}
 		}

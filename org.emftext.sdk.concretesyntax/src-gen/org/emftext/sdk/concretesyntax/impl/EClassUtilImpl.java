@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.EClassUtil;
@@ -59,6 +60,10 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	public boolean isSubClass(EClass subClassCandidate, EClass superClass) {
 		if (subClassCandidate == null) {
 			return false;
+		}
+		if (EcorePackage.eINSTANCE.getEObject().equals(superClass)) {
+			// EObject is super type of all EClasses
+			return true;
 		}
 		for ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {
 			// There seem to be multiple instances of meta classes when accessed

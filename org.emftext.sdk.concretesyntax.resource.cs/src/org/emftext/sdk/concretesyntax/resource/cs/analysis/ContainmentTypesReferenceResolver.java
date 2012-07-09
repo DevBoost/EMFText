@@ -45,7 +45,7 @@ public class ContainmentTypesReferenceResolver implements ICsReferenceResolver<C
 				}
 				// using the type of the feature as containment restriction
 				// doesn't make sense since this does not restrict the type
-				// any further, but is allowed
+				// any further, but we still allow it.
 				if (genClass.getQualifiedClassName().equals(featureType.getQualifiedClassName())) {
 					return true;
 				}

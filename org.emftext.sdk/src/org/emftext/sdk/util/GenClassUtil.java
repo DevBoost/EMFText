@@ -22,6 +22,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 
 /**
@@ -82,12 +83,17 @@ public class GenClassUtil {
 	 * @return
 	 */
 	public boolean isSuperClass(GenClass superClass, GenClass subClass, GenClassCache genClassCache) {
+		String superClassInterfaceName = genClassCache.getQualifiedInterfaceName(superClass);
+		if (EObject.class.getName().equals(superClassInterfaceName)) {
+			// EObject is super type of all classes
+			return true;
+		}
 		List<GenClass> superClasses = subClass.getAllBaseGenClasses();
 		for (GenClass nextSuperclass : superClasses) {
 			if (nextSuperclass == null) {
 				continue;
 			}
-			if (genClassCache.getQualifiedInterfaceName(nextSuperclass).equals(genClassCache.getQualifiedInterfaceName(superClass))) {
+			if (genClassCache.getQualifiedInterfaceName(nextSuperclass).equals(superClassInterfaceName)) {
 				return true;
 			}
 		}
