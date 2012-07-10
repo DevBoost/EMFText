@@ -24,6 +24,7 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -343,5 +344,26 @@ public class ConcreteSyntaxUtil {
 			 return fullConcreteSyntaxName.substring(0, idx);
 		 }
 		 return null;
+	}
+
+	public Set<GenClass> getAllGenClasses(ConcreteSyntax concreteSyntax) {
+		Set<GenPackage> usedGenPackages = new LinkedHashSet<GenPackage>();
+		usedGenPackages.add(concreteSyntax.getPackage());
+		for (Import importElement : concreteSyntax.getImports()) {
+			usedGenPackages.add(importElement.getPackage());
+		}
+		
+		Set<GenClass> usedGenClasses = collectAllGenClasses(usedGenPackages);
+		return usedGenClasses;
+	}
+
+	private Set<GenClass> collectAllGenClasses(Set<GenPackage> usedGenPackages) {
+		Set<GenClass> allGenClasses = new LinkedHashSet<GenClass>();
+		for (GenPackage genPackage : usedGenPackages) {
+			for (GenClass genClass : genPackage.getGenClasses()) {
+				allGenClasses.add(genClass);
+			}
+		}
+		return allGenClasses;
 	}
 }

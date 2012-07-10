@@ -27,21 +27,19 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ST
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
+import org.emftext.sdk.codegen.resource.GenClassInheritanceComparator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
-import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.StringUtil;
 
 @SyntaxDependent
@@ -51,24 +49,11 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 	private Set<GenClass> allGenClasses;
 	private GenClassCache genClassCache;
 	
-	private class InheritanceComparator implements Comparator<GenClass>{
-
-		public int compare(GenClass g1, GenClass g2) {
-			List<GenClass> superClasses = g1.getAllBaseGenClasses();
-			if (superClasses.contains(g2)) {
-				return -1;
-			} else {
-				return 1;
-			}
-		}
-		
-	}
-
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		concreteSyntax = getContext().getConcreteSyntax();
 		genClassCache = concreteSyntax.getGenClassCache();
-		allGenClasses = getAllGenClasses();
+		allGenClasses = new ConcreteSyntaxUtil().getAllGenClasses(concreteSyntax);
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -185,7 +170,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		// sort genClasses by inheritance
 		List<GenClass> sortedClasses = new ArrayList<GenClass>();
 		sortedClasses.addAll(allGenClasses);
-		Collections.sort(sortedClasses, new InheritanceComparator());
+		Collections.sort(sortedClasses, new GenClassInheritanceComparator());
 		
 		// add if statement for each class
 		for (GenClass genClass : sortedClasses) {
@@ -218,17 +203,6 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		}
 	}
 
-	private Set<GenClass> getAllGenClasses() {
-		Set<GenPackage> usedGenPackages = new LinkedHashSet<GenPackage>();
-		usedGenPackages.add(concreteSyntax.getPackage());
-		for (Import importElement : concreteSyntax.getImports()) {
-			usedGenPackages.add(importElement.getPackage());
-		}
-		
-		Set<GenClass> usedGenClasses = collectAllGenClasses(usedGenPackages);
-		return usedGenClasses;
-	}
-
 	private void addInterpreteTypeMethod(StringComposite sc, GenClass genClass) {
 		String typeName = getTypeName(genClass);
 		String methodName = getMethodName(genClass);
@@ -246,16 +220,6 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		String escapedTypeName = genClassCache.getEscapedTypeName(genClass);
 		String methodName = "interprete_" + escapedTypeName;
 		return methodName;
-	}
-
-	private Set<GenClass> collectAllGenClasses(Set<GenPackage> usedGenPackages) {
-		Set<GenClass> allGenClasses = new LinkedHashSet<GenClass>();
-		for (GenPackage genPackage : usedGenPackages) {
-			for (GenClass genClass : genPackage.getGenClasses()) {
-				allGenClasses.add(genClass);
-			}
-		}
-		return allGenClasses;
 	}
 
 	private void addFields(StringComposite sc) {
