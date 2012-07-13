@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -52,6 +53,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 					URI genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);
 			    	try {
 			    		final ResourceSet rs = new ResourceSetImpl();
+			    		rs.getURIConverter().getURIMap().putAll(URIConverter.INSTANCE.getURIMap());
 		        		Resource genModelResource = rs.getResource(genModelURI, true);
 		        		if (genModelResource == null) {
 		        			continue;
