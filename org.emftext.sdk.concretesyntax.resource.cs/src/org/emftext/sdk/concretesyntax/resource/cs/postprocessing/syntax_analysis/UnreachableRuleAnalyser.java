@@ -31,6 +31,11 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
 import org.emftext.sdk.util.EObjectUtil;
 
+/**
+ * The UnreachableRuleAnalyser checks that all rules defined in a syntax
+ * specification are reachable from the start elements. Rules which are not
+ * reachable are annotated with a respective warning.
+ */
 public class UnreachableRuleAnalyser extends AbstractPostProcessor {
 	
 	@Override
