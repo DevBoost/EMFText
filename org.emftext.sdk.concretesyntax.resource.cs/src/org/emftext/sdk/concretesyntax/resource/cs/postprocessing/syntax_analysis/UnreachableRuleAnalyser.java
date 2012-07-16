@@ -61,7 +61,8 @@ public class UnreachableRuleAnalyser extends AbstractPostProcessor {
 			if (reachableRules.contains(rule)) {
 				continue;
 			}
-			String message = "Rule is not reachable (wrong super class or missing right hand side definition?)";
+			String ruleName = rule.getMetaclass().getName();
+			String message = "Rule '" + ruleName + "' is not reachable (wrong super class or missing right hand side definition?)";
 			addProblem(
 				CsAnalysisProblemType.UNREACHABLE_RULE, 
 				message,
