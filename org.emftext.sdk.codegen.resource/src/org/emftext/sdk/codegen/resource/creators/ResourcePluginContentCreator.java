@@ -558,17 +558,16 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		Set<String> imports = new LinkedHashSet<String>();
 		if (!removeEclipseDependentCode) {
 			//imports.add("org.eclipse.core.resources");
-			imports.add("org.eclipse.core.runtime");
+			imports.add("org.eclipse.core.runtime;resolution:=optional");
 		}
-		imports.add("org.eclipse.emf");
 		imports.add("org.eclipse.emf.ecore");
 		imports.add("org.eclipse.emf.ecore.change");
-		imports.add("org.eclipse.emf.validation");
+		imports.add("org.eclipse.emf.validation;resolution:=optional");
 		//imports.add("org.eclipse.emf.workspace");
 		imports.add("org.emftext.access;resolution:=optional");
 		
 		if (context.isDebugSupportEnabled()) {
-			imports.add("org.eclipse.debug.core");
+			imports.add("org.eclipse.debug.core;resolution:=optional");
 		}
 		// TODO implement extension mechanism to allow code generation plug-ins to add
 		// more imports here 
