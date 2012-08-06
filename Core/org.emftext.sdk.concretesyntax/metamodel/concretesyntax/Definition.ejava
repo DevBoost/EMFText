@@ -1,0 +1,36 @@
+epackage concretesyntax;
+
+eclass Definition {
+	
+	hasMinimalCardinalityOneOrHigher() {
+		return true;
+	}
+
+	hasNoOptionalPart() {
+		return false;
+	}
+
+	/**
+	 * Returns a string representation of the cardinality of the
+	 * given definition. This can be one of '+', '?', '*' or the
+	 * empty string.
+	 * 
+	 * @param definition
+	 * @return
+	 */
+	computeCardinalityString() {
+		Cardinality cardinality = Cardinality.NONE;
+		if (this instanceof CardinalityDefinition) {
+			cardinality = ((CardinalityDefinition) this).getCardinality();
+		}
+		if (cardinality == Cardinality.NONE) {
+			return "";
+		} else if (cardinality == Cardinality.PLUS) {
+			return "+";
+		} else if (cardinality == Cardinality.QUESTIONMARK) {
+			return "?";
+		} else {
+			return "*";
+		}
+	}
+}

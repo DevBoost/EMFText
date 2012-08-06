@@ -1,0 +1,18 @@
+epackage jdt;
+
+import org.eclipse.emf.ecore.EObject;
+
+eclass JDTJavaClassifier {
+
+	getQualifiedName() {
+		StringBuilder qualifiedName = new StringBuilder();
+		qualifiedName.append(getPackageName());
+		qualifiedName.append(".");
+		for (String enclosingType : getEnclosingTypeNames()) {
+			qualifiedName.append(enclosingType);
+			qualifiedName.append("$");
+		}
+		qualifiedName.append(getSimpleName());
+		return qualifiedName.toString();
+	}
+}

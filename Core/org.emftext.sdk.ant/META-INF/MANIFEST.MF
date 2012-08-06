@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText SDK Ant Support
+Bundle-SymbolicName: org.emftext.sdk.ant; singleton:=true
+Bundle-Version: 1.2.0.qualifier
+Require-Bundle: org.apache.ant,
+ org.emftext.sdk,
+ org.emftext.sdk.antlr3_4_0,
+ org.emftext.sdk.concretesyntax,
+ org.emftext.sdk.concretesyntax.resource.cs,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.emftext.sdk.codegen,
+ org.emftext.sdk.codegen.antlr,
+ org.emftext.sdk.codegen.resource,
+ org.emftext.sdk.codegen.resource.ui,
+ org.emftext.sdk.ui;bundle-version="1.2.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.sdk.ant
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+

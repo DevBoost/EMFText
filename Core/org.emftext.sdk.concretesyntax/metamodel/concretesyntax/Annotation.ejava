@@ -1,0 +1,17 @@
+epackage concretesyntax;
+
+eclass Annotation {
+	
+	/**
+	 * Returns the annotation value for the given key.
+	 */
+	getValue() {
+		for (KeyValuePair parameter : getParameters()) {
+			if (key.equals(parameter.getKey())){
+				String value = parameter.getValue();
+				return value;
+			}
+		}
+		return null;
+	}
+}

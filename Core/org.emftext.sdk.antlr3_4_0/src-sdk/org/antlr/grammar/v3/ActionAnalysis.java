@@ -1,0 +1,517 @@
+// $ANTLR 3.3 Nov 30, 2010 12:46:29 org\\antlr\\grammar\\v3\\ActionAnalysis.g 2011-08-25 14:59:48
+
+package org.antlr.grammar.v3;
+import org.antlr.runtime3_4_0.ANTLRStringStream;
+import org.antlr.runtime3_4_0.CharStream;
+import org.antlr.runtime3_4_0.CommonToken;
+import org.antlr.runtime3_4_0.FailedPredicateException;
+import org.antlr.runtime3_4_0.IntStream;
+import org.antlr.runtime3_4_0.Lexer;
+import org.antlr.runtime3_4_0.MismatchedSetException;
+import org.antlr.runtime3_4_0.NoViableAltException;
+import org.antlr.runtime3_4_0.RecognitionException;
+import org.antlr.runtime3_4_0.RecognizerSharedState;
+import org.antlr.runtime3_4_0.Token;
+import org.antlr.tool.AttributeScope;
+import org.antlr.tool.Grammar;
+import org.antlr.tool.GrammarAST;
+import org.antlr.tool.Rule;
+/** We need to set Rule.referencedPredefinedRuleAttributes before
+ *  code generation.  This filter looks at an action in context of
+ *  its rule and outer alternative number and figures out which
+ *  rules have predefined prefs referenced.  I need this so I can
+ *  remove unusued labels.  This also tracks, for labeled rules,
+ *  which are referenced by actions.
+ */
+public class ActionAnalysis extends Lexer {
+    public static final int EOF=-1;
+    public static final int ID=4;
+    public static final int X_Y=5;
+    public static final int X=6;
+    public static final int Y=7;
+
+    Rule enclosingRule;
+    Grammar grammar;
+    Token actionToken;
+    int outerAltNum = 0;
+
+    	public ActionAnalysis(Grammar grammar, String ruleName, GrammarAST actionAST)
+    	{
+    		this(new ANTLRStringStream(actionAST.token.getText()));
+    		this.grammar = grammar;
+    	    this.enclosingRule = grammar.getLocallyDefinedRule(ruleName);
+    	    this.actionToken = actionAST.token;
+    	    this.outerAltNum = actionAST.outerAltNum;
+    	}
+
+    public void analyze() {
+    	// System.out.println("###\naction="+actionToken);
+    	Token t;
+    	do {
+    		t = nextToken();
+    	} while ( t.getType()!= Token.EOF );
+    }
+
+
+    // delegates
+    // delegators
+
+    public ActionAnalysis() {;} 
+    public ActionAnalysis(CharStream input) {
+        this(input, new RecognizerSharedState());
+    }
+    public ActionAnalysis(CharStream input, RecognizerSharedState state) {
+        super(input,state);
+
+    }
+    public String getGrammarFileName() { return "org\\antlr\\grammar\\v3\\ActionAnalysis.g"; }
+
+    public Token nextToken() {
+        while (true) {
+            if ( input.LA(1)==CharStream.EOF ) {
+                Token eof = new CommonToken((CharStream)input,Token.EOF,
+                                            Token.DEFAULT_CHANNEL,
+                                            input.index(),input.index());
+                eof.setLine(getLine());
+                eof.setCharPositionInLine(getCharPositionInLine());
+                return eof;
+            }
+            state.token = null;
+    	state.channel = Token.DEFAULT_CHANNEL;
+            state.tokenStartCharIndex = input.index();
+            state.tokenStartCharPositionInLine = input.getCharPositionInLine();
+            state.tokenStartLine = input.getLine();
+    	state.text = null;
+            try {
+                int m = input.mark();
+                state.backtracking=1; 
+                state.failed=false;
+                mTokens();
+                state.backtracking=0;
+
+                if ( state.failed ) {
+                    input.rewind(m);
+                    input.consume(); 
+                }
+                else {
+                    emit();
+                    return state.token;
+                }
+            }
+            catch (RecognitionException re) {
+                // shouldn't happen in backtracking mode, but...
+                reportError(re);
+                recover(re);
+            }
+        }
+    }
+
+    public void memoize(IntStream input,
+    		int ruleIndex,
+    		int ruleStartIndex)
+    {
+    if ( state.backtracking>1 ) super.memoize(input, ruleIndex, ruleStartIndex);
+    }
+
+    public boolean alreadyParsedRule(IntStream input, int ruleIndex) {
+    if ( state.backtracking>1 ) return super.alreadyParsedRule(input, ruleIndex);
+    return false;
+    }// $ANTLR start "X_Y"
+    public final void mX_Y() throws RecognitionException {
+        try {
+            int _type = X_Y;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            CommonToken x=null;
+            CommonToken y=null;
+
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:74:5: ( '$' x= ID '.' y= ID {...}?)
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:74:7: '$' x= ID '.' y= ID {...}?
+            {
+            match('$'); if (state.failed) return ;
+            int xStart48 = getCharIndex();
+            int xStartLine48 = getLine();
+            int xStartCharPos48 = getCharPositionInLine();
+            mID(); if (state.failed) return ;
+            x = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, xStart48, getCharIndex()-1);
+            x.setLine(xStartLine48);
+            x.setCharPositionInLine(xStartCharPos48);
+            match('.'); if (state.failed) return ;
+            int yStart54 = getCharIndex();
+            int yStartLine54 = getLine();
+            int yStartCharPos54 = getCharPositionInLine();
+            mID(); if (state.failed) return ;
+            y = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, yStart54, getCharIndex()-1);
+            y.setLine(yStartLine54);
+            y.setCharPositionInLine(yStartCharPos54);
+            if ( !((enclosingRule!=null)) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "X_Y", "enclosingRule!=null");
+            }
+            if ( state.backtracking==1 ) {
+
+              		AttributeScope scope = null;
+              		String refdRuleName = null;
+              		if ( (x!=null?x.getText():null).equals(enclosingRule.name) ) {
+              			// ref to enclosing rule.
+              			refdRuleName = (x!=null?x.getText():null);
+              			scope = enclosingRule.getLocalAttributeScope((y!=null?y.getText():null));
+              		}
+              		else if ( enclosingRule.getRuleLabel((x!=null?x.getText():null))!=null ) {
+              			// ref to rule label
+              			Grammar.LabelElementPair pair = enclosingRule.getRuleLabel((x!=null?x.getText():null));
+              			pair.actionReferencesLabel = true;
+              			refdRuleName = pair.referencedRuleName;
+              			Rule refdRule = grammar.getRule(refdRuleName);
+              			if ( refdRule!=null ) {
+              				scope = refdRule.getLocalAttributeScope((y!=null?y.getText():null));
+              			}
+              		}
+              		else if ( enclosingRule.getRuleRefsInAlt(x.getText(), outerAltNum)!=null ) {
+              			// ref to rule referenced in this alt
+              			refdRuleName = (x!=null?x.getText():null);
+              			Rule refdRule = grammar.getRule(refdRuleName);
+              			if ( refdRule!=null ) {
+              				scope = refdRule.getLocalAttributeScope((y!=null?y.getText():null));
+              			}
+              		}
+              		if ( scope!=null &&
+              			 (scope.isPredefinedRuleScope||scope.isPredefinedLexerRuleScope) )
+              		{
+              			grammar.referenceRuleLabelPredefinedAttribute(refdRuleName);
+              			//System.out.println("referenceRuleLabelPredefinedAttribute for "+refdRuleName);
+              		}
+              		
+            }
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "X_Y"
+
+    // $ANTLR start "X"
+    public final void mX() throws RecognitionException {
+        try {
+            int _type = X;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            CommonToken x=null;
+
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:111:3: ( '$' x= ID {...}?)
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:111:5: '$' x= ID {...}?
+            {
+            match('$'); if (state.failed) return ;
+            int xStart76 = getCharIndex();
+            int xStartLine76 = getLine();
+            int xStartCharPos76 = getCharPositionInLine();
+            mID(); if (state.failed) return ;
+            x = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, xStart76, getCharIndex()-1);
+            x.setLine(xStartLine76);
+            x.setCharPositionInLine(xStartCharPos76);
+            if ( !((enclosingRule!=null && enclosingRule.getRuleLabel((x!=null?x.getText():null))!=null)) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "X", "enclosingRule!=null && enclosingRule.getRuleLabel($x.text)!=null");
+            }
+            if ( state.backtracking==1 ) {
+
+              			Grammar.LabelElementPair pair = enclosingRule.getRuleLabel((x!=null?x.getText():null));
+              			pair.actionReferencesLabel = true;
+              		
+            }
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "X"
+
+    // $ANTLR start "Y"
+    public final void mY() throws RecognitionException {
+        try {
+            int _type = Y;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            CommonToken ID1=null;
+
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:119:3: ( '$' ID {...}?)
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:119:5: '$' ID {...}?
+            {
+            match('$'); if (state.failed) return ;
+            int ID1Start97 = getCharIndex();
+            int ID1StartLine97 = getLine();
+            int ID1StartCharPos97 = getCharPositionInLine();
+            mID(); if (state.failed) return ;
+            ID1 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, ID1Start97, getCharIndex()-1);
+            ID1.setLine(ID1StartLine97);
+            ID1.setCharPositionInLine(ID1StartCharPos97);
+            if ( !((enclosingRule!=null && enclosingRule.getLocalAttributeScope((ID1!=null?ID1.getText():null))!=null)) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "Y", "enclosingRule!=null && enclosingRule.getLocalAttributeScope($ID.text)!=null");
+            }
+            if ( state.backtracking==1 ) {
+
+              			AttributeScope scope = enclosingRule.getLocalAttributeScope((ID1!=null?ID1.getText():null));
+              			if ( scope!=null &&
+              				 (scope.isPredefinedRuleScope||scope.isPredefinedLexerRuleScope) )
+              			{
+              				grammar.referenceRuleLabelPredefinedAttribute(enclosingRule.name);
+              				//System.out.println("referenceRuleLabelPredefinedAttribute for "+(ID1!=null?ID1.getText():null));
+              			}
+              		
+            }
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Y"
+
+    // $ANTLR start "ID"
+    public final void mID() throws RecognitionException {
+        try {
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:132:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:132:9: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            {
+            if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+                input.consume();
+            state.failed=false;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // org\\antlr\\grammar\\v3\\ActionAnalysis.g:132:33: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            loop1:
+            do {
+                int alt1=2;
+                switch ( input.LA(1) ) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case 'A':
+                case 'B':
+                case 'C':
+                case 'D':
+                case 'E':
+                case 'F':
+                case 'G':
+                case 'H':
+                case 'I':
+                case 'J':
+                case 'K':
+                case 'L':
+                case 'M':
+                case 'N':
+                case 'O':
+                case 'P':
+                case 'Q':
+                case 'R':
+                case 'S':
+                case 'T':
+                case 'U':
+                case 'V':
+                case 'W':
+                case 'X':
+                case 'Y':
+                case 'Z':
+                case '_':
+                case 'a':
+                case 'b':
+                case 'c':
+                case 'd':
+                case 'e':
+                case 'f':
+                case 'g':
+                case 'h':
+                case 'i':
+                case 'j':
+                case 'k':
+                case 'l':
+                case 'm':
+                case 'n':
+                case 'o':
+                case 'p':
+                case 'q':
+                case 'r':
+                case 's':
+                case 't':
+                case 'u':
+                case 'v':
+                case 'w':
+                case 'x':
+                case 'y':
+                case 'z':
+                    {
+                    alt1=1;
+                    }
+                    break;
+
+                }
+
+                switch (alt1) {
+            	case 1 :
+            	    // org\\antlr\\grammar\\v3\\ActionAnalysis.g:
+            	    {
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	        input.consume();
+            	    state.failed=false;
+            	    }
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return ;}
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop1;
+                }
+            } while (true);
+
+
+            }
+
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "ID"
+
+    public void mTokens() throws RecognitionException {
+        // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:39: ( X_Y | X | Y )
+        int alt2=3;
+        switch ( input.LA(1) ) {
+        case '$':
+            {
+            int LA2_1 = input.LA(2);
+
+            if ( (synpred1_ActionAnalysis()) ) {
+                alt2=1;
+            }
+            else if ( (synpred2_ActionAnalysis()) ) {
+                alt2=2;
+            }
+            else if ( (true) ) {
+                alt2=3;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 2, 1, input);
+
+                throw nvae;
+            }
+            }
+            break;
+        default:
+            if (state.backtracking>0) {state.failed=true; return ;}
+            NoViableAltException nvae =
+                new NoViableAltException("", 2, 0, input);
+
+            throw nvae;
+        }
+
+        switch (alt2) {
+            case 1 :
+                // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:41: X_Y
+                {
+                mX_Y(); if (state.failed) return ;
+
+                }
+                break;
+            case 2 :
+                // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:45: X
+                {
+                mX(); if (state.failed) return ;
+
+                }
+                break;
+            case 3 :
+                // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:47: Y
+                {
+                mY(); if (state.failed) return ;
+
+                }
+                break;
+
+        }
+
+    }
+
+    // $ANTLR start synpred1_ActionAnalysis
+    public final void synpred1_ActionAnalysis_fragment() throws RecognitionException {   
+        // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:41: ( X_Y )
+        // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:41: X_Y
+        {
+        mX_Y(); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred1_ActionAnalysis
+
+    // $ANTLR start synpred2_ActionAnalysis
+    public final void synpred2_ActionAnalysis_fragment() throws RecognitionException {   
+        // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:45: ( X )
+        // org\\antlr\\grammar\\v3\\ActionAnalysis.g:1:45: X
+        {
+        mX(); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred2_ActionAnalysis
+
+    public final boolean synpred2_ActionAnalysis() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred2_ActionAnalysis_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred1_ActionAnalysis() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred1_ActionAnalysis_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+
+
+ 
+
+}

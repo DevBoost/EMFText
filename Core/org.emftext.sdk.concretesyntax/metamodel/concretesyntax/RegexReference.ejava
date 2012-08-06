@@ -1,0 +1,14 @@
+epackage concretesyntax;
+
+eclass RegexReference {
+	
+	getRegex() {
+		AbstractTokenDefinition target = getTarget();
+		if (target == null || target.eIsProxy()) {
+			return "";
+		} else {
+			assert target instanceof RegexOwner;
+			return ((RegexOwner) target).getRegex();
+		}
+	}
+}

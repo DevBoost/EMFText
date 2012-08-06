@@ -1,0 +1,229 @@
+epackage concretesyntax;
+
+import ecore.EClass;
+import genmodel.GenClass;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.ListIterator;
+
+eclass ConcreteSyntax {
+
+	/**
+	 * Returns true if the given rule was defined in the given syntax.
+	 * If the rule is defined in an imported syntax, this method returns
+	 * false.
+	 * 
+	 * @param syntax the syntax that refers to the rule
+	 * @param rule the rule to check
+	 * @return true if the rule is contained, false if it is imported
+	 */
+	isImportedRule() {
+		return rule.getSyntax() != this;
+	}
+
+	getGenClassCache() {
+		if (get_genClassCache() == null) {
+			set_genClassCache(#GenClassCache);
+		}
+		return get_genClassCache();
+	}
+	
+	getEClassUtil() {
+		if (get_eClassUtil() == null) {
+			set_eClassUtil(#EClassUtil);
+		}
+		return get_eClassUtil();
+	}
+	
+	getActiveStartSymbols() {
+		EList<GenClass> symbols = new BasicEList<GenClass>();
+		symbols.addAll(getStartSymbols());
+		if (symbols.size() > 0) {
+			return symbols;
+		}
+		
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				symbols.addAll(importedSyntax.getActiveStartSymbols());
+			}
+		}
+		return symbols;
+	}
+
+	getAllRules() {
+		//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;
+		EList<Rule> l = new BasicEList<Rule>(getRules().size());
+		for (Rule rule : getRules()) {
+			// don't add rules that are @override rules with remove=true
+			if (!rule.isOverrideRemoveRule()) {
+				l.add(rule);
+			}
+		}
+		for (Import aImport : getImports()) {
+			ConcreteSyntax importedCS = aImport.getConcreteSyntax();
+			if (importedCS != null) {
+				outer: for (Rule importedRule : importedCS.getAllRules()) {
+					for (Rule rule : getRules()) {
+						// don't add rules that have @override rules for same
+						// meta-class
+						if (rule.isOverrideRule(importedRule.getMetaclass())) {
+							continue outer;
+						}
+					}
+					l.add(importedRule);
+				}
+			}
+		}
+		return ECollections.unmodifiableEList(l);
+	}
+
+	getOperatorRules() {
+		initialiseAnnotatedOperatorRules();
+		return get_operatorRules();
+	}
+
+	getOperatorRuleSubsets() {
+		initialiseAnnotatedOperatorRules();
+		return get_operatorRuleSubsets();
+	}
+
+	initialiseAnnotatedOperatorRules() {
+		if (is_operatorRulesInitialized()) {
+			return;
+		}
+		set_operatorRulesInitialized(true);
+		List<Rule> operatorRules = getOperatorRules();
+		List<String> operatorRuleSubsets = getOperatorRuleSubsets();
+		for (Rule rule : getAllRules()) {
+			Annotation operatorAnnotation = rule.getOperatorAnnotation();
+			if (operatorAnnotation != null) {
+				boolean added = false;
+				for (ListIterator<Rule> it = operatorRules.listIterator(); it.hasNext();) {
+					Rule expressionRule = it.next(); 
+					if (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {
+						operatorRules.add(it.previousIndex(), rule);
+						added = true;
+						break;
+					}			
+				}
+				if (!added) {
+					operatorRules.add(rule);
+				}
+				String identifier = operatorAnnotation.getValue(OperatorAnnotationProperty.SUPERCLASS.toString());
+				if (identifier != null) {
+					operatorRuleSubsets.add(identifier);
+				}
+			}
+		}
+	}
+	
+	getOperatorRuleSubset() {
+		EList<Rule> subset = new BasicEList<Rule>();
+		if (identifier == null) {
+			return subset;
+		}
+		for (Rule rule : getOperatorRules()) {
+			Annotation annotation = rule.getOperatorAnnotation();
+			String value = annotation.getValue(OperatorAnnotationProperty.SUPERCLASS.toString());
+			if (identifier.equals(value)) {
+				subset.add(rule);
+			}
+		}
+		return subset;
+	}
+
+	/**
+	 * Collects all the subclasses for which concrete syntax is defined.
+	 */
+	getClassesWithSyntax() {
+		Collection<Rule> rules = getAllRules();
+		EList<GenClass> foundGenClasses = new BasicEList<GenClass>();
+
+		for (Rule rule : rules) {
+			if (excludeOperatorRules && rule.getOperatorAnnotation() != null) {
+				continue;
+			}
+			GenClass subClassCand = rule.getMetaclass();
+			foundGenClasses.add(subClassCand);
+		}
+		return foundGenClasses;
+	}
+
+	/**
+	 * Collects all the subclasses for which concrete syntax is defined.
+	 */
+	getSubClassesWithSyntax() {
+		EList<GenClass> subClasses = new BasicEList<GenClass>();
+
+		EClass ecoreClass = superClass.getEcoreClass();
+		EClassUtil eClassUtil = getEClassUtil();
+		for (GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {
+			if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {
+				subClasses.add(subClassCand);
+			}
+		}
+		return subClasses;
+	}
+
+	addTokenStyle() {
+		for (String tokenName : newStyle.getTokenNames()) {
+			boolean exists = containsTokenStyle(existingStyles, tokenName);
+			if (!exists) {
+				TokenStyle newTokenStyle = #TokenStyle;
+				newTokenStyle.getTokenNames().add(tokenName);
+				newTokenStyle.setRgb(newStyle.getRgb());
+				newTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());
+				existingStyles.add(newTokenStyle);
+			}
+		}
+	}
+
+	containsTokenStyle() {
+		for (TokenStyle existingStyle : styles) {
+			for (String existingName : existingStyle.getTokenNames()) {
+				if (existingName.equals(tokenName)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	getAllTokenStyles() {
+		EList<TokenStyle> allStyles = new BasicEList<TokenStyle>();
+		allStyles.addAll(getTokenStyles());
+		addImportedTokenStyles(allStyles);
+		DefaultTokenStyleAdder adder = #DefaultTokenStyleAdder;
+		adder.addDefaultTokenStyles(this, allStyles);
+		return allStyles;
+	}
+
+	/**
+	 * Reads all token styles from imported syntaxes and
+	 * merges them with the styles defined in the current syntax. If a token
+	 * styles exists both in an imported and in the current syntax the one from
+	 * the current syntax overrides the imported one.
+	 */
+	addImportedTokenStyles() {
+		// add the imported token styles
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				EList<TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
+				for (TokenStyle importedStyle : importedStyles) {
+					addTokenStyle(allStyles, importedStyle);
+				}
+			}
+		}
+	}
+}

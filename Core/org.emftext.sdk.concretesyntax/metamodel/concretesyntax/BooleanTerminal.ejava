@@ -1,0 +1,11 @@
+epackage concretesyntax;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+eclass BooleanTerminal {
+
+	containsEmptyLiteral() {
+		return "".equals(getTrueLiteral()) || "".equals(getFalseLiteral());
+	}
+}
