@@ -1,4 +1,0 @@
-documentation for <emfdoc.ecore>
-
-Documentation        : "Contains documentation for elements in an EPackage."
-DocumentationElement : "Contains textual documentation for an EModelElement."

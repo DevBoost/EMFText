@@ -1,5 +1,0 @@
-annotate "uriOfAnnotatedEcoreFile" 
-package packageName { 
-	@"the.annotation.id"("key"="value")
-	class NameOfAnnotatedClass {}
-}

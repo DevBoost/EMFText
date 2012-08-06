@@ -1,7 +1,0 @@
-PROGRAM a1
-
-VAR a;
-
-BEGIN
-	a := 1
-END.

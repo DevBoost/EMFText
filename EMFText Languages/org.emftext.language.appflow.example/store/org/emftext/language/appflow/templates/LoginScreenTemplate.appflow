@@ -1,7 +1,0 @@
-template screen Login { 
-	text nametext "<<name>>";
-	textfield username;
-	text pwdtext  "<<pwd>>";
-	textfield password;
-	button login "Login";
-}

@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Webapp
-Bundle-SymbolicName: org.emftext.language.dynamicui.webapp
-Bundle-Version: 1.0.0.qualifier
-Export-Package: org.emftext.language.dynamicui.webapp
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.emftext.language.dynamicui,
- org.emftext.language.dynamicui.resource.dynamicui

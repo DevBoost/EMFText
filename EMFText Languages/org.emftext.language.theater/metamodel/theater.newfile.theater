@@ -1,7 +1,0 @@
-play  "MyPlay"
-
-roles("someRole")
-
-ensemble("someActor" plays "someRole",)
-
-Actus One.Scena One.

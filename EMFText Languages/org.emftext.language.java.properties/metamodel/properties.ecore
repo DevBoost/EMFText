@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="properties"
-    nsURI="http://www.emftext.org/language/java/properties" nsPrefix="properties">
-  <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="../../org.emftext.language.java/metamodel/java.ecore#//members/Member ../../org.emftext.language.java/metamodel/java.ecore#//types/TypedElement ../../org.emftext.language.java/metamodel/java.ecore#//arrays/ArrayTypeable">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="readonly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-  </eClassifiers>
-</ecore:EPackage>

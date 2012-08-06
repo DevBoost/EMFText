@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Quickuml
-Bundle-SymbolicName: org.emftext.language.quickuml
-Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.uml2.uml

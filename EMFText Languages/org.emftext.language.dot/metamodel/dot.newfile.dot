@@ -1,5 +1,0 @@
-digraph G {
-	main [shape,box];
-	main -> start;
-	start -> end;
-}

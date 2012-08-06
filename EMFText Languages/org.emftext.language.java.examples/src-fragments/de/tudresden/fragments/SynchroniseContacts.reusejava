@@ -1,5 +1,0 @@
-statements SynchroniseContacts {
-    contact_management.
-       ContactService.
-         mergeWithExternalContacts();
-}

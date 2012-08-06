@@ -1,3 +1,0 @@
-invariants for UseCaseName : 
-	actor Example : [ValueBinding VarName] --> [ValueBinding VarName].
-. 

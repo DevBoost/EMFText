@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Test Plug-in
-Bundle-SymbolicName: org.emftext.language.simplec.test
-Bundle-Version: 1.0.0
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.junit4,
- org.emftext.language.simplec,
- org.emftext.language.simplec.resource.c

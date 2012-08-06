@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Generators
-Bundle-SymbolicName: org.emftext.language.functions.generators
-Bundle-Version: 1.0.0.qualifier
-Export-Package: org.emftext.language.functions.generators
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.emftext.language.functions,
- de.devboost.commenttemplate;resolution:=optional

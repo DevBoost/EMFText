@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Constraints
-Bundle-SymbolicName: org.emftext.language.lwc11.resource.lwc11.constraints;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.emftext.language.lwc11,
- org.emftext.language.lwc11.resource.lwc11

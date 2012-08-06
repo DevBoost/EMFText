@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.modelquery/src-gen" modelName="Modelquery" modelPluginID="org.emftext.language.modelquery" xmi:version="2.0">
-  <foreignModel>modelquery.ecore</foreignModel>
-  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="modelquery.ecore#/" prefix="Modelquery">
-    <genClasses ecoreClass="modelquery.ecore#//ModelQuery" image="false">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelquery.ecore#//ModelQuery/queries"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modelquery.ecore#//ModelQuery/resultIDs"/>
-    </genClasses>
-  </genPackages>
-</genmodel:GenModel>

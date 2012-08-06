@@ -1,3 +1,0 @@
-FORM "The Forms Caption" 
-	GROUP "First Group" 
-	ITEM "Item Name" "Item Description" : CHOICE  ( "Option A", "Option B" ) 

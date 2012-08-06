@@ -1,9 +1,0 @@
-testScript
-
-load <http://www.emftext.org>
-assertTitle "EMFText"
-
-input search search "Javadoc"
-submit search go
-
-assertTitle "Search results"

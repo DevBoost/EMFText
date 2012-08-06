@@ -1,3 +1,0 @@
-FORMULAR "Formularkopf" 
-	GRUPPE "Erste Gruppe" 
-	FRAGE "Name" "Beschreibung" : AUSWAHL  ( "Option A", "Option B" ) 
