@@ -1,8 +1,0 @@
-epackage concretesyntax;
-
-eclass AtomicRegex {
-	
-	getRegex() {
-		return getAtomicExpression();
-	}
-}
