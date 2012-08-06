@@ -1,0 +1,98 @@
+-- @path MMJava=/org.emftext.language.java/metamodel/java.ecore
+-- @path MMClosures=/org.emftext.language.java.closures/metamodel/closures.ecore
+
+module translator;
+create OUT : MMJava from IN : MMClosures;
+
+uses Lib4MMClosures;
+
+
+rule ClosureClass2JavaClass{
+	from
+		c : MMClosures!Class 
+		
+	to
+		j: MMJava!Class
+		(
+			name <- c.name,
+			members <- c.members -> collect (m |thisModule.cMembers(m))
+		)
+		
+		
+
+}
+
+lazy rule cMembers
+{
+	from 
+		c : MMCLosures!Member
+	to
+		j : MMJava!Member
+		(
+			name<-c.name
+			--auswahl zw. verschieden typen
+		)
+}
+--todo
+lazy rule cMethod
+{
+	from
+		c : MMCLosures!Method
+		
+	to
+		j : MMJava!Method
+		(
+			
+		)
+}
+
+lazy rule Closure2Class{
+	from
+		c : MMClosures!AssignmentExpression
+	
+	to
+		j : MMJava!AnonymousClass
+		(
+				name <- c.IdentifireReference.name,
+				StatementListContainer <- c.StatementListContainer,
+				Parameterizable <- c.Parameterizable
+				
+		)
+
+}
+
+lazy rule Closure2Method{
+	from 
+		c : MMClosures!Closure
+			(c.isClosure)
+	to
+		m : MMJava!ClassMethod
+	(
+		name<-'invoke',
+		parameters <- c.parameters,
+		statements <- c.statements
+	)
+}
+
+rule EStatement2JavaEStatement{
+	from 
+		closureEStatement : MMClosures!ExpressionStatement (not closureEStatement.isExpression())
+	to
+		javaEStatement : MMJava!ExpressionStatement
+		(
+			
+		)
+		
+			
+	}
+
+rule ClosureMemberEpression2JavaMemberExpression
+{
+		from 
+			closureMember : MMClosures!Member (not closureMember.isExpressionStatement())
+		to
+			javaMember : MMJava!Member
+			(
+				members <- closureMember.members
+			)
+}		

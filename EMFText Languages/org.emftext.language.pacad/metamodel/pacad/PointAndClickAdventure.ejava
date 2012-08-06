@@ -1,0 +1,77 @@
+epackage pacad;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+ 
+eclass PointAndClickAdventure {
+	
+	getThingObject() {
+		EList<AdventureElement> elements = getAllElements();
+		for (AdventureElement next : elements) {
+			if (next instanceof Object) {
+				Object nextObject = (Object) next;
+				if ("thingy".equals(nextObject.getId())) {
+					return nextObject;
+				}
+			}
+		}
+		return null;
+	}
+
+	getAllElements() {
+		EList<AdventureElement> allElements = new BasicEList<AdventureElement>();
+		allElements.addAll(getElements());
+		for (AdventureElement e : getElements()) {
+			if (e instanceof Import) {
+				Import imprt = (Import) e;
+				allElements.addAll(imprt.getImportedAdventure().getAllElements());
+			}
+			if (e instanceof Room) {
+				allElements.addAll(((Room) e).getContainedObjects());
+			}
+		}
+		return allElements;
+	}
+
+	getAllObjects() {
+		EList<Object> allObjects = new BasicEList<Object>();
+		for (AdventureElement e : getAllElements()) {
+			if (e instanceof Object) {
+				allObjects.add((Object) e);
+			}
+		}
+		return allObjects;
+	}
+
+	getImports() {
+		EList<Import> imports = new BasicEList<Import>();
+		for (AdventureElement e : getElements()) {
+			if (e instanceof Import) {
+				imports.add((Import) e);
+			}
+		}
+		return imports;
+	}
+
+	getAllCommands() {
+		EList<Command> allCommands = new BasicEList<Command>();
+		for (AdventureElement e : getAllElements()) {
+			if (e instanceof Command) {
+				allCommands.add((Command) e);
+			}
+		}
+		return allCommands;
+	}
+
+	getAvailableCommands() {
+		EList<Command> availableCommands = new BasicEList<Command>();
+		for (Command e : getAllCommands()) {
+			if (e.getType() == type) {
+				availableCommands.add((Command) e);
+			}
+		}
+		return availableCommands;
+	}
+}

@@ -1,0 +1,19 @@
+using System;
+
+namespace Something
+{
+    class testCSSyntaxChecker
+    {
+        public bool Something
+        { get; set; }
+
+        public String MyProperty
+        {
+            get
+            {
+                return "empty";
+            }
+            set { Something = String.IsNullOrEmpty(value); }
+        }
+    }
+}

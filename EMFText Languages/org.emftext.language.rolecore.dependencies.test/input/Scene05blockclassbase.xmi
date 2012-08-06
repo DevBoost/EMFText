@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:blockclassbase="http://www.emftext.org/language/rolecore/blockclassbase" xmlns:blockdomain="http://www.emftext.org/language/rolecore/blockdomain" xmlns:classdomain="http://www.emftext.org/language/rolecore/classdomain" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="blockclassbase">
+  <eObjects xsi:type="blockclassbase:ModelelementClassdiagramRole" core="//@eObjects.3">
+    <classDiagram href="./input/Scene03classDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelelementBlockdiagramRole" core="//@eObjects.3">
+    <blockDiagram href="./input/Scene03blockDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:Name" core="//@eObjects.3" name="ProSys"/>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="classdomain:ClassCore" href="./input/Scene05classDomain.xmi#//@eObjects.1"/>
+    <roles xsi:type="blockclassbase:Name" href="./input/Scene05blockclassbase.xmi#//@eObjects.2"/>
+    <roles xsi:type="blockclassbase:ModelelementClassdiagramRole" href="./input/Scene05blockclassbase.xmi#//@eObjects.0"/>
+    <roles xsi:type="blockdomain:ConnectableCore" href="./input/Scene05blockDomain.xmi#//@eObjects.4"/>
+    <roles xsi:type="blockclassbase:ModelelementBlockdiagramRole" href="./input/Scene05blockclassbase.xmi#//@eObjects.1"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="classdomain:StereotypeCore" href="./input/Scene03classDomain.xmi#//@eObjects.2"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:Name" name="system">
+    <core xsi:type="classdomain:StereotypeCore" href="./input/Scene03classDomain.xmi#//@eObjects.2"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelelementStereotypeRole">
+    <core xsi:type="classdomain:ClassCore" href="./input/Scene03classDomain.xmi#//@eObjects.1"/>
+    <stereotype href="./input/Scene03classDomain.xmi#//@eObjects.2"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="classdomain:StereotypeCore" href="./input/Scene05classDomain.xmi#//@eObjects.12"/>
+    <roles xsi:type="blockclassbase:Name" href="./input/Scene05blockclassbase.xmi#//@eObjects.11"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelelementClassdiagramRole" core="//@eObjects.13">
+    <classDiagram href="./input/Scene05classDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:Name" core="//@eObjects.13" name="ControlOperation"/>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="classdomain:AssociationCore" href="./input/Scene05classDomain.xmi#//@eObjects.25"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:Name" core="//@eObjects.7" name="process"/>
+  <eObjects xsi:type="blockclassbase:ModelelementStereotypeRole" core="//@eObjects.13">
+    <stereotype href="./input/Scene05classDomain.xmi#//@eObjects.12"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="classdomain:ClassCore" href="./input/Scene05classDomain.xmi#//@eObjects.9"/>
+    <roles xsi:type="blockclassbase:Name" href="./input/Scene05blockclassbase.xmi#//@eObjects.9"/>
+    <roles xsi:type="blockclassbase:ModelelementClassdiagramRole" href="./input/Scene05blockclassbase.xmi#//@eObjects.8"/>
+    <roles xsi:type="blockclassbase:ModelelementStereotypeRole" href="./input/Scene05blockclassbase.xmi#//@eObjects.12"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelelementBlockdiagramRole" core="//@eObjects.15">
+    <blockDiagram href="./input/Scene05blockDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="blockdomain:ConnectableCore" href="./input/Scene05blockDomain.xmi#//@eObjects.8"/>
+    <roles xsi:type="blockclassbase:Name" href="./input/Scene05blockclassbase.xmi#//@eObjects.16"/>
+    <roles xsi:type="blockclassbase:ModelelementBlockdiagramRole" href="./input/Scene05blockclassbase.xmi#//@eObjects.14"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:Name" core="//@eObjects.15" name="Control"/>
+</interpreter:DomainRoot>

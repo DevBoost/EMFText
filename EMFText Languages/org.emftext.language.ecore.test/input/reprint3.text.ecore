@@ -1,0 +1,7 @@
+package reprint reprint "http://www.emftext.org/test/textecore/reprint" {
+
+	class MyClass {
+		transient attribute EString name (1..1);
+	}
+	
+}

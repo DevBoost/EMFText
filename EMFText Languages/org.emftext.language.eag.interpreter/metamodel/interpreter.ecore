@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="interpreter"
+    nsURI="http://www.emftext.org/language/eag/interpreter" nsPrefix="interpreter">
+  <eClassifiers xsi:type="ecore:EClass" name="Interpreter">
+    <eOperations name="interpret" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+      <eParameters name="object" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      <eParameters name="grammar" lowerBound="1" eType="ecore:EClass ../../org.emftext.language.eag/metamodel/eag.text.ecore#//AttributeGrammar"/>
+      <eParameters name="attribute" lowerBound="1" eType="ecore:EClass ../../org.emftext.language.eag/metamodel/eag.text.ecore#//Attribute"/>
+    </eOperations>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,14 @@
+secprop { 
+	element Customer ; 
+	element Clerk ; 
+	element Bank ; 
+	element Hall ; 
+	channel CustomerAccount : Customer --> Bank ; 
+	channel SeatToCustomer : Hall --> Customer ; 
+	channel CustomerAddress : Customer --> Clerk ; 
+	channel ShipmentToCustomer : Clerk --> Customer ; 
+	data AccountSecurity on CustomerAccount { 
+		encryption SSL ; 
+		access read ; 
+	} 
+} 

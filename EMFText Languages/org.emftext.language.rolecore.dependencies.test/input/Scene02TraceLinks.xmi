@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="TraceLinks">
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene02blockDomain.xmi#//@eObjects.0"/>
+    <target href="./input/Scene02classDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+</interpreter:DomainRoot>

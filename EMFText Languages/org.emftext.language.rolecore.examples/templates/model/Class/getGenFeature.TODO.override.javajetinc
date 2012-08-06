@@ -1,0 +1,31 @@
+<%
+String boxAccessor = null;
+String boxClass = null;
+String featureAccessor = null;
+org.eclipse.emf.ecore.EStructuralFeature eFeature = genFeature.getEcoreFeature();
+org.eclipse.emf.ecore.EAnnotation deriveFrom = eFeature.getEAnnotation("deriveFrom");
+if (deriveFrom != null) {
+	boxAccessor = (String) deriveFrom.getDetails().get("boxAccessor");
+	boxClass = (String) deriveFrom.getDetails().get("boxClass");
+	featureAccessor = (String) deriveFrom.getDetails().get("featureAccessor");
+}
+if (featureAccessor == null) { %>
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+<% } else {
+	if (boxAccessor != null && boxClass != null) { %>
+	Object value = <%=boxAccessor%>();
+	if (value instanceof <%=boxClass%>) {
+		return ((<%=boxClass%>) value).<%=featureAccessor%>();
+	}
+	return null;
+	<% } else { %>
+	Object value = get<%=featureAccessor%>(); 
+	if (value instanceof <%=eFeature.getEType().getInstanceClassName()%>) {
+		return ((<%=boxClass%>) value).<%=featureAccessor%>();
+	}
+	return null;
+	<% } %>	
+<% } %>
+

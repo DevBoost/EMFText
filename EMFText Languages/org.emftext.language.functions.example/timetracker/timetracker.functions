@@ -1,0 +1,15 @@
+Timetracker_App {
+
+function Authentication 2
+	"Users must log in to use the time tracker application."
+
+function Project_list 2
+	"Users must be able to view the list of all projects."
+
+function Select_current_project 2
+	"Users must be able to select their current project from the list of all projects."
+
+function Persist_tracking_data 4
+	"The application must write the time users have been working a project to a database."
+
+}

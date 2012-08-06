@@ -1,0 +1,18 @@
+annotate "office.ecore" 
+@"gmf"
+package office {
+
+	@"gmf.diagram"
+	class OfficeModel {}
+	
+	@"gmf.node"("label"="name")
+	class OfficeElement {}
+	
+	class Employee {
+		@"gmf.link"("target.decoration"="arrow")
+		reference worksIn;
+		@"gmf.link"
+		reference worksWith;
+	}
+
+} 

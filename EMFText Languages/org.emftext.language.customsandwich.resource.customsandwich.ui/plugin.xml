@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichUIMetaInformation" id="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="customsandwich" icon="icons/editor_icon.gif" id="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichEditor" name="EMFText customsandwich Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.customsandwich.resource.customsandwich">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Customsandwich Text Editor" id="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichPreferencePage" class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichSyntaxColoringPreferencePage" class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichSyntaxColoringPreferencePage" category="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichBracketPreferencePage" class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichBracketPreferencePage" category="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichNewFileWizard" id="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichNewFileWizard" name="EMFText .customsandwich file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichMarkerResolutionGenerator" markerType="org.emftext.language.customsandwich.resource.customsandwich.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.customsandwich.resource.customsandwich.ui.CustomsandwichAnnotationModelFactory" extensions="customsandwich">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.customsandwich.resource.customsandwich" name=".customsandwich File" base-type="org.eclipse.core.runtime.text" file-extensions="customsandwich">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="customsandwich" id="org.emftext.language.customsandwich.resource.customsandwich.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.customsandwich.resource.customsandwich.ui.occurences">
+		</type>
+		<type name="org.emftext.language.customsandwich.resource.customsandwich.ui.occurences.declaration" super="org.emftext.language.customsandwich.resource.customsandwich.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.customsandwich.resource.customsandwich.ui.occurences" label="Occurrences (in .customsandwich files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="customsandwich.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="customsandwich.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="customsandwich.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="customsandwich.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="customsandwich.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="customsandwich.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="customsandwich.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="customsandwich.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="customsandwich.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.customsandwich.resource.customsandwich.ui.occurences.declaration" label="Declarations (in .customsandwich files)" textPreferenceKey="customsandwich.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="customsandwich.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="customsandwich.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="customsandwich.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="customsandwich.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="customsandwich.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

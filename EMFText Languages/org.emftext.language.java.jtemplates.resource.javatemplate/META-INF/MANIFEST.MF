@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: javatemplate
+Bundle-SymbolicName: org.emftext.language.java.jtemplates.resource.javatemplate;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+  org.eclipse.emf,
+  org.eclipse.emf.codegen.ecore,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.edit,
+  org.eclipse.emf.validation,
+  org.eclipse.emf.workspace,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.java.jtemplates,
+  org.emftext.language.java,
+  org.emftext.language.templateconcepts,
+  org.emftext.language.java.resource.java
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.java.jtemplates.resource.javatemplate,
+  org.emftext.language.java.jtemplates.resource.javatemplate.analysis,
+  org.emftext.language.java.jtemplates.resource.javatemplate.mopp,
+  org.emftext.language.java.jtemplates.resource.javatemplate.grammar,
+  org.emftext.language.java.jtemplates.resource.javatemplate.util
+Bundle-Activator: org.emftext.language.java.jtemplates.resource.javatemplate.mopp.JavatemplatePlugin

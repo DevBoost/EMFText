@@ -1,0 +1,20 @@
+epackage dot;
+
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.ECollections;
+
+eclass Graph {
+
+	/* List<Statement> */ getAllStatements() {
+		EList<Statement> result = new BasicEList<Statement>();
+		StatementList statementList = getStatements();
+		while (statementList != null) {
+			result.add(statementList.getStatement());
+			statementList = statementList.getTail();
+		}
+		return ECollections.unmodifiableEList(result);
+	}
+}

@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: company
+Bundle-SymbolicName: org.emftext.language.company.resource.company;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.emf,
+ org.eclipse.emf.codegen.ecore,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.edit,
+ org.eclipse.emf.validation,
+ org.eclipse.emf.workspace,
+ org.emftext.access;resolution:=optional,
+ org.eclipse.debug.core,
+ org.emftext.commons.antlr3_4_0,
+ org.emftext.language.company,
+ org.emftext.language.dot;bundle-version="0.5.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.company.resource.company,
+  org.emftext.language.company.resource.company.analysis,
+  org.emftext.language.company.resource.company.mopp,
+  org.emftext.language.company.resource.company.debug,
+  org.emftext.language.company.resource.company.launch,
+  org.emftext.language.company.resource.company.grammar,
+  org.emftext.language.company.resource.company.util
+Bundle-Activator: org.emftext.language.company.resource.company.mopp.CompanyPlugin

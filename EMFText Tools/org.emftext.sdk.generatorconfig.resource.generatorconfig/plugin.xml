@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.sdk.generatorconfig.resource.generatorconfig.mopp.GeneratorconfigMetaInformation" id="org.emftext.sdk.generatorconfig.resource.generatorconfig.mopp.GeneratorconfigMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="generatorconfig" icon="icons/editor_icon.gif" id="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigEditor" name="EMFText generatorconfig Editor">
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Generatorconfig Text Editor" id="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigPreferencePage" class="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigSyntaxColoringPreferencePage" class="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigSyntaxColoringPreferencePage" category="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigBracketPreferencePage" class="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigBracketPreferencePage" category="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigPreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigOccurrencePreferencePage" class="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigOccurrencePreferencePage" category="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigNewFileWizard" id="org.emftext.sdk.generatorconfig.resource.generatorconfig.ui.GeneratorconfigNewFileWizard" name="EMFText .generatorconfig file">
+		</wizard>
+	</extension>
+	
+	<extension id="org.emftext.sdk.generatorconfig.resource.generatorconfig.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.sdk.generatorconfig.resource.generatorconfig.nature" name="generatorconfig nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.sdk.generatorconfig.resource.generatorconfig.mopp.GeneratorconfigNature" />
+		</runtime>
+		<builder id="org.emftext.sdk.generatorconfig.resource.generatorconfig.builder" />
+	</extension>
+	
+	<extension-point id="org.emftext.sdk.generatorconfig.resource.generatorconfig.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.sdk.generatorconfig.resource.generatorconfig.mopp.GeneratorconfigResourceFactoryDelegator" type="generatorconfig">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.sdk.generatorconfig.resource.generatorconfig.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
+	
+</plugin>

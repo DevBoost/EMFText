@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaUIMetaInformation" id="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="reusejava" icon="icons/editor_icon.gif" id="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaEditor" name="EMFText reusejava Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.java.reusejava.resource.reusejava">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Reusejava Text Editor" id="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaPreferencePage" class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaSyntaxColoringPreferencePage" class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaSyntaxColoringPreferencePage" category="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaBracketPreferencePage" class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaBracketPreferencePage" category="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaNewFileWizard" id="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaNewFileWizard" name="EMFText .reusejava file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaNewProjectWizard" id="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaNewProjectWizard" name="EMFText reusejava project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaMarkerResolutionGenerator" markerType="org.emftext.language.java.reusejava.resource.reusejava.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.java.reusejava.resource.reusejava.ui.ReusejavaAnnotationModelFactory" extensions="reusejava">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.java.reusejava.resource.reusejava" name=".reusejava File" base-type="org.eclipse.core.runtime.text" file-extensions="reusejava">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="reusejava" id="org.emftext.language.java.reusejava.resource.reusejava.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.java.reusejava.resource.reusejava.ui.occurences">
+		</type>
+		<type name="org.emftext.language.java.reusejava.resource.reusejava.ui.occurences.declaration" super="org.emftext.language.java.reusejava.resource.reusejava.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.java.reusejava.resource.reusejava.ui.occurences" label="Occurrences (in .reusejava files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="reusejava.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="reusejava.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="reusejava.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="reusejava.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="reusejava.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="reusejava.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="reusejava.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="reusejava.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="reusejava.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.java.reusejava.resource.reusejava.ui.occurences.declaration" label="Declarations (in .reusejava files)" textPreferenceKey="reusejava.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="reusejava.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="reusejava.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="reusejava.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="reusejava.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="reusejava.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

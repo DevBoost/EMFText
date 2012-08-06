@@ -1,0 +1,91 @@
+# author: Jan Polowinski
+# purpose: Testfile for the n3 (notation3) subset Turtle which is used to write RDF in a triple notation. Turtle does not cover OWL and rules but only RDF statements
+
+####################################
+# directives #######################
+####################################
+
+# these directives should validate:
+@prefix fresnel : <#> .
+@prefix:<#>.
+@prefix fresnel:<#> .
+@prefix fresnel:<http://www.somedomain.de> .
+@prefix fresnel:<http://somedomain.de> .
+@prefix fresnel:<http://www.somedomain.de/somewhere/somedoc.owl#somewhere> .
+
+# these should not validate:
+#@prefix: http://www.somedomain.de . 
+#@prefix: "http://somedomain.de" . 
+@prefix: <"http:://somedomain.de"> . # validates, but shouldn't'! > URIs themselves ar not validated so far
+#@präfix: <"http:://somedomain.de"> . # URIs themselves ar not validated so far
+#@prefix: <"http:://somedomain.de">  # missing .
+
+
+
+:mainGr rdf:type fresnel:Group ;
+	fresnel:stylesheetLink "styles/person.css"^^xsd:string;
+	#fresnel:stylesheetLink "styles/person.css"; #dürfen literals auch ohne ^^ existieren? -> laut turtle ebnf nicht
+	fresnel:primaryClasses (
+			"hist:Event" ^^ fresnel:fslSelector
+			#"hist:Event" ^^ fresnel:fslSelector . # hier sollte kein Punkt erlaubt sein
+	)
+.
+
+#a:subject a:predicate a:object. # a ist kein gültiger namespace prefix?
+
+an:subject an:predicate an:object ; another:predicate and:object , and:anotherobject .
+an:subject an:predicate an:object;. # sollte das gehen? Unterschied turtle / n3? > sinnvoll wegen auskommentieren von zeilen
+an:subject an:predicate an:object,. # sollte das dann aber nicht auch gehen? Unterschied turtle / n3? -> abgeändert
+
+
+
+####################################
+# blanks ###########################
+####################################
+
+#[] [] [] . # wäre das gültig?
+[] a [] . # oder reicht das - d.h alles kann leere liste sein, nur prädikat nicht?
+_:blanktest a blanktest:blanktest .
+#_y:blanktest _:blanktest _x:blanktest . # warum geht das nicht und
+_y:blanktest _y:blanktest _y:blanktest . # warum geht das und
+#_:blanktest _x:blanktest _:blanktest . # warum geht auch das? -> Prädikat darf nciht nur _:something sein?
+
+
+
+####################################
+# lists ############################
+####################################
+
+:knowsLens rdf:type fresnel:Lens ;
+           fresnel:showProperties ( foaf:name 
+                                    [ rdf:type fresnel:PropertyDescription ;
+                                      fresnel:sublens :foafPersonDefaultLens ] ) .
+                                      
+                                      
+####################################
+# old test stuff ###################
+####################################
+
+
+@prefix polo : <http://www.polowinski.de> .
+
+sdfsd : fsfd sdf : dsffd sdfsd : sdf ;
+			 fdf : dfsdf adfda : asd ,
+			 			  dasd : dsd .
+			 			
+sdfsd : fsfd sdf : dsffd sdfsd : sdf ;
+			 fdf : dfsdf adfda : asd ,
+			 	    	  dasd : dsd .
+			 			  
+sdfsd : fsfd sdf : dsffd sdfsd : sdf ,
+ 						 adasd : ads .
+			 			  
+sdfsd : fsfd sdf : dsffd "string"^^dfsdf : adasd .
+sdfsd : fsfd a true .			
+sdfsd : fsfd a false.			 	
+sdfsd : fsfd sdf : dsffd <http://www.polowinski.de> .
+
+
+
+
+

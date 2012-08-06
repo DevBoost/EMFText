@@ -1,0 +1,14 @@
+import <http://www.emftext.org/language/pl0>
+import <http://www.emftext.org/language/pl0/attributes>
+
+synthesized attribute StringSet DeclaredVariables
+
+computation VarDeclaration :: DeclaredVariables {
+	value.contents = this.name;
+}
+
+computation Block :: DeclaredVariables {
+	for (next : this.variables) {
+		value.contents += DeclaredVariables(next).contents;
+	}
+}

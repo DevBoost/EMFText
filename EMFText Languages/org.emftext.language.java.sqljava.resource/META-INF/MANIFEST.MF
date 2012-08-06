@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resource
+Bundle-SymbolicName: org.emftext.language.java.sqljava.resource;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.emftext.language.java,
+ org.emftext.language.java.resource.java,
+ org.emftext.language.java.sqljava,
+ org.emftext.language.java.sqljava.resource.sqljava,
+ org.emftext.language.sql

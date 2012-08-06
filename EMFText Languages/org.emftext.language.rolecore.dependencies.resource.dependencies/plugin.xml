@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.rolecore.dependencies.resource.dependencies.mopp.DependenciesMetaInformation" id="org.emftext.language.rolecore.dependencies.resource.dependencies.mopp.DependenciesMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="dependencies" icon="icons/editor_icon.gif" id="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesEditor" name="EMFText dependencies Editor">
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Dependencies Text Editor" id="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesPreferencePage" class="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesSyntaxColoringPreferencePage" class="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesSyntaxColoringPreferencePage" category="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesBracketPreferencePage" class="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesBracketPreferencePage" category="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesPreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesOccurrencePreferencePage" class="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesOccurrencePreferencePage" category="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesNewFileWizard" id="org.emftext.language.rolecore.dependencies.resource.dependencies.ui.DependenciesNewFileWizard" name="EMFText .dependencies file">
+		</wizard>
+	</extension>
+	
+	<extension id="org.emftext.language.rolecore.dependencies.resource.dependencies.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.rolecore.dependencies.resource.dependencies.nature" name="dependencies nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.rolecore.dependencies.resource.dependencies.mopp.DependenciesNature" />
+		</runtime>
+		<builder id="org.emftext.language.rolecore.dependencies.resource.dependencies.builder" />
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.rolecore.dependencies.resource.dependencies.builder" name="dependencies Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.rolecore.dependencies.resource.dependencies.mopp.DependenciesBuilderAdapter" />
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.rolecore.dependencies.resource.dependencies.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.rolecore.dependencies.resource.dependencies.mopp.DependenciesResourceFactoryDelegator" type="dependencies">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.rolecore.dependencies.resource.dependencies.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
+	
+</plugin>

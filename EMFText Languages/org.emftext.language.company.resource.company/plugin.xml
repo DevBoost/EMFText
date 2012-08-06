@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.company.resource.company.mopp.CompanyMetaInformation" id="org.emftext.language.company.resource.company.mopp.CompanyMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.company.resource.company.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.company.resource.company.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.company.resource.company.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.company.resource.company.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.company.resource.company.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.nature" name="company nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.company.resource.company.mopp.CompanyNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.company.resource.company.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.company.resource.company.builder" name="company Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.company.resource.company.mopp.CompanyBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.company.resource.company.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.company.resource.company.mopp.CompanyResourceFactoryDelegator" type="company">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.company.resource.company.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.language.company.resource.company.debug.CompanyLineBreakpoint" id="org.emftext.language.company.resource.company.debug.breakpoint" markerType="org.emftext.language.company.resource.company.debug.lineBreakpoint.marker" name="company Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.language.company.resource.company.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.language.company.resource.company.ui.launchConfigurationType" delegate="org.emftext.language.company.resource.company.launch.CompanyLaunchConfigurationDelegate" modes="run,debug" name="company Application" sourceLocatorId="org.emftext.language.company.resource.company.ui.sourceLocator" sourcePathComputerId="org.emftext.language.company.resource.company.ui.sourcePathComputer" delegateName="company Launch Tooling" delegateDescription="This will run or debug .company files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.language.company.resource.company.debug.CompanySourcePathComputerDelegate" id="org.emftext.language.company.resource.company.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.language.company.resource.company.ui.sourceLocator" class="org.emftext.language.company.resource.company.debug.CompanySourceLocator" name="company Source Locator">
+		</sourceLocator>
+	</extension>
+	
+</plugin>

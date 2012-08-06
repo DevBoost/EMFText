@@ -1,0 +1,30 @@
+package shapes // this is the package name 
+        shapes // this is the namespace prefix
+        "http://org.geometry/basic_shapes.ecore" // the namespace URI 
+	{
+
+	abstract class Shape {
+		attribute EString name (1..1);
+		containment reference Shape children (0..-1);
+		attribute EDouble xPosition (1..1);
+		attribute EDouble yPosition (1..1);
+		attribute LineStyle border (1..1);
+		attribute Width lineWidth (1..1);
+		operation EInt cl(EInt p);
+	}
+
+	class Rectangle extends Shape {
+	}
+
+	class Circle extends Shape {
+		attribute EDouble diameter (1..1);
+	}
+	
+	datatype Width "java.lang.Integer"	
+	
+	enum LineStyle {
+		1 : SOLID = "solid";
+		2 : DOTTED = "dotted";
+		3 : DASHED = "dashed";
+	}
+}

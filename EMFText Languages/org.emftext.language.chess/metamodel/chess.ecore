@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="chess"
+    nsURI="http://www.emftext.org/language/chess" nsPrefix="chess">
+  <eClassifiers xsi:type="ecore:EClass" name="ChessGame">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="board" lowerBound="1" eType="#//Board"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rounds" upperBound="-1"
+        eType="#//Round" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Piece">
+    <eLiterals name="KING" literal="K"/>
+    <eLiterals name="ROOK" value="1" literal="R"/>
+    <eLiterals name="QUEEN" value="2" literal="Q"/>
+    <eLiterals name="PAWN" value="3" literal="P"/>
+    <eLiterals name="KNIGHT" value="4" literal="k"/>
+    <eLiterals name="BISHOP" value="5" literal="B"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Board">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" lowerBound="8" upperBound="8"
+        eType="#//Row" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Player">
+    <eLiterals name="WHITE" literal="w"/>
+    <eLiterals name="BLACK" value="1" literal="b"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NonEmptySquare" eSuperTypes="#//Square">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="piece" eType="#//Piece"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="player" eType="#//Player"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Row">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="squares" lowerBound="8"
+        upperBound="8" eType="#//Square" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Square" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Move">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fromRow" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fromColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EChar"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toRow" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EChar"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="moveType" lowerBound="1"
+        eType="#//MoveType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="piece" eType="#//Piece"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="event" eType="#//Event"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EmptySquare" eSuperTypes="#//Square"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="MoveType">
+    <eLiterals name="MOVE" literal="-"/>
+    <eLiterals name="CAPTURE" value="1" literal="x"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Round">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moves" upperBound="2" eType="#//Move"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Event">
+    <eLiterals name="CHESS" literal="..."/>
+    <eLiterals name="CHESSMATE" value="1" literal="#"/>
+    <eLiterals name="CHECK" value="2" literal="+"/>
+  </eClassifiers>
+</ecore:EPackage>

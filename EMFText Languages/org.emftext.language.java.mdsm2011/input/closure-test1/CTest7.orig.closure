@@ -1,0 +1,18 @@
+package test1;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+
+public class CTest1 {
+
+	public void m() {
+		Comparator<Object, Object> r = new Comparator<Object, Object>() {
+			
+			public int compare(Object x, Object y) {
+				//System.out.println("Hello Closure with multiple parameters " + x + ", " + y + " and return type");
+				return -1;
+			}
+		};
+		r.compare("a", "b");
+	}
+}

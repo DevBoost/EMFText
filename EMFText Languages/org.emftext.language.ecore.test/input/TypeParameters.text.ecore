@@ -1,0 +1,7 @@
+package TypeParameters tp "http://www.emftext.org/test/ecore/TypeParameters" {
+
+	class <TypeParam1> A {
+		attribute EString attribute1;
+		operation void <TypeParam2> operation1();
+	}
+}

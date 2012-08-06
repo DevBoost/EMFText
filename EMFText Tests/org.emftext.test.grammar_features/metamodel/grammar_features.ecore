@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="grammar_features"
+    nsURI="http://www.emftext.org/test/grammar_features" nsPrefix="grammar_features">
+  <eClassifiers xsi:type="ecore:EClass" name="Root">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//Child" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Child" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AlternativeSyntax" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractSuperclass" abstract="true"
+      eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConcreteSubclassA" eSuperTypes="#//AbstractSuperclass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConcreteSubclassB" eSuperTypes="#//AbstractSuperclass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OptionalContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//X"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MandatoryContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+        eType="#//X" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PlusContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+        upperBound="-1" eType="#//X" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StarContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" upperBound="-1"
+        eType="#//X" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OptionalNonContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//X"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MandatoryNonContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+        eType="#//X"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PlusNonContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+        upperBound="-1" eType="#//X"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StarNonContainment" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" upperBound="-1"
+        eType="#//X"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompoundStar" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompoundPlus" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompoundOptional" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="X">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassWithAttributes" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a2" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SecondRoot"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OptionalPrefix" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StarPrefix" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PlusPrefix" eSuperTypes="#//Child"/>
+</ecore:EPackage>

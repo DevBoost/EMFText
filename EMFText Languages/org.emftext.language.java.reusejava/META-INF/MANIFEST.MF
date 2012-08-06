@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: Example Java Extension for Reuseware (Metamodel)
+Bundle-SymbolicName: org.emftext.language.java.reusejava; singleton:=t
+ rue
+Bundle-Version: 0.1.1.v200911130906
+Bundle-ClassPath: .
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.java.reusejava,org.emftext.langua
+ ge.java.reusejava.impl,org.emftext.language.java.reusejava.util
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
+ ity:=reexport,org.emftext.language.java;visibility:=reexport
+Bundle-ActivationPolicy: lazy
+

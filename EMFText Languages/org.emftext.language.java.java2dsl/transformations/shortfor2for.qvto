@@ -1,0 +1,215 @@
+--modeltype CLOSURES uses 'http://www.emftext.org/language/java/closures';  
+--modeltype CLOSURES uses 'platform:/resource/org.emftext.language.java.closures/model/closures.ecore';
+modeltype JAVA uses "http://www.emftext.org/java";
+
+-- in place transformation funktioniert nun auch
+-- 'inout' ist entscheidend
+-- grundsätzlich werden alle methoden und attribute übernommen,
+-- sie müssen manuell entfernt werden per 'exclude()' methode' 
+
+transformation Java2Closure(inout java : JAVA);
+
+main() {
+	java.objects()[JAVA::classifiers::Class]->map Classifiers_Class();
+	java.objects()[JAVA::statements::ForEachLoop]->map Statements_ForEachLoop();
+	java.objects()[JAVA::statements::StatementListContainer]->map Statements_StatementListContainer();
+	java.objects()[JAVA::statements::StatementContainer]->map Statements_StatementContainer();
+	
+}
+
+// für Zähler
+mapping inout JAVA::classifiers::Class::Classifiers_Class(){}
+
+// für Zähler
+mapping inout JAVA::statements::ForEachLoop::Statements_ForEachLoop(){}
+
+// durchläuft alle statements
+mapping inout JAVA::statements::StatementListContainer::Statements_StatementListContainer(){
+	
+	var tempList : OrderedSet(JAVA::statements::Statement);
+	
+	// wenn s forLoop dann umwandeln
+	self.statements->forEach(s){
+		
+		var forLoop : JAVA::statements::ForLoop := map ForEachLoopToForLoop(s);
+
+		if forLoop <> null then
+			tempList := tempList->append(forLoop)
+		else
+			tempList := tempList->append(s)
+		endif;
+	};
+	
+	self.statements := tempList;
+	
+}
+
+// durchläuft ein statement
+mapping inout JAVA::statements::StatementContainer::Statements_StatementContainer(){
+	
+	var forLoop : JAVA::statements::ForLoop := 
+		map ForEachLoopToForLoop(self.statement);
+	if forLoop <> null then
+		self.statement := forLoop
+	endif;
+}
+
+// wenn statement ein forLoop dann umwandlung möglich
+mapping ForEachLoopToForLoop(s : JAVA::statements::Statement): 
+	JAVA::statements::ForLoop
+	when{
+		s.oclIsTypeOf(JAVA::statements::ForEachLoop)
+		and
+		s.oclAsType(JAVA::statements::ForEachLoop).collection.
+			oclIsTypeOf(JAVA::_references::IdentifierReference)
+	}{
+
+	var forEachLoop : JAVA::statements::ForEachLoop := 
+		s.oclAsType(JAVA::statements::ForEachLoop);
+	var identRef : JAVA::_references::IdentifierReference := null;
+	
+	identRef := forEachLoop.collection.oclAsType(JAVA::_references::IdentifierReference);
+
+	// lokale variable
+	var locVar : JAVA::variables::LocalVariable := 
+		createLocalVar();
+	var relExpr : JAVA::expressions::RelationExpression := 
+		createRelationExpr(locVar,identRef);
+	var suffExpre : JAVA::expressions::SuffixUnaryModificationExpression := 
+		createSuffixUnaryModExpr(locVar);
+	
+	_init := locVar;
+	condition := relExpr;
+	updates := updates->append(suffExpre);
+	
+	statement := map Statements_Block(
+		forEachLoop.statement.oclAsType(JAVA::statements::Block),
+		forEachLoop.next,
+		identRef,
+		locVar);
+
+}
+
+query createLocalVar() : JAVA::variables::LocalVariable{
+	
+	return object JAVA::variables::LocalVariable{
+		typeReference := object JAVA::types::Int{};
+		initialValue := object JAVA::literals::DecimalIntegerLiteral{
+			decimalValue := 0;
+		};
+		name := 'i'
+	}
+}
+
+query createRelationExpr(
+	lv : JAVA::variables::LocalVariable,
+	identRef : JAVA::_references::IdentifierReference) : 
+	JAVA::expressions::RelationExpression{
+	
+	var clas : JAVA::classifiers::Class :=
+		java.objects()[JAVA::classifiers::Class]->asOrderedSet()->first();
+	
+	var sizeMethod : JAVA::members::ClassMethod :=
+		object JAVA::members::ClassMethod{
+			name := 'size';
+			typeReference := object JAVA::types::Int{};
+		--	annotationsAndModifiers := annotationsAndModifiers->append(object JAVA::modifiers::Abstract{});
+			annotationsAndModifiers := annotationsAndModifiers->append(object JAVA::modifiers::Public{});
+		};
+	clas.members := clas.members->append(sizeMethod);
+	
+	return object JAVA::expressions::RelationExpression{
+		children := children->append(object JAVA::_references::IdentifierReference{
+			target := lv;
+		});
+		children := children->append(object JAVA::_references::IdentifierReference{
+			target := identRef.target;
+			next := object JAVA::_references::MethodCall{
+				target := sizeMethod;
+			}	
+		});
+		relationOperators := object JAVA::operators::LessThan{};
+	}
+}
+
+query createSuffixUnaryModExpr(
+	lv : JAVA::variables::LocalVariable) : 
+	JAVA::expressions::SuffixUnaryModificationExpression{
+	
+	return object JAVA::expressions::SuffixUnaryModificationExpression{
+		child := object JAVA::_references::IdentifierReference{
+			target := lv;
+		};
+		operator := object JAVA::operators::PlusPlus{};
+	}
+}
+
+// suche alle vorkommen der collection im block und ersetze
+mapping Statements_Block(
+	in block : JAVA::statements::Block,
+	in param : JAVA::parameters::OrdinaryParameter,
+	in identRef : JAVA::_references::IdentifierReference,
+	in locVar : JAVA::variables::LocalVariable) :
+		JAVA::statements::Block{
+		
+		block.allSubobjects()[JAVA::_references::IdentifierReference].
+		map Copy_Statements_Block(param,identRef,locVar);
+		
+		statements := block.statements;
+		name := block.name;
+		modifiers := block.modifiers
+	}
+
+// mit neuen Parameter aus ForEach
+mapping inout JAVA::_references::IdentifierReference::Copy_Statements_Block(
+	in param : JAVA::parameters::OrdinaryParameter,
+	in identRef : JAVA::_references::IdentifierReference,
+	in locVar : JAVA::variables::LocalVariable)
+	
+	when{
+		self.target.name = param.name
+	}{
+	
+		var clas : JAVA::classifiers::Class :=
+		java.objects()[JAVA::classifiers::Class]->asOrderedSet()->first();
+		
+		var getMethod : JAVA::members::ClassMethod :=
+			object JAVA::members::ClassMethod{
+				name := 'get';
+				typeReference := object JAVA::types::Int{};
+				annotationsAndModifiers := annotationsAndModifiers->append(object JAVA::modifiers::Public{});
+				parameters := parameters->append(object JAVA::parameters::OrdinaryParameter{
+					typeReference := object JAVA::types::Int{};
+				});
+		--		typeReference := object JAVA::types::ClassifierReference{
+		--			target := object JAVA::generics::TypeParameter{
+		--				name := 'E'
+		--			}
+		--		} 
+			};
+		clas.members := clas.members->append(getMethod);	
+			
+		target := identRef.target;
+		next := object JAVA::_references::MethodCall{
+			target := getMethod;
+			arguments := arguments->append(object JAVA::_references::IdentifierReference{
+				target := locVar;
+			});	
+		}	
+	}
+
+// sucht die lokale variable in einer methode, welche im if-statement der condition gesetzt wird
+query variables_LocalVariable(c : JAVA::_references::ReferenceableElement) : 
+	JAVA::variables::LocalVariable {
+	
+	return	java.objects()[JAVA::variables::LocalVariable]->selectOne(l|
+			l.name = c.name);
+}
+
+// sucht das feld in der klasse, welches im if-statement der condition gesetzt wird
+query members_Field(c : JAVA::_references::ReferenceableElement) : 
+	JAVA::members::Field {
+	
+	return	java.objects()[JAVA::members::Field]->selectOne(f|
+			f.name = c.name);
+}

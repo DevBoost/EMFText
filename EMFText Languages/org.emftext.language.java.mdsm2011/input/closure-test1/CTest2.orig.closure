@@ -1,0 +1,19 @@
+package test1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CTest1 {
+
+	final int x = 0;
+
+	public void m() {
+		Runnable r = new Runnable() {
+			// Hello Closure with used outer class variable
+			public void run() {
+				System.out.println(x);
+			}
+		};
+		r.run();
+	}
+}

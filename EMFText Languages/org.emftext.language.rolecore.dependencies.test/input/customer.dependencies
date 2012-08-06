@@ -1,0 +1,15 @@
+Graph customer
+
+Domain customersA ModelPackage "http://www.emftext.org/language/rolecore/riehle97base"
+		RCPackage "org.emftext.language.rolecore.examples/metamodel/riehle97base.rolecore"{
+	Create {
+		Customer customerA
+	}
+}
+Domain customersB ModelPackage "http://www.emftext.org/language/rolecore/riehle97base"
+		RCPackage "org.emftext.language.rolecore.examples/metamodel/riehle97base.rolecore"{
+	Create {
+		Customer customerB
+	}
+}
+Equivalences{customerA := customerB;}

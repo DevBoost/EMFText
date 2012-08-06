@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+
+    <category
+    	id="org.emftext.language.hedl.category1"
+        name="name">
+	</category>
+      
+    <constraintProvider cache="true" mode="Batch">
+         <package namespaceUri="http://www.emftext.org/language/hedl" />
+         
+         <constraints categories="org.emftext.language.hedl.category1">
+            <constraint
+                  class="org.emftext.language.hedl.validation.UniqueComplexTypeNamesConstraint"
+                  id="org.emftext.language.hedl.constraint1"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+
+            <constraint
+                  class="org.emftext.language.hedl.validation.UniquePropertyNamesConstraint"
+                  id="org.emftext.language.hedl.constraint2"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+
+            <constraint
+                  class="org.emftext.language.hedl.validation.UniqueEnumLiteralNamesConstraint"
+                  id="org.emftext.language.hedl.constraint3"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+
+            <constraint
+                  class="org.emftext.language.hedl.validation.ForbiddenEntityNamesConstraint"
+                  id="org.emftext.language.hedl.constraint4"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+
+            <constraint
+                  class="org.emftext.language.hedl.validation.ForbiddenEnumerationNamesConstraint"
+                  id="org.emftext.language.hedl.constraint5"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+
+            <constraint
+                  class="org.emftext.language.hedl.validation.ForbiddenPropertyNamesConstraint"
+                  id="org.emftext.language.hedl.constraint6"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+
+	<extension point="org.eclipse.emf.validation.constraintBindings">
+    <clientContext
+          default="false"
+          id="org.emftext.language.hedl.validation.clientContext1">
+        <enablement>
+        </enablement>
+	</clientContext>
+    <binding
+          category="org.emftext.language.hedl.category1"
+          context="org.emftext.language.hedl.validation.clientContext1">
+    </binding>
+	</extension>
+</plugin>

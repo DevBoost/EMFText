@@ -1,0 +1,8 @@
+public class CLASS extends org.emftext.language.forms.resource.forms.custom.AbstractGenerator implements org.emftext.language.forms.resource.forms.custom.IGenerator {
+	/* (non-javadoc)
+    * @see IGenerator#generate(Object)
+    */
+	public String generateString(Object argument) {
+	     return "";
+	}
+}

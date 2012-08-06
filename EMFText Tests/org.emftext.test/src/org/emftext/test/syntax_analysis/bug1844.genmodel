@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="6.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.syntax/src" modelName="Bug1844" modelPluginID="org.emftext.language.syntax" xmi:version="2.0">
+  <foreignModel>bug1844.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.test" disposableProviderFactory="true" ecorePackage="bug1844.ecore#/" prefix="Bug1844">
+    <genClasses ecoreClass="bug1844.ecore#//Root">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference bug1844.ecore#//Root/expression" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="bug1844.ecore#//Expression" image="false"/>
+    <genClasses ecoreClass="bug1844.ecore#//Number">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bug1844.ecore#//Number/value"/>
+    </genClasses>
+    <genClasses ecoreClass="bug1844.ecore#//Negation">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference bug1844.ecore#//Negation/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="bug1844.ecore#//Plus">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference bug1844.ecore#//Plus/left" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference bug1844.ecore#//Plus/right" property="None"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

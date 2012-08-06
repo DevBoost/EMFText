@@ -1,0 +1,158 @@
+modeltype JAVA uses "http://www.emftext.org/java";
+
+transformation junit32junit4(inout javaModel : JAVA);
+
+main() {
+	javaModel.objects()[JAVA::containers::CompilationUnit]->map jUnit3toJUnit4Imports();
+	javaModel.objects()[JAVA::classifiers::Class]->map jUnit3toJUnit4Class();
+}
+
+
+// Transforms JUnit3 imports into JUnit4 imports
+mapping inout JAVA::containers::CompilationUnit::jUnit3toJUnit4Imports() {
+	var testCaseClassifier = self.getConcreteClassifier("junit.framework.TestCase");
+	
+	// Check if test case import exists
+	if self.imports->select(elem | elem.oclIsKindOf(JAVA::imports::ClassifierImport))
+		.oclAsType(JAVA::imports::ClassifierImport)
+		->exists(imp | imp.classifier = testCaseClassifier) 
+		and self.classifiers->select(oclIsKindOf(JAVA::classifiers::Class))
+			->oclAsType(JAVA::classifiers::Class)->exists(isJunit3TestClass())
+		
+		then {
+		
+		// Remove test case import
+		self.imports := self.imports->select(elem | 
+			not elem.oclIsKindOf(JAVA::imports::ClassifierImport)
+			or
+			(elem.oclIsKindOf(JAVA::imports::ClassifierImport) and
+				elem.oclAsType(JAVA::imports::ClassifierImport).classifier
+					<> testCaseClassifier));
+		
+		// Add static org.junit.Assert.* import
+		var assertImport : JAVA::imports::StaticClassifierImport := 
+			object JAVA::imports::StaticClassifierImport{};
+		assertImport.namespaces := Sequence{ 'org', 'junit', 'Assert' };
+		assertImport._static := object JAVA::modifiers::Static{};
+		self.imports := imports->append(assertImport)
+	}
+	endif
+}
+
+
+// Transforms a JUnit3 test class into a JUnit4 test class
+mapping inout JAVA::classifiers::Class::jUnit3toJUnit4Class(){
+	if self.isJunit3TestClass()	then {
+
+		var methods = self.members
+			->select(mem | mem.oclIsKindOf(JAVA::members::Method))
+			->collect(method | method.oclAsType(JAVA::members::Method));
+				
+		methods->map jUnit3toJUnit4TestCase();
+		methods->map jUnit3toJUnit4SetUpMethod();
+		methods->map jUnit3toJUnit4TearDownMethod();
+
+		// Replaces super class with java.lang.Object
+		// (Does not handle inheritance chains). 
+		self._extends := self.defaultExtends;
+	}
+	endif
+}
+
+helper JAVA::classifiers::Class::isJunit3TestClass() : Boolean {
+	// Does not consider indirect inheritance
+	// Does not consider TestCase classes from wrong packages
+	return self.getSuperClass().name = 'TestCase'
+}
+
+
+// Transforms a JUnit3 test case into a JUnit4 test case
+mapping inout JAVA::members::Method::jUnit3toJUnit4TestCase(){
+	if (self.isJunit3TestMethod()) then {
+		self->map addAnnotation(Sequence { 'org', 'junit' }, "org.junit.Test");
+
+		// Replace all assert statements		
+		if self.oclIsKindOf(JAVA::members::ClassMethod) then
+			self.oclAsType(JAVA::members::ClassMethod)
+				.allSubobjectsOfKind(JAVA::_references::MethodCall)
+				.oclAsType(JAVA::_references::MethodCall)
+				-> map jUnit3toJUnit4AssertMethodCall()
+		endif
+	}
+	endif
+}
+
+// Checks if a method represents a JUnit 3 test case
+helper JAVA::members::Method::isJunit3TestMethod() : Boolean {
+	return self.name.startsWith("test")
+}
+
+// Adds a given annotation (by its full qualified name)
+mapping inout JAVA::members::Method::addAnnotation(namespaces : Sequence(String), name : String) {
+	var annotation : JAVA::annotations::AnnotationInstance := object JAVA::annotations::AnnotationInstance{};
+	annotation.annotation := self.getConcreteClassifier(name);
+	annotation.namespaces := namespaces;
+	self.annotationsAndModifiers := self.annotationsAndModifiers->prepend(annotation);
+}
+
+
+// Transforms a JUnit3 setUp method into a JUnit4 test case
+mapping inout JAVA::members::Method::jUnit3toJUnit4SetUpMethod() {
+	if (self.isJunit3SetUpMethod()) then 
+		self->map addAnnotation(Sequence { 'org', 'junit' }, "org.junit.Before")
+	endif
+}
+
+helper JAVA::members::Method::isJunit3SetUpMethod() : Boolean {
+	return self.name.startsWith("setUp")
+}
+
+
+// Transforms a JUnit3 test case into a JUnit4 test case
+mapping inout JAVA::members::Method::jUnit3toJUnit4TearDownMethod() {
+	if (self.isJunit3TearDownMethod()) then 
+		self->map addAnnotation(Sequence { 'org', 'junit' }, "org.junit.After")
+	endif
+}
+
+helper JAVA::members::Method::isJunit3TearDownMethod() : Boolean {
+	return self.name.startsWith("tearDown")
+}
+
+
+// Replaces JUnit3 assert methods with JUnit4 assert methods
+mapping inout JAVA::_references::MethodCall::jUnit3toJUnit4AssertMethodCall() {
+	// Post: method is replaced with method from org.junit.Assert
+	if self.target.oclIsKindOf(JAVA::members::Method) and 
+		self.target.name.startsWith('assert') and
+		self.target.oclAsType(JAVA::members::Method).isStatic() then {
+		
+		var oldTarget = self.target.oclAsType(JAVA::members::Method);
+		
+		// Try to find method(s) within org.junit.Assert.*
+		var assertClassifier = self.getConcreteClassifier("org.junit.Assert");
+		var targetCanidates = assertClassifier.members
+			->select(oclIsKindOf(JAVA::members::Method))
+			->collect(oclAsType(JAVA::members::Method))
+			->select(method | method.name = oldTarget.name);
+			
+		// Select the best method.
+		var newTarget = targetCanidates
+			->iterate(method; bestTarget : JAVA::members::Method = null | 
+				if (bestTarget = null and method.isSomeMethodForCall(self)) or
+					(bestTarget <> null 
+					and method.isBetterMethodForCall(bestTarget, self))				
+				then
+					method
+				else 
+					method
+				endif);
+		
+		// Does not handle calls that have 'self.' or 'junit.framework.TestCase.' as source. 
+		if (not newTarget.oclIsUndefined()) then
+			// TODO What about the static import?
+			self.target := newTarget
+		endif	
+	}	
+	endif
+}

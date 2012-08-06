@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: petrinets
+Bundle-SymbolicName: org.emftext.language.petrinets.resource.petrinets;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+  org.eclipse.emf,
+  org.eclipse.emf.codegen.ecore,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.edit,
+  org.eclipse.emf.validation,
+  org.eclipse.emf.workspace,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.petrinets
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.petrinets.resource.petrinets,
+ org.emftext.language.petrinets.resource.petrinets.analysis,
+ org.emftext.language.petrinets.resource.petrinets.custom,
+ org.emftext.language.petrinets.resource.petrinets.grammar,
+ org.emftext.language.petrinets.resource.petrinets.mopp,
+ org.emftext.language.petrinets.resource.petrinets.util,
+ org.emftext.languages.petrinets.lib
+Bundle-Activator: org.emftext.language.petrinets.resource.petrinets.mopp.PetrinetsPlugin

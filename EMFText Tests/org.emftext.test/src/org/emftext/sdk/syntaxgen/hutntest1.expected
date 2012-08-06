@@ -1,0 +1,23 @@
+SYNTAXDEF hutntest1
+FOR <http://www.emftext.org/test/hutntest1>
+START A,B
+
+
+TOKENS {
+	DEFINE COMMENT $'//'(~('\n'|'\r'|'\uffff'))*$;
+	DEFINE INTEGER $('-')?('1'..'9')('0'..'9')*|'0'$;
+	DEFINE FLOAT $('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ $;
+}
+
+
+TOKENSTYLES {
+	"A" COLOR #7F0055, BOLD;
+	"refB" COLOR #7F0055, BOLD;
+	"B" COLOR #7F0055, BOLD;
+}
+
+
+RULES {
+	A ::= booleanAtt["booleanAtt" : ""] "A" "{" ("refB" ":" refB[])* "}";
+	B ::= "B" "{" "}";
+}

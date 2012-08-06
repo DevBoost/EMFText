@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	
+	<extension id="org.emftext.language.webtest.resource.webtest.nature" name="webtest nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.webtest.resource.webtest.mopp.WebtestNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.webtest.codegen.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.webtest.codegen.builder" name="WebTest Code Generator">
+		<builder hasNature="true">
+			<run class="org.emftext.language.webtest.codegen.WebTestBuilder">
+			</run>
+		</builder>
+	</extension>
+	
+</plugin>

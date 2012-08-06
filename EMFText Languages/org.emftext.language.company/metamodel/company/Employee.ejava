@@ -1,0 +1,22 @@
+// This file should be placed in a folder next to your
+// Ecore model. The folder should have the name of your 
+// EPackage. This is similar to how Java source code is
+// structured in folders according to package declarations
+// in the code.
+//
+// You need one eJava file per EClass that is named similar
+// to the EClass.
+epackage company;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+
+eclass Employee {
+	
+	cutSalary() {
+		setSalary(getSalary()/2);
+	}
+} 

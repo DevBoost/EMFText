@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.tbool.resource.tbool.ui.TboolUIMetaInformation" id="org.emftext.language.tbool.resource.tbool.ui.TboolUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.tbool.resource.tbool.ui.TboolEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="tbool" icon="icons/editor_icon.gif" id="org.emftext.language.tbool.resource.tbool.ui.TboolEditor" name="EMFText tbool Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.tbool.resource.tbool">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.tbool.resource.tbool.ui.TboolPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Tbool Text Editor" id="org.emftext.language.tbool.resource.tbool.ui.TboolPreferencePage" class="org.emftext.language.tbool.resource.tbool.ui.TboolPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.tbool.resource.tbool.ui.TboolSyntaxColoringPreferencePage" class="org.emftext.language.tbool.resource.tbool.ui.TboolSyntaxColoringPreferencePage" category="org.emftext.language.tbool.resource.tbool.ui.TboolPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.tbool.resource.tbool.ui.TboolBracketPreferencePage" class="org.emftext.language.tbool.resource.tbool.ui.TboolBracketPreferencePage" category="org.emftext.language.tbool.resource.tbool.ui.TboolPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.tbool.resource.tbool.ui.TboolNewFileWizard" id="org.emftext.language.tbool.resource.tbool.ui.TboolNewFileWizard" name="EMFText .tbool file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.tbool.resource.tbool.ui.TboolMarkerResolutionGenerator" markerType="org.emftext.language.tbool.resource.tbool.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.tbool.resource.tbool.ui.TboolAnnotationModelFactory" extensions="tbool">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.tbool.resource.tbool" name=".tbool File" base-type="org.eclipse.core.runtime.text" file-extensions="tbool">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="tbool" id="org.emftext.language.tbool.resource.tbool.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.tbool.resource.tbool.ui.occurences">
+		</type>
+		<type name="org.emftext.language.tbool.resource.tbool.ui.occurences.declaration" super="org.emftext.language.tbool.resource.tbool.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.tbool.resource.tbool.ui.occurences" label="Occurrences (in .tbool files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="tbool.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="tbool.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="tbool.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="tbool.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="tbool.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="tbool.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="tbool.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="tbool.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="tbool.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.tbool.resource.tbool.ui.occurences.declaration" label="Declarations (in .tbool files)" textPreferenceKey="tbool.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="tbool.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="tbool.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="tbool.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="tbool.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="tbool.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonUIMetaInformation" id="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="regexp_automaton" icon="icons/editor_icon.gif" id="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonEditor" name="EMFText regexp_automaton Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.regexp.resource.regexp_automaton">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Regexp_automaton Text Editor" id="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonPreferencePage" class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonSyntaxColoringPreferencePage" class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonSyntaxColoringPreferencePage" category="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonBracketPreferencePage" class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonBracketPreferencePage" category="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonNewFileWizard" id="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonNewFileWizard" name="EMFText .regexp_automaton file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonMarkerResolutionGenerator" markerType="org.emftext.language.regexp.resource.regexp_automaton.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.regexp.resource.regexp_automaton.ui.Regexp_automatonAnnotationModelFactory" extensions="regexp_automaton">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.regexp.resource.regexp_automaton" name=".regexp_automaton File" base-type="org.eclipse.core.runtime.text" file-extensions="regexp_automaton">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="regexp_automaton" id="org.emftext.language.regexp.resource.regexp_automaton.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.regexp.resource.regexp_automaton.ui.occurences">
+		</type>
+		<type name="org.emftext.language.regexp.resource.regexp_automaton.ui.occurences.declaration" super="org.emftext.language.regexp.resource.regexp_automaton.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.regexp.resource.regexp_automaton.ui.occurences" label="Occurrences (in .regexp_automaton files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="regexp_automaton.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="regexp_automaton.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="regexp_automaton.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="regexp_automaton.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="regexp_automaton.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="regexp_automaton.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="regexp_automaton.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="regexp_automaton.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="regexp_automaton.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.regexp.resource.regexp_automaton.ui.occurences.declaration" label="Declarations (in .regexp_automaton files)" textPreferenceKey="regexp_automaton.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="regexp_automaton.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="regexp_automaton.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="regexp_automaton.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="regexp_automaton.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="regexp_automaton.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

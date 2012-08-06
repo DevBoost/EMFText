@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: escaping
+Bundle-SymbolicName: org.emftext.test.escaping.resource.escaping;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+  org.eclipse.emf,
+  org.eclipse.emf.codegen.ecore,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.edit,
+  org.eclipse.emf.validation,
+  org.eclipse.emf.workspace,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.test.escaping
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.test.escaping.resource.escaping,
+  org.emftext.test.escaping.resource.escaping.analysis,
+  org.emftext.test.escaping.resource.escaping.mopp,
+  org.emftext.test.escaping.resource.escaping.grammar,
+  org.emftext.test.escaping.resource.escaping.util
+Bundle-Activator: org.emftext.test.escaping.resource.escaping.mopp.EscapingPlugin

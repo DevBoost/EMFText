@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    copyrightText="Copyright (c) 2006-2012&#xA;Software Technology Group, Dresden University of Technology&#xA;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Software Technology Group - TU Dresden, Germany;&#xA;  DevBoost GmbH - Berlin, Germany&#xA;     - initial API and implementation&#xA; "
+    modelDirectory="/org.emftext.language.java.javabehavior4uml/src-gen" modelPluginID="org.emftext.language.java.javabehavior4uml"
+    modelName="JavaBehavior4UML" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.emftext.language.java/metamodel/java.genmodel#//java platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel#//uml ../../org.emftext.commons.layout/metamodel/layout.genmodel#//layout">
+  <foreignModel>JavaBehavior4UML.ecore</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="Javabehavior4uml" basePackage="org.emftext.language.java"
+      resource="XML" disposableProviderFactory="true" ecorePackage="JavaBehavior4UML.ecore#/">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="JavaBehavior4UML.ecore#//JavaMethodBehavior">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference JavaBehavior4UML.ecore#//JavaMethodBehavior/javaMethod"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="JavaBehavior4UML.ecore#//UMLClassWrapper">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference JavaBehavior4UML.ecore#//UMLClassWrapper/umlClass"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="JavaBehavior4UML.ecore#//UMLPropertyWrapper">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference JavaBehavior4UML.ecore#//UMLPropertyWrapper/umlProperty"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="JavaBehavior4UML.ecore#//UMLOperationWrapper">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference JavaBehavior4UML.ecore#//UMLOperationWrapper/umlOperation"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="JavaBehavior4UML.ecore#//UMLParameterWrapper">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference JavaBehavior4UML.ecore#//UMLParameterWrapper/umlParameter"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

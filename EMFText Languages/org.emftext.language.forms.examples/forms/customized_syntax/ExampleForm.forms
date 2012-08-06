@@ -1,0 +1,9 @@
+FORM "A simple form written in HUTN syntax" 
+GROUP "A first group" 
+
+ITEM "Do you like this tutorial so far?" 
+     "It's ok to please the presenters instead of telling the truth" : 
+	CHOICE (
+		"Yes, its amazing!", 
+		"Well, it's a little boring so far."
+	)

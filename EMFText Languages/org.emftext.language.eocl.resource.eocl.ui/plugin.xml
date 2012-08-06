@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.eocl.resource.eocl.ui.EoclUIMetaInformation" id="org.emftext.language.eocl.resource.eocl.ui.EoclUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.eocl.resource.eocl.ui.EoclEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="eocl" icon="icons/editor_icon.gif" id="org.emftext.language.eocl.resource.eocl.ui.EoclEditor" name="EMFText eocl Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.eocl.resource.eocl"/>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.eocl.resource.eocl.ui.EoclPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Eocl Text Editor" id="org.emftext.language.eocl.resource.eocl.ui.EoclPreferencePage" class="org.emftext.language.eocl.resource.eocl.ui.EoclPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.eocl.resource.eocl.ui.EoclSyntaxColoringPreferencePage" class="org.emftext.language.eocl.resource.eocl.ui.EoclSyntaxColoringPreferencePage" category="org.emftext.language.eocl.resource.eocl.ui.EoclPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.eocl.resource.eocl.ui.EoclBracketPreferencePage" class="org.emftext.language.eocl.resource.eocl.ui.EoclBracketPreferencePage" category="org.emftext.language.eocl.resource.eocl.ui.EoclPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.eocl.resource.eocl.ui.EoclNewFileWizard" id="org.emftext.language.eocl.resource.eocl.ui.EoclNewFileWizard" name="EMFText .eocl file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.eocl.resource.eocl.ui.EoclMarkerResolutionGenerator" markerType="org.emftext.language.eocl.resource.eocl.problem" />
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.eocl.resource.eocl.ui.EoclAnnotationModelFactory" extensions="eocl" />
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.eocl.resource.eocl" name=".eocl File" base-type="org.eclipse.core.runtime.text" file-extensions="eocl"/>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="eocl" id="org.emftext.language.eocl.resource.eocl.ui.provider" />
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.eocl.resource.eocl.ui.occurences" />
+		<type name="org.emftext.language.eocl.resource.eocl.ui.occurences.declaration" super="org.emftext.language.eocl.resource.eocl.ui.occurences" />
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.eocl.resource.eocl.ui.occurences" label="Occurrences (in .eocl files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="eocl.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="eocl.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="eocl.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="eocl.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="eocl.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="eocl.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="eocl.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="eocl.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="eocl.occurrenceTextStyle" textStylePreferenceValue="NONE" />
+		<specification annotationType="org.emftext.language.eocl.resource.eocl.ui.occurences.declaration" label="Declarations (in .eocl files)" textPreferenceKey="eocl.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="eocl.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="eocl.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="eocl.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="eocl.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="eocl.declarationTextStyle" textStylePreferenceValue="NONE" />
+	</extension>
+	
+</plugin>

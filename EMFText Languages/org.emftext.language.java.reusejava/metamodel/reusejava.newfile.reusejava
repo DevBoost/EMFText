@@ -1,0 +1,21 @@
+/* This is a 'StatementUnit' which contains, in contrast to 
+ * 'CompilationUnits', only a list of statements
+ */
+statements ReusableStatements {
+	{
+		//list of reuseable statements
+		System.out.println("I was reused!");
+		{
+			//<<vp>> is a statment varaition point, where reusable statements 
+			//can be inserted using Reuseware composition programs.
+			//A statment variation point can be defined at all places 
+			//in CompilationUnits or StatementUnit where statements are allowed.
+			<<vp>>;
+		}
+	}
+}
+
+
+
+
+

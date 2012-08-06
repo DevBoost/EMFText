@@ -1,0 +1,35 @@
+package egui
+
+/* The derived attributes will be computed by JastEMF. 
+  However, as long as the JastEMF implementation does not work they are required here. */
+context State::fanIn
+derive: Transition.allInstances()->select(target = self)->asOrderedSet()
+
+context State::fanOut
+derive: Transition.allInstances()->select(source = self)->asOrderedSet()
+
+context State::isStartState
+derive: fanIn->size() = 0
+
+context State::isFinalState
+derive: fanOut->size() = 0
+/* End of JastEMF derived values */
+
+context StateModel
+inv extactOneInitialState:
+	states->select(isStartState)->size() = 1
+inv atLeastOneEndState:
+	states->select(isFinalState)->size() >= 1
+	
+context Nameable
+inv nameIsDefined: self.name.size() > 0
+
+context StateModel
+inv uniqueNameInStateModel:
+	OrderedSet(Nameable){}->union(states)->union(events)->isUnique(name)
+
+context Screen
+inv uniqueNameInScreen:
+	compounds->isUnique(name)
+
+endpackage

@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: pl0
+Bundle-SymbolicName: org.emftext.language.pl0.resource.pl0;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.pl0
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.pl0.resource.pl0,
+  org.emftext.language.pl0.resource.pl0.analysis,
+  org.emftext.language.pl0.resource.pl0.mopp,
+  org.emftext.language.pl0.resource.pl0.debug,
+  org.emftext.language.pl0.resource.pl0.launch,
+  org.emftext.language.pl0.resource.pl0.grammar,
+  org.emftext.language.pl0.resource.pl0.util
+Bundle-Activator: org.emftext.language.pl0.resource.pl0.mopp.Pl0Plugin

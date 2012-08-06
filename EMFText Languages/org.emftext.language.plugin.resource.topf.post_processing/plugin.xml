@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+<extension point="org.emftext.language.plugin.resource.topf.default_load_options">
+	<provider
+	    class="org.emftext.language.plugin.PluginDataInitializer"
+	    id="org.emftext.language.plugin.resource.topf"
+	    name="TopfOptionProvider">
+	</provider>
+</extension>
+
+</plugin>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.prolog.resource.pl.ui.PlUIMetaInformation" id="org.emftext.language.prolog.resource.pl.ui.PlUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.prolog.resource.pl.ui.PlEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="pl" icon="icons/editor_icon.gif" id="org.emftext.language.prolog.resource.pl.ui.PlEditor" name="EMFText pl Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.prolog.resource.pl">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.prolog.resource.pl.ui.PlPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Pl Text Editor" id="org.emftext.language.prolog.resource.pl.ui.PlPreferencePage" class="org.emftext.language.prolog.resource.pl.ui.PlPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.prolog.resource.pl.ui.PlSyntaxColoringPreferencePage" class="org.emftext.language.prolog.resource.pl.ui.PlSyntaxColoringPreferencePage" category="org.emftext.language.prolog.resource.pl.ui.PlPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.prolog.resource.pl.ui.PlBracketPreferencePage" class="org.emftext.language.prolog.resource.pl.ui.PlBracketPreferencePage" category="org.emftext.language.prolog.resource.pl.ui.PlPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.prolog.resource.pl.ui.PlNewFileWizard" id="org.emftext.language.prolog.resource.pl.ui.PlNewFileWizard" name="EMFText .pl file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.prolog.resource.pl.ui.PlNewProjectWizard" id="org.emftext.language.prolog.resource.pl.ui.PlNewProjectWizard" name="EMFText pl project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.prolog.resource.pl.ui.PlMarkerResolutionGenerator" markerType="org.emftext.language.prolog.resource.pl.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.prolog.resource.pl.ui.PlAnnotationModelFactory" extensions="pl">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.prolog.resource.pl" name=".pl File" base-type="org.eclipse.core.runtime.text" file-extensions="pl">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="pl" id="org.emftext.language.prolog.resource.pl.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.prolog.resource.pl.ui.occurences">
+		</type>
+		<type name="org.emftext.language.prolog.resource.pl.ui.occurences.declaration" super="org.emftext.language.prolog.resource.pl.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.prolog.resource.pl.ui.occurences" label="Occurrences (in .pl files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="pl.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="pl.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="pl.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="pl.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="pl.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="pl.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="pl.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="pl.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="pl.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.prolog.resource.pl.ui.occurences.declaration" label="Declarations (in .pl files)" textPreferenceKey="pl.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="pl.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="pl.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="pl.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="pl.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="pl.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.language.prolog.resource.pl.ui.launchConfigurationType" id="org.emftext.language.pl.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.language.prolog.resource.pl.ui.launchConfigurationType" class="org.emftext.language.prolog.resource.pl.ui.launch.PlLaunchConfigurationTabGroup" id="org.emftext.language.pl.launchConfigurationTabGroup" helpContextId="org.emftext.language.pl.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug pl model.">
+			</launchMode>
+			<launchMode mode="run" description="Run pl model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="pl Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.language.pl.launch" modes="run,debug" class="org.emftext.language.prolog.resource.pl.ui.launch.PlLaunchShortcut" description="Launch a pl model" id="org.emftext.language.pl.launchShortcut">
+			<description description="Run pl model" mode="run">
+			</description>
+			<description description="Debug pl model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.language.pl.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.language.prolog.resource.pl.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.language.pl.PropertyTester" type="java.lang.Object" namespace="org.emftext.language.pl" properties="isLaunchable" class="org.emftext.language.prolog.resource.pl.ui.PlPropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.prolog.resource.pl.ui.debug.lineBreakpoint" markerType="org.emftext.language.prolog.resource.pl.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.prolog.resource.pl.ui.debug.lineBreakpoint" label="Breakpoints (in .pl files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.language.prolog.resource.pl.ui.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.language.prolog.resource.pl.ui.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.language.prolog.resource.pl.ui.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.language.prolog.resource.pl.ui.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.language.prolog.resource.pl.ui.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.language.prolog.resource.pl.ui.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.language.prolog.resource.pl.ui.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.language.prolog.resource.pl.ui.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.language.prolog.resource.pl.ui.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.language.prolog.resource.pl.ui.PlEditor" class="org.emftext.language.prolog.resource.pl.ui.debug.PlAdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.prolog.resource.pl.debug.PlDebugVariable" class="org.emftext.language.prolog.resource.pl.ui.debug.PlAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.prolog.resource.pl.debug.PlDebugVariable" class="org.emftext.language.prolog.resource.pl.ui.debug.PlAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.language.prolog.resource.pl.ui.RulerPopupActions" targetID="org.emftext.language.prolog.resource.pl.EditorRuler">
+			<action id="org.emftext.language.prolog.resource.pl.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.language.prolog.resource.pl.ui.PlEditor" id="org.emftext.language.prolog.resource.pl.ui.BreakpointRulerActions">
+			<action id="org.emftext.language.prolog.resource.pl.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.language.prolog.resource.pl.debugModel" class="org.emftext.language.prolog.resource.pl.ui.debug.PlDebugModelPresentation">
+		</debugModelPresentation>
+	</extension>
+	
+</plugin>

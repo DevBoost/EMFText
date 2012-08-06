@@ -1,0 +1,21 @@
+ADVENTURE "Haunted House"
+
+// the floors
+ROOM BasementFloor
+ROOM FloorOnLevel1
+ROOM FloorOnLevel2
+
+// basement
+ROOM Basement CONTAINS Chainsaw, Potatoes
+DOOR BasementDoor BETWEEN BasementFloor AND Basement
+
+// level 1
+ROOM Kitchen CONTAINS Fridge, Knife, Milk
+DOOR BETWEEN FloorOnLevel1 AND Kitchen
+
+// level 2
+ROOM Bedroom CONTAINS KEY FOR BasementDoor
+DOOR BETWEEN FloorOnLevel2 AND Bedroom
+
+STAIRS FROM FloorOnLevel1 TO FloorOnLevel2
+STAIRS FROM FloorOnLevel1 TO BasementFloor

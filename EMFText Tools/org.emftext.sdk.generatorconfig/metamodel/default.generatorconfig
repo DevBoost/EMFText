@@ -1,0 +1,2 @@
+ClassRule defaultClassRule ::= CLASSNAME FEATURE(b) "{" FEATURES  "}" ;
+FeatureRule defaultFeatureRule ::=  FEATURENAME "=" FEATURE ";";  

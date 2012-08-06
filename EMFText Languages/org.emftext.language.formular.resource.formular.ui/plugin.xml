@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.formular.resource.formular.ui.FormularUIMetaInformation" id="org.emftext.language.formular.resource.formular.ui.FormularUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.formular.resource.formular.ui.FormularEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="formular" icon="icons/editor_icon.gif" id="org.emftext.language.formular.resource.formular.ui.FormularEditor" name="EMFText formular Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.formular.resource.formular">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.formular.resource.formular.ui.FormularPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Formular Text Editor" id="org.emftext.language.formular.resource.formular.ui.FormularPreferencePage" class="org.emftext.language.formular.resource.formular.ui.FormularPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.formular.resource.formular.ui.FormularSyntaxColoringPreferencePage" class="org.emftext.language.formular.resource.formular.ui.FormularSyntaxColoringPreferencePage" category="org.emftext.language.formular.resource.formular.ui.FormularPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.formular.resource.formular.ui.FormularBracketPreferencePage" class="org.emftext.language.formular.resource.formular.ui.FormularBracketPreferencePage" category="org.emftext.language.formular.resource.formular.ui.FormularPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.formular.resource.formular.ui.FormularNewFileWizard" id="org.emftext.language.formular.resource.formular.ui.FormularNewFileWizard" name="EMFText .formular file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.formular.resource.formular.ui.FormularMarkerResolutionGenerator" markerType="org.emftext.language.formular.resource.formular.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.formular.resource.formular.ui.FormularAnnotationModelFactory" extensions="formular">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.formular.resource.formular" name=".formular File" base-type="org.eclipse.core.runtime.text" file-extensions="formular">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="formular" id="org.emftext.language.formular.resource.formular.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.formular.resource.formular.ui.occurences">
+		</type>
+		<type name="org.emftext.language.formular.resource.formular.ui.occurences.declaration" super="org.emftext.language.formular.resource.formular.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.formular.resource.formular.ui.occurences" label="Occurrences (in .formular files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="formular.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="formular.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="formular.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="formular.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="formular.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="formular.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="formular.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="formular.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="formular.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.formular.resource.formular.ui.occurences.declaration" label="Declarations (in .formular files)" textPreferenceKey="formular.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="formular.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="formular.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="formular.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="formular.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="formular.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

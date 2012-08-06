@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.chess.resource.cg.ui.CgUIMetaInformation" id="org.emftext.language.chess.resource.cg.ui.CgUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.chess.resource.cg.ui.CgEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cg" icon="icons/editor_icon.gif" id="org.emftext.language.chess.resource.cg.ui.CgEditor" name="EMFText cg Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.chess.resource.cg">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.chess.resource.cg.ui.CgPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Cg Text Editor" id="org.emftext.language.chess.resource.cg.ui.CgPreferencePage" class="org.emftext.language.chess.resource.cg.ui.CgPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.chess.resource.cg.ui.CgSyntaxColoringPreferencePage" class="org.emftext.language.chess.resource.cg.ui.CgSyntaxColoringPreferencePage" category="org.emftext.language.chess.resource.cg.ui.CgPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.chess.resource.cg.ui.CgBracketPreferencePage" class="org.emftext.language.chess.resource.cg.ui.CgBracketPreferencePage" category="org.emftext.language.chess.resource.cg.ui.CgPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.chess.resource.cg.ui.CgNewFileWizard" id="org.emftext.language.chess.resource.cg.ui.CgNewFileWizard" name="EMFText .cg file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.chess.resource.cg.ui.CgMarkerResolutionGenerator" markerType="org.emftext.language.chess.resource.cg.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.chess.resource.cg.ui.CgAnnotationModelFactory" extensions="cg">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.chess.resource.cg" name=".cg File" base-type="org.eclipse.core.runtime.text" file-extensions="cg">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="cg" id="org.emftext.language.chess.resource.cg.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.chess.resource.cg.ui.occurences">
+		</type>
+		<type name="org.emftext.language.chess.resource.cg.ui.occurences.declaration" super="org.emftext.language.chess.resource.cg.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.chess.resource.cg.ui.occurences" label="Occurrences (in .cg files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="cg.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="cg.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="cg.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cg.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cg.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="cg.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="cg.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="cg.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="cg.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.chess.resource.cg.ui.occurences.declaration" label="Declarations (in .cg files)" textPreferenceKey="cg.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="cg.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="cg.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cg.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cg.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="cg.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

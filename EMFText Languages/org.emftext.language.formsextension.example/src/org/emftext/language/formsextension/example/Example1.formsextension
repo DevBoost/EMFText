@@ -1,0 +1,13 @@
+JavaFile: [Example1GUI.java] 
+Method: [showForm]
+
+FORM "Conference Registration"
+
+GROUP "Personal Data" 
+ITEM "Firstname" : FREETEXT
+ITEM "Lastname" : FREETEXT
+ITEM "Age" "Please enter your real age, not the one you'd like to be at" : NUMBER
+
+GROUP "Food Preferences" 
+ITEM "Vegetarian" : DECISION ("yes","no")
+ITEM "Preferred beverage" : CHOICE ("Coffee - What else?", "I'd prefer tee", "Beer, now!")

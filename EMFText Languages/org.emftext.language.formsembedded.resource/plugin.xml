@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  
+   <extension
+         point="org.emftext.language.formsembedded.resource.formsembedded.default_load_options">
+      <provider
+            class="org.emftext.language.formsembedded.resource.FormsembeddedPostProcessor"
+            id="org.emftext.language.formsembedded.resource.FormsembeddedPostProcessor">
+      </provider>
+   </extension>
+
+   <extension
+         point="org.emftext.language.formsembedded.resource.formsembedded.default_load_options">
+      <provider
+            class="org.emftext.language.formsembedded.resource.UnicodeConverterProvider"
+            id="org.emftext.language.formsembedded.resource.UnicodeConverterProvider">
+      </provider>
+   </extension>
+   
+</plugin>

@@ -1,0 +1,14 @@
+<%TEMPLATE INPUT= "SomeNamespace::SomeType" %> 
+
+RECIPE recipe
+	a b 
+	<%FOR "SomeCollection" %>	
+		<%= "SomeAttribute" %> 
+	<%ENDFOR%>
+	<%IF "OCLCondition" %> c <%ENDIF%>
+	
+CLEAN a,
+TOAST b,
+ADD c
+	
+		

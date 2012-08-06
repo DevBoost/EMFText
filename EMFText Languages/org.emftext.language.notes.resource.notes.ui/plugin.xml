@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.notes.resource.notes.ui.NotesUIMetaInformation" id="org.emftext.language.notes.resource.notes.ui.NotesUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.notes.resource.notes.ui.NotesEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="notes" icon="icons/editor_icon.gif" id="org.emftext.language.notes.resource.notes.ui.NotesEditor" name="EMFText notes Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.notes.resource.notes">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.notes.resource.notes.ui.NotesPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Notes Text Editor" id="org.emftext.language.notes.resource.notes.ui.NotesPreferencePage" class="org.emftext.language.notes.resource.notes.ui.NotesPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.notes.resource.notes.ui.NotesSyntaxColoringPreferencePage" class="org.emftext.language.notes.resource.notes.ui.NotesSyntaxColoringPreferencePage" category="org.emftext.language.notes.resource.notes.ui.NotesPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.notes.resource.notes.ui.NotesBracketPreferencePage" class="org.emftext.language.notes.resource.notes.ui.NotesBracketPreferencePage" category="org.emftext.language.notes.resource.notes.ui.NotesPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.notes.resource.notes.ui.NotesNewFileWizard" id="org.emftext.language.notes.resource.notes.ui.NotesNewFileWizard" name="EMFText .notes file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.notes.resource.notes.ui.NotesNewProjectWizard" id="org.emftext.language.notes.resource.notes.ui.NotesNewProjectWizard" name="EMFText notes project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.notes.resource.notes.ui.NotesMarkerResolutionGenerator" markerType="org.emftext.language.notes.resource.notes.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.notes.resource.notes.ui.NotesAnnotationModelFactory" extensions="notes">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.notes.resource.notes" name=".notes File" base-type="org.eclipse.core.runtime.text" file-extensions="notes">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="notes" id="org.emftext.language.notes.resource.notes.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.notes.resource.notes.ui.occurences">
+		</type>
+		<type name="org.emftext.language.notes.resource.notes.ui.occurences.declaration" super="org.emftext.language.notes.resource.notes.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.notes.resource.notes.ui.occurences" label="Occurrences (in .notes files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="notes.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="notes.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="notes.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="notes.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="notes.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="notes.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="notes.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="notes.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="notes.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.notes.resource.notes.ui.occurences.declaration" label="Declarations (in .notes files)" textPreferenceKey="notes.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="notes.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="notes.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="notes.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="notes.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="notes.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

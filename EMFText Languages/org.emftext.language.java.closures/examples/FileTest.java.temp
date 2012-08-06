@@ -1,0 +1,43 @@
+package example.closure3;
+
+import example.closure3.GlobalClosure2;
+import example.closure3.LocalClosure;
+import example.closure3.ParameterClosure;
+
+
+public class FileTest {
+	public LocalClosure test () {
+		
+		LocalClosure lc ;
+		String s ;
+		lc = new LocalClosure ( ) {
+			public int invoke (int x1 , int x2) {
+				return x1 + x2 ;
+			}
+		} ;
+		s = new String ( "s" ) ;
+		return lc;
+	}
+	public GlobalClosure2 test2 () {
+		
+		GlobalClosure2 rc = new GlobalClosure2 ( ) {
+			public int invoke (int a , int b) {
+				return a - b ;
+			}
+		} ;
+		String s = new String ( "s" ) ;
+		return rc;
+	}
+	public ParameterClosure test3 () {
+		return new ParameterClosure ( ) {
+			public int invoke (int x1 , int x2) {
+				return x1 * x2 ;
+			}
+		} ;
+	}
+	public void runTest () {
+		System.out.println ( test ( ).invoke (1,2) ) ;
+		System.out.println ( test2 ( ).invoke (1,2) ) ;
+		System.out.println ( test3 ( ).invoke (1,2) ) ;
+	}
+}

@@ -1,0 +1,33 @@
+program identTest
+
+VAR x,y;
+
+PROCEDURE proc;
+VAR a;
+
+BEGIN
+	a := 1;
+	x := a
+END;
+
+PROCEDURE foo;
+VAR a;
+
+BEGIN
+	a := 2;
+	y := a
+END;
+
+PROCEDURE bar;
+VAR a;
+
+BEGIN
+	a := 3;
+	x := a * y
+END;
+
+BEGIN
+	CALL proc;
+	CALL foo;
+	CALL bar
+END.

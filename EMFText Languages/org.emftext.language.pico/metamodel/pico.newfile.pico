@@ -1,0 +1,10 @@
+begin 
+	declare 
+		var1 : natural,
+		var2 : string,
+		check : natural;
+	while check 
+	do 
+	     var1 := var2
+	od
+end 

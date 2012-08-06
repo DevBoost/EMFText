@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="enumsyntax"
+    nsURI="http://enumsyntax/1.0" nsPrefix="enumsyntax">
+  <eClassifiers xsi:type="ecore:EClass" name="Month">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="period" lowerBound="1"
+        eType="#//Season"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Season">
+    <eLiterals name="winter"/>
+    <eLiterals name="spring" value="1"/>
+    <eLiterals name="summer" value="2"/>
+    <eLiterals name="autumn" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Year">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="monthes" upperBound="-1"
+        eType="#//Month" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

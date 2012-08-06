@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<enumsyntax:Year xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:enumsyntax="http://enumsyntax/1.0">
+  <monthes period="spring"/>
+</enumsyntax:Year>

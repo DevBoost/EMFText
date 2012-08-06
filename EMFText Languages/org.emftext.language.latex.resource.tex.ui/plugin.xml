@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.latex.resource.tex.ui.TexUIMetaInformation" id="org.emftext.language.latex.resource.tex.ui.TexUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.latex.resource.tex.ui.TexEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="tex" icon="icons/editor_icon.gif" id="org.emftext.language.latex.resource.tex.ui.TexEditor" name="EMFText tex Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.latex.resource.tex"/>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.latex.resource.tex.ui.TexPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Tex Text Editor" id="org.emftext.language.latex.resource.tex.ui.TexPreferencePage" class="org.emftext.language.latex.resource.tex.ui.TexPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.latex.resource.tex.ui.TexSyntaxColoringPreferencePage" class="org.emftext.language.latex.resource.tex.ui.TexSyntaxColoringPreferencePage" category="org.emftext.language.latex.resource.tex.ui.TexPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.latex.resource.tex.ui.TexBracketPreferencePage" class="org.emftext.language.latex.resource.tex.ui.TexBracketPreferencePage" category="org.emftext.language.latex.resource.tex.ui.TexPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.latex.resource.tex.ui.TexNewFileWizard" id="org.emftext.language.latex.resource.tex.ui.TexNewFileWizard" name="EMFText .tex file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.latex.resource.tex.ui.TexMarkerResolutionGenerator" markerType="org.emftext.language.latex.resource.tex.problem" />
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.latex.resource.tex.ui.TexAnnotationModelFactory" extensions="tex" />
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.latex.resource.tex" name=".tex File" base-type="org.eclipse.core.runtime.text" file-extensions="tex"/>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="tex" id="org.emftext.language.latex.resource.tex.ui.provider" />
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.latex.resource.tex.ui.occurences" />
+		<type name="org.emftext.language.latex.resource.tex.ui.occurences.declaration" super="org.emftext.language.latex.resource.tex.ui.occurences" />
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.latex.resource.tex.ui.occurences" label="Occurrences (in .tex files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="tex.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="tex.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="tex.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="tex.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="tex.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="tex.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="tex.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="tex.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="tex.occurrenceTextStyle" textStylePreferenceValue="NONE" />
+		<specification annotationType="org.emftext.language.latex.resource.tex.ui.occurences.declaration" label="Declarations (in .tex files)" textPreferenceKey="tex.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="tex.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="tex.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="tex.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="tex.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="tex.declarationTextStyle" textStylePreferenceValue="NONE" />
+	</extension>
+	
+</plugin>

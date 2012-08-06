@@ -1,0 +1,1758 @@
+-- Anmerkung: 
+-- statements werden beim Kopieren von Methoden und Konstruktoren nicht mit beachtet
+-- Zuweisungen bei Feldern werden nicht beachtet
+-- Type_Reference_ClassifierReference nur da um .class files auch abarbeiten zu können
+-- Frage ob bei Properties Überprüfung von statements oder nicht
+
+-- !!! NEUESTE VERSION !!!
+-- zahlreiche Interfaces verwendet, dadurch wurden viele Relationen gespart
+-- Modellsynchronisation möglich !!! Run: java2propjava_v2 und propjava2java  
+
+transformation copy(JAVA : java, PROPJAVA : properties) {
+	
+	top relation CompilationUnit {
+		
+		varName : String;
+		varNamespace : Sequence(String);
+				
+		enforce domain JAVA s_cu : java::containers::CompilationUnit {
+			name = varName,
+			namespaces = varNamespace
+		};
+		
+		enforce domain PROPJAVA t_cu : java::containers::CompilationUnit {
+			name = varName,
+			namespaces = varNamespace
+		};
+		where{
+			CompilationUnit_Import(s_cu,t_cu) or
+			CompilationUnit_Class(s_cu,t_cu)or
+			CompilationUnit_Interface(s_cu,t_cu) or
+			CompilationUnit_Annotation(s_cu,t_cu) or
+			CompilationUnit_Enumeration(s_cu,t_cu);
+		}
+	}
+	
+	relation CompilationUnit_Class {
+
+		varClassName : String;
+					
+		enforce domain JAVA s_cu : java::containers::CompilationUnit {
+			classifiers = s_cl : java::classifiers::Class {
+				name = varClassName
+			}
+		};
+
+		enforce domain PROPJAVA t_cu : java::containers::CompilationUnit {
+			classifiers = t_cl : java::classifiers::Class  {
+				name = varClassName
+			}
+		};
+		where{
+			-- is necessary to get a TRUE in this OCL constraint 
+			Class_Extends_TypeReference_NamespaceClassifierReference(s_cl,t_cl) 
+			or
+			Implementor_Implements_TypeReference_NamespaceClassifierReference(s_cl,t_cl) 
+			or
+			Members_Property(s_cl,t_cl) or
+			Members_PropertyReadOnly(s_cl,t_cl) or
+			Members_Constructor(s_cl,t_cl) or
+			Members_EmptyMember(s_cl,t_cl) or
+			Members_Field(s_cl,t_cl) or
+			Members_ClassMethod(s_cl,t_cl) or
+			Members_Class(s_cl,t_cl) or
+			AnnotableAndModifiable_Modifier_Public(s_cl,t_cl);
+		}
+
+	}
+	
+	relation CompilationUnit_Interface {
+
+		varInterfaceName : String;
+
+		enforce domain JAVA s_cu : java::containers::CompilationUnit {
+			classifiers = s_cl : java::classifiers::Interface {
+				name = varInterfaceName
+			}
+		};
+
+		enforce domain PROPJAVA t_cu : java::containers::CompilationUnit {
+			classifiers = t_cl : java::classifiers::Interface  {
+				name = varInterfaceName
+			}
+		};
+		where{
+			Members_InterfaceMethod(s_cl,t_cl) or
+			Members_Field(s_cl,t_cl) or
+			AnnotableAndModifiable_Modifier_Public(s_cl,t_cl) or
+			Interface_Extends_TypeReference_NamespaceClassifierReference(s_cl,t_cl);
+		}
+	}
+	
+	relation CompilationUnit_Annotation {
+
+		varInterfaceName : String;
+
+		enforce domain JAVA s_cu : java::containers::CompilationUnit {
+			classifiers = s_cl : java::classifiers::Annotation {
+				name = varInterfaceName
+			}
+		};
+
+		enforce domain PROPJAVA t_cu : java::containers::CompilationUnit {
+			classifiers = t_cl : java::classifiers::Annotation  {
+				name = varInterfaceName
+			}
+		};
+		where{
+			Members_AnnotationMethod(s_cl,t_cl) or
+			Annotation_Attribute(s_cl,t_cl) or 
+			AnnotableAndModifiable_Modifier_Public(s_cl,t_cl) or true;
+		}
+	}
+	
+	relation CompilationUnit_Enumeration {
+
+		varInterfaceName : String;
+
+		enforce domain JAVA s_cu : java::containers::CompilationUnit {
+			classifiers = s_cl : java::classifiers::Enumeration {
+				name = varInterfaceName
+			}
+		};
+
+		enforce domain PROPJAVA t_cu : java::containers::CompilationUnit {
+			classifiers = t_cl : java::classifiers::Enumeration  {
+				name = varInterfaceName
+			}
+		};
+		where{
+			Enumeration_Enum_Constant(s_cl,t_cl) or
+			Implementor_Implements_TypeReference_NamespaceClassifierReference(s_cl,t_cl) or
+			Members_InterfaceMethod(s_cl,t_cl) or
+			AnnotableAndModifiable_Modifier_Public(s_cl,t_cl);
+		}
+	}
+	
+	relation CompilationUnit_Import {
+		
+		varImportName : String;
+		varImportNamespace : Sequence(String);
+				
+		enforce domain JAVA s_cu : java::containers::CompilationUnit {
+			
+			imports = s_imp : java::imports::ClassifierImport  {
+				namespaces = varImportNamespace,
+				classifier = s_cl : java::classifiers::Class {
+					name = varImportName
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA t_cu : java::containers::CompilationUnit {
+			
+			imports = t_imp : java::imports::ClassifierImport  {
+				namespaces = varImportNamespace,
+				classifier = s_cl : java::classifiers::Class {
+					name = varImportName
+				}
+			}
+		};
+	}
+	
+	relation Members_Property {
+
+		varName : String;
+
+		enforce domain JAVA s_c1 : java::classifiers::Class  {
+			members = field : java::members::Field {
+				name = varName,
+				annotationsAndModifiers = field_mod : java::modifiers::Private {}
+			},
+			members = getter : java::members::ClassMethod {
+				name = 'get'.concat(varName.firstToUpper()),
+				annotationsAndModifiers = get_mod : java::modifiers::Public {},
+				statements = get_stat_1 : java::statements::Return {
+					returnValue =  get_ret_1 : java::references::IdentifierReference {
+						target = field
+					}
+				}
+			},
+			members = setter : java::members::ClassMethod {
+				name = 'set'.concat(varName.firstToUpper()),
+				typeReference =  set_type : java::types::Void {},
+				annotationsAndModifiers = set_mod : java::modifiers::Public {}
+			}
+		};
+
+		enforce domain PROPJAVA t_c1 : java::classifiers::Class  {
+			members = property : properties::Property {
+				name = varName,
+				readonly = false
+			}
+		};
+		when{
+			if getter.oclIsUndefined() or setter.oclIsUndefined() or field.oclIsUndefined() then
+				true
+			else 
+				isCorrectGetter(field,getter)
+				and
+				isCorrectSetter(field,setter)
+			endif;
+		}
+		where{
+			Mem2Prop_TypeReference_NamespaceClassifierReference(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Int(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Boolean(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Byte(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Char(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Double(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Float(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Long(field,getter,setter,property) or
+			Mem2Prop_TypeReference_Short(field,getter,setter,property);
+		}
+
+	}
+	
+	relation Members_PropertyReadOnly {
+
+		varName : String;
+
+		enforce domain JAVA s_c2 : java::classifiers::Class  {
+			members = field : java::members::Field {
+				name = varName,
+				annotationsAndModifiers = field_mod : java::modifiers::Private {}
+			},
+			members = getter : java::members::ClassMethod {
+				name = 'get'.concat(varName.firstToUpper()),
+				annotationsAndModifiers = get_mod : java::modifiers::Public {},
+				statements = get_stat : java::statements::Return {
+					returnValue =  get_ret : java::references::IdentifierReference {
+						target = field
+					}
+				}
+			}
+		};
+
+		enforce domain PROPJAVA t_c2 : java::classifiers::Class  {
+			members = property : properties::Property {
+				name = varName,
+				readonly = true
+			}
+		};
+		when{
+			if getter.oclIsUndefined() or field.oclIsUndefined() then
+				true
+			else 
+				isCorrectGetter(field,getter)
+				and 
+				not existsACorrespondingSetter(field)
+			endif;
+		}
+		where{
+			Mem2PropReadOnly_TypeReference_NamespaceClassifierReference(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Int(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Boolean(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Byte(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Char(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Double(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Float(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Long(field,getter,property) or
+			Mem2PropReadOnly_TypeReference_Short(field,getter,property);
+		}
+
+	}
+	
+	relation Members_InterfaceMethod {
+
+		varName : String;
+
+		enforce domain JAVA s_cl : java::members::MemberContainer  {
+			members =  s_cm : java::members::InterfaceMethod {
+				name = varName
+			}
+		};
+
+		enforce domain PROPJAVA t_cl : java::members::MemberContainer  {
+			members = t_cm : java::members::InterfaceMethod {
+				name = varName
+			}
+		};
+		where{
+			TypedElement_TypeReference_NamespaceClassifierReference(s_cm,t_cm) or
+			TypedElement_TypeReference_Int(s_cm,t_cm) or
+			TypedElement_TypeReference_Void(s_cm,t_cm) or
+			TypedElement_TypeReference_Boolean(s_cm,t_cm) or
+			TypedElement_TypeReference_Byte(s_cm,t_cm) or
+			TypedElement_TypeReference_Double(s_cm,t_cm) or
+			TypedElement_TypeReference_Float(s_cm,t_cm) or
+			TypedElement_TypeReference_Long(s_cm,t_cm) or
+			TypedElement_TypeReference_Short(s_cm,t_cm) or
+			TypedElement_TypeReference_Char(s_cm,t_cm) 
+			or
+			AnnotableAndModifiable_Modifier_Abstract(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Public(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Private(s_cm,t_cm)
+			or
+			Parametrizable_Parameter(s_cm,t_cm)
+			or
+			ArrayTypeable_ArrayDimension(s_cm,t_cm);
+		}
+	}
+	
+	relation Members_AnnotationMethod {
+
+		varName : String;
+
+		enforce domain JAVA s_cl : java::classifiers::Annotation  {
+			members =  s_cm : java::members::InterfaceMethod {
+				name = varName
+			}
+		};
+
+		enforce domain PROPJAVA t_cl : java::classifiers::Annotation  {
+			members = t_cm : java::members::InterfaceMethod {
+				name = varName
+			}
+		};
+		where{
+			(TypedElement_TypeReference_NamespaceClassifierReference(s_cm,t_cm) or
+			TypedElement_TypeReference_Int(s_cm,t_cm) or
+			TypedElement_TypeReference_Void(s_cm,t_cm) or
+			TypedElement_TypeReference_Boolean(s_cm,t_cm) or
+			TypedElement_TypeReference_Byte(s_cm,t_cm) or
+			TypedElement_TypeReference_Double(s_cm,t_cm) or
+			TypedElement_TypeReference_Float(s_cm,t_cm) or
+			TypedElement_TypeReference_Long(s_cm,t_cm) or
+			TypedElement_TypeReference_Short(s_cm,t_cm) or
+			TypedElement_TypeReference_Char(s_cm,t_cm))  
+			and
+			(AnnotableAndModifiable_Modifier_Abstract(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Public(s_cm,t_cm)) 
+			or
+			Parametrizable_Parameter(s_cm,t_cm)
+			or
+			ArrayTypeable_ArrayDimension(s_cm,t_cm);
+		}
+	}
+	
+	relation Members_Constructor {
+
+		varName : String;
+		statementsVar : OrderedSet(java::statements::Statement);
+
+		enforce domain JAVA s_c2 : java::classifiers::Class  {
+			members =  s_mem : java::members::Constructor {
+				name = varName,
+				statements = statementsVar
+			}
+		};
+
+		enforce domain PROPJAVA t_c2 : java::classifiers::Class  {
+			members = t_mem : java::members::Constructor {
+				name = varName,
+				statements = statementsVar
+			}
+		};
+		where{
+			Parametrizable_Parameter(s_mem,t_mem) 
+			or
+			AnnotableAndModifiable_Modifier_Public(s_mem,t_mem) or
+			AnnotableAndModifiable_Modifier_Private(s_mem,t_mem) 
+			or
+			true; --when modifier is empty
+		}
+	}
+	
+	relation Members_EmptyMember {
+
+		varName : String;
+
+		enforce domain JAVA s_c2 : java::classifiers::Class  {
+			members =  s_mem : java::members::EmptyMember {
+				name = varName
+			}
+		};
+
+		enforce domain PROPJAVA t_c2 : java::classifiers::Class  {
+			members = t_mem : java::members::EmptyMember {
+				name = varName
+			}
+		};
+
+	}
+	
+	relation Members_Field {
+
+		varName : String;
+		initialValueVar : java::expressions::Expression;
+		
+		enforce domain JAVA s_c2: java::members::MemberContainer  {
+			members =  s_cm : java::members::Field {
+				name = varName,
+				initialValue =  initialValueVar
+			}
+		};
+
+		enforce domain PROPJAVA t_c2 : java::members::MemberContainer  {
+			members = t_cm : java::members::Field {
+				name = varName,
+				initialValue =  initialValueVar
+			}
+		};
+		when{
+			if s_cm.oclIsUndefined() then
+				not existsACorrespondingGetter(t_cm)
+			else
+				not existsACorrespondingGetter(s_cm)
+			endif;
+		}
+		where{
+			ArrayTypeable_ArrayDimension(s_cm,t_cm) or
+			TypedElement_TypeReference_NamespaceClassifierReference(s_cm,t_cm) or
+			TypedElement_TypeReference_Int(s_cm,t_cm) or
+			TypedElement_TypeReference_Void(s_cm,t_cm) or
+			TypedElement_TypeReference_Boolean(s_cm,t_cm) or
+			TypedElement_TypeReference_Byte(s_cm,t_cm) or
+			TypedElement_TypeReference_Double(s_cm,t_cm) or
+			TypedElement_TypeReference_Float(s_cm,t_cm) or
+			TypedElement_TypeReference_Long(s_cm,t_cm) or
+			TypedElement_TypeReference_Short(s_cm,t_cm) or
+			TypedElement_TypeReference_Char(s_cm,t_cm) or  
+			AnnotableAndModifiable_Modifier_Public(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Private(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Protected(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Static(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Final(s_cm,t_cm);
+			
+		}
+	}
+	
+	relation Members_ClassMethod {
+
+		varName : String;
+		statementsVar : OrderedSet(java::statements::Statement);
+		
+		enforce domain JAVA s_c2 : java::classifiers::Class  {
+			members =  s_cm : java::members::ClassMethod {
+				name = varName,
+				statements = statementsVar
+			}
+		};
+
+		enforce domain PROPJAVA t_c2 : java::classifiers::Class  {
+			members = t_cm : java::members::ClassMethod {
+				name = varName,
+				statements = statementsVar
+			}
+		};
+		when{
+			if s_cm.oclIsUndefined() then
+				not java::members::Field.allInstances()->exists( f |
+	               isCorrectGetter(f, t_cm)
+	               or
+	               isCorrectSetter(f, t_cm)
+		        )
+			else
+				not java::members::Field.allInstances()->exists( f |
+	               isCorrectGetter(f, s_cm)
+	               or
+	               isCorrectSetter(f, s_cm)
+		        )
+		    endif;
+		}
+		where{
+			ArrayTypeable_ArrayDimension(s_cm,t_cm)
+			or
+			Parametrizable_Parameter(s_cm,t_cm) 
+			or
+			TypedElement_TypeReference_NamespaceClassifierReference(s_cm,t_cm) or
+			TypedElement_TypeReference_Int(s_cm,t_cm) or
+			TypedElement_TypeReference_Void(s_cm,t_cm) or
+			TypedElement_TypeReference_Boolean(s_cm,t_cm) or
+			TypedElement_TypeReference_Byte(s_cm,t_cm) or
+			TypedElement_TypeReference_Double(s_cm,t_cm) or
+			TypedElement_TypeReference_Float(s_cm,t_cm) or
+			TypedElement_TypeReference_Long(s_cm,t_cm) or
+			TypedElement_TypeReference_Short(s_cm,t_cm) or
+			TypedElement_TypeReference_Char(s_cm,t_cm) 
+			or
+			AnnotableAndModifiable_Modifier_Public(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Private(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Protected(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Static(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Abstract(s_cm,t_cm);
+		}
+		
+	}
+	
+	relation Members_Class {
+
+		varClassName : String;
+					
+		enforce domain JAVA s_cu : java::classifiers::Class {
+			members = s_cl : java::classifiers::Class {
+				name = varClassName,
+				annotationsAndModifiers = s_aam : java::modifiers::Public {}
+			}
+		};
+
+		enforce domain PROPJAVA t_cu : java::classifiers::Class {
+			members = t_cl : java::classifiers::Class  {
+				name = varClassName,
+				annotationsAndModifiers = t_aam : java::modifiers::Public {}
+			}
+		};
+		where{
+			Class_Extends_TypeReference_NamespaceClassifierReference(s_cl,t_cl) 
+			or
+			Implementor_Implements_TypeReference_NamespaceClassifierReference(s_cl,t_cl) 
+			or
+			Members_Property(s_cl,t_cl) or
+			Members_PropertyReadOnly(s_cl,t_cl) or
+			Members_Constructor(s_cl,t_cl) or
+			Members_Field(s_cl,t_cl) or
+			Members_ClassMethod(s_cl,t_cl);
+		}
+
+	}
+	
+	relation Enumeration_Enum_Constant{
+
+		varName : String;
+
+		enforce domain JAVA s_c2 : java::classifiers::Enumeration  {
+			constants =  s_f : java::members::EnumConstant {
+				name = varName
+			}
+		};
+
+		enforce domain PROPJAVA t_c2 : java::classifiers::Enumeration  {
+			constants = t_f : java::members::EnumConstant {
+				name = varName
+			}
+		};
+	}
+	
+	relation Annotation_Attribute{
+
+		varName : String;
+
+		enforce domain JAVA s : java::classifiers::Annotation  {
+			members =  s_cm : java::annotations::AnnotationAttribute {
+				name = varName
+			}
+		};
+
+		enforce domain PROPJAVA t : java::classifiers::Annotation  {
+			members = t_cm : java::annotations::AnnotationAttribute {
+				name = varName
+			}
+		};
+		where{
+			(ArrayTypeable_ArrayDimension(s_cm,t_cm) or
+			TypedElement_TypeReference_NamespaceClassifierReference(s_cm,t_cm) or
+			TypedElement_TypeReference_Int(s_cm,t_cm) or
+			TypedElement_TypeReference_Void(s_cm,t_cm) or
+			TypedElement_TypeReference_Boolean(s_cm,t_cm) or
+			TypedElement_TypeReference_Byte(s_cm,t_cm) or
+			TypedElement_TypeReference_Double(s_cm,t_cm) or
+			TypedElement_TypeReference_Float(s_cm,t_cm) or
+			TypedElement_TypeReference_Long(s_cm,t_cm) or
+			TypedElement_TypeReference_Short(s_cm,t_cm) or
+			TypedElement_TypeReference_Char(s_cm,t_cm))  
+			and
+			(AnnotableAndModifiable_Modifier_Public(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Private(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Protected(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Static(s_cm,t_cm) or
+			AnnotableAndModifiable_Modifier_Final(s_cm,t_cm));
+		}
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Private {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Private {}
+		};
+
+		enforce domain PROPJAVA t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Private {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Public {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Public {}
+		};
+
+		enforce domain PROPJAVA t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Public {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Protected {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Protected {}
+		};
+
+		enforce domain PROPJAVA t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Protected {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Static {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Static {}
+		};
+
+		enforce domain PROPJAVA t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Static {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Final {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Final {}
+		};
+
+		enforce domain PROPJAVA t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Final {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Abstract {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Abstract {}
+		};
+
+		enforce domain PROPJAVA t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Abstract {}
+		};
+
+	}
+	
+	relation TypedElement_TypeReference_NamespaceClassifierReference {
+
+		varClass : java::classifiers::Classifier;
+
+		enforce domain JAVA s_f : java::types::TypedElement {
+			typeReference = s_ncr : java::types::NamespaceClassifierReference {
+				classifierReferences = s_cr : java::types::ClassifierReference {
+					target = varClass
+				}
+			}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_ncr : java::types::NamespaceClassifierReference {
+				classifierReferences = t_cr : java::types::ClassifierReference {
+					target = varClass
+				}
+			}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Int {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Int {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Int {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Boolean {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Boolean {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Boolean {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Byte {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Byte {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Byte {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Char {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Char {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Char {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Double {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Double {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Double {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Float {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Float {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Float {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Long {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Long {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Long {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Short {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Short {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Short {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Void {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Void {}
+		};
+
+		enforce domain PROPJAVA t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Void {}
+		};
+	}
+	
+	
+	relation ArrayTypeable_ArrayDimension {
+
+	--	varArrays : OrderedSet(java::arrays::ArrayDimension);
+
+		enforce domain JAVA s : java::arrays::ArrayTypeable {
+			arrayDimensionsBefore = s_a : java::arrays::ArrayDimension {}
+		};
+
+		enforce domain PROPJAVA t : java::arrays::ArrayTypeable {
+			arrayDimensionsBefore = t_a : java::arrays::ArrayDimension {}
+		};
+		when{
+			if t.oclIsUndefined() or s.oclIsUndefined() then
+				true
+			else if s.arrayDimensionsBefore->size() <> t.arrayDimensionsBefore->size() then
+				true
+			else
+				false
+			endif endif;
+		}
+
+	}
+	
+	relation ArrayTypeable_Property_ArrayDimension {
+
+		varArrays,varArrays2,varArrays3 : OrderedSet(java::arrays::ArrayDimension);
+				
+		enforce domain JAVA field: java::members::Field  {
+			arrayDimensionsBefore = varArrays
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			arrayDimensionsBefore = varArrays2
+		};
+		enforce domain JAVA set_para : java::parameters::OrdinaryParameter {
+			arrayDimensionsBefore = varArrays3
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			arrayDimensionsBefore = varArrays,
+			arrayDimensionsBefore = varArrays2,
+			arrayDimensionsBefore = varArrays3
+		};
+	}
+	
+	relation ArrayTypeable_Property_ReadOnly_ArrayDimension {
+
+		varArrays,varArrays2 : OrderedSet(java::arrays::ArrayDimension);
+				
+		enforce domain JAVA field: java::members::Field  {
+			arrayDimensionsBefore = varArrays
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			arrayDimensionsBefore = varArrays2
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			arrayDimensionsBefore = varArrays,
+			arrayDimensionsBefore = varArrays2
+		};
+	}
+	
+	relation Parametrizable_Parameter {
+
+		varName : String;
+
+		enforce domain JAVA s : java::parameters::Parametrizable {
+			parameters = s_cm : java::parameters::OrdinaryParameter {
+				name = varName
+			}
+		};
+		enforce domain PROPJAVA t : java::parameters::Parametrizable  {
+			parameters = t_cm : java::parameters::OrdinaryParameter {
+				name = varName
+			}	
+		};
+		where{
+			ArrayTypeable_ArrayDimension(s_cm,t_cm) or
+			TypedElement_TypeReference_NamespaceClassifierReference(s_cm,t_cm) or
+			TypedElement_TypeReference_Int(s_cm,t_cm) or
+			TypedElement_TypeReference_Void(s_cm,t_cm) or
+			TypedElement_TypeReference_Boolean(s_cm,t_cm) or
+			TypedElement_TypeReference_Byte(s_cm,t_cm) or
+			TypedElement_TypeReference_Double(s_cm,t_cm) or
+			TypedElement_TypeReference_Float(s_cm,t_cm) or
+			TypedElement_TypeReference_Long(s_cm,t_cm) or
+			TypedElement_TypeReference_Short(s_cm,t_cm) or
+			TypedElement_TypeReference_Char(s_cm,t_cm);  
+		}
+	}
+	
+	relation Class_Extends_TypeReference_NamespaceClassifierReference {
+
+		varClassifier : java::classifiers::Classifier;
+
+		enforce domain JAVA s_cm : java::classifiers::Class  {
+			_extends = s_ex : java::types::NamespaceClassifierReference {
+				classifierReferences = s_ref : java::types::ClassifierReference {
+					target =  varClassifier
+				}
+			}
+		};
+
+		enforce domain PROPJAVA t_cm : java::classifiers::Class  {
+			_extends = t_ex : java::types::NamespaceClassifierReference {
+				classifierReferences = t_ref : java::types::ClassifierReference {
+					target = varClassifier
+				}
+			}
+		};
+	}
+	
+	relation Interface_Extends_TypeReference_NamespaceClassifierReference {
+
+		varClassifier : java::classifiers::Classifier;
+
+		enforce domain JAVA s_cm : java::classifiers::Interface  {
+			_extends = s_ex : java::types::NamespaceClassifierReference {
+				classifierReferences = s_ref : java::types::ClassifierReference {
+					target =  varClassifier
+				}
+			}
+		};
+
+		enforce domain PROPJAVA t_cm : java::classifiers::Interface  {
+			_extends = t_ex : java::types::NamespaceClassifierReference {
+				classifierReferences = t_ref : java::types::ClassifierReference {
+					target = varClassifier
+				}
+			}
+		};
+	}
+	
+	relation Implementor_Implements_TypeReference_NamespaceClassifierReference {
+
+		varClassifier : java::classifiers::Classifier;
+
+		enforce domain JAVA s_cm : java::classifiers::Implementor  {
+			implements = s_imp : java::types::NamespaceClassifierReference {
+				classifierReferences = s_ref : java::types::ClassifierReference {
+					target =  varClassifier
+				}
+			}
+		};
+
+		enforce domain PROPJAVA t_cm : java::classifiers::Implementor  {
+			implements = t_imp : java::types::NamespaceClassifierReference {
+				classifierReferences = t_ref : java::types::ClassifierReference {
+					target = varClassifier
+				}
+			}
+		};
+	}
+	
+	relation Mem2Prop_TypeReference_NamespaceClassifierReference {
+
+		varClass,varClass2,varClass3 : java::classifiers::Classifier;
+		varName : String;
+				
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_ncType : java::types::NamespaceClassifierReference {
+				classifierReferences = field_references : java::types::ClassifierReference {
+					target = varClass
+				}
+			}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = getter_ncType : java::types::NamespaceClassifierReference {
+				classifierReferences = getter_references : java::types::ClassifierReference {
+					target = varClass2
+				}
+			}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = param_type : java::types::NamespaceClassifierReference {
+					classifierReferences = para_references : java::types::ClassifierReference {
+						target = varClass3
+					}
+				},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_ncType : java::types::NamespaceClassifierReference {
+				classifierReferences = prop_ref : java::types::ClassifierReference {
+					target = varClass,
+					target = varClass2,
+					target = varClass3
+				}
+			},
+			name = varName
+		};
+		where{
+		--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Int {
+
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Int{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Int{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Int{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Int{},
+			name = varName
+		};
+		where{
+			--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Byte {
+		
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Byte{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Byte{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Byte{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Byte{},
+				name = varName
+		};
+		where{
+				--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Char {
+		
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Char{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Char{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Char{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Char{},
+				name = varName
+		};
+		where{
+				--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Double {
+		
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Double{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Double{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Double{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Double{},
+				name = varName
+		};
+		where{
+				--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Float {
+		
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Float{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Float{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Float{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Float{},
+				name = varName
+		};
+		where{
+				--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Long {
+		
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Long{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Long{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Long{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Long{},
+				name = varName
+		};
+		where{
+				--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Short {
+		
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Short{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Short{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Short{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Short{},
+				name = varName
+		};
+		where{
+				--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2Prop_TypeReference_Boolean {
+		
+		varName : String;
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Boolean{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Boolean{}
+		};
+		enforce domain JAVA setter: java::members::ClassMethod  {
+			parameters = set_para : java::parameters::OrdinaryParameter {
+				typeReference = set : java::types::Boolean{},
+				name = varName
+			},
+			statements = set_stat : java::statements::ExpressionStatement {
+				expression = set_expr : java::expressions::AssignmentExpression {
+					child = set_child : java::references::SelfReference {
+						_self = set_self : java::literals::This {},
+						next = set_next : java::references::IdentifierReference {
+							target = field
+						}	
+					},
+					assignmentOperator = set_oper : java::operators::Assignment {},
+					value = set_val : java::references::IdentifierReference{
+						target = set_para
+					}
+				}
+			}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Boolean{},
+				name = varName
+		};
+		where{
+				--	ArrayTypeable_Property_ArrayDimension(field,getter,set_para,property) or true;
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or
+			ArrayTypeable_ArrayDimension(set_para,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_NamespaceClassifierReference {
+
+		varClass : java::classifiers::Classifier;
+		varClass2 : java::classifiers::Classifier;
+				
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_ncType : java::types::NamespaceClassifierReference {
+				classifierReferences = field_references : java::types::ClassifierReference {
+					target = varClass
+				}
+			}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = getter_ncType : java::types::NamespaceClassifierReference {
+				classifierReferences = getter_references : java::types::ClassifierReference {
+					target = varClass2
+				}
+			}
+		};
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_ncType : java::types::NamespaceClassifierReference {
+				classifierReferences = prop_ref : java::types::ClassifierReference {
+					target = varClass,
+					target = varClass2
+				}
+			}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Int {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Int{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Int{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Int{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Boolean {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Boolean{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Boolean{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Boolean{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Byte {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Byte{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Byte{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Byte{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Char {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Char{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Char{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Char{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Double {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Double{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Double{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Double{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Float {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Float{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Float{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Float{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Long {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Long{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Long{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Long{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	relation Mem2PropReadOnly_TypeReference_Short {
+
+		enforce domain JAVA field: java::members::Field  {
+			typeReference = field_i : java::types::Short{}
+		};
+		
+		enforce domain JAVA getter: java::members::ClassMethod  {
+			typeReference = get_i : java::types::Short{}
+		};
+		
+		enforce domain PROPJAVA property: properties::Property {
+			typeReference = prop_i : java::types::Short{}
+		};
+		where{
+		--	ArrayTypeable_Property_ReadOnly_ArrayDimension(field,getter,property);
+			ArrayTypeable_ArrayDimension(field,property) or
+			ArrayTypeable_ArrayDimension(getter,property) or true;
+		}
+	}
+	
+	query isCorrectGetter (field: java::members::Field, method : java::members::ClassMethod) : Boolean {
+		
+		if field.oclIsUndefined() or method.oclIsUndefined() then
+			true
+		else
+			-- name
+			method.name = 'get'.concat(field.name.firstToUpper())
+			and
+			-- return Type of getter equal to type of field
+			hasCorrectTypeReference(field.typeReference,method.typeReference)
+			and
+			-- no Parameter
+			method.parameters->size() = 0
+			and
+			-- if array then dimension is okay
+			method.arrayDimensionsBefore->size() = field.arrayDimensionsBefore->size()
+			and
+			-- has correct Return statement
+			hasGetterCorrectReturnStatement(field, method)
+			and
+			-- getter has to be public
+			method.annotationsAndModifiers->first().oclIsTypeOf(java::modifiers::Public)
+			and
+			-- field has to be private
+			field.annotationsAndModifiers->first().oclIsTypeOf(java::modifiers::Private)
+		endif
+	}
+	
+	query isCorrectSetter (field: java::members::Field, method : java::members::ClassMethod) : Boolean {
+		
+		if field.oclIsUndefined() or method.oclIsUndefined() then
+			true
+		else
+			-- name
+			method.name = 'set'.concat(field.name.firstToUpper())
+			and
+			-- only one Parameter
+			method.parameters->size() = 1
+			and
+			-- correct type of parameter
+			hasCorrectTypeReference(field.typeReference, method.parameters->first().typeReference)
+			and
+			-- if array then dimension is okay
+			field.arrayDimensionsBefore->size() = method.parameters->first().arrayDimensionsBefore->size()
+			and
+			-- return type has to be Void
+			method.typeReference.oclIsTypeOf(java::types::Void)
+			and
+			-- has correct statement
+			hasSetterCorrectAssignmentStatement(field, method)
+			and
+			-- setter has to be public
+			method.annotationsAndModifiers->first().oclIsTypeOf(java::modifiers::Public)
+			and
+			-- field has to be private
+			field.annotationsAndModifiers->first().oclIsTypeOf(java::modifiers::Private)
+		endif
+	}
+
+	-- has getter correct Return statement? Only a Return expression?
+	query hasGetterCorrectReturnStatement(field: java::members::Field, method : java::members::ClassMethod) : Boolean { 
+		
+		if statements->size() > 1 then
+			false
+		else
+		let statements : OrderedSet(java::statements::Statement) = method.statements in
+			if statements->first().oclIsTypeOf(java::statements::Return) then
+				let return : java::statements::Return = statements->first().oclAsType(java::statements::Return) in
+				let expression : java::expressions::Expression = return.returnValue in
+				if expression.oclIsTypeOf(java::references::IdentifierReference) then
+					let idReference : java::references::IdentifierReference = expression.oclAsType(java::references::IdentifierReference) in
+					if idReference.target.name = field.name then
+						true
+					else
+						false
+					endif
+				else
+					false
+				endif
+			else
+				false
+			endif
+		endif
+	}
+	
+	-- checks type reference of field ans the reference in the parameter are equal 
+	query hasCorrectTypeReference(t1 : java::types::TypeReference, t2 : java::types::TypeReference) : Boolean { 		
+		
+		 if t1.oclIsTypeOf(java::types::NamespaceClassifierReference) and 
+			t2.oclIsTypeOf(java::types::NamespaceClassifierReference) then
+			
+			let namespaceReference : java::types::NamespaceClassifierReference = 
+				t1.oclAsType(java::types::NamespaceClassifierReference) in
+			let selfNamespaceReference : java::types::NamespaceClassifierReference = 
+				t2.oclAsType(java::types::NamespaceClassifierReference) in
+			
+			let classifierReference : java::types::ClassifierReference = 
+				namespaceReference.classifierReferences->first() in
+			let selfClassifierReference : java::types::ClassifierReference = 
+				selfNamespaceReference.classifierReferences->first() in
+			
+			if classifierReference.target.name.oclIsUndefined() or
+				selfClassifierReference.target.name.oclIsUndefined() then
+				true
+			else
+				classifierReference.target.name = selfClassifierReference.target.name
+			endif
+			
+		else if t1.oclIsTypeOf(java::types::Int) and 
+				t2.oclIsTypeOf(java::types::Int) then
+			true
+		else if t1.oclIsTypeOf(java::types::Boolean) and 
+				t2.oclIsTypeOf(java::types::Boolean) then
+			true
+		else if t1.oclIsTypeOf(java::types::Byte) and 
+				t2.oclIsTypeOf(java::types::Byte) then
+			true
+		else if t1.oclIsTypeOf(java::types::Char) and 
+				t2.oclIsTypeOf(java::types::Char) then
+			true
+		else if t1.oclIsTypeOf(java::types::Double) and 
+				t2.oclIsTypeOf(java::types::Double) then
+			true
+		else if t1.oclIsTypeOf(java::types::Float) and 
+				t2.oclIsTypeOf(java::types::Float) then
+			true
+		else if t1.oclIsTypeOf(java::types::Long) and 
+				t2.oclIsTypeOf(java::types::Long) then
+			true
+		else if t1.oclIsTypeOf(java::types::Short) and 
+				t2.oclIsTypeOf(java::types::Short) then
+			true
+		else	
+			false
+		endif endif endif endif endif endif endif endif endif
+	}
+	
+	-- check if setter has correct assignment operation with left and right side
+	query hasSetterCorrectAssignmentStatement(field: java::members::Field, method : java::members::ClassMethod) : Boolean { 
+		
+		let statements : OrderedSet(java::statements::Statement) = method.statements in
+		-- only one statement
+		if(statements->size() > 1) then
+			false
+		else
+			-- has to be a expression statement
+			if not statements->first().oclIsTypeOf(java::statements::ExpressionStatement) then
+				false
+			else
+				let expressionStatement : java::statements::ExpressionStatement = 
+					statements->first().oclAsType(java::statements::ExpressionStatement) in
+				-- only one expression -> assignment expression
+				if not expressionStatement.expression.oclIsTypeOf(java::expressions::AssignmentExpression) then
+					false
+				else
+					let assignmentExpression : java::expressions::AssignmentExpression = 
+						expressionStatement.expression.oclAsType(java::expressions::AssignmentExpression) in
+					-- get attributes
+					let child : java::expressions::Expression = assignmentExpression.child in
+					let value : java::expressions::Expression = assignmentExpression.value in
+					let operator : java::operators::AssignmentOperator = assignmentExpression.assignmentOperator in
+					
+					if (child.oclIsTypeOf(java::references::SelfReference) and 
+						value.oclIsTypeOf(java::references::IdentifierReference) and
+						operator.oclIsTypeOf(java::operators::Assignment)) then
+						-- child	
+						let childReference : java::references::SelfReference = 
+							child.oclAsType(java::references::SelfReference) in
+						-- value
+						let valueReference : java::references::IdentifierReference = 
+							value.oclAsType(java::references::IdentifierReference) in
+						
+						if (childReference._self.oclIsTypeOf(java::literals::This) and
+							childReference.next.oclIsTypeOf(java::references::IdentifierReference)) then
+						
+							let childNextReference : java::references::IdentifierReference = 
+								childReference.next.oclAsType(java::references::IdentifierReference) in
+							
+							if	childNextReference.target.oclIsTypeOf(java::members::Field) then
+								
+								let childTargetField : java::members::Field = 
+									childNextReference.target.oclAsType(java::members::Field) in
+								
+								childTargetField = field and valueReference.target = method.parameters->first()
+							else
+								false
+							endif
+						else
+							false
+						endif
+					else
+						false
+					endif
+				endif
+			endif
+		endif
+	}
+	
+	query existsACorrespondingSetter(field : java::members::Field) : Boolean {
+
+        let foundMethodSize : Integer =
+			java::members::ClassMethod.allInstances()->select( m |
+                isCorrectSetter(field, m))->size()
+        in
+        foundMethodSize > 0
+	}
+	
+	query existsACorrespondingGetter(field : java::members::Field) : Boolean {
+
+        let foundMethodSize : Integer =
+			java::members::ClassMethod.allInstances()->select( m |
+                isCorrectGetter(field, m))->size()
+        in
+        foundMethodSize > 0
+	}
+	
+	query existsACorrespondingField(method : java::members::ClassMethod) : Boolean {
+
+        let foundFieldSize : Integer =
+			java::members::Field.allInstances()->select( f |
+                isCorrectGetter(f, method) 
+           --     or 
+           --     isCorrectSetter(f, method)
+                )->size()
+        in
+        foundFieldSize > 0
+	}
+}

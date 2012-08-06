@@ -1,0 +1,7 @@
+RCPackage riehle97base riehle97base "http://www.emftext.org/language/rolecore/riehle97base" {
+	CoreClass Customer {
+		operation void getAccounts();
+	}
+	Role Investor is played by Customer {
+	}
+}

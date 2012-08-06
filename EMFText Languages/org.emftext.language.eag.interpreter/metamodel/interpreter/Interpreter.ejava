@@ -1,0 +1,13 @@
+epackage interpreter;
+
+import java.util.Map;
+import org.emftext.language.eag.interpreter.impl.EAGInterpreter;
+
+import org.eclipse.emf.ecore.EObject;
+
+eclass Interpreter {
+	
+	interpret() {
+		return new EAGInterpreter().interpret(object, grammar, attribute);
+	}
+}

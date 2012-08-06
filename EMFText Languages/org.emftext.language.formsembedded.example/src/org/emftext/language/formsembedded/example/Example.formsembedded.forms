@@ -1,0 +1,6 @@
+FORM"An embedded form"
+	
+GROUP"Personal Questions"
+ITEM"Firstname":FREETEXT
+ITEM"Lastname":FREETEXT
+ITEM"Age":NUMBER

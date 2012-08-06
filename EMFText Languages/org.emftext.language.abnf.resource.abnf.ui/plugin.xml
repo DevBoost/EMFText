@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.abnf.resource.abnf.ui.AbnfUIMetaInformation" id="org.emftext.language.abnf.resource.abnf.ui.AbnfUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.abnf.resource.abnf.ui.AbnfEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="abnf" icon="icons/editor_icon.gif" id="org.emftext.language.abnf.resource.abnf.ui.AbnfEditor" name="EMFText abnf Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.abnf.resource.abnf">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.abnf.resource.abnf.ui.AbnfPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Abnf Text Editor" id="org.emftext.language.abnf.resource.abnf.ui.AbnfPreferencePage" class="org.emftext.language.abnf.resource.abnf.ui.AbnfPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.abnf.resource.abnf.ui.AbnfSyntaxColoringPreferencePage" class="org.emftext.language.abnf.resource.abnf.ui.AbnfSyntaxColoringPreferencePage" category="org.emftext.language.abnf.resource.abnf.ui.AbnfPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.abnf.resource.abnf.ui.AbnfBracketPreferencePage" class="org.emftext.language.abnf.resource.abnf.ui.AbnfBracketPreferencePage" category="org.emftext.language.abnf.resource.abnf.ui.AbnfPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.abnf.resource.abnf.ui.AbnfNewFileWizard" id="org.emftext.language.abnf.resource.abnf.ui.AbnfNewFileWizard" name="EMFText .abnf file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.abnf.resource.abnf.ui.AbnfNewProjectWizard" id="org.emftext.language.abnf.resource.abnf.ui.AbnfNewProjectWizard" name="EMFText abnf project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.abnf.resource.abnf.ui.AbnfMarkerResolutionGenerator" markerType="org.emftext.language.abnf.resource.abnf.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.abnf.resource.abnf.ui.AbnfAnnotationModelFactory" extensions="abnf">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.abnf.resource.abnf" name=".abnf File" base-type="org.eclipse.core.runtime.text" file-extensions="abnf">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="abnf" id="org.emftext.language.abnf.resource.abnf.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.abnf.resource.abnf.ui.occurences">
+		</type>
+		<type name="org.emftext.language.abnf.resource.abnf.ui.occurences.declaration" super="org.emftext.language.abnf.resource.abnf.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.abnf.resource.abnf.ui.occurences" label="Occurrences (in .abnf files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="abnf.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="abnf.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="abnf.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="abnf.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="abnf.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="abnf.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="abnf.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="abnf.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="abnf.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.abnf.resource.abnf.ui.occurences.declaration" label="Declarations (in .abnf files)" textPreferenceKey="abnf.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="abnf.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="abnf.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="abnf.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="abnf.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="abnf.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

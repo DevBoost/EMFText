@@ -1,0 +1,59 @@
+package theater theater "http://www.emftext.org/language/theater" {
+
+	class Play {
+			attribute EString name (0..1);
+			containment reference Role declaredRoles (1..-1);
+			containment reference Act acts (1..-1);
+			containment reference Ensemble ensemble (1..1);
+	}
+	
+	class Ensemble {
+			containment reference Actor actors (1..-1);
+	}
+	
+	class Actor {
+			attribute EString name (1..1);
+			reference Role plays (1..-1);
+			@"http://www.eclipse.org/ocl/examples/OCL"("derive"=
+			"plays.speeches.scene.act->asSet()")
+			derived transient volatile reference Act appearsIn (0..-1);
+	}
+	
+	class Role {
+			attribute EString name (0..1);
+			reference Speech speeches (0..-1) opposite playedBy;
+			@"http://www.eclipse.org/ocl/examples/OCL"("derive"=
+			"speeches->collect(roleSpeech | 
+				let index:Integer=roleSpeech.scene.elements->indexOf(roleSpeech) in 
+					roleSpeech.scene.elements->select(candidate | 
+						candidate.scene.elements->indexOf(candidate) >= index-1 
+						and candidate.scene.elements->indexOf(candidate) <= index+1 
+						and candidate.oclIsTypeOf(Speech) ))->asSet()")
+			derived transient volatile reference Speech roleScript (0..-1);
+	}
+	
+	class Act {
+			attribute EString name (0..1);
+			containment reference Scene scenes (1..-1) opposite act;
+	}
+	
+	class Scene {
+			attribute EString name (0..1);
+			containment reference Element elements (1..-1) opposite scene;
+			reference Act act (1..1) opposite scenes;
+	}
+	
+	class Element {
+			reference Scene scene (1..1) opposite elements;
+	}
+	
+	class Direction extends Element {
+			attribute EString text (1..1);
+	}
+	
+	class Speech extends Element {
+			reference Role playedBy (1..-1) opposite speeches;
+			attribute EString text (1..1);
+	}
+	
+}

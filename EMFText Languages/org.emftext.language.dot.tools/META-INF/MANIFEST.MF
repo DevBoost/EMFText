@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_20-141 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: DOT tool integration
+Bundle-SymbolicName: org.emftext.language.dot.tools; singleton:=true
+Bundle-Version: 0.5.0.v200911130906
+Require-Bundle: org.emftext.language.dot,
+ org.emftext.language.dot.resource.dot,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.workspace
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Export-Package: org.emftext.language.dot
+

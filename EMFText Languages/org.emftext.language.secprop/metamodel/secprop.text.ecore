@@ -1,0 +1,60 @@
+@"gmf"
+package secprop // this is the package name 
+        secprop // this is the namespace prefix
+        "http://www.emftext.org/language/SecProp" // the namespace URI 
+	{
+	
+	@"gmf.diagram"
+	class SecPropModel {
+		containment reference Element elements (0..-1);
+		containment reference Channel channels (0..-1);
+		containment reference Data data (0..-1);
+	}
+	
+	@"gmf.node"("label"="name","border.width"="2")
+	class Element {
+		attribute EString name (1..1);	
+	}
+	
+	@"gmf.link"("source"="source","target"="target","width"="4")
+	class Channel {
+		attribute EString name="channel1" (1..1);	
+		reference Element source (1..1);
+		reference Element target (1..1);
+	}
+	
+	@"gmf.node"("label"="name","border.width"="2","border.style"="dot")
+	class Data {
+		attribute EString name (1..1);
+		@"gmf.link"("target.decoration"="arrow","tool.name"="ChannelAssignment")
+		reference Channel channel (1..1);
+		@"gmf.compartment"
+		containment reference SecurityInformation securityInformation (0..-1);
+	}
+
+	//no gmf info
+	abstract class SecurityInformation {
+	}
+	
+	@"gmf.node"("label"="value")
+	class Access extends SecurityInformation {
+		attribute AccessRight value (1..1);	
+	}
+	
+	@"gmf.node"("label"="value")
+	class Encryption extends SecurityInformation {
+		attribute EncryptionLevel value (1..1);	
+	}
+
+	enum AccessRight {
+		0 : read = "read";
+		1 : write = "write";
+		2 : execute = "execute";
+	}
+	
+	enum EncryptionLevel {
+		0 : unsecure = "unsecure";
+		1 : SSL = "SSL";
+		2 : TLS = "TLS";
+	}
+}

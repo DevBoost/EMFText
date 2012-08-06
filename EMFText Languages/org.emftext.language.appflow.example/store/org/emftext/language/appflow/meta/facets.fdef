@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ASCII"?>
+<description:FacetDefinition xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://description/1.0">
+  <iD>
+    <segments>org</segments>
+    <segments>emftext</segments>
+    <segments>language</segments>
+    <segments>appflow</segments>
+    <segments>meta</segments>
+    <segments>facets.fdef</segments>
+  </iD>
+  <facetTypes xsi:type="description:ListFacet" name="Category" multiValue="true" description="This describes into which category the element falls.">
+    <values name="Start Screens" description="Initial screens"/>
+    <values name="Interactive Screens" description="Screens that allow user-input"/>
+    <values name="Original Screens" description="Unmodified screens"/>
+    <values name="Overview-Screens" description="Screens giving an overview perspective"/>
+    <values name="Detail-Screens" description="Screens that give details"/>
+  </facetTypes>
+  <facetTypes xsi:type="description:ListFacet" name="Complexity" description="This describes how complex an element is, that means how many subcomponents are there.">
+    <values name="High" description="High Complexity"/>
+    <values name="Medium" description="Medium Complexity"/>
+    <values name="Low" description="Low Complexity"/>
+  </facetTypes>
+  <facetTypes xsi:type="description:ListFacet" name="License" multiValue="true" description="This describes how the artifact is licensed.">
+    <values name="GNU GPL" description="GNU Public License"/>
+    <values name="EPL" description="Eclipse Public License"/>
+  </facetTypes>
+  <facetTypes xsi:type="description:ListFacet" name="Maturity" description="This describes how mature an artifact is, that means how stable is the implementation.">
+    <values name="Alpha" description="Alpha state"/>
+    <values name="Beta" description="Beta state"/>
+    <values name="Release" description="Released, mature artifact"/>
+  </facetTypes>
+  <ID>appflow_facets</ID>
+  <ID>facets.fdef</ID>
+</description:FacetDefinition>

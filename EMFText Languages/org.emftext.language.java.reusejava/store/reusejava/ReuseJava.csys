@@ -1,0 +1,14 @@
+compositionsystem reusejava.ReuseJava {
+	
+	fragment role ReuseableStatement {
+		dynamic port Statements;
+	}
+	
+	fragment role StatementVP {
+		dynamic port VP;
+	}
+	
+	contributing association a1 {  
+		ReuseableStatement.Statements --> StatementVP.VP
+	}
+}

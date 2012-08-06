@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.test.noeclipse.resource.noeclipse.mopp.NoeclipseMetaInformation" id="org.emftext.test.noeclipse.resource.noeclipse.mopp.NoeclipseMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.test.noeclipse.resource.noeclipse.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.noeclipse.resource.noeclipse.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.noeclipse.resource.noeclipse.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.noeclipse.resource.noeclipse.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.noeclipse.resource.noeclipse.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.noeclipse.resource.noeclipse.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.noeclipse.resource.noeclipse.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.noeclipse.resource.noeclipse.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.noeclipse.resource.noeclipse.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.noeclipse.resource.noeclipse.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.noeclipse.resource.noeclipse.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.noeclipse.resource.noeclipse.nature" name="noeclipse nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.test.noeclipse.resource.noeclipse.mopp.NoeclipseNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.test.noeclipse.resource.noeclipse.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.noeclipse.resource.noeclipse.builder" name="noeclipse Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.test.noeclipse.resource.noeclipse.mopp.NoeclipseBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.test.noeclipse.resource.noeclipse.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.test.noeclipse.resource.noeclipse.mopp.NoeclipseResourceFactoryDelegator" type="noeclipse">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.test.noeclipse.resource.noeclipse.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+</plugin>

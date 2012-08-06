@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  
+   <extension
+         point="org.emftext.language.java.reusejava.resource.reusejava.default_load_options">
+      <provider
+            class="org.emftext.language.java.reusejava.resource.util.ReuseJavaPostProcessor"
+            id="org.emftext.language.java.reusejava.resource.reusejava.util.ReuseJavaPostProcessor">
+      </provider>
+   </extension>
+
+   <extension
+         point="org.emftext.language.java.reusejava.resource.reusejava.default_load_options">
+      <provider
+            class="org.emftext.language.java.reusejava.resource.util.UnicodeConverterProvider"
+            id="org.emftext.language.java.reusejava.resource.reusejava.util.UnicodeConverterProvider">
+      </provider>
+   </extension>
+
+</plugin>

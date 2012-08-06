@@ -1,0 +1,7 @@
+use "../metamodels/enumtest.ecore"
+use "../metamodels/enumtest2.ecore"
+
+
+new MyClass2 {
+	myAttribute = : "MyEnum.myEnumLiteral"
+}

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="GlobalModelManagement"
+    nsURI="http://www.eclipse.org/gmt/am3/2007/GlobalModelManagement" nsPrefix="gmm">
+  <eClassifiers xsi:type="ecore:EClass" name="Model" abstract="true" eSuperTypes="./AM3Core.ecore#/0/Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conformsTo" ordered="false"
+        lowerBound="1" eType="#//ReferenceModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferenceModel" abstract="true" eSuperTypes="#//Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" ordered="false"
+        upperBound="-1" eType="#//ReferenceModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminalModel" eSuperTypes="#//Model"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Metamodel" eSuperTypes="#//ReferenceModel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationMetamodel" eSuperTypes="#//Metamodel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Metametamodel" eSuperTypes="#//ReferenceModel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelWeaving" eSuperTypes="./AM3Core.ecore#/0/Relationship">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="weavingModel" ordered="false"
+        lowerBound="1" eType="#//WeavingModel" eOpposite="#//WeavingModel/modelWeaving"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedModels" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Model">
+      <eAnnotations source="subsets" references="./AM3Core.ecore#/0/Relationship/linkedElements"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WeavingModel" eSuperTypes="#//TerminalModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelWeaving" eType="#//ModelWeaving"
+        eOpposite="#//ModelWeaving/weavingModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelTransformation" abstract="true"
+      eSuperTypes="#//Transformation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelParameters" lowerBound="1"
+        upperBound="-1" eType="#//ModelParameter" containment="true">
+      <eAnnotations source="subsets" references="#//Transformation/parameters"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelToModelTransformation" eSuperTypes="#//ToModelTransformation #//ModelToTransformation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelToExternalTransformation" eSuperTypes="#//ModelToTransformation #//ToExternalTransformation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelTransformationChain" eSuperTypes="./AM3Core.ecore#/0/Chain">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformations" upperBound="-1"
+        eType="#//ModelTransformation">
+      <eAnnotations source="subsets" references="./AM3Core.ecore#/0/Chain/chainedRelationships"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationModel" eSuperTypes="#//TerminalModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specification" lowerBound="1"
+        eType="#//Transformation" eOpposite="#//Transformation/transformationModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EFSLocator" eSuperTypes="./AM3Core.ecore#/0/Locator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EPackagesLocator" eSuperTypes="./AM3Core.ecore#/0/Locator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EPackagesRegistry" eSuperTypes="./AM3Core.ecore#/0/Container"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EPackagesRegistryLocator" eSuperTypes="./AM3Core.ecore#/0/Locator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="URI" eSuperTypes="./AM3Core.ecore#/0/Identifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MegaModel" eSuperTypes="#//TerminalModel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AM3Locator" eSuperTypes="./AM3Core.ecore#/0/Locator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Transformation" abstract="true" eSuperTypes="./AM3Core.ecore#/0/DirectedRelationship">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformationModel" ordered="false"
+        eType="#//TransformationModel" eOpposite="#//TransformationModel/specification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" lowerBound="1"
+        upperBound="-1" eType="#//TransformationParameter" containment="true" eOpposite="#//TransformationParameter/transformation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="records" upperBound="-1"
+        eType="#//TransformationRecord" eOpposite="#//TransformationRecord/type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="traceSources" upperBound="-1"
+        eType="#//TraceSource" containment="true" eOpposite="#//TraceSource/transformation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationParameter" eSuperTypes="./AM3Core.ecore#/0/IdentifiedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uti" lowerBound="1" upperBound="-1"
+        eType="ecore:EClass ./AM3Core.ecore#/0/UTI"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//Direction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformation" lowerBound="1"
+        eType="#//Transformation" eOpposite="#//Transformation/parameters"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Direction">
+    <eLiterals name="in" literal="in"/>
+    <eLiterals name="out" value="2" literal="out"/>
+    <eLiterals name="inout" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelParameter" eSuperTypes="#//TransformationParameter">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceModel" lowerBound="1"
+        eType="#//ReferenceModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ToModelTransformation" abstract="true"
+      eSuperTypes="#//ModelTransformation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetReferenceModels"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//ReferenceModel">
+      <eAnnotations source="subsets" references="./AM3Core.ecore#/0/DirectedRelationship/target"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelToTransformation" abstract="true"
+      eSuperTypes="#//ModelTransformation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceReferenceModels"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//ReferenceModel">
+      <eAnnotations source="subsets" references="./AM3Core.ecore#/0/DirectedRelationship/source"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalToModelTransformation" eSuperTypes="#//ExternalToTransformation #//ToModelTransformation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationRecord" eSuperTypes="./AM3Core.ecore#/0/DirectedRelationship">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" lowerBound="1"
+        upperBound="-1" eType="#//TransformationParameterValue" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Transformation"
+        eOpposite="#//Transformation/records"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="traces" upperBound="-1"
+        eType="#//Trace"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationParameterValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass ./AM3Core.ecore#/0/Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//TransformationParameter"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalTransformation" abstract="true"
+      eSuperTypes="#//Transformation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="externalParameters" lowerBound="1"
+        upperBound="-1" eType="#//ExternalParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalToTransformation" abstract="true"
+      eSuperTypes="#//ExternalTransformation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ToExternalTransformation" abstract="true"
+      eSuperTypes="#//ExternalTransformation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalToExternalTransformation" eSuperTypes="#//ExternalToTransformation #//ToExternalTransformation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalParameter" eSuperTypes="#//TransformationParameter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterTraceSource" eSuperTypes="#//TraceSource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" lowerBound="1"
+        eType="#//TransformationParameter"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TraceSource" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sources" lowerBound="1"
+        upperBound="-1" eType="#//TransformationParameter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targets" lowerBound="1"
+        upperBound="-1" eType="#//TransformationParameter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformation" lowerBound="1"
+        eType="#//Transformation" eOpposite="#//Transformation/traceSources"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TraceModel" eSuperTypes="#//WeavingModel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelTrace" eSuperTypes="#//ModelWeaving #//Trace"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Trace" abstract="true" eSuperTypes="./AM3Core.ecore#/0/DirectedRelationship"/>
+</ecore:EPackage>

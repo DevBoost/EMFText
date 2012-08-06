@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="6.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " editDirectory="/org.emftext.sdk.generatorconfig.edit/src" editPluginID="org.emftext.sdk.generatorconfig.edit" editorDirectory="/org.emftext.sdk.generatorconfig.editor/src" editorPluginID="org.emftext.sdk.generatorconfig.editor" importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.sdk.generatorconfig/src" modelName="Config" modelPluginID="org.emftext.sdk.generatorconfig" usedGenPackages="platform:/plugin/org.emftext.sdk.concretesyntax/metamodel/concretesyntax.genmodel#//concretesyntax platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel" xmi:version="2.0">
+  <foreignModel>config.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.sdk" disposableProviderFactory="true" ecorePackage="config.ecore#/" prefix="Generatorconfig">
+    <genClasses ecoreClass="config.ecore#//GeneratorConfig">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference config.ecore#//GeneratorConfig/classRules" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference config.ecore#//GeneratorConfig/featureRules" property="None" propertyDescription=""/>
+    </genClasses>
+    <genClasses ecoreClass="config.ecore#//GeneratorRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute config.ecore#//GeneratorRule/name"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference config.ecore#//GeneratorRule/definition" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="config.ecore#//ClassRule"/>
+    <genClasses ecoreClass="config.ecore#//FeatureRule"/>
+    <genClasses ecoreClass="config.ecore#//ClassContext" image="false"/>
+    <genClasses ecoreClass="config.ecore#//FeatureContext"/>
+    <genClasses ecoreClass="config.ecore#//ClassRuleReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference config.ecore#//ClassRuleReference/rule" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="config.ecore#//FeatureReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute config.ecore#//FeatureReference/featureName"/>
+    </genClasses>
+    <genClasses ecoreClass="config.ecore#//Features"/>
+    <genClasses ecoreClass="config.ecore#//ClassContextDefinition" image="false">
+      <genOperations ecoreOperation="config.ecore#//ClassContextDefinition/getDefinition">
+        <genParameters ecoreParameter="config.ecore#//ClassContextDefinition/getDefinition/genClass"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="config.ecore#//ClassName"/>
+    <genClasses ecoreClass="config.ecore#//FeatureRuleReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference config.ecore#//FeatureRuleReference/rule" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="config.ecore#//FeatureContextDefinition" image="false">
+      <genOperations ecoreOperation="config.ecore#//FeatureContextDefinition/getDefinition">
+        <genParameters ecoreParameter="config.ecore#//FeatureContextDefinition/getDefinition/genFeature"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="config.ecore#//FeatureName"/>
+    <genClasses ecoreClass="config.ecore#//Feature"/>
+  </genPackages>
+</genmodel:GenModel>

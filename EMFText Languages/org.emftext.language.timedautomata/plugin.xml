@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+	<extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/simpleGraph"
+            class="org.emftext.language.simpleGraph.SimpleGraphPackage"
+            genModel="metamodel/simpleGraph.genmodel"/>
+	</extension>
+
+	<extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/timedAutomata"
+            class="org.emftext.language.timedAutomata.TimedAutomataPackage"
+            genModel="metamodel/timedAutomata.genmodel"/>
+	</extension>
+
+	<extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/timedAutomata/base"
+            class="org.emftext.language.timedAutomata.base.BasePackage"
+            genModel="metamodel/timedAutomata.genmodel"/>
+	</extension>
+
+	<extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/timedAutomata/core"
+            class="org.emftext.language.timedAutomata.core.CorePackage"
+            genModel="metamodel/timedAutomata.genmodel"/>
+	</extension>
+	
+	<!-- TODO register other subpackages -->
+
+</plugin>

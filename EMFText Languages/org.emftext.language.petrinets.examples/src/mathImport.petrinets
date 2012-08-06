@@ -1,0 +1,6 @@
+package math.semantics;
+
+petrinet MathImport
+
+import <math.petrinets>; {
+}

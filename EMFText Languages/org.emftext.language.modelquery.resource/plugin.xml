@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.emftext.language.modelquery.resource.modelquery.additional_extension_parser">
+      <parser
+            class="org.emftext.language.modelquery.resource.CustomModelqueryResourceFactory">
+      </parser>
+   </extension>
+
+</plugin>

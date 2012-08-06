@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.mopp.SimTL4JMetaInformation" id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.mopp.SimTL4JMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="simTL4J" icon="icons/editor_icon.gif" id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JEditor" name="EMFText simTL4J Editor">
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="SimTL4J Text Editor" id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JPreferencePage" class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JSyntaxColoringPreferencePage" class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JSyntaxColoringPreferencePage" category="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JPreferencePage">
+		</page>
+		<page name="Brackets" id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JBracketPreferencePage" class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JBracketPreferencePage" category="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JPreferencePage">
+		</page>
+		<page name="Occurrence" id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JOccurrencePreferencePage" class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JOccurrencePreferencePage" category="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JNewFileWizard" id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.ui.SimTL4JNewFileWizard" name="EMFText .simTL4J file">
+		</wizard>
+	</extension>
+	
+	<extension id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension-point id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.mopp.SimTL4JResourceFactoryDelegator" type="simTL4J">
+		</parser>
+	</extension>
+	
+	<extension-point id="sg.edu.nus.comp.simTL.language.java.simTL4J.resource.simTL4J.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
+	
+</plugin>

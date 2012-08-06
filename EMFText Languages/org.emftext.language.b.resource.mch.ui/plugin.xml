@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.b.resource.mch.ui.MchUIMetaInformation" id="org.emftext.language.b.resource.mch.ui.MchUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.b.resource.mch.ui.MchEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="mch" icon="icons/editor_icon.gif" id="org.emftext.language.b.resource.mch.ui.MchEditor" name="EMFText mch Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.b.resource.mch">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.b.resource.mch.ui.MchPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Mch Text Editor" id="org.emftext.language.b.resource.mch.ui.MchPreferencePage" class="org.emftext.language.b.resource.mch.ui.MchPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.b.resource.mch.ui.MchSyntaxColoringPreferencePage" class="org.emftext.language.b.resource.mch.ui.MchSyntaxColoringPreferencePage" category="org.emftext.language.b.resource.mch.ui.MchPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.b.resource.mch.ui.MchBracketPreferencePage" class="org.emftext.language.b.resource.mch.ui.MchBracketPreferencePage" category="org.emftext.language.b.resource.mch.ui.MchPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.b.resource.mch.ui.MchNewFileWizard" id="org.emftext.language.b.resource.mch.ui.MchNewFileWizard" name="EMFText .mch file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.b.resource.mch.ui.MchMarkerResolutionGenerator" markerType="org.emftext.language.b.resource.mch.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.b.resource.mch.ui.MchAnnotationModelFactory" extensions="mch">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.b.resource.mch" name=".mch File" base-type="org.eclipse.core.runtime.text" file-extensions="mch">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="mch" id="org.emftext.language.b.resource.mch.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.b.resource.mch.ui.occurences">
+		</type>
+		<type name="org.emftext.language.b.resource.mch.ui.occurences.declaration" super="org.emftext.language.b.resource.mch.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.b.resource.mch.ui.occurences" label="Occurrences (in .mch files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="mch.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="mch.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="mch.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="mch.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="mch.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="mch.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="mch.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="mch.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="mch.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.b.resource.mch.ui.occurences.declaration" label="Declarations (in .mch files)" textPreferenceKey="mch.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="mch.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="mch.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="mch.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="mch.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="mch.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,49 @@
+officemodel STGroup { 
+	office INF2045
+	office INF2061
+	office INF2066
+	office INF2074
+	office INF2080
+	office INF2081
+	office INF2082
+	office INF2085
+	office INF2086
+	office INF2087
+	office INF2097
+	office INF2098
+	
+	employee SebastianG
+	
+	employee Andreas 
+		works in INF2074
+	employee Birgit
+		works in INF2085
+	employee Claas
+		works in INF2085
+	employee Christoff
+		works in INF2081
+	employee Jan
+		works in INF2081
+	employee SebastianC
+		works in INF2097
+	employee SebastianR
+		works in INF2074
+	employee Florian
+		works in INF2080
+	employee Christian
+		works in INF2080
+	employee Sven
+		works in INF2045
+	employee Rosi
+		works in INF2082
+	employee Jendrik
+		works in INF2082	
+	employee Matthias
+	 	works in INF2066
+	employee Simone
+		works in INF2098
+	employee Katja
+		works in INF2098	
+	employee Mirko
+		works in INF2098
+}

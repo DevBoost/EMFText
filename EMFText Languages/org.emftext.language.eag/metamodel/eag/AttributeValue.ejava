@@ -1,0 +1,11 @@
+epackage eag;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+
+eclass AttributeValue {
+	
+	getType() {
+		return (EClass) this.getTargetAttribute().getType();
+	}
+}

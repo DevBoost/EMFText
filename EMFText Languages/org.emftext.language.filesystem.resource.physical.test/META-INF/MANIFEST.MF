@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.filesystem.resource.physical.test
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.language.filesystem.resource.physical.test
+Require-Bundle: org.junit4,
+ org.eclipse.emf.ecore.xmi,
+ org.emftext.language.filesystem,
+ org.emftext.language.filesystem.resource.physical
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

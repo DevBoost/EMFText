@@ -1,0 +1,12 @@
+officemodel ModelName {
+	
+	office OfficeName 
+	
+	employee EmployeeName1
+		works in OfficeName
+		works with EmployeeName2
+		
+	employee EmployeeName2
+		works in OfficeName
+		works with EmployeeName1
+}

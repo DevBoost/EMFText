@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="6.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.rolecore.examples/src-gen" modelName="BlockClassBase" modelPluginID="org.emftext.language.rolecore.examples" usedGenPackages="platform:/plugin/org.emftext.language.rolecore.ecore_compiler/metamodel/interfaces.genmodel#//interfaces" xmi:version="2.0">
+  <foreignModel>BlockClassBase.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language.rolecore" disposableProviderFactory="true" ecorePackage="BlockClassBase.ecore#/" prefix="Blockclassbase">
+    <genClasses ecoreClass="BlockClassBase.ecore#//ModelElement" image="false"/>
+    <genClasses ecoreClass="BlockClassBase.ecore#//ModelElementCore"/>
+    <genClasses ecoreClass="BlockClassBase.ecore#//ModelElementRole" image="false"/>
+    <genClasses ecoreClass="BlockClassBase.ecore#//Name">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BlockClassBase.ecore#//Name/name"/>
+    </genClasses>
+    <genClasses ecoreClass="BlockClassBase.ecore#//ModelelementStereotypeRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference BlockClassBase.ecore#//ModelelementStereotypeRole/stereotype" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="BlockClassBase.ecore#//ModelelementClassdiagramRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference BlockClassBase.ecore#//ModelelementClassdiagramRole/classDiagram" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="BlockClassBase.ecore#//ModelelementBlockdiagramRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference BlockClassBase.ecore#//ModelelementBlockdiagramRole/blockDiagram" notify="false" propertySortChoices="true"/>
+    </genClasses>
+  </genPackages>
+  <genPackages basePackage="org.emftext.language.rolecore" disposableProviderFactory="true" ecorePackage="classDomain.ecore#/" prefix="Classdomain">
+    <genClasses ecoreClass="classDomain.ecore#//ClassDiagram" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//ClassDiagramCore"/>
+    <genClasses ecoreClass="classDomain.ecore#//ClassDiagramRole" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//Stereotype"/>
+    <genClasses ecoreClass="classDomain.ecore#//StereotypeCore"/>
+    <genClasses ecoreClass="classDomain.ecore#//StereotypeRole" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//Association"/>
+    <genClasses ecoreClass="classDomain.ecore#//AssociationCore"/>
+    <genClasses ecoreClass="classDomain.ecore#//AssociationRole" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//CRole" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//CRoleCore"/>
+    <genClasses ecoreClass="classDomain.ecore#//CRoleRole" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//Class" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//ClassCore"/>
+    <genClasses ecoreClass="classDomain.ecore#//ClassRole" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//Cardinality" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//CardinalityCore"/>
+    <genClasses ecoreClass="classDomain.ecore#//CardinalityRole" image="false"/>
+    <genClasses ecoreClass="classDomain.ecore#//Adornment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute classDomain.ecore#//Adornment/adornment"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//CardString">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute classDomain.ecore#//CardString/cardString"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//ClassdiagramElementsRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//ClassdiagramElementsRole/elements" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//AssociationSourceRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//AssociationSourceRole/source" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//AssociationTargetRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//AssociationTargetRole/target" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//CroleSourceRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//CroleSourceRole/source" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//CroleTargetRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//CroleTargetRole/target" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//CroleClassRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//CroleClassRole/class" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//CroleCardRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//CroleCardRole/card" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//ClassRolesRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//ClassRolesRole/roles" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="classDomain.ecore#//CardinalityCardRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference classDomain.ecore#//CardinalityCardRole/card" notify="false" propertySortChoices="true"/>
+    </genClasses>
+  </genPackages>
+  <genPackages basePackage="org.emftext.language.rolecore" disposableProviderFactory="true" ecorePackage="blockDomain.ecore#/" prefix="Blockdomain">
+    <genClasses ecoreClass="blockDomain.ecore#//BlockDiagram" image="false"/>
+    <genClasses ecoreClass="blockDomain.ecore#//BlockDiagramCore"/>
+    <genClasses ecoreClass="blockDomain.ecore#//BlockDiagramRole" image="false"/>
+    <genClasses ecoreClass="blockDomain.ecore#//Connection"/>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectionCore"/>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectionRole" image="false"/>
+    <genClasses ecoreClass="blockDomain.ecore#//Connectable"/>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectableCore"/>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectableRole" image="false"/>
+    <genClasses ecoreClass="blockDomain.ecore#//Process"/>
+    <genClasses ecoreClass="blockDomain.ecore#//ProcessCore"/>
+    <genClasses ecoreClass="blockDomain.ecore#//ProcessRole" image="false"/>
+    <genClasses ecoreClass="blockDomain.ecore#//Block"/>
+    <genClasses ecoreClass="blockDomain.ecore#//BlockCore"/>
+    <genClasses ecoreClass="blockDomain.ecore#//BlockRole" image="false"/>
+    <genClasses ecoreClass="blockDomain.ecore#//SystemBlock"/>
+    <genClasses ecoreClass="blockDomain.ecore#//SystemBlockCore"/>
+    <genClasses ecoreClass="blockDomain.ecore#//SystemBlockRole" image="false"/>
+    <genClasses ecoreClass="blockDomain.ecore#//BlockdiagramElementsRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference blockDomain.ecore#//BlockdiagramElementsRole/elements" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectionSourceRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference blockDomain.ecore#//ConnectionSourceRole/source" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectionTargetRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference blockDomain.ecore#//ConnectionTargetRole/target" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectableSourceRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference blockDomain.ecore#//ConnectableSourceRole/source" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectableTargetRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference blockDomain.ecore#//ConnectableTargetRole/target" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="blockDomain.ecore#//ConnectableContainerRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference blockDomain.ecore#//ConnectableContainerRole/container" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="blockDomain.ecore#//BlockChildrenRole">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference blockDomain.ecore#//BlockChildrenRole/children" property="None"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

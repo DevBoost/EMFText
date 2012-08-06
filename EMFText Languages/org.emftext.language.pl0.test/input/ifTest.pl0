@@ -1,0 +1,15 @@
+program ifTest
+
+VAR a, b;
+BEGIN
+	a := 10;
+	IF ODD a THEN 
+	begin b := a / 2 end
+	ELSE
+	BEGIN
+		a := 20;
+		b := 3 * a
+	END;
+	a := a / 2;
+	b := a / b
+END.

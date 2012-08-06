@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.text.resource.text.ui.TextUIMetaInformation" id="org.emftext.language.text.resource.text.ui.TextUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.text.resource.text.ui.TextEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="text" icon="icons/editor_icon.gif" id="org.emftext.language.text.resource.text.ui.TextEditor" name="EMFText text Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.text.resource.text">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.text.resource.text.ui.TextPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Text Text Editor" id="org.emftext.language.text.resource.text.ui.TextPreferencePage" class="org.emftext.language.text.resource.text.ui.TextPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.text.resource.text.ui.TextSyntaxColoringPreferencePage" class="org.emftext.language.text.resource.text.ui.TextSyntaxColoringPreferencePage" category="org.emftext.language.text.resource.text.ui.TextPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.text.resource.text.ui.TextBracketPreferencePage" class="org.emftext.language.text.resource.text.ui.TextBracketPreferencePage" category="org.emftext.language.text.resource.text.ui.TextPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.text.resource.text.ui.TextNewFileWizard" id="org.emftext.language.text.resource.text.ui.TextNewFileWizard" name="EMFText .text file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.text.resource.text.ui.TextMarkerResolutionGenerator" markerType="org.emftext.language.text.resource.text.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.text.resource.text.ui.TextAnnotationModelFactory" extensions="text">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.text.resource.text" name=".text File" base-type="org.eclipse.core.runtime.text" file-extensions="text">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="text" id="org.emftext.language.text.resource.text.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.text.resource.text.ui.occurences">
+		</type>
+		<type name="org.emftext.language.text.resource.text.ui.occurences.declaration" super="org.emftext.language.text.resource.text.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.text.resource.text.ui.occurences" label="Occurrences (in .text files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="text.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="text.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="text.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="text.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="text.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="text.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="text.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="text.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="text.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.text.resource.text.ui.occurences.declaration" label="Declarations (in .text files)" textPreferenceKey="text.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="text.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="text.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="text.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="text.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="text.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.language.text.resource.text.ui.launchConfigurationType" id="org.emftext.language.text.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.language.text.resource.text.ui.launchConfigurationType" class="org.emftext.language.text.resource.text.ui.launch.TextLaunchConfigurationTabGroup" id="org.emftext.language.text.launchConfigurationTabGroup" helpContextId="org.emftext.language.text.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug text model.">
+			</launchMode>
+			<launchMode mode="run" description="Run text model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="text Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.language.text.launch" modes="run,debug" class="org.emftext.language.text.resource.text.ui.launch.TextLaunchShortcut" description="Launch a text model" id="org.emftext.language.text.launchShortcut">
+			<description description="Run text model" mode="run">
+			</description>
+			<description description="Debug text model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.language.text.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.language.text.resource.text.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.language.text.PropertyTester" type="java.lang.Object" namespace="org.emftext.language.text" properties="isLaunchable" class="org.emftext.language.text.resource.text.ui.TextPropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.text.resource.text.ui.debug.lineBreakpoint" markerType="org.emftext.language.text.resource.text.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.text.resource.text.ui.debug.lineBreakpoint" label="Breakpoints (in .text files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@17d0312b.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.language.text.resource.text.ui.TextEditor" class="org.emftext.language.text.resource.text.ui.debug.TextAdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.text.resource.text.debug.TextDebugVariable" class="org.emftext.language.text.resource.text.ui.debug.TextAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.text.resource.text.debug.TextDebugVariable" class="org.emftext.language.text.resource.text.ui.debug.TextAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.language.text.resource.text.ui.RulerPopupActions" targetID="#TextRulerContext">
+			<action id="org.emftext.language.text.resource.text.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.language.text.resource.text.ui.TextEditor" id="org.emftext.language.text.resource.text.ui.BreakpointRulerActions">
+			<action id="org.emftext.language.text.resource.text.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.language.text.resource.text.debugModel" class="org.emftext.language.text.resource.text.ui.debug.TextDebugModelPresentation">
+		</debugModelPresentation>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,10 @@
+PROGRAM a2
+
+VAR a;
+
+BEGIN
+    if a < 10 then
+    begin
+		a := 1
+    end
+END.

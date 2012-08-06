@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.km3.resource.km3.ui.Km3UIMetaInformation" id="org.emftext.language.km3.resource.km3.ui.Km3UIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.km3.resource.km3.ui.Km3Editor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="km3" icon="icons/editor_icon.gif" id="org.emftext.language.km3.resource.km3.ui.Km3Editor" name="EMFText km3 Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.km3.resource.km3">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.km3.resource.km3.ui.Km3PreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Km3 Text Editor" id="org.emftext.language.km3.resource.km3.ui.Km3PreferencePage" class="org.emftext.language.km3.resource.km3.ui.Km3PreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.km3.resource.km3.ui.Km3SyntaxColoringPreferencePage" class="org.emftext.language.km3.resource.km3.ui.Km3SyntaxColoringPreferencePage" category="org.emftext.language.km3.resource.km3.ui.Km3PreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.km3.resource.km3.ui.Km3BracketPreferencePage" class="org.emftext.language.km3.resource.km3.ui.Km3BracketPreferencePage" category="org.emftext.language.km3.resource.km3.ui.Km3PreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.km3.resource.km3.ui.Km3NewFileWizard" id="org.emftext.language.km3.resource.km3.ui.Km3NewFileWizard" name="EMFText .km3 file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.km3.resource.km3.ui.Km3MarkerResolutionGenerator" markerType="org.emftext.language.km3.resource.km3.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.km3.resource.km3.ui.Km3AnnotationModelFactory" extensions="km3">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.km3.resource.km3" name=".km3 File" base-type="org.eclipse.core.runtime.text" file-extensions="km3">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="km3" id="org.emftext.language.km3.resource.km3.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.km3.resource.km3.ui.occurences">
+		</type>
+		<type name="org.emftext.language.km3.resource.km3.ui.occurences.declaration" super="org.emftext.language.km3.resource.km3.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.km3.resource.km3.ui.occurences" label="Occurrences (in .km3 files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="km3.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="km3.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="km3.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="km3.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="km3.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="km3.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="km3.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="km3.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="km3.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.km3.resource.km3.ui.occurences.declaration" label="Declarations (in .km3 files)" textPreferenceKey="km3.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="km3.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="km3.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="km3.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="km3.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="km3.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

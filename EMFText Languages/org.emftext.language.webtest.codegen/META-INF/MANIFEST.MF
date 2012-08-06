@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Acceleo Codegen Module Runtime Plug-in
+Bundle-SymbolicName: org.emftext.language.webtest.codegen;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.emftext.language.webtest.codegen.Activator
+Bundle-Vendor: Eclipse Modeling Project
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.ocl,
+ org.eclipse.ocl.ecore,
+ org.eclipse.acceleo.model;visibility:=reexport,
+ org.eclipse.acceleo.engine;visibility:=reexport,
+ org.emftext.language.webtest,
+ org.emftext.language.webtest.resource.webtest,
+ org.eclipse.core.resources
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Eclipse-LazyStart: true
+Export-Package: org.emftext.language.webtest.codegen,
+ org.emftext.language.webtest.codegen.files

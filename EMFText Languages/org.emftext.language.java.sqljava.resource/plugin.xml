@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.emftext.language.java.sqljava.resource.sqljava.default_load_options">
+      <provider
+            class="org.emftext.language.java.sqljava.resource.SqlJavaPostProcessor"
+            id="org.emftext.language.java.sqljava.resource.provider1">
+      </provider>
+   </extension>
+   <extension
+         point="org.emftext.language.java.sqljava.resource.sqljava.default_load_options">
+      <provider
+            class="org.emftext.language.java.sqljava.resource.SqlJavaTransformPostProcessor"
+            id="org.emftext.language.java.sqljava.resource.provider2">
+      </provider>
+   </extension>
+
+</plugin>

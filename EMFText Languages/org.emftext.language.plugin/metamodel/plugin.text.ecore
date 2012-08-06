@@ -1,0 +1,36 @@
+package plugin  plugin  "http://org.emftext.languages/plugin"  { 
+
+	class ToolProductFamily { 
+			attribute EString  name  ( 1 .. 1 ) ; 
+			containment reference Plugin  plugins  ( 1 .. -1 ) ; 
+			containment reference RequiredPlugins  requiredPlugins  ( 1 .. 1 ) ; 
+	} 
+	
+	class RequiredPlugins { 
+			containment reference Plugin  required  ( 1 .. -1 ) ; 
+	} 
+	
+	class Plugin { 
+			iD attribute EString  pluginId  ( 1 .. 1 ) ; 
+			attribute EString  name  ( 1 .. 1 ) ; 
+			attribute EString  version  ( 1 .. 1 ) ; 
+			attribute EString  supplier  ( 1 .. 1 ) ; 
+			reference Plugin  requiredPlugins  ( 0 .. -1 ) ; 
+			containment reference ExtensionPoint  extensionPoints  ( 0 .. -1 )  opposite definedIn ; 
+			containment reference Extension  extensions  ( 1 .. -1 ) ; 
+	} 
+	
+	class ExtensionPoint { 
+			attribute EString  name  ( 1 .. 1 ) ; 
+			iD attribute EString  extensionPointId  ( 1 .. 1 ) ; 
+			attribute EString  schema  ( 0 .. 1 ) ; 
+			reference Plugin  definedIn  ( 1 .. 1 )  opposite extensionPoints ; 
+			reference Extension  boundBy  ( 0 .. -1 )  opposite binds ; 
+	} 
+	
+	class Extension { 
+			iD attribute EString  name  ( 1 .. 1 ) ; 
+			attribute EString  extensionId  ( 1 .. 1 ) ; 
+			reference ExtensionPoint  binds  ( 1 .. 1 )  opposite boundBy ; 
+	} 
+} 

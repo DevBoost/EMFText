@@ -1,0 +1,57 @@
+<% 	String className = genClass.getName();
+	String interfaceName = "";
+	boolean isRole = false;
+	boolean isCore = false;
+	if (className.endsWith("Role")){
+		isRole = true;
+		interfaceName = className.substring(0, className.length() - 4);
+	}
+	if (className.endsWith("Core")){
+		isCore = true;
+		interfaceName = className.substring(0, className.length() - 4);
+	}
+	String getRolesOperation = "";
+	String getCoreOperation = "";
+	if (interfaceName.length() > 0){
+		getRolesOperation = "get"+interfaceName+"Roles";
+		getCoreOperation = "get"+interfaceName+"Core";
+	}
+	
+	if ("hasRole".equals(genOperation.getName())) {
+		if (isCore){%>
+			for (Object nextRole : <%=getRolesOperation%>()) {
+				if (roleClass.isInstance(nextRole)) {
+					return true;
+				}
+			}
+			return false;
+<% 		} else if (isRole){%>
+			return <%=getCoreOperation%>().hasRole(roleClass);<%
+		}
+		
+	} else if ("getRole".equals(genOperation.getName())) {
+		if (isCore){%>
+			for (Object nextRole : <%=getRolesOperation%>()) {
+				if (roleClass.isInstance(nextRole)) {
+					return (T) nextRole;
+				}
+			}
+			return null;
+<% 		} else if (isRole){%>
+			return <%=getCoreOperation%>().getRole(roleClass);<%
+		}
+	} else if ("addRole".equals(genOperation.getName())) { 
+		if (isCore){%>
+			<%=getRolesOperation%>().add(role);
+<% 		} else if (isRole){%>
+			<%=getCoreOperation%>().addRole(role);
+<%		} else {%>
+			// TODO: implement this method
+			// Ensure that you remove @generated or mark it @generated NOT
+			throw new UnsupportedOperationException();<%
+		}
+	} else { %>
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+<% 	} %>

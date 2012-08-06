@@ -1,0 +1,1 @@
+CALL "Ecore2Bool.tbool" USING "input.ecore"

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.devices.resource.devices.ui.DevicesEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="devices" icon="icons/editor_icon.gif" id="org.emftext.language.devices.resource.devices.ui.DevicesEditor" name="EMFText devices Editor">
+		</editor>
+	</extension>
+	
+	<extension id="org.emftext.language.devices.resource.devices.ui.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.devices.resource.devices.ui.DevicesPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Devices Text Editor" id="org.emftext.language.devices.resource.devices.ui.DevicesPreferencePage" class="org.emftext.language.devices.resource.devices.ui.DevicesPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.devices.resource.devices.ui.DevicesSyntaxColoringPreferencePage" class="org.emftext.language.devices.resource.devices.ui.DevicesSyntaxColoringPreferencePage" category="org.emftext.language.devices.resource.devices.ui.DevicesPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.devices.resource.devices.ui.DevicesBracketPreferencePage" class="org.emftext.language.devices.resource.devices.ui.DevicesBracketPreferencePage" category="org.emftext.language.devices.resource.devices.ui.DevicesPreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.language.devices.resource.devices.ui.DevicesOccurrencePreferencePage" class="org.emftext.language.devices.resource.devices.ui.DevicesOccurrencePreferencePage" category="org.emftext.language.devices.resource.devices.ui.DevicesPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.devices.resource.devices.ui.DevicesNewFileWizard" id="org.emftext.language.devices.resource.devices.ui.DevicesNewFileWizard" name="EMFText .devices file">
+		</wizard>
+	</extension>
+	
+</plugin>

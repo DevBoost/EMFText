@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: mecore
+Bundle-SymbolicName: org.emftext.language.mecore.resource.mecore;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.eclipse.emf.codegen.ecore,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.mecore
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.mecore.resource.mecore,
+  org.emftext.language.mecore.resource.mecore.analysis,
+  org.emftext.language.mecore.resource.mecore.mopp,
+  org.emftext.language.mecore.resource.mecore.debug,
+  org.emftext.language.mecore.resource.mecore.launch,
+  org.emftext.language.mecore.resource.mecore.grammar,
+  org.emftext.language.mecore.resource.mecore.util
+Bundle-Activator: org.emftext.language.mecore.resource.mecore.mopp.MecorePlugin

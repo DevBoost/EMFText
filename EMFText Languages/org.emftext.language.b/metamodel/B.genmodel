@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.b/src-gen" modelName="B" modelPluginID="org.emftext.language.b" xmi:version="2.0">
+  <foreignModel>B.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="B.ecore#/" prefix="B">
+    <genClasses ecoreClass="B.ecore#//Machine">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute B.ecore#//Machine/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference B.ecore#//Machine/refines" notify="false" propertySortChoices="true"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Machine/sets" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Machine/operations" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Machine/invariants" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Machine/variables" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Machine/initialisations" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//SET">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute B.ecore#//SET/name"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//Operation">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Operation/statements" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute B.ecore#//Operation/name"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Operation/inputs" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Operation/outputs" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Operation/preconditions" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//Variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute B.ecore#//Variable/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference B.ecore#//Variable/preceeds" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference B.ecore#//Variable/type" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//VariableList">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute B.ecore#//VariableList/size"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//VariableList/variables" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference B.ecore#//VariableList/first" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//Expression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute B.ecore#//Expression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//Predicate"/>
+    <genClasses ecoreClass="B.ecore#//Any">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Any/variables" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Any/var_conditions" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Any/statements" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//Action"/>
+    <genClasses ecoreClass="B.ecore#//If">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//If/true_statements" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//If/false_statements" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//If/conditions" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="B.ecore#//Skip"/>
+    <genClasses ecoreClass="B.ecore#//Begin">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference B.ecore#//Begin/statements" property="None"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

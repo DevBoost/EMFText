@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.emftext.language.lwc11.resource.lwc11.default_load_options">
+      <provider
+            class="org.emftext.language.lwc11.resource.lwc11.constraints.ConstraintChecker"
+            id="org.emftext.language.lwc11.resource.lwc11.constraints.provider1">
+      </provider>
+   </extension>
+
+</plugin>

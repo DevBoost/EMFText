@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.office.resource.office.ui.OfficeUIMetaInformation" id="org.emftext.language.office.resource.office.ui.OfficeUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.office.resource.office.ui.OfficeEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="office" icon="icons/editor_icon.gif" id="org.emftext.language.office.resource.office.ui.OfficeEditor" name="EMFText office Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.office.resource.office">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.office.resource.office.ui.OfficePreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Office Text Editor" id="org.emftext.language.office.resource.office.ui.OfficePreferencePage" class="org.emftext.language.office.resource.office.ui.OfficePreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.office.resource.office.ui.OfficeSyntaxColoringPreferencePage" class="org.emftext.language.office.resource.office.ui.OfficeSyntaxColoringPreferencePage" category="org.emftext.language.office.resource.office.ui.OfficePreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.office.resource.office.ui.OfficeBracketPreferencePage" class="org.emftext.language.office.resource.office.ui.OfficeBracketPreferencePage" category="org.emftext.language.office.resource.office.ui.OfficePreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.office.resource.office.ui.OfficeNewFileWizard" id="org.emftext.language.office.resource.office.ui.OfficeNewFileWizard" name="EMFText .office file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.office.resource.office.ui.OfficeNewProjectWizard" id="org.emftext.language.office.resource.office.ui.OfficeNewProjectWizard" name="EMFText office project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.office.resource.office.ui.OfficeMarkerResolutionGenerator" markerType="org.emftext.language.office.resource.office.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.office.resource.office.ui.OfficeAnnotationModelFactory" extensions="office">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.office.resource.office" name=".office File" base-type="org.eclipse.core.runtime.text" file-extensions="office">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="office" id="org.emftext.language.office.resource.office.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.office.resource.office.ui.occurences">
+		</type>
+		<type name="org.emftext.language.office.resource.office.ui.occurences.declaration" super="org.emftext.language.office.resource.office.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.office.resource.office.ui.occurences" label="Occurrences (in .office files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="office.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="office.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="office.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="office.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="office.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="office.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="office.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="office.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="office.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.office.resource.office.ui.occurences.declaration" label="Declarations (in .office files)" textPreferenceKey="office.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="office.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="office.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="office.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="office.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="office.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

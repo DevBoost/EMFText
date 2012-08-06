@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:blockclassbase="http://www.emftext.org/language/rolecore/blockclassbase" xmlns:blockdomain="http://www.emftext.org/language/rolecore/blockdomain" xmlns:classdomain="http://www.emftext.org/language/rolecore/classdomain" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="blockclassbase">
+  <eObjects xsi:type="blockclassbase:ModelelementClassdiagramRole" core="//@eObjects.3">
+    <classDiagram href="./input/Scene03classDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelelementBlockdiagramRole" core="//@eObjects.3">
+    <blockDiagram href="./input/Scene03blockDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:Name" core="//@eObjects.3" name="ProSys"/>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="classdomain:ClassCore" href="./input/Scene03classDomain.xmi#//@eObjects.1"/>
+    <roles xsi:type="blockclassbase:Name" href="./input/Scene03blockclassbase.xmi#//@eObjects.2"/>
+    <roles xsi:type="blockclassbase:ModelelementClassdiagramRole" href="./input/Scene03blockclassbase.xmi#//@eObjects.0"/>
+    <roles xsi:type="blockdomain:ConnectableCore" href="./input/Scene03blockDomain.xmi#//@eObjects.4"/>
+    <roles xsi:type="blockclassbase:ModelelementBlockdiagramRole" href="./input/Scene03blockclassbase.xmi#//@eObjects.1"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelElementCore">
+    <roles xsi:type="classdomain:StereotypeCore" href="./input/Scene03classDomain.xmi#//@eObjects.2"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:Name" name="system">
+    <core xsi:type="classdomain:StereotypeCore" href="./input/Scene03classDomain.xmi#//@eObjects.2"/>
+  </eObjects>
+  <eObjects xsi:type="blockclassbase:ModelelementStereotypeRole">
+    <core xsi:type="classdomain:ClassCore" href="./input/Scene03classDomain.xmi#//@eObjects.1"/>
+    <stereotype href="./input/Scene03classDomain.xmi#//@eObjects.2"/>
+  </eObjects>
+</interpreter:DomainRoot>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.test.generics.resource.generics.mopp.GenericsMetaInformation" id="org.emftext.test.generics.resource.generics.mopp.GenericsMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.generics.resource.generics.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.generics.resource.generics.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.generics.resource.generics.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.generics.resource.generics.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.generics.resource.generics.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.nature" name="generics nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.test.generics.resource.generics.mopp.GenericsNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.test.generics.resource.generics.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.generics.resource.generics.builder" name="generics Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.test.generics.resource.generics.mopp.GenericsBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.test.generics.resource.generics.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.test.generics.resource.generics.mopp.GenericsResourceFactoryDelegator" type="generics">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.test.generics.resource.generics.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.test.generics.resource.generics.debug.GenericsLineBreakpoint" id="org.emftext.test.generics.resource.generics.debug.breakpoint" markerType="org.emftext.test.generics.resource.generics.debug.lineBreakpoint.marker" name="generics Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.test.generics.resource.generics.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.test.generics.resource.generics.ui.launchConfigurationType" delegate="org.emftext.test.generics.resource.generics.launch.GenericsLaunchConfigurationDelegate" modes="run,debug" name="generics Application" sourceLocatorId="org.emftext.test.generics.resource.generics.ui.sourceLocator" sourcePathComputerId="org.emftext.test.generics.resource.generics.ui.sourcePathComputer" delegateName="generics Launch Tooling" delegateDescription="This will run or debug .generics files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.test.generics.resource.generics.debug.GenericsSourcePathComputerDelegate" id="org.emftext.test.generics.resource.generics.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.test.generics.resource.generics.ui.sourceLocator" class="org.emftext.test.generics.resource.generics.debug.GenericsSourceLocator" name="generics Source Locator">
+		</sourceLocator>
+	</extension>
+	
+</plugin>

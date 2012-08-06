@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.simplec.resource.c.mopp.CMetaInformation" id="org.emftext.language.simplec.resource.c.mopp.CMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.simplec.resource.c.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.simplec.resource.c.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.simplec.resource.c.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.simplec.resource.c.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.simplec.resource.c.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.simplec.resource.c.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.simplec.resource.c.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.simplec.resource.c.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.simplec.resource.c.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.simplec.resource.c.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.simplec.resource.c.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.simplec.resource.c.nature" name="c nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.simplec.resource.c.mopp.CNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.simplec.resource.c.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.simplec.resource.c.builder" name="c Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.simplec.resource.c.mopp.CBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.simplec.resource.c.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.simplec.resource.c.mopp.CResourceFactoryDelegator" type="c">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.simplec.resource.c.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+</plugin>

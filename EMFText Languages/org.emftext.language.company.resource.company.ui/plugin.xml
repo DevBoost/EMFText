@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.company.resource.company.ui.CompanyUIMetaInformation" id="org.emftext.language.company.resource.company.ui.CompanyUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.company.resource.company.ui.CompanyEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="company" icon="icons/editor_icon.gif" id="org.emftext.language.company.resource.company.ui.CompanyEditor" name="EMFText company Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.company.resource.company">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.company.resource.company.ui.CompanyPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Company Text Editor" id="org.emftext.language.company.resource.company.ui.CompanyPreferencePage" class="org.emftext.language.company.resource.company.ui.CompanyPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.company.resource.company.ui.CompanySyntaxColoringPreferencePage" class="org.emftext.language.company.resource.company.ui.CompanySyntaxColoringPreferencePage" category="org.emftext.language.company.resource.company.ui.CompanyPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.company.resource.company.ui.CompanyBracketPreferencePage" class="org.emftext.language.company.resource.company.ui.CompanyBracketPreferencePage" category="org.emftext.language.company.resource.company.ui.CompanyPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.company.resource.company.ui.CompanyNewFileWizard" id="org.emftext.language.company.resource.company.ui.CompanyNewFileWizard" name="EMFText .company file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.company.resource.company.ui.CompanyMarkerResolutionGenerator" markerType="org.emftext.language.company.resource.company.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.company.resource.company.ui.CompanyAnnotationModelFactory" extensions="company">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.company.resource.company" name=".company File" base-type="org.eclipse.core.runtime.text" file-extensions="company">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="company" id="org.emftext.language.company.resource.company.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.company.resource.company.ui.occurences">
+		</type>
+		<type name="org.emftext.language.company.resource.company.ui.occurences.declaration" super="org.emftext.language.company.resource.company.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.company.resource.company.ui.occurences" label="Occurrences (in .company files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="company.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="company.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="company.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="company.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="company.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="company.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="company.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="company.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="company.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.company.resource.company.ui.occurences.declaration" label="Declarations (in .company files)" textPreferenceKey="company.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="company.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="company.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="company.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="company.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="company.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.language.company.resource.company.ui.launchConfigurationType" id="org.emftext.language.company.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.language.company.resource.company.ui.launchConfigurationType" class="org.emftext.language.company.resource.company.ui.launch.CompanyLaunchConfigurationTabGroup" id="org.emftext.language.company.launchConfigurationTabGroup" helpContextId="org.emftext.language.company.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug company model.">
+			</launchMode>
+			<launchMode mode="run" description="Run company model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="company Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.language.company.launch" modes="run,debug" class="org.emftext.language.company.resource.company.ui.launch.CompanyLaunchShortcut" description="Launch a company model" id="org.emftext.language.company.launchShortcut">
+			<description description="Run company model" mode="run">
+			</description>
+			<description description="Debug company model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.language.company.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.language.company.resource.company.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.language.company.PropertyTester" type="java.lang.Object" namespace="org.emftext.language.company" properties="isLaunchable" class="org.emftext.language.company.resource.company.ui.CompanyPropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.company.resource.company.ui.debug.lineBreakpoint" markerType="org.emftext.language.company.resource.company.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.company.resource.company.ui.debug.lineBreakpoint" label="Breakpoints (in .company files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.sdk.codegen.PluginDescriptor@2721abd1.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.language.company.resource.company.ui.CompanyEditor" class="org.emftext.language.company.resource.company.ui.debug.CompanyAdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.company.resource.company.debug.CompanyDebugVariable" class="org.emftext.language.company.resource.company.ui.debug.CompanyAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.company.resource.company.debug.CompanyDebugVariable" class="org.emftext.language.company.resource.company.ui.debug.CompanyAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.language.company.resource.company.ui.RulerPopupActions" targetID="#TextRulerContext">
+			<action id="org.emftext.language.company.resource.company.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.language.company.resource.company.ui.CompanyEditor" id="org.emftext.language.company.resource.company.ui.BreakpointRulerActions">
+			<action id="org.emftext.language.company.resource.company.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.language.company.resource.company.debugModel" class="org.emftext.language.company.resource.company.ui.debug.CompanyDebugModelPresentation">
+		</debugModelPresentation>
+	</extension>
+	
+</plugin>

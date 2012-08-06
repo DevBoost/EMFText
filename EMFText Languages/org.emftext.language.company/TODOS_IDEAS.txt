@@ -1,0 +1,12 @@
+- Feature Model for Companies Application (optional features)
+	* enable variants by mapping to .text.ecore, .cs, and other stuff
+	
+- JastEMF for Operations/Queries on companies model
+
+- Serialisation via XMI?
+
+- eJava
+
+- OCL
+
+- check further company features for interesting ideas

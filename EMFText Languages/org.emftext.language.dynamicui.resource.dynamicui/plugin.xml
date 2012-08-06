@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.dynamicui.resource.dynamicui.mopp.DynamicuiMetaInformation" id="org.emftext.language.dynamicui.resource.dynamicui.mopp.DynamicuiMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.dynamicui.resource.dynamicui.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.dynamicui.resource.dynamicui.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.dynamicui.resource.dynamicui.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.dynamicui.resource.dynamicui.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.dynamicui.resource.dynamicui.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.nature" name="dynamicui nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.dynamicui.resource.dynamicui.mopp.DynamicuiNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.dynamicui.resource.dynamicui.builder">
+		</builder>
+		<builder id="org.emftext.language.dynamicui.resource.dynamicui.taskItemBuilder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.dynamicui.resource.dynamicui.builder" name="dynamicui Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.dynamicui.resource.dynamicui.mopp.DynamicuiBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.dynamicui.resource.dynamicui.taskItemBuilder" name="dynamicui Task Item Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.dynamicui.resource.dynamicui.mopp.DynamicuiTaskItemBuilder">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.dynamicui.resource.dynamicui.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.dynamicui.resource.dynamicui.mopp.DynamicuiResourceFactoryDelegator" type="dynamicui">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.dynamicui.resource.dynamicui.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.language.dynamicui.resource.dynamicui.debug.DynamicuiLineBreakpoint" id="org.emftext.language.dynamicui.resource.dynamicui.debug.breakpoint" markerType="org.emftext.language.dynamicui.resource.dynamicui.debug.lineBreakpoint.marker" name="dynamicui Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.language.dynamicui.resource.dynamicui.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.language.dynamicui.resource.dynamicui.ui.launchConfigurationType" delegate="org.emftext.language.dynamicui.resource.dynamicui.launch.DynamicuiLaunchConfigurationDelegate" modes="run,debug" name="dynamicui Application" sourceLocatorId="org.emftext.language.dynamicui.resource.dynamicui.ui.sourceLocator" sourcePathComputerId="org.emftext.language.dynamicui.resource.dynamicui.ui.sourcePathComputer" delegateName="dynamicui Launch Tooling" delegateDescription="This will run or debug .dynamicui files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.language.dynamicui.resource.dynamicui.debug.DynamicuiSourcePathComputerDelegate" id="org.emftext.language.dynamicui.resource.dynamicui.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.language.dynamicui.resource.dynamicui.ui.sourceLocator" class="org.emftext.language.dynamicui.resource.dynamicui.debug.DynamicuiSourceLocator" name="dynamicui Source Locator">
+		</sourceLocator>
+	</extension>
+	
+</plugin>

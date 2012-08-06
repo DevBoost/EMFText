@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.java.string.resource.stringjava.ui.StringjavaEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="stringjava" icon="icons/editor_icon.gif" id="org.emftext.language.java.string.resource.stringjava.ui.StringjavaEditor" name="EMFText stringjava Editor">
+		</editor>
+	</extension>
+	
+	<extension id="org.emftext.language.java.string.resource.stringjava.ui.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.java.string.resource.stringjava.ui.StringjavaPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Stringjava Text Editor" id="org.emftext.language.java.string.resource.stringjava.ui.StringjavaPreferencePage" class="org.emftext.language.java.string.resource.stringjava.ui.StringjavaPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.java.string.resource.stringjava.ui.StringjavaSyntaxColoringPreferencePage" class="org.emftext.language.java.string.resource.stringjava.ui.StringjavaSyntaxColoringPreferencePage" category="org.emftext.language.java.string.resource.stringjava.ui.StringjavaPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.java.string.resource.stringjava.ui.StringjavaBracketPreferencePage" class="org.emftext.language.java.string.resource.stringjava.ui.StringjavaBracketPreferencePage" category="org.emftext.language.java.string.resource.stringjava.ui.StringjavaPreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.language.java.string.resource.stringjava.ui.StringjavaOccurrencePreferencePage" class="org.emftext.language.java.string.resource.stringjava.ui.StringjavaOccurrencePreferencePage" category="org.emftext.language.java.string.resource.stringjava.ui.StringjavaPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.java.string.resource.stringjava.ui.StringjavaNewFileWizard" id="org.emftext.language.java.string.resource.stringjava.ui.StringjavaNewFileWizard" name="EMFText .stringjava file">
+		</wizard>
+	</extension>
+	
+</plugin>

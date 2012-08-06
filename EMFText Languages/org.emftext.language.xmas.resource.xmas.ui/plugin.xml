@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.xmas.resource.xmas.ui.XmasUIMetaInformation" id="org.emftext.language.xmas.resource.xmas.ui.XmasUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.xmas.resource.xmas.ui.XmasEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="xmas" icon="icons/editor_icon.gif" id="org.emftext.language.xmas.resource.xmas.ui.XmasEditor" name="EMFText xmas Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.xmas.resource.xmas">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.xmas.resource.xmas.ui.XmasPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Xmas Text Editor" id="org.emftext.language.xmas.resource.xmas.ui.XmasPreferencePage" class="org.emftext.language.xmas.resource.xmas.ui.XmasPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.xmas.resource.xmas.ui.XmasSyntaxColoringPreferencePage" class="org.emftext.language.xmas.resource.xmas.ui.XmasSyntaxColoringPreferencePage" category="org.emftext.language.xmas.resource.xmas.ui.XmasPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.xmas.resource.xmas.ui.XmasBracketPreferencePage" class="org.emftext.language.xmas.resource.xmas.ui.XmasBracketPreferencePage" category="org.emftext.language.xmas.resource.xmas.ui.XmasPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.xmas.resource.xmas.ui.XmasNewFileWizard" id="org.emftext.language.xmas.resource.xmas.ui.XmasNewFileWizard" name="EMFText .xmas file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.xmas.resource.xmas.ui.XmasMarkerResolutionGenerator" markerType="org.emftext.language.xmas.resource.xmas.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.xmas.resource.xmas.ui.XmasAnnotationModelFactory" extensions="xmas">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.xmas.resource.xmas" name=".xmas File" base-type="org.eclipse.core.runtime.text" file-extensions="xmas">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="xmas" id="org.emftext.language.xmas.resource.xmas.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.xmas.resource.xmas.ui.occurences">
+		</type>
+		<type name="org.emftext.language.xmas.resource.xmas.ui.occurences.declaration" super="org.emftext.language.xmas.resource.xmas.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.xmas.resource.xmas.ui.occurences" label="Occurrences (in .xmas files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="xmas.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="xmas.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="xmas.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="xmas.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="xmas.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="xmas.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="xmas.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="xmas.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="xmas.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.xmas.resource.xmas.ui.occurences.declaration" label="Declarations (in .xmas files)" textPreferenceKey="xmas.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="xmas.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="xmas.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="xmas.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="xmas.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="xmas.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="6.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.xmas/src-gen" modelName="Xmas" modelPluginID="org.emftext.language.xmas" xmi:version="2.0">
+  <foreignModel>xmas.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="xmas.ecore#/" prefix="Xmas">
+    <genEnums ecoreEnum="xmas.ecore#//AttributeEnum" typeSafeEnumCompatible="false">
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/NEW"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/NICE"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/FANCY"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/COMPLETE"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/CONVENIENT"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/LIGHTWEIGHT"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/LARGE"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/ADVANCED"/>
+      <genEnumLiterals ecoreEnumLiteral="xmas.ecore#//AttributeEnum/SEAMLESS"/>
+    </genEnums>
+    <genClasses ecoreClass="xmas.ecore#//PresentList">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference xmas.ecore#//PresentList/presents" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="xmas.ecore#//Present">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmas.ecore#//Present/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmas.ecore#//Present/attributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference xmas.ecore#//Present/for" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="xmas.ecore#//Person">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmas.ecore#//Person/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

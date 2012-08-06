@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.bool.resource.bool.ui.BoolUIMetaInformation" id="org.emftext.language.bool.resource.bool.ui.BoolUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.bool.resource.bool.ui.BoolEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="bool" icon="icons/editor_icon.gif" id="org.emftext.language.bool.resource.bool.ui.BoolEditor" name="EMFText bool Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.bool.resource.bool">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.bool.resource.bool.ui.BoolPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Bool Text Editor" id="org.emftext.language.bool.resource.bool.ui.BoolPreferencePage" class="org.emftext.language.bool.resource.bool.ui.BoolPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.bool.resource.bool.ui.BoolSyntaxColoringPreferencePage" class="org.emftext.language.bool.resource.bool.ui.BoolSyntaxColoringPreferencePage" category="org.emftext.language.bool.resource.bool.ui.BoolPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.bool.resource.bool.ui.BoolBracketPreferencePage" class="org.emftext.language.bool.resource.bool.ui.BoolBracketPreferencePage" category="org.emftext.language.bool.resource.bool.ui.BoolPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.bool.resource.bool.ui.BoolNewFileWizard" id="org.emftext.language.bool.resource.bool.ui.BoolNewFileWizard" name="EMFText .bool file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.bool.resource.bool.ui.BoolMarkerResolutionGenerator" markerType="org.emftext.language.bool.resource.bool.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.bool.resource.bool.ui.BoolAnnotationModelFactory" extensions="bool">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.bool.resource.bool" name=".bool File" base-type="org.eclipse.core.runtime.text" file-extensions="bool">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="bool" id="org.emftext.language.bool.resource.bool.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.bool.resource.bool.ui.occurences">
+		</type>
+		<type name="org.emftext.language.bool.resource.bool.ui.occurences.declaration" super="org.emftext.language.bool.resource.bool.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.bool.resource.bool.ui.occurences" label="Occurrences (in .bool files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="bool.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="bool.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="bool.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="bool.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="bool.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="bool.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="bool.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="bool.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="bool.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.bool.resource.bool.ui.occurences.declaration" label="Declarations (in .bool files)" textPreferenceKey="bool.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="bool.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="bool.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="bool.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="bool.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="bool.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

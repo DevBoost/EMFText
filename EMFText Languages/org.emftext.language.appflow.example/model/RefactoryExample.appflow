@@ -1,0 +1,13 @@
+application App 
+
+statemodel {
+	state initial show projectdetails;
+}
+
+screen projectdetails {
+    text heading "Project Details";
+	textfield name;
+	list projectMembers;
+	textfield numberOfFiles;
+	list files;
+}

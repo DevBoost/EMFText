@@ -1,0 +1,32 @@
+namespace NameSpace2
+{
+
+}
+
+namespace NameSpace1
+{
+	class Class1
+    {
+    
+    }
+    
+    class Class2 : Class1
+    {
+    
+    }
+    
+    class Class3 : Class2
+    {
+    
+    } ;
+    
+    public class Class4
+    {
+    
+    }
+    
+    partial class Class5
+    {
+    
+    };
+}

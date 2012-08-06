@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="p2"
+    nsURI="http://org.eclipse.equinox.p2/1.0" nsPrefix="p2">
+  <eClassifiers xsi:type="ecore:EClass" name="Feature" eSuperTypes="./Platform.ecore#//Tool">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="application" eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="copyright" eType="#//Copyright"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Description"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sites" upperBound="-1"
+        eType="#//DiscoverySite"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="license" eType="#//License"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="provider" eType="ecore:EClass ./OSGi.ecore#//Vendor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="plugins" upperBound="-1"
+        eType="#//Plugin" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Copyright" eSuperTypes="#//FeatureMetadata"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Description" eSuperTypes="#//FeatureMetadata"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DiscoverySite" eSuperTypes="#//FeatureMetadata"/>
+  <eClassifiers xsi:type="ecore:EClass" name="License" eSuperTypes="#//FeatureMetadata"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Plugin" eSuperTypes="./OSGi.ecore#//Bundle"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureMetadata" abstract="true" eSuperTypes="./AM3Core.ecore#/0/LocatedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+  </eClassifiers>
+</ecore:EPackage>

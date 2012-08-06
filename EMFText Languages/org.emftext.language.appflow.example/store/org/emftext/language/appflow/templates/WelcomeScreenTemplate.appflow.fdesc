@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ASCII"?>
+<description:FragmentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:description="http://description/1.0">
+  <iD>
+    <segments>org</segments>
+    <segments>emftext</segments>
+    <segments>language</segments>
+    <segments>appflow</segments>
+    <segments>templates</segments>
+    <segments>WelcomeScreenTemplate.appflow.fdesc</segments>
+  </iD>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID><typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    
+    <typeID>facets.fdef</typeID>
+    <typeID>Category</typeID>
+    <valueNames>Start Screens</valueNames>
+  </facets>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID><typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    
+    <typeID>facets.fdef</typeID>
+    <typeID>Complexity</typeID>
+    <valueNames>Low</valueNames>
+  </facets>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID><typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    
+    <typeID>facets.fdef</typeID>
+    <typeID>Maturity</typeID>
+    <valueNames>Alpha</valueNames>
+  </facets>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID><typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    
+    <typeID>facets.fdef</typeID>
+    <typeID>License</typeID>
+    <valueNames>GNU GPL</valueNames>
+  </facets>
+  <properties name="Name" value="Welcome"/>
+  <properties name="Hint" value="Simple screen showing a welcome message"/>
+  <properties name="Author" value="Jendrik Johannes"/>
+  <properties name="Version" value="0.1"/>
+</description:FragmentDescription>

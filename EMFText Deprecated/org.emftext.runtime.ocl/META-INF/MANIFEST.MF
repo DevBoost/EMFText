@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText OCL Validation Support (DEPRECATED)
+Bundle-SymbolicName: org.emftext.runtime.ocl; singleton:=true
+Bundle-Version: 1.1.5.v201009221403
+Bundle-Activator: org.emftext.runtime.ocl.OCLPlugin
+Require-Bundle: org.eclipse.core.runtime,org.emftext.runtime,org.eclip
+ se.emf.edit,org.eclipse.ocl.ecore,org.eclipse.emf;bundle-version="2.4
+ .0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+

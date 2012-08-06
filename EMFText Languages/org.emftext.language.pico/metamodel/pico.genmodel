@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.pico/src-gen" modelName="Pico" modelPluginID="org.emftext.language.pico" xmi:version="2.0">
+  <foreignModel>pico.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="pico.ecore#/" prefix="Pico">
+    <genEnums ecoreEnum="pico.ecore#//Types" typeSafeEnumCompatible="false">
+      <genEnumLiterals ecoreEnumLiteral="pico.ecore#//Types/natural"/>
+      <genEnumLiterals ecoreEnumLiteral="pico.ecore#//Types/string"/>
+      <genEnumLiterals ecoreEnumLiteral="pico.ecore#//Types/nil"/>
+    </genEnums>
+    <genEnums ecoreEnum="pico.ecore#//ComparatorType" typeSafeEnumCompatible="false">
+      <genEnumLiterals ecoreEnumLiteral="pico.ecore#//ComparatorType/lowerThan"/>
+      <genEnumLiterals ecoreEnumLiteral="pico.ecore#//ComparatorType/greaterThan"/>
+      <genEnumLiterals ecoreEnumLiteral="pico.ecore#//ComparatorType/equals"/>
+    </genEnums>
+    <genClasses ecoreClass="pico.ecore#//Program">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//Program/declarations" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//Program/statements" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//Statement" image="false"/>
+    <genClasses ecoreClass="pico.ecore#//Expression"/>
+    <genClasses ecoreClass="pico.ecore#//Declarations">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//Declarations/idTypes" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//IDType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pico.ecore#//IDType/picoID"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EAttribute pico.ecore#//IDType/type" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//Natural">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pico.ecore#//Natural/value"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//String">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pico.ecore#//String/value"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//Assignment">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//Assignment/right" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference pico.ecore#//Assignment/left" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//IfStatement">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//IfStatement/condition" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//IfStatement/then" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference pico.ecore#//IfStatement/else" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//WhileStatement">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//WhileStatement/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//WhileStatement/condition" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//VariableReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference pico.ecore#//VariableReference/variable" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//NilLiteral"/>
+    <genClasses ecoreClass="pico.ecore#//AdditiveExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//AdditiveExpression/left" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//AdditiveExpression/right" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pico.ecore#//AdditiveExpression/plus"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//MultiplicativeExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//MultiplicativeExpression/left" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//MultiplicativeExpression/right" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pico.ecore#//MultiplicativeExpression/times"/>
+    </genClasses>
+    <genClasses ecoreClass="pico.ecore#//ComparatorExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//ComparatorExpression/left" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference pico.ecore#//ComparatorExpression/right" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pico.ecore#//ComparatorExpression/comparator"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

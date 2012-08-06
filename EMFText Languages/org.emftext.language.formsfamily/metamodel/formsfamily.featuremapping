@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<featuremapping:FeatureMappingModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:featuremapping="http://www.tudresden.de/featuremapping" composerID="org.featuremapper.interpreter.emf.interpreter">
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="formsfamily.cs#//@rules.2/@children.0/@children.0/@children.3"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#DependentItems"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="formsfamily.cs#//@rules.9"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#LikertScale"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="formsfamily.cs#//@rules.10"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#GuttmanScale"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="formsfamily.cs#//@rules.3/@children.0/@children.0/@children.1"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#MultipleChoices"/>
+    </term>
+  </mappings>
+  <featureModel>
+    <value href="formsfamily.feature#/"/>
+  </featureModel>
+  <colorMappings color="13421772">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#DependentItems"/>
+    </term>
+  </colorMappings>
+  <colorMappings color="10066329">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#MultipleChoices"/>
+    </term>
+  </colorMappings>
+  <colorMappings color="6710886">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#LikertScale"/>
+    </term>
+  </colorMappings>
+  <colorMappings color="3355443">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="formsfamily.feature#GuttmanScale"/>
+    </term>
+  </colorMappings>
+  <solutionModels>
+    <value href="formsfamily.cs#/"/>
+  </solutionModels>
+  <solutionModels>
+    <value href="formsfamily.ecore#/"/>
+  </solutionModels>
+</featuremapping:FeatureMappingModel>

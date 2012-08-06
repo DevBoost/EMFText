@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaUIMetaInformation" id="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="dbschema" icon="icons/editor_icon.gif" id="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaEditor" name="EMFText dbschema Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.dbschema.resource.dbschema">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Dbschema Text Editor" id="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaPreferencePage" class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaSyntaxColoringPreferencePage" class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaSyntaxColoringPreferencePage" category="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaBracketPreferencePage" class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaBracketPreferencePage" category="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaNewFileWizard" id="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaNewFileWizard" name="EMFText .dbschema file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaMarkerResolutionGenerator" markerType="org.emftext.language.dbschema.resource.dbschema.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.dbschema.resource.dbschema.ui.DbschemaAnnotationModelFactory" extensions="dbschema">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.dbschema.resource.dbschema" name=".dbschema File" base-type="org.eclipse.core.runtime.text" file-extensions="dbschema">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="dbschema" id="org.emftext.language.dbschema.resource.dbschema.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.dbschema.resource.dbschema.ui.occurences">
+		</type>
+		<type name="org.emftext.language.dbschema.resource.dbschema.ui.occurences.declaration" super="org.emftext.language.dbschema.resource.dbschema.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.dbschema.resource.dbschema.ui.occurences" label="Occurrences (in .dbschema files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="dbschema.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="dbschema.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="dbschema.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="dbschema.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="dbschema.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="dbschema.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="dbschema.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="dbschema.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="dbschema.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.dbschema.resource.dbschema.ui.occurences.declaration" label="Declarations (in .dbschema files)" textPreferenceKey="dbschema.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="dbschema.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="dbschema.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="dbschema.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="dbschema.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="dbschema.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

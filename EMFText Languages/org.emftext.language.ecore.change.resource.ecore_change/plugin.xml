@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.ecore.change.resource.ecore_change.mopp.Ecore_changeMetaInformation" id="org.emftext.language.ecore.change.resource.ecore_change.mopp.Ecore_changeMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="ecore_change" icon="icons/editor_icon.gif" id="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeEditor" name="EMFText ecore_change Editor">
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changePreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Ecore_change Text Editor" id="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changePreferencePage" class="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changePreferencePage">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeSyntaxColoringPreferencePage" class="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeSyntaxColoringPreferencePage" category="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changePreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeBracketPreferencePage" class="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeBracketPreferencePage" category="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changePreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeOccurrencePreferencePage" class="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeOccurrencePreferencePage" category="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changePreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeNewFileWizard" id="org.emftext.language.ecore.change.resource.ecore_change.ui.Ecore_changeNewFileWizard" name="EMFText .ecore_change file">
+		</wizard>
+	</extension>
+	
+	<extension id="org.emftext.language.ecore.change.resource.ecore_change.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension-point id="org.emftext.language.ecore.change.resource.ecore_change.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.ecore.change.resource.ecore_change.mopp.Ecore_changeResourceFactoryDelegator" type="ecore_change">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.ecore.change.resource.ecore_change.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
+	
+</plugin>

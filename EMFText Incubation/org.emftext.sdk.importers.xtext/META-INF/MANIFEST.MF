@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xtext
+Bundle-SymbolicName: org.emftext.sdk.importers.xtext
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.importers.xtext
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.emftext.sdk.concretesyntax,
+ org.emftext.sdk.concretesyntax.resource.cs,
+ org.emftext.sdk.concretesyntax.resource.cs.post_processing,
+ org.eclipse.xtext,
+ org.apache.log4j,
+ org.eclipse.xtend,
+ org.eclipse.core.runtime,
+ org.emftext.sdk

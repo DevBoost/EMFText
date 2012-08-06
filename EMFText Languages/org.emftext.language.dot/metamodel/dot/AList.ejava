@@ -1,0 +1,20 @@
+epackage dot;
+
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.ECollections;
+
+eclass AList {
+
+	/* EList<Attribute> */ getAllAttributes() {
+		EList<Attribute> result = new BasicEList<Attribute>();
+		AList nextAList = this;
+		while (nextAList != null) {
+			result.add(nextAList.getAttribute());
+			nextAList = nextAList.getTail();
+		}
+		return ECollections.unmodifiableEList(result);
+	}
+}

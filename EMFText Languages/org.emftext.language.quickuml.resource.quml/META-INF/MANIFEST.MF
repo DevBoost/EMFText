@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: quml
+Bundle-SymbolicName: org.emftext.language.quickuml.resource.quml;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.eclipse.uml2.uml
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.quickuml.resource.quml,
+  org.emftext.language.quickuml.resource.quml.analysis,
+  org.emftext.language.quickuml.resource.quml.mopp,
+  org.emftext.language.quickuml.resource.quml.debug,
+  org.emftext.language.quickuml.resource.quml.launch,
+  org.emftext.language.quickuml.resource.quml.grammar,
+  org.emftext.language.quickuml.resource.quml.util
+Bundle-Activator: org.emftext.language.quickuml.resource.quml.mopp.QumlPlugin

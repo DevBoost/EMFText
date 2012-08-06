@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="6.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.rolecore.dependencies/src-gen" modelName="Dependencies" modelPluginID="org.emftext.language.rolecore.dependencies" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.emftext.language.rolecore/metamodel/rolecore.genmodel#//rolecore" xmi:version="2.0">
+  <foreignModel>dependencies.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language.rolecore" disposableProviderFactory="true" ecorePackage="dependencies.ecore#/" prefix="Dependencies">
+    <genClasses ecoreClass="dependencies.ecore#//Graph">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dependencies.ecore#//Graph/priority"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Graph/modelDomains" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Graph/modelEquivalence" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//Domain">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Domain/modelPackage" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Domain/required" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Domain/semiRequired" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Domain/create" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference dependencies.ecore#//Domain/rcPackage" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//Block" image="false">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Block/coreClasses" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//Required"/>
+    <genClasses ecoreClass="dependencies.ecore#//SemiRequired"/>
+    <genClasses ecoreClass="dependencies.ecore#//Create"/>
+    <genClasses ecoreClass="dependencies.ecore#//Equivalence"/>
+    <genClasses ecoreClass="dependencies.ecore#//CoreClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference dependencies.ecore#//CoreClass/type"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//Vertex" image="false">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Vertex/edges" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//Edge">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Edge/simpleTerm" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Edge/rightTerm" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dependencies.ecore#//Edge/referredTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dependencies.ecore#//Edge/equal"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//Term" image="false"/>
+    <genClasses ecoreClass="dependencies.ecore#//SimpleTerm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference dependencies.ecore#//SimpleTerm/coreClass" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference dependencies.ecore#//SimpleTerm/role" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//RightTerm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dependencies.ecore#//RightTerm/value"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//RightTerm/operation" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//RightTerm/simpleTerms" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//NamedElement" image="false">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dependencies.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="dependencies.ecore#//Operation">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference dependencies.ecore#//Operation/rightTerms" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dependencies.ecore#//Operation/operationType"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

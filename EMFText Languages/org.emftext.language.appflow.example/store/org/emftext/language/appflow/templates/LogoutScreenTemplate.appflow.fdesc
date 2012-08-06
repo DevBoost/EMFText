@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ASCII"?>
+<description:FragmentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:description="http://description/1.0" derivationState="UP_TO_DATE">
+  <iD>
+    <segments>org</segments>
+    <segments>emftext</segments>
+    <segments>language</segments>
+    <segments>appflow</segments>
+    <segments>templates</segments>
+    <segments>LogoutScreenTemplate.appflow.fdesc</segments>
+  </iD>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID>
+    <typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    <typeID>facets.fdef</typeID>
+    <typeID>Complexity</typeID>
+    <valueNames>Medium</valueNames>
+  </facets>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID>
+    <typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    <typeID>facets.fdef</typeID>
+    <typeID>Maturity</typeID>
+    <valueNames>Release</valueNames>
+  </facets>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID>
+    <typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    <typeID>facets.fdef</typeID>
+    <typeID>License</typeID>
+    <valueNames>GNU GPL</valueNames>
+  </facets>
+  <facets>
+    <typeID>org</typeID>
+    <typeID>emftext</typeID>
+    <typeID>language</typeID>
+    <typeID>appflow</typeID>
+    <typeID>meta</typeID>
+    <typeID>facets.fdef</typeID>
+    <typeID>Category</typeID>
+    <valueNames>Interactive Screens</valueNames>
+  </facets>
+  <properties name="Name" value="Logout"/>
+  <properties name="Hint" value="Affirmation of logout"/>
+  <properties name="Author" value="Jan Polowinski"/>
+  <properties name="Version" value="1.0"/>
+</description:FragmentDescription>

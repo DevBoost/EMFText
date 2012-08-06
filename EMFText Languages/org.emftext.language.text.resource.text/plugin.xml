@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.text.resource.text.mopp.TextMetaInformation" id="org.emftext.language.text.resource.text.mopp.TextMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.text.resource.text.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.text.resource.text.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.text.resource.text.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.text.resource.text.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.text.resource.text.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.nature" name="text nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.text.resource.text.mopp.TextNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.text.resource.text.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.text.resource.text.builder" name="text Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.text.resource.text.mopp.TextBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.text.resource.text.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.text.resource.text.mopp.TextResourceFactoryDelegator" type="text">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.text.resource.text.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.language.text.resource.text.debug.TextLineBreakpoint" id="org.emftext.language.text.resource.text.debug.breakpoint" markerType="org.emftext.language.text.resource.text.debug.lineBreakpoint.marker" name="text Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.language.text.resource.text.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.language.text.resource.text.ui.launchConfigurationType" delegate="org.emftext.language.text.resource.text.launch.TextLaunchConfigurationDelegate" modes="run,debug" name="text Application" sourceLocatorId="org.emftext.language.text.resource.text.ui.sourceLocator" sourcePathComputerId="org.emftext.language.text.resource.text.ui.sourcePathComputer" delegateName="text Launch Tooling" delegateDescription="This will run or debug .text files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.language.text.resource.text.debug.TextSourcePathComputerDelegate" id="org.emftext.language.text.resource.text.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.language.text.resource.text.ui.sourceLocator" class="org.emftext.language.text.resource.text.debug.TextSourceLocator" name="text Source Locator">
+		</sourceLocator>
+	</extension>
+	
+</plugin>

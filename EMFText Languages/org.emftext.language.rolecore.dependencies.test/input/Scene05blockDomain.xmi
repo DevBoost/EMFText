@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:blockclassbase="http://www.emftext.org/language/rolecore/blockclassbase" xmlns:blockdomain="http://www.emftext.org/language/rolecore/blockdomain" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="blockDomain">
+  <eObjects xsi:type="blockdomain:BlockDiagramCore" roles="//@eObjects.1 //@eObjects.6"/>
+  <eObjects xsi:type="blockdomain:BlockdiagramElementsRole" core="//@eObjects.0" elements="//@eObjects.3"/>
+  <eObjects xsi:type="blockdomain:BlockCore" core="//@eObjects.4" roles="//@eObjects.3 //@eObjects.5"/>
+  <eObjects xsi:type="blockdomain:SystemBlockCore" core="//@eObjects.2"/>
+  <eObjects xsi:type="blockdomain:ConnectableCore" roles="//@eObjects.2">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene05blockclassbase.xmi#//@eObjects.3"/>
+  </eObjects>
+  <eObjects xsi:type="blockdomain:BlockChildrenRole" core="//@eObjects.2">
+    <children xsi:type="blockdomain:ProcessCore" core="//@eObjects.8"/>
+  </eObjects>
+  <eObjects xsi:type="blockdomain:BlockdiagramElementsRole" core="//@eObjects.0" elements="//@eObjects.5/@children"/>
+  <eObjects xsi:type="blockdomain:ConnectableContainerRole" core="//@eObjects.8" container="//@eObjects.3"/>
+  <eObjects xsi:type="blockdomain:ConnectableCore" roles="//@eObjects.5/@children //@eObjects.7">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene05blockclassbase.xmi#//@eObjects.15"/>
+  </eObjects>
+</interpreter:DomainRoot>

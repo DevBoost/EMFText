@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: statemachine
+Bundle-SymbolicName: org.emftext.language.statemachine.resource.statemachine;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+  org.eclipse.emf,
+  org.eclipse.emf.codegen.ecore,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.edit,
+  org.eclipse.emf.validation,
+  org.eclipse.emf.workspace,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.eclipse.uml2.uml
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.statemachine.resource.statemachine,
+  org.emftext.language.statemachine.resource.statemachine.analysis,
+  org.emftext.language.statemachine.resource.statemachine.mopp,
+  org.emftext.language.statemachine.resource.statemachine.grammar,
+  org.emftext.language.statemachine.resource.statemachine.util
+Bundle-Activator: org.emftext.language.statemachine.resource.statemachine.mopp.StatemachinePlugin

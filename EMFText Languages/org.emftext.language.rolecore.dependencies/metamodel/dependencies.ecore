@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dependencies"
+    nsURI="http://www.emftext.org/language/rolecore/dependencies" nsPrefix="dependencies">
+  <eClassifiers xsi:type="ecore:EClass" name="Graph" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelDomains" lowerBound="1"
+        upperBound="2" eType="#//Domain" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelEquivalence" eType="#//Equivalence"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Domain" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelPackage" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="required" eType="#//Required"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="semiRequired" eType="#//SemiRequired"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="create" eType="#//Create"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rcPackage" lowerBound="1"
+        eType="ecore:EClass ../../org.emftext.language.rolecore/metamodel/rolecore.ecore#//RCPackage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Block" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreClasses" lowerBound="1"
+        upperBound="-1" eType="#//CoreClass" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Required" eSuperTypes="#//Block"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SemiRequired" eSuperTypes="#//Block"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Create" eSuperTypes="#//Block"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Equivalence" eSuperTypes="#//Vertex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CoreClass" eSuperTypes="#//Vertex #//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Vertex" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="edges" upperBound="-1"
+        eType="#//Edge" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Edge">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="simpleTerm" lowerBound="1"
+        eType="#//SimpleTerm" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rightTerm" lowerBound="1"
+        eType="#//RightTerm" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referredTo" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="equal" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Term" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleTerm" eSuperTypes="#//Term">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coreClass" eType="#//CoreClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RightTerm" eSuperTypes="#//Term">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operation" lowerBound="1"
+        eType="#//Operation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="simpleTerms" upperBound="-1"
+        eType="#//SimpleTerm" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rightTerms" lowerBound="1"
+        upperBound="2" eType="#//RightTerm" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operationType" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,15 @@
+FORMULAR "Arbeitslosengeld II"
+
+GRUPPE "Persönliche Angaben"
+	FRAGE "Nachname" : FREITEXT
+	FRAGE "Vorname" : FREITEXT
+	FRAGE "Geburtsdatum" : DATUM 
+	FRAGE "Geburtsort" : FREITEXT
+	FRAGE "Anzahl Kinder" : AUSWAHL ("keine", "1", "2", ">2")
+	FRAGE "Geschlecht" : AUSWAHL ("männlich", "weiblich")
+
+GRUPPE "Bisherige Anträge"
+	FRAGE "Folgeantrag" : ENTSCHEIDUNG ( Folgeantrag : "ja", Erstantrag : "nein" )
+	FRAGE "Letzer Antrag" "Bitte das Datum des letzen Antrags angeben." NUR BEI Folgeantrag : DATUM
+	
+	FRAGE "Test" :  AUSWAHL true ("mehr", "fach", "auswahl")

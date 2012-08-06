@@ -1,0 +1,15 @@
+[%--
+--
+-- This EGL and its accompanying metamodel has been developed during the SystemB 
+-- project, funded by AWE plc. (CDK0747). 
+-- Date: July 2009
+-- Contact details: Edward Turner and Helen Treharne
+-- http://www.csp-b.org/
+--
+TemplateFactory.setOutputRoot('./output/B');
+for(mch in B!Machine.allInstances()) {
+	var t : Template := TemplateFactory.load('./B2Text.egl');
+	t.populate('main_machine',mch);
+	t.store(mch.name+'.mch',true);
+}
+%]

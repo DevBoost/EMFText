@@ -1,0 +1,21 @@
+
+namespace Name1
+{
+
+}
+
+namespace Name2
+{
+	namespace Name3
+	{
+
+	}
+	
+	namespace Name4.Lol.Pol
+	{
+		namespace Name5
+		{
+
+		}
+	}
+}

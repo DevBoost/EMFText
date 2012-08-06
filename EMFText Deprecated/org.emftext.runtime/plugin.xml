@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="concretesyntax" name="Concrete Syntax Definition" schema="schema/org.emftext.runtime.concretesyntax.exsd"/>
+   <extension-point id="org.emftext.runtime.default_load_options" name="Default Load Options" schema="schema/org.emftext.runtime.default_load_options.exsd"/>
+</plugin>

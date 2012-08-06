@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesUIMetaInformation" id="org.emftext.language.javaproperties.resource.properties.ui.PropertiesUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="properties" icon="icons/editor_icon.gif" id="org.emftext.language.javaproperties.resource.properties.ui.PropertiesEditor" name="EMFText properties Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.javaproperties.resource.properties">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Properties Text Editor" id="org.emftext.language.javaproperties.resource.properties.ui.PropertiesPreferencePage" class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.javaproperties.resource.properties.ui.PropertiesSyntaxColoringPreferencePage" class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesSyntaxColoringPreferencePage" category="org.emftext.language.javaproperties.resource.properties.ui.PropertiesPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.javaproperties.resource.properties.ui.PropertiesBracketPreferencePage" class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesBracketPreferencePage" category="org.emftext.language.javaproperties.resource.properties.ui.PropertiesPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesNewFileWizard" id="org.emftext.language.javaproperties.resource.properties.ui.PropertiesNewFileWizard" name="EMFText .properties file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesNewProjectWizard" id="org.emftext.language.javaproperties.resource.properties.ui.PropertiesNewProjectWizard" name="EMFText properties project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesMarkerResolutionGenerator" markerType="org.emftext.language.javaproperties.resource.properties.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.javaproperties.resource.properties.ui.PropertiesAnnotationModelFactory" extensions="properties">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.javaproperties.resource.properties" name=".properties File" base-type="org.eclipse.core.runtime.text" file-extensions="properties">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="properties" id="org.emftext.language.javaproperties.resource.properties.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.javaproperties.resource.properties.ui.occurences">
+		</type>
+		<type name="org.emftext.language.javaproperties.resource.properties.ui.occurences.declaration" super="org.emftext.language.javaproperties.resource.properties.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.javaproperties.resource.properties.ui.occurences" label="Occurrences (in .properties files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="properties.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="properties.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="properties.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="properties.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="properties.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="properties.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="properties.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="properties.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="properties.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.javaproperties.resource.properties.ui.occurences.declaration" label="Declarations (in .properties files)" textPreferenceKey="properties.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="properties.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="properties.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="properties.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="properties.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="properties.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

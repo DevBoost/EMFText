@@ -1,0 +1,12 @@
+@"import"(
+	"java"="../../org.emftext.language.java/metamodel/java.ecore",
+	"forms"="../../org.emftext.language.forms/metamodel/forms.ecore")
+package formsextension  
+        formsextension 
+        "http://www.emftext.org/language/formsextension" 
+{   
+	class ExtendeFrom extends forms::Form {
+		reference java::members::ClassMethod javaMethod (1..1);
+		reference java::containers::CompilationUnit compilationUnit (1..1);
+	}
+}

@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText ATL Plug-in
+Bundle-SymbolicName: org.emftext.util.atl;singleton:=true
+Bundle-Version: 0.9
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.emftext.sdk;visibility:=reexport,
+ org.eclipse.m2m.atl.core,
+ org.eclipse.m2m.atl.engine.emfvm,
+ org.eclipse.m2m.atl.drivers.emf4atl
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Export-Package: org.emftext.util.atl
+
+
+

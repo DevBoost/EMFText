@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.petrinets.resource.petrinets.mopp.PetrinetsMetaInformation" id="org.emftext.language.petrinets.resource.petrinets.mopp.PetrinetsMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.petrinets.resource.petrinets.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.petrinets.resource.petrinets.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.petrinets.resource.petrinets.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.petrinets.resource.petrinets.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.petrinets.resource.petrinets.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.petrinets.resource.petrinets.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.petrinets.resource.petrinets.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.petrinets.resource.petrinets.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.petrinets.resource.petrinets.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.petrinets.resource.petrinets.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.petrinets.resource.petrinets.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.petrinets.resource.petrinets.nature" name="petrinets nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.petrinets.resource.petrinets.mopp.PetrinetsNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.petrinets.resource.petrinets.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.petrinets.resource.petrinets.builder" name="petrinets Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.petrinets.resource.petrinets.mopp.PetrinetsBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.petrinets.resource.petrinets.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.petrinets.resource.petrinets.mopp.PetrinetsResourceFactoryDelegator" type="petrinets">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.petrinets.resource.petrinets.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+	 <extension
+	       point="org.emftext.language.petrinets.resource.petrinets.default_load_options">
+	    <provider
+	          class="org.emftext.language.petrinets.resource.petrinets.custom.PetriNetsPostProcessor"
+	          id="org.emftext.language.petrinets.resource.petrinets.postProcessor">
+	    </provider>
+	 </extension>
+	
+</plugin>

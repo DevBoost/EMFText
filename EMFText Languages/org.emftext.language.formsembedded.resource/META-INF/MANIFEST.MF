@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resource
+Bundle-SymbolicName: org.emftext.language.formsembedded.resource;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf,
+ org.emftext.language.formsembedded,
+ org.emftext.language.formsembedded.resource.formsembedded,
+ org.emftext.language.java,
+ org.emftext.language.java.resource
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

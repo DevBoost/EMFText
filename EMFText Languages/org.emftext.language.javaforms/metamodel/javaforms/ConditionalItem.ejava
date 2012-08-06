@@ -1,0 +1,24 @@
+epackage javaforms;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+import forms.FreeText;
+
+import java.classifiers.ConcreteClassifier;
+import java.types.ClassifierReference;
+
+eclass ConditionalItem {
+	
+	getTypeReference() {
+		if (getItemType() instanceof FreeText) {
+			ConcreteClassifier stringClass = getConcreteClassifier("java.lang.String");
+			ClassifierReference reference = #ClassifierReference;
+			reference.setTarget(stringClass);
+			return reference;
+		}
+		return null;
+	}
+}

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.company.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.emftext.language.company.test.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.emftext.language.company,
+ org.junit4,
+ org.emftext.language.company.resource.company
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

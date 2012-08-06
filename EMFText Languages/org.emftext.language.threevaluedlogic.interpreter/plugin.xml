@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.emftext.language.threevaluedlogic.resource.tvl.default_load_options">
+      <provider
+            class="org.emftext.language.threevaluedlogic.InterpreterProvider"
+            id="org.emftext.language.threevaluedlogic.interpreter.provider">
+      </provider>
+   </extension>
+
+</plugin>

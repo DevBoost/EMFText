@@ -1,0 +1,16 @@
+StateMachine HelloWorld {
+	initial state init;
+
+	state first {
+		do : "greet"
+	};
+	
+	final state end {
+		do : "goodbye"
+	};
+	
+	transitions {
+		init -> first when "step";
+		first -> end when "step"; 
+	}
+}

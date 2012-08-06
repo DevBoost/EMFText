@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: sm
+Bundle-SymbolicName: org.emftext.language.simplemath.resource.sm;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+  org.eclipse.emf,
+  org.eclipse.emf.codegen.ecore,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.edit,
+  org.eclipse.emf.validation,
+  org.eclipse.emf.workspace,
+  org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core,
+  org.eclipse.swt,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.simplemath
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.simplemath.resource.sm,
+  org.emftext.language.simplemath.resource.sm.analysis,
+  org.emftext.language.simplemath.resource.sm.mopp,
+  org.emftext.language.simplemath.resource.sm.debug,
+  org.emftext.language.simplemath.resource.sm.launch,
+  org.emftext.language.simplemath.resource.sm.grammar,
+  org.emftext.language.simplemath.resource.sm.util
+Bundle-Activator: org.emftext.language.simplemath.resource.sm.mopp.SmPlugin

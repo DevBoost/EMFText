@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Statistics
+Bundle-SymbolicName: org.emftext.metamodelstatistics
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.statistics
+Require-Bundle: org.eclipse.emf,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

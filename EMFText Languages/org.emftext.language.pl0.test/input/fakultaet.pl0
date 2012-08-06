@@ -1,0 +1,22 @@
+program faculty
+
+const c=10;
+
+var n,f;
+
+procedure fakultaet;
+	var i;
+BEGIN
+	f := 1;
+	i := 2;
+	while i <= n do
+	begin 
+		f := f*i;
+		i := i+1
+	end 
+end;
+
+begin
+	n := c;
+	call fakultaet
+end.

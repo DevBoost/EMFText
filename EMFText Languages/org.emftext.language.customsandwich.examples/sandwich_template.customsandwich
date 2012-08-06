@@ -1,0 +1,16 @@
+<%TEMPLATE INPUT="http://www.emftext.org/language/customer::Customer" %>
+
+RECIPE myRecipe
+	bread butter salad
+	<%IF "not(isVegetarian.value)" %> turkey <%ENDIF%>
+	<%IF "isVegetarian.value" %> asparagus <%ENDIF%>
+	mustard
+	
+	<%FOR "requests" %>	<%= "name" %> <%ENDFOR%>
+	
+CLEAN salad,
+TOAST bread,
+ADD butter,
+ADD salad,
+ADD turkey,
+ADD mustard

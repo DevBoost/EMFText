@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ASCII"?>
+<featuremapping:FeatureMappingModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:featuremapping="http://www.tudresden.de/featuremapping" composerID="org.featuremapper.interpreter.emf.interpreter">
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.ecore#//Company/cutSalary"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Cut"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.ecore#//Company/totalSalary"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Total"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.ecore#//Company/depth"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Depth"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.ecore#//Employee/mentor"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#EMFText Mentoring"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.ecore#//Department/depth"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Depth"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.ecore#//Department/cutSalaries"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Cut"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.ecore#//Employee/cutSalary"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Cut"/>
+    </term>
+  </mappings>
+  <mappings xsi:type="featuremapping:ElementMapping">
+    <element href="company.text.cs#//@rules.2/@children.0/@children.0/@children.12"/>
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#EMFText Mentoring"/>
+    </term>
+  </mappings>
+  <featureModel>
+    <value href="company.feature#/"/>
+  </featureModel>
+  <colorMappings color="13382451">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Total"/>
+    </term>
+  </colorMappings>
+  <colorMappings color="3381759">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#EMFText Mentoring"/>
+    </term>
+  </colorMappings>
+  <colorMappings color="3381555">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Depth"/>
+    </term>
+  </colorMappings>
+  <colorMappings color="10053120">
+    <term xsi:type="featuremapping:FeatureRef">
+      <feature href="company.feature#Cut"/>
+    </term>
+  </colorMappings>
+  <solutionModels>
+    <value href="company.text.cs#/"/>
+  </solutionModels>
+  <solutionModels>
+    <value href="company.text.ecore#/"/>
+  </solutionModels>
+</featuremapping:FeatureMappingModel>

@@ -1,0 +1,64 @@
+dbschema <http://www.emftext.org/language/dbschema>
+
+abstract NamedElement (
+	name EString 
+)
+
+DBSchema : NamedElement (
+	tables Table*
+)
+
+Table : NamedElement (
+	columns Column*
+)
+
+abstract Column : NamedElement (
+	primary EBoolean
+	type ColumnType
+	size EInt
+)
+
+AttributeColumn : Column ()
+
+ForeignKeyColumn : Column (
+	~referencedColumn AttributeColumn
+)
+
+enum ColumnType (
+	BIT
+	TINYINT
+	SMALLINT
+	INTEGER
+	BIGINT
+	FLOAT
+	REAL
+	DOUBLE
+	NUMERIC
+	DECIMAL
+	CHAR
+	VARCHAR
+	LONGVARCHAR
+	DATE
+	TIME
+	TIMESTAMP
+	BINARY
+	VARBINARY
+	LONGVARBINARY
+	NULL
+	OTHER
+	JAVAOBJECT // TODO add undescore
+	DISTINCT
+	STRUCT
+	ARRAY
+	BLOB
+	CLOB
+	REF
+	DATALINK
+	BOOLEAN
+	ROWID
+	NCHAR
+	NVARCHAR
+	LONGNVARCHAR
+	NCLOB
+	SQLXML
+)

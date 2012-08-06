@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: text.secprop
+Bundle-SymbolicName: org.emftext.language.secprop.resource.text.secprop;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.emftext.language.secprop.resource,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.secprop
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.secprop.resource.text.secprop,
+  org.emftext.language.secprop.resource.text.secprop.analysis,
+  org.emftext.language.secprop.resource.text.secprop.mopp,
+  org.emftext.language.secprop.resource.text.secprop.debug,
+  org.emftext.language.secprop.resource.text.secprop.launch,
+  org.emftext.language.secprop.resource.text.secprop.grammar,
+  org.emftext.language.secprop.resource.text.secprop.util
+Bundle-Activator: org.emftext.language.secprop.resource.text.secprop.mopp.TextSecpropPlugin

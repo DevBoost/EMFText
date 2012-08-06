@@ -1,0 +1,26 @@
+package test1;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.lang.Runnable;
+import java.lang.System;
+import java.io.PrintStream;
+
+public class CTest1 {
+
+	public void m() {
+		Runnable r = new Runnable() {
+			
+			public String run(String name, int x) {
+				return "Hello Closure with multiple parameters " + name + ", " + x + " and return type";
+			}
+			
+			public void noClosureGeneration(){
+				// this is the an anonymous class which should NOT be closurefied 
+				// because it doesn't contain exactly one overriden method
+			}
+		};
+		//r.run("test",3);
+		System.out.println();
+	}
+}

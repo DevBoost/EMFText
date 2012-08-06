@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.sql.resource.sql.ui.SqlUIMetaInformation" id="org.emftext.language.sql.resource.sql.ui.SqlUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.sql.resource.sql.ui.SqlEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="sql" icon="icons/editor_icon.gif" id="org.emftext.language.sql.resource.sql.ui.SqlEditor" name="EMFText sql Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.sql.resource.sql">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.sql.resource.sql.ui.SqlPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Sql Text Editor" id="org.emftext.language.sql.resource.sql.ui.SqlPreferencePage" class="org.emftext.language.sql.resource.sql.ui.SqlPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.sql.resource.sql.ui.SqlSyntaxColoringPreferencePage" class="org.emftext.language.sql.resource.sql.ui.SqlSyntaxColoringPreferencePage" category="org.emftext.language.sql.resource.sql.ui.SqlPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.sql.resource.sql.ui.SqlBracketPreferencePage" class="org.emftext.language.sql.resource.sql.ui.SqlBracketPreferencePage" category="org.emftext.language.sql.resource.sql.ui.SqlPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.sql.resource.sql.ui.SqlNewFileWizard" id="org.emftext.language.sql.resource.sql.ui.SqlNewFileWizard" name="EMFText .sql file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.sql.resource.sql.ui.SqlMarkerResolutionGenerator" markerType="org.emftext.language.sql.resource.sql.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.sql.resource.sql.ui.SqlAnnotationModelFactory" extensions="sql">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.sql.resource.sql" name=".sql File" base-type="org.eclipse.core.runtime.text" file-extensions="sql">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="sql" id="org.emftext.language.sql.resource.sql.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.sql.resource.sql.ui.occurences">
+		</type>
+		<type name="org.emftext.language.sql.resource.sql.ui.occurences.declaration" super="org.emftext.language.sql.resource.sql.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.sql.resource.sql.ui.occurences" label="Occurrences (in .sql files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="sql.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="sql.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="sql.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="sql.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="sql.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="sql.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="sql.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="sql.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="sql.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.sql.resource.sql.ui.occurences.declaration" label="Declarations (in .sql files)" textPreferenceKey="sql.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="sql.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="sql.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="sql.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="sql.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="sql.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

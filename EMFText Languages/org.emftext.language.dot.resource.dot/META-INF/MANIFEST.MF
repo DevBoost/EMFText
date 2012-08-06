@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: dot
+Bundle-SymbolicName: org.emftext.language.dot.resource.dot;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.dot
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.dot.resource.dot,
+  org.emftext.language.dot.resource.dot.analysis,
+  org.emftext.language.dot.resource.dot.mopp,
+  org.emftext.language.dot.resource.dot.debug,
+  org.emftext.language.dot.resource.dot.launch,
+  org.emftext.language.dot.resource.dot.grammar,
+  org.emftext.language.dot.resource.dot.util
+Bundle-Activator: org.emftext.language.dot.resource.dot.mopp.DotPlugin

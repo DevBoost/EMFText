@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: Sandwich Recipe Metamodel
+Bundle-SymbolicName: org.emftext.language.sandwich; singleton:=true
+Bundle-Version: 0.5.1.v200911130906
+Bundle-ClassPath: .
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.sandwich,
+ org.emftext.language.sandwich.impl,
+ org.emftext.language.sandwich.util,
+ org.emftext.language.sandwich_simple,
+ org.emftext.language.sandwich_simple.impl,
+ org.emftext.language.sandwich_simple.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.emftext.language.primitivetypes
+Bundle-ActivationPolicy: lazy
+

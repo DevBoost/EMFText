@@ -1,0 +1,22 @@
+RCPackage blockdomain blockdomain "http://www.emftext.org/language/rolecore/blockdomain"
+Imports{
+	prefix: base <BlockClassBase.rolecore>
+}{
+	CoreClass BlockDiagram {
+		reference type:base->ModelElement elements (0..-1) opposite blockDiagram;
+	}
+	CoreClass Connection extends base.ModelElement{
+		reference type:Connectable source (0..1) opposite source;
+		reference type:Connectable target (0..1) opposite target;
+	}
+	CoreClass Connectable extends base.ModelElement{
+		reference type:Connection source (0..-1) opposite source;
+		reference type:Connection target (0..-1) opposite target;
+		reference type:Block container (0..1) opposite children;
+	}
+	CoreClass Process extends Connectable {}
+	CoreClass Block extends Connectable {
+		containment reference type:Connectable children (0..-1) opposite container;
+	}
+	CoreClass SystemBlock extends Block {}
+}

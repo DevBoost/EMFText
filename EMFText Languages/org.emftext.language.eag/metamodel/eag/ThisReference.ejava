@@ -1,0 +1,19 @@
+epackage eag;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EClass;
+
+eclass ThisReference {
+	
+	getType() {
+		EObject parent = this.eContainer();
+		while (parent != null) {
+			if (parent instanceof Computation) {
+				Computation computation = (Computation) parent;
+				return (EClass) computation.getContext();
+			}
+			parent = parent.eContainer();
+		}
+		return null;
+	}
+}

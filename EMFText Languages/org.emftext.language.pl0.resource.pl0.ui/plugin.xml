@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.pl0.resource.pl0.ui.Pl0UIMetaInformation" id="org.emftext.language.pl0.resource.pl0.ui.Pl0UIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.pl0.resource.pl0.ui.Pl0Editor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="pl0" icon="icons/editor_icon.gif" id="org.emftext.language.pl0.resource.pl0.ui.Pl0Editor" name="EMFText pl0 Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.pl0.resource.pl0">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.pl0.resource.pl0.ui.Pl0PreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Pl0 Text Editor" id="org.emftext.language.pl0.resource.pl0.ui.Pl0PreferencePage" class="org.emftext.language.pl0.resource.pl0.ui.Pl0PreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.pl0.resource.pl0.ui.Pl0SyntaxColoringPreferencePage" class="org.emftext.language.pl0.resource.pl0.ui.Pl0SyntaxColoringPreferencePage" category="org.emftext.language.pl0.resource.pl0.ui.Pl0PreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.pl0.resource.pl0.ui.Pl0BracketPreferencePage" class="org.emftext.language.pl0.resource.pl0.ui.Pl0BracketPreferencePage" category="org.emftext.language.pl0.resource.pl0.ui.Pl0PreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.pl0.resource.pl0.ui.Pl0NewFileWizard" id="org.emftext.language.pl0.resource.pl0.ui.Pl0NewFileWizard" name="EMFText .pl0 file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.pl0.resource.pl0.ui.Pl0NewProjectWizard" id="org.emftext.language.pl0.resource.pl0.ui.Pl0NewProjectWizard" name="EMFText pl0 project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.pl0.resource.pl0.ui.Pl0MarkerResolutionGenerator" markerType="org.emftext.language.pl0.resource.pl0.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.pl0.resource.pl0.ui.Pl0AnnotationModelFactory" extensions="pl0">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.pl0.resource.pl0" name=".pl0 File" base-type="org.eclipse.core.runtime.text" file-extensions="pl0">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="pl0" id="org.emftext.language.pl0.resource.pl0.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.pl0.resource.pl0.ui.occurences">
+		</type>
+		<type name="org.emftext.language.pl0.resource.pl0.ui.occurences.declaration" super="org.emftext.language.pl0.resource.pl0.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.pl0.resource.pl0.ui.occurences" label="Occurrences (in .pl0 files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="pl0.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="pl0.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="pl0.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="pl0.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="pl0.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="pl0.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="pl0.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="pl0.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="pl0.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.pl0.resource.pl0.ui.occurences.declaration" label="Declarations (in .pl0 files)" textPreferenceKey="pl0.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="pl0.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="pl0.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="pl0.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="pl0.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="pl0.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.dot.test
+Bundle-Version: 1.0.0
+Export-Package: org.emftext.language.dot.test
+Require-Bundle: org.junit4,
+ org.eclipse.emf.ecore,
+ org.emftext.language.dot,
+ org.emftext.language.dot.resource.dot
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

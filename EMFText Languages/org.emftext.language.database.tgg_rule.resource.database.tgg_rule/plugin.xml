@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.mopp.Database_tgg_ruleMetaInformation" id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.mopp.Database_tgg_ruleMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="database_tgg_rule" icon="icons/editor_icon.gif" id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleEditor" name="EMFText database_tgg_rule Editor">
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_rulePreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Database_tgg_rule Text Editor" id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_rulePreferencePage" class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_rulePreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleSyntaxColoringPreferencePage" class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleSyntaxColoringPreferencePage" category="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_rulePreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleBracketPreferencePage" class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleBracketPreferencePage" category="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_rulePreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleOccurrencePreferencePage" class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleOccurrencePreferencePage" category="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_rulePreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleNewFileWizard" id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.ui.Database_tgg_ruleNewFileWizard" name="EMFText .database_tgg_rule file">
+		</wizard>
+	</extension>
+	
+	<extension id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension-point id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.mopp.Database_tgg_ruleResourceFactoryDelegator" type="database_tgg_rule">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.database.tgg_rule.resource.database.tgg_rule.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
+	
+</plugin>

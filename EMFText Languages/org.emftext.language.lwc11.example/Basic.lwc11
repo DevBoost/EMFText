@@ -1,0 +1,11 @@
+entity Person {
+	string name 
+	string firstname 
+	date bithdate
+	Car ownedCar
+} 
+
+entity Car { 
+	string make 
+	string model 
+}

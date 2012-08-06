@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.java.closures.resource;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.emftext.language.java.closures.resource.closure;bundle-version="1.0.0",
+ org.eclipse.emf.ecore;bundle-version="2.6.0",
+ org.emftext.language.java.resource;bundle-version="1.1.0",
+ org.emftext.language.java.closures;bundle-version="1.0.0",
+ org.emftext.language.java.resource.java;bundle-version="1.0.0"
+Export-Package: org.emftext.language.java.closures.resource;uses:="org.emftext.util.atl,org.emftext.language.java.closures.resource.closure,org.emftext.language.java.closures.resource.closure.mopp"

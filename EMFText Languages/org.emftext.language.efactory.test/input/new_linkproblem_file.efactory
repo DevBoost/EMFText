@@ -1,0 +1,8 @@
+use "http://linkproblem/1.0"
+
+new Model {
+	ownedElements += new Element {
+		provider = AGivenProvider
+	}
+	ownedElements += new Provider AGivenProvider {}
+}

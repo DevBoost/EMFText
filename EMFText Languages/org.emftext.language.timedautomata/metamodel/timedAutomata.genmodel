@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.timedautomata/src-gen" modelName="TimedAutomata" modelPluginID="org.emftext.language.timedautomata" usedGenPackages="simpleGraph.genmodel#//simpleGraph" xmi:version="2.0">
+  <foreignModel>timedAutomata.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="timedAutomata.ecore#/" prefix="TimedAutomata">
+    <nestedGenPackages basePackage="org.emftext.language.timedAutomata" disposableProviderFactory="true" ecorePackage="timedAutomata.ecore#//base" prefix="Base">
+      <genClasses ecoreClass="timedAutomata.ecore#//base/Commentable" image="false">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//base/Commentable/comment"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//base/Identifyable">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//base/Identifyable/id"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//base/Nameable">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//base/Nameable/name"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages basePackage="org.emftext.language.timedAutomata" disposableProviderFactory="true" ecorePackage="timedAutomata.ecore#//bnf" prefix="Bnf">
+      <genClasses ecoreClass="timedAutomata.ecore#//bnf/Identifier">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/Identifier/name"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//bnf/Synchronisation" image="false">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/Synchronisation/expression" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//bnf/SendSynchronisation"/>
+      <genClasses ecoreClass="timedAutomata.ecore#//bnf/ReceiveSynchronisation"/>
+      <nestedGenPackages basePackage="org.emftext.language.timedAutomata.bnf" disposableProviderFactory="true" ecorePackage="timedAutomata.ecore#//bnf/expressions" prefix="Expressions">
+        <genEnums ecoreEnum="timedAutomata.ecore#//bnf/expressions/AssignOperator" typeSafeEnumCompatible="false">
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/AssignOperator/ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/AssignOperator/ADD_ASIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/AssignOperator/SUB_ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/AssignOperator/DIV_ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/AssignOperator/MULT_ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/AssignOperator/MOD_ASSIGN"/>
+        </genEnums>
+        <genEnums ecoreEnum="timedAutomata.ecore#//bnf/expressions/BinaryOperator" typeSafeEnumCompatible="false">
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/NONE"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/EQUALS"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/NOT_EQUALS"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/LESS_THAN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/LESS_THAN_OR_EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/GREATER_THAN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/GREATER_THAN_OR_EQUAL"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/LOGICAL_NEGATION"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/ADDITION"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/SUBSTRACTION"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/MULTIPLICATION"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/DIVISION"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/MODULO"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/LEFT_BITSHIFT"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/RIGHT_BITSHIFT"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/MINIMUM"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/MAXIMUM"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/BITWISE_AND"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/BITWISE_XOR"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/BITWISE_OR"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/LOGICAL_AND"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/LOGICAL_OR"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/INCREMENT"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/DECREMENT"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/BITWISE_OR_ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/BITWISE_AND_ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/BITWISE_XOR_ASIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/LEFT_BITSHIFT_ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/RIGHT_BITSHIFT_ASSIGN"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/BinaryOperator/IMPLY"/>
+        </genEnums>
+        <genEnums ecoreEnum="timedAutomata.ecore#//bnf/expressions/UnaryOperator" typeSafeEnumCompatible="false">
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/UnaryOperator/PLUS"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/UnaryOperator/MINUS"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/UnaryOperator/NOT"/>
+        </genEnums>
+        <genEnums ecoreEnum="timedAutomata.ecore#//bnf/expressions/FixedExpressionType" typeSafeEnumCompatible="false">
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/FixedExpressionType/Deadlock"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/FixedExpressionType/True"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/expressions/FixedExpressionType/False"/>
+        </genEnums>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/Expression" image="false"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/ConstantExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/expressions/ConstantExpression/value"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/VariableExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/VariableExpression/identifier" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/ArrayVariableExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ArrayVariableExpression/expression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ArrayVariableExpression/position" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/IncDecExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/IncDecExpression/expression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/expressions/IncDecExpression/beforeExpression"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/expressions/IncDecExpression/increment"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/GroupingExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/GroupingExpression/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/BinaryExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/BinaryExpression/left" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/BinaryExpression/right" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/expressions/BinaryExpression/operator"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/AssignmentExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/AssignmentExpression/leftSide" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/AssignmentExpression/rightSide" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/expressions/AssignmentExpression/operator"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/UnaryExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/expressions/UnaryExpression/operator"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/UnaryExpression/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/SimpleIfExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/SimpleIfExpression/if" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/SimpleIfExpression/then" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/SimpleIfExpression/else" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/IdentifierExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/IdentifierExpression/identifier" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/WithArgumentsExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/WithArgumentsExpression/expression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/WithArgumentsExpression/arguments" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/PointExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/PointExpression/expression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/PointExpression/identifier" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/ForallExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ForallExpression/identifier" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ForallExpression/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ForallExpression/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/ExistsExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ExistsExpression/identifier" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ExistsExpression/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/ExistsExpression/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/FixedExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/expressions/FixedExpression/type"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/expressions/Selection">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/expressions/Selection/identifier" notify="false" propertySortChoices="true"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.timedAutomata.bnf" disposableProviderFactory="true" ecorePackage="timedAutomata.ecore#//bnf/declarations" prefix="Declarations">
+        <genEnums ecoreEnum="timedAutomata.ecore#//bnf/declarations/PriorityOperator" typeSafeEnumCompatible="false">
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/declarations/PriorityOperator/Seperator"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/declarations/PriorityOperator/LessThan"/>
+        </genEnums>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/Declaration" image="false"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/VariableDeclaration">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/VariableDeclaration/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/VariableDeclaration/variableIdentifiers" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/VariableIdentifier">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/VariableIdentifier/identifier" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/VariableIdentifier/arrayDeclarationTypes" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/VariableIdentifier/initialiser" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/TypeDeclaration">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/TypeDeclaration/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/TypeDeclaration/arrayDeclarations" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/FunctionDeclaration">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/FunctionDeclaration/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/FunctionDeclaration/identifier" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/FunctionDeclaration/parameters" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/FunctionDeclaration/block" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ChannelPriorityDeclaration">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ChannelPriorityDeclaration/channelPriority" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/FieldDeclaration">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/FieldDeclaration/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/FieldDeclaration/arrayDeclarations" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ArrayDeclaration">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ArrayDeclaration/identifier" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ArrayDeclaration/types" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ArrayDeclarationType"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ArrayExpressionType">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ArrayExpressionType/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ArrayTypeType">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ArrayTypeType/type" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/Initialiser" image="false"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ExpressionInitialiser">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ExpressionInitialiser/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ArrayInitialiser">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ArrayInitialiser/initialisers" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/TAParameter" image="false">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/TAParameter/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/TAParameter/arrayDeclaration" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/CallByValueParameter"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/CallByReferenceParameter"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/Block">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/Block/declarations" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/Block/statements" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/Statement" image="false"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/BlockStatement"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ExpressionStatement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ExpressionStatement/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ForLoopStatement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ForLoopStatement/initExpression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ForLoopStatement/loopConditionExpression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ForLoopStatement/terminalExpression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ForLoopStatement/statement" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/IterationStatement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/IterationStatement/identifier" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/IterationStatement/type" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/IterationStatement/statement" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/WhileLoopStatement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/WhileLoopStatement/condition" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/WhileLoopStatement/statement" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/DoWhileLoopStatement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/DoWhileLoopStatement/statement" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/DoWhileLoopStatement/condition" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/IfStatement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/IfStatement/condition" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/IfStatement/if" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/IfStatement/else" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ReturnStatement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ReturnStatement/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ChannelPriority" image="false"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/DefaultChannelPriority"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/SimpleChannelPriority">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/SimpleChannelPriority/channelExpression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ComplexChannelPriority">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ComplexChannelPriority/leftSideChannelExpression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ComplexChannelPriority/rightSideChannelExpression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/declarations/ComplexChannelPriority/channelOperator"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ChannelExpression" image="false"/>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/IdentifierChannelExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/IdentifierChannelExpression/identifier" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/declarations/ExpressionChannelExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ExpressionChannelExpression/channelExpression" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/declarations/ExpressionChannelExpression/expression" notify="false" propertySortChoices="true"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.timedAutomata.bnf" disposableProviderFactory="true" ecorePackage="timedAutomata.ecore#//bnf/types" prefix="Types">
+        <genEnums ecoreEnum="timedAutomata.ecore#//bnf/types/TypeId" typeSafeEnumCompatible="false">
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypeId/Integer"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypeId/Clock"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypeId/Channel"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypeId/Boolean"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypeId/Void"/>
+        </genEnums>
+        <genEnums ecoreEnum="timedAutomata.ecore#//bnf/types/TypePrefix" typeSafeEnumCompatible="false">
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypePrefix/NONE"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypePrefix/URGENT"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypePrefix/BROADCAST"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypePrefix/META"/>
+          <genEnumLiterals ecoreEnumLiteral="timedAutomata.ecore#//bnf/types/TypePrefix/CONSTANT"/>
+        </genEnums>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/types/Type" image="false">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/types/Type/prefix"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/types/IdentifierType">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/types/IdentifierType/identifier" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/types/SimpleType">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//bnf/types/SimpleType/type"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/types/IntegerRange">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/types/IntegerRange/firstIndex" notify="false" propertySortChoices="true"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/types/IntegerRange/secondIndex" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/types/Scalar">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/types/Scalar/scalar" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="timedAutomata.ecore#//bnf/types/Struct">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//bnf/types/Struct/fieldDeclarations" notify="false" propertySortChoices="true"/>
+        </genClasses>
+      </nestedGenPackages>
+    </nestedGenPackages>
+    <nestedGenPackages basePackage="org.emftext.language.timedAutomata" disposableProviderFactory="true" ecorePackage="timedAutomata.ecore#//core" prefix="Core">
+      <genClasses ecoreClass="timedAutomata.ecore#//core/Project">
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Project/globalDeclarations" property="None"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Project/templates" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Project/systemDeclaration" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//core/Project/id"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/Template">
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Template/declarations" property="None"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Template/initial" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Template/taParameters" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Template/locations" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Template/edges" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/Edge">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Edge/source" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Edge/target" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Edge/guards" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Edge/synchronisation" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Edge/selections" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Edge/updates" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Edge/nails" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/TAElement" image="false"/>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/Location">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//core/Location/urgent"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//core/Location/committed"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Location/invariant" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Location/label" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/SystemDefinition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/SystemDefinition/templateInstantiations" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/SystemDefinition/systems" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/System" image="false"/>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/SimpleSystem">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/SimpleSystem/Identifier" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/ComplexSystem">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/ComplexSystem/leftSideSystem" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/ComplexSystem/rightSideSystem" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute timedAutomata.ecore#//core/ComplexSystem/operator"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/TemplateInstantiation">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/TemplateInstantiation/processIdentifier" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/TemplateInstantiation/processParameters" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/TemplateInstantiation/templateIdentifier" notify="false" propertySortChoices="true"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/TemplateInstantiation/templateArguments" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/Selections">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Selections/selections" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/Updates">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Updates/expressions" notify="false" propertySortChoices="true"/>
+      </genClasses>
+      <genClasses ecoreClass="timedAutomata.ecore#//core/Guards">
+        <genFeatures createChild="false" ecoreFeature="ecore:EReference timedAutomata.ecore#//core/Guards/conditions" notify="false" propertySortChoices="true"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

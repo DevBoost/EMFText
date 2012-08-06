@@ -1,0 +1,5 @@
+<%TEMPLATE INPUT=
+  "http://www.emftext.org/language/customer::Customer" 
+%>
+
+RECIPE myRecipe bread butter

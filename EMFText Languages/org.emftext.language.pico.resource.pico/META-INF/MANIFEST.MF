@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: pico
+Bundle-SymbolicName: org.emftext.language.pico.resource.pico;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+  org.eclipse.emf,
+  org.eclipse.emf.codegen.ecore,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.edit,
+  org.eclipse.emf.validation,
+  org.eclipse.emf.workspace,
+  org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.pico
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.pico.resource.pico,
+  org.emftext.language.pico.resource.pico.analysis,
+  org.emftext.language.pico.resource.pico.mopp,
+  org.emftext.language.pico.resource.pico.debug,
+  org.emftext.language.pico.resource.pico.launch,
+  org.emftext.language.pico.resource.pico.grammar,
+  org.emftext.language.pico.resource.pico.util,
+  org.emftext.language.pico.resource.pico.interpreter
+Bundle-Activator: org.emftext.language.pico.resource.pico.mopp.PicoPlugin

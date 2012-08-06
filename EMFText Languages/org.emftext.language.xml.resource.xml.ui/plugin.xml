@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.xml.resource.xml.ui.XmlUIMetaInformation" id="org.emftext.language.xml.resource.xml.ui.XmlUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.xml.resource.xml.ui.XmlEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="xml" icon="icons/editor_icon.gif" id="org.emftext.language.xml.resource.xml.ui.XmlEditor" name="EMFText xml Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.xml.resource.xml">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.xml.resource.xml.ui.XmlPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Xml Text Editor" id="org.emftext.language.xml.resource.xml.ui.XmlPreferencePage" class="org.emftext.language.xml.resource.xml.ui.XmlPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.xml.resource.xml.ui.XmlSyntaxColoringPreferencePage" class="org.emftext.language.xml.resource.xml.ui.XmlSyntaxColoringPreferencePage" category="org.emftext.language.xml.resource.xml.ui.XmlPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.xml.resource.xml.ui.XmlBracketPreferencePage" class="org.emftext.language.xml.resource.xml.ui.XmlBracketPreferencePage" category="org.emftext.language.xml.resource.xml.ui.XmlPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.xml.resource.xml.ui.XmlNewFileWizard" id="org.emftext.language.xml.resource.xml.ui.XmlNewFileWizard" name="EMFText .xml file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.xml.resource.xml.ui.XmlMarkerResolutionGenerator" markerType="org.emftext.language.xml.resource.xml.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.xml.resource.xml.ui.XmlAnnotationModelFactory" extensions="xml">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.xml.resource.xml" name=".xml File" base-type="org.eclipse.core.runtime.text" file-extensions="xml">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="xml" id="org.emftext.language.xml.resource.xml.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.xml.resource.xml.ui.occurences">
+		</type>
+		<type name="org.emftext.language.xml.resource.xml.ui.occurences.declaration" super="org.emftext.language.xml.resource.xml.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.xml.resource.xml.ui.occurences" label="Occurrences (in .xml files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="xml.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="xml.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="xml.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="xml.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="xml.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="xml.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="xml.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="xml.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="xml.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.xml.resource.xml.ui.occurences.declaration" label="Declarations (in .xml files)" textPreferenceKey="xml.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="xml.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="xml.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="xml.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="xml.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="xml.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="6.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.rolecore.examples/src-gen" modelName="Riehle97" modelPluginID="org.emftext.language.rolecore.examples" usedGenPackages="riehle97base.genmodel#//riehle97base ../../org.emftext.language.rolecore.ecore_compiler/metamodel/interfaces.genmodel#//interfaces" xmi:version="2.0">
+  <foreignModel>riehle97.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language.rolecore" disposableProviderFactory="true" ecorePackage="riehle97.ecore#/" prefix="Riehle97">
+    <genClasses ecoreClass="riehle97.ecore#//Credit" image="false"/>
+    <genClasses ecoreClass="riehle97.ecore#//CreditCore"/>
+    <genClasses ecoreClass="riehle97.ecore#//CreditRole" image="false"/>
+    <genClasses ecoreClass="riehle97.ecore#//Borrower">
+      <genOperations ecoreOperation="riehle97.ecore#//Borrower/getCredits"/>
+      <genOperations ecoreOperation="riehle97.ecore#//Borrower/getSecurityObject"/>
+    </genClasses>
+    <genClasses ecoreClass="riehle97.ecore#//BorrowerCore"/>
+    <genClasses ecoreClass="riehle97.ecore#//BorrowerRole" image="false"/>
+    <genClasses ecoreClass="riehle97.ecore#//SecurityObject" image="false"/>
+    <genClasses ecoreClass="riehle97.ecore#//SecurityObjectCore"/>
+    <genClasses ecoreClass="riehle97.ecore#//SecurityObjectRole" image="false"/>
+    <genClasses ecoreClass="riehle97.ecore#//Private"/>
+    <genClasses ecoreClass="riehle97.ecore#//Business"/>
+    <genClasses ecoreClass="riehle97.ecore#//CreditSecurityobjectRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference riehle97.ecore#//CreditSecurityobjectRole/securityObject" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="riehle97.ecore#//BorrowerCreditsRole">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference riehle97.ecore#//BorrowerCreditsRole/credits" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="riehle97.ecore#//BorrowerSecurityobjectRole">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference riehle97.ecore#//BorrowerSecurityobjectRole/securityObject" property="None"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

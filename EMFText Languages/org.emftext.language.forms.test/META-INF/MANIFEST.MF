@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.forms.test
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.language.forms.test
+Require-Bundle: org.emftext.language.forms,
+ org.emftext.language.forms.resource.forms,
+ org.junit
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

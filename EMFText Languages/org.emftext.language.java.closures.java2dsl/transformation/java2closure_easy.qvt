@@ -1,0 +1,468 @@
+-- Anmerkung: 
+
+-- es werden nur die reinen Closures gesucht und umgewandelt,
+-- ohne zusätzliche Elemente im Modell
+
+transformation copy(JAVA : java, CLOSURES : closures) {
+	
+	top relation Closures_Closure { 
+
+		methodName : String;
+		statementElements : OrderedSet(java::statements::Statement);
+		valueTypeElement : java::types::TypeReference;
+		
+		enforce domain JAVA s : java::instantiations::NewConstructorCall {
+			anonymousClass = s_ac : java::classifiers::AnonymousClass {
+				members = s_ac_m : java::members::ClassMethod {
+					statements = statementElements,
+					name = methodName,
+					typeReference = valueTypeElement
+					-- modifier
+				}
+			}
+			-- typeReference
+		};
+
+		enforce domain CLOSURES t : closures::Closure {
+			
+			valueType = valueTypeElement,
+			statements = statementElements,
+			methodName = methodName
+		--	parameterTypes = t_pt : java::types::TypeReference {}
+		};
+		when{
+			if s.typeReference.oclIsUndefined()
+					and
+					s.anonymousClass.oclIsUndefined() then
+				true
+			else
+				s_ac.members->size() = 1
+				and
+				s_ac.members->at(1).oclIsTypeOf(java::members::ClassMethod)
+				and
+				not s_ac.members->at(1).oclAsType(java::members::ClassMethod).typeReference.oclIsUndefined()
+				and 
+				not s_ac.members->at(1).oclAsType(java::members::ClassMethod).statements->isEmpty()
+			endif; 
+		}
+		where{
+			 Closure_ParameterType_NamespaceClassifierReference(s_ac_m,t) or
+			 Closure_ParameterType_Integer(s_ac_m,t) or
+			 Closure_ParameterType_Long(s_ac_m,t) or
+			 Closure_ParameterType_Double(s_ac_m,t) or
+			 Closure_ParameterType_Short(s_ac_m,t) or
+			 Closure_ParameterType_Float(s_ac_m,t) or
+			 Closure_ParameterType_Boolean(s_ac_m,t) or
+			 Closure_ParameterType_Char(s_ac_m,t) or
+			 Closure_ParameterType_Byte(s_ac_m,t)
+			 or
+			 AnnotableAndModifiable_Modifier_Private(s_ac_m,t) or 
+			 AnnotableAndModifiable_Modifier_Public(s_ac_m,t) or
+			 AnnotableAndModifiable_Modifier_Static(s_ac_m,t) or
+			 AnnotableAndModifiable_Modifier_Final(s_ac_m,t) or
+			 AnnotableAndModifiable_Modifier_Protected(s_ac_m,t)
+			 or
+			 TypedElement_TypeReference_NamespaceClassifierReference(s,t) or
+			 TypedElement_TypeReference_Int(s,t) or
+			 TypedElement_TypeReference_Void(s,t) or
+			 TypedElement_TypeReference_Boolean(s,t) or
+			 TypedElement_TypeReference_Byte(s,t) or
+			 TypedElement_TypeReference_Double(s,t) or
+			 TypedElement_TypeReference_Float(s,t) or
+			 TypedElement_TypeReference_Long(s,t) or
+			 TypedElement_TypeReference_Short(s,t) or
+			 TypedElement_TypeReference_Char(s,t)
+			 ;
+			
+		}
+	}
+	
+	relation Closure_ParameterType_NamespaceClassifierReference {
+
+		targetElement : java::classifiers::Classifier;
+		targetElement2 : java::classifiers::Classifier;
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::NamespaceClassifierReference {
+					classifierReferences = s_p_tr_cr : java::types::ClassifierReference {
+						target = targetElement,
+						target = targetElement2
+					}
+				},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::NamespaceClassifierReference {
+					classifierReferences = t_p_tr_cr : java::types::ClassifierReference {
+						target = targetElement
+					}
+				},
+				name = parameterName
+			}
+			,
+			parameterTypes = t_pt : java::types::NamespaceClassifierReference {
+				classifierReferences = t_pt_cr : java::types::ClassifierReference {
+					target = targetElement2
+				}
+			}
+		};
+	}
+	
+	relation Closure_ParameterType_Integer {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Int{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Int{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Int{}
+		};
+	}
+	
+	relation Closure_ParameterType_Boolean {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Boolean{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Boolean{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Boolean{}
+		};
+	}
+	
+	relation Closure_ParameterType_Float {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Float{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Float{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Float{}
+		};
+	}
+
+	relation Closure_ParameterType_Long {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Long{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Long{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Long{}
+		};
+	}
+	
+	relation Closure_ParameterType_Byte {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Byte{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Byte{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Byte{}
+		};
+	}
+	
+	relation Closure_ParameterType_Double {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Double{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Double{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Double{}
+		};
+	}
+	
+	relation Closure_ParameterType_Char {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Char{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Char{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Char{}
+		};
+	}
+	
+	relation Closure_ParameterType_Short {
+
+		parameterName : String;
+		
+		enforce domain JAVA s : java::members::ClassMethod{
+			parameters = s_p : java::parameters::OrdinaryParameter {
+				typeReference = s_p_tr : java::types::Short{},
+				name = parameterName
+			}
+		};
+		enforce domain CLOSURES t : closures::Closure {
+		
+			parameters = t_p : java::parameters::OrdinaryParameter {
+				typeReference = t_p_tr : java::types::Short{},
+				name = parameterName
+			},
+			parameterTypes = t_pt : java::types::Short{}
+		};
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Private {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Private {}
+		};
+
+		enforce domain CLOSURES t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Private {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Public {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Public {}
+		};
+
+		enforce domain CLOSURES t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Public {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Protected {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Protected {}
+		};
+
+		enforce domain CLOSURES t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Protected {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Static {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Static {}
+		};
+
+		enforce domain CLOSURES t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Static {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Final {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Final {}
+		};
+
+		enforce domain CLOSURES t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Final {}
+		};
+
+	}
+	
+	relation AnnotableAndModifiable_Modifier_Abstract {
+
+		enforce domain JAVA s : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = s_aam : java::modifiers::Abstract {}
+		};
+
+		enforce domain CLOSURES t : java::modifiers::AnnotableAndModifiable  {
+			annotationsAndModifiers = t_aam : java::modifiers::Abstract {}
+		};
+
+	}
+	
+	relation TypedElement_TypeReference_NamespaceClassifierReference {
+
+		varClass : java::classifiers::Classifier;
+
+		enforce domain JAVA s_f : java::types::TypedElement {
+			typeReference = s_ncr : java::types::NamespaceClassifierReference {
+				classifierReferences = s_cr : java::types::ClassifierReference {
+					target = varClass
+				}
+			}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_ncr : java::types::NamespaceClassifierReference {
+				classifierReferences = t_cr : java::types::ClassifierReference {
+					target = varClass
+				}
+			}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Int {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Int {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Int {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Boolean {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Boolean {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Boolean {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Byte {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Byte {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Byte {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Char {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Char {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Char {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Double {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Double {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Double {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Float {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Float {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Float {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Long {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Long {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Long {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Short {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Short {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Short {}
+		};
+	}
+	
+	relation TypedElement_TypeReference_Void {
+
+		enforce domain JAVA s_f : java::types::TypedElement  {
+			typeReference = s_cr : java::types::Void {}
+		};
+
+		enforce domain CLOSURES t_f : java::types::TypedElement  {
+			typeReference = t_cr : java::types::Void {}
+		};
+	}
+
+}

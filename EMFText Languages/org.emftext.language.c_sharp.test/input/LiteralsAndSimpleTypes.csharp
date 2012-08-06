@@ -1,0 +1,47 @@
+
+namespace NameSpace1
+{
+	class Class1
+    {
+    	decimal var0a =	300.5m;
+    	decimal var0b =	123.4M;
+    	bool var1a 	= true;
+    	bool var1b 	= false;
+		sbyte var2a = -128;
+		sbyte var2b = 127;
+		byte var3a	= 0;
+		byte var3b	= 255;
+		short var4a	= 32767;
+		short var4b	= -32768;
+		ushort var5a = 0;
+		ushort var5b = 65535;
+		int var6a	= -2147483648;
+		int var6b	= 2147483647;
+		uint var7a	= 0u;
+		uint var7b	= 4294967295U;
+		long var8a	= -9223372036854775808l;
+		long var8b	= 9223372036854775807L;
+		ulong var9a	= 0ul;
+		ulong var9b	= 1Ul;
+		ulong var9c	= 2uL;
+		ulong var9d	= 3UL;
+		ulong var9e	= 4lu;
+		ulong var9f	= 5Lu;
+		ulong var9g	= 6lU;
+		ulong var9h	= 18446744073709551615LU;
+		float var10a = 3.5E12f;
+		float var10b = -3.5E-12F;
+		double var11a = 1.7456E+3d;
+		double var11b = -1.7123E-3D;
+		char var12a = 'z';
+		char var12b = 'Z';
+		char var12c = '\x0058';
+		char var12d = '\u0058';
+		string var13a = "test";
+		string var13b = "Test123";
+		string var13c = "\\\u0066\n";
+		string var13d = @"c:\Docs\Source\a.txt";
+		string var13e = @"""Ahoy!""";
+		object var14 = new Class1();
+    }
+}

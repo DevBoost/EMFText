@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.eag.interpreter.test
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.junit,
+ org.emftext.language.eag,
+ org.emftext.language.eag.interpreter,
+ org.emftext.language.eag.resource.eag,
+ org.emftext.language.simplemath,
+ org.emftext.language.simplemath.resource.sm,
+ org.emftext.language.pl0,
+ org.emftext.language.pl0.resource.pl0,
+ org.emftext.language.pl0.attributes
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

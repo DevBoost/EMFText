@@ -1,0 +1,11 @@
+
+namespace NameSpace1
+{
+	class Class1
+    {
+		unsafe void method() 
+   		{
+			int* fib = stackalloc int[100];
+		}
+    }
+}

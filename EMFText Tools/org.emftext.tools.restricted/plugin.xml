@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension  
+            point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.emftext.restricted.evaluateOCLaction"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.emftext.tools.restricted.EvaluateOCLAction"
+               enablesFor="1"
+               id="org.emftext.ui.actions.evaluateoclaction"
+               label="Evaluate OCL"
+               menubarPath="additions"/>
+      </objectContribution>
+   </extension>
+
+</plugin>

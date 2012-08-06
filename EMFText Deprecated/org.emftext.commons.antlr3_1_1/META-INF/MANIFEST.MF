@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_20-b02 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Shared ANTLR 3.1.1 Runtime
+Bundle-SymbolicName: org.emftext.commons.antlr3_1_1; singleton:=true
+Bundle-Version: 3.1.1.v201009221403
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.antlr.runtime, org.antlr.runtime.debug, org.antlr.
+ runtime.misc, org.antlr.runtime.tree
+

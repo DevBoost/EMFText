@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.appflow.resource.appflow.ui.AppflowUIMetaInformation" id="org.emftext.language.appflow.resource.appflow.ui.AppflowUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.appflow.resource.appflow.ui.AppflowEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="appflow" icon="icons/editor_icon.gif" id="org.emftext.language.appflow.resource.appflow.ui.AppflowEditor" name="EMFText appflow Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.appflow.resource.appflow">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.appflow.resource.appflow.ui.AppflowPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Appflow Text Editor" id="org.emftext.language.appflow.resource.appflow.ui.AppflowPreferencePage" class="org.emftext.language.appflow.resource.appflow.ui.AppflowPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.appflow.resource.appflow.ui.AppflowSyntaxColoringPreferencePage" class="org.emftext.language.appflow.resource.appflow.ui.AppflowSyntaxColoringPreferencePage" category="org.emftext.language.appflow.resource.appflow.ui.AppflowPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.appflow.resource.appflow.ui.AppflowBracketPreferencePage" class="org.emftext.language.appflow.resource.appflow.ui.AppflowBracketPreferencePage" category="org.emftext.language.appflow.resource.appflow.ui.AppflowPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.appflow.resource.appflow.ui.AppflowNewFileWizard" id="org.emftext.language.appflow.resource.appflow.ui.AppflowNewFileWizard" name="EMFText .appflow file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.appflow.resource.appflow.ui.AppflowMarkerResolutionGenerator" markerType="org.emftext.language.appflow.resource.appflow.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.appflow.resource.appflow.ui.AppflowAnnotationModelFactory" extensions="appflow">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.appflow.resource.appflow" name=".appflow File" base-type="org.eclipse.core.runtime.text" file-extensions="appflow">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="appflow" id="org.emftext.language.appflow.resource.appflow.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.appflow.resource.appflow.ui.occurences">
+		</type>
+		<type name="org.emftext.language.appflow.resource.appflow.ui.occurences.declaration" super="org.emftext.language.appflow.resource.appflow.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.appflow.resource.appflow.ui.occurences" label="Occurrences (in .appflow files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="appflow.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="appflow.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="appflow.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="appflow.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="appflow.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="appflow.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="appflow.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="appflow.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="appflow.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.appflow.resource.appflow.ui.occurences.declaration" label="Declarations (in .appflow files)" textPreferenceKey="appflow.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="appflow.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="appflow.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="appflow.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="appflow.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="appflow.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

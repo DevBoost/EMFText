@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.functions.resource.functions.ui.FunctionsUIMetaInformation" id="org.emftext.language.functions.resource.functions.ui.FunctionsUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.functions.resource.functions.ui.FunctionsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="functions" icon="icons/editor_icon.gif" id="org.emftext.language.functions.resource.functions.ui.FunctionsEditor" name="EMFText functions Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.functions.resource.functions">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.functions.resource.functions.ui.FunctionsPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Functions Text Editor" id="org.emftext.language.functions.resource.functions.ui.FunctionsPreferencePage" class="org.emftext.language.functions.resource.functions.ui.FunctionsPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.functions.resource.functions.ui.FunctionsSyntaxColoringPreferencePage" class="org.emftext.language.functions.resource.functions.ui.FunctionsSyntaxColoringPreferencePage" category="org.emftext.language.functions.resource.functions.ui.FunctionsPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.functions.resource.functions.ui.FunctionsBracketPreferencePage" class="org.emftext.language.functions.resource.functions.ui.FunctionsBracketPreferencePage" category="org.emftext.language.functions.resource.functions.ui.FunctionsPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.functions.resource.functions.ui.FunctionsNewFileWizard" id="org.emftext.language.functions.resource.functions.ui.FunctionsNewFileWizard" name="EMFText .functions file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.functions.resource.functions.ui.FunctionsNewProjectWizard" id="org.emftext.language.functions.resource.functions.ui.FunctionsNewProjectWizard" name="EMFText functions project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.functions.resource.functions.ui.FunctionsMarkerResolutionGenerator" markerType="org.emftext.language.functions.resource.functions.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.functions.resource.functions.ui.FunctionsAnnotationModelFactory" extensions="functions">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.functions.resource.functions" name=".functions File" base-type="org.eclipse.core.runtime.text" file-extensions="functions">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="functions" id="org.emftext.language.functions.resource.functions.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.functions.resource.functions.ui.occurences">
+		</type>
+		<type name="org.emftext.language.functions.resource.functions.ui.occurences.declaration" super="org.emftext.language.functions.resource.functions.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.functions.resource.functions.ui.occurences" label="Occurrences (in .functions files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="functions.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="functions.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="functions.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="functions.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="functions.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="functions.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="functions.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="functions.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="functions.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.functions.resource.functions.ui.occurences.declaration" label="Declarations (in .functions files)" textPreferenceKey="functions.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="functions.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="functions.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="functions.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="functions.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="functions.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.language.functions.resource.functions.ui.launchConfigurationType" id="org.emftext.language.functions.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.language.functions.resource.functions.ui.launchConfigurationType" class="org.emftext.language.functions.resource.functions.ui.launch.FunctionsLaunchConfigurationTabGroup" id="org.emftext.language.functions.launchConfigurationTabGroup" helpContextId="org.emftext.language.functions.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug functions model.">
+			</launchMode>
+			<launchMode mode="run" description="Run functions model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="functions Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.language.functions.launch" modes="run,debug" class="org.emftext.language.functions.resource.functions.ui.launch.FunctionsLaunchShortcut" description="Launch a functions model" id="org.emftext.language.functions.launchShortcut">
+			<description description="Run functions model" mode="run">
+			</description>
+			<description description="Debug functions model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.language.functions.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.language.functions.resource.functions.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.language.functions.PropertyTester" type="java.lang.Object" namespace="org.emftext.language.functions" properties="isLaunchable" class="org.emftext.language.functions.resource.functions.ui.FunctionsPropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.functions.resource.functions.ui.debug.lineBreakpoint" markerType="org.emftext.language.functions.resource.functions.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.functions.resource.functions.ui.debug.lineBreakpoint" label="Breakpoints (in .functions files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.language.functions.resource.functions.ui.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.language.functions.resource.functions.ui.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.language.functions.resource.functions.ui.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.language.functions.resource.functions.ui.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.language.functions.resource.functions.ui.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.language.functions.resource.functions.ui.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.language.functions.resource.functions.ui.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.language.functions.resource.functions.ui.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.language.functions.resource.functions.ui.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.language.functions.resource.functions.ui.FunctionsEditor" class="org.emftext.language.functions.resource.functions.ui.debug.FunctionsAdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.functions.resource.functions.debug.FunctionsDebugVariable" class="org.emftext.language.functions.resource.functions.ui.debug.FunctionsAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.functions.resource.functions.debug.FunctionsDebugVariable" class="org.emftext.language.functions.resource.functions.ui.debug.FunctionsAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.language.functions.resource.functions.ui.RulerPopupActions" targetID="org.emftext.language.functions.resource.functions.EditorRuler">
+			<action id="org.emftext.language.functions.resource.functions.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.language.functions.resource.functions.ui.FunctionsEditor" id="org.emftext.language.functions.resource.functions.ui.BreakpointRulerActions">
+			<action id="org.emftext.language.functions.resource.functions.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.language.functions.resource.functions.debugModel" class="org.emftext.language.functions.resource.functions.ui.debug.FunctionsDebugModelPresentation">
+		</debugModelPresentation>
+	</extension>
+	
+</plugin>

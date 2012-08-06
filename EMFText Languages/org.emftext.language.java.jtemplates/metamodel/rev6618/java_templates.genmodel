@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.java_templates/src-gen" modelName="Java_templates" modelPluginID="org.emftext.language.java_templates" usedGenPackages="../../org.emftext.language.java/metamodel/java.genmodel#//java ../../org.emftext.language.template_concepts/metamodel/template_concepts.genmodel#//template_concepts ../../org.emftext.language.primitivetypes/metamodel/primitivetypes.genmodel#//primitivetypes platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore" xmi:version="2.0">
+  <foreignModel>java_templates.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="java_templates.ecore#/" prefix="Java_templates">
+    <genClasses ecoreClass="java_templates.ecore#//JavaTemplate">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference java_templates.ecore#//JavaTemplate/body" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//PhNamedElementName"/>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseAssignmentExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseAssignmentExpression/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseAssignmentExpression/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseUnaryExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseUnaryExpression/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseUnaryExpression/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfForLoop">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfForLoop/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseStatementContainer">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseStatementContainer/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseStatementContainer/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfParametrizable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfParametrizable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForParametrizable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForParametrizable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfMemberContainer">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfMemberContainer/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForMemberContainer">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForMemberContainer/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseUnaryModificationExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseUnaryModificationExpression/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseUnaryModificationExpression/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfExplicitConstructorCall">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfExplicitConstructorCall/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfConditionalExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfConditionalExpression/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseInstanceOfExpression">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseInstanceOfExpression/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseInstanceOfExpression/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfStatementListContainer">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfStatementListContainer/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForStatementListContainer">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForStatementListContainer/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfCondition">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfCondition/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseTypeReference">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseTypeReference/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseTypeReference/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElsePrimitiveTypeReference">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElsePrimitiveTypeReference/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElsePrimitiveTypeReference/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseAnnotationInstance">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseAnnotationInstance/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseAnnotationInstance/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference java_templates.ecore#//IfReference/body" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfTypeArgumentable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfTypeArgumentable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForTypeArgumentable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForTypeArgumentable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfModifiable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfModifiable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForModifiable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForModifiable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseSingleAnnotationParameter">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseSingleAnnotationParameter/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseSingleAnnotationParameter/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfImportingElement">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfImportingElement/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForImportingElement">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForImportingElement/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseMember">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseMember/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseMember/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfElseNamedElement">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseNamedElement/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfElseNamedElement/elseBody" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfAnnotableAndModifiable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfAnnotableAndModifiable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForAnnotableAndModifiable">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForAnnotableAndModifiable/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfAnnotationInstance">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfAnnotationInstance/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfArrayInitializer">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfArrayInitializer/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForArrayInitializer">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForArrayInitializer/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//IfSwitch">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//IfSwitch/body" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="java_templates.ecore#//ForSwitch">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference java_templates.ecore#//ForSwitch/body" property="None"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

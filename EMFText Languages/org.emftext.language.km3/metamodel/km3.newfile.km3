@@ -1,0 +1,16 @@
+
+package PackageName {
+	
+	datatype String;
+	
+	abstract class ClassName {
+		-- attribute definitions
+		attribute attributeName : String;
+		
+		-- reference definitions
+		reference referenceName[*] : ClassName;
+		
+		-- operation definitions
+		operation operationName() : String;
+	}  
+}

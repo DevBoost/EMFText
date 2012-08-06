@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<types:TypeLib xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:types="http://www.emftext.org/language/lwc11/types" xsi:schemaLocation="http://www.emftext.org/language/lwc11/types ../metamodel/types.ecore">
+  <types xsi:type="types:PrimitiveType" name="string"/>
+  <types xsi:type="types:PrimitiveType" name="date"/>
+  <types xsi:type="types:PrimitiveType" name="int"/>
+</types:TypeLib>

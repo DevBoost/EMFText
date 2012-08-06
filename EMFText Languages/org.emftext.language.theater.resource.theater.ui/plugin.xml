@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.theater.resource.theater.ui.TheaterUIMetaInformation" id="org.emftext.language.theater.resource.theater.ui.TheaterUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.theater.resource.theater.ui.TheaterEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="theater" icon="icons/editor_icon.gif" id="org.emftext.language.theater.resource.theater.ui.TheaterEditor" name="EMFText theater Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.theater.resource.theater">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.theater.resource.theater.ui.TheaterPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Theater Text Editor" id="org.emftext.language.theater.resource.theater.ui.TheaterPreferencePage" class="org.emftext.language.theater.resource.theater.ui.TheaterPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.theater.resource.theater.ui.TheaterSyntaxColoringPreferencePage" class="org.emftext.language.theater.resource.theater.ui.TheaterSyntaxColoringPreferencePage" category="org.emftext.language.theater.resource.theater.ui.TheaterPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.theater.resource.theater.ui.TheaterBracketPreferencePage" class="org.emftext.language.theater.resource.theater.ui.TheaterBracketPreferencePage" category="org.emftext.language.theater.resource.theater.ui.TheaterPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.theater.resource.theater.ui.TheaterNewFileWizard" id="org.emftext.language.theater.resource.theater.ui.TheaterNewFileWizard" name="EMFText .theater file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.theater.resource.theater.ui.TheaterMarkerResolutionGenerator" markerType="org.emftext.language.theater.resource.theater.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.theater.resource.theater.ui.TheaterAnnotationModelFactory" extensions="theater">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.theater.resource.theater" name=".theater File" base-type="org.eclipse.core.runtime.text" file-extensions="theater">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="theater" id="org.emftext.language.theater.resource.theater.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.theater.resource.theater.ui.occurences">
+		</type>
+		<type name="org.emftext.language.theater.resource.theater.ui.occurences.declaration" super="org.emftext.language.theater.resource.theater.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.theater.resource.theater.ui.occurences" label="Occurrences (in .theater files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="theater.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="theater.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="theater.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="theater.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="theater.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="theater.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="theater.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="theater.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="theater.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.theater.resource.theater.ui.occurences.declaration" label="Declarations (in .theater files)" textPreferenceKey="theater.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="theater.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="theater.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="theater.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="theater.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="theater.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

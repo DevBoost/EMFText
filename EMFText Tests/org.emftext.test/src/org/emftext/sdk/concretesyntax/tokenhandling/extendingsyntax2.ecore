@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="extendingsyntax2"
+    nsURI="http://www.emftext.org/test/extendingsyntax2" nsPrefix="extendingsyntax2">
+  <eClassifiers xsi:type="ecore:EClass" name="E2">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="b1" lowerBound="1" eType="ecore:EClass basesyntax1.ecore#//B1"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="b2" lowerBound="1" eType="ecore:EClass basesyntax2.ecore#//B2"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

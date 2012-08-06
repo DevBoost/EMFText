@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.km3/src-gen" modelName="KM3" modelPluginID="org.emftext.language.km3" xmi:version="2.0">
+  <foreignModel>KM3.ecore</foreignModel>
+  <genPackages basePackage="org.eclipse.gmt.am3.dsls" disposableProviderFactory="true" ecorePackage="KM3.ecore#a1" prefix="PrimitiveTypes">
+    <genDataTypes ecoreDataType="KM3.ecore#a2"/>
+    <genDataTypes ecoreDataType="KM3.ecore#a3"/>
+    <genDataTypes ecoreDataType="KM3.ecore#a4"/>
+  </genPackages>
+  <genPackages basePackage="org.eclipse.gmt.am3.dsls" disposableProviderFactory="true" ecorePackage="KM3.ecore#a5" prefix="KM3">
+    <genClasses ecoreClass="KM3.ecore#a6" image="false">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a7"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a8"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a9"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a10" image="false">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a11"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a12" notify="false" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a13"/>
+    <genClasses ecoreClass="KM3.ecore#a14"/>
+    <genClasses ecoreClass="KM3.ecore#a15">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference KM3.ecore#a16" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a17">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a18" notify="false" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a19">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a20"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a21" notify="false" propertySortChoices="true"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference KM3.ecore#a22" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference KM3.ecore#a23" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a24">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a25"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a26"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a27"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a28"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a29" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a30">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a31" notify="false" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a32" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a33" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a34"/>
+    <genClasses ecoreClass="KM3.ecore#a35">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KM3.ecore#a36"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a37" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a38">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a39" notify="false" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference KM3.ecore#a40" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a41">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a42" notify="false" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a43">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference KM3.ecore#a44" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference KM3.ecore#a45" notify="false" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="KM3.ecore#a46">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference KM3.ecore#a47" property="None"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

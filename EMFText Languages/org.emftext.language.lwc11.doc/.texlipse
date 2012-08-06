@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Wed Oct 27 15:10:42 CEST 2010
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=lwc2011emftext.tex
+outputFile=lwc2011emftext.pdf
+langSpell=en
+markDer=false
+srcDir=

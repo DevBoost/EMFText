@@ -1,0 +1,5 @@
+documentation for <platform:/resource/EcoreDoc/Test.ecore>
+
+// use path to named element in EPackage to assign comments
+A     : "Some documentation for class A"
+A.att : "Some documentation for attribute 'att' of class A"

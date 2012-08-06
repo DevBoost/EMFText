@@ -1,0 +1,21 @@
+class TreejavaExample {
+
+	public static class Node {
+		public Node() {
+		}
+        
+		public Node(String name, Node... nodes) {
+		}
+	}
+	
+	public static class Leaf extends Node {
+	}
+
+	public static void main(String[] args) {
+		Node myTree = #Node Root > (
+			#Leaf 
+			#Node Subnode > (#Leaf #Leaf)
+		) ;
+	}
+	
+}

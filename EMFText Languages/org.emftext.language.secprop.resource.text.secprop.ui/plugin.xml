@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropUIMetaInformation" id="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="secprop" icon="icons/editor_icon.gif" id="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropEditor" name="EMFText text.secprop Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.secprop.resource.text.secprop">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="TextSecprop Text Editor" id="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropPreferencePage" class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropSyntaxColoringPreferencePage" class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropSyntaxColoringPreferencePage" category="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropBracketPreferencePage" class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropBracketPreferencePage" category="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropNewFileWizard" id="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropNewFileWizard" name="EMFText .text.secprop file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropNewProjectWizard" id="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropNewProjectWizard" name="EMFText text.secprop project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropMarkerResolutionGenerator" markerType="org.emftext.language.secprop.resource.text.secprop.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.secprop.resource.text.secprop.ui.TextSecpropAnnotationModelFactory" extensions="secprop">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.secprop.resource.text.secprop" name=".secprop File" base-type="org.eclipse.core.runtime.text" file-extensions="secprop">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="secprop" id="org.emftext.language.secprop.resource.text.secprop.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.secprop.resource.text.secprop.ui.occurences">
+		</type>
+		<type name="org.emftext.language.secprop.resource.text.secprop.ui.occurences.declaration" super="org.emftext.language.secprop.resource.text.secprop.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.secprop.resource.text.secprop.ui.occurences" label="Occurrences (in .text.secprop files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="text.secprop.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="text.secprop.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="text.secprop.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="text.secprop.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="text.secprop.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="text.secprop.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="text.secprop.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="text.secprop.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="text.secprop.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.secprop.resource.text.secprop.ui.occurences.declaration" label="Declarations (in .text.secprop files)" textPreferenceKey="text.secprop.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="text.secprop.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="text.secprop.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="text.secprop.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="text.secprop.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="text.secprop.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

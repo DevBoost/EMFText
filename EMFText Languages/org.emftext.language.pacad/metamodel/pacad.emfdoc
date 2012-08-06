@@ -1,0 +1,33 @@
+documentation for <pacad.ecore>
+
+PointAndClickAdventure : "The root object for all adventures."
+
+// rooms and objects
+Room : "A room is a container for objects. It has a background image and an optional background sound."
+
+Object : "An object is something the player can interact with."
+
+InternalObject : "An object that does not have explicit graphics, but is rather already visible in the background of the room."
+
+// commands
+CommandType : "An enumeration of all available types of commands."
+CommandType.LookAt : "Use this command to look at object. Takes one argument."
+CommandType.Use : "Use this command to use objects. Takes one or two arguments."
+CommandType.Take : "Use this command to put an object in the inventory. Takes one argument."
+CommandType.TalkTo : "Use this command to talk to objects/people. Takes one argument."
+
+Command : "A concrete definition of a command that can be issued by the player."
+Command.actions : "The list of actions that need to be executed by the player issues this command."
+Command.subjects : "The objects that this command can be applied to. Depending on the type of this command, there can be one or two subjects."
+Command.type : "The type of this command."
+
+// actions
+Action : "An abstract superclass for all actions that can be executed when a player issues a command."
+Show : "Shows a given object."
+Show.subject : "The object to show."
+Hide : "Hides a given object."
+Hide.subject : "The object to hide."
+PlaySound : "Plays a given sound file."
+PlaySound.soundfile : "The file to play."
+ShowText : "Show a message."
+ShowText.speaker : "The speaker of the message---usually a person."

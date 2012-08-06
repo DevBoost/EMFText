@@ -1,0 +1,27 @@
+epackage pacad;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+ 
+eclass InternalObject {
+
+	getWidth() {
+		if (getDefinedWidth() <= 0 && getParent() != null && getParent() instanceof InternalObject) {
+			return ((InternalObject) getParent()).getWidth();
+		} else {
+			return getDefinedWidth();
+		}
+	}
+
+	getHeight() {
+		if (getDefinedHeight() <= 0 && getParent() != null && getParent() instanceof InternalObject) {
+			return ((InternalObject) getParent()).getHeight();
+		} else {
+			return getDefinedHeight();
+		}
+	}
+}

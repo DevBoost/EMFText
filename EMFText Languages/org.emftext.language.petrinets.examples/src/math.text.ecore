@@ -1,0 +1,15 @@
+package math // this is the package name 
+        math // this is the namespace prefix
+        "http://org.emftext/languages/math.ecore" // the namespace URI 
+	{
+
+	class Expression extends Element {
+		attribute EString operator (1..1);
+		containment reference Element elements (1..-1);
+	}
+	
+	class Element {
+		attribute EInt value (1..1);
+	}
+	
+}

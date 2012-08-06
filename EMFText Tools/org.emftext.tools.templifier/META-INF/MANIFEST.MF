@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Templifier
+Bundle-SymbolicName: org.emftext.tools.templifier
+Bundle-Version: 1.0.0
+Export-Package: org.emftext.tools.templifier
+Require-Bundle: org.eclipse.emf,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.emftext.language.java,
+ org.emftext.language.templateconcepts,
+ org.emftext.sdk.concretesyntax,
+ org.emftext.sdk.concretesyntax.resource.cs,
+ org.eclipse.emf.codegen.ecore,
+ org.emftext.sdk.concretesyntax.resource.cs.post_processing
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

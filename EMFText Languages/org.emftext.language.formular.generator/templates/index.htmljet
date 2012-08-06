@@ -1,0 +1,24 @@
+<%@ jet package="generator.html"
+
+class="IPhoneIndexGenerator" skeleton="generator.skeleton" imports ="java.util.Iterator org.eclipse.emf.common.util.EList org.emftext.language.formular.*;"
+
+%>
+
+<% Formular formular = (Formular) argument; %>
+
+<html>
+<body style="background-color:#222222;">
+<table align="center" border="0" style="background-image:url(./iphone.png);">
+	<tr height="143px"/><td width="28px"/><td width="318px"/><td width="45px"/></tr>
+	<tr height="467px"><td/><td>
+	<% 
+            String filename = formular.eResource().getURI().lastSegment();
+			filename = filename.substring(0, filename.length() - formular.eResource().getURI().fileExtension().length()); 
+	%>
+	<iframe src="./<%=filename%>html" width="100%" height="100%">
+	</iframe>
+	</td><td/></tr>
+	<tr height="120px"><td/><td/><td/></tr>
+</table>
+</body> 
+</html>

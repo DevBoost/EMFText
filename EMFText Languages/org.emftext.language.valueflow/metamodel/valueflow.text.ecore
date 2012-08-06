@@ -1,0 +1,37 @@
+@"gmf"
+package valueflow  valueflow "http://www.emftext.org/language/valueflow"  { 
+
+	@"gmf.node"("label"="name")
+	abstract class NamedElement {
+			attribute EString name (1..1);
+	}
+
+	@"gmf.diagram"
+	class Model extends NamedElement {
+		containment reference Agent agents (0..-1);
+	}
+	
+	class Agent extends NamedElement {
+		@"gmf.compartment"
+		containment reference State states (0..-1);
+	}
+	
+	abstract class State extends NamedElement {
+		@"gmf.link"("target.decoration"="arrow","width"="2")
+		reference State nextState opposite previousState;
+		reference State previousState opposite nextState;
+	}
+	
+
+	class GiveState extends State {
+		attribute EString value (1..1);
+		attribute EString ID (0..1);
+		@"gmf.link"("target.decoration"="filledclosedarrow","width"="4")
+		reference TakeState giveTo (1..1) opposite takeFrom;
+	}
+	
+	class TakeState extends State {
+		reference GiveState takeFrom (1..1) opposite giveTo;
+	}
+
+} 

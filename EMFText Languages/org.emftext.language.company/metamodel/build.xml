@@ -1,0 +1,38 @@
+<project name="Generation" default="EMF Semantic">
+	<path id="_basedir">
+		<pathelement location="."/>
+	</path>
+	<property name="_basedir" refid="_basedir"/>	
+		<target name="Generate AST Spec">
+		<echo message="========================> Generate AST Spec &lt;======================="/>
+		<jastemf.ecore2ast
+			modelFile="${_basedir}/company.text.ecore"
+			outputDirectory="${_basedir}">
+		</jastemf.ecore2ast>
+	</target>
+	
+	<target name="Generate initial Jrag Spec">
+		<echo message="========================> Generate Jrag Spec &lt;======================="/>
+		<jastemf.ecore2jrag
+			modelFile="${_basedir}/company.text.ecore"
+			outputDirectory="${_basedir}">
+		</jastemf.ecore2jrag>
+	</target>
+	
+	<target
+		name="EMF Semantic">
+		<echo message="========================> Generate EMF Semantic &lt;======================="/>
+		<jastemf
+			generateeditcode="true"
+			genmodel="${_basedir}/company.genmodel"
+			outpackage="jastemf.adaptation"
+			astpackage="org.emftext.language.company.ast">
+			<fileset dir="${_basedir}">
+				<include name="**/*.ast"/>
+				<include name="**/*.jrag"/>
+				<include name="**/*.jadd"/>
+			</fileset>
+		</jastemf>
+	</target>
+
+</project>

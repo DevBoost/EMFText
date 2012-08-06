@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:blockclassbase="http://www.emftext.org/language/rolecore/blockclassbase" xmlns:classdomain="http://www.emftext.org/language/rolecore/classdomain" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="classDomain">
+  <eObjects xsi:type="classdomain:ClassDiagramCore" roles="//@eObjects.3 //@eObjects.24"/>
+  <eObjects xsi:type="classdomain:ClassCore">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene05blockclassbase.xmi#//@eObjects.3"/>
+    <roles xsi:type="blockclassbase:ModelelementStereotypeRole" href="./input/Scene05blockclassbase.xmi#//@eObjects.6"/>
+    <roles xsi:type="classdomain:ClassRolesRole" href="./input/Scene05classDomain.xmi#//@eObjects.10"/>
+  </eObjects>
+  <eObjects xsi:type="classdomain:StereotypeCore">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene03blockclassbase.xmi#//@eObjects.4"/>
+    <roles xsi:type="blockclassbase:Name" href="./input/Scene05blockclassbase.xmi#//@eObjects.5"/>
+  </eObjects>
+  <eObjects xsi:type="classdomain:ClassdiagramElementsRole" core="//@eObjects.0" elements="//@eObjects.1"/>
+  <eObjects xsi:type="classdomain:Adornment" core="//@eObjects.13" adornment="COMPOSITION"/>
+  <eObjects xsi:type="classdomain:CardString" core="//@eObjects.19" cardString="1..1"/>
+  <eObjects xsi:type="classdomain:AssociationSourceRole" core="//@eObjects.25" source="//@eObjects.13"/>
+  <eObjects xsi:type="classdomain:CardinalityCardRole" core="//@eObjects.19" card="//@eObjects.13"/>
+  <eObjects xsi:type="classdomain:CRoleCore" roles="//@eObjects.22 //@eObjects.20 //@eObjects.26 //@eObjects.14"/>
+  <eObjects xsi:type="classdomain:ClassCore">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene05blockclassbase.xmi#//@eObjects.13"/>
+  </eObjects>
+  <eObjects xsi:type="classdomain:ClassRolesRole" core="//@eObjects.1" roles="//@eObjects.13"/>
+  <eObjects xsi:type="classdomain:CardinalityCore" roles="//@eObjects.18 //@eObjects.15"/>
+  <eObjects xsi:type="classdomain:StereotypeCore">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene05blockclassbase.xmi#//@eObjects.7"/>
+  </eObjects>
+  <eObjects xsi:type="classdomain:CRoleCore" roles="//@eObjects.17 //@eObjects.16 //@eObjects.23 //@eObjects.4"/>
+  <eObjects xsi:type="classdomain:Adornment" core="//@eObjects.8" adornment="ASSOCIATION"/>
+  <eObjects xsi:type="classdomain:CardString" core="//@eObjects.11" cardString="1..1"/>
+  <eObjects xsi:type="classdomain:CroleSourceRole" core="//@eObjects.13" source="//@eObjects.25"/>
+  <eObjects xsi:type="classdomain:CroleClassRole" core="//@eObjects.13" class="//@eObjects.1"/>
+  <eObjects xsi:type="classdomain:CardinalityCardRole" core="//@eObjects.11" card="//@eObjects.8"/>
+  <eObjects xsi:type="classdomain:CardinalityCore" roles="//@eObjects.7 //@eObjects.5"/>
+  <eObjects xsi:type="classdomain:CroleTargetRole" core="//@eObjects.8" target="//@eObjects.25"/>
+  <eObjects xsi:type="classdomain:AssociationTargetRole" core="//@eObjects.25" target="//@eObjects.8"/>
+  <eObjects xsi:type="classdomain:CroleClassRole" core="//@eObjects.8" class="//@eObjects.9"/>
+  <eObjects xsi:type="classdomain:CroleCardRole" core="//@eObjects.13" card="//@eObjects.19"/>
+  <eObjects xsi:type="classdomain:ClassdiagramElementsRole" core="//@eObjects.0" elements="//@eObjects.9"/>
+  <eObjects xsi:type="classdomain:AssociationCore" roles="//@eObjects.6 //@eObjects.21">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene05blockclassbase.xmi#//@eObjects.10"/>
+  </eObjects>
+  <eObjects xsi:type="classdomain:CroleCardRole" core="//@eObjects.8" card="//@eObjects.11"/>
+</interpreter:DomainRoot>

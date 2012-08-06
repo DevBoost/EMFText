@@ -1,0 +1,17 @@
+class AFJClass extends Object { 
+
+	Object fieldA;
+	
+	AFJClass(Object p1) {
+		super();
+		this.fieldA = p1;
+	}
+	
+	AFJClass methodA() {
+		return new AFJClass();
+	}
+	
+	AFJClass methodB() {
+		return methodA();
+	}
+} 

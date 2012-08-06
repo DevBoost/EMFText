@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/annotations"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.annotations.AnnotationsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/arrays"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.arrays.ArraysPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/classifiers"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.classifiers.ClassifiersPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/commons"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.commons.CommonsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/containers"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.containers.ContainersPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/expressions"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.expressions.ExpressionsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/generics"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.generics.GenericsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/imports"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.imports.ImportsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/instantiations"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.instantiations.InstantiationsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/literals"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.literals.LiteralsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/members"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.members.MembersPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/modifiers"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.modifiers.ModifiersPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/operators"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.operators.OperatorsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/parameters"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.parameters.ParametersPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/references"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.references.ReferencesPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/statements"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.statements.StatementsPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/types"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.types.TypesPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/variables"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.variables.VariablesPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/simTL4J/xframes"
+            class="sg.edu.nus.comp.simTL.language.java.simTL4J.xframes.XframesPackage"
+            genModel="metamodel/simTL4J.genmodel"/>
+   </extension>
+
+</plugin>

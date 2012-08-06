@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Physical
+Bundle-SymbolicName: org.emftext.language.filesystem.resource.physical;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.emf,
+ org.eclipse.emf.ecore,
+ org.emftext.language.filesystem
+Export-Package: org.emftext.language.filesystem.resource.physical

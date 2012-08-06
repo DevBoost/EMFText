@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="OSGi"
+    nsURI="http://www.eclipse.org/gmt/am3/2009/OSGi" nsPrefix="OSGi">
+  <eClassifiers xsi:type="ecore:EClass" name="Bundle" eSuperTypes="./Platform.ecore#//Tool">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="registeredServices" upperBound="-1"
+        eType="#//OSGiService" containment="true" eOpposite="#//OSGiService/bundle"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" lowerBound="1" eType="#//State"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="servicesinUse" upperBound="-1"
+        eType="#//OSGiService"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbolicName" lowerBound="1"
+        eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="vendor" eType="#//Vendor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exports" upperBound="-1"
+        eType="#//Package"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="#//Package"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OSGiService" eSuperTypes="./Platform.ecore#//Service">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="using" upperBound="-1"
+        eType="#//Bundle"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bundle" lowerBound="1"
+        eType="#//Bundle" eOpposite="#//Bundle/registeredServices"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="State">
+    <eLiterals name="uninstalled"/>
+    <eLiterals name="installed" value="1"/>
+    <eLiterals name="resolved" value="2"/>
+    <eLiterals name="starting" value="3"/>
+    <eLiterals name="active" value="4"/>
+    <eLiterals name="stopping" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="URLLocator" eSuperTypes="./AM3Core.ecore#/0/Locator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Vendor" eSuperTypes="./AM3Core.ecore#/0/IdentifiedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Package" eSuperTypes="./Platform.ecore#//Tool">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbolicName" lowerBound="1"
+        eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+  </eClassifiers>
+</ecore:EPackage>

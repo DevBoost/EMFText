@@ -1,0 +1,13 @@
+epackage eag;
+
+eclass AttributeGrammar {
+	
+	getAttribute() {
+		for (Attribute attribute : getAttributes()) {
+			if (name.equals(attribute.getName())) {
+				return attribute;
+			}
+		}
+		return null;
+	}
+}

@@ -1,0 +1,20 @@
+CONFERENCE "International FooBar Camp" ("Peter Meyers")
+
+TRACK "Interesting Stuff" :
+	AT 09:00 : TALK "The future of Foo" PRESENTED BY "Andrew Bloomfield"
+	AT 11:00 : TALK "What you always wanted to know about Bar" PRESENTED BY "Peter Meyers"
+	AT 14:00 : TALK "Is there more than Foo and Bar?" PRESENTED BY "Andrew Bloomfield" 
+
+AT 12:30 LUNCH 
+
+TRACK "Less Interesting Stuff" :
+	AT 09:00 : TALK "Foo vs. F00" PRESENTED BY "Andrew Bloomfield"
+	AT 11:00 : TALK "Onyl Bar-S is true" PRESENTED BY "Homer Simpson"
+	AT 14:00 : TALK "This is now not Foo" PRESENTED BY "F. Barfoes" 
+
+REGISTERED SPEAKERS : 
+	"Peter Meyers" FROM Germany,
+	"Andrew Bloomfield" FROM USA,
+	"Homer Simpson" FROM USA,
+	"The guy who wasn't there" FROM Hawai,
+	"F. Barfoes" FROM Boovaria

@@ -1,0 +1,60 @@
+[comment encoding = UTF-8 /]
+[module generate('http://www.emftext.org/language/webtest')/]
+
+[template public generate(t : TestScript)]
+	
+	[comment @main /]
+	[file ('TestScript.java', false, 'UTF-8')]
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
+
+public class TestScript {
+
+	private WebClient client = new WebClient();
+   	private HtmlPage currentPage;
+
+	@Test
+	public void testWebsite() throws Exception {
+		[for (command : Command | t.commands)]
+			[if (command.oclIsTypeOf(Load))]
+				currentPage = client.getPage("[ command.oclAsType(Load).url /]");
+			[/if]
+			[if (command.oclIsTypeOf(AssertTitle))]
+			{
+				String actualTitle = currentPage.getTitleText();
+				Assert.assertEquals("Wrong title.", "[ command.oclAsType(AssertTitle).expected /]", actualTitle);
+			}
+			[/if]
+			[if (command.oclIsTypeOf(Submit))]
+			{
+				String formName = "[ command.oclAsType(Submit).form /]";
+				HtmlForm form = (HtmlForm) currentPage.getElementById(formName);
+				HtmlInput submitButton = form.getInputByName("[ command.oclAsType(Submit).button /]");
+				try {
+					currentPage = (HtmlPage) submitButton.click();
+				} catch (IOException e) {
+					Assert.fail(e.getMessage());
+				}
+			}
+			[/if]
+			[if (command.oclIsTypeOf(Input))]
+			{
+				String formName = "[ command.oclAsType(Input).form /]";
+				HtmlForm form = (HtmlForm) currentPage.getElementById(formName);
+				HtmlInput field = form.getInputByName("[ command.oclAsType(Input).field /]");
+				field.setValueAttribute("[ command.oclAsType(Input).value /]");
+			}
+			[/if]
+		[/for]
+	}	
+}
+	[/file]
+	
+[/template]

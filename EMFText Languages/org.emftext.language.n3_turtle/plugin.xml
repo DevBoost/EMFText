@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://emftext.org/n3_turtle"
+            class="org.emftext.language.n3_turtle.N3Package"
+            genModel="metamodel/n3_turtle.genmodel"/>
+   </extension>
+
+</plugin>

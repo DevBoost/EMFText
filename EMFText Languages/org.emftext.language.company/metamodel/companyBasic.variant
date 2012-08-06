@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<feature:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:feature="http://www.tudresden.de/feature">
+  <root minCardinality="1" maxCardinality="1" name="Company">
+    <groups>
+      <childFeatures maxCardinality="10" name="Capabilities">
+        <groups maxCardinality="10">
+          <childFeatures maxCardinality="1" name="Parsing">
+            <groups maxCardinality="1">
+              <childFeatures maxCardinality="1" name="EMFText Parsing"/>
+            </groups>
+          </childFeatures>
+        </groups>
+      </childFeatures>
+      <childFeatures minCardinality="1" maxCardinality="3" name="Basics">
+        <groups minCardinality="1" maxCardinality="1">
+          <childFeatures minCardinality="1" maxCardinality="1" name="CompanyModel">
+            <groups minCardinality="1" maxCardinality="1">
+              <childFeatures maxCardinality="1" name="EMF"/>
+            </groups>
+          </childFeatures>
+        </groups>
+        <groups minCardinality="1" maxCardinality="2">
+          <childFeatures minCardinality="1" maxCardinality="2" name="Fuctionalities">
+            <groups minCardinality="1" maxCardinality="2">
+              <childFeatures maxCardinality="1" name="Cut"/>
+            </groups>
+          </childFeatures>
+        </groups>
+      </childFeatures>
+      <childFeatures maxCardinality="3" name="Extras">
+        <groups maxCardinality="3">
+          <childFeatures maxCardinality="1" name="Mentoring">
+            <groups maxCardinality="1">
+              <childFeatures maxCardinality="1" name="EMFText Mentoring"/>
+            </groups>
+          </childFeatures>
+        </groups>
+      </childFeatures>
+    </groups>
+  </root>
+  <constrainingFeatureModel href="company.feature#/"/>
+</feature:FeatureModel>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreUIMetaInformation" id="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="ecore" icon="icons/editor_icon.gif" id="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreEditor" name="EMFText facade.ecore Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.ecore.resource.facade">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.ecore.resource.facade.ui.FacadeEcorePreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="FacadeEcore Text Editor" id="org.emftext.language.ecore.resource.facade.ui.FacadeEcorePreferencePage" class="org.emftext.language.ecore.resource.facade.ui.FacadeEcorePreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreSyntaxColoringPreferencePage" class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreSyntaxColoringPreferencePage" category="org.emftext.language.ecore.resource.facade.ui.FacadeEcorePreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreBracketPreferencePage" class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreBracketPreferencePage" category="org.emftext.language.ecore.resource.facade.ui.FacadeEcorePreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreNewFileWizard" id="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreNewFileWizard" name="EMFText .facade.ecore file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreNewProjectWizard" id="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreNewProjectWizard" name="EMFText facade.ecore project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreMarkerResolutionGenerator" markerType="org.emftext.language.ecore.resource.facade.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.ecore.resource.facade.ui.FacadeEcoreAnnotationModelFactory" extensions="ecore">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.ecore.resource.facade" name=".ecore File" base-type="org.eclipse.core.runtime.text" file-extensions="ecore">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="ecore" id="org.emftext.language.ecore.resource.facade.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.ecore.resource.facade.ui.occurences">
+		</type>
+		<type name="org.emftext.language.ecore.resource.facade.ui.occurences.declaration" super="org.emftext.language.ecore.resource.facade.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.ecore.resource.facade.ui.occurences" label="Occurrences (in .facade.ecore files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="facade.ecore.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="facade.ecore.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="facade.ecore.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="facade.ecore.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="facade.ecore.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="facade.ecore.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="facade.ecore.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="facade.ecore.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="facade.ecore.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.ecore.resource.facade.ui.occurences.declaration" label="Declarations (in .facade.ecore files)" textPreferenceKey="facade.ecore.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="facade.ecore.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="facade.ecore.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="facade.ecore.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="facade.ecore.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="facade.ecore.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

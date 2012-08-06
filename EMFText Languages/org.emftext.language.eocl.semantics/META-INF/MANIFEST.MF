@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eocl Semantics Plug-in
+Bundle-SymbolicName: org.emftext.language.eocl.semantics;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.emftext.language.eocl;visibility:=reexport,
+ scala.library,
+ org.kiama.attribution,
+ org.eclipse.emf.ecore,
+ tudresden.ocl20.pivot.language.ocl.semantics
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: www.langems.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.eocl.semantics

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyUIMetaInformation" id="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="formsfamily" icon="icons/editor_icon.gif" id="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyEditor" name="EMFText formsfamily Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.formsfamily.resource.formsfamily">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Formsfamily Text Editor" id="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyPreferencePage" class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilySyntaxColoringPreferencePage" class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilySyntaxColoringPreferencePage" category="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyBracketPreferencePage" class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyBracketPreferencePage" category="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyNewFileWizard" id="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyNewFileWizard" name="EMFText .formsfamily file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyMarkerResolutionGenerator" markerType="org.emftext.language.formsfamily.resource.formsfamily.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.formsfamily.resource.formsfamily.ui.FormsfamilyAnnotationModelFactory" extensions="formsfamily">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.formsfamily.resource.formsfamily" name=".formsfamily File" base-type="org.eclipse.core.runtime.text" file-extensions="formsfamily">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="formsfamily" id="org.emftext.language.formsfamily.resource.formsfamily.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.formsfamily.resource.formsfamily.ui.occurences">
+		</type>
+		<type name="org.emftext.language.formsfamily.resource.formsfamily.ui.occurences.declaration" super="org.emftext.language.formsfamily.resource.formsfamily.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.formsfamily.resource.formsfamily.ui.occurences" label="Occurrences (in .formsfamily files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="formsfamily.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="formsfamily.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="formsfamily.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="formsfamily.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="formsfamily.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="formsfamily.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="formsfamily.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="formsfamily.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="formsfamily.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.formsfamily.resource.formsfamily.ui.occurences.declaration" label="Declarations (in .formsfamily files)" textPreferenceKey="formsfamily.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="formsfamily.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="formsfamily.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="formsfamily.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="formsfamily.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="formsfamily.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:blockdomain="http://www.emftext.org/language/rolecore/blockdomain" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="blockDomain">
+  <eObjects xsi:type="blockdomain:BlockDiagramCore"/>
+</interpreter:DomainRoot>

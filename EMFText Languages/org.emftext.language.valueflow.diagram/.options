@@ -1,0 +1,7 @@
+# Tracing options for the org.emftext.language.valueflow.diagram plug-in
+
+# Common issues
+org.emftext.language.valueflow.diagram/debug=false
+
+# Visual IDs
+org.emftext.language.valueflow.diagram/debug/visualID=false

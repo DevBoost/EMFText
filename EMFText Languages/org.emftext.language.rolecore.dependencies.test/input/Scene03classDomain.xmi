@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:blockclassbase="http://www.emftext.org/language/rolecore/blockclassbase" xmlns:classdomain="http://www.emftext.org/language/rolecore/classdomain" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="classDomain">
+  <eObjects xsi:type="classdomain:ClassDiagramCore" roles="//@eObjects.3"/>
+  <eObjects xsi:type="classdomain:ClassCore">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene03blockclassbase.xmi#//@eObjects.3"/>
+    <roles xsi:type="blockclassbase:ModelelementStereotypeRole" href="./input/Scene03blockclassbase.xmi#//@eObjects.6"/>
+  </eObjects>
+  <eObjects xsi:type="classdomain:StereotypeCore">
+    <core xsi:type="blockclassbase:ModelElementCore" href="./input/Scene03blockclassbase.xmi#//@eObjects.4"/>
+    <roles xsi:type="blockclassbase:Name" href="./input/Scene03blockclassbase.xmi#//@eObjects.5"/>
+  </eObjects>
+  <eObjects xsi:type="classdomain:ClassdiagramElementsRole" core="//@eObjects.0" elements="//@eObjects.1"/>
+</interpreter:DomainRoot>

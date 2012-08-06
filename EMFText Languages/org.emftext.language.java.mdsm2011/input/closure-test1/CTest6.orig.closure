@@ -1,0 +1,17 @@
+package test1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CTest1 {
+
+	public void m() {
+		Runnable r = new Runnable() {
+			
+			public void run(String name, int x) {
+				System.out.println("Hello Closure with multiple parameters " + name + ", " + x);
+			}
+		};
+		r.run();
+	}
+}

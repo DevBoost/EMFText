@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-132 ("Apple Computer, Inc.")
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText SDK ANTLR Support
+Bundle-SymbolicName: org.emftext.sdk.antlr; singleton:=true
+Bundle-Version: 1.2.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Export-Package: antlr,antlr.ASdebug,antlr.actions.cpp,antlr.actions.cs
+ harp,antlr.actions.java,antlr.actions.python,antlr.build,antlr.collec
+ tions,antlr.collections.impl,antlr.debug,antlr.debug.misc,antlr.prepr
+ ocessor,org.antlr,org.antlr.analysis,org.antlr.codegen,org.antlr.guni
+ t,org.antlr.misc,org.antlr.runtime,org.antlr.runtime.debug,org.antlr.
+ runtime.misc,org.antlr.runtime.tree,org.antlr.stringtemplate,org.antl
+ r.stringtemplate.language,org.antlr.stringtemplate.misc,org.antlr.too
+ l,org.emftext.sdk.antlr
+Require-Bundle: org.eclipse.core.runtime
+Bundle-Activator: org.emftext.sdk.antlr.EMFTextSDKAntlrPlugin
+Bundle-ActivationPolicy: lazy
+

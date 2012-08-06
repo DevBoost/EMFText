@@ -1,0 +1,18 @@
+RCPackage riehle97 riehle97 "http://www.emftext.org/language/rolecore/riehle97" 
+Imports { 
+		prefix: base <riehle97base.rolecore>
+}{
+	CoreClass Credit {
+		reference type:SecurityObject securityObject (1..1);
+	}
+	CoreClass Borrower extends base.Customer {
+		containment reference type:Credit credits (0..-1); 
+		containment reference type:SecurityObject securityObject (1..1);
+		operation Credit getCredits();
+		operation SecurityObject getSecurityObject();
+	}
+	CoreClass SecurityObject {}
+	
+	Role Private is played by Borrower {}
+	Role Business is played by Borrower {}
+}

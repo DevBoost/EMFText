@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Cartography"
+    nsURI="http://www.eclipse.org/gmt/am3/2009/EclipseCartography" nsPrefix="Cartography">
+  <eClassifiers xsi:type="ecore:EClass" name="Cartography" eSuperTypes="./AM3Core.ecore#/0/Megamodel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="models" upperBound="-1"
+        eType="ecore:EClass ./GlobalModelManagement.ecore#//Model"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="ecore:EClass ./EquinoxP2.ecore#//Feature"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

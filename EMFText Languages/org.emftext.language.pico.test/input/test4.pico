@@ -1,0 +1,8 @@
+begin 
+	declare 
+		var1 : natural;
+	var1 := 5;
+	while var1 < 10 do
+		var1 := var1 + 3
+	od
+end

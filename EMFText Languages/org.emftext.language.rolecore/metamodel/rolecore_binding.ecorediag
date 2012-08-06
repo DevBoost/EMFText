@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_uOFQMe2YEd-wxuzIjK3bMA" type="EcoreTools" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_uOWV8O2YEd-wxuzIjK3bMA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_uOYLIO2YEd-wxuzIjK3bMA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_uOYyMO2YEd-wxuzIjK3bMA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_uOanYO2YEd-wxuzIjK3bMA" visible="false" type="2001">
+        <element xmi:type="ecore:EAttribute" href="rolecore.ecore#//RoleType/lowerBound"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_uOanYe2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_uObOcO2YEd-wxuzIjK3bMA" visible="false" type="2001">
+        <element xmi:type="ecore:EAttribute" href="rolecore.ecore#//RoleType/upperBound"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_uObOce2YEd-wxuzIjK3bMA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_uOYyMe2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_uOYyMu2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_uOYyM-2YEd-wxuzIjK3bMA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_uOZZQO2YEd-wxuzIjK3bMA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_uOZZQe2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_uOZZQu2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_uOZZQ-2YEd-wxuzIjK3bMA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_uOWV8e2YEd-wxuzIjK3bMA" fontName="Segoe UI" fontHeight="10" lineColor="0"/>
+    <element xmi:type="ecore:EClass" href="rolecore.ecore#//RoleType"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uOWV8u2YEd-wxuzIjK3bMA" x="105" y="55"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_uOijMu2YEd-wxuzIjK3bMA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_uOjKQO2YEd-wxuzIjK3bMA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_uOjKQe2YEd-wxuzIjK3bMA" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_uOjKQu2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_uOjKQ-2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_uOjKRO2YEd-wxuzIjK3bMA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_uOjKRe2YEd-wxuzIjK3bMA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_uOjKRu2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_uOjxUO2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_uOjxUe2YEd-wxuzIjK3bMA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_uOijM-2YEd-wxuzIjK3bMA" fontName="Segoe UI" fontHeight="10" lineColor="0"/>
+    <element xmi:type="ecore:EClass" href="rolecore.ecore#//RoleBinding"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uOijNO2YEd-wxuzIjK3bMA" x="260" y="55"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_9B_wcO2YEd-wxuzIjK3bMA" type="1001">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9DMqUO2YEd-wxuzIjK3bMA" source="Shortcut">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9DNRYO2YEd-wxuzIjK3bMA" key="modelID" value="EcoreTools"/>
+    </eAnnotations>
+    <children xmi:type="notation:Node" xmi:id="_9CHsQO2YEd-wxuzIjK3bMA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_9CHsQe2YEd-wxuzIjK3bMA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_9CNL0O2YEd-wxuzIjK3bMA" visible="false" type="2001">
+        <element xmi:type="ecore:EAttribute" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/abstract"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CNL0e2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CNy4O2YEd-wxuzIjK3bMA" visible="false" type="2001">
+        <element xmi:type="ecore:EAttribute" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/interface"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CNy4e2YEd-wxuzIjK3bMA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_9CHsQu2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_9CHsQ-2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_9CHsRO2YEd-wxuzIjK3bMA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_9CITUO2YEd-wxuzIjK3bMA" type="5002">
+      <children xmi:type="notation:Node" xmi:id="_9CRdQO2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/isSuperTypeOf"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CRdQe2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CRdQu2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getFeatureCount"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CSEUO2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CSEUe2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getEStructuralFeature"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CSEUu2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CSrYO2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getFeatureID"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CSrYe2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CSrYu2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getEStructuralFeature.1"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CSrY-2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CTScO2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getOperationCount"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CTSce2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CT5gO2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getEOperation"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CT5ge2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CT5gu2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getOperationID"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CT5g-2YEd-wxuzIjK3bMA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_9CUgkO2YEd-wxuzIjK3bMA" visible="false" type="2002">
+        <element xmi:type="ecore:EOperation" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/getOverride"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9CUgke2YEd-wxuzIjK3bMA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_9CITUe2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_9CITUu2YEd-wxuzIjK3bMA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_9CITU-2YEd-wxuzIjK3bMA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_9B_wce2YEd-wxuzIjK3bMA" fontName="Segoe UI" fontHeight="10" lineColor="0"/>
+    <element xmi:type="ecore:EClass" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9B_wcu2YEd-wxuzIjK3bMA" x="430" y="45"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_uOFQMu2YEd-wxuzIjK3bMA"/>
+  <element xmi:type="ecore:EPackage" href="rolecore.ecore#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_uOrtIO2YEd-wxuzIjK3bMA" type="3002" source="_uOijMu2YEd-wxuzIjK3bMA" target="_uOWV8O2YEd-wxuzIjK3bMA">
+    <children xmi:type="notation:Node" xmi:id="_uOrtJO2YEd-wxuzIjK3bMA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uOrtJe2YEd-wxuzIjK3bMA" x="-13" y="-9"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_uOrtJu2YEd-wxuzIjK3bMA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uOrtJ-2YEd-wxuzIjK3bMA" x="-6" y="11"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_uOrtIe2YEd-wxuzIjK3bMA" lineColor="0"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_uOrtIu2YEd-wxuzIjK3bMA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="rolecore.ecore#//RoleBinding/role"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_uOrtI-2YEd-wxuzIjK3bMA" points="[0, 0, 0, 60]$[0, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_uQ4skO2YEd-wxuzIjK3bMA" id="(0.029411764705882353,0.4883720930232558)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_uQ5ToO2YEd-wxuzIjK3bMA" id="(0.8333333333333334,0.46511627906976744)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_9Crs8O2YEd-wxuzIjK3bMA" visible="false" type="3002" source="_9B_wcO2YEd-wxuzIjK3bMA" target="_9B_wcO2YEd-wxuzIjK3bMA">
+    <children xmi:type="notation:Node" xmi:id="_9CsUAO2YEd-wxuzIjK3bMA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_9CsUAe2YEd-wxuzIjK3bMA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_9CsUAu2YEd-wxuzIjK3bMA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_9CsUA-2YEd-wxuzIjK3bMA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_9Crs8e2YEd-wxuzIjK3bMA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_9Crs8u2YEd-wxuzIjK3bMA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eSuperTypes"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9Crs8-2YEd-wxuzIjK3bMA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_9CtiIO2YEd-wxuzIjK3bMA" visible="false" type="3002" source="_9B_wcO2YEd-wxuzIjK3bMA" target="_9B_wcO2YEd-wxuzIjK3bMA">
+    <children xmi:type="notation:Node" xmi:id="_9CuJMO2YEd-wxuzIjK3bMA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_9CuJMe2YEd-wxuzIjK3bMA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_9CuJMu2YEd-wxuzIjK3bMA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_9CuJM-2YEd-wxuzIjK3bMA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_9CtiIe2YEd-wxuzIjK3bMA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_9CtiIu2YEd-wxuzIjK3bMA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eAllSuperTypes"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9CtiI-2YEd-wxuzIjK3bMA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_9CvXUO2YEd-wxuzIjK3bMA" type="3002" source="_uOijMu2YEd-wxuzIjK3bMA" target="_9B_wcO2YEd-wxuzIjK3bMA">
+    <children xmi:type="notation:Node" xmi:id="_9Cv-YO2YEd-wxuzIjK3bMA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_9Cv-Ye2YEd-wxuzIjK3bMA" x="-17" y="-11"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_9Cv-Yu2YEd-wxuzIjK3bMA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_9Cv-Y-2YEd-wxuzIjK3bMA" x="-1" y="9"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_9CvXUe2YEd-wxuzIjK3bMA" lineColor="0"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_9CvXUu2YEd-wxuzIjK3bMA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="rolecore.ecore#//RoleBinding/player"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9CvXU-2YEd-wxuzIjK3bMA" points="[-10, -20, 58, 129]$[-68, -148, 0, 1]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_9CxzkO2YEd-wxuzIjK3bMA" visible="false" type="3003" source="_uOWV8O2YEd-wxuzIjK3bMA" target="_9B_wcO2YEd-wxuzIjK3bMA">
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_9Cxzke2YEd-wxuzIjK3bMA" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_9Cxzku2YEd-wxuzIjK3bMA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9Cxzk-2YEd-wxuzIjK3bMA" points="[-67, -34, 1, 0]$[-67, -34, 1, 0]"/>
+  </edges>
+</notation:Diagram>

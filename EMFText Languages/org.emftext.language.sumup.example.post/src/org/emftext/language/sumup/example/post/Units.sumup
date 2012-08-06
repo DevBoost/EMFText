@@ -1,0 +1,15 @@
+unit t : 1000 kg.
+unit kg : 1000 g.
+unit g.
+
+unit m : 1000 mm.
+unit cm : 10 mm.
+unit mm.
+
+unit EUR : 100 CENT.
+unit CENT.
+
+unit DAY : 24 HOUR.
+unit HOUR : 60 MIN.
+unit MIN : 60 SEC.
+unit SEC.

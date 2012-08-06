@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/sandwich"
+            class="org.emftext.language.sandwich.SandwichPackage"
+            genModel="metamodel/sandwich.genmodel"/>
+      <package
+            class="org.emftext.language.sandwich_simple.Sandwich_simplePackage"
+            genModel="metamodel/sandwich_simple.genmodel"
+            uri="http://www.emftext.org/language/sandwich_simple">
+      </package>
+   </extension>
+
+</plugin>

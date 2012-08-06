@@ -1,0 +1,52 @@
+import "Units.sumup"
+
+input SendungsAnzahl.
+input Laenge in mm.
+input Breite in mm.
+input Hoehe in mm.
+input Gewicht in g.
+
+output EinzelPreis in EUR.
+output GesamtSumme in EUR.
+
+// paeckchen
+when 
+	Laenge <= 60 cm and 
+	Breite <= 30 cm and 
+	Hoehe <= 15 cm and 
+	Gewicht < 2kg
+set EinzelPreis : 3.90 EUR.
+
+// paket klein
+when 
+	Laenge > 60 cm or 
+	Breite > 30 cm or 
+	Hoehe > 15 cm and 
+	Gewicht <= 10 kg
+set EinzelPreis : 5.90 EUR.
+
+// paket mittel
+when 
+	Laenge > 60 cm or 
+	Breite > 30 cm or 
+	Hoehe > 15 cm and 
+	Gewicht > 10 kg and 
+	Gewicht <= 20 kg
+set EinzelPreis : 10.90 EUR.
+
+// paket gross
+when 
+	Laenge > 60 cm or 
+	Breite > 30 cm or 
+	Hoehe > 15 cm and 
+	Gewicht > 20 kg and 
+	Gewicht <= 31.5 kg
+set EinzelPreis : 12.90 EUR.
+
+when SendungsAnzahl < 500
+set GesamtSumme : SendungsAnzahl * EinzelPreis.
+
+// 20% rabatt bei mehr als 500 stueck
+when SendungsAnzahl >= 500
+set GesamtSumme : 
+	SendungsAnzahl * EinzelPreis * 0.8.

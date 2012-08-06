@@ -1,0 +1,22 @@
+CarApp {
+
+function Login 1
+	"Users must enter a login and 
+	a password to use the system."
+
+function Logout 1
+	"Users can log out from the system."
+
+datatype User
+	property name
+	property password
+
+function Search 3
+	-> Car
+	"Users can search for cars."
+	
+datatype Car
+	property name
+	property manufacturer
+	property state
+}

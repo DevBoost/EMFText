@@ -1,0 +1,46 @@
+StateMachine Example {
+	initial state init;
+	
+	state first {
+		do : "action1"
+	};
+	
+	state s1{
+		do:"s1_action"
+	};
+	
+	state s2{
+		do:"s2_action"
+	};
+	
+	composite state s4{
+		do: "s4_action"
+			initial state sub_init;
+			state sub1{
+				do:"subaction1"
+			};
+			state sub2{
+				do:"subaction2"
+			};
+			final state sub_end{
+				do:"nothing"
+			};
+			transitions{
+				sub_init -> sub1 when "substep";
+				sub1 -> sub2 when "substep";
+				sub2 -> sub_end when "substep";
+			}
+	};
+	
+	final state end {
+		do : "action2"
+	};
+
+	transitions {
+		init -> first when "step";
+		first -> s1 when "step";
+		s1 -> s2 when "step";
+		s2 -> s4 when "step";
+		s4 -> end when "step";
+	}
+}

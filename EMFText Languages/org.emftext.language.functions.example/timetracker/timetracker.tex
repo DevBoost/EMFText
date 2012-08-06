@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{xspace}
+\usepackage{longtable}
+\usepackage{paralist}
+\usepackage[pdfpagelayout=OneColumn,colorlinks,linkcolor=black,citecolor=black,urlcolor=black,plainpages=false,pdfpagelabels,bookmarksopen=false]{hyperref}
+\hypersetup{pdfpagemode=UseNone,colorlinks=true} 
+\newcommand{\inquotes}[1]{\glqq#1\grqq}
+
+\newcommand{\timeunit}[0]{Days}
+\newcommand{\tableheaderfunction}[0]{Function}
+\newcommand{\tableheadereffort}[0]{Costs in \timeunit}
+\newcommand{\tablefootertotaleffort}[0]{Total costs}
+
+\makeatletter
+\newcounter{subsubsubsection}[subsubsection]
+\setcounter{subsubsubsection}{1}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+\renewcommand{\thesubsubsubsection}{\thesubsubsection.\@arabic\c@subsubsubsection}
+
+\makeatother
+
+\begin{document}
+
+\tableofcontents
+
+\clearpage
+
+\section{Functions}
+\input{timetracker_function_descriptions}
+
+\section{Costs}
+\input{timetracker_function_costs}
+
+\end{document}

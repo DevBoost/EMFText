@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorUIMetaInformation" id="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="javabehavior" icon="icons/editor_icon.gif" id="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorEditor" name="EMFText javabehavior Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.java.javabehavior4uml.resource.javabehavior">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Javabehavior Text Editor" id="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorPreferencePage" class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorSyntaxColoringPreferencePage" class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorSyntaxColoringPreferencePage" category="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorBracketPreferencePage" class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorBracketPreferencePage" category="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorNewFileWizard" id="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorNewFileWizard" name="EMFText .javabehavior file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorMarkerResolutionGenerator" markerType="org.emftext.language.java.javabehavior4uml.resource.javabehavior.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.JavabehaviorAnnotationModelFactory" extensions="javabehavior">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.java.javabehavior4uml.resource.javabehavior" name=".javabehavior File" base-type="org.eclipse.core.runtime.text" file-extensions="javabehavior">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="javabehavior" id="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.occurences">
+		</type>
+		<type name="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.occurences.declaration" super="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.occurences" label="Occurrences (in .javabehavior files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="javabehavior.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="javabehavior.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="javabehavior.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="javabehavior.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="javabehavior.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="javabehavior.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="javabehavior.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="javabehavior.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="javabehavior.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.java.javabehavior4uml.resource.javabehavior.ui.occurences.declaration" label="Declarations (in .javabehavior files)" textPreferenceKey="javabehavior.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="javabehavior.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="javabehavior.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="javabehavior.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="javabehavior.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="javabehavior.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

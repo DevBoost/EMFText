@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.calc.resource.calc.ui.CalcUIMetaInformation" id="org.emftext.language.calc.resource.calc.ui.CalcUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.calc.resource.calc.ui.CalcEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="calc" icon="icons/editor_icon.gif" id="org.emftext.language.calc.resource.calc.ui.CalcEditor" name="EMFText calc Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.calc.resource.calc">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.calc.resource.calc.ui.CalcPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Calc Text Editor" id="org.emftext.language.calc.resource.calc.ui.CalcPreferencePage" class="org.emftext.language.calc.resource.calc.ui.CalcPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.calc.resource.calc.ui.CalcSyntaxColoringPreferencePage" class="org.emftext.language.calc.resource.calc.ui.CalcSyntaxColoringPreferencePage" category="org.emftext.language.calc.resource.calc.ui.CalcPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.calc.resource.calc.ui.CalcBracketPreferencePage" class="org.emftext.language.calc.resource.calc.ui.CalcBracketPreferencePage" category="org.emftext.language.calc.resource.calc.ui.CalcPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.calc.resource.calc.ui.CalcNewFileWizard" id="org.emftext.language.calc.resource.calc.ui.CalcNewFileWizard" name="EMFText .calc file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.calc.resource.calc.ui.CalcNewProjectWizard" id="org.emftext.language.calc.resource.calc.ui.CalcNewProjectWizard" name="EMFText calc project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.calc.resource.calc.ui.CalcMarkerResolutionGenerator" markerType="org.emftext.language.calc.resource.calc.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.calc.resource.calc.ui.CalcAnnotationModelFactory" extensions="calc">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.calc.resource.calc" name=".calc File" base-type="org.eclipse.core.runtime.text" file-extensions="calc">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="calc" id="org.emftext.language.calc.resource.calc.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.calc.resource.calc.ui.occurences">
+		</type>
+		<type name="org.emftext.language.calc.resource.calc.ui.occurences.declaration" super="org.emftext.language.calc.resource.calc.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.calc.resource.calc.ui.occurences" label="Occurrences (in .calc files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="calc.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="calc.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="calc.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="calc.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="calc.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="calc.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="calc.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="calc.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="calc.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.calc.resource.calc.ui.occurences.declaration" label="Declarations (in .calc files)" textPreferenceKey="calc.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="calc.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="calc.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="calc.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="calc.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="calc.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.language.calc.resource.calc.ui.launchConfigurationType" id="org.emftext.language.calc.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.language.calc.resource.calc.ui.launchConfigurationType" class="org.emftext.language.calc.resource.calc.ui.launch.CalcLaunchConfigurationTabGroup" id="org.emftext.language.calc.launchConfigurationTabGroup" helpContextId="org.emftext.language.calc.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug calc model.">
+			</launchMode>
+			<launchMode mode="run" description="Run calc model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="calc Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.language.calc.launch" modes="run,debug" class="org.emftext.language.calc.resource.calc.ui.launch.CalcLaunchShortcut" description="Launch a calc model" id="org.emftext.language.calc.launchShortcut">
+			<description description="Run calc model" mode="run">
+			</description>
+			<description description="Debug calc model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.language.calc.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.language.calc.resource.calc.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.language.calc.PropertyTester" type="java.lang.Object" namespace="org.emftext.language.calc" properties="isLaunchable" class="org.emftext.language.calc.resource.calc.ui.CalcPropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.calc.resource.calc.ui.debug.lineBreakpoint" markerType="org.emftext.language.calc.resource.calc.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.calc.resource.calc.ui.debug.lineBreakpoint" label="Breakpoints (in .calc files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.language.calc.resource.calc.ui.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.language.calc.resource.calc.ui.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.language.calc.resource.calc.ui.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.language.calc.resource.calc.ui.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.language.calc.resource.calc.ui.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.language.calc.resource.calc.ui.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.language.calc.resource.calc.ui.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.language.calc.resource.calc.ui.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.language.calc.resource.calc.ui.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.language.calc.resource.calc.ui.CalcEditor" class="org.emftext.language.calc.resource.calc.ui.debug.CalcAdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.calc.resource.calc.debug.CalcDebugVariable" class="org.emftext.language.calc.resource.calc.ui.debug.CalcAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.language.calc.resource.calc.debug.CalcDebugVariable" class="org.emftext.language.calc.resource.calc.ui.debug.CalcAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.language.calc.resource.calc.ui.RulerPopupActions" targetID="org.emftext.language.calc.resource.calc.EditorRuler">
+			<action id="org.emftext.language.calc.resource.calc.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.language.calc.resource.calc.ui.CalcEditor" id="org.emftext.language.calc.resource.calc.ui.BreakpointRulerActions">
+			<action id="org.emftext.language.calc.resource.calc.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.language.calc.resource.calc.debugModel" class="org.emftext.language.calc.resource.calc.ui.debug.CalcDebugModelPresentation">
+		</debugModelPresentation>
+	</extension>
+	
+</plugin>

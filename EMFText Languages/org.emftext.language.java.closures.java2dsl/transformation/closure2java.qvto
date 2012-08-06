@@ -1,0 +1,130 @@
+modeltype CLOSURES uses 'http://www.emftext.org/language/java/closures';  
+modeltype JAVA uses "http://www.emftext.org/java";
+
+transformation Java2Closure(inout java : CLOSURES); 
+
+main() {
+	java.objects()[JAVA::classifiers::Class]->map Count_Classifiers_Class();
+	java.objects()[JAVA::classifiers::AnonymousClass]->map Count_Classifiers_AnonymousClass();
+
+	java.objects()[JAVA::instantiations::NewConstructorCall]->map Instantiations_NewConstructorCall();
+	java.objects()[JAVA::_references::MethodCall]->map References_MethodCall();
+	java.objects()[JAVA::statements::ExpressionStatement]->map Expressions_ExpressionStatement();
+	java.objects()[JAVA::expressions::AssignmentExpression]->map Expressions_AssignmentExpression();
+	java.objects()[JAVA::variables::LocalVariable]->map Variables_LocalVariable();
+	java.objects()[JAVA::statements::Return]->map Statements_Return();
+}
+
+// Zähler
+mapping inout JAVA::classifiers::Class::Count_Classifiers_Class(){}
+// Zähler
+mapping inout JAVA::classifiers::AnonymousClass::Count_Classifiers_AnonymousClass(){}
+
+mapping inout JAVA::statements::Return::Statements_Return(){
+	
+	var ncc : JAVA::instantiations::NewConstructorCall := null;
+	
+	if returnValue.oclIsTypeOf(CLOSURES::Closure) then
+		ncc := map Closure2Ncc(returnValue.oclAsType(CLOSURES::Closure))
+	endif;
+	if ncc <> null then
+			returnValue := ncc
+	endif
+}
+
+mapping Closure2Ncc(in closure : CLOSURES::Closure) : 
+	JAVA::instantiations::NewConstructorCall{
+	
+		anonymousClass := object JAVA::classifiers::AnonymousClass{
+			var innerMethod := object JAVA::members::ClassMethod{
+				typeReference := closure.valueType;
+				arrayDimensionsBefore := closure.valueTypeArrayDimension;
+				parameters := closure.parameters;
+				statements := closure.statements;
+				name := closure.methodName;
+				annotationsAndModifiers := closure.annotationsAndModifiers;
+			};
+			members := members->append(innerMethod);
+		};
+--		next := object JAVA::_references::MethodCall{
+--			arguments := closure.arguments;
+--		};
+		typeReference := closure.typeReference;
+}
+
+mapping inout JAVA::variables::LocalVariable::Variables_LocalVariable(){
+	
+	var ncc : JAVA::instantiations::NewConstructorCall := null;
+	
+	if initialValue.oclIsTypeOf(CLOSURES::Closure) then
+		ncc := map Closure2Ncc(initialValue.oclAsType(CLOSURES::Closure))
+	endif;
+	if ncc <> null then
+			initialValue := ncc
+	endif
+
+}
+
+mapping inout JAVA::expressions::AssignmentExpression::Expressions_AssignmentExpression(){
+	
+	var ncc : JAVA::instantiations::NewConstructorCall := null;
+	
+	if value.oclIsTypeOf(CLOSURES::Closure) then
+		ncc := map Closure2Ncc(value.oclAsType(CLOSURES::Closure))
+	endif;
+	if ncc <> null then
+			value := ncc
+	endif
+}
+
+-- Argument von MethodCall
+mapping inout JAVA::_references::MethodCall::References_MethodCall(){
+	
+	var ncc : JAVA::instantiations::NewConstructorCall := null;
+	var tempArgs : OrderedSet(JAVA::expressions::Expression);
+	
+	self.arguments->forEach(a){
+		if a.oclIsTypeOf(CLOSURES::Closure) then
+			ncc := map Closure2Ncc(a.oclAsType(CLOSURES::Closure))
+		endif;
+		if ncc <> null then
+			tempArgs := tempArgs->append(ncc)
+		else
+			tempArgs := tempArgs->append(a)
+		endif;
+	};
+	self.arguments := tempArgs;
+}
+
+-- Argument von NewConstructorCall
+mapping inout JAVA::instantiations::NewConstructorCall::Instantiations_NewConstructorCall(){
+	
+	var ncc : JAVA::instantiations::NewConstructorCall := null;
+	var tempArgs : OrderedSet(JAVA::expressions::Expression);
+	
+	self.arguments->forEach(a){
+		if a.oclIsTypeOf(CLOSURES::Closure) then
+			ncc := map Closure2Ncc(a.oclAsType(CLOSURES::Closure))
+		endif;
+		if ncc <> null then
+			tempArgs := tempArgs->append(ncc)
+		else
+			tempArgs := tempArgs->append(a)
+		endif;
+	};
+	self.arguments := tempArgs;
+}
+
+-- NewConstructorCall in einer StatementExpression
+mapping inout JAVA::statements::ExpressionStatement::Expressions_ExpressionStatement(){
+	
+	var ncc : JAVA::instantiations::NewConstructorCall := null;
+	
+	if self.expression.oclIsTypeOf(CLOSURES::Closure) then
+		ncc := map Closure2Ncc(self.expression.oclAsType(CLOSURES::Closure))
+	endif;
+	if ncc <> null then
+			self.expression := ncc
+	endif
+	
+}

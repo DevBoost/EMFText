@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  
+   <extension
+         point="org.emftext.language.java.javabehavior4uml.resource.javabehavior.default_load_options">
+      <provider
+            class="org.emftext.language.java.javabehavior4uml.resource.util.JavabehaviorPostProcessor"
+            id="org.emftext.language.java.javabehavior4uml.resource.util.JavabehaviorPostProcessor">
+      </provider>
+   </extension>
+
+   <extension
+         point="org.emftext.language.java.javabehavior4uml.resource.javabehavior.default_load_options">
+      <provider
+            class="org.emftext.language.java.javabehavior4uml.resource.util.UnicodeConverterProvider"
+            id="org.emftext.language.java.javabehavior4uml.resource.util.UnicodeConverterProvider">
+      </provider>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">    
+      <objectContribution
+            adaptable="true"
+            id="org.emftext.language.java.resource.register.action1"
+            objectClass="org.eclipse.gef.EditPart">
+         <action
+               class="org.emftext.language.java.javabehavior4uml.resource.actions.AddToUMLClassifierAction"
+               enablesFor="1"
+               id="org.emftext.language.java.javabehavior4uml.action"
+               label="Edit Java Behavior"
+               menubarPath="org.emftext.language.java/actions">
+         </action>
+         <menu
+               id="org.emftext.language.java"
+               label="JaMoPP"
+               path="additions">
+            <separator
+                  name="actions">
+            </separator>
+         </menu>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.emftext.language.java.resource.register.action2"
+            objectClass="org.eclipse.uml2.uml.BehavioralFeature">
+         <action
+               class="org.emftext.language.java.javabehavior4uml.resource.actions.AddToUMLClassifierAction"
+               enablesFor="1"
+               id="org.emftext.language.java.javabehavior4uml.action"
+               label="Edit Java Behavior"
+               menubarPath="org.emftext.language.java/actions">
+         </action>
+         <menu
+               id="org.emftext.language.java"
+               label="JaMoPP"
+               path="additions">
+            <separator
+                  name="actions">
+            </separator>
+         </menu>
+      </objectContribution>
+   </extension>
+     
+</plugin>

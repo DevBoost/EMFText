@@ -1,0 +1,52 @@
+# original foaf fresnel example from the web where only one missing "." after the last directive was added.
+
+@prefix fresnel:  <http://www.w3.org/2004/09/fresnel#> .
+@prefix foaf:     <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix :         <#> .
+
+
+# -----------------------------------------------
+# 1.Fresnel Lenses for FOAF Person
+# -----------------------------------------------
+
+:foafPersonDefaultLens rdf:type fresnel:Lens ;
+                       fresnel:purpose fresnel:defaultLens ;
+                       fresnel:classLensDomain foaf:Person ;
+                       fresnel:group :foafGroup ;
+                       fresnel:showProperties ( foaf:name 
+                                                foaf:surname 
+                                                foaf:depiction ) .
+
+:knowsLens rdf:type fresnel:Lens ;
+           fresnel:classLensDomain foaf:Person ;
+           fresnel:group :foafGroup ;
+           fresnel:showProperties ( foaf:name 
+                                    foaf:surname
+                                    foaf:mbox 
+                                    [ rdf:type fresnel:PropertyDescription ;
+                                      fresnel:property foaf:knows ;
+                                      fresnel:sublens :foafPersonDefaultLens ] ) .
+			                      
+# -----------------------------------------------
+# 2. Fresnel Formats
+# -----------------------------------------------
+
+:foafGroup rdf:type fresnel:Group ;
+           fresnel:stylesheetLink <http://www.example.org/example.css> .
+           
+:depictFormat rdf:type fresnel:Format ;
+              fresnel:propertyFormatDomain foaf:depiction ;
+              fresnel:label fresnel:none ;
+              fresnel:value fresnel:image ;
+              fresnel:valueStyle "imageWithThickBorder"^^fresnel:styleClass ; 
+              fresnel:group :foafGroup .
+	
+:urlFormat rdf:type fresnel:Format ;
+           fresnel:propertyFormatDomain foaf:homepage ;
+           fresnel:propertyFormatDomain foaf:mbox ;
+           fresnel:value fresnel:externalLink ;
+           fresnel:labelStyle "basicLabel"^^fresnel:styleClass ;
+           fresnel:valueStyle "basicUrl"^^fresnel:styleClass ;
+           fresnel:group :foafGroup .

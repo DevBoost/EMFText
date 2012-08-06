@@ -1,0 +1,132 @@
+modeltype PROPJAVA uses 'http://www.emftext.org/language/java/properties';
+modeltype JAVA uses "http://www.emftext.org/java";
+
+transformation Java2Propjava(inout java : PROPJAVA);
+
+main() {
+
+	java.objects()[JAVA::members::Field]->map Member_Field();
+	java.objects()[JAVA::classifiers::Class]->map Classifiers_Class();
+}
+
+// only for statistics
+mapping inout JAVA::members::Field::Member_Field(){
+}
+
+// go through every statement in a class
+mapping inout JAVA::classifiers::Class::Classifiers_Class() {
+
+	var tempFields : OrderedSet(JAVA::members::Member);
+	var tempMethods : OrderedSet(JAVA::members::Member);
+
+	self.members->forEach(m){
+		var field : JAVA::members::Field = null;
+		if m.oclIsTypeOf(PROPJAVA::Property) then
+			field := map Member_PropertyToField(m.oclAsType(PROPJAVA::Property)) 
+		endif;
+		// field
+		if field <> null then
+			tempFields := tempFields->append(field)			
+		endif;
+		// getter
+		if field <> null then
+			tempMethods := tempMethods->append(map Member_PropertyToGetter(field))			
+		endif;
+		// setter
+		if field <> null and m.oclAsType(PROPJAVA::Property)._readonly then
+			tempMethods := tempMethods->append(map Member_PropertyToSetter(field))			
+		endif;
+		// no property
+		if field = null then
+			if m.oclIsTypeOf(JAVA::members::Field) then
+			 	tempFields := tempFields->append(m)
+			else	
+				tempMethods := tempMethods->append(m)
+			endif			
+		endif	
+	};
+	
+	self.members := tempFields;
+	tempMethods->forEach(m){
+		self.members := self.members->append(m)		
+	}
+}
+
+// create a getter from a property
+mapping Member_PropertyToGetter(in field : JAVA::members::Field) : JAVA::members::ClassMethod {
+	
+	// name
+	name := 'get'.concat(field.name.firstToUpper());
+	// type reference
+	typeReference := field.typeReference.
+		deepclone().oclAsType(java::types::TypeReference);
+	// array
+	field.arrayDimensionsBefore->forEach(a){
+		arrayDimensionsBefore := arrayDimensionsBefore->append(
+		a.deepclone().oclAsType(java::arrays::ArrayDimension))
+	};
+	// modifier
+	annotationsAndModifiers := 
+		annotationsAndModifiers->append(object JAVA::modifiers::Public{});		
+	// statement
+	statements := statements->append(
+		object JAVA::statements::Return{
+			returnValue := object JAVA::_references::IdentifierReference{
+				target := field}
+		}
+	);
+}
+
+// create a setter from a property
+mapping Member_PropertyToSetter(in field : JAVA::members::Field) : JAVA::members::ClassMethod {
+	
+	// name
+	name := 'set'.concat(field.name.firstToUpper());
+	// type reference
+	typeReference := object JAVA::types::Void{};
+	// modifier
+	annotationsAndModifiers := 
+		annotationsAndModifiers->append(object JAVA::modifiers::Public{});		
+	// parameter
+	var tempPara := object JAVA::parameters::OrdinaryParameter{
+			// name
+			name := field.name;
+			// type reference
+			typeReference := field.typeReference.
+				deepclone().oclAsType(java::types::TypeReference);
+			// array
+			field.arrayDimensionsBefore->forEach(a){
+				arrayDimensionsBefore := arrayDimensionsBefore->append(
+				a.deepclone().oclAsType(java::arrays::ArrayDimension))
+			};	
+	};
+	parameters := parameters->append(tempPara);
+
+	// statement
+	statements := statements->append(
+		object JAVA::statements::ExpressionStatement{
+			expression := object java::expressions::AssignmentExpression{
+				child := object java::_references::SelfReference{
+					_self := object java::literals::This{};
+					next := object java::_references::IdentifierReference{
+						target := field;
+					};
+				};
+				assignmentOperator := object java::operators::Assignment{};
+				value := object java::_references::IdentifierReference{
+					target := tempPara
+				};
+			}
+		}
+	);
+}
+
+// simple copy the attributes from property to a new field
+mapping Member_PropertyToField(in prop : PROPJAVA::Property) : JAVA::members::Field {
+
+	name := prop.name;
+	typeReference := prop.typeReference;
+	annotationsAndModifiers := annotationsAndModifiers->
+		append(object JAVA::modifiers::Private{});
+	arrayDimensionsBefore := prop.arrayDimensionsBefore;			
+}

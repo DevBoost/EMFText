@@ -1,0 +1,750 @@
+
+	play "The Tragedie of Macbeth" 
+	
+	roles ( 
+		"1" "2" "3" "All" "Ang" "Banquo" "Cap"
+		"King" "Lady" "Lenox" "Macb" "Mal" "Mess" "Rosse"
+	) 
+	
+	ensemble (
+		"Thomas" plays "Macb",
+		"Ann"  plays  "2" ,
+	) 
+	
+	Actus Primus. Scena Prima.
+	
+	[Thunder and Lightning. Enter three Witches.]
+	
+	  1: "When shall we three meet againe?
+	In Thunder, Lightning, or in Raine?"
+	
+	  2: "When the Hurley-burley's done,
+	When the Battaile's lost, and wonne"
+	
+	   3: "That will be ere the set of Sunne"
+	
+	   1: "Where the place?"
+	  2: "Vpon the Heath"
+	
+	   3: "There to meet with Macbeth"
+	
+	   1: "I come, Gray-Malkin"
+	
+	   All: "Padock calls anon: faire is foule, and foule is faire,
+	Houer through the fogge and filthie ayre."
+	
+	[Exeunt.]
+	
+	
+	
+	
+	Scena Secunda.
+	
+	[Alarum within. Enter King Malcome, Donalbaine, Lenox, with
+	attendants,
+	meeting a bleeding Captaine.]
+	
+	  King: "What bloody man is that? he can report,
+	As seemeth by his plight, of the Reuolt
+	The newest state"
+	
+	   Mal: "This is the Serieant,
+	Who like a good and hardie Souldier fought
+	'Gainst my Captiuitie: Haile braue friend;
+	Say to the King, the knowledge of the Broyle,
+	As thou didst leaue it"
+	
+	   Cap: "Doubtfull it stood,
+	As two spent Swimmers, that doe cling together,
+	And choake their Art: The mercilesse Macdonwald
+	(Worthie to be a Rebell, for to that
+	The multiplying Villanies of Nature
+	Doe swarme vpon him) from the Westerne Isles
+	Of Kernes and Gallowgrosses is supply'd,
+	And Fortune on his damned Quarry smiling,
+	Shew'd like a Rebells Whore: but all's too weake:
+	For braue Macbeth (well hee deserues that Name)
+	Disdayning Fortune, with his brandisht Steele,
+	Which smoak'd with bloody execution
+	(Like Valours Minion) caru'd out his passage,
+	Till hee fac'd the Slaue:
+	Which neu'r shooke hands, nor bad farwell to him,
+	Till he vnseam'd him from the Naue toth' Chops,
+	And fix'd his Head vpon our Battlements"
+	
+	   King: "O valiant Cousin, worthy Gentleman"
+	
+	   Cap: "As whence the Sunne 'gins his reflection,
+	Shipwracking Stormes, and direfull Thunders:
+	So from that Spring, whence comfort seem'd to come,
+	Discomfort swells: Marke King of Scotland, marke,
+	No sooner Iustice had, with Valour arm'd,
+	Compell'd these skipping Kernes to trust their heeles,
+	But the Norweyan Lord, surueying vantage,
+	With furbusht Armes, and new supplyes of men,
+	Began a fresh assault"
+	
+	   King: "Dismay'd not this our Captaines, Macbeth and
+	Banquoh?"
+	
+	  Cap: "Yes, as Sparrowes, Eagles;
+	Or the Hare, the Lyon:
+	If I say sooth, I must report they were
+	As Cannons ouer-charg'd with double Cracks,
+	So they doubly redoubled stroakes vpon the Foe:
+	Except they meant to bathe in reeking Wounds,
+	Or memorize another Golgotha,
+	I cannot tell: but I am faint,
+	My Gashes cry for helpe"
+	
+	   King: "So well thy words become thee, as thy wounds,
+	They smack of Honor both: Goe get him Surgeons.
+	Enter Rosse and Angus.
+	
+	Who comes here?"
+	
+	  Mal: "The worthy Thane of Rosse"
+	
+	   Lenox: "What a haste lookes through his eyes?
+	So should he looke, that seemes to speake things strange"
+	
+	   Rosse: "God saue the King"
+	
+	   King: "Whence cam'st thou, worthy Thane?"
+	   
+	  Rosse: "From Fiffe, great King,
+	Where the Norweyan Banners flowt the Skie,
+	And fanne our people cold.
+	Norway himselfe, with terrible numbers,
+	Assisted by that most disloyall Traytor,
+	The Thane of Cawdor, began a dismall Conflict,
+	Till that Bellona's Bridegroome, lapt in proofe,
+	Confronted him with selfe-comparisons,
+	Point against Point, rebellious Arme 'gainst Arme,
+	Curbing his lauish spirit: and to conclude,
+	The Victorie fell on vs"
+	
+	   King: "Great happinesse"
+	
+	   Rosse: "That now Sweno, the Norwayes King,
+	Craues composition:
+	Nor would we deigne him buriall of his men,
+	Till he disbursed, at Saint Colmes ynch,
+	Ten thousand Dollars, to our generall vse"
+	
+	   King: "No more that Thane of Cawdor shall deceiue
+	Our Bosome interest: Goe pronounce his present death,
+	And with his former Title greet Macbeth"
+	
+	   Rosse: "Ile see it done"
+	
+	   King: "What he hath lost, Noble Macbeth hath wonne."
+	
+	[Exeunt.]
+	
+	
+	Scena Tertia.
+	
+	[Thunder. Enter the three Witches.]
+	
+	  1: "Where hast thou beene, Sister?"
+	  2: "Killing Swine"
+	
+	   3: "Sister, where thou?"
+	  1: "A Saylors Wife had Chestnuts in her Lappe,
+	And mouncht, & mouncht, and mouncht:
+	Giue me, quoth I.
+	Aroynt thee, Witch, the rumpe-fed Ronyon cryes.
+	Her Husband's to Aleppo gone, Master o'th' Tiger:
+	But in a Syue Ile thither sayle,
+	And like a Rat without a tayle,
+	Ile doe, Ile doe, and Ile doe"
+	
+	   2: "Ile giue thee a Winde"
+	
+	   1: "Th'art kinde"
+	
+	   3: "And I another"
+	
+	   1: "I my selfe haue all the other,
+	And the very Ports they blow,
+	All the Quarters that they know,
+	I'th' Ship-mans Card.
+	Ile dreyne him drie as Hay:
+	Sleepe shall neyther Night nor Day
+	Hang vpon his Pent-house Lid:
+	He shall liue a man forbid:
+	Wearie Seu'nights, nine times nine,
+	Shall he dwindle, peake, and pine:
+	Though his Barke cannot be lost,
+	Yet it shall be Tempest-tost.
+	Looke what I haue"
+	
+	   2: "Shew me, shew me"
+	
+	   1: "Here I haue a Pilots Thumbe,
+	Wrackt, as homeward he did come."
+	
+	[Drum within.]
+	
+	  3: "A Drumme, a Drumme:
+	Macbeth doth come"
+	
+	   All: "The weyward Sisters, hand in hand,
+	Posters of the Sea and Land,
+	Thus doe goe, about, about,
+	Thrice to thine, and thrice to mine,
+	And thrice againe, to make vp nine.
+	Peace, the Charme's wound vp.
+	Enter Macbeth and Banquo."
+	
+	  Macb: "So foule and faire a day I haue not seene"
+	
+	   Banquo: "How farre is't call'd to Soris? What are these,
+	So wither'd, and so wilde in their attyre,
+	That looke not like th' Inhabitants o'th' Earth,
+	And yet are on't? Liue you, or are you aught
+	That man may question? you seeme to vnderstand me,
+	By each at once her choppie finger laying
+	Vpon her skinnie Lips: you should be Women,
+	And yet your Beards forbid me to interprete
+	That you are so"
+	
+	   Macb: "Speake if you can: what are you?"
+	  1: "All haile Macbeth, haile to thee Thane of Glamis"
+	
+	   2: "All haile Macbeth, haile to thee Thane of Cawdor"
+	
+	   3: "All haile Macbeth, that shalt be King hereafter"
+	
+	   Banquo: "Good Sir, why doe you start, and seeme to feare
+	Things that doe sound so faire? i'th' name of truth
+	Are ye fantasticall, or that indeed
+	Which outwardly ye shew? My Noble Partner
+	You greet with present Grace, and great prediction
+	Of Noble hauing, and of Royall hope,
+	That he seemes wrapt withall: to me you speake not.
+	If you can looke into the Seedes of Time,
+	And say, which Graine will grow, and which will not,
+	Speake then to me, who neyther begge, nor feare
+	Your fauors, nor your hate"
+	
+	   1: "Hayle"
+	
+	   2: "Hayle"
+	
+	   3: "Hayle"
+	
+	   1: "Lesser than Macbeth, and greater"
+	
+	   2: "Not so happy, yet much happyer"
+	
+	   3: "Thou shalt get Kings, though thou be none:
+	So all haile Macbeth, and Banquo"
+	
+	   1: "Banquo, and Macbeth, all haile"
+	
+	   Macb: "Stay you imperfect Speakers, tell me more:
+	By Sinells death, I know I am Thane of Glamis,
+	But how, of Cawdor? the Thane of Cawdor liues
+	A prosperous Gentleman: And to be King,
+	Stands not within the prospect of beleefe,
+	No more then to be Cawdor. Say from whence
+	You owe this strange Intelligence, or why
+	Vpon this blasted Heath you stop our way
+	With such Prophetique greeting?
+	Speake, I charge you."
+	
+	[Witches vanish.]
+	
+	  Banquo: "The Earth hath bubbles, as the Water ha's,
+	And these are of them: whither are they vanish'd?"
+	
+	  Macb: "Into the Ayre: and what seem'd corporall,
+	Melted, as breath into the Winde.
+	Would they had stay'd"
+	
+	   Banquo: "Were such things here, as we doe speake about?
+	Or haue we eaten on the insane Root,
+	That takes the Reason Prisoner?"
+	
+	  Macb: "Your Children shall be Kings"
+	
+	   Banquo: "You shall be King"
+	
+	   Macb: "And Thane of Cawdor too: went it not so?"
+	   
+	  Banquo: "Toth' selfe-same tune and words: who's here?
+	Enter Rosse and Angus."
+	
+	  Rosse: "The King hath happily receiu'd, Macbeth,
+	The newes of thy successe: and when he reades
+	Thy personall Venture in the Rebels sight,
+	His Wonders and his Prayses doe contend,
+	Which should be thine, or his: silenc'd with that,
+	In viewing o're the rest o'th' selfe-same day,
+	He findes thee in the stout Norweyan Rankes,
+	Nothing afeard of what thy selfe didst make
+	Strange Images of death, as thick as Tale
+	Can post with post, and euery one did beare
+	Thy prayses in his Kingdomes great defence,
+	And powr'd them downe before him"
+	
+	   Ang: "Wee are sent,
+	To giue thee from our Royall Master thanks,
+	Onely to harrold thee into his sight,
+	Not pay thee"
+	
+	   Rosse: "And for an earnest of a greater Honor,
+	He bad me, from him, call thee Thane of Cawdor:
+	In which addition, haile most worthy Thane,
+	For it is thine"
+	
+	   Banquo: "What, can the Deuill speake true?"
+	  Macb: "The Thane of Cawdor liues:
+	Why doe you dresse me in borrowed Robes?"
+	
+	  Ang: "Who was the Thane, liues yet,
+	But vnder heauie Iudgement beares that Life,
+	Which he deserues to loose.
+	Whether he was combin'd with those of Norway,
+	Or did lyne the Rebell with hidden helpe,
+	And vantage; or that with both he labour'd
+	In his Countreyes wracke, I know not:
+	But Treasons Capitall, confess'd, and prou'd,
+	Haue ouerthrowne him"
+	
+	   Macb: "Glamys, and Thane of Cawdor:
+	The greatest is behinde. Thankes for your paines.
+	Doe you not hope your Children shall be Kings,
+	When those that gaue the Thane of Cawdor to me,
+	Promis'd no lesse to them"
+	
+	   Banquo: "That trusted home,
+	Might yet enkindle you vnto the Crowne,
+	Besides the Thane of Cawdor. But 'tis strange:
+	And oftentimes, to winne vs to our harme,
+	The Instruments of Darknesse tell vs Truths,
+	Winne vs with honest Trifles, to betray's
+	In deepest consequence.
+	Cousins, a word, I pray you"
+	
+	   Macb: "Two Truths are told,
+	As happy Prologues to the swelling Act
+	Of the Imperiall Theame. I thanke you Gentlemen:
+	This supernaturall solliciting
+	Cannot be ill; cannot be good.
+	If ill? why hath it giuen me earnest of successe,
+	Commencing in a Truth? I am Thane of Cawdor.
+	If good? why doe I yeeld to that suggestion,
+	Whose horrid Image doth vnfixe my Heire,
+	And make my seated Heart knock at my Ribbes,
+	Against the vse of Nature? Present Feares
+	Are lesse then horrible Imaginings:
+	My Thought, whose Murther yet is but fantasticall,
+	Shakes so my single state of Man,
+	That Function is smother'd in surmise,
+	And nothing is, but what is not"
+	
+	   Banquo: "Looke how our Partner's rapt"
+	
+	   Macb: "If Chance will haue me King,
+	Why Chance may Crowne me,
+	Without my stirre"
+	
+	   Banquo: "New Honors come vpon him
+	Like our strange Garments, cleaue not to their mould,
+	But with the aid of vse"
+	
+	   Macb: "Come what come may,
+	Time, and the Houre, runs through the roughest Day"
+	
+	   Banquo: "Worthy Macbeth, wee stay vpon your leysure"
+	
+	   Macb: "Giue me your fauour:
+	My dull Braine was wrought with things forgotten.
+	Kinde Gentlemen, your paines are registred,
+	Where euery day I turne the Leafe,
+	To reade them.
+	Let vs toward the King: thinke vpon
+	What hath chanc'd: and at more time,
+	The Interim hauing weigh'd it, let vs speake
+	Our free Hearts each to other"
+	
+	   Banquo: "Very gladly"
+	
+	   Macb: "Till then enough:
+	Come friends."
+	
+	[Exeunt.]
+	
+	
+	Scena Quarta.
+	
+	[Flourish. Enter King, Lenox, Malcolme, Donalbaine, and
+	Attendants.]
+	
+	  King: "Is execution done on Cawdor?
+	Or not those in Commission yet return'd?"
+	
+	  Mal: "My Liege, they are not yet come back.
+	But I haue spoke with one that saw him die:
+	Who did report, that very frankly hee
+	Confess'd his Treasons, implor'd your Highnesse Pardon,
+	And set forth a deepe Repentance:
+	Nothing in his Life became him,
+	Like the leauing it. Hee dy'de,
+	As one that had beene studied in his death,
+	To throw away the dearest thing he ow'd,
+	As 'twere a carelesse Trifle"
+	
+	   King: "There's no Art,
+	To finde the Mindes construction in the Face.
+	He was a Gentleman, on whom I built
+	An absolute Trust."
+	
+	[Enter Macbeth, Banquo, Rosse, and Angus.]
+	
+	King: "O worthyest Cousin,
+	The sinne of my Ingratitude euen now
+	Was heauie on me. Thou art so farre before,
+	That swiftest Wing of Recompence is slow,
+	To ouertake thee. Would thou hadst lesse deseru'd,
+	That the proportion both of thanks, and payment,
+	Might haue beene mine: onely I haue left to say,
+	More is thy due, then more then all can pay"
+	
+	   Macb: "The seruice, and the loyaltie I owe,
+	In doing it, payes it selfe.
+	Your Highnesse part, is to receiue our Duties:
+	And our Duties are to your Throne, and State,
+	Children, and Seruants; which doe but what they should,
+	By doing euery thing safe toward your Loue
+	And Honor"
+	
+	   King: "Welcome hither:
+	I haue begun to plant thee, and will labour
+	To make thee full of growing. Noble Banquo,
+	That hast no lesse deseru'd, nor must be knowne
+	No lesse to haue done so: Let me enfold thee,
+	And hold thee to my Heart"
+	
+	   Banquo: "There if I grow,
+	The Haruest is your owne"
+	
+	   King: "My plenteous Ioyes,
+	Wanton in fulnesse, seeke to hide themselues
+	In drops of sorrow. Sonnes, Kinsmen, Thanes,
+	And you whose places are the nearest, know,
+	We will establish our Estate vpon
+	Our eldest, Malcolme, whom we name hereafter,
+	The Prince of Cumberland: which Honor must
+	Not vnaccompanied, inuest him onely,
+	But signes of Noblenesse, like Starres, shall shine
+	On all deseruers. From hence to Envernes,
+	And binde vs further to you"
+	
+	   Macb: "The Rest is Labor, which is not vs'd for you:
+	Ile be my selfe the Herbenger, and make ioyfull
+	The hearing of my Wife, with your approach:
+	So humbly take my leaue"
+	
+	   King: "My worthy Cawdor"
+	
+	   Macb: "The Prince of Cumberland: that is a step,
+	On which I must fall downe, or else o're-leape,
+	For in my way it lyes. Starres hide your fires,
+	Let not Light see my black and deepe desires:
+	The Eye winke at the Hand: yet let that bee,
+	Which the Eye feares, when it is done to see.
+	Enter."
+	
+	  King: "True worthy Banquo: he is full so valiant,
+	And in his commendations, I am fed:
+	It is a Banquet to me. Let's after him,
+	Whose care is gone before, to bid vs welcome:
+	It is a peerelesse Kinsman."
+	
+	[Flourish. Exeunt.]
+	
+	
+	Scena Quinta.
+	
+	[Enter Macbeths Wife alone with a Letter.]
+	
+	  Lady: "They met me in the day of successe: and I haue
+	learn'd by the perfect'st report, they haue more in them, then
+	mortall knowledge. When I burnt in desire to question them
+	further, they made themselues Ayre, into which they vanish'd.
+	Whiles I stood rapt in the wonder of it, came Missiues from
+	the King, who all-hail'd me Thane of Cawdor, by which Title
+	before, these weyward Sisters saluted me, and referr'd me to
+	the comming on of time, with haile King that shalt be. This
+	haue I thought good to deliuer thee (my dearest Partner of
+	Greatnesse) that thou might'st not loose the dues of reioycing
+	by being ignorant of what Greatnesse is promis'd thee. Lay
+	it to thy heart and farewell.
+	Glamys thou art, and Cawdor, and shalt be
+	What thou art promis'd: yet doe I feare thy Nature,
+	It is too full o'th' Milke of humane kindnesse,
+	To catch the neerest way. Thou would'st be great,
+	Art not without Ambition, but without
+	The illnesse should attend it. What thou would'st highly,
+	That would'st thou holily: would'st not play false,
+	And yet would'st wrongly winne.
+	Thould'st haue, great Glamys, that which cryes,
+	Thus thou must doe, if thou haue it;
+	And that which rather thou do'st feare to doe,
+	Then wishest should be vndone. High thee hither,
+	That I may powre my Spirits in thine Eare,
+	And chastise with the valour of my Tongue
+	All that impeides thee from the Golden Round,
+	Which Fate and Metaphysicall ayde doth seeme
+	To haue thee crown'd withall."
+	
+	[Enter Messenger.]
+	
+	Lady: "What is your tidings?"
+	  Mess: "The King comes here to Night"
+	
+	   Lady: "Thou'rt mad to say it.
+	Is not thy Master with him? who, wer't so,
+	Would haue inform'd for preparation"
+	
+	   Mess: "So please you, it is true: our Thane is comming:
+	One of my fellowes had the speed of him;
+	Who almost dead for breath, had scarcely more
+	Then would make vp his Message"
+	
+	   Lady: "Giue him tending,
+	He brings great newes,"
+	
+	[Exit Messenger.]
+	
+	    Lady: "The Rauen himselfe is hoarse,
+	That croakes the fatall entrance of Duncan
+	Vnder my Battlements. Come you Spirits,
+	That tend on mortall thoughts, vnsex me here,
+	And fill me from the Crowne to the Toe, top-full
+	Of direst Crueltie: make thick my blood,
+	Stop vp th' accesse, and passage to Remorse,
+	That no compunctious visitings of Nature
+	Shake my fell purpose, nor keepe peace betweene
+	Th' effect, and hit. Come to my Womans Brests,
+	And take my Milke for Gall, you murth'ring Ministers,
+	Where-euer, in your sightlesse substances,
+	You wait on Natures Mischiefe. Come thick Night,
+	And pall thee in the dunnest smoake of Hell,
+	
+	That my keene Knife see not the Wound it makes,
+	Nor Heauen peepe through the Blanket of the darke,
+	To cry, hold, hold."
+	
+	[Enter Macbeth.]
+	
+	Lady: "Great Glamys, worthy Cawdor,
+	Greater then both, by the all-haile hereafter,
+	Thy Letters haue transported me beyond
+	This ignorant present, and I feele now
+	The future in the instant"
+	
+	   Macb: "My dearest Loue,
+	Duncan comes here to Night"
+	
+	   Lady: "And when goes hence?"
+	  Macb: "To morrow, as he purposes"
+	
+	   Lady: "O neuer,
+	Shall Sunne that Morrow see.
+	Your Face, my Thane, is as a Booke, where men
+	May reade strange matters, to beguile the time.
+	Looke like the time, beare welcome in your Eye,
+	Your Hand, your Tongue: looke like th' innocent flower,
+	But be the Serpent vnder't. He that's comming,
+	Must be prouided for: and you shall put
+	This Nights great Businesse into my dispatch,
+	Which shall to all our Nights, and Dayes to come,
+	Giue solely soueraigne sway, and Masterdome"
+	
+	   Macb: "We will speake further,"
+	   
+	  Lady: "Onely looke vp cleare:
+	To alter fauor, euer is to feare:
+	Leaue all the rest to me."
+	
+	[Exeunt.]
+	
+	
+	Scena Sexta.
+	
+	[Hoboyes, and Torches. Enter King, Malcolme, Donalbaine,
+	Banquo, Lenox,
+	Macduff, Rosse, Angus, and Attendants.]
+	
+	  King: "This Castle hath a pleasant seat,
+	The ayre nimbly and sweetly recommends it selfe
+	Vnto our gentle sences"
+	
+	   Banquo: "This Guest of Summer,
+	The Temple-haunting Barlet does approue,
+	By his loued Mansonry, that the Heauens breath
+	Smells wooingly here: no Iutty frieze,
+	Buttrice, nor Coigne of Vantage, but this Bird
+	Hath made his pendant Bed, and procreant Cradle,
+	Where they must breed, and haunt: I haue obseru'd
+	The ayre is delicate."
+	
+	[Enter Lady.]
+	
+	  King: "See, see our honor'd Hostesse:
+	The Loue that followes vs, sometime is our trouble,
+	Which still we thanke as Loue. Herein I teach you,
+	How you shall bid God-eyld vs for your paines,
+	And thanke vs for your trouble"
+	
+	   Lady: "All our seruice,
+	In euery point twice done, and then done double,
+	Were poore, and single Businesse, to contend
+	Against those Honors deepe, and broad,
+	Wherewith your Maiestie loades our House:
+	For those of old, and the late Dignities,
+	Heap'd vp to them, we rest your Ermites"
+	
+	   King: "Where's the Thane of Cawdor?
+	We courst him at the heeles, and had a purpose
+	To be his Purueyor: But he rides well,
+	And his great Loue (sharpe as his Spurre) hath holp him
+	To his home before vs: Faire and Noble Hostesse
+	We are your guest to night"
+	
+	   Lady: "Your Seruants euer,
+	Haue theirs, themselues, and what is theirs in compt,
+	To make their Audit at your Highnesse pleasure,
+	Still to returne your owne"
+	
+	   King: "Giue me your hand:
+	Conduct me to mine Host we loue him highly,
+	And shall continue, our Graces towards him.
+	By your leaue Hostesse."
+	
+	[Exeunt.]
+	
+	Scena Septima.
+	
+	[Hoboyes. Torches. Enter a Sewer, and diuers Seruants with Dishes
+	and
+	Seruice ouer the Stage. Then enter Macbeth]
+	
+	   Macb: "If it were done, when 'tis done, then 'twer well,
+	It were done quickly: If th' Assassination
+	Could trammell vp the Consequence, and catch
+	With his surcease, Successe: that but this blow
+	Might be the be all, and the end "
+	
+	All: "Heere,
+	But heere, vpon this Banke and Schoole of time,
+	Wee'ld iumpe the life to come. But in these Cases,
+	We still haue iudgement heere, that we but teach
+	Bloody Instructions, which being taught, returne
+	To plague th' Inuenter, this euen-handed Iustice
+	Commends th' Ingredience of our poyson'd Challice
+	To our owne lips. Hee's heere in double trust;
+	First, as I am his Kinsman, and his Subiect,
+	Strong both against the Deed: Then, as his Host,
+	Who should against his Murtherer shut the doore,
+	Not beare the knife my selfe. Besides, this Duncane
+	Hath borne his Faculties so meeke; hath bin
+	So cleere in his great Office, that his Vertues
+	Will pleade like Angels, Trumpet-tongu'd against
+	The deepe damnation of his taking off:
+	And Pitty, like a naked New-borne-Babe,
+	Striding the blast, or Heauens Cherubin, hors'd
+	Vpon the sightlesse Curriors of the Ayre,
+	Shall blow the horrid deed in euery eye,
+	That teares shall drowne the winde. I haue no Spurre
+	To pricke the sides of my intent, but onely
+	Vaulting Ambition, which ore-leapes it selfe,
+	And falles on th' other."
+	
+	[Enter Lady.]
+	
+	Macb: "How now? What Newes?"
+	
+	  Lady: "He has almost supt: why haue you left the chamber?"
+	  
+	  Macb: "Hath he ask'd for me?"
+	  
+	  Lady: "Know you not, he ha's?"
+	  
+	  Macb: "We will proceed no further in this Businesse:
+	He hath Honour'd me of late, and I haue bought
+	Golden Opinions from all sorts of people,
+	Which would be worne now in their newest glosse,
+	Not cast aside so soone"
+	
+	   Lady: "Was the hope drunke,
+	Wherein you drest your selfe? Hath it slept since?
+	And wakes it now to looke so greene, and pale,
+	At what it did so freely? From this time,
+	Such I account thy loue. Art thou affear'd
+	To be the same in thine owne Act, and Valour,
+	As thou art in desire? Would'st thou haue that
+	Which thou esteem'st the Ornament of Life,
+	And liue a Coward in thine owne Esteeme?
+	Letting I dare not, wait vpon I would,
+	Like the poore Cat i'th' Addage"
+	
+	   Macb: "Prythee peace:
+	I dare do all that may become a man,
+	Who dares do more, is none"
+	
+	   Lady: "What Beast was't then
+	That made you breake this enterprize to me?
+	When you durst do it, then you were a man:
+	And to be more then what you were, you would
+	Be so much more the man. Nor time, nor place
+	Did then adhere, and yet you would make both:
+	They haue made themselues, and that their fitnesse now
+	Do's vnmake you. I haue giuen Sucke, and know
+	How tender 'tis to loue the Babe that milkes me,
+	I would, while it was smyling in my Face,
+	Haue pluckt my Nipple from his Bonelesse Gummes,
+	And dasht the Braines out, had I so sworne
+	As you haue done to this"
+	
+	   Macb: "If we should faile?"
+	  Lady: "We faile?
+	But screw your courage to the sticking place,
+	And wee'le not fayle: when Duncan is asleepe,
+	(Whereto the rather shall his dayes hard Iourney
+	Soundly inuite him) his two Chamberlaines
+	Will I with Wine, and Wassell, so conuince,
+	That Memorie, the Warder of the Braine,
+	Shall be a Fume, and the Receit of Reason
+	A Lymbeck onely: when in Swinish sleepe,
+	Their drenched Natures lyes as in a Death,
+	What cannot you and I performe vpon
+	Th' vnguarded Duncan? What not put vpon
+	His spungie Officers? who shall beare the guilt
+	Of our great quell"
+	
+	   Macb: "Bring forth Men-Children onely:
+	For thy vndaunted Mettle should compose
+	Nothing but Males. Will it not be receiu'd,
+	When we haue mark'd with blood those sleepie two
+	Of his owne Chamber, and vs'd their very Daggers,
+	That they haue don't?"
+	
+	  Lady: "Who dares receiue it other,
+	As we shall make our Griefes and Clamor rore,
+	Vpon his Death?"
+	
+	  Macb: "I am settled, and bend vp
+	Each corporall Agent to this terrible Feat.
+	Away, and mock the time with fairest show,
+	False Face must hide what the false Heart doth know."
+	
+	[Exeunt.]
+	
+	
+

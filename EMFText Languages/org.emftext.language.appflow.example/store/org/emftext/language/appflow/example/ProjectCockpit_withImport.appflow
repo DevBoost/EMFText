@@ -1,0 +1,40 @@
+application App 
+
+statemodel {
+	state init show welcome;
+	state login show myLogin;
+	state checklogin call 
+	  <org.emftext.language.appflow.example.LoginService.checkLogin>;
+	state idle show dashboard;
+	state help show help;
+	
+	event success;
+	event failure;
+	
+	init -> login;
+	
+	login -> checklogin;
+	checklogin -(success)-> idle;
+	checklogin -(failure)-> login;
+	
+	idle -> help;
+	help -> idle;
+}
+
+screen welcome {
+	text t "Welcome";
+	button ok "ok";
+}
+
+screen dashboard {
+	list projects;
+	button details "Show details";
+	button help "Show help";
+}
+
+import <org/emftext/language/appflow/templates/LoginScreenTemplate.appflow> 
+    as myLogin (name="Project Manager Name", pwd="Password");
+
+screen help {
+	text help "This text should help you.";
+}

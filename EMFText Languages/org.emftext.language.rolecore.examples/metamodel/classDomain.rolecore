@@ -1,0 +1,33 @@
+RCPackage classdomain classdomain "http://www.emftext.org/language/rolecore/classdomain" 
+Imports{
+	prefix: base <BlockClassBase.rolecore>
+}{
+	CoreClass ClassDiagram {
+		reference type:base->ModelElement elements (0..-1) opposite classDiagram;
+	}
+	CoreClass Stereotype extends base.ModelElement {
+	}
+	CoreClass Association extends base.ModelElement {
+		reference type:CRole source (0..1) opposite source;
+		reference type:CRole target (0..1)opposite target;
+	}
+	CoreClass CRole {
+		reference type:Association source (0..1) opposite source;
+		reference type:Association target (0..1) opposite target;
+		reference type:Class class (0..1) opposite roles;
+		reference type:Cardinality card (0..1) opposite card;
+	}
+	CoreClass Class extends base.ModelElement{
+		reference type:CRole roles (0..-1) opposite class;
+	}
+	CoreClass Cardinality {
+		reference type:CRole card (0..1) opposite card;
+	}
+	
+	Role Adornment is played by CRole{
+		attribute EString adornment;
+	}
+	Role CardString is played by Cardinality {
+		attribute EString cardString;
+	}
+}

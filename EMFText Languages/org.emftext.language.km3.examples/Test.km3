@@ -1,0 +1,37 @@
+-- @name		Test
+-- @version		1.0
+-- @authors		Mirko Seifert
+-- @date		2009/05/30
+-- @description	${description}
+package Test {
+
+	-- Every class should extend LocatedElement, directly or indirectly.
+	-- This is a technical constraint to support text-to-model traceability.
+	abstract class LocatedElement {
+		attribute location[0-1] : String;
+		attribute commentsBefore[*] ordered : String;
+		attribute commentsAfter[*] ordered : String;
+	}
+
+-- BEGIN Language-specific classes (replace sample contents)
+	class Root extends LocatedElement {
+		reference elements[*] ordered container : Element;
+		operation getName(e : Element) : Element;
+	}
+
+	class Element extends LocatedElement {
+		attribute name : String;
+	}
+	
+	enumeration E1 {
+		literal A;
+	}
+-- END Language-specific classes
+}
+
+package PrimitiveTypes {
+	datatype Boolean;
+	datatype Double;
+	datatype Integer;
+	datatype String;
+}

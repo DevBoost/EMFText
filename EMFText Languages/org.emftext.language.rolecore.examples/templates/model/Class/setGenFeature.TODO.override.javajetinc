@@ -1,0 +1,36 @@
+<%
+String boxAccessor = null;
+String boxSetter = null;
+String boxClass = null;
+String boxFactory = null;
+String featureAccessor = null;
+String featureSetter = null;
+org.eclipse.emf.ecore.EStructuralFeature eFeature = genFeature.getEcoreFeature();
+org.eclipse.emf.ecore.EAnnotation deriveFrom = eFeature.getEAnnotation("deriveFrom");
+if (deriveFrom != null) {
+	boxAccessor = (String) deriveFrom.getDetails().get("boxAccessor");
+	boxSetter = (String) deriveFrom.getDetails().get("boxSetter");
+	boxClass = (String) deriveFrom.getDetails().get("boxClass");
+	boxFactory = (String) deriveFrom.getDetails().get("boxFactory");
+	featureAccessor = (String) deriveFrom.getDetails().get("featureAccessor");
+	featureSetter = (String) deriveFrom.getDetails().get("featureSetter");
+}
+if (featureAccessor == null) { %>
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+<% } else {
+	if (boxAccessor != null && boxClass != null) { %>
+	Object value = <%=boxAccessor%>();
+	if (value == null) {
+		value = <%=boxFactory%>();
+		<%=boxSetter%>((<%=boxClass%>)value);
+	}
+	if (value instanceof <%=boxClass%>) {
+		((<%=boxClass%>) value).<%=featureSetter%>((<%=eFeature.getEType().getInstanceClassName()%>) new<%=genFeature.getCapName()%>);
+	}
+	<% } else { %>
+	<%=featureSetter%>((<%=eFeature.getEType().getInstanceClassName()%>) new<%=genFeature.getCapName()%>);
+	<% } %>	
+<% } %>
+

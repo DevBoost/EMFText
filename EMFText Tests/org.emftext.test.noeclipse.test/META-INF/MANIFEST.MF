@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.test.noeclipse.test
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.emftext.test.noeclipse,
+ org.emftext.test.noeclipse.resource.noeclipse,
+ org.junit4
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

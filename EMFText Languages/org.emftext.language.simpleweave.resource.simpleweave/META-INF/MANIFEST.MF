@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: simpleweave
+Bundle-SymbolicName: org.emftext.language.simpleweave.resource.simpleweave;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.simpleweave
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.simpleweave.resource.simpleweave,
+  org.emftext.language.simpleweave.resource.simpleweave.analysis,
+  org.emftext.language.simpleweave.resource.simpleweave.mopp,
+  org.emftext.language.simpleweave.resource.simpleweave.debug,
+  org.emftext.language.simpleweave.resource.simpleweave.launch,
+  org.emftext.language.simpleweave.resource.simpleweave.grammar,
+  org.emftext.language.simpleweave.resource.simpleweave.util
+Bundle-Activator: org.emftext.language.simpleweave.resource.simpleweave.mopp.SimpleweavePlugin

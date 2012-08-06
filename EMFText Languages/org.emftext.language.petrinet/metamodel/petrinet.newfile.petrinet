@@ -1,0 +1,9 @@
+net n { 
+	place p1 {
+		token t1
+	}
+	place p2
+	transition t1
+	arc p1 -> t1
+	arc p2 -> t1
+} 

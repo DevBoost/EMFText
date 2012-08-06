@@ -1,0 +1,35 @@
+epackage pacad;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+ 
+eclass NamedElement {
+	
+	getName() {
+		PointAndClickAdventure adventure = (PointAndClickAdventure) EcoreUtil.getRootContainer(this);
+		PointAndClickAdventure mainScript = adventure.getMainScript();
+		if (mainScript != null) {
+			adventure = mainScript;
+		}
+		if (this == adventure.getThingObject()) {
+			return getDeclaredName();
+		}
+		NamedElement current = this;
+		while (current != null) {
+			String declaredName = current.getDeclaredName();
+			if (declaredName != null) {
+				return declaredName;
+			}
+			if (current instanceof Object) {
+				current = ((Object) current).getParent();
+			} else {
+				current = null;
+			}
+		}
+		
+		return null;
+	}
+}

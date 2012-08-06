@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.notes.resource.notes.mopp.NotesMetaInformation" id="org.emftext.language.notes.resource.notes.mopp.NotesMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.notes.resource.notes.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.notes.resource.notes.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.notes.resource.notes.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.notes.resource.notes.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.notes.resource.notes.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.notes.resource.notes.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.notes.resource.notes.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.notes.resource.notes.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.notes.resource.notes.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.notes.resource.notes.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.notes.resource.notes.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.notes.resource.notes.nature" name="notes nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.notes.resource.notes.mopp.NotesNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.notes.resource.notes.builder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.notes.resource.notes.builder" name="notes Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.notes.resource.notes.mopp.NotesBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.notes.resource.notes.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.notes.resource.notes.mopp.NotesResourceFactoryDelegator" type="notes">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.notes.resource.notes.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+</plugin>

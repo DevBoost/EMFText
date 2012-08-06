@@ -1,0 +1,22 @@
+<%TEMPLATE INPUT="http://www.eclipse.org/emf/2002/Ecore::EPackage" %> 
+
+class MyClass {
+	MyClass attribute;
+	<%FOR "eClassifiers" %>
+
+		<%IF "oclIsKindOf(EClass)" %>
+			<%FOR "oclAsType(EClass).eAttributes" %>
+				<%IF "not(oclAsType(EAttribute).derived)" %>
+					MyClass attribute;
+				<%ENDIF%>
+			<%ENDFOR%>
+		<%ENDIF%>
+
+		<%IF "oclIsKindOf(EClass)" %>
+			<%FOR "oclAsType(EClass).eStructuralFeatures" %>
+				void feature() {
+				}
+			<%ENDFOR%>
+		<%ENDIF%>
+	<%ENDFOR%>
+}

@@ -1,0 +1,33 @@
+package text // this is the package name 
+        text // this is the namespace prefix
+        "http://org.emftext/text.text.ecore" // the namespace URI 
+	{
+
+	class Document {
+		containment reference Part parts (0..-1);
+	}
+	
+	abstract class Part {}
+	
+	class Paragraph extends Part {
+		containment reference Token tokens (0..-1);
+		containment reference Linebreak end (1..1);
+	}
+	
+	abstract class Token {}
+	
+	class Word extends Token {
+		attribute EString text (1..1);
+		containment reference Separator separators (1..-1);
+	}
+	
+	abstract class Separator extends Token {}
+	
+	class Whitespace extends Separator {
+		attribute EString text (1..1);
+	}
+	
+	class Linebreak extends Separator {
+		attribute EString text (1..1);
+	}
+}

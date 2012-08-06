@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowUIMetaInformation" id="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="valueflow" icon="icons/editor_icon.gif" id="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowEditor" name="EMFText text.valueflow Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.valueflow.resource.valueflow">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="TextValueflow Text Editor" id="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowPreferencePage" class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowSyntaxColoringPreferencePage" class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowSyntaxColoringPreferencePage" category="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowBracketPreferencePage" class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowBracketPreferencePage" category="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowNewFileWizard" id="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowNewFileWizard" name="EMFText .text.valueflow file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowNewProjectWizard" id="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowNewProjectWizard" name="EMFText text.valueflow project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowMarkerResolutionGenerator" markerType="org.emftext.language.valueflow.resource.valueflow.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.valueflow.resource.valueflow.ui.TextValueflowAnnotationModelFactory" extensions="valueflow">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.valueflow.resource.valueflow" name=".valueflow File" base-type="org.eclipse.core.runtime.text" file-extensions="valueflow">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="valueflow" id="org.emftext.language.valueflow.resource.valueflow.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.valueflow.resource.valueflow.ui.occurences">
+		</type>
+		<type name="org.emftext.language.valueflow.resource.valueflow.ui.occurences.declaration" super="org.emftext.language.valueflow.resource.valueflow.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.valueflow.resource.valueflow.ui.occurences" label="Occurrences (in .text.valueflow files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="text.valueflow.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="text.valueflow.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="text.valueflow.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="text.valueflow.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="text.valueflow.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="text.valueflow.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="text.valueflow.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="text.valueflow.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="text.valueflow.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.valueflow.resource.valueflow.ui.occurences.declaration" label="Declarations (in .text.valueflow files)" textPreferenceKey="text.valueflow.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="text.valueflow.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="text.valueflow.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="text.valueflow.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="text.valueflow.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="text.valueflow.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

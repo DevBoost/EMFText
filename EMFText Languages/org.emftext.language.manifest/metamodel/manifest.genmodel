@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.manifest/src-gen" modelName="Mf" modelPluginID="org.emftext.language.manifest" xmi:version="2.0">
+  <foreignModel>manifest.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="manifest.ecore#/" prefix="Manifest">
+    <genClasses ecoreClass="manifest.ecore#//NamedElement" image="false">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//NamedElement/id"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//Parameter" image="false"/>
+    <genClasses ecoreClass="manifest.ecore#//Directive">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//Directive/token"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//Directive/argument"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//Attribute/token"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//Attribute/argument"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//Entry">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//Entry/path" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//Entry/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//PathExtended">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//PathExtended/path"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//Path"/>
+    <genClasses ecoreClass="manifest.ecore#//Manifest">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//Manifest/manifestVersion"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//Manifest/elements" property="None"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleActivationPolicy"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleActivationPolicy">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleActivationPolicy/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleActivator"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleActivator">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleActivator/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleCategory"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleCategory">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleCategory/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleClassPath"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleClassPath">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleClassPath/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleContactAddress"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleContactAddress">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleContactAddress/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleCopyright"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleCopyright">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleCopyright/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleDescription"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleDescription">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleDescription/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleDocURL"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleDocURL">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleDocURL/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleIcon"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleIcon">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleIcon/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleLicense"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleLicense">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleLicense/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleLocalization"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleLocalization">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleLocalization/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleManifestVersion"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleManifestVersion">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleManifestVersion/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleName"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleName">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleName/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleNativeCode"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleNativeCode">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleNativeCode/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleRequiredExecutionEnvironment"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleRequiredExecutionEnvironment">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleRequiredExecutionEnvironment/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleSymbolicName"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleSymbolicName">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleSymbolicName/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleUpdateLocation"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleUpdateLocation">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleUpdateLocation/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleVendor"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleVendor">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleVendor/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getBundleVersion"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setBundleVersion">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setBundleVersion/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getDynamicImportPackage"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setDynamicImportPackage">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setDynamicImportPackage/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getExportPackage"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setExportPackage">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setExportPackage/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getFragmentHost"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setFragmentHost">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setFragmentHost/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getImportPackage"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setImportPackage">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setImportPackage/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getRequireBundle"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setRequireBundle">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setRequireBundle/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getEclipseLazyStart"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setEclipseLazyStart">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setEclipseLazyStart/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getImportBundle"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setImportBundle">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setImportBundle/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getImportLibrary"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setImportLibrary">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setImportLibrary/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getIncludeResource"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setIncludeResource">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setIncludeResource/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getModuleScope"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setModuleScope">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setModuleScope/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getModuleType"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setModuleType">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setModuleType/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getPrivatePackage"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setPrivatePackage">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setPrivatePackage/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getWebContextPath"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setWebContextPath">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setWebContextPath/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getWebDispatcherServletUrlPatterns"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setWebDispatcherServletUrlPatterns">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setWebDispatcherServletUrlPatterns/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/getWebFilterMappings"/>
+      <genOperations ecoreOperation="manifest.ecore#//Manifest/setWebFilterMappings">
+        <genParameters ecoreParameter="manifest.ecore#//Manifest/setWebFilterMappings/element"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//ManifestElement" image="false"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleActivationPolicy">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//BundleActivationPolicy/directive" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleActivator"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleCategory">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleCategory/category"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleClassPath">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//BundleClassPath/entry" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleContactAddress"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleCopyright"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleDescription"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleDocURL"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleIcon">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleIcon/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleIcon/size"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleLicense">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//BundleLicense/license" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//License">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//License/name"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//License/licenseAttr" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//LicenseAttr" image="false"/>
+    <genClasses ecoreClass="manifest.ecore#//Description">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//Description/description"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//Link">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//Link/url"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleLocalization"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleManifestVersion"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleName"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleNativeCode">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//BundleNativeCode/nativeCode" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleNativeCode/optional"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//NativeCode">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//NativeCode/path" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//NativeCode/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleRequiredExecutionEnvironment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleRequiredExecutionEnvironment/eeName"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleSymbolicName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleSymbolicName/symbolicName"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//BundleSymbolicName/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//BundleUpdateLocation"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleVendor"/>
+    <genClasses ecoreClass="manifest.ecore#//BundleVersion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleVersion/major"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleVersion/minor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleVersion/micro"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//BundleVersion/qualifier"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//DynamicImportPackage">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//DynamicImportPackage/dynamicDescription" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//DynamicDescription">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//DynamicDescription/wildcardName" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//DynamicDescription/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//WildcardName">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//WildcardName/packageName" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//PackageName"/>
+    <genClasses ecoreClass="manifest.ecore#//ExportPackage">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//ExportPackage/export" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//Export">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//Export/packageName" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//Export/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//FragmentHost">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//FragmentHost/symbolicName"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//FragmentHost/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//ImportPackage">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//ImportPackage/import" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//Import">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//Import/packageName" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//Import/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//RequireBundle">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//RequireBundle/requireBundleDescription" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//RequireBundleDescription">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//RequireBundleDescription/symbolicName"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference manifest.ecore#//RequireBundleDescription/parameter" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//EclipseLazyStart">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute manifest.ecore#//EclipseLazyStart/value"/>
+    </genClasses>
+    <genClasses ecoreClass="manifest.ecore#//ImportBundle"/>
+    <genClasses ecoreClass="manifest.ecore#//ImportLibrary"/>
+    <genClasses ecoreClass="manifest.ecore#//IncludeResource"/>
+    <genClasses ecoreClass="manifest.ecore#//ModuleScope"/>
+    <genClasses ecoreClass="manifest.ecore#//ModuleType"/>
+    <genClasses ecoreClass="manifest.ecore#//PrivatePackage"/>
+    <genClasses ecoreClass="manifest.ecore#//WebContextPath"/>
+    <genClasses ecoreClass="manifest.ecore#//WebDispatcherServletUrlPatterns"/>
+    <genClasses ecoreClass="manifest.ecore#//WebFilterMappings"/>
+  </genPackages>
+</genmodel:GenModel>

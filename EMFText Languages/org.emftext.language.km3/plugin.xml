@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/gmt/2005/PrimitiveTypes"
+            class="org.eclipse.gmt.am3.dsls.PrimitiveTypes.PrimitiveTypesPackage"
+            genModel="metamodel/KM3.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/gmt/2005/KM3"
+            class="org.eclipse.gmt.am3.dsls.KM3.KM3Package"
+            genModel="metamodel/KM3.genmodel"/>
+   </extension>
+
+</plugin>

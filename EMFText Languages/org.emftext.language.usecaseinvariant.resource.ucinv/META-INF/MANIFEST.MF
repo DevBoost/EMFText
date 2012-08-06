@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: ucinv
+Bundle-SymbolicName: org.emftext.language.usecaseinvariant.resource.ucinv;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.usecaseinvariant
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.usecaseinvariant.resource.ucinv,
+  org.emftext.language.usecaseinvariant.resource.ucinv.analysis,
+  org.emftext.language.usecaseinvariant.resource.ucinv.mopp,
+  org.emftext.language.usecaseinvariant.resource.ucinv.debug,
+  org.emftext.language.usecaseinvariant.resource.ucinv.launch,
+  org.emftext.language.usecaseinvariant.resource.ucinv.grammar,
+  org.emftext.language.usecaseinvariant.resource.ucinv.util
+Bundle-Activator: org.emftext.language.usecaseinvariant.resource.ucinv.mopp.UcinvPlugin

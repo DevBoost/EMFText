@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bug1404"
+    nsURI="http://www.emftext.org/test/bug1404" nsPrefix="bug1404">
+  <eClassifiers xsi:type="ecore:EClass" name="Root">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="as" lowerBound="1" eType="#//A"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="A"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubA" eSuperTypes="#//A"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubSubA" eSuperTypes="#//SubA"/>
+</ecore:EPackage>

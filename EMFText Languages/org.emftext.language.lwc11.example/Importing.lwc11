@@ -1,0 +1,5 @@
+import <platform:/resource/org.emftext.language.lwc11.example/Basic.lwc11>
+
+entity Company {
+	Person boss
+} 

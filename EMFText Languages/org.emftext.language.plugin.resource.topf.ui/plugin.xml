@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.plugin.resource.topf.ui.TopfUIMetaInformation" id="org.emftext.language.plugin.resource.topf.ui.TopfUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.plugin.resource.topf.ui.TopfEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="topf" icon="icons/editor_icon.gif" id="org.emftext.language.plugin.resource.topf.ui.TopfEditor" name="EMFText topf Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.plugin.resource.topf">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.plugin.resource.topf.ui.TopfPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Topf Text Editor" id="org.emftext.language.plugin.resource.topf.ui.TopfPreferencePage" class="org.emftext.language.plugin.resource.topf.ui.TopfPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.plugin.resource.topf.ui.TopfSyntaxColoringPreferencePage" class="org.emftext.language.plugin.resource.topf.ui.TopfSyntaxColoringPreferencePage" category="org.emftext.language.plugin.resource.topf.ui.TopfPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.plugin.resource.topf.ui.TopfBracketPreferencePage" class="org.emftext.language.plugin.resource.topf.ui.TopfBracketPreferencePage" category="org.emftext.language.plugin.resource.topf.ui.TopfPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.plugin.resource.topf.ui.TopfNewFileWizard" id="org.emftext.language.plugin.resource.topf.ui.TopfNewFileWizard" name="EMFText .topf file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.plugin.resource.topf.ui.TopfMarkerResolutionGenerator" markerType="org.emftext.language.plugin.resource.topf.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.plugin.resource.topf.ui.TopfAnnotationModelFactory" extensions="topf">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.plugin.resource.topf" name=".topf File" base-type="org.eclipse.core.runtime.text" file-extensions="topf">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="topf" id="org.emftext.language.plugin.resource.topf.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.plugin.resource.topf.ui.occurences">
+		</type>
+		<type name="org.emftext.language.plugin.resource.topf.ui.occurences.declaration" super="org.emftext.language.plugin.resource.topf.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.plugin.resource.topf.ui.occurences" label="Occurrences (in .topf files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="topf.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="topf.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="topf.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="topf.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="topf.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="topf.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="topf.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="topf.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="topf.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.plugin.resource.topf.ui.occurences.declaration" label="Declarations (in .topf files)" textPreferenceKey="topf.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="topf.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="topf.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="topf.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="topf.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="topf.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

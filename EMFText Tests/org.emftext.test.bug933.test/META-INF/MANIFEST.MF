@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.test.bug933.test
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.junit4,
+ org.eclipse.emf,
+ org.eclipse.emf.ecore,
+ org.emftext.test.bug933,
+ org.emftext.test.bug933.resource.bug933
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

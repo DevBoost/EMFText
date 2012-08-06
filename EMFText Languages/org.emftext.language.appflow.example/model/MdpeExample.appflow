@@ -1,0 +1,47 @@
+application FeatureRequestProcessing
+statemodel {
+
+	state initial;
+	state idle show projectdetails;
+	state checkFeatureRequests show featureRequests;
+	state reject call <org.emftext.language.appflow.example.FrHandler.rejectFeatureRequest>;
+	state accept call <org.emftext.language.appflow.example.FrHandler.acceptFeatureRequest>;
+	state ticketCreation show ticket;
+	state createCustomerNotification show customerNotification;
+	state notify call <org.emftext.language.appflow.example.FrHandler.notifyCustomer>;
+	state final;	
+	
+	event featureRequests;
+	event accept;
+	event reject;
+	event ticketCreated;
+	event send;
+	
+	initial -> idle;	
+	idle - (featureRequests)-> checkFeatureRequests;
+	checkFeatureRequests -> reject;
+	checkFeatureRequests -> accept;
+	reject -> final;
+	accept -> ticketCreation;
+	ticketCreation - (ticketCreated)-> createCustomerNotification;
+	createCustomerNotification - (send)-> final;
+}
+
+screen projectdetails {
+ 	//..
+	button backButton "back" triggers featureRequests;
+}
+
+screen featureRequests{
+	button acceptButton "accept" triggers accept;
+	button rejectButton "reject" triggers reject;
+}
+
+screen ticket{
+	button finish "finish" triggers ticketCreated;
+}
+
+screen customerNotification{
+	button send "send" triggers send;
+}
+

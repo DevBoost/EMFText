@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: feature
+Bundle-SymbolicName: org.emftext.language.feature.resource.feature;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.feature
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.feature.resource.feature,
+  org.emftext.language.feature.resource.feature.analysis,
+  org.emftext.language.feature.resource.feature.mopp,
+  org.emftext.language.feature.resource.feature.debug,
+  org.emftext.language.feature.resource.feature.launch,
+  org.emftext.language.feature.resource.feature.grammar,
+  org.emftext.language.feature.resource.feature.util
+Bundle-Activator: org.emftext.language.feature.resource.feature.mopp.FeaturePlugin

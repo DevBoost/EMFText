@@ -1,0 +1,26 @@
+epackage pacad;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+ 
+eclass Room {
+	
+	getBackgroundSound() {
+		Room current = this;
+		while (current != null) {
+			String declaredBackgroundSound = current.getDeclaredBackgroundSound();
+			if (declaredBackgroundSound != null) {
+				return declaredBackgroundSound;
+			}
+			Object parent = current.getParent();
+			if (parent instanceof Room) {
+				current = (Room) parent;
+			} else {
+				current = null;
+			}
+		}
+		return null;
+	}
+}

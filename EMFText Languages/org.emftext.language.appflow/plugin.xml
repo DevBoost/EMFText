@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/appflow"
+            class="org.emftext.language.appflow.AppFlowPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/appflow/commons"
+            class="org.emftext.language.appflow.commons.CommonsPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/appflow/statemodel"
+            class="org.emftext.language.appflow.statemodel.StatemodelPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/appflow/actions"
+            class="org.emftext.language.appflow.actions.ActionsPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/appflow/screenmodel"
+            class="org.emftext.language.appflow.screenmodel.ScreenmodelPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/appflow/widgets"
+            class="org.emftext.language.appflow.widgets.WidgetsPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.emftext.org/language/appflow/screenimport"
+            class="org.emftext.language.appflow.screenimport.ScreenimportPackage"/>
+   </extension>
+
+</plugin>

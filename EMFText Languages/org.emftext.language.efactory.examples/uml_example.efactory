@@ -1,0 +1,8 @@
+use "http://www.eclipse.org/uml2/3.0.0/UML"
+new Package A {
+	packagedElement += new Class B {
+		ownedAttribute += new Property {
+			name = "p1"
+		}
+	}
+}

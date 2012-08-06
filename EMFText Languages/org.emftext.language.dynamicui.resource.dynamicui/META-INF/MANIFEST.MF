@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: dynamicui
+Bundle-SymbolicName: org.emftext.language.dynamicui.resource.dynamicui;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.language.dynamicui
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.dynamicui.resource.dynamicui,
+  org.emftext.language.dynamicui.resource.dynamicui.analysis,
+  org.emftext.language.dynamicui.resource.dynamicui.mopp,
+  org.emftext.language.dynamicui.resource.dynamicui.debug,
+  org.emftext.language.dynamicui.resource.dynamicui.launch,
+  org.emftext.language.dynamicui.resource.dynamicui.grammar,
+  org.emftext.language.dynamicui.resource.dynamicui.util
+Bundle-Activator: org.emftext.language.dynamicui.resource.dynamicui.mopp.DynamicuiPlugin

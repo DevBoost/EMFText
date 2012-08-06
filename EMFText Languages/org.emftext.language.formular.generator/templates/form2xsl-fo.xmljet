@@ -1,0 +1,129 @@
+<%@ jet package="generator.xml"
+	class="FOFormGenerator" 
+	skeleton="generator.skeleton" 
+	imports ="java.util.List org.emftext.language.formular.*;"
+%><% Formular formular = (Formular) argument; 
+%><?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<root xmlns="http://www.w3.org/1999/XSL/Format">
+
+<layout-master-set>
+  <simple-page-master master-name="A4" 
+   	page-height="297mm" page-width="210mm"
+   	margin-top="1cm"   margin-bottom="1cm"
+   	margin-left="1cm"  margin-right="1cm">
+    <region-body   margin="2cm"/>
+  	<region-before extent="2cm"/>
+  	<region-after  extent="2cm"/>
+  	<region-start  extent="2cm"/>
+  	<region-end    extent="2cm"/>
+  </simple-page-master>
+</layout-master-set>
+
+<page-sequence master-reference="A4">
+<flow flow-name="xsl-region-body">
+	<block font-size="14pt" font-family="sans-serif">
+		<%=formular.getTitel()%>
+	</block><% 
+   List<Gruppe> gruppen=formular.getGruppen();
+   for(Gruppe gruppe:gruppen){%>
+	<block font-size="12pt" font-family="sans-serif" space-before="5mm" space-after="0mm">
+		<%=gruppe.getName()%>
+	</block>
+	<table table-layout="fixed"  width="100%" border-width="1pt" border-style="solid">
+	<table-column column-width="5%"/>
+	<table-column column-width="30%"/>
+    <table-column column-width="65%"/>
+	<table-body><%
+		 List<Frage> fragen=gruppe.getFragen();
+		 for(int f = 0; f < fragen.size(); f++){
+		 	Frage frage = fragen.get(f);
+		 	AntwortTyp typ = frage.getAntwortTyp();
+		 	String erklaerung = frage.getErklaerung();
+		 	String text = frage.getText();
+		 	List<Option> vorbedingungen = frage.getAbhaengigVon();
+		 	boolean hatVorbedingungen = !vorbedingungen.isEmpty(); %><%
+		 	if(hatVorbedingungen){%>
+		<table-row>
+			<table-cell number-columns-spanned="3">
+			 	<block font-size="8pt">
+			 		Nur <%= "ausf\u00FCllen" %> wenn bei Frage <%=erzeugeFragenAdresse(vorbedingungen.get(0))%> "<%=vorbedingungen.get(0).getText()%>" <%= "gew\u00E4hlt wurde" %>:
+			 	</block>
+			</table-cell>
+		</table-row><%} %>
+		<table-row border-bottom-width="0.5pt" border-bottom-style="solid">
+		<table-cell padding="2pt 2pt">
+			<block font-size="10pt" margin-left="0cm" font-family="sans-serif">
+				<%=erzeugeFragenAdresse(frage)%>
+			</block>
+		</table-cell>
+		<table-cell padding="2pt 2pt">
+			<block font-size="10pt" margin-left="1cm" font-family="sans-serif" space-before="2mm">
+				<%=text%>
+			</block><%
+			if(erklaerung!=null){%>
+			<block font-size="6pt" margin-left="1cm" font-family="sans-serif">
+				(<%=erklaerung%>)
+			</block>
+			<%} %>
+		</table-cell>
+		<table-cell padding="2pt 2pt"><%
+		if(typ instanceof Datum){%>
+			<block text-align="left" font-size="12pt">
+  				<inline border-style="none" background-color="rgb(80%,80%,80%)" color="rgb(80%,80%,80%)">&#160;&#160;&#160;&#160;</inline> 
+  				<inline>.</inline> 
+  				<inline border-style="none" background-color="rgb(80%,80%,80%)" color="rgb(80%,80%,80%)">&#160;&#160;&#160;&#160;</inline> 
+  				<inline>.</inline> 
+  				<inline border-style="none" background-color="rgb(80%,80%,80%)" color="rgb(80%,80%,80%)">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</inline>
+  				<inline font-size="8pt">(Tag.Monat.Jahr)</inline> 
+  			</block>
+			
+		<% }else if(typ instanceof Freitext){%>
+			<block  background-color="rgb(80%,80%,80%)" color="rgb(80%,80%,80%)" border-after-style="solid" border-after-width="thin" text-align="left" font-size="12pt">	
+				&#160;
+			</block>
+		<% }else if(typ instanceof Zahl) {%>
+			<block text-align="left" font-size="10pt">
+  				<inline border-after-style="solid" border-after-width="thin" background-color="rgb(80%,80%,80%)" color="rgb(80%,80%,80%)">&#160;&#160;&#160;&#160;&#160;&#160;&#160;</inline> 
+  				<inline font-size="8pt">(bitte eine Zahl angeben)</inline> 
+  			</block>
+		<% }else if(typ instanceof Entscheidung) {
+				Entscheidung entscheidung = (Entscheidung)typ;
+				Option option1 = entscheidung.getOptionen().get(0);
+				Option option2 = entscheidung.getOptionen().get(1);%>
+			<block text-align="left" font-size="10pt">
+  				<inline border-width="thin" border-style="solid" color="white">&#160;&#160;&#160;</inline> 
+  				<inline font-size="8pt"><%=option1.getText()%>&#160;</inline> 
+  				<inline border-width="thin" border-style="solid" color="white">&#160;&#160;&#160;</inline> 
+  				<inline font-size="8pt"><%=option2.getText()%></inline>
+  			</block>
+		<% }else if(typ instanceof Auswahl) {
+				Auswahl auswahl= (Auswahl)typ;%>
+			<block text-align="center" font-size="8pt">
+				Bitte ankreuzen (<%=auswahl.isMehrfach()? "Mehrfachauswahl m\u00F6glich" : "maximal eine M\u00F6glichkeit ausw\u00E4hlen" %>):
+			</block>
+			<list-block><%
+			for(Option option:auswahl.getOptionen()){%>
+				<list-item>
+ 					<list-item-label>
+ 						<block/>
+ 					</list-item-label>
+ 					<list-item-body>
+ 						<block>
+ 					  	<inline font-size="10pt" border-style="solid" border-width="thin" color="white">&#160;&#160;&#160;</inline>
+   						<inline font-size="8pt"> <%=option.getText()%></inline>
+ 						</block>
+ 					</list-item-body>
+				</list-item>
+			<% }%>
+			</list-block>
+		<% }%>	
+		</table-cell>
+		</table-row>
+		<%} %>
+	</table-body>
+	</table>
+   <%} %>
+</flow>
+</page-sequence>
+
+</root>

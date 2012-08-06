@@ -1,0 +1,76 @@
+aspect Reachability{
+	
+	eq State.isCyclic() = reachable().contains(this);
+	eq State.isStartState() = predecessors().size() == 0;
+	eq State.isFinalState () = successors().size() == 0;
+	eq StateModel.getstates(int index).stateModel() = this; 
+		
+	eq State.successors() {	
+		EList result = new BasicEList();
+		for(Transition transition:(EList<Transition>)fanOut()){
+			result.add(transition.getTarget());
+		}
+		return result;
+	}
+	
+	eq State.predecessors() {
+		EList result = new BasicEList();
+		for(Transition transition:(EList<Transition>)fanIn()){
+			result.add(transition.getSource());
+		}
+		return result;
+	}
+	
+	eq State.reachable() {
+		EList result = new BasicEList();
+		result.addAll(successors());	
+		for(State successor:(EList<State>)successors()){
+			for(State reachableState:(EList<State>)successor.reachable()){
+				if(!result.contains(reachableState)){
+					result.add(reachableState);
+				}
+			}
+		}
+		return result;
+	}
+	
+	eq StateModel.getstates(int index).fanOut() {	
+		EList result = new BasicEList();
+		State state = getstates(index);
+		for(int i=0;i<gettransitionsList().getNumChild();i++){
+			Transition currentTransition = gettransitionsList().getChild(i);
+			if(currentTransition.getSource()==state)
+				result.add(currentTransition);
+		}
+		return result;
+	}
+	
+	eq StateModel.getstates(int index).fanIn() {	
+		EList result = new BasicEList();
+		State state = getstates(index);
+		for(int i=0;i<gettransitionsList().getNumChild();i++){
+			Transition currentTransition = gettransitionsList().getChild(i);
+			if(currentTransition.getTarget()==state)
+				result.add(currentTransition);
+		}
+		return result;
+	}
+	
+	State contributes this
+	when isStartState()
+	to StateModel.startStates()
+	for stateModel();
+	
+	State contributes this 
+	when isFinalState()
+	to StateModel.finalStates()
+	for stateModel();
+	
+	eq StateModel.canTerminate(){
+		for(State startState:(EList<State>)startStates()){
+			if(!java.util.Collections.disjoint(startState.reachable(),finalStates()))
+				return true;
+		}
+		return false;
+	}
+}

@@ -1,0 +1,45 @@
+package company // this is the package name 
+        company // this is the namespace prefix
+        "http://org.emftext/company.ecore" // the namespace URI 
+	{
+
+	class Company { 
+		iD attribute EString name (1..1);
+		containment reference Department departments (0..-1);
+		derived attribute EInt depth (0..1);
+		derived attribute EBoolean precedence (0..1);
+		derived attribute EDouble totalSalary (0..1);
+	@"http://www.eclipse.org/emf/2002/GenModel"("body"="\n\t\t org.eclipse.emf.common.util.EList< org.emftext.language.company.Department> ds = this.getDepartments();\n\n\t\tfor ( org.emftext.language.company.Department department : ds) {\n\t\t\tdepartment.cutSalaries();\n\t\t}\n", "documentation"="")
+		operation void (0..1) cutSalary(); // optional feature Salary
+	}
+	
+	class Department {
+		iD attribute EString name (1..1);
+		containment reference Employee manager (1..1);
+		containment reference Department subDepartments (0..-1);
+		containment reference Employee employees (0..-1);
+		derived attribute EDouble maxSalary (0..1);
+		derived attribute EDouble localMax (0..1);
+		derived attribute EBoolean precedence (0..1);
+
+@"http://www.eclipse.org/emf/2002/GenModel"("body"="\r\n\t\tint depth = 1;\n\r\n\t\t java.util.List< org.emftext.language.company.Department> subDepartments2 = getSubDepartments();\n\r\n\t\tif(subDepartments2 != null){\r\n\t\t\tint max = 0;\r\n\t\t\t\t\tfor ( org.emftext.language.company.Department subDepartment : subDepartments2) {\r\n\t\t\t\t\t\tif(max < subDepartment.depth()){\r\n\t\t\t\t\t\t\tmax = subDepartment.depth();\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\tdepth = max + 1;\r\n\t\t}\n\r\n\t\treturn depth;\n", "documentation"="")
+		operation EInt (0..1) depth();
+@"http://www.eclipse.org/emf/2002/GenModel"("body"="\r\n\t\tgetManager().cutSalary();\n\r\n\t\tfor ( org.emftext.language.company.Employee e : getEmployees()) {\r\n\t\t\te.cutSalary();\r\n\t\t}\n\r\n\t\tfor ( org.emftext.language.company.Department d : getSubDepartments()) {\r\n\t\t\td.cutSalaries();\r\n\t\t}\n", "documentation"="")
+		operation void (1..1) cutSalaries();
+	
+	}
+	
+	class Employee {
+		iD attribute EString name (1..1);
+		attribute EString address (1..1);
+		attribute EDouble salary (1..1);
+		reference Employee mentor (0..1); // optional feature Salary
+	
+		reference Employee departmentHead (0..1);
+		derived attribute EBoolean precedence (0..1);
+	@"http://www.eclipse.org/emf/2002/GenModel"("body"="\n\t\tsetSalary(getSalary()/2);\r\n", "documentation"="") // optional feature Mentor
+		operation void (0..1) cutSalary();
+	}
+
+	
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+
+    <category
+    	id="org.emftext.language.functions.category1"
+        name="name">
+	</category>
+      
+    <constraintProvider cache="true" mode="Batch">
+         <package namespaceUri="http://www.emftext.org/functions" />
+         
+         <constraints categories="org.emftext.language.functions.category1">
+            <constraint
+                  class="org.emftext.language.functions.validation.CostValidator"
+                  id="org.emftext.language.functions.constraint1"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+
+            <constraint
+                  class="org.emftext.language.functions.validation.NameValidator"
+                  id="org.emftext.language.functions.constraint2"
+                  lang="Java"
+                  mode="Batch"
+                  name="name"
+                  severity="ERROR"
+                  statusCode="1">
+               <message>
+                  message body text
+               </message>
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+
+	<extension point="org.eclipse.emf.validation.constraintBindings">
+    <clientContext
+          default="false"
+          id="org.emftext.language.functions.validation.clientContext1">
+        <enablement>
+        </enablement>
+	</clientContext>
+    <binding
+          category="org.emftext.language.functions.category1"
+          context="org.emftext.language.functions.validation.clientContext1">
+    </binding>
+	</extension>
+
+</plugin>

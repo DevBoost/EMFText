@@ -1,0 +1,18 @@
+Form {
+	caption : "A simple form written in HUTN syntax" 
+	groups : Group {
+		name : "A first group" 
+		items : Item {
+		 	text : "Do you like this tutorial so far?" 
+		 	explanation : "It's ok to please the presenters instead of telling the truth" 
+		 	itemType : Choice {
+		 		options : Option {
+		 			text : "Yes, its amazing!"
+		 		} 
+		 		options : Option {
+		 			text : "Well, it's a little boring so far."
+		 		}
+		 	}
+		}
+	}
+}

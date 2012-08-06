@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.sumup.resource.sumup.ui.SumupUIMetaInformation" id="org.emftext.language.sumup.resource.sumup.ui.SumupUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.sumup.resource.sumup.ui.SumupEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="sumup" icon="icons/editor_icon.gif" id="org.emftext.language.sumup.resource.sumup.ui.SumupEditor" name="EMFText sumup Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.sumup.resource.sumup">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.sumup.resource.sumup.ui.SumupPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Sumup Text Editor" id="org.emftext.language.sumup.resource.sumup.ui.SumupPreferencePage" class="org.emftext.language.sumup.resource.sumup.ui.SumupPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.sumup.resource.sumup.ui.SumupSyntaxColoringPreferencePage" class="org.emftext.language.sumup.resource.sumup.ui.SumupSyntaxColoringPreferencePage" category="org.emftext.language.sumup.resource.sumup.ui.SumupPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.sumup.resource.sumup.ui.SumupBracketPreferencePage" class="org.emftext.language.sumup.resource.sumup.ui.SumupBracketPreferencePage" category="org.emftext.language.sumup.resource.sumup.ui.SumupPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.sumup.resource.sumup.ui.SumupNewFileWizard" id="org.emftext.language.sumup.resource.sumup.ui.SumupNewFileWizard" name="EMFText .sumup file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.sumup.resource.sumup.ui.SumupMarkerResolutionGenerator" markerType="org.emftext.language.sumup.resource.sumup.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.sumup.resource.sumup.ui.SumupAnnotationModelFactory" extensions="sumup">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.sumup.resource.sumup" name=".sumup File" base-type="org.eclipse.core.runtime.text" file-extensions="sumup">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="sumup" id="org.emftext.language.sumup.resource.sumup.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.sumup.resource.sumup.ui.occurences">
+		</type>
+		<type name="org.emftext.language.sumup.resource.sumup.ui.occurences.declaration" super="org.emftext.language.sumup.resource.sumup.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.sumup.resource.sumup.ui.occurences" label="Occurrences (in .sumup files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="sumup.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="sumup.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="sumup.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="sumup.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="sumup.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="sumup.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="sumup.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="sumup.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="sumup.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.sumup.resource.sumup.ui.occurences.declaration" label="Declarations (in .sumup files)" textPreferenceKey="sumup.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="sumup.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="sumup.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="sumup.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="sumup.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="sumup.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

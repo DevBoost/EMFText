@@ -1,0 +1,10 @@
+<%TEMPLATE INPUT=
+  "http://www.emftext.org/language/customer::Customer" 
+%>
+
+public class T1 {
+
+	<%FOR "requests" %>
+		public int <%= "name" %>;
+	<%ENDFOR%>
+}

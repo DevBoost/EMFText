@@ -1,0 +1,5 @@
+space = %x20
+
+alpha = %x41-5A / %x61-7A   ; A-Z / a-z
+
+text = *(*(alpha) *(space))

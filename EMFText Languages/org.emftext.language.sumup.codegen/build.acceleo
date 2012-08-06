@@ -1,0 +1,28 @@
+<!-- ===================================================================== -->
+<!-- Custom targets.                                                       -->
+<!-- Set customBuildCallbacks = build.acceleo in your build.properties.    -->
+<!-- ===================================================================== -->
+<project name="Build Acceleo Module" default="noDefault">
+
+	<!-- ================================================================= -->
+	<!-- Default target                                                    -->
+	<!-- ================================================================= -->
+	<target name="noDefault">
+		<echo message="This file must be called with explicit targets" />
+	</target>
+
+	<!-- ================================================================= -->
+	<!-- Steps to do after the target gather.bin.parts                     -->
+	<!-- Available parameters :                                            -->
+	<!--   build.result.folder - folder containing the build results       -->
+	<!--   target.folder - destination folder                              -->
+	<!-- ================================================================= -->
+
+	<target name="post.gather.bin.parts">
+		<acceleoCompiler 
+			sourceFolders="${target.folder}" 
+			dependencies="${target.folder}/../org.emftext.language.sumup;${target.folder}/../org.emftext.language.petrinets.resource.petrinets;${target.folder}/../org.emftext.access;${target.folder}/../org.emftext.commons.antlr3_3_0;${target.folder}/../org.emftext.language.petrinets;${target.folder}/../org.emftext.runtime.owltext;${target.folder}/../org.emftext.language.owl;${target.folder}/../org.emftext.language.owl.resource.owl;${target.folder}/../org.emftext.runtime.owltext.transformation;${target.folder}/../org.emftext.language.owl.reasoning;${target.folder}/../org.emftext.language.owl.resource.owl.ui;">
+		</acceleoCompiler>
+	</target>	
+
+</project>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <ecore:EPackage name="AM3Core" nsURI="http://www.eclipse.org/gmt/am3/2007/AM3Core"
+      nsPrefix="am3core">
+    <eClassifiers xsi:type="ecore:EClass" name="Megamodel">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElements" upperBound="-1"
+          eType="#/0/Element" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" ordered="false"
+          upperBound="-1" eType="#/0/Metadata" containment="true" eOpposite="#/0/Metadata/element"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LocatedElement" abstract="true" eSuperTypes="#/0/Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="locator" ordered="false"
+          lowerBound="1" eType="#/0/Locator" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="uti" ordered="false"
+          upperBound="-1" eType="#/0/UTI"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IdentifiedElement" abstract="true"
+        eSuperTypes="#/0/Element">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="__id" ordered="false"
+          unique="false" lowerBound="1" eType="#/1/String"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="identifier" ordered="false"
+          lowerBound="1" eType="#/0/Identifier" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="relatedTo" ordered="false"
+          upperBound="-1" eType="#/0/Relationship" eOpposite="#/0/Relationship/linkedElements"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sourceOf" ordered="false"
+          upperBound="-1" eType="#/0/DirectedRelationship" eOpposite="#/0/DirectedRelationship/source">
+        <eAnnotations source="subsets" references="#/0/IdentifiedElement/relatedTo"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="targetOf" ordered="false"
+          upperBound="-1" eType="#/0/DirectedRelationship" eOpposite="#/0/DirectedRelationship/target">
+        <eAnnotations source="subsets" references="#/0/IdentifiedElement/relatedTo"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Entity" abstract="true" eSuperTypes="#/0/IdentifiedElement #/0/LocatedElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Relationship" abstract="true" eSuperTypes="#/0/IdentifiedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="linkedElements" ordered="false"
+          upperBound="-1" eType="#/0/IdentifiedElement" unsettable="true" eOpposite="#/0/IdentifiedElement/relatedTo"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DirectedRelationship" abstract="true"
+        eSuperTypes="#/0/Relationship">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
+          upperBound="-1" eType="#/0/IdentifiedElement" eOpposite="#/0/IdentifiedElement/sourceOf">
+        <eAnnotations source="subsets" references="#/0/Relationship/linkedElements"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
+          upperBound="-1" eType="#/0/IdentifiedElement" eOpposite="#/0/IdentifiedElement/targetOf">
+        <eAnnotations source="subsets" references="#/0/Relationship/linkedElements"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Container" abstract="true" eSuperTypes="#/0/Entity">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEntities" ordered="false"
+          upperBound="-1" eType="#/0/Entity" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Group" eSuperTypes="#/0/IdentifiedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElements" ordered="false"
+          upperBound="-1" eType="#/0/Element"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Chain" abstract="true" eSuperTypes="#/0/IdentifiedElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Metadata">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="element" ordered="false"
+          lowerBound="1" eType="#/0/Element" eOpposite="#/0/Element/metadata"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" ordered="false"
+          unique="false" lowerBound="1" eType="#/1/String"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
+          unique="false" lowerBound="1" eType="#/1/String"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Identifier" abstract="true" eSuperTypes="#/0/Element">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
+          unique="false" lowerBound="1" eType="#/1/String"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Locator" abstract="true" eSuperTypes="#/0/Element">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
+          unique="false" lowerBound="1" eType="#/1/String"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UTI" eSuperTypes="#/0/IdentifiedElement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" ordered="false"
+          unique="false" lowerBound="1" eType="#/1/String"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="supertypes" ordered="false"
+          upperBound="-1" eType="#/0/UTI"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="tagSpecifications" ordered="false"
+          upperBound="-1" eType="#/0/TypeTagSpecification" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="locator" ordered="false"
+          lowerBound="1" eType="#/0/Locator"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TypeTagSpecification" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" ordered="false"
+          unique="false" lowerBound="1" upperBound="-1" eType="#/1/String"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FilenameExtension" eSuperTypes="#/0/TypeTagSpecification"/>
+    <eClassifiers xsi:type="ecore:EClass" name="OSType" eSuperTypes="#/0/TypeTagSpecification"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MimeType" eSuperTypes="#/0/TypeTagSpecification"/>
+  </ecore:EPackage>
+  <ecore:EPackage name="PrimitiveTypes" nsURI="http://www.eclipse.org/gmt/am3/2007/AM3Core-PrimitiveTypes"
+      nsPrefix="pt">
+    <eClassifiers xsi:type="ecore:EDataType" name="String" instanceClassName="java.lang.String"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="java.lang.Integer"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="java.lang.Boolean"/>
+  </ecore:EPackage>
+</xmi:XMI>

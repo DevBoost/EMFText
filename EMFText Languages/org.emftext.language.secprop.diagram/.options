@@ -1,0 +1,7 @@
+# Tracing options for the org.emftext.language.secprop.diagram plug-in
+
+# Common issues
+org.emftext.language.secprop.diagram/debug=false
+
+# Visual IDs
+org.emftext.language.secprop.diagram/debug/visualID=false

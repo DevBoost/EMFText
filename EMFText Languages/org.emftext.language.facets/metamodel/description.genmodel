@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.facets/src-gen" modelName="Description" modelPluginID="org.emftext.language.facets" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore" xmi:version="2.0">
+  <foreignModel>description.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="description.ecore#/" prefix="Description">
+    <genEnums ecoreEnum="description.ecore#//DerivationState" typeSafeEnumCompatible="false">
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//DerivationState/REFRESH_ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//DerivationState/REFRESH_DIRECT_FACETS"/>
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//DerivationState/REFRESH_LANG_INDE_FACETS"/>
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//DerivationState/REFRESH_MAPPING_FACETS"/>
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//DerivationState/UP_TO_DATE"/>
+    </genEnums>
+    <genEnums ecoreEnum="description.ecore#//GUIState" typeSafeEnumCompatible="false">
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//GUIState/REFRESH_ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//GUIState/REFRESH_VALUE_COUNTS"/>
+      <genEnumLiterals ecoreEnumLiteral="description.ecore#//GUIState/UP_TO_DATE"/>
+    </genEnums>
+    <genClasses ecoreClass="description.ecore#//BrowserState">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//BrowserState/selectedFacets" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//BrowserState/guiState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//BrowserState/filteredContent" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//BrowserState/additionalFacets" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//BrowserState/presentedFacets" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//FacetDefinition">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference description.ecore#//FacetDefinition/facetTypes" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//FacetType" image="false">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FacetType/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FacetType/multiValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FacetType/description"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference description.ecore#//FacetType/values" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//FacetType/container" notify="false" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference description.ecore#//FacetType/derivationData" property="None"/>
+      <genOperations ecoreOperation="description.ecore#//FacetType/getQuery"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//DateFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//DateFacet/query"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//ListFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//ListFacet/query"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//RangeFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//RangeFacet/query"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//TreeFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//TreeFacet/query"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//Facet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//Facet/type" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//Facet/values" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//Facet/typeID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//Facet/valueNames"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//FacetValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FacetValue/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FacetValue/description"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference description.ecore#//FacetValue/value" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference description.ecore#//FacetValue/children" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//FragmentDescription">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference description.ecore#//FragmentDescription/facets" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference description.ecore#//FragmentDescription/properties" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FragmentDescription/derivationState"/>
+      <genFeatures children="true" createChild="false" ecoreFeature="ecore:EReference description.ecore#//FragmentDescription/subject" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//Property/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//Property/value"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//FreeTextFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FreeTextFacet/query"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//FacetTypeDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//FacetTypeDecorator/values" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//FacetTypeDecorator/decoratee" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//FacetTypeDecorator/selection" notify="false" propertySortChoices="true"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//FacetValueDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//FacetValueDecorator/children" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference description.ecore#//FacetValueDecorator/decoratee" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//FacetValueDecorator/valueCount"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//DerivationData" image="false">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//DerivationData/derivatorID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//DerivationData/rule"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//DerivationData/derivationDone"/>
+    </genClasses>
+    <genClasses ecoreClass="description.ecore#//DirectDerivation"/>
+    <genClasses ecoreClass="description.ecore#//LangIndependentDerivation"/>
+    <genClasses ecoreClass="description.ecore#//MappingDerivation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute description.ecore#//MappingDerivation/facetTypeID"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

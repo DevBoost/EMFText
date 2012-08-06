@@ -1,0 +1,39 @@
+// This file should be placed in a folder next to your
+// Ecore model. The folder should have the name of your 
+// EPackage. This is similar to how Java source code is
+// structured in folders according to package declarations
+// in the code.
+//
+// You need one eJava file per EClass that is named similar
+// to the EClass.
+epackage office2;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+ 
+// import of other EClasses
+
+eclass OfficeModel {
+	/** Utility operation that removes all empty offices.
+	*/
+	removeUnusedOffices() {
+		EList<Office> candidates = new BasicEList<Office>();
+		for(OfficeElement element : getElements()) {
+			if (element instanceof Office) {
+				candidates.add((Office)element);
+			}
+		}
+		
+		for(OfficeElement element : getElements()) {
+			if (element instanceof Employee) {
+				if (((Employee)element).getWorksIn() != null) {
+					candidates.remove(((Employee)element).getWorksIn());
+				}
+			}
+		}
+		
+		getElements().removeAll(candidates);
+	}
+}

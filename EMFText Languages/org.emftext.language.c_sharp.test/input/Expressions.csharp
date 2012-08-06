@@ -1,0 +1,10 @@
+namespace NameSpace1
+{
+	class Class1
+    {
+    	public int i = 0;
+    	public int j = 1;
+    	i = j;
+    	
+    }
+}

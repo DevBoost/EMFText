@@ -1,0 +1,77 @@
+package org.emftext.languages.petrinets.lib;
+
+petrinet Standardlib
+
+types <platform:/plugin/org.emftext.language.petrinets/metamodel/petrinets.text.ecore> <platform:/plugin/org.emftext.language.petrinets/metamodel/petrinets.genmodel>;
+types <platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore> <platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel> ;
+
+FUNCTIONS: {
+	
+	library function EBoolean EJavaObject.isNull()
+	function EBoolean EJavaObject.equals(EJavaObject o)
+	library function EBoolean EJavaObject.isNotNull()
+	function EString EJavaObject.toString()
+	 
+	function EBoolean EClass.isInstance(EJavaObject object)
+	function EBoolean EClass.isSupertypeOf(EClass class)
+	
+	function EClass EObject.eClass()
+	
+	library function EInt EInt.add(EInt argument)
+	library function EInt EInt.sub(EInt argument) 
+	library function EInt EInt.mult(EInt argument)
+	library function EInt EInt.div(EInt argument) 
+	library function EInt EInt.power(EInt argument)
+	library function EBoolean EInt.greaterThan(EInt argument)
+	library function EBoolean EInt.greaterEqual(EInt argument)
+	library function EBoolean EInt.lessThan(EInt argument)
+	library function EBoolean EInt.lessEqual(EInt argument)
+	
+	function EDouble EInt.doubleValue()
+	function EDouble EFloat.doubleValue()
+	function EFloat EInt.floatValue()
+	function EFloat EDouble.floatValue()
+	function EInt EDouble.intValue()
+	function EInt EFloat.intValue()
+	
+	
+	library function EDouble EDouble.add(EDouble argument)
+	library function EDouble EDouble.sub(EDouble argument) 
+	library function EDouble EDouble.mult(EDouble argument)
+	library function EDouble EDouble.div(EDouble argument) 
+	library function EDouble EDouble.power(EDouble argument)
+	library function EBoolean EDouble.greaterThan(EDouble argument)
+	library function EBoolean EDouble.greaterEqual(EDouble argument)
+	library function EBoolean EDouble.lessThan(EDouble argument)
+	library function EBoolean EDouble.lessEqual(EDouble argument)
+	
+	library function EFloat EInt.floatValue()
+	
+	library function EFloat EFloat.add(EFloat argument)
+	library function EFloat EFloat.sub(EFloat argument) 
+	library function EFloat EFloat.mult(EFloat argument)
+	library function EFloat EFloat.div(EFloat argument) 
+	
+	//library function EBoolean EBoolean.and(EBoolean argument)
+	//library function EBoolean EBoolean.or(EBoolean argument)
+	library function EBoolean EBoolean.not()
+	library function EInt EBoolean.hashValue()
+	
+	library function EString EString.append(EString argument)
+	function EString EString.substring(EInt start, EInt end)
+	function EInt EString.length() 
+	function EString EString.toUpperCase()
+	function EString EString.toLowerCase()
+	library function EInt EString.hashValue()
+	
+	function PList[T] PList[T].add(T element)
+	function EBoolean PList[T].remove(T element)
+	function EInt PList[T].indexOf(T element)
+	function PList[T] PList[T].sublist(EInt start, EInt end)
+	function T PList[T].get(EInt index)
+	function EInt PList[F].size() 
+	function EBoolean PList[F].isEmpty()
+	
+}
+
+{}

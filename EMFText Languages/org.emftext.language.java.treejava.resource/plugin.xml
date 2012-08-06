@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  
+   <extension
+         point="org.emftext.language.java.treejava.resource.treejava.default_load_options">
+      <provider
+            class="org.emftext.language.java.treejava.resource.util.TreeJavaPostProcessor"
+            id="org.emftext.language.java.treejava.resource.treejava.util.TreeJavaPostProcessor">
+      </provider>
+   </extension>
+
+   <extension
+         point="org.emftext.language.java.treejava.resource.treejava.default_load_options">
+      <provider
+            class="org.emftext.language.java.treejava.resource.util.UnicodeConverterProvider"
+            id="org.emftext.language.java.treejava.resource.treejava.util.UnicodeConverterProvider">
+      </provider>
+   </extension>
+    
+</plugin>

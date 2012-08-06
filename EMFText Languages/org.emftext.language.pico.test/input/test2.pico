@@ -1,0 +1,10 @@
+begin 
+	declare 
+		var1 : natural;
+	var1 := 5;
+	if var1 < 10 then
+		var1 := 1
+	else 
+		var1 := 2
+	fi
+end 

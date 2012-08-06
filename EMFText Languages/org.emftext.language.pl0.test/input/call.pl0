@@ -1,0 +1,39 @@
+program caltest
+
+var a;
+
+procedure p;
+	var df;
+	
+	procedure q;
+        begin
+            a := a + 1;
+            if a < 10 then
+            begin
+                call pppppp
+            end;
+            a := a - 1
+        end;
+        
+    procedure pppppp;
+    	begin
+    		a := a + 1;
+    		call q
+    	end;
+    	
+	begin
+		a:=5;
+		call q
+	end;
+
+procedure p3;
+	var vb;
+	begin
+		a := 15
+	end;
+	
+
+begin
+	call p;
+	call p3
+end.

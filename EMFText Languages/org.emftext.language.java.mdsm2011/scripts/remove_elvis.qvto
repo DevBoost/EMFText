@@ -1,0 +1,192 @@
+modeltype JAVA uses "http://www.emftext.org/java";
+
+transformation Java2Closure(inout java : JAVA);
+
+main() {
+	java.objects()[JAVA::expressions::ConditionalExpression]->map Expressions_ConditionalExpression();
+	java.objects()[JAVA::classifiers::Class]->map Classifiers_Class();
+	java.objects()[JAVA::statements::StatementListContainer]->map Statements_StatementListContainer();
+	java.objects()[JAVA::statements::StatementContainer]->map Statements_StatementContainer();
+}
+
+// count classes
+mapping inout JAVA::classifiers::Class::Classifiers_Class(){}
+
+// count conditional expressions (elvis operators)
+mapping inout JAVA::expressions::ConditionalExpression::Expressions_ConditionalExpression(){}
+
+// tries to convert local variable statements, return statemens or assignment that
+// use the elvis operator
+query JAVA::statements::Statement::StatementToCondition() : JAVA::statements::Condition {
+	
+	var localVar    : JAVA::variables::LocalVariable;
+	var ret         : JAVA::statements::Return;
+	var assExpr     : JAVA::expressions::AssignmentExpression;
+	var lvCondition : JAVA::statements::Condition;
+	var rCondition  : JAVA::statements::Condition;
+	var aeCondition : JAVA::statements::Condition;
+	
+	-- first look what kind of statement we have and save necessary variables
+	
+	-- LocalVariable Statement
+	if self.oclIsTypeOf(JAVA::statements::LocalVariableStatement) then
+		localVar := self.oclAsType(JAVA::statements::LocalVariableStatement).variable
+	endif;
+	-- Return
+	if self.oclIsTypeOf(JAVA::statements::Return) then
+		ret := self.oclAsType(JAVA::statements::Return)
+	endif;
+	-- ExpressionStatement
+	if self.oclIsTypeOf(JAVA::statements::ExpressionStatement) then
+		if self.oclAsType(JAVA::statements::ExpressionStatement).expression.
+			oclIsTypeOf(JAVA::expressions::AssignmentExpression) then
+				assExpr:= self.oclAsType(JAVA::statements::ExpressionStatement).expression.
+				oclAsType(JAVA::expressions::AssignmentExpression)
+		endif
+	endif;
+	
+	-- call map operations
+	if not localVar.oclIsUndefined() then
+		lvCondition := map CondExpr2Cond(localVar)
+	endif;
+	if not ret.oclIsUndefined() then
+		rCondition := map CondExpr2Cond(ret)
+	endif;
+	if not assExpr.oclIsUndefined() then
+		aeCondition := map CondExpr2Cond(assExpr)
+	endif;
+	
+	-- add condition to statements
+	if not lvCondition.oclIsUndefined() then
+		localVar.initialValue := null
+	endif;
+	if not lvCondition.oclIsUndefined() then
+		return lvCondition
+	endif;
+	if not rCondition.oclIsUndefined() then
+		return rCondition
+	endif;
+	if not aeCondition.oclIsUndefined() then
+		return aeCondition
+	endif;
+	return null
+}
+
+// replace contained statement if it uses the Elvis operator
+mapping inout JAVA::statements::StatementContainer::Statements_StatementContainer(){
+	
+	var condition : JAVA::statements::Condition :=
+		self.statement.StatementToCondition();
+
+	if condition <> null then
+		self.statement := condition
+	endif;
+}
+
+// iterate over all statements and replace the ones that use the Elvis operator
+mapping inout JAVA::statements::StatementListContainer::Statements_StatementListContainer(){
+	
+	var newStatementList : OrderedSet(JAVA::statements::Statement);
+	
+	self.statements->forEach(s){
+				
+		var condition : JAVA::statements::Condition :=
+			s.StatementToCondition();
+		
+		if condition <> null then
+			if not s.oclIsTypeOf(JAVA::statements::Return)
+				and	
+				not s.oclIsTypeOf(JAVA::statements::ExpressionStatement) then
+			   	newStatementList := newStatementList->append(s)
+			endif
+		else
+			newStatementList := newStatementList->append(s)
+		endif;
+		
+		if condition <> null then
+			newStatementList := newStatementList->append(condition)
+		endif;
+	};
+	
+	self.statements := newStatementList;
+}
+
+// replace AssignmentExpression that uses Elvis operator with IfElse (if possible)
+mapping CondExpr2Cond(in ae : JAVA::expressions::AssignmentExpression) : 
+	JAVA::statements::Condition 
+	when {
+		ae.value.oclIsTypeOf(JAVA::expressions::ConditionalExpression)
+		and
+		ae.child.oclIsTypeOf(JAVA::_references::IdentifierReference)
+	}
+	{
+	
+	var condExpr : JAVA::expressions::ConditionalExpression :=
+		ae.value.oclAsType(JAVA::expressions::ConditionalExpression);
+	var refEle : JAVA::_references::ReferenceableElement :=
+		ae.child.oclAsType(JAVA::_references::IdentifierReference).target;
+	
+	condition := condExpr.child;
+	// each branch of the IfElse requires an assignment to the variable
+	statement := map createAssignmentStatement(condExpr.expressionIf,refEle);
+	elseStatement := map createAssignmentStatement(condExpr.expressionElse,refEle);
+}
+
+// replace LocalVariable declaration that uses Elvis operator with IfElse (if possible)
+mapping CondExpr2Cond(in lv : JAVA::variables::LocalVariable) : 
+	JAVA::statements::Condition 
+	when {
+		lv.initialValue.oclIsTypeOf(JAVA::expressions::ConditionalExpression)
+	}
+	{
+	
+	var condExpr : JAVA::expressions::ConditionalExpression :=
+		lv.initialValue.oclAsType(JAVA::expressions::ConditionalExpression);
+	
+	condition := condExpr.child;
+	// each branch of the IfElse requires an assignment to the variable
+	statement := map createAssignmentStatement(condExpr.expressionIf, lv);
+	elseStatement := map createAssignmentStatement(condExpr.expressionElse, lv);
+}
+
+// replace Return statement that uses Elvis operator with IfElse (if possible)
+mapping CondExpr2Cond(in r : JAVA::statements::Return) : 
+	JAVA::statements::Condition 
+	when {
+		r.returnValue.oclIsTypeOf(JAVA::expressions::ConditionalExpression)
+	}
+	{
+	
+	var condExpr : JAVA::expressions::ConditionalExpression :=
+		r.returnValue.oclAsType(JAVA::expressions::ConditionalExpression);
+	
+	condition := condExpr.child;
+	// each branch of the IfElse needs a return statement
+	statement := map wrapInReturnStatement(condExpr.expressionIf);
+	elseStatement := map wrapInReturnStatement(condExpr.expressionElse);
+}
+
+mapping createAssignmentStatement(
+	in ex : JAVA::expressions::Expression,
+	in lv : JAVA::_references::ReferenceableElement) : 
+	JAVA::statements::ExpressionStatement {
+	
+	expression := map createAssignmentExpression(ex, lv);
+}
+
+mapping createAssignmentExpression(
+	in ex : JAVA::expressions::Expression,
+	in lv : JAVA::_references::ReferenceableElement) : 
+	JAVA::expressions::AssignmentExpression {
+	
+	child := object JAVA::_references::IdentifierReference{
+		target := lv;
+	};
+	assignmentOperator := object JAVA::operators::Assignment{};
+	value := ex;
+}
+
+mapping wrapInReturnStatement(in ex : JAVA::expressions::Expression) : 
+	JAVA::statements::Return {
+	returnValue := ex
+}

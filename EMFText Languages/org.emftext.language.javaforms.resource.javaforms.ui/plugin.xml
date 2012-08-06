@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsUIMetaInformation" id="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="javaforms" icon="icons/editor_icon.gif" id="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsEditor" name="EMFText javaforms Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.javaforms.resource.javaforms">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Javaforms Text Editor" id="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsPreferencePage" class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsSyntaxColoringPreferencePage" class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsSyntaxColoringPreferencePage" category="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsBracketPreferencePage" class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsBracketPreferencePage" category="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsNewFileWizard" id="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsNewFileWizard" name="EMFText .javaforms file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsMarkerResolutionGenerator" markerType="org.emftext.language.javaforms.resource.javaforms.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.javaforms.resource.javaforms.ui.JavaformsAnnotationModelFactory" extensions="javaforms">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.javaforms.resource.javaforms" name=".javaforms File" base-type="org.eclipse.core.runtime.text" file-extensions="javaforms">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="javaforms" id="org.emftext.language.javaforms.resource.javaforms.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.javaforms.resource.javaforms.ui.occurences">
+		</type>
+		<type name="org.emftext.language.javaforms.resource.javaforms.ui.occurences.declaration" super="org.emftext.language.javaforms.resource.javaforms.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.javaforms.resource.javaforms.ui.occurences" label="Occurrences (in .javaforms files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="javaforms.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="javaforms.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="javaforms.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="javaforms.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="javaforms.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="javaforms.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="javaforms.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="javaforms.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="javaforms.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.javaforms.resource.javaforms.ui.occurences.declaration" label="Declarations (in .javaforms files)" textPreferenceKey="javaforms.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="javaforms.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="javaforms.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="javaforms.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="javaforms.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="javaforms.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

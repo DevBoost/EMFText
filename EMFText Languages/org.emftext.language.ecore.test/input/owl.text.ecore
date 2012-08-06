@@ -1,0 +1,7 @@
+package owl owl "http://org.emftext/owl.ecore" {
+
+	abstract class IRIIdentified {
+		iD attribute EString iri (1..1);
+	}
+	
+}

@@ -1,0 +1,4 @@
+package imported imported "http://www.emftext.org/language/test/imported" {
+	class A {}
+	class B {}
+}

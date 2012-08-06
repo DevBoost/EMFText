@@ -1,0 +1,12 @@
+CONFERENCE "InternationalConference" ("Speaker")
+
+TRACK "A" :
+	AT 09:00 : TALK "TalkA" PRESENTED BY "Speaker"
+
+AT 12:30 LUNCH 
+
+TRACK "B" :
+	AT 14:00 : TALK "TalkB" PRESENTED BY "Speaker"
+
+REGISTERED SPEAKERS : 
+	"Speaker" FROM Country

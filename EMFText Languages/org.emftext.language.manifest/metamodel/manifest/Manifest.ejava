@@ -1,0 +1,720 @@
+epackage manifest;
+
+import org.eclipse.emf.common.util.EList;
+
+eclass Manifest {
+
+	getBundleActivationPolicy() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleActivationPolicy) {
+				return (BundleActivationPolicy) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleActivationPolicy() {
+		EList<ManifestElement> elements = getElements();
+		BundleActivationPolicy existingElement = getBundleActivationPolicy();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleActivator() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleActivator) {
+				return (BundleActivator) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleActivator() {
+		EList<ManifestElement> elements = getElements();
+		BundleActivator existingElement = getBundleActivator();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleCategory() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleCategory) {
+				return (BundleCategory) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleCategory() {
+		EList<ManifestElement> elements = getElements();
+		BundleCategory existingElement = getBundleCategory();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleClassPath() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleClassPath) {
+				return (BundleClassPath) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleClassPath() {
+		EList<ManifestElement> elements = getElements();
+		BundleClassPath existingElement = getBundleClassPath();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleContactAddress() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleContactAddress) {
+				return (BundleContactAddress) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleContactAddress() {
+		EList<ManifestElement> elements = getElements();
+		BundleContactAddress existingElement = getBundleContactAddress();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleCopyright() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleCopyright) {
+				return (BundleCopyright) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleCopyright() {
+		EList<ManifestElement> elements = getElements();
+		BundleCopyright existingElement = getBundleCopyright();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleDescription() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleDescription) {
+				return (BundleDescription) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleDescription() {
+		EList<ManifestElement> elements = getElements();
+		BundleDescription existingElement = getBundleDescription();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleDocURL() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleDocURL) {
+				return (BundleDocURL) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleDocURL() {
+		EList<ManifestElement> elements = getElements();
+		BundleDocURL existingElement = getBundleDocURL();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleIcon() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleIcon) {
+				return (BundleIcon) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleIcon() {
+		EList<ManifestElement> elements = getElements();
+		BundleIcon existingElement = getBundleIcon();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleLicense() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleLicense) {
+				return (BundleLicense) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleLicense() {
+		EList<ManifestElement> elements = getElements();
+		BundleLicense existingElement = getBundleLicense();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleLocalization() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleLocalization) {
+				return (BundleLocalization) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleLocalization() {
+		EList<ManifestElement> elements = getElements();
+		BundleLocalization existingElement = getBundleLocalization();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleManifestVersion() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleManifestVersion) {
+				return (BundleManifestVersion) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleManifestVersion() {
+		EList<ManifestElement> elements = getElements();
+		BundleManifestVersion existingElement = getBundleManifestVersion();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleName() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleName) {
+				return (BundleName) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleName() {
+		EList<ManifestElement> elements = getElements();
+		BundleName existingElement = getBundleName();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleNativeCode() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleNativeCode) {
+				return (BundleNativeCode) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleNativeCode() {
+		EList<ManifestElement> elements = getElements();
+		BundleNativeCode existingElement = getBundleNativeCode();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleRequiredExecutionEnvironment() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleRequiredExecutionEnvironment) {
+				return (BundleRequiredExecutionEnvironment) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleRequiredExecutionEnvironment() {
+		EList<ManifestElement> elements = getElements();
+		BundleRequiredExecutionEnvironment existingElement = getBundleRequiredExecutionEnvironment();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleSymbolicName() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleSymbolicName) {
+				return (BundleSymbolicName) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleSymbolicName() {
+		EList<ManifestElement> elements = getElements();
+		BundleSymbolicName existingElement = getBundleSymbolicName();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleUpdateLocation() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleUpdateLocation) {
+				return (BundleUpdateLocation) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleUpdateLocation() {
+		EList<ManifestElement> elements = getElements();
+		BundleUpdateLocation existingElement = getBundleUpdateLocation();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleVendor() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleVendor) {
+				return (BundleVendor) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleVendor() {
+		EList<ManifestElement> elements = getElements();
+		BundleVendor existingElement = getBundleVendor();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getBundleVersion() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof BundleVersion) {
+				return (BundleVersion) element;
+			}
+		}
+		return null;
+	}
+
+	setBundleVersion() {
+		EList<ManifestElement> elements = getElements();
+		BundleVersion existingElement = getBundleVersion();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getDynamicImportPackage() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof DynamicImportPackage) {
+				return (DynamicImportPackage) element;
+			}
+		}
+		return null;
+	}
+
+	setDynamicImportPackage() {
+		EList<ManifestElement> elements = getElements();
+		DynamicImportPackage existingElement = getDynamicImportPackage();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getExportPackage() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof ExportPackage) {
+				return (ExportPackage) element;
+			}
+		}
+		return null;
+	}
+
+	setExportPackage() {
+		EList<ManifestElement> elements = getElements();
+		ExportPackage existingElement = getExportPackage();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getFragmentHost() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof FragmentHost) {
+				return (FragmentHost) element;
+			}
+		}
+		return null;
+	}
+
+	setFragmentHost() {
+		EList<ManifestElement> elements = getElements();
+		FragmentHost existingElement = getFragmentHost();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getImportPackage() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof ImportPackage) {
+				return (ImportPackage) element;
+			}
+		}
+		return null;
+	}
+
+	setImportPackage() {
+		EList<ManifestElement> elements = getElements();
+		ImportPackage existingElement = getImportPackage();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getRequireBundle() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof RequireBundle) {
+				return (RequireBundle) element;
+			}
+		}
+		return null;
+	}
+
+	setRequireBundle() {
+		EList<ManifestElement> elements = getElements();
+		RequireBundle existingElement = getRequireBundle();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getEclipseLazyStart() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof EclipseLazyStart) {
+				return (EclipseLazyStart) element;
+			}
+		}
+		return null;
+	}
+
+	setEclipseLazyStart() {
+		EList<ManifestElement> elements = getElements();
+		EclipseLazyStart existingElement = getEclipseLazyStart();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getImportBundle() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof ImportBundle) {
+				return (ImportBundle) element;
+			}
+		}
+		return null;
+	}
+
+	setImportBundle() {
+		EList<ManifestElement> elements = getElements();
+		ImportBundle existingElement = getImportBundle();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getImportLibrary() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof ImportLibrary) {
+				return (ImportLibrary) element;
+			}
+		}
+		return null;
+	}
+
+	setImportLibrary() {
+		EList<ManifestElement> elements = getElements();
+		ImportLibrary existingElement = getImportLibrary();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getIncludeResource() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof IncludeResource) {
+				return (IncludeResource) element;
+			}
+		}
+		return null;
+	}
+
+	setIncludeResource() {
+		EList<ManifestElement> elements = getElements();
+		IncludeResource existingElement = getIncludeResource();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getModuleScope() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof ModuleScope) {
+				return (ModuleScope) element;
+			}
+		}
+		return null;
+	}
+
+	setModuleScope() {
+		EList<ManifestElement> elements = getElements();
+		ModuleScope existingElement = getModuleScope();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getModuleType() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof ModuleType) {
+				return (ModuleType) element;
+			}
+		}
+		return null;
+	}
+
+	setModuleType() {
+		EList<ManifestElement> elements = getElements();
+		ModuleType existingElement = getModuleType();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getPrivatePackage() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof PrivatePackage) {
+				return (PrivatePackage) element;
+			}
+		}
+		return null;
+	}
+
+	setPrivatePackage() {
+		EList<ManifestElement> elements = getElements();
+		PrivatePackage existingElement = getPrivatePackage();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getWebContextPath() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof WebContextPath) {
+				return (WebContextPath) element;
+			}
+		}
+		return null;
+	}
+
+	setWebContextPath() {
+		EList<ManifestElement> elements = getElements();
+		WebContextPath existingElement = getWebContextPath();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getWebDispatcherServletUrlPatterns() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof WebDispatcherServletUrlPatterns) {
+				return (WebDispatcherServletUrlPatterns) element;
+			}
+		}
+		return null;
+	}
+
+	setWebDispatcherServletUrlPatterns() {
+		EList<ManifestElement> elements = getElements();
+		WebDispatcherServletUrlPatterns existingElement = getWebDispatcherServletUrlPatterns();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+
+	getWebFilterMappings() {
+		for (ManifestElement element : getElements()) {
+			if (element instanceof WebFilterMappings) {
+				return (WebFilterMappings) element;
+			}
+		}
+		return null;
+	}
+
+	setWebFilterMappings() {
+		EList<ManifestElement> elements = getElements();
+		WebFilterMappings existingElement = getWebFilterMappings();
+		if (existingElement != null) {
+			int index = elements.indexOf(existingElement);
+			elements.remove(existingElement);
+			elements.add(index, element);
+		} else {
+			elements.add(element);
+		}
+	}
+}

@@ -1,0 +1,19 @@
+VerticalLayout {
+
+  Panel Caption = "Login" {
+    Label Caption = "Bitte Login und Passwort eingeben:" {}
+
+    TextField {}
+    PasswordField {}
+
+    HorizontalLayout {
+      Button Caption = "Einloggen" {}
+      Button Caption = "Nö danke" {}
+    }
+  }
+
+  Panel Caption = "Other" {
+    PopupDateField Caption = "Später versuchen" {}
+    Slider Caption = "Anzahl der Biere wählen" {}
+  }
+}

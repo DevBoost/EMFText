@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.prolog.resource.pl.mopp.PlMetaInformation" id="org.emftext.language.prolog.resource.pl.mopp.PlMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.prolog.resource.pl.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.prolog.resource.pl.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.prolog.resource.pl.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.prolog.resource.pl.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.language.prolog.resource.pl.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.nature" name="pl nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.prolog.resource.pl.mopp.PlNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.language.prolog.resource.pl.builder">
+		</builder>
+		<builder id="org.emftext.language.prolog.resource.pl.taskItemBuilder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.prolog.resource.pl.builder" name="pl Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.prolog.resource.pl.mopp.PlBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.prolog.resource.pl.taskItemBuilder" name="pl Task Item Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.prolog.resource.pl.mopp.PlTaskItemBuilder">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.prolog.resource.pl.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.prolog.resource.pl.mopp.PlResourceFactoryDelegator" type="pl">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.prolog.resource.pl.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.language.prolog.resource.pl.debug.PlLineBreakpoint" id="org.emftext.language.prolog.resource.pl.debug.breakpoint" markerType="org.emftext.language.prolog.resource.pl.debug.lineBreakpoint.marker" name="pl Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.language.prolog.resource.pl.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.language.prolog.resource.pl.ui.launchConfigurationType" delegate="org.emftext.language.prolog.resource.pl.launch.PlLaunchConfigurationDelegate" modes="run,debug" name="pl Application" sourceLocatorId="org.emftext.language.prolog.resource.pl.ui.sourceLocator" sourcePathComputerId="org.emftext.language.prolog.resource.pl.ui.sourcePathComputer" delegateName="pl Launch Tooling" delegateDescription="This will run or debug .pl files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.language.prolog.resource.pl.debug.PlSourcePathComputerDelegate" id="org.emftext.language.prolog.resource.pl.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.language.prolog.resource.pl.ui.sourceLocator" class="org.emftext.language.prolog.resource.pl.debug.PlSourceLocator" name="pl Source Locator">
+		</sourceLocator>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,17 @@
+program test
+
+var vari,varj;
+
+procedure something; 
+    var ivar, kvar;  
+    
+begin
+    ivar := 1;
+    varj := 2
+end;
+
+begin 
+    vari := 50;
+    varj := 60;
+    call something
+end.

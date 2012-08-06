@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.simplec.resource.c.ui.CUIMetaInformation" id="org.emftext.language.simplec.resource.c.ui.CUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.simplec.resource.c.ui.CEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="c" icon="icons/editor_icon.gif" id="org.emftext.language.simplec.resource.c.ui.CEditor" name="EMFText c Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.simplec.resource.c">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.simplec.resource.c.ui.CPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="C Text Editor" id="org.emftext.language.simplec.resource.c.ui.CPreferencePage" class="org.emftext.language.simplec.resource.c.ui.CPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.simplec.resource.c.ui.CSyntaxColoringPreferencePage" class="org.emftext.language.simplec.resource.c.ui.CSyntaxColoringPreferencePage" category="org.emftext.language.simplec.resource.c.ui.CPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.simplec.resource.c.ui.CBracketPreferencePage" class="org.emftext.language.simplec.resource.c.ui.CBracketPreferencePage" category="org.emftext.language.simplec.resource.c.ui.CPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.simplec.resource.c.ui.CNewFileWizard" id="org.emftext.language.simplec.resource.c.ui.CNewFileWizard" name="EMFText .c file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.simplec.resource.c.ui.CMarkerResolutionGenerator" markerType="org.emftext.language.simplec.resource.c.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.simplec.resource.c.ui.CAnnotationModelFactory" extensions="c">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.simplec.resource.c" name=".c File" base-type="org.eclipse.core.runtime.text" file-extensions="c">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="c" id="org.emftext.language.simplec.resource.c.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.simplec.resource.c.ui.occurences">
+		</type>
+		<type name="org.emftext.language.simplec.resource.c.ui.occurences.declaration" super="org.emftext.language.simplec.resource.c.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.simplec.resource.c.ui.occurences" label="Occurrences (in .c files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="c.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="c.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="c.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="c.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="c.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="c.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="c.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="c.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="c.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.simplec.resource.c.ui.occurences.declaration" label="Declarations (in .c files)" textPreferenceKey="c.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="c.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="c.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="c.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="c.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="c.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

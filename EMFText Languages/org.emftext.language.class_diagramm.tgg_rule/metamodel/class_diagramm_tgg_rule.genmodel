@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.class_diagramm.tgg_rule/src-gen" modelName="Class_diagramm_tgg_rule" modelPluginID="org.emftext.language.class_diagramm.tgg_rule" usedGenPackages="../../de.tudresden.tornado2.textual_rules.annotations/metamodel/annotations.genmodel#//annotations ../../org.emftext.language.class_diagramm/metamodel/class_diagramm.genmodel#//class_diagramm platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../de.tudresden.tornado2.metamodel.modelCorrespondence/model/modelCorrespondence.genmodel#//modelCorrespondence ../../de.tudresden.tornado2.metamodel.tggRules/model/TGGRules.genmodel#//tggRules" xmi:version="2.0">
+  <foreignModel>class_diagramm_tgg_rule.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="class_diagramm_tgg_rule.ecore#/" prefix="Class_diagramm_tgg_rule">
+    <genClasses ecoreClass="class_diagramm_tgg_rule.ecore#//AnnotatedPackage">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedPackage/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedPackage/annotation" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm_tgg_rule.ecore#//AnnotatedDataType">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedDataType/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedDataType/annotation" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm_tgg_rule.ecore#//AnnotatedMethod">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedMethod/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedMethod/annotation" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm_tgg_rule.ecore#//AnnotatedAttribute">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedAttribute/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedAttribute/annotation" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm_tgg_rule.ecore#//AnnotatedParameter">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedParameter/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedParameter/annotation" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm_tgg_rule.ecore#//AnnotatedClass">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedClass/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedClass/annotation" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm_tgg_rule.ecore#//AnnotatedAssociation">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedAssociation/body" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm_tgg_rule.ecore#//AnnotatedAssociation/annotation" property="None"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

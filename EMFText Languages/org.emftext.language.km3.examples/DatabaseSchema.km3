@@ -1,0 +1,24 @@
+package DatabaseSchema {
+
+	abstract class NamedElement {
+		attribute name : String;
+	}
+	
+	class Schema extends NamedElement {
+		reference tables[*] container : Table;
+	}
+	
+	class Table extends NamedElement {
+		reference columns[*] ordered container : Column;
+		operation drop() : Boolean;
+	}
+
+	class Column extends NamedElement {
+		-- add more properties here
+	}
+}
+
+package PrimitiveType {
+	datatype String;
+	datatype Boolean;
+}

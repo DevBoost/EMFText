@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="yggdrasilcomponents"
+    nsURI="http://yggdrasilcomponents/1.0" nsPrefix="yggdrasilcomponents">
+  <eClassifiers xsi:type="ecore:EClass" name="Role" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Component" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implements" lowerBound="1"
+        eType="#//Role"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="has" upperBound="-1" eType="#//Parameter"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComposedComponent" eSuperTypes="#//Component">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uses" lowerBound="1" upperBound="-1"
+        eType="#//ComposedComponent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="YggdrasilConfiguration" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
+        upperBound="-1" eType="#//Component" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

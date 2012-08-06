@@ -1,0 +1,15 @@
+/* The name of this file should have the following format:
+ * <UMLFileName>.<ClassName>.<OperationName>
+ * 
+ * For example:
+ * MyUMLModel.uml.ClassA.operationA.javabehavior
+ *
+ * Hint: you may initialize files by using the 'JaMoPP' context menu in your UML editor
+ */
+
+//you may import classes from your UML model
+import org.domain.myumlpackage.*;
+
+public void umlOperationA () { 
+	//body
+}

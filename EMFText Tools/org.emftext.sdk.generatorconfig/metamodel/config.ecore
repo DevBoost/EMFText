@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="generatorconfig"
+    nsURI="http://www.emftext.org/sdk/generatorconfig" nsPrefix="org.emftext.sdk.generatorconfig">
+  <eClassifiers xsi:type="ecore:EClass" name="GeneratorConfig">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classRules" ordered="false"
+        upperBound="-1" eType="#//ClassRule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureRules" ordered="false"
+        upperBound="-1" eType="#//FeatureRule" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GeneratorRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.emftext.sdk.concretesyntax/metamodel/concretesyntax.ecore#//Sequence"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassRule" eSuperTypes="#//GeneratorRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureRule" eSuperTypes="#//GeneratorRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassContext" abstract="true" interface="true"
+      eSuperTypes="platform:/plugin/org.emftext.sdk.concretesyntax/metamodel/concretesyntax.ecore#//Definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureContext" abstract="true" interface="true"
+      eSuperTypes="platform:/plugin/org.emftext.sdk.concretesyntax/metamodel/concretesyntax.ecore#//Definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassRuleReference" eSuperTypes="#//ClassContext">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//GeneratorRule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureReference" eSuperTypes="#//ClassContext">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Features" eSuperTypes="#//ClassContext"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassContextDefinition" abstract="true"
+      interface="true" eSuperTypes="#//ClassContext">
+    <eOperations name="getDefinition" upperBound="-1" eType="ecore:EClass platform:/plugin/org.emftext.sdk.concretesyntax/metamodel/concretesyntax.ecore#//Definition">
+      <eParameters name="genClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassName" eSuperTypes="#//ClassContextDefinition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureRuleReference" eSuperTypes="#//FeatureContext">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//GeneratorRule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureContextDefinition" abstract="true"
+      interface="true" eSuperTypes="#//FeatureContext">
+    <eOperations name="getDefinition" upperBound="-1" eType="ecore:EClass platform:/plugin/org.emftext.sdk.concretesyntax/metamodel/concretesyntax.ecore#//Definition">
+      <eParameters name="genFeature" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureName" eSuperTypes="#//FeatureContextDefinition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature" eSuperTypes="#//FeatureContextDefinition"/>
+</ecore:EPackage>

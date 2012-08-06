@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.functions.test
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.language.functions.test
+Require-Bundle: org.junit,
+ org.emftext.language.functions
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

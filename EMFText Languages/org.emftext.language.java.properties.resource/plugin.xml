@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.emftext.language.java.properties.resource.propjava.default_load_options">
+      <provider
+            class="org.emftext.language.java.properties.resource.propjava.mopp.PropjavaPostProcessor"
+            id="org.emftext.language.java.properties.resource.provider1">
+      </provider>
+   </extension>
+   <extension
+         point="org.emftext.language.java.properties.resource.propjava.default_load_options">
+      <provider
+            class="org.emftext.language.java.properties.resource.util.UnicodeConverterProvider"
+            id="org.emftext.language.java.properties.resource.provider2">
+      </provider>
+   </extension>
+  
+
+    
+   
+</plugin>

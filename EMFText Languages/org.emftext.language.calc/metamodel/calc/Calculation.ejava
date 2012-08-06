@@ -1,0 +1,18 @@
+epackage calc;
+
+eclass Calculation {
+	
+	getVariable() {
+		for (Variable v : getInputVariables()) {
+			if (v.getName().equals(name)) {
+				return v;
+			}
+		}
+		for (Variable v : getOutputVariables()) {
+			if (v.getName().equals(name)) {
+				return v;
+			}
+		}
+		return null;
+	}
+}

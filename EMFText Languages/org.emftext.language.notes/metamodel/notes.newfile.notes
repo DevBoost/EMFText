@@ -1,0 +1,20 @@
+Conference XY
+
+* partless bullet
+
+=First Section[sec1]=
+* first bullet point
+
+=Second Section[sec2]>[sec1]=
+* another bullet
+* another bullet
+* another bullet
+* another _bold bullet_ and it goes on with an #italic# bullet and a last @type writer@ bullet
+
+=Section 3>[sec2]=
+* another bullet
+* another bullet
+ * sub bullet works as well _bold_
+ * sub bullet works as well _bold_
+ * sub bullet works as well _bold_
+* bullet works as well _bold_

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="6.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.class_diagramm/src-gen" modelName="class_diagramm" modelPluginID="org.emftext.language.class_diagramm" xmi:version="2.0">
+  <foreignModel>class_diagramm.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="class_diagramm.ecore#/" prefix="Class_diagramm">
+    <genEnums ecoreEnum="class_diagramm.ecore#//ModifierType" typeSafeEnumCompatible="false">
+      <genEnumLiterals ecoreEnumLiteral="class_diagramm.ecore#//ModifierType/abstract"/>
+      <genEnumLiterals ecoreEnumLiteral="class_diagramm.ecore#//ModifierType/final"/>
+      <genEnumLiterals ecoreEnumLiteral="class_diagramm.ecore#//ModifierType/static"/>
+      <genEnumLiterals ecoreEnumLiteral="class_diagramm.ecore#//ModifierType/public"/>
+      <genEnumLiterals ecoreEnumLiteral="class_diagramm.ecore#//ModifierType/private"/>
+      <genEnumLiterals ecoreEnumLiteral="class_diagramm.ecore#//ModifierType/protected"/>
+    </genEnums>
+    <genClasses ecoreClass="class_diagramm.ecore#//Package">
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Package/associations" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Package/classes" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Package/name"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm.ecore#//DataType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//DataType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm.ecore#//Method">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Method/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference class_diagramm.ecore#//Method/return" notify="false" propertySortChoices="true"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Method/parameters" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Method/modifier"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Method/primitive_return" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Attribute/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference class_diagramm.ecore#//Attribute/type" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Attribute/modifier"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Attribute/primitive_type" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Parameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference class_diagramm.ecore#//Parameter/type" notify="false" propertySortChoices="true"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Parameter/primitive_type" property="None"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm.ecore#//Class">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference class_diagramm.ecore#//Class/parent" notify="false" propertySortChoices="true"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Class/attributes" property="None"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference class_diagramm.ecore#//Class/methods" property="None"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Class/modifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Class/name"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm.ecore#//Association">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference class_diagramm.ecore#//Association/source" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference class_diagramm.ecore#//Association/target" notify="false" propertySortChoices="true"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Association/minCardinality"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Association/maxCardinality"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Association/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute class_diagramm.ecore#//Association/isAggregation"/>
+    </genClasses>
+    <genClasses ecoreClass="class_diagramm.ecore#//RefAttribute" image="false"/>
+    <genClasses ecoreClass="class_diagramm.ecore#//RefAssociation" image="false"/>
+    <genClasses ecoreClass="class_diagramm.ecore#//RefMethod" image="false"/>
+    <genClasses ecoreClass="class_diagramm.ecore#//RefParameter" image="false"/>
+    <genClasses ecoreClass="class_diagramm.ecore#//RefPackage" image="false"/>
+    <genClasses ecoreClass="class_diagramm.ecore#//RefDataType" image="false"/>
+    <genClasses ecoreClass="class_diagramm.ecore#//RefClass" image="false"/>
+  </genPackages>
+</genmodel:GenModel>

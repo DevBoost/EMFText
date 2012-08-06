@@ -1,0 +1,24 @@
+StateMachine HelloWorld {
+  initial state start;
+  
+  state helloWorld {
+    entry : "initialise printer"
+    do : StateMachine sub {
+      initial state start;
+      state printing { do : "print Hello World" };
+      final state stop { do : "print linebreak" };
+    
+      transitions {
+      	start -> printing when "start printing";
+      	printing -> stop when "stop printing";
+      }
+    }
+   };
+
+   final state end { do : "goodbye" };
+
+   transitions {
+     start -> helloWorld when "start up";
+     helloWorld -> end when "shut down";
+   }
+}

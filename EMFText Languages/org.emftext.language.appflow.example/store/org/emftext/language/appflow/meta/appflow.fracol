@@ -1,0 +1,14 @@
+fracol org.emftext.language.appflow.meta.appflow {
+
+	fragment role Model {
+		dynamic port type ScreenImport;
+	}
+	
+	fragment role Template {
+		static port type Contents;
+	}
+	
+	contributing association import {
+		Template.Contents --> Model.ScreenImport
+ 	}
+}

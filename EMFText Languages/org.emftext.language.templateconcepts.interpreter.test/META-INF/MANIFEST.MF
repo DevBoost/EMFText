@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.templateconcepts.interpreter.test
+Bundle-Version: 1.0.0
+Require-Bundle: org.junit4,
+ org.emftext.language.templateconcepts,
+ org.emftext.language.templateconcepts.interpreter
+Export-Package: org.emftext.language.templateconcepts.interpreter.test
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.language.dbschema.test
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.language.dbschema.test
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit,
+ org.eclipse.emf.ecore,
+ org.emftext.language.dbschema

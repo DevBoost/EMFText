@@ -1,0 +1,125 @@
+package eag // this is the package name 
+        eag // this is the namespace prefix
+        "http://www.emftext.org/language/eag" 
+	{
+
+	class AttributeGrammar {
+		containment reference Import imports (1..-1);
+		containment reference Attribute attributes (1..-1);
+		containment reference Computation computations (1..-1);
+		operation Attribute (0..1) getAttribute(EString name (0..1));
+	}
+	
+	class Import {
+		attribute EString prefix (0..1);
+		reference EPackage importedPackage (1..1);
+	}
+
+	serializable enum AttributeKind {
+		0 : INHERITED = "inherited"; 
+		1 : SYNTHESIZED = "synthesized"; 
+	}
+	
+	class Attribute {
+		attribute EString name (1..1);
+		attribute AttributeKind kind (1..1);
+		reference EClassifier type (1..1);
+	}
+
+	class Computation {
+		reference Attribute targetAttribute (1..1);
+		reference EClass context (1..1);
+		containment reference Statement body (1..1);
+	}
+
+	abstract class Statement {
+	}
+
+	class Assignment extends Statement {
+		containment reference Expression left (1..1);
+		attribute AssignmentOperator operator (1..1);
+		containment reference Expression right (1..1);
+	}
+
+	class ForLoop extends Statement {
+		containment reference Expression collection (1..1);
+		containment reference Variable variable (1..1);
+		containment reference Statement body (1..1);
+	}
+
+	class IfElse extends Statement {
+		containment reference Expression condition (1..1);
+		containment reference Statement ifBody (1..1);
+		containment reference Statement elseBody (0..1);
+	}
+
+	abstract interface TypedElement {
+		operation EClass (0..1) getType();
+	}
+
+	class Variable {
+		attribute EString name (1..1);
+	}
+
+	abstract class Expression {
+	}
+
+	class ExpressionChain extends Expression {
+		containment reference Expression previous (1..1);
+		containment reference Expression next (1..1);
+	}
+
+	class Reference extends Expression {
+		reference EObject target (1..1);
+	}
+
+	class ThisReference extends Expression, TypedElement {
+		operation EClass (0..1) getType();
+	}
+
+	class Value extends Expression, TypedElement {
+		operation EClass (0..1) getType();
+	}
+
+	class AttributeValue extends Expression, TypedElement {
+		reference Attribute targetAttribute (1..1);
+		containment reference Expression expression (1..1);
+		operation EClass (0..1) getType();
+	}
+	
+	class BinaryExpression extends Expression {
+		containment reference Expression left (1..1);
+		attribute BinaryOperator operator (1..1);
+		containment reference Expression right (1..1);
+	}
+	
+	class BooleanExpression extends Expression {
+		containment reference Expression left (1..1);
+		attribute BooleanOperator operator (1..1);
+		containment reference Expression right (1..1);
+	}
+	
+	class StringLiteral extends Expression {
+		attribute EString value (1..1);
+	}
+
+	class IntegerLiteral extends Expression {
+		attribute EInt value (1..1);
+	}
+
+	serializable enum BooleanOperator {
+		0 : EQUALS = "=="; 
+	}
+
+	serializable enum BinaryOperator {
+		0 : PLUS = "+"; 
+		1 : MINUS = "-"; 
+		2 : TIMES = "*"; 
+		3 : DIV = "/"; 
+	}
+
+	serializable enum AssignmentOperator {
+		0 : EQUALS = "="; 
+		1 : EQUALS_PLUS = "+="; 
+	}
+}

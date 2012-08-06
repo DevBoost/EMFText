@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText 1.1 Runtime (DEPRECATED)
+Bundle-SymbolicName: org.emftext.runtime; singleton:=true
+Bundle-Activator: org.emftext.runtime.EMFTextRuntimePlugin
+Bundle-Version: 1.1.5.v201009221403
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.runtime,org.emftext.runtime.resource,org.e
+ mftext.runtime.resource.impl,org.emftext.runtime.util
+Require-Bundle: org.emftext.runtime.antlr;visibility:=reexport,org.ecl
+ ipse.emf.workspace
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-ActivationPolicy: lazy
+

@@ -1,0 +1,19 @@
+documentation for <eag.facade.ecore>
+
+Attribute : "Declares an attribute"
+
+AttributeValue : "Computes the value of an attribute for the given model element"
+
+ForLoop : "Iterates over a collection"
+
+// TODO document IfElse
+
+Variable : "Declares a new variable"
+
+Assignment : "Assigns the value of the right expression to the reference on the left"
+
+ThisReference : "Represents the current model element that is subject to attribute evaluation"
+
+Value : "Represents the value of the attribute. This can be used to access features of the attribute, if the attribute has a complex type"
+
+Computation : "A specification of how to compute the value of an attribute for a particular metaclass"

@@ -1,0 +1,44 @@
+package example.closure2;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import java.lang.Thread;
+import java.util.ArrayList;
+
+
+public class Test extends JFrame{
+	public void test(){
+	new Thread(
+	public
+	{=>void}
+		Runnable:=
+		{=>
+			System.out.println("Hallo");}
+				.run();).start();
+}
+	public String test2(){
+	if(1==2)System.exit(0);
+	System.out.println("ja");
+	return"jo";
+}
+	public Test(){
+	getContentPane().add(
+		public
+		{Graphics=>void}
+			JComponent:=
+			{Graphics g=>
+				Color farbe=Color.gray;g.setColor(farbe);}
+			.paintComponent(););
+	addWindowListener(
+	public
+	{WindowEvent=>void}
+		WindowAdapter:=
+		{WindowEvent e=>
+			System.exit(0);}
+				.windowClosing(););
+}
+}

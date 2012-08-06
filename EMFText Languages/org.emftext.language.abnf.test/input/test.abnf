@@ -1,0 +1,11 @@
+rule1 = "a"
+
+rule2 = %x20
+
+rule2 = %x20 %x21
+
+rule3 = rule1 rule2 rule3
+
+rule4 = rule1
+	rule2
+	

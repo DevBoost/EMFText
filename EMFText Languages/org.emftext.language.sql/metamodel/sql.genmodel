@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><genmodel:GenModel xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xmi="http://www.omg.org/XMI" complianceLevel="5.0" copyrightFields="false" copyrightText="Copyright (c) 2006-2012&#10;Software Technology Group, Dresden University of Technology&#10;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#10;&#10;All rights reserved. This program and the accompanying materials&#10;are made available under the terms of the Eclipse Public License v1.0&#10;which accompanies this distribution, and is available at&#10;http://www.eclipse.org/legal/epl-v10.html&#10;&#10;Contributors:&#10;  Software Technology Group - TU Dresden, Germany;&#10;  DevBoost GmbH - Berlin, Germany&#10;     - initial API and implementation&#10; " importerID="org.eclipse.emf.importer.ecore" modelDirectory="/org.emftext.language.sql/src-gen" modelName="sql" modelPluginID="org.emftext.language.sql" xmi:version="2.0">
+  <foreignModel>sql.ecore</foreignModel>
+  <genPackages basePackage="org.emftext.language" disposableProviderFactory="true" ecorePackage="sql.ecore#/" prefix="sql">
+    <nestedGenPackages basePackage="org.emftext.language.sql" disposableProviderFactory="true" ecorePackage="sql.ecore#//sqlDataTypes" prefix="SqlDataTypes">
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/String"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/DataType" image="false"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/Boolean"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/Real"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/Date"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/TimeStamp"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/Integer"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/Float"/>
+      <genClasses ecoreClass="sql.ecore#//sqlDataTypes/Double"/>
+    </nestedGenPackages>
+    <nestedGenPackages basePackage="org.emftext.language.sql" disposableProviderFactory="true" ecorePackage="sql.ecore#//select" prefix="Select">
+      <genClasses ecoreClass="sql.ecore#//select/SelectExpression">
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/parameter" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/columns" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/from" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/where" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/groupBy" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/having" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/set" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/orderBy" property="None"/>
+        <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/SelectExpression/limit" property="None"/>
+      </genClasses>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/parameter" prefix="Parameter">
+        <genClasses ecoreClass="sql.ecore#//select/parameter/SelectParameter" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/parameter/SelectParameterAll"/>
+        <genClasses ecoreClass="sql.ecore#//select/parameter/SelectParameterDistinct"/>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/column" prefix="Column">
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/column/ColumnExpression/columnExpressions" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/column/SingleColumnExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/column/SingleColumnExpression/alias"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/column/SingleColumnExpression/expression" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/column/SingleColumnExpression/operation" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/column/SingleColumnExpression/parameter" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperation" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperationCount"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperationMin"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperationMax"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperationSum"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperationAvg"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperationEvery"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/ColumnOperationSome"/>
+        <genClasses ecoreClass="sql.ecore#//select/column/Column">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/column/Column/name"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/from" prefix="From">
+        <genClasses ecoreClass="sql.ecore#//select/from/FromExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/FromExpression/tables" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/from/TableExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/TableExpression/selectExpression" property="None"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/from/TableExpression/label"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/TableExpression/table" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/from/Table">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/from/Table/name"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/from/TableListExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/TableListExpression/table" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/TableListExpression/joinTable" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/from/JoinTableExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/JoinTableExpression/join" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/JoinTableExpression/joinTable" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/from/JoinTableExpression/expression" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/from/JoinOperation" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/from/JoinOperationInner"/>
+        <genClasses ecoreClass="sql.ecore#//select/from/JoinOperationLeft"/>
+        <genClasses ecoreClass="sql.ecore#//select/from/JoinOperationRight"/>
+        <genClasses ecoreClass="sql.ecore#//select/from/JoinOperationOuter"/>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/where" prefix="Where">
+        <genClasses ecoreClass="sql.ecore#//select/where/WhereExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/where/WhereExpression/expression" property="None"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/orderBy" prefix="OrderBy">
+        <genClasses ecoreClass="sql.ecore#//select/orderBy/OrderByExpression" image="false">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/orderBy/OrderByExpression/parameter" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/orderBy/OrderByColumnExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference sql.ecore#//select/orderBy/OrderByColumnExpression/columnReference" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/orderBy/OrderByAliasExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/orderBy/OrderByAliasExpression/alias"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/orderBy/OrderBySelectExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/orderBy/OrderBySelectExpression/selectExpression" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/orderBy/OrderByParameter" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/orderBy/OrderByParameterAsc"/>
+        <genClasses ecoreClass="sql.ecore#//select/orderBy/OrderByParameterDesc"/>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/groupBy" prefix="GroupBy">
+        <genClasses ecoreClass="sql.ecore#//select/groupBy/GroupByExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/groupBy/GroupByExpression/expression" property="None"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/having" prefix="Having">
+        <genClasses ecoreClass="sql.ecore#//select/having/HavingExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/having/HavingExpression/expression" property="None"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/set" prefix="Set">
+        <genClasses ecoreClass="sql.ecore#//select/set/SetExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/set/SetExpression/selectExpression" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/set/SetExpression/setOperation" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/set/SetOperation" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/set/SetOperationUnion">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/set/SetOperationUnion/selectParameter" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/set/SetOperationMinus">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/set/SetOperationMinus/selectParameter" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/set/SetOperationExcept">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/set/SetOperationExcept/selectParameter" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/set/SetOperationIntersect">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/set/SetOperationIntersect/selectParameter" property="None"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/limit" prefix="Limit">
+        <genClasses ecoreClass="sql.ecore#//select/limit/LimitExpression">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/limit/LimitExpression/limit"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/limit/LimitExpression/offset"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/expression" prefix="Expression">
+        <genClasses ecoreClass="sql.ecore#//select/expression/Expression" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/expression/SimpleExpression">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/expression/SimpleExpression/operations" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/expression/SimpleExpression/conditions" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/expression/SimpleExpression/notOperation" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/expression/ExpressionOperation" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/expression/AndOrExpressionOperation"/>
+        <genClasses ecoreClass="sql.ecore#//select/expression/ExpressionOperationNot"/>
+        <genClasses ecoreClass="sql.ecore#//select/expression/ExpressionOperationAnd"/>
+        <genClasses ecoreClass="sql.ecore#//select/expression/ExpressionOperationOr"/>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/condition" prefix="Condition">
+        <genClasses ecoreClass="sql.ecore#//select/condition/Condition" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/SimpleCondition" image="false">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/condition/SimpleCondition/values" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/condition/OperationCondition">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/condition/OperationCondition/operation" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/condition/IsNullCondition">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/condition/IsNullCondition/operationNot" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ExistsCondition">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/condition/ExistsCondition/selectExpression" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/condition/BetweenCondition"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/InCondition">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/condition/InCondition/selectExpression" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/condition/InCondition/operationNot" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/condition/LikeCondition">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/condition/LikeCondition/operationNot" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperation" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperationEqual"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperationLesser"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperationLessEqual"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperationGreater"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperationGreatEqual"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperationUnEqual"/>
+        <genClasses ecoreClass="sql.ecore#//select/condition/ConditionOperationUnEqual2"/>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/value" prefix="Value">
+        <genClasses ecoreClass="sql.ecore#//select/value/Value" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/ValueFrontOperation" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/ValueFrontOperationPlus"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/ValueFrontOperationMinus"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/ValueOperation" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/ValueOperationMultiply"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/ValueOperationDivide"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/ValueOperationParallel"/>
+        <genClasses ecoreClass="sql.ecore#//select/value/SimpleValue">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/value/SimpleValue/terms" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/value/SimpleValue/operations" property="None"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/value/SimpleValue/frontOperation" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/value/ConditionValue">
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/value/ConditionValue/condition" property="None"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/value/FunctionValue">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/value/FunctionValue/functionName"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/value/FunctionValue/parameters" property="None"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages basePackage="org.emftext.language.sql.select" disposableProviderFactory="true" ecorePackage="sql.ecore#//select/term" prefix="Term">
+        <genClasses ecoreClass="sql.ecore#//select/term/Term" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/BooleanTerm" image="false"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/BooleanTermTrue"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/BooleanTermFalse"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/NullTerm"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/ColumnTerm">
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference sql.ecore#//select/term/ColumnTerm/tableReference" notify="false" propertySortChoices="true"/>
+          <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference sql.ecore#//select/term/ColumnTerm/column" property="None"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EReference sql.ecore#//select/term/ColumnTerm/columnReference" notify="false" propertySortChoices="true"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/term/SimpleTerm" image="false">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sql.ecore#//select/term/SimpleTerm/value"/>
+        </genClasses>
+        <genClasses ecoreClass="sql.ecore#//select/term/SimpleTermString"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/SimpleTermFloat"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/SimpleTermInteger"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/SimpleTermChar"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/CountStarTerm"/>
+        <genClasses ecoreClass="sql.ecore#//select/term/StarTerm"/>
+      </nestedGenPackages>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

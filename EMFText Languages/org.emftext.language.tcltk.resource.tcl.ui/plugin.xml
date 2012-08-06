@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.tcltk.resource.tcl.ui.TclUIMetaInformation" id="org.emftext.language.tcltk.resource.tcl.ui.TclUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.tcltk.resource.tcl.ui.TclEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="tcl" icon="icons/editor_icon.gif" id="org.emftext.language.tcltk.resource.tcl.ui.TclEditor" name="EMFText tcl Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.tcltk.resource.tcl">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.tcltk.resource.tcl.ui.TclPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Tcl Text Editor" id="org.emftext.language.tcltk.resource.tcl.ui.TclPreferencePage" class="org.emftext.language.tcltk.resource.tcl.ui.TclPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.tcltk.resource.tcl.ui.TclSyntaxColoringPreferencePage" class="org.emftext.language.tcltk.resource.tcl.ui.TclSyntaxColoringPreferencePage" category="org.emftext.language.tcltk.resource.tcl.ui.TclPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.tcltk.resource.tcl.ui.TclBracketPreferencePage" class="org.emftext.language.tcltk.resource.tcl.ui.TclBracketPreferencePage" category="org.emftext.language.tcltk.resource.tcl.ui.TclPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.tcltk.resource.tcl.ui.TclNewFileWizard" id="org.emftext.language.tcltk.resource.tcl.ui.TclNewFileWizard" name="EMFText .tcl file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.tcltk.resource.tcl.ui.TclMarkerResolutionGenerator" markerType="org.emftext.language.tcltk.resource.tcl.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.tcltk.resource.tcl.ui.TclAnnotationModelFactory" extensions="tcl">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.tcltk.resource.tcl" name=".tcl File" base-type="org.eclipse.core.runtime.text" file-extensions="tcl">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="tcl" id="org.emftext.language.tcltk.resource.tcl.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.tcltk.resource.tcl.ui.occurences">
+		</type>
+		<type name="org.emftext.language.tcltk.resource.tcl.ui.occurences.declaration" super="org.emftext.language.tcltk.resource.tcl.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.tcltk.resource.tcl.ui.occurences" label="Occurrences (in .tcl files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="tcl.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="tcl.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="tcl.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="tcl.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="tcl.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="tcl.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="tcl.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="tcl.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="tcl.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.tcltk.resource.tcl.ui.occurences.declaration" label="Declarations (in .tcl files)" textPreferenceKey="tcl.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="tcl.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="tcl.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="tcl.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="tcl.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="tcl.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

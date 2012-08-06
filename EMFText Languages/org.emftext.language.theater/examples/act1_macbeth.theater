@@ -1,0 +1,32 @@
+play	"The Tradegie of Macbeth"
+
+roles("FIRSTWITCH" "SECONDWITCH" "THIRDWITCH" "ALL")
+ensemble()
+
+
+
+
+
+ 
+Actus I. Scena I.
+[A desert place. Thunder and lightning.]
+
+[Enter three Witches.]
+
+  FIRSTWITCH: "When shall we three meet again?
+    In thunder, lightning, or in rain?"
+  SECONDWITCH: "When the hurlyburly's done,
+    When the battle's lost and won."
+  THIRDWITCH: "That will be ere the set of sun."
+  FIRSTWITCH: "Where the place?"
+  SECONDWITCH: "Upon the heath."
+  THIRDWITCH: "There to meet with Macbeth."
+  FIRSTWITCH: "I come, Graymalkin."
+  ALL: "Paddock calls. Anon!
+    Fair is foul, and foul is fair.
+    Hover through the fog and filthy air."        
+    
+    [Exeunt.]
+
+
+                      

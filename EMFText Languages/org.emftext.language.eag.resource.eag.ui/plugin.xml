@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.eag.resource.eag.ui.EagUIMetaInformation" id="org.emftext.language.eag.resource.eag.ui.EagUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.eag.resource.eag.ui.EagEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="eag" icon="icons/editor_icon.gif" id="org.emftext.language.eag.resource.eag.ui.EagEditor" name="EMFText eag Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.eag.resource.eag"/>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.eag.resource.eag.ui.EagPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Eag Text Editor" id="org.emftext.language.eag.resource.eag.ui.EagPreferencePage" class="org.emftext.language.eag.resource.eag.ui.EagPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.eag.resource.eag.ui.EagSyntaxColoringPreferencePage" class="org.emftext.language.eag.resource.eag.ui.EagSyntaxColoringPreferencePage" category="org.emftext.language.eag.resource.eag.ui.EagPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.eag.resource.eag.ui.EagBracketPreferencePage" class="org.emftext.language.eag.resource.eag.ui.EagBracketPreferencePage" category="org.emftext.language.eag.resource.eag.ui.EagPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.eag.resource.eag.ui.EagNewFileWizard" id="org.emftext.language.eag.resource.eag.ui.EagNewFileWizard" name="EMFText .eag file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.eag.resource.eag.ui.EagMarkerResolutionGenerator" markerType="org.emftext.language.eag.resource.eag.problem" />
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.eag.resource.eag.ui.EagAnnotationModelFactory" extensions="eag" />
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.eag.resource.eag" name=".eag File" base-type="org.eclipse.core.runtime.text" file-extensions="eag"/>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="eag" id="org.emftext.language.eag.resource.eag.ui.provider" />
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.eag.resource.eag.ui.occurences" />
+		<type name="org.emftext.language.eag.resource.eag.ui.occurences.declaration" super="org.emftext.language.eag.resource.eag.ui.occurences" />
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.eag.resource.eag.ui.occurences" label="Occurrences (in .eag files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="eag.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="eag.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="eag.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="eag.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="eag.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="eag.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="eag.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="eag.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="eag.occurrenceTextStyle" textStylePreferenceValue="NONE" />
+		<specification annotationType="org.emftext.language.eag.resource.eag.ui.occurences.declaration" label="Declarations (in .eag files)" textPreferenceKey="eag.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="eag.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="eag.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="eag.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="eag.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="eag.declarationTextStyle" textStylePreferenceValue="NONE" />
+	</extension>
+	
+</plugin>

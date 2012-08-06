@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.language.rails.resource.rails.ui.RailsUIMetaInformation" id="org.emftext.language.rails.resource.rails.ui.RailsUIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.language.rails.resource.rails.ui.RailsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="rails" icon="icons/editor_icon.gif" id="org.emftext.language.rails.resource.rails.ui.RailsEditor" name="EMFText rails Editor">
+			<contentTypeBinding contentTypeId="org.emftext.language.rails.resource.rails">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.language.rails.resource.rails.ui.RailsPreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Rails Text Editor" id="org.emftext.language.rails.resource.rails.ui.RailsPreferencePage" class="org.emftext.language.rails.resource.rails.ui.RailsPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.language.rails.resource.rails.ui.RailsSyntaxColoringPreferencePage" class="org.emftext.language.rails.resource.rails.ui.RailsSyntaxColoringPreferencePage" category="org.emftext.language.rails.resource.rails.ui.RailsPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.language.rails.resource.rails.ui.RailsBracketPreferencePage" class="org.emftext.language.rails.resource.rails.ui.RailsBracketPreferencePage" category="org.emftext.language.rails.resource.rails.ui.RailsPreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.language.rails.resource.rails.ui.RailsNewFileWizard" id="org.emftext.language.rails.resource.rails.ui.RailsNewFileWizard" name="EMFText .rails file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.language.rails.resource.rails.ui.RailsMarkerResolutionGenerator" markerType="org.emftext.language.rails.resource.rails.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.language.rails.resource.rails.ui.RailsAnnotationModelFactory" extensions="rails">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.language.rails.resource.rails" name=".rails File" base-type="org.eclipse.core.runtime.text" file-extensions="rails">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="rails" id="org.emftext.language.rails.resource.rails.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.language.rails.resource.rails.ui.occurences">
+		</type>
+		<type name="org.emftext.language.rails.resource.rails.ui.occurences.declaration" super="org.emftext.language.rails.resource.rails.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.language.rails.resource.rails.ui.occurences" label="Occurrences (in .rails files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="rails.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="rails.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="rails.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="rails.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="rails.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="rails.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="rails.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="rails.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="rails.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.language.rails.resource.rails.ui.occurences.declaration" label="Declarations (in .rails files)" textPreferenceKey="rails.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="rails.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="rails.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="rails.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="rails.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="rails.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

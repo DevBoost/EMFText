@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="tudresden.ocl20.pivot.language.ocl.staticsemantics.ocl_staticsemantics_factory">
+      <FactoryRegistration
+            fileExtension="eocl"
+            oclStaticSemanticsFactory="org.emftext.language.eocl.staticsemantics.impl.EOclStaticSemanticsFactoryImpl">
+      </FactoryRegistration>
+   </extension>
+   <extension
+         point="org.emftext.language.eocl.resource.eocl.default_load_options">
+      <provider
+            class="org.emftext.language.eocl.staticsemantics.provider.EOclLoadOptionsProvider"
+            id="org.emftext.language.eocl.staticsemantics.StaticSemantics">
+      </provider>
+   </extension>
+
+</plugin>

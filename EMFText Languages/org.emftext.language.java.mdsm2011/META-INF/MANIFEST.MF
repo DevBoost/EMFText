@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MDSM2011 Evaluation Plug-in
+Bundle-SymbolicName: org.emftext.language.java.mdsm2011
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.emftext.language.java.mdsm2011.Activator
+Bundle-Vendor: TU Dresden
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf,
+ org.eclipse.emf.common,
+ org.emftext.language.java,
+ org.emftext.language.java.resource,
+ org.emftext.language.java.resource.java,
+ org.emftext.language.java.closures,
+ org.emftext.language.java.closures.resource.closure,
+ org.eclipse.m2m.qvt.oml,
+ org.eclipse.m2m.qvt.oml.common,
+ org.eclipse.m2m.qvt.oml.emf.util,
+ org.eclipse.m2m.qvt.oml.ocl,
+ org.eclipse.m2m.qvt.oml.project,
+ org.eclipse.m2m.qvt.oml.runtime,
+ org.emftext.commons.antlr3_2_0,
+ org.emftext.commons.antlr3_4_0;resolution:=optional,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.junit4
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

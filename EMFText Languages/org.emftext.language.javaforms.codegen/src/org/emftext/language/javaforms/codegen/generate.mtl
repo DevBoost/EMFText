@@ -1,0 +1,123 @@
+[comment encoding = UTF-8 /]
+[module generate(
+	'/org.emftext.language.forms/metamodel/forms.ecore',
+	'http://www.emftext.org/java',
+	'http://www.emftext.org/java/variables',
+	'http://www.emftext.org/language/javaforms',
+	'http://www.emftext.org/language/javaforms/codegen'
+)/]
+[import javaforms /]
+
+[template public generate(f : Form, classname : String, packageName : String, printer : JavaPrinter)]
+	
+	[comment @main /]
+	[file (classname + '.java', false, 'UTF-8')]
+package [packageName/];	
+
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardPage;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DateTime;
+import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+
+public class [classname/] extends Wizard {
+
+	[for (g : Group | f.groups)]
+	[for (item : Item | g.items)]
+	[if (item.oclIsKindOf(Variable))]
+	[let condItem : Variable = item]
+	[if (not condItem.name.oclIsUndefined())]
+	[if (item.itemType.oclIsTypeOf(FreeText))]
+	private String [condItem.name/];
+	[/if]
+	[if (item.itemType.oclIsTypeOf(Number))]
+	private int [condItem.name/];
+	[/if]
+	[if (item.itemType.oclIsTypeOf(Date))]
+	private Data [condItem.name/];
+	[/if]
+	[if (item.itemType.oclIsTypeOf(Choice))]
+	private int [condItem.name/];
+	[/if]
+	[/if]
+	[/let]
+	[/if]
+	[/for]
+	[/for]
+
+	@Override
+	public boolean performFinish() {
+		return true;
+	}
+
+	@Override
+	public void addPages() {
+		[for (g : Group | f.groups)]
+		[for (item : Item | g.items)]
+		addPage(new WizardPage([g.name/], [g.name/], null) {
+
+			public void createControl(Composite parent) {
+				GridData gd = new GridData(SWT.FILL, SWT.BOTTOM, true, false, 1, 1);
+				GridData gd2 = new GridData(SWT.FILL, SWT.BOTTOM, true, false, 2, 1);
+	
+				Composite composite = new Composite(parent, SWT.NONE);
+				// create the desired layout for this wizard page
+				GridLayout gl = new GridLayout();
+				gl.numColumns = 2;
+				composite.setLayout(gl);
+	
+				Label question = new Label(composite, NONE);
+				question.setText([item.text/]);
+
+				[let itemType : ItemType = item.itemType/]
+				[if (itemType.oclIsKindOf(FreeText))]
+				Text text = new Text(composite, SWT.SINGLE);
+				text.setLayoutData(gd);
+				question.setLayoutData(gd);
+				[/if]
+				[if (itemType.oclIsKindOf(Choice) or itemType.oclIsKindOf(Decision))]
+				int type = SWT.RADIO;
+				[if itemType.oclAsType(Choice).multiple ]
+					type = SWT.CHECK;
+				[/if]
+				[for (option : Option | itemType.oclAsType(Choice).options)]
+				{
+					Button radioButton = new Button(composite, type);
+					radioButton.setLayoutData(gd2);
+					String optionName = [ option.text /];
+					if (optionName == null) {
+						optionName = "";
+					}
+					radioButton.setText(optionName);
+				}
+				[/for]
+				question.setLayoutData(gd2);
+				[/if]
+				[if (itemType.oclIsKindOf(Number))]
+				Spinner spinner = new Spinner(composite, SWT.NONE);
+				spinner.setLayoutData(gd);
+				question.setLayoutData(gd);
+				[/if]
+				[if (itemType.oclIsKindOf(Date))]
+				DateTime dateTime = new DateTime(composite, SWT.NONE);
+				dateTime.setLayoutData(gd);
+				question.setLayoutData(gd2);
+				[/if]
+				[handleItem(item, printer)/]
+				setControl(composite);
+			}
+		});
+		[/for]
+		[/for]
+	}
+}[/file]
+	
+[/template]

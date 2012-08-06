@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.emftext.language.java.closures.mediniJava2Closure"
+         name="Java To Closure Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="false">
+         <run
+               class="org.emftext.language.java.closures.java2dsl.qvto.QVTOJava2ClosureBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="org.emftext.language.java.closures.mediniClosure2Java"
+         name="Closure To Java Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="false">
+         <run
+               class="org.emftext.language.java.closures.java2dsl.qvto.QVTOClosure2JavaBuilder">
+         </run>
+      </builder>
+   </extension>
+
+</plugin>

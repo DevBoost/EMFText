@@ -1,0 +1,6 @@
+\contentsline {section}{\numberline {1}Functions}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Authentication}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Project list}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Select current project}{2}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Persist tracking data}{2}{subsection.1.4}
+\contentsline {section}{\numberline {2}Costs}{2}{section.2}

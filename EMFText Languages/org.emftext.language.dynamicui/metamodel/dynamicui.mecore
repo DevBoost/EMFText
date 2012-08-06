@@ -1,0 +1,12 @@
+dynamicui <http://www.dynamicui.org/>
+
+UIElement (
+	name EString 
+	properties Property*
+	children UIElement*
+)
+
+Property (
+	name EString
+	value EString
+)

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.emftext.language.templateconcepts.call.resource.templatecall.default_load_options">
+		<provider
+			class="org.emftext.language.templateconcepts.interpreter.InterpreterExecuter"
+			id="org.emftext.language.templateconcepts.interpreter.InterpreterExecuter">
+		</provider>
+	</extension>
+</plugin>

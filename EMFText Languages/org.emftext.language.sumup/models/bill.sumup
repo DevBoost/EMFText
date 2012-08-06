@@ -1,0 +1,13 @@
+import "weights.sumup"
+import "currency.sumup" 
+
+output Apples.
+output Veal.
+output Sugar.
+output Sums.
+
+set Apples : 700 g * 2.99 Û / kg.
+set Veal : 500 g * 3.99 cents / g.
+set Sugar : 1.49 Û.
+
+set Sums : Apples + Veal.

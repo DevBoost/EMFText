@@ -1,0 +1,16 @@
+StateMachine Example {
+	initial state init;
+	
+	state start {
+		do : "action1"
+	};
+	
+	final state end {
+		do : "action2"
+	};
+
+	transitions {
+		init -> start when "step";
+		start -> end when "step";
+	}
+}

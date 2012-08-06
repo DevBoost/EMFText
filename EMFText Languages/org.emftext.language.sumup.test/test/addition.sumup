@@ -1,0 +1,5 @@
+output Sum.
+//output Bool.
+
+set Sum : 4 + 5 .
+//set Bool : true and false .

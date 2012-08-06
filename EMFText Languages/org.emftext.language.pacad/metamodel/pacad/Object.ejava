@@ -1,0 +1,51 @@
+epackage pacad;
+
+// plain Java imports
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.BasicEList;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+ 
+eclass Object {
+
+	getAdventure() {
+		// find main adventure
+		PointAndClickAdventure adventure = (PointAndClickAdventure) EcoreUtil.getRootContainer(this);
+		if (adventure.getMainScript() != null) {
+			adventure = adventure.getMainScript();
+		}
+		return adventure;
+	}
+	
+	isUsableAlone() {
+		// find main adventure
+		PointAndClickAdventure adventure = getAdventure();
+		// search for a command that applied to this object
+		for (Command command : adventure.getAvailableCommands(CommandType.USE)) {
+			EList<Object> subjects = command.getSubjects();
+			// if there is a command that applied and that has more than one
+			// argument this object cannot be used on its own
+			if (subjects.contains(this) && subjects.size() > 1) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	getPositionX() {
+		if (getDefinedPositionX() <= 0 && getParent() != null) {
+			return getParent().getPositionX();
+		} else {
+			return getDefinedPositionX();
+		}
+	}
+
+	getPositionY() {
+		if (getDefinedPositionY() <= 0 && getParent() != null) {
+			return getParent().getPositionY();
+		} else {
+			return getDefinedPositionY();
+		}
+	}
+}

@@ -1,0 +1,51 @@
+<project name="Test Build" default="generate-text-resource" basedir=".">
+
+	<taskdef name="emftext-generate-text-resource" classname="org.emftext.sdk.ant.GenerateTextResourceTask">
+		<classpath path="../org.emftext.runtime/bin" />
+		<classpath path="../org.emftext.runtime.antlr/bin" />
+		<classpath path="../org.emftext.runtime.ocl/bin" />
+		<classpath path="../org.emftext.runtime.ui/bin" />
+		<classpath path="../org.emftext.sdk/bin" />
+		<classpath path="../org.emftext.sdk.ant/bin" />
+		<classpath path="../org.emftext.sdk.antlr/bin" />
+		<classpath path="../org.emftext.sdk.automaton/bin" />
+		<classpath path="../org.emftext.sdk.concretesyntax/bin" />
+		<classpath path="../org.emftext.sdk.concretesyntax.resource.cs/bin" />	
+		<!-- for ecore text resource support -->
+		<classpath path="../org.emftext.language.ecore.resource/bin" />	
+		<classpath path="../org.emftext.language.ecore.resource.text/bin" />
+	</taskdef>
+
+	<target name="generate-text-resource" depends="generate-metamodel-code" description="Generate the EMF text resource plug-in">
+		<emftext-generate-text-resource syntax="../org.emftext.language.xml/metamodel/xml.cs" rootFolder=".." syntaxProjectName="org.emftext.language.xml" />
+		<eclipse.refreshLocal depth="infinite" resource="/"/>
+	</target>
+	
+	<target name="generate-metamodel-code">
+		<generate-metamodel-code plugin="org.emftext.language.xml" model="xml" generateEditProject="false" />
+	</target>
+	
+	<macrodef name="generate-metamodel-code">
+	    <attribute name="plugin"/>
+	    <attribute name="model"/>
+	    <attribute name="generateEditProject"/>
+		
+		<sequential>
+			<delete dir="../@{plugin}/src-gen" includes="**/*.java" excludes=".svn"/>
+			<eclipse.refreshLocal depth="infinite" resource="@{plugin}"/>
+			<echo message="../@{plugin}/metamodel/@{model}.ecore" />
+			<emf.Ecore2Java 
+				model="../@{plugin}/metamodel/@{model}.ecore" 
+				genModel="../@{plugin}/metamodel/@{model}.genmodel" 
+				generateeditproject="@{generateEditProject}" 
+				generateeditorproject="false"
+				modelProject="../@{plugin}" 
+				modelProjectFragmentPath="src-gen"
+				reconcileGenModel="keep"
+			/>
+			
+			<eclipse.refreshLocal depth="infinite" resource="@{plugin}"/>
+		</sequential>
+	</macrodef>
+	
+</project>

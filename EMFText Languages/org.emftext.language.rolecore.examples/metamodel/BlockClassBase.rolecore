@@ -1,0 +1,15 @@
+RCPackage blockclassbase blockclassbase "http://www.emftext.org/language/rolecore/blockclassbase" 
+Imports{
+	prefix: class <classDomain.rolecore>
+	prefix: block <blockDomain.rolecore>
+}{
+	CoreClass ModelElement {
+		reference type:class->Stereotype stereotype (0..-1);
+		reference type:class->ClassDiagram classDiagram (0..1) opposite elements;
+		reference type:block->BlockDiagram blockDiagram (0..1) opposite elements;
+	}
+	
+	Role Name is played by ModelElement {
+		attribute EString name;
+	}
+}

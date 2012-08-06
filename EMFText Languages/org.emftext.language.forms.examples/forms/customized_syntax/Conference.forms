@@ -1,0 +1,11 @@
+FORM "Conference Registration"
+
+GROUP "Personal Data" 
+ITEM "Firstname" : FREETEXT
+ITEM "Lastname" : FREETEXT
+ITEM "Age" "Please enter your real age, not the one you'd like to be at" : NUMBER
+
+GROUP "Food Preferences" 
+ITEM "Vegetarian" : DECISION (VEGETARIAN : "yes","no") 
+ITEM "Preferred beverage" : CHOICE ("Coffee - What else?", "I'd prefer tee", "Beer, now!")
+ITEM "Vegan" ONLY IF VEGETARIAN : DECISION ("yes","no")

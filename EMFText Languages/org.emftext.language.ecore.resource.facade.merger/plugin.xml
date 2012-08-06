@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+  <extension
+        point="org.emftext.language.ecore.resource.facade.default_load_options">
+     <provider
+           class="org.emftext.language.ecore.resource.facade.merger.EcoreModelMerger"
+           id="org.emftext.language.ecore.resource.EcoreModelMerger"
+           name="EcoreModelMerger">
+     </provider>
+  </extension>
+
+</plugin>

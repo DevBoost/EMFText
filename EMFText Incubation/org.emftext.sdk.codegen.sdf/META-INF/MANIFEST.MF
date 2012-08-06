@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sdf
+Bundle-SymbolicName: org.emftext.sdk.codegen.sdf
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.emftext.sdk,
+ org.emftext.sdk.codegen,
+ org.emftext.language.regexp,
+ org.emftext.language.regexp.resource.regexp_antlr,
+ org.emftext.language.regexp.resource.regexp_sdf
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

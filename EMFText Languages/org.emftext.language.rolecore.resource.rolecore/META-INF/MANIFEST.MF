@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: rolecore
+Bundle-SymbolicName: org.emftext.language.rolecore.resource.rolecore;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.resources,
+  org.eclipse.emf,
+  org.eclipse.emf.codegen.ecore,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.edit,
+  org.eclipse.emf.validation,
+  org.eclipse.emf.workspace,
+  org.emftext.access;resolution:=optional,
+  org.emftext.commons.antlr3_2_0,
+  org.emftext.language.rolecore
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.rolecore.resource.rolecore,
+  org.emftext.language.rolecore.resource.rolecore.analysis,
+  org.emftext.language.rolecore.resource.rolecore.mopp,
+  org.emftext.language.rolecore.resource.rolecore.grammar,
+  org.emftext.language.rolecore.resource.rolecore.util
+Bundle-Activator: org.emftext.language.rolecore.resource.rolecore.mopp.RolecorePlugin

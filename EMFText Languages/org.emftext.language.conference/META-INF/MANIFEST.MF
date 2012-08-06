@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: Metamodel for Conference Planning
+Bundle-SymbolicName: org.emftext.language.conference; singleton:=true
+Bundle-Version: 0.1.2.v200911130906
+Bundle-ClassPath: .
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
+ ity:=reexport
+Bundle-ActivationPolicy: lazy
+Export-Package: org.emftext.language.conference,org.emftext.language.c
+ onference.impl,org.emftext.language.conference.util
+

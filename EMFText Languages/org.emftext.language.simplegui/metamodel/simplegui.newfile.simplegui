@@ -1,0 +1,5 @@
+F(MainFrame) 
+	contains 
+		L(PushingTheRedButtonIsNotAGoodIdea)
+		B(Red)
+		B(Cancel);

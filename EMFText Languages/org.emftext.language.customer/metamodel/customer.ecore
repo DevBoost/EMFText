@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="customer"
+    nsURI="http://www.emftext.org/language/customer" nsPrefix="customer">
+  <eClassifiers xsi:type="ecore:EClass" name="Customer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requests" upperBound="-1"
+        eType="#//ExtraIngredient" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//Name"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isVegetarian" lowerBound="1"
+        eType="#//IsVegetarian" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtraIngredient">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//Name"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Name" eSuperTypes="../../org.emftext.language.primitivetypes/metamodel/primitivetypes.ecore#//EStringElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsVegetarian" eSuperTypes="../../org.emftext.language.primitivetypes/metamodel/primitivetypes.ecore#//EBooleanElement"/>
+</ecore:EPackage>

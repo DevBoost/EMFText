@@ -1,0 +1,13 @@
+@"import"("ix"="imported.text.ecore")
+package import import "http://www.emftext.org/language/test/import" {
+
+	class I1 {
+		containment reference ix::A x;
+	}
+	
+	//import override
+	@"import"("ix"="http://www.eclipse.org/emf/2002/Ecore")
+	class I2 {
+		containment reference ix::EObject x;
+	}
+}

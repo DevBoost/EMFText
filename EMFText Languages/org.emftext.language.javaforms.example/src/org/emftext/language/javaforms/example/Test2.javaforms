@@ -1,0 +1,10 @@
+FORM "Credit Application"
+
+GROUP "Personal Details"
+
+name = ITEM "Name" : FREETEXT
+age = ITEM "Age" : NUMBER 
+guardian = ITEM "Legal Guardian" ONLY IF (age < 18): FREETEXT
+vegetarian = ITEM "Vegetarian" : CHOICE ("yes", "no")
+
+ITEM "Want free beer?" ONLY IF (name.contains("Mirko")): CHOICE ("yes", "no")

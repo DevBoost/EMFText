@@ -1,0 +1,13 @@
+FORMULAR "Steuererklärung 2008"
+
+GRUPPE "Persönliche Angaben"
+	FRAGE "Name" : FREITEXT
+	FRAGE "Vorname" : FREITEXT
+	FRAGE "Geburtsdatum" : DATUM 
+	FRAGE "Geschlecht" : AUSWAHL ("männlich", "weiblich")
+
+	FRAGE "Status" : AUSWAHL ("ledig", EHEPAAR : "verheiratet", "verwittwet")
+	FRAGE "Name Ehepartner(in)" NUR BEI EHEPAAR : FREITEXT
+	FRAGE "Vorname Ehepartner(in)" NUR BEI EHEPAAR : FREITEXT
+
+	FRAGE "Kinder" : AUSWAHL ("ja", "nein")

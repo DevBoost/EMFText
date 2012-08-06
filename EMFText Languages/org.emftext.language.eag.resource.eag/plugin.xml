@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.language.eag.resource.eag.mopp.EagMetaInformation" id="org.emftext.language.eag.resource.eag.mopp.EagMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.language.eag.resource.eag.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.language.eag.resource.eag.nature" name="eag nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.language.eag.resource.eag.mopp.EagNature" />
+		</runtime>
+		<builder id="org.emftext.language.eag.resource.eag.builder" />
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.language.eag.resource.eag.builder" name="eag Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.language.eag.resource.eag.mopp.EagBuilderAdapter" />
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.language.eag.resource.eag.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.language.eag.resource.eag.mopp.EagResourceFactoryDelegator" type="eag">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.language.eag.resource.eag.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
+	
+</plugin>

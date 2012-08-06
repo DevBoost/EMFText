@@ -1,0 +1,16 @@
+events
+  event E
+end
+
+commands
+  command C
+end
+
+start initial
+
+state initial
+  actions { command }
+  event => initial
+end
+
+

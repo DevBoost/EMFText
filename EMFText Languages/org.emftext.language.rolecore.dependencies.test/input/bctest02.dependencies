@@ -1,0 +1,28 @@
+Graph SystemBlock
+
+Domain blockDomain ModelPackage "http://www.emftext.org/language/rolecore/blockdomain"
+		RCPackage "org.emftext.language.rolecore.examples/metamodel/blockDomain.rolecore"{
+	SemiRequired {
+		BlockDiagram blockDiagram (role BlockdiagramElementsRole => systemBlock;)
+	}
+	Create {
+		SystemBlock systemBlock (role Name := "System"; role ModelelementBlockdiagramRole => blockDiagram;)
+	} 
+}
+Domain classDomain ModelPackage "http://www.emftext.org/language/rolecore/classdomain"
+		RCPackage "org.emftext.language.rolecore.examples/metamodel/classDomain.rolecore"{
+	SemiRequired{
+		ClassDiagram classDiagram (role ClassdiagramElementsRole => class;)
+		Stereotype stereotype (role Name := "system";)
+	}
+	Create {
+		Class class (
+						role ModelelementClassdiagramRole => classDiagram; 
+						role ModelelementStereotypeRole => stereotype;
+					)
+	}
+}
+Equivalences{
+	class role Name := systemBlock role Name; 
+	classDiagram:=blockDiagram;
+}

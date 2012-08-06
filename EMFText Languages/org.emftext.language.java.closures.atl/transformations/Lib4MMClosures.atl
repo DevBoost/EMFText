@@ -1,0 +1,11 @@
+-- @path MMJava=/org.emftext.language.java/metamodel/java.ecore
+-- @path MMClosures=/org.emftext.language.java.closures/metamodel/closures.ecore
+
+library Lib4MMClosures;
+
+helper context MMClosures!Reference def : isClosure(): Boolean = 
+	self.oclIsTypeOf(MMClosures!Closure);
+
+helper context MMClosures!Statement def : isExpressionStatement(): Boolean =
+	self.oclIsTypeOf(MMClosures!ExpressionStatement);
+

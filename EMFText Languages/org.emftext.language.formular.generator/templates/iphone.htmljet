@@ -1,0 +1,223 @@
+<%@ jet package="generator.html"
+
+class="IPhoneFormGenerator" skeleton="generator.skeleton" imports ="java.util.Iterator org.eclipse.emf.common.util.EList org.emftext.language.formular.*;"
+
+%>
+
+<% Formular formular = (Formular) argument; %>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head> 
+	<title> <%=formular.getTitel()%> </title>
+	<link rel="stylesheet" href="WebApp/Design/Render.css" />
+	<script type="text/javascript" scr="WebApp/Action/Logic.js"></script>
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<link rel="Stylesheet" href="WebApp/Design/Render.css" />
+	<script type="text/javascript" src="WebApp/Action/Logic.js"></script>
+
+	<style>
+		*[dir=rtl] #iHeader .iTab {margin-left:40px;margin-right:15px }
+		#iHeader .iTab {margin-right:55px}
+
+		.iPanel label + input[type] {
+			padding-left:95px;
+		}
+
+		*[dir=rtl] .iPanel label + input[type] {
+			padding-right:95px;
+		}
+
+/* Fix to test in firefox
+		.iPanel label + input[type] {
+			padding-bottom:0;
+			padding-top:0;
+			top:-16px;
+		}
+*/
+
+		.iTab li { width:33%}
+		.iTab li:first-child { width:34%}
+
+		.msg {
+			background-color:#080;
+			color:#fff;
+			font-size:11px;
+			padding:5px;
+			-webkit-border-radius:4px;
+			margin:8px;
+		}
+		.err {
+			background-color:#800;
+			color:#fff;
+			font-size:11px;
+			padding:5px;
+			-webkit-border-radius:4px;
+			margin:8px;
+		}
+		
+	</style>
+
+
+
+</head>
+
+<body>
+<div id="WebApp">
+
+<div id="iHeader">
+    <a href="#" id="waBackButton">Back</a>
+    <span id="waHeadTitle">iFrage</span>
+</div>
+
+<div id="iGroup">
+
+    <div class="iLayer" id="waHome" title="&Uuml;berblick">
+        <div class="iBlock">
+            <h1>Fragebogen: <%=formular.getTitel() %></h1>
+            <p>Bitte w&auml;hlen sie den Bereich des Formulars, den sie bearbeiten m&ouml;chten:</p>
+            
+            
+            
+        </div>
+        
+        <div class="iMenu">
+        <h3>Bereich ausw&auml;hlen: </h3>
+        	<ul class="iArrow">
+	        	<%
+	        	EList<Gruppe> gruppen = formular.getGruppen();
+	        	int i = 0;
+	            for (Gruppe gruppe : gruppen) {
+	        		i++;%>
+	
+	        	<li><a href="#_Gruppe_<%=i%>"><%=gruppe.getName()%></a></li>
+	        	<% 
+		        }
+		        %>
+            </ul>
+        </div>
+    </div>
+
+    
+	<%
+	i = 0;
+    for (Gruppe gruppe : gruppen) {
+	    i++;
+		%>
+
+	    <div class="iLayer" id="waGruppe_<%=i%>" title="<%=gruppe.getName()%>">
+		   	    <div class="iPanel">
+					<div id="form-res"></div>
+						<fieldset>	<legend><%= gruppe.getName()%></legend>
+						<% 
+					   	for (Frage frage : gruppe.getFragen()) {
+					   	%>
+									
+					    	<% 
+					    	if (frage.getErklaerung() != null) { 
+					    	%> 
+					    		<p><%= frage.getErklaerung()%></p>
+					    	<% 
+					    	} 
+					    	%>
+					    
+					    	<% 
+					    	if (frage.getAbhaengigVon().size() > 0) { %>
+					 			(Nur bei: 
+					 			<% 
+					 			for(Option option : frage.getAbhaengigVon()) { %>
+					 				<%=option.getId() %>  
+					 			<%
+					 			}
+					 			%>
+					 			)
+					 	  	<% 
+					 	  	} 
+					    	%>
+					
+					    	<% 
+					    	if (frage.getAntwortTyp() instanceof Freitext) { %> 
+					 			<ul><li><label><%=frage.getText()%>:</label><input type="text" size=30></input></li></ul>	
+					 		<% 
+					 		} 
+					    	%>
+					 	
+					    	<% 
+					    	if (frage.getAntwortTyp() instanceof Datum) { %> 
+					 			<ul><li><label><%=frage.getText()%>:</label><br/>
+					 			<input size="2" maxlength="2" value="DD"/>.
+					 			<input size="2" maxlength="2" value="MM"/>.
+					 			<input size="4" maxlength="4" value="YYYY"/>
+					 			</li></ul>
+					 		<% 
+					 		} 
+					    	%>
+					    	<% 
+					    	if (frage.getAntwortTyp() instanceof Zahl) { %> 
+					 			<ul><li><label><%=frage.getText()%>:</label>
+					 			<input size=10></input>
+					 			</li></ul>	
+					 		<% 
+					 		} 
+					    	 
+					    	if (frage.getAntwortTyp() instanceof Auswahl) { 
+					    		Auswahl auswahl = (Auswahl) frage.getAntwortTyp();
+					    			if (auswahl.isMehrfach()) {%>
+					    		
+					    				<ul><li class="iCheck"><%=frage.getText()%>
+						    		<%
+						    		} else {
+						    		%>
+						    			<ul><li class="iRadio"><%=frage.getText()%>
+						    		<%
+						    		}
+					 						 		
+							 		for(Option option : auswahl.getOptionen()) {
+							 			if (auswahl.isMehrfach()) {%> 
+							 			 <input type="check" name="<%=frage.getText()%>" value="<%=option.getText()%>"> <%=option.getText()%>
+							 			 	<% if (option.getId() != null) {%> (beachte: <%=option.getId()%> )<%}%>
+							 			 <%} else { %>
+							 				<label><input type="radio" name="radio" value="<%=option.getText()%>" checked="checked"/><%=option.getText()%>	 				
+							 					<% if (option.getId() != null) {%> (beachte: <%=option.getId()%> )<%}%>
+							 					</label>	 			
+							 			 <%}%>
+							 		<%}%>
+							 		</li></ul>
+					    	
+						 	<%
+					 	    } 
+					    	
+					    	if (frage.getAntwortTyp() instanceof Entscheidung) {
+				    			Entscheidung e = (Entscheidung) frage.getAntwortTyp();%>
+				    				<ul><li><input type="checkbox" name="<%=frage.getText()%>" id="<%=frage.getText()%>" class="iToggle" title="Ja|Nein" checked="checked" value="ok" /> 
+				    				<label for="<%=frage.getText()%>"><%=frage.getText()%></label></li></ul>
+								<%
+				    		}
+					   	}
+					 			 	
+						%>
+			        	</fieldset>
+					</div>
+					
+					       
+						<% 
+						if (i < gruppen.size() ) { %>
+						<div class="iMenu">
+							<ul class="iArrow">
+								<li><a href="#_Gruppe_<%=i+1%>"><%=gruppen.get(i).getName()%></a></li>
+							</ul>
+						</div>
+						<% 
+				    	}
+						%>
+			</div>
+		  <%
+		  }
+		  %>
+	</div>
+</body>
+</html>

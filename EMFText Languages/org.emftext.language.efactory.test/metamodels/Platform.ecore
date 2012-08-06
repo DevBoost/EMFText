@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Platform"
+    nsURI="http://www.eclipse.org/gmt/am3/2009/Platform" nsPrefix="Platform">
+  <eClassifiers xsi:type="ecore:EClass" name="Platform" eSuperTypes="#//Tool">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tools" upperBound="-1"
+        eType="#//Tool" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Tool" eSuperTypes="#//VersionnedElement ./AM3Core.ecore#/0/Container">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="services" upperBound="-1"
+        eType="#//Service" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Service" eSuperTypes="./AM3Core.ecore#/0/Entity #//VersionnedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VersionDependency" eSuperTypes="./AM3Core.ecore#/0/DirectedRelationship">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minVersion" lowerBound="1"
+        eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxVersion" eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="closure" lowerBound="1"
+        eType="#//IntervalClosure"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VersionnedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="version" lowerBound="1"
+        eType="#//Version" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
+        eType="#//VersionDependency" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Version">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType ./AM3Core.ecore#/1/String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Document" eSuperTypes="./AM3Core.ecore#/0/Entity"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="IntervalClosure">
+    <eLiterals name="includeExclude"/>
+    <eLiterals name="includeInclude" value="1"/>
+    <eLiterals name="excludeExclude" value="2"/>
+    <eLiterals name="excludeInclude" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PlatformID" eSuperTypes="./AM3Core.ecore#/0/Identifier"/>
+</ecore:EPackage>

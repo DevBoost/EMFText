@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ASCII"?>
+<interpreter:DomainRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:interpreter="http://www.emftext.org/language/rolecore/dependencies/interpreter" name="TraceLinks">
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05blockDomain.xmi#//@eObjects.0"/>
+    <target href="./input/Scene05classDomain.xmi#//@eObjects.0"/>
+  </eObjects>
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05classDomain.xmi#//@eObjects.1"/>
+    <target href="./input/Scene05blockDomain.xmi#//@eObjects.3"/>
+  </eObjects>
+  <eObjects xsi:type="interpreter:AssignmentTraceLink">
+    <edge href="./input/bctest05.dependencies#//@modelEquivalence/@edges.1"/>
+    <coreNameToRolesMap key="class">
+      <value href="./input/Scene05blockclassbase.xmi#//@eObjects.9"/>
+    </coreNameToRolesMap>
+    <coreNameToRolesMap key="process">
+      <value href="./input/Scene05blockclassbase.xmi#//@eObjects.16"/>
+    </coreNameToRolesMap>
+  </eObjects>
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05blockDomain.xmi#//@eObjects.5/@children"/>
+    <target href="./input/Scene05classDomain.xmi#//@eObjects.9"/>
+  </eObjects>
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05blockDomain.xmi#//@eObjects.5/@children"/>
+    <target href="./input/Scene05classDomain.xmi#//@eObjects.13"/>
+  </eObjects>
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05blockDomain.xmi#//@eObjects.5/@children"/>
+    <target href="./input/Scene05classDomain.xmi#//@eObjects.19"/>
+  </eObjects>
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05blockDomain.xmi#//@eObjects.5/@children"/>
+    <target href="./input/Scene05classDomain.xmi#//@eObjects.25"/>
+  </eObjects>
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05blockDomain.xmi#//@eObjects.5/@children"/>
+    <target href="./input/Scene05classDomain.xmi#//@eObjects.8"/>
+  </eObjects>
+  <eObjects xsi:type="interpreter:EqualTraceLink">
+    <source href="./input/Scene05blockDomain.xmi#//@eObjects.5/@children"/>
+    <target href="./input/Scene05classDomain.xmi#//@eObjects.11"/>
+  </eObjects>
+</interpreter:DomainRoot>

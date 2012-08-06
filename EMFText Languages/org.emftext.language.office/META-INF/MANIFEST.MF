@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_20-141 (Apple Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: Office DSL Metamodel
+Bundle-SymbolicName: org.emftext.language.office; singleton:=true
+Bundle-Version: 0.5.0.v200911130906
+Bundle-ClassPath: .
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.language.office,org.emftext.language.offic
+ e.impl,org.emftext.language.office.util
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
+ ity:=reexport
+Bundle-ActivationPolicy: lazy
+

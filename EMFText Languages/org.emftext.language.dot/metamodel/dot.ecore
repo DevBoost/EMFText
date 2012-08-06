@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dot" nsURI="http://www.emftext.org/language/dot" nsPrefix="dot">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractGraph" abstract="true" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" eType="#//StatementList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AList" eSuperTypes="#//Commentable">
+    <eOperations name="getAllAttributes" upperBound="-1" eType="#//Attribute">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList&lt; org.emftext.language.dot.Attribute> result = new org.eclipse.emf.common.util.BasicEList&lt; org.emftext.language.dot.Attribute>();&#xA;org.emftext.language.dot.AList nextAList = this;&#xA;while (nextAList != null) {&#xA;&#x9;result.add(nextAList.getAttribute());&#xA;&#x9;nextAList = nextAList.getTail();&#xA;}&#xA;return org.eclipse.emf.common.util.ECollections.unmodifiableEList(result);"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
+        eType="#//Attribute" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" eType="#//AList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssignmentStatement" eSuperTypes="#//Statement #//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="left" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="right" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Attributable" abstract="true" interface="true">
+    <eOperations name="getAllALists" upperBound="-1" eType="#//AList">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList&lt; org.emftext.language.dot.AList> result = new org.eclipse.emf.common.util.BasicEList&lt; org.emftext.language.dot.AList>();&#xA;org.emftext.language.dot.AttributeList attributeList = getAttributes();&#xA;while (attributeList != null) {&#xA;&#x9;result.add(attributeList.getList());&#xA;&#x9;attributeList = attributeList.getNext();&#xA;}&#xA;return org.eclipse.emf.common.util.ECollections.unmodifiableEList(result);"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" eType="#//AttributeList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Attribute" eSuperTypes="#//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeList" eSuperTypes="#//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="list" lowerBound="1" eType="#//AList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//AttributeList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeStatement" eSuperTypes="#//Statement #//Commentable #//Attributable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Commentable" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comments" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Compass">
+    <eLiterals name="NORTH" literal="n"/>
+    <eLiterals name="NORTH_EAST" value="1" literal="ne"/>
+    <eLiterals name="EAST" value="2" literal="e"/>
+    <eLiterals name="SOUTH_EAST" value="3" literal="se"/>
+    <eLiterals name="SOUTH" value="4" literal="s"/>
+    <eLiterals name="SOUTH_WEST" value="5" literal="sw"/>
+    <eLiterals name="WEST" value="6" literal="w"/>
+    <eLiterals name="NORTH_WEST" value="7" literal="nw"/>
+    <eLiterals name="CENTER" value="8" literal="c"/>
+    <eLiterals name="APPROPRIATE" value="9" literal="_"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Connectable" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EdgeStatement" eSuperTypes="#//Statement #//Attributable #//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//Connectable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//Target" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Graph" eSuperTypes="#//AbstractGraph #//Commentable">
+    <eOperations name="getAllStatements" upperBound="-1" eType="#//Statement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="org.eclipse.emf.common.util.EList&lt; org.emftext.language.dot.Statement> result = new org.eclipse.emf.common.util.BasicEList&lt; org.emftext.language.dot.Statement>();&#xA;org.emftext.language.dot.StatementList statementList = getStatements();&#xA;while (statementList != null) {&#xA;&#x9;result.add(statementList.getStatement());&#xA;&#x9;statementList = statementList.getTail();&#xA;}&#xA;return org.eclipse.emf.common.util.ECollections.unmodifiableEList(result);"/>
+        <details key="documentation" value=""/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strict" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NodeStatement" eSuperTypes="#//Statement #//Attributable #//Attribute">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="node_id" lowerBound="1"
+        eType="#//NodeID" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NodeID" eSuperTypes="#//Connectable #//StrictIdentifiable #//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//Port" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Port" eSuperTypes="#//Identifiable #//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="compass" eType="#//Compass"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StatementList" eSuperTypes="#//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" lowerBound="1"
+        eType="#//Statement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" eType="#//StatementList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StrictIdentifiable" abstract="true"
+      interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Subgraph" eSuperTypes="#//AbstractGraph #//Connectable #//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Target" eSuperTypes="#//Commentable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operation" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next_target" eType="#//Target"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//Connectable"/>
+  </eClassifiers>
+</ecore:EPackage>
