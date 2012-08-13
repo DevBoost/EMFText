@@ -10,7 +10,5 @@ Require-Bundle: org.emftext.test.cct1,
  org.eclipse.emf,
  org.junit4,
  org.emftext.test.grammar_features,
- org.emftext.test.grammar_features.resource.grammar_features,
- org.eclipse.emf.edit,
- org.eclipse.emf.transaction
+ org.emftext.test.grammar_features.resource.grammar_features
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
