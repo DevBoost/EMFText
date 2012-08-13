@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.test.cct4.resource.cct4.ui.Cct4UIMetaInformation" id="org.emftext.test.cct4.resource.cct4.ui.Cct4UIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.test.cct4.resource.cct4.ui.Cct4Editor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cct4" icon="icons/editor_icon.gif" id="org.emftext.test.cct4.resource.cct4.ui.Cct4Editor" name="EMFText cct4 Editor">
+			<contentTypeBinding contentTypeId="org.emftext.test.cct4.resource.cct4">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.test.cct4.resource.cct4.ui.Cct4PreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Cct4 Text Editor" id="org.emftext.test.cct4.resource.cct4.ui.Cct4PreferencePage" class="org.emftext.test.cct4.resource.cct4.ui.Cct4PreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.test.cct4.resource.cct4.ui.Cct4SyntaxColoringPreferencePage" class="org.emftext.test.cct4.resource.cct4.ui.Cct4SyntaxColoringPreferencePage" category="org.emftext.test.cct4.resource.cct4.ui.Cct4PreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.test.cct4.resource.cct4.ui.Cct4BracketPreferencePage" class="org.emftext.test.cct4.resource.cct4.ui.Cct4BracketPreferencePage" category="org.emftext.test.cct4.resource.cct4.ui.Cct4PreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct4.resource.cct4.ui.Cct4NewFileWizard" id="org.emftext.test.cct4.resource.cct4.ui.Cct4NewFileWizard" name="EMFText .cct4 file">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.test.cct4.resource.cct4.ui.Cct4MarkerResolutionGenerator" markerType="org.emftext.test.cct4.resource.cct4.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.test.cct4.resource.cct4.ui.Cct4AnnotationModelFactory" extensions="cct4">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.test.cct4.resource.cct4" name=".cct4 File" base-type="org.eclipse.core.runtime.text" file-extensions="cct4">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="cct4" id="org.emftext.test.cct4.resource.cct4.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.test.cct4.resource.cct4.ui.occurences">
+		</type>
+		<type name="org.emftext.test.cct4.resource.cct4.ui.occurences.declaration" super="org.emftext.test.cct4.resource.cct4.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.test.cct4.resource.cct4.ui.occurences" label="Occurrences (in .cct4 files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="cct4.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="cct4.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="cct4.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cct4.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cct4.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="cct4.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="cct4.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="cct4.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="cct4.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.test.cct4.resource.cct4.ui.occurences.declaration" label="Declarations (in .cct4 files)" textPreferenceKey="cct4.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="cct4.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="cct4.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cct4.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cct4.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="cct4.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+</plugin>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.test.bug1233.test
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.test.bug1233.test
+Require-Bundle: org.junit4,
+ org.emftext.test.bug1233,
+ org.emftext.test.bug1233.resource.bug1233
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

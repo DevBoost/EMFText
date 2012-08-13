@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="printing"
+    nsURI="http://www.emftext.org/test/printing" nsPrefix="printing">
+  <eClassifiers xsi:type="ecore:EClass" name="M1"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M2"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M3">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M4">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M5">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M6">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" lowerBound="1" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M7"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M8"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M9"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M10">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" lowerBound="1"
+        eType="#//M10"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M11">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containment" lowerBound="1"
+        eType="#//M1" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M12">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containments" upperBound="-1"
+        eType="#//M1" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M13">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containments" upperBound="-1"
+        eType="#//M1" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M14">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containments" lowerBound="1"
+        upperBound="-1" eType="#//M1" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M15"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M16">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M17">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M17a">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containments" upperBound="-1"
+        eType="#//M17b" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M17b"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M18"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M19">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M20">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M21">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M22">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M23">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ambigousAttribute" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M24">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M25">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numbers" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M26">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="booleans" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M27">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="m3s" lowerBound="1" upperBound="-1"
+        eType="#//M3" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="references" lowerBound="1"
+        upperBound="-1" eType="#//M3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M28">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M29">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="names" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M30">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M31">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containments" upperBound="-1"
+        eType="#//M31" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M32"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M33">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containment" lowerBound="1"
+        eType="#//M1" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M34">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containments" lowerBound="2"
+        upperBound="2" eType="#//M1" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M35">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containments" upperBound="-1"
+        eType="#//M35SubAbstract" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M35SubAbstract" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M35SubConcreteA" eSuperTypes="#//M35SubAbstract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M35SubConcreteB" eSuperTypes="#//M35SubAbstract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M36">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="m37" upperBound="-1" eType="#//M37"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M37">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="m38" lowerBound="1" eType="#//M38"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M38"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M39">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attribute" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M40">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containment" upperBound="-1"
+        eType="#//M41" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M41"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M42">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="m43s" upperBound="-1" eType="#//M43"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="M43"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M43SubA" eSuperTypes="#//M43"/>
+  <eClassifiers xsi:type="ecore:EClass" name="M43SubB" eSuperTypes="#//M43"/>
+  <eClassifiers xsi:type="ecore:EClass" name="T1M1">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="m2s" upperBound="-1" eType="#//T1M2"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="T1M2" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="T1M2SubA" eSuperTypes="#//T1M2"/>
+  <eClassifiers xsi:type="ecore:EClass" name="T1M2SubB" eSuperTypes="#//T1M2"/>
+  <eClassifiers xsi:type="ecore:EClass" name="T1M2SubC" eSuperTypes="#//T1M2"/>
+</ecore:EPackage>

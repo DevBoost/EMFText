@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: multicharsuffix
+Bundle-SymbolicName: org.emftext.test.multicharsuffix.resource.multicharsuffix;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.test.multicharsuffix
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.test.multicharsuffix.resource.multicharsuffix,
+  org.emftext.test.multicharsuffix.resource.multicharsuffix.analysis,
+  org.emftext.test.multicharsuffix.resource.multicharsuffix.mopp,
+  org.emftext.test.multicharsuffix.resource.multicharsuffix.debug,
+  org.emftext.test.multicharsuffix.resource.multicharsuffix.launch,
+  org.emftext.test.multicharsuffix.resource.multicharsuffix.grammar,
+  org.emftext.test.multicharsuffix.resource.multicharsuffix.util
+Bundle-Activator: org.emftext.test.multicharsuffix.resource.multicharsuffix.mopp.MulticharsuffixPlugin

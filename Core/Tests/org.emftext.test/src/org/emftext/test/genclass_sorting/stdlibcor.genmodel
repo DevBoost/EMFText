@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.iec61131/src" modelPluginID="org.emftext.iec61131"
+    modelName="stdlibcor" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false">
+  <foreignModel>stdlibcor.ecore</foreignModel>
+  <genPackages prefix="stdlibcor" disposableProviderFactory="true" ecorePackage="stdlibcor.ecore#/">
+    <genClasses ecoreClass="stdlibcor.ecore#//Block_Match">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Block_Match/input_elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Block_Match/output_elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Block_Match/match_elements"/>
+    </genClasses>
+    <genClasses ecoreClass="stdlibcor.ecore#//Match_Element">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Match_Element/block"/>
+    </genClasses>
+    <genClasses ecoreClass="stdlibcor.ecore#//Stdlibcor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Stdlibcor/block_matches"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="stdlibcor.ecore#//Blocks"/>
+    <genClasses image="false" ecoreClass="stdlibcor.ecore#//Block_Reference"/>
+    <genClasses ecoreClass="stdlibcor.ecore#//Input_Element">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Input_Element/inputs"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="stdlibcor.ecore#//Input_Reference"/>
+    <genClasses ecoreClass="stdlibcor.ecore#//Input">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Input/input"/>
+    </genClasses>
+    <genClasses ecoreClass="stdlibcor.ecore#//Output_Element">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Output_Element/outputs"/>
+    </genClasses>
+    <genClasses ecoreClass="stdlibcor.ecore#//Output">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference stdlibcor.ecore#//Output/output"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="stdlibcor.ecore#//Output_Reference"/>
+    <genClasses image="false" ecoreClass="stdlibcor.ecore#//Tool">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stdlibcor.ecore#//Tool/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

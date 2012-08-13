@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.emftext.test.contribution1"
+            objectClass="org.eclipse.core.resources.IFile">
+       <menu
+               id="org.emftext.test.menu1"
+               label="EMFText Actions"
+               path="additions">
+               
+         </menu>
+
+      </objectContribution>
+   </extension>
+</plugin>

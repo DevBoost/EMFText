@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: modellayout
+Bundle-SymbolicName: org.emftext.test.printing.modellayout.resource.modellayout;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.test.printing,
+  org.emftext.commons.layout
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.test.printing.modellayout.resource.modellayout,
+  org.emftext.test.printing.modellayout.resource.modellayout.analysis,
+  org.emftext.test.printing.modellayout.resource.modellayout.mopp,
+  org.emftext.test.printing.modellayout.resource.modellayout.debug,
+  org.emftext.test.printing.modellayout.resource.modellayout.launch,
+  org.emftext.test.printing.modellayout.resource.modellayout.grammar,
+  org.emftext.test.printing.modellayout.resource.modellayout.util
+Bundle-Activator: org.emftext.test.printing.modellayout.resource.modellayout.mopp.ModellayoutPlugin

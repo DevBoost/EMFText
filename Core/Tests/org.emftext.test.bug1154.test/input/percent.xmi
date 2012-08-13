@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<bug1154:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bug1154="http://www.emftext.org/test/bug1154" xsi:schemaLocation="http://www.emftext.org/test/bug1154 ../../org.emftext.test.bug1154/metamodel/bug1154.ecore">
+  <children xsi:type="bug1154:Percent"/>
+</bug1154:Root>

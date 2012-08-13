@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="opposite2"
+    nsURI="http://www.emftext.org/test/opposite2" nsPrefix="opposite2">
+  <eClassifiers xsi:type="ecore:EClass" name="Root">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="theAs" upperBound="-1"
+        eType="#//EndA" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="theBs" upperBound="-1"
+        eType="#//AbstractClassB" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractClassB" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="toA" upperBound="-1" eType="#//EndA"
+        eOpposite="#//EndA/toB"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EndA">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="toB" upperBound="-1" eType="#//AbstractClassB"
+        eOpposite="#//AbstractClassB/toA"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConcreteEndB1" eSuperTypes="#//AbstractClassB"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConcreteEndB2" eSuperTypes="#//AbstractClassB"/>
+</ecore:EPackage>

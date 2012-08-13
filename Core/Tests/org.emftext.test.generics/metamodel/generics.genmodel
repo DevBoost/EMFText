@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2006-2012&#xD;&#xA;Software Technology Group, Dresden University of Technology&#xD;&#xA;DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;  Software Technology Group - TU Dresden, Germany;&#xD;&#xA;  DevBoost GmbH - Berlin, Germany&#xD;&#xA;     - initial API and implementation&#xD;&#xA; "
+    modelDirectory="/org.emftext.test.generics/src-gen" modelPluginID="org.emftext.test.generics"
+    modelName="generics" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false">
+  <foreignModel>generics.ecore</foreignModel>
+  <genPackages prefix="Generics" basePackage="org.emftext.test" disposableProviderFactory="true"
+      ecorePackage="generics.ecore#/">
+    <genClasses ecoreClass="generics.ecore#//GenericsTestModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference generics.ecore#//GenericsTestModel/types"/>
+    </genClasses>
+    <genClasses ecoreClass="generics.ecore#//Type"/>
+    <genClasses image="false" ecoreClass="generics.ecore#//GenericTypeWithAttribute">
+      <genTypeParameters ecoreTypeParameter="generics.ecore#//GenericTypeWithAttribute/T"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute generics.ecore#//GenericTypeWithAttribute/name"/>
+    </genClasses>
+    <genClasses ecoreClass="generics.ecore#//ConcreteTypeWithAttribute1"/>
+    <genClasses ecoreClass="generics.ecore#//ConcreteTypeWithAttribute2"/>
+    <genClasses image="false" ecoreClass="generics.ecore#//GenericTypeWithNCReference">
+      <genTypeParameters ecoreTypeParameter="generics.ecore#//GenericTypeWithNCReference/T"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference generics.ecore#//GenericTypeWithNCReference/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="generics.ecore#//ConcreteTypeWithNCReference1"/>
+    <genClasses ecoreClass="generics.ecore#//ConcreteTypeWithNCReference2"/>
+    <genClasses ecoreClass="generics.ecore#//BasicType1"/>
+    <genClasses ecoreClass="generics.ecore#//BasicType2"/>
+    <genClasses image="false" ecoreClass="generics.ecore#//GenericTypeWithContainmentReference">
+      <genTypeParameters ecoreTypeParameter="generics.ecore#//GenericTypeWithContainmentReference/T"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference generics.ecore#//GenericTypeWithContainmentReference/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="generics.ecore#//ConcreteTypeWithContainmentReference1"/>
+    <genClasses ecoreClass="generics.ecore#//ConcreteTypeWithContainmentReference2"/>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Parser Plugin: printing
+Bundle-SymbolicName: org.emftext.test.printing.resource.printing;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf,
+  org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation,
+  org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core,
+  org.emftext.commons.antlr3_4_0,
+  org.emftext.test.printing
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.emftext.test.printing.resource.printing,
+  org.emftext.test.printing.resource.printing.analysis,
+  org.emftext.test.printing.resource.printing.mopp,
+  org.emftext.test.printing.resource.printing.debug,
+  org.emftext.test.printing.resource.printing.launch,
+  org.emftext.test.printing.resource.printing.grammar,
+  org.emftext.test.printing.resource.printing.util
+Bundle-Activator: org.emftext.test.printing.resource.printing.mopp.PrintingPlugin

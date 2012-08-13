@@ -1,0 +1,10 @@
+package shapes // this is the package name 
+        shapes // this is the namespace prefix
+        "http://org.geometry/basic_shapes.ecore" // the namespace URI 
+	{
+
+	abstract class Shape {
+		attribute EString name (1..1);
+	}
+
+}

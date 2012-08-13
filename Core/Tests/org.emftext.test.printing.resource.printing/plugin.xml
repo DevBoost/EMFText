@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.test.printing.resource.printing.mopp.PrintingMetaInformation" id="org.emftext.test.printing.resource.printing.mopp.PrintingMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<super type="org.eclipse.emf.ecore.diagnostic">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.problem.syntax_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.printing.resource.printing.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.problem.print_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.printing.resource.printing.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.problem.unresolved_reference" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.printing.resource.printing.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.problem.analysis_problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.printing.resource.printing.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.problem.builder_error" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.emftext.test.printing.resource.printing.problem">
+		</super>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.nature" name="printing nature" point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="org.emftext.test.printing.resource.printing.mopp.PrintingNature">
+			</run>
+		</runtime>
+		<builder id="org.emftext.test.printing.resource.printing.builder">
+		</builder>
+		<builder id="org.emftext.test.printing.resource.printing.taskItemBuilder">
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.printing.resource.printing.builder" name="printing Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.test.printing.resource.printing.mopp.PrintingBuilderAdapter">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.printing.resource.printing.taskItemBuilder" name="printing Task Item Builder">
+		<builder hasNature="true">
+			<run class="org.emftext.test.printing.resource.printing.mopp.PrintingTaskItemBuilder">
+			</run>
+		</builder>
+	</extension>
+	
+	<extension-point id="org.emftext.test.printing.resource.printing.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.test.printing.resource.printing.mopp.PrintingResourceFactoryDelegator" type="printing">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.test.printing.resource.printing.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
+	</extension-point>
+	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.test.printing.resource.printing.debug.PrintingLineBreakpoint" id="org.emftext.test.printing.resource.printing.debug.breakpoint" markerType="org.emftext.test.printing.resource.printing.debug.lineBreakpoint.marker" name="printing Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.test.printing.resource.printing.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.test.printing.resource.printing.ui.launchConfigurationType" delegate="org.emftext.test.printing.resource.printing.launch.PrintingLaunchConfigurationDelegate" modes="run,debug" name="printing Application" sourceLocatorId="org.emftext.test.printing.resource.printing.ui.sourceLocator" sourcePathComputerId="org.emftext.test.printing.resource.printing.ui.sourcePathComputer" delegateName="printing Launch Tooling" delegateDescription="This will run or debug .printing files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.test.printing.resource.printing.debug.PrintingSourcePathComputerDelegate" id="org.emftext.test.printing.resource.printing.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.test.printing.resource.printing.ui.sourceLocator" class="org.emftext.test.printing.resource.printing.debug.PrintingSourceLocator" name="printing Source Locator">
+		</sourceLocator>
+	</extension>
+	
+</plugin>
