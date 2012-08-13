@@ -52,9 +52,6 @@ import org.emftext.access.resource.IMetaInformation;
 import org.emftext.access.resource.IParser;
 import org.emftext.access.resource.IResource;
 import org.emftext.access.resource.IUIMetaInformation;
-import org.emftext.language.customer.CustomerPackage;
-import org.emftext.language.customer.resource.customer.mopp.CustomerMetaInformation;
-import org.emftext.language.customer.resource.customer.ui.CustomerUIMetaInformation;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation;
 import org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation;
@@ -173,7 +170,7 @@ public class CodeCompletionTest extends TestCase {
 		EPackage.Registry.INSTANCE.put(Cct2Package.eNS_URI, Cct2Package.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(Cct3Package.eNS_URI, Cct3Package.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(Cct4Package.eNS_URI, Cct4Package.eINSTANCE);
-		EPackage.Registry.INSTANCE.put(CustomerPackage.eNS_URI, CustomerPackage.eINSTANCE);
+		//TODO #1879: EPackage.Registry.INSTANCE.put(CustomerPackage.eNS_URI, CustomerPackage.eINSTANCE);
 	}
 
 	private static void registerGenModels() {
@@ -189,7 +186,7 @@ public class CodeCompletionTest extends TestCase {
 		new Cct2MetaInformation().registerResourceFactory();
 		new Cct3MetaInformation().registerResourceFactory();
 		new Cct4MetaInformation().registerResourceFactory();
-		new CustomerMetaInformation().registerResourceFactory();
+		//TODO #1879: new CustomerMetaInformation().registerResourceFactory();
 	}
 
 	private static void registerSyntaxes() {
@@ -206,8 +203,8 @@ public class CodeCompletionTest extends TestCase {
 		uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new Cct3UIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
 		csRegistry.add((IMetaInformation) EMFTextAccessProxy.get(new Cct4MetaInformation(), IMetaInformation.class, additionalAccessInterfaces));
 		uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new Cct4UIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
-		csRegistry.add((IMetaInformation) EMFTextAccessProxy.get(new CustomerMetaInformation(), IMetaInformation.class, additionalAccessInterfaces));
-		uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new CustomerUIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
+		//TODO #1879: csRegistry.add((IMetaInformation) EMFTextAccessProxy.get(new CustomerMetaInformation(), IMetaInformation.class, additionalAccessInterfaces));
+		//TODO #1879: uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new CustomerUIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
 	}
 
 	/**

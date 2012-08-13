@@ -4,9 +4,9 @@ Bundle-Name: EMFText Parser Plugin: noeclipse
 Bundle-SymbolicName: org.emftext.test.noeclipse.resource.noeclipse;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.emf,
-  org.eclipse.emf.ecore,
-  org.eclipse.emf.validation,
+Require-Bundle: org.eclipse.emf.ecore,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
   org.emftext.access;resolution:=optional,
   org.emftext.commons.antlr3_4_0,
   org.emftext.test.noeclipse

@@ -79,4 +79,33 @@
 	<extension-point id="org.emftext.test.grammar_features.resource.grammar_features.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
 	</extension-point>
 	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.test.grammar_features.resource.grammar_features.debug.Grammar_featuresLineBreakpoint" id="org.emftext.test.grammar_features.resource.grammar_features.debug.breakpoint" markerType="org.emftext.test.grammar_features.resource.grammar_features.debug.lineBreakpoint.marker" name="grammar_features Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.test.grammar_features.resource.grammar_features.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.test.grammar_features.resource.grammar_features.ui.launchConfigurationType" delegate="org.emftext.test.grammar_features.resource.grammar_features.launch.Grammar_featuresLaunchConfigurationDelegate" modes="run,debug" name="grammar_features Application" sourceLocatorId="org.emftext.test.grammar_features.resource.grammar_features.ui.sourceLocator" sourcePathComputerId="org.emftext.test.grammar_features.resource.grammar_features.ui.sourcePathComputer" delegateName="grammar_features Launch Tooling" delegateDescription="This will run or debug .grammar_features files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.test.grammar_features.resource.grammar_features.debug.Grammar_featuresSourcePathComputerDelegate" id="org.emftext.test.grammar_features.resource.grammar_features.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.test.grammar_features.resource.grammar_features.ui.sourceLocator" class="org.emftext.test.grammar_features.resource.grammar_features.debug.Grammar_featuresSourceLocator" name="grammar_features Source Locator">
+		</sourceLocator>
+	</extension>
+	
 </plugin>

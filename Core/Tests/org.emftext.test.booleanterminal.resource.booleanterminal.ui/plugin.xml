@@ -32,6 +32,10 @@
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BooleanterminalNewFileWizard" id="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BooleanterminalNewFileWizard" name="EMFText .booleanterminal file">
 		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BooleanterminalNewProjectWizard" id="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BooleanterminalNewProjectWizard" name="EMFText booleanterminal project" project="true">
+		</wizard>
 	</extension>
 	
 	<extension point="org.eclipse.ui.ide.markerResolution">
@@ -66,6 +70,92 @@
 		</specification>
 		<specification annotationType="org.emftext.test.booleanterminal.resource.booleanterminal.ui.occurences.declaration" label="Declarations (in .booleanterminal files)" textPreferenceKey="booleanterminal.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="booleanterminal.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="booleanterminal.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="booleanterminal.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="booleanterminal.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="booleanterminal.declarationTextStyle" textStylePreferenceValue="NONE">
 		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.test.booleanterminal.resource.booleanterminal.ui.launchConfigurationType" id="org.emftext.test.booleanterminal.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.test.booleanterminal.resource.booleanterminal.ui.launchConfigurationType" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.launch.BooleanterminalLaunchConfigurationTabGroup" id="org.emftext.test.booleanterminal.launchConfigurationTabGroup" helpContextId="org.emftext.test.booleanterminal.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug booleanterminal model.">
+			</launchMode>
+			<launchMode mode="run" description="Run booleanterminal model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="booleanterminal Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.test.booleanterminal.launch" modes="run,debug" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.launch.BooleanterminalLaunchShortcut" description="Launch a booleanterminal model" id="org.emftext.test.booleanterminal.launchShortcut">
+			<description description="Run booleanterminal model" mode="run">
+			</description>
+			<description description="Debug booleanterminal model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.test.booleanterminal.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.test.booleanterminal.resource.booleanterminal.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.test.booleanterminal.PropertyTester" type="java.lang.Object" namespace="org.emftext.test.booleanterminal" properties="isLaunchable" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BooleanterminalPropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.test.booleanterminal.resource.booleanterminal.ui.debug.lineBreakpoint" markerType="org.emftext.test.booleanterminal.resource.booleanterminal.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.test.booleanterminal.resource.booleanterminal.ui.debug.lineBreakpoint" label="Breakpoints (in .booleanterminal files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.test.booleanterminal.resource.booleanterminal.ui.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BooleanterminalEditor" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.debug.BooleanterminalAdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.test.booleanterminal.resource.booleanterminal.debug.BooleanterminalDebugVariable" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.debug.BooleanterminalAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.test.booleanterminal.resource.booleanterminal.debug.BooleanterminalDebugVariable" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.debug.BooleanterminalAdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.test.booleanterminal.resource.booleanterminal.ui.RulerPopupActions" targetID="org.emftext.test.booleanterminal.resource.booleanterminal.EditorRuler">
+			<action id="org.emftext.test.booleanterminal.resource.booleanterminal.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BooleanterminalEditor" id="org.emftext.test.booleanterminal.resource.booleanterminal.ui.BreakpointRulerActions">
+			<action id="org.emftext.test.booleanterminal.resource.booleanterminal.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.test.booleanterminal.resource.booleanterminal.debugModel" class="org.emftext.test.booleanterminal.resource.booleanterminal.ui.debug.BooleanterminalDebugModelPresentation">
+		</debugModelPresentation>
 	</extension>
 	
 </plugin>

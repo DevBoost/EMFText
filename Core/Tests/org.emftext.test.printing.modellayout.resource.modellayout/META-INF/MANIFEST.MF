@@ -4,13 +4,12 @@ Bundle-Name: EMFText Parser Plugin: modellayout
 Bundle-SymbolicName: org.emftext.test.printing.modellayout.resource.modellayout;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.core.runtime,
-  org.eclipse.emf,
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
   org.eclipse.emf.ecore,
   org.eclipse.emf.ecore.change,
-  org.eclipse.emf.validation,
+  org.eclipse.emf.validation;resolution:=optional,
   org.emftext.access;resolution:=optional,
-  org.eclipse.debug.core,
+  org.eclipse.debug.core;resolution:=optional,
   org.emftext.commons.antlr3_4_0,
   org.emftext.test.printing,
   org.emftext.commons.layout

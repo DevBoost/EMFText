@@ -59,20 +59,11 @@
 		</runtime>
 		<builder id="org.emftext.test.printing.resource.printing.builder">
 		</builder>
-		<builder id="org.emftext.test.printing.resource.printing.taskItemBuilder">
-		</builder>
 	</extension>
 	
 	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.printing.resource.printing.builder" name="printing Builder">
 		<builder hasNature="true">
 			<run class="org.emftext.test.printing.resource.printing.mopp.PrintingBuilderAdapter">
-			</run>
-		</builder>
-	</extension>
-	
-	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.printing.resource.printing.taskItemBuilder" name="printing Task Item Builder">
-		<builder hasNature="true">
-			<run class="org.emftext.test.printing.resource.printing.mopp.PrintingTaskItemBuilder">
 			</run>
 		</builder>
 	</extension>

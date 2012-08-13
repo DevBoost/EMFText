@@ -4,14 +4,12 @@ Bundle-Name: EMFText Parser Plugin: bug933
 Bundle-SymbolicName: org.emftext.test.bug933.resource.bug933;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.core.resources,
-  org.eclipse.emf,
-  org.eclipse.emf.codegen.ecore,
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
   org.eclipse.emf.ecore,
-  org.eclipse.emf.ecore.edit,
-  org.eclipse.emf.validation,
-  org.eclipse.emf.workspace,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
   org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core;resolution:=optional,
   org.emftext.commons.antlr3_4_0,
   org.emftext.test.bug933
 Bundle-ActivationPolicy: lazy
@@ -19,6 +17,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.emftext.test.bug933.resource.bug933,
   org.emftext.test.bug933.resource.bug933.analysis,
   org.emftext.test.bug933.resource.bug933.mopp,
+  org.emftext.test.bug933.resource.bug933.debug,
+  org.emftext.test.bug933.resource.bug933.launch,
   org.emftext.test.bug933.resource.bug933.grammar,
   org.emftext.test.bug933.resource.bug933.util
 Bundle-Activator: org.emftext.test.bug933.resource.bug933.mopp.Bug933Plugin

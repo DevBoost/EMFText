@@ -59,20 +59,11 @@
 		</runtime>
 		<builder id="org.emftext.test.printing.modellayout.resource.modellayout.builder">
 		</builder>
-		<builder id="org.emftext.test.printing.modellayout.resource.modellayout.taskItemBuilder">
-		</builder>
 	</extension>
 	
 	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.printing.modellayout.resource.modellayout.builder" name="modellayout Builder">
 		<builder hasNature="true">
 			<run class="org.emftext.test.printing.modellayout.resource.modellayout.mopp.ModellayoutBuilderAdapter">
-			</run>
-		</builder>
-	</extension>
-	
-	<extension point="org.eclipse.core.resources.builders" id="org.emftext.test.printing.modellayout.resource.modellayout.taskItemBuilder" name="modellayout Task Item Builder">
-		<builder hasNature="true">
-			<run class="org.emftext.test.printing.modellayout.resource.modellayout.mopp.ModellayoutTaskItemBuilder">
 			</run>
 		</builder>
 	</extension>

@@ -79,4 +79,33 @@
 	<extension-point id="org.emftext.test.bug1233.resource.bug1233.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
 	</extension-point>
 	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.test.bug1233.resource.bug1233.debug.Bug1233LineBreakpoint" id="org.emftext.test.bug1233.resource.bug1233.debug.breakpoint" markerType="org.emftext.test.bug1233.resource.bug1233.debug.lineBreakpoint.marker" name="bug1233 Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.test.bug1233.resource.bug1233.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.test.bug1233.resource.bug1233.ui.launchConfigurationType" delegate="org.emftext.test.bug1233.resource.bug1233.launch.Bug1233LaunchConfigurationDelegate" modes="run,debug" name="bug1233 Application" sourceLocatorId="org.emftext.test.bug1233.resource.bug1233.ui.sourceLocator" sourcePathComputerId="org.emftext.test.bug1233.resource.bug1233.ui.sourcePathComputer" delegateName="bug1233 Launch Tooling" delegateDescription="This will run or debug .bug1233 files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.test.bug1233.resource.bug1233.debug.Bug1233SourcePathComputerDelegate" id="org.emftext.test.bug1233.resource.bug1233.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.test.bug1233.resource.bug1233.ui.sourceLocator" class="org.emftext.test.bug1233.resource.bug1233.debug.Bug1233SourceLocator" name="bug1233 Source Locator">
+		</sourceLocator>
+	</extension>
+	
 </plugin>

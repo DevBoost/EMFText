@@ -4,14 +4,12 @@ Bundle-Name: EMFText Parser Plugin: grammar_features
 Bundle-SymbolicName: org.emftext.test.grammar_features.resource.grammar_features;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.core.resources,
-  org.eclipse.emf,
-  org.eclipse.emf.codegen.ecore,
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
   org.eclipse.emf.ecore,
-  org.eclipse.emf.ecore.edit,
-  org.eclipse.emf.validation,
-  org.eclipse.emf.workspace,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
   org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core;resolution:=optional,
   org.emftext.commons.antlr3_4_0,
   org.emftext.test.grammar_features
 Bundle-ActivationPolicy: lazy
@@ -19,6 +17,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.emftext.test.grammar_features.resource.grammar_features,
   org.emftext.test.grammar_features.resource.grammar_features.analysis,
   org.emftext.test.grammar_features.resource.grammar_features.mopp,
+  org.emftext.test.grammar_features.resource.grammar_features.debug,
+  org.emftext.test.grammar_features.resource.grammar_features.launch,
   org.emftext.test.grammar_features.resource.grammar_features.grammar,
   org.emftext.test.grammar_features.resource.grammar_features.util
 Bundle-Activator: org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresPlugin

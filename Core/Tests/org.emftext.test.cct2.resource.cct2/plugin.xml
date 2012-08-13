@@ -79,4 +79,33 @@
 	<extension-point id="org.emftext.test.cct2.resource.cct2.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd">
 	</extension-point>
 	
+	<extension point="org.eclipse.debug.core.breakpoints">
+		<breakpoint class="org.emftext.test.cct2.resource.cct2.debug.Cct2LineBreakpoint" id="org.emftext.test.cct2.resource.cct2.debug.breakpoint" markerType="org.emftext.test.cct2.resource.cct2.debug.lineBreakpoint.marker" name="cct2 Breakpoint">
+		</breakpoint>
+	</extension>
+	
+	<extension id="org.emftext.test.cct2.resource.cct2.debug.lineBreakpoint.marker" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.debug.core.lineBreakpointMarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
+		<persistent value="true">
+		</persistent>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType id="org.emftext.test.cct2.resource.cct2.ui.launchConfigurationType" delegate="org.emftext.test.cct2.resource.cct2.launch.Cct2LaunchConfigurationDelegate" modes="run,debug" name="cct2 Application" sourceLocatorId="org.emftext.test.cct2.resource.cct2.ui.sourceLocator" sourcePathComputerId="org.emftext.test.cct2.resource.cct2.ui.sourcePathComputer" delegateName="cct2 Launch Tooling" delegateDescription="This will run or debug .cct2 files.">
+		</launchConfigurationType>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourcePathComputers">
+		<sourcePathComputer class="org.emftext.test.cct2.resource.cct2.debug.Cct2SourcePathComputerDelegate" id="org.emftext.test.cct2.resource.cct2.ui.sourcePathComputer">
+		</sourcePathComputer>
+	</extension>
+	
+	<extension point="org.eclipse.debug.core.sourceLocators">
+		<sourceLocator id="org.emftext.test.cct2.resource.cct2.ui.sourceLocator" class="org.emftext.test.cct2.resource.cct2.debug.Cct2SourceLocator" name="cct2 Source Locator">
+		</sourceLocator>
+	</extension>
+	
 </plugin>

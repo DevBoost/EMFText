@@ -22,7 +22,4 @@ Require-Bundle: org.junit4,
  org.emftext.test.cct4.resource.cct4,
  org.emftext.test.cct4.resource.cct4.ui,
  org.eclipse.emf.ecore.xmi,
- org.emftext.language.customer,
- org.emftext.language.customer.resource.customer,
- org.emftext.language.customer.resource.customer.ui,
  org.emftext.test

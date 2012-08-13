@@ -9,7 +9,5 @@ Require-Bundle: org.junit4,
  org.emftext.test.printing.resource.printing,
  org.emftext.test.printing.modellayout.resource.modellayout,
  org.emftext.sdk,
- org.emftext.language.ecore.resource,
- org.emftext.language.ecore.resource.text,
  org.emftext.test
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

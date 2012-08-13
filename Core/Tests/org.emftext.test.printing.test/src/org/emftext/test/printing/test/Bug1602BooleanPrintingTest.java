@@ -15,29 +15,12 @@
  ******************************************************************************/
 package org.emftext.test.printing.test;
 
-import static junit.framework.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-
-import java.io.IOException;
-import java.util.Collections;
-
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.language.ecore.resource.EcoreResourceFactoryDelegator;
-import org.emftext.language.ecore.resource.text.mopp.TextEcoreResourceFactory;
-import org.emftext.test.ConcreteSyntaxTestHelper;
-import org.junit.Before;
-import org.junit.Test;
 
 public class Bug1602BooleanPrintingTest {
 
+	//TODO #1879: Turn this into an Ecore TEXT language test
+	
+	/* 
 	@Before
 	public void setUp() {
 		ConcreteSyntaxTestHelper.registerResourceFactories();
@@ -47,6 +30,7 @@ public class Bug1602BooleanPrintingTest {
 				"ecore",
 				delegator);
 	}
+
 
 	@Test
 	public void testOntologyImportsDeresolve() {
@@ -84,4 +68,5 @@ public class Bug1602BooleanPrintingTest {
 		EClassifier firstClassifier = outroot.getEClassifiers().get(0);
 		assertEquals("Printed classifer has wrong name, due to printing bug","Shape",firstClassifier.getName());	
 	}
+	*/
 }

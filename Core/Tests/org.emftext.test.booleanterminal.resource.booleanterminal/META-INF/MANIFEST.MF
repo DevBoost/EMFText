@@ -4,14 +4,12 @@ Bundle-Name: EMFText Parser Plugin: booleanterminal
 Bundle-SymbolicName: org.emftext.test.booleanterminal.resource.booleanterminal;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.core.resources,
-  org.eclipse.emf,
-  org.eclipse.emf.codegen.ecore,
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
   org.eclipse.emf.ecore,
-  org.eclipse.emf.ecore.edit,
-  org.eclipse.emf.validation,
-  org.eclipse.emf.workspace,
+  org.eclipse.emf.ecore.change,
+  org.eclipse.emf.validation;resolution:=optional,
   org.emftext.access;resolution:=optional,
+  org.eclipse.debug.core;resolution:=optional,
   org.emftext.commons.antlr3_4_0,
   org.emftext.test.booleanterminal
 Bundle-ActivationPolicy: lazy
@@ -19,6 +17,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.emftext.test.booleanterminal.resource.booleanterminal,
   org.emftext.test.booleanterminal.resource.booleanterminal.analysis,
   org.emftext.test.booleanterminal.resource.booleanterminal.mopp,
+  org.emftext.test.booleanterminal.resource.booleanterminal.debug,
+  org.emftext.test.booleanterminal.resource.booleanterminal.launch,
   org.emftext.test.booleanterminal.resource.booleanterminal.grammar,
   org.emftext.test.booleanterminal.resource.booleanterminal.util
 Bundle-Activator: org.emftext.test.booleanterminal.resource.booleanterminal.mopp.BooleanterminalPlugin

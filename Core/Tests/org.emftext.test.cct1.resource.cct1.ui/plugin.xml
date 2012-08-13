@@ -32,6 +32,10 @@
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct1.resource.cct1.ui.Cct1NewFileWizard" id="org.emftext.test.cct1.resource.cct1.ui.Cct1NewFileWizard" name="EMFText .cct1 file">
 		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct1.resource.cct1.ui.Cct1NewProjectWizard" id="org.emftext.test.cct1.resource.cct1.ui.Cct1NewProjectWizard" name="EMFText cct1 project" project="true">
+		</wizard>
 	</extension>
 	
 	<extension point="org.eclipse.ui.ide.markerResolution">
@@ -66,6 +70,92 @@
 		</specification>
 		<specification annotationType="org.emftext.test.cct1.resource.cct1.ui.occurences.declaration" label="Declarations (in .cct1 files)" textPreferenceKey="cct1.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="cct1.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="cct1.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cct1.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cct1.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="cct1.declarationTextStyle" textStylePreferenceValue="NONE">
 		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.test.cct1.resource.cct1.ui.launchConfigurationType" id="org.emftext.test.cct1.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.test.cct1.resource.cct1.ui.launchConfigurationType" class="org.emftext.test.cct1.resource.cct1.ui.launch.Cct1LaunchConfigurationTabGroup" id="org.emftext.test.cct1.launchConfigurationTabGroup" helpContextId="org.emftext.test.cct1.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug cct1 model.">
+			</launchMode>
+			<launchMode mode="run" description="Run cct1 model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="cct1 Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.test.cct1.launch" modes="run,debug" class="org.emftext.test.cct1.resource.cct1.ui.launch.Cct1LaunchShortcut" description="Launch a cct1 model" id="org.emftext.test.cct1.launchShortcut">
+			<description description="Run cct1 model" mode="run">
+			</description>
+			<description description="Debug cct1 model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.test.cct1.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.test.cct1.resource.cct1.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.test.cct1.PropertyTester" type="java.lang.Object" namespace="org.emftext.test.cct1" properties="isLaunchable" class="org.emftext.test.cct1.resource.cct1.ui.Cct1PropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.test.cct1.resource.cct1.ui.debug.lineBreakpoint" markerType="org.emftext.test.cct1.resource.cct1.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.test.cct1.resource.cct1.ui.debug.lineBreakpoint" label="Breakpoints (in .cct1 files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.test.cct1.resource.cct1.ui.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.test.cct1.resource.cct1.ui.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.test.cct1.resource.cct1.ui.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.test.cct1.resource.cct1.ui.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.test.cct1.resource.cct1.ui.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.test.cct1.resource.cct1.ui.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.test.cct1.resource.cct1.ui.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.test.cct1.resource.cct1.ui.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.test.cct1.resource.cct1.ui.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.test.cct1.resource.cct1.ui.Cct1Editor" class="org.emftext.test.cct1.resource.cct1.ui.debug.Cct1AdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.test.cct1.resource.cct1.debug.Cct1DebugVariable" class="org.emftext.test.cct1.resource.cct1.ui.debug.Cct1AdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.test.cct1.resource.cct1.debug.Cct1DebugVariable" class="org.emftext.test.cct1.resource.cct1.ui.debug.Cct1AdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.test.cct1.resource.cct1.ui.RulerPopupActions" targetID="org.emftext.test.cct1.resource.cct1.EditorRuler">
+			<action id="org.emftext.test.cct1.resource.cct1.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.test.cct1.resource.cct1.ui.Cct1Editor" id="org.emftext.test.cct1.resource.cct1.ui.BreakpointRulerActions">
+			<action id="org.emftext.test.cct1.resource.cct1.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.test.cct1.resource.cct1.debugModel" class="org.emftext.test.cct1.resource.cct1.ui.debug.Cct1DebugModelPresentation">
+		</debugModelPresentation>
 	</extension>
 	
 </plugin>
