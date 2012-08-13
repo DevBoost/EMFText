@@ -117,7 +117,6 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 	
 	private void addVisitMethod1(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
 		sc.add("public boolean visit(" + I_RESOURCE_DELTA + " delta) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_RESOURCE + " resource = delta.getResource();");
 		sc.add("return doVisit(resource, delta.getKind() == " + I_RESOURCE_DELTA + ".REMOVED);");
@@ -126,7 +125,6 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 	
 	private void addVisitMethod2(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
 		sc.add("public boolean visit(" + I_RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
 		sc.add("return doVisit(resource, false);");
 		sc.add("}");
