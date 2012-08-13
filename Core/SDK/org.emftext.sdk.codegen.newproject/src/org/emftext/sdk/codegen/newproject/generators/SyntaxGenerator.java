@@ -31,6 +31,8 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.EnumLiteralTerminal;
 import org.emftext.sdk.concretesyntax.EnumTerminal;
+import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -58,6 +60,12 @@ public class SyntaxGenerator extends ModelGenerator {
 		ConcreteSyntax syntax = CS_FACTORY.createConcreteSyntax();
 		syntax.setName(syntaxName);
 		syntax.setPackage(genPackage);
+		
+		// this sets the 'reloadGeneratorModel' option to true (fix for #1880)
+		Option reloadGenModelOption = CS_FACTORY.createOption();
+		reloadGenModelOption.setType(OptionTypes.RELOAD_GENERATOR_MODEL);
+		reloadGenModelOption.setValue(Boolean.TRUE.toString());
+		syntax.getOptions().add(reloadGenModelOption);
 		
 		syntax.getRules().add(getEntityModelRule(genPackage));
 		syntax.getRules().add(getEntityRule(genPackage));
