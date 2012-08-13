@@ -15,9 +15,16 @@
  ******************************************************************************/
 package org.emftext.test.printing.test;
 
+import org.junit.Test;
+
 
 public class Bug1602BooleanPrintingTest {
 
+	@Test
+	public void testDummy() {
+		//dummy
+	}
+	
 	//TODO #1879: Turn this into an Ecore TEXT language test
 	
 	/* 
