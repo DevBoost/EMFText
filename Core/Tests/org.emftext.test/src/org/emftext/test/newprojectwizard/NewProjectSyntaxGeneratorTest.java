@@ -42,6 +42,9 @@ public class NewProjectSyntaxGeneratorTest extends TestCase {
 			"SYNTAXDEF test" +
 			"FOR <http://www.emftext.org/test>" +
 			"START EntityModel" +
+			"OPTIONS {" +
+			"reloadGeneratorModel = \"true\";" +
+			"}" +
 			"RULES {" +
 			"EntityModel ::= \"model\" types*;" +
 			"Entity ::= abstract[\"abstract\" : \"\"] \"entity\" name[] \"{\" features* \"}\";" +
