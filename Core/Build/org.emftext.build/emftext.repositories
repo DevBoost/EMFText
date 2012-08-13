@@ -10,3 +10,15 @@ get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops
 get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/emf/downloads/drops/2.8.0/R201206080554/emf-xsd-SDK-2.8.0.zip
 // EMF Validation (core API plugin only)
 get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/validation/downloads/drops/1.6.0/R201206271200/emf-validation-runtime-1.6.0.zip!eclipse/plugins/org.eclipse.emf.validation_1.4.0.v20100428-2315.jar
+
+ 
+// Testing (JUnit Stage)
+git:https://github.com/DevBoost/BuildBoost.git!Extensions/JUnit/
+
+//EMFText (required to generate test languages)
+git:https://github.com/DevBoost/BuildBoost.git!Extensions/EMFText/
+
+// EMF Compare (required for tests)
+get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/compare/downloads/drops/1.3.1/R20120605-0748/emf-compare-update-1.3.1.zip!plugins/org.eclipse.emf.compare_1.3.1.v20120605-0748.jar
+get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/compare/downloads/drops/1.3.1/R20120605-0748/emf-compare-update-1.3.1.zip!plugins/org.eclipse.emf.compare.diff_1.3.1.v20120605-0748.jar
+get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/compare/downloads/drops/1.3.1/R20120605-0748/emf-compare-update-1.3.1.zip!plugins/org.eclipse.emf.compare.match_1.3.1.v20120605-0748.jar
