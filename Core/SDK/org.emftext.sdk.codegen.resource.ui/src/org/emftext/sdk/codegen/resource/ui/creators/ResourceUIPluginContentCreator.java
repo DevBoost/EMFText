@@ -751,6 +751,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		
 		Set<String> imports = new LinkedHashSet<String>();
+		imports.add("org.eclipse.core.runtime");
 		imports.add("org.eclipse.core.resources");
 		imports.add("org.emftext.access;resolution:=optional");
 
@@ -765,7 +766,6 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		imports.add("org.eclipse.emf.ecore");
 		imports.add("org.eclipse.emf.ecore.edit");
 		imports.add("org.eclipse.emf.edit.ui");
-		imports.add("org.eclipse.emf.workspace");
 		imports.add("org.eclipse.jface");
 		imports.add("org.eclipse.jface.text");
 		imports.add("org.eclipse.ui");
