@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<associateSites>
+	<associateSite label="Juno"
+		url="http://download.eclipse.org/releases/juno"/>
+	<associateSite label="The Eclipse Project Updates"
+		url="http://download.eclipse.org/eclipse/updates/4.2"/>	
+</associateSites>
