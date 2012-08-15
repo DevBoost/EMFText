@@ -79,6 +79,7 @@
       </objectContribution>
    </extension>
 
+<!--
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
@@ -93,6 +94,7 @@
                menubarPath="additions"/>
       </objectContribution>
    </extension>
+-->
 
    <extension
          point="org.eclipse.ui.newWizards">
@@ -108,6 +110,50 @@
             name="EMFText Project"
             project="true">
       </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            description="All commands belonging to EMFText"
+            id="org.emftext.sdk.command.category"
+            name="EMFText">
+      </category>
+      <command
+            categoryId="org.emftext.sdk.command.category"
+            description="Generates all language resources in the current selection"
+            id="org.emftext.sdk.command.generateAll"
+            name="Generate All">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.emftext.sdk.ui.handlers.GenerateAllHandler"
+            commandId="org.emftext.sdk.command.generateAll">
+         <enabledWhen>
+            <iterate>
+               <or>
+                  <adapt
+                        type="org.eclipse.core.resources.IResource">
+                  </adapt>
+                  <adapt
+                        type="org.eclipse.ui.IWorkingSet">
+                  </adapt>
+               </or></iterate>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.emftext.sdk.command.generateAll"
+               label="Generate All (EMFText)"
+               style="push">
+         </command>
+      </menuContribution>
    </extension>
 
 </plugin>
