@@ -107,7 +107,10 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		
 		sc.add("public void registerResourceFactory() {");
 		if (secondaryConcreteSyntaxName == null) {
-			sc.add(RESOURCE_FACTORY + ".Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new " + resourceFactoryClassName + "());");
+			sc.add("// if no resource factory registered, register delegator");
+			sc.add("if (" + RESOURCE_FACTORY + ".Registry.INSTANCE.getExtensionToFactoryMap().get(getSyntaxName()) == null) {");
+			sc.add(RESOURCE_FACTORY + ".Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new " + resourceFactoryDelegatorClassName + "());");
+			sc.add("}");
 		} else {
 			// if this is a secondary syntax, the ResourceFactory is registered 
 			// using the 'additional_extension_parser' extension point. 
