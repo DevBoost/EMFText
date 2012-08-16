@@ -1,17 +1,23 @@
 package org.emftext.sdk.ui.handlers;
 
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
@@ -115,12 +121,15 @@ public class GenerateAllHandler extends AbstractHandler {
 								genModel.setCanGenerate(true);
 								Generator generator = new Generator();
 								generator.setInput(genModel);
-								String type = GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE;
-								generator.generate(genModel, type, new BasicMonitor());
+								Set<String> types = getGeneratorTypes(file, genModel);
+								for (String type : types) {
+									generator.generate(genModel, type, new BasicMonitor());
+								}
 							}
 						}
 						return Status.OK_STATUS;
 					}
+
 
 				};
 			}
@@ -130,23 +139,21 @@ public class GenerateAllHandler extends AbstractHandler {
 			}
 		}
 	}
-	//
-	//	@Override
-	//	public boolean isEnabled() {
-	//		ISelectionService selectionService = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService();
-	//		ISelection selection = selectionService.getSelection();
-	//		if(selection instanceof IStructuredSelection){
-	//			this.selection = (IStructuredSelection) selection;
-	//			boolean enabled = true;
-	//			Object[] objects = this.selection.toArray();
-	//			for (Object object : objects) {
-	//				if(!(object instanceof IResource) || !(object instanceof IWorkingSet)){
-	//					enabled = false;
-	//				}
-	//			}
-	//			return enabled;
-	//		}
-	//		return super.isEnabled();
-	//	}
-
+	
+	private static  Set<String> getGeneratorTypes(IFile file, GenModel genModel) {
+		Set<String> typeSet = new LinkedHashSet<String>();
+		typeSet.add(GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE);
+		IWorkspaceRoot root = file.getProject().getWorkspace().getRoot();
+		String editPluginDirectory = root.getFolder(new Path(genModel.getEditPluginDirectory())).getProject().getName();
+		String editorPluginDirectory = root.getFolder(new Path(genModel.getEditorPluginDirectory())).getProject().getName();
+		IProject project = root.getProject(editPluginDirectory);
+		if(project.exists()){
+			typeSet.add(GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE);
+		}
+		project = root.getProject(editorPluginDirectory);
+		if(project.exists()){
+			typeSet.add(GenBaseGeneratorAdapter.EDITOR_PROJECT_TYPE);
+		}
+		return typeSet;
+	}
 }
