@@ -1,3 +1,0 @@
-public // here is a comment that causes a "hole" in the token stream
-<CURSOR>class {
-}
