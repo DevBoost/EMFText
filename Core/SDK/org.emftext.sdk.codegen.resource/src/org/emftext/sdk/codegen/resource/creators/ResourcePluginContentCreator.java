@@ -557,13 +557,12 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		
 		Set<String> imports = new LinkedHashSet<String>();
 		if (!removeEclipseDependentCode) {
-			//imports.add("org.eclipse.core.resources");
 			imports.add("org.eclipse.core.runtime;resolution:=optional");
+			imports.add("org.eclipse.core.resources;resolution:=optional");
 		}
 		imports.add("org.eclipse.emf.ecore");
 		imports.add("org.eclipse.emf.ecore.change");
 		imports.add("org.eclipse.emf.validation;resolution:=optional");
-		//imports.add("org.eclipse.emf.workspace");
 		imports.add("org.emftext.access;resolution:=optional");
 		
 		if (context.isDebugSupportEnabled()) {
