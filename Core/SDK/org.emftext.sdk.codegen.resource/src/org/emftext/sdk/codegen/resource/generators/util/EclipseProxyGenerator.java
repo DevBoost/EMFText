@@ -179,7 +179,8 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 				+ "This is a bug, which is fixed in the Helios release. Nonetheless, we need to catch the "
 				+ "exception here.");
-		sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
+		sc.add(runtimeUtilClassName + " runtimeUtil = new " + runtimeUtilClassName + "();");
+		sc.add("if (runtimeUtil.isEclipsePlatformRunning() && runtimeUtil.isEMFValidationAvailable()) {");
 		sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 				+ "This is a workaround for bug 322079.");
 		sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN + ".getPlugin() != null) {");

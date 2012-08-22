@@ -16,6 +16,7 @@
 package org.emftext.sdk.codegen.resource.generators.util;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -47,6 +48,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addMethods(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		addIsEclipsePlatformAvailableMethod(sc);
+		addIsEMFValidationAvailableMethod(sc);
 		addLogMethods(sc);
         
 		if (!removeEclipseDependentCode) {
@@ -56,12 +58,30 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the class <code>" + PLATFORM +
+			"Checks whether the class <code>" + EMF_MODEL_VALIDATION_PLUGIN +
 			"</code> is available on the classpath. This can be used to " +
 			"determine if Eclipse is available in the current runtime " +
 			"environment."
 		);
 		sc.add("public boolean isEclipsePlatformAvailable() {");
+		sc.add("try {");
+		sc.add("Class.forName(\"" + EMF_MODEL_VALIDATION_PLUGIN + "\");");
+		sc.add("return true;");
+		sc.add("} catch (ClassNotFoundException cnfe) {");
+		sc.add("}");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addIsEMFValidationAvailableMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Checks whether the class <code>" + PLATFORM +
+			"</code> is available on the classpath. This can be used to " +
+			"determine if EMF Validation is available in the current runtime " +
+			"environment."
+		);
+		sc.add("public boolean isEMFValidationAvailable() {");
 		sc.add("try {");
 		sc.add("Class.forName(\"" + PLATFORM + "\");");
 		sc.add("return true;");
