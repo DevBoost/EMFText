@@ -1,10 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><feature id="org.emftext.commons.jdt" label="EMFText JDT Integration" provider-name="Software Technology Group - TU Dresden" version="0.0.0">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<feature 
+		id="org.emftext.commons.jdt" 
+		label="EMFText JDT Integration"
+		provider-name="DevBoost GmbH" 
+		version="0.0.0">
 
-   <description url="http://emftext.org">EMFText JDT Integration Plug-in: Provides access to the JDT types and ametamodel that can be imported from DSLs that require references to Javaclasses.</description>
+	<description url="http://www.emftext.org">EMFText JDT Integration Plug-in: Provides access to the JDT types and ametamodel that can be imported from DSLs that require references to Javaclasses.</description>
 
-   <copyright>Copyright (c) 2006-2012 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.</copyright>
+	<copyright>Copyright (c) 2006-2012 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.</copyright>
 
-   <license>Eclipse Public License v1.0
+	<license>Eclipse Public License v1.0
 
 Copyright (c) 2006-2012
 Software Technology Group, Dresden University of Technology

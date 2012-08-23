@@ -3,18 +3,13 @@
       id="org.emftext.sdk"
       label="EMFText SDK"
       version="0.0.0"
-      provider-name="Software Technology Group - TU Dresden">
+      provider-name="DevBoost GmbH">
 
-   <description url="http://emftext.org">
-      EMFText: a grammar-based text syntax definition tool for Ecore metamodels.
-   </description>
+   <description url="http://www.emftext.org">EMFText: a grammar-based text syntax definition tool for Ecore metamodels.</description>
 
-   <copyright>
-Copyright (c) 2006-2012 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.
-   </copyright>
+   <copyright>Copyright (c) 2006-2012 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.</copyright>
 
-   <license>
-Eclipse Public License v1.0
+   <license>Eclipse Public License v1.0
 
 Copyright (c) 2006-2012
 Software Technology Group, Dresden University of Technology

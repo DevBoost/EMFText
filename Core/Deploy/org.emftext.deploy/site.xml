@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site
-      digestURL="http://www.emftext.org/update"
-      associateSitesURL="associateSites.xml">
+<site associateSitesURL="http://www.emftext.org/update_trunk/associateSites.xml">
    <description>
       Update site for EMFText.
    </description>

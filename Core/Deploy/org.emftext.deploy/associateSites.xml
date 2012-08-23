@@ -3,5 +3,7 @@
 	<associateSite label="Juno"
 		url="http://download.eclipse.org/releases/juno"/>
 	<associateSite label="The Eclipse Project Updates"
-		url="http://download.eclipse.org/eclipse/updates/4.2"/>	
+		url="http://download.eclipse.org/eclipse/updates/4.2"/>
+	<associateSite label="DevBoost Open-Source Feedback"
+		url="http://www.devboost.de/eclipse-feedback/update_trunk"/>
 </associateSites>
