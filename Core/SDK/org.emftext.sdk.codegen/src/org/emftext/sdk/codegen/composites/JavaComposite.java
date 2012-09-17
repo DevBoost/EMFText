@@ -233,9 +233,10 @@ public class JavaComposite extends StringComposite {
 	 * Creates a set of methods that contain the given statements. Each 
 	 * statement is represented by its content (the code) and the number of
 	 * bytes that this code requires. The method is automatically split if
-	 * the code exceed the 64k limit.
+	 * the code exceeds the 64k limit.
 	 * 
-	 * @param statements
+	 * @param name a prefix for the method names
+	 * @param statements the statements to add to the method body
 	 */
 	public void addLargeMethod(String name, List<Pair<String, Integer>> statements) {
 		int bytesUsedInCurrentMethod = 0;
@@ -263,7 +264,7 @@ public class JavaComposite extends StringComposite {
 			i++;
 		}
 		
-		// create multiple name() method that calls all nameX() methods
+		// create a name() method that calls all nameX() methods
 		add("public static void " + name + "() {");
 		for (int c = 0; c < numberOfMethods; c++) {
 			add(name + c + "();");
