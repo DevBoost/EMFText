@@ -391,10 +391,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("final " + COMMON_TOKEN + " ct = (" + COMMON_TOKEN + ") e.token;");
 		sc.add("addErrorToResource(finalMessage, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());");
 		sc.add("} else {");
-		// TODO What the heck is this 5? Can the token actually be not of type
-		// CommonToken? Should we rather remove the <code>else</code> branch or
-		// replace it with <code>assert false;</code>?
-		sc.add("addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5);");
+		sc.add("int position = 1;");
+		sc.add("int line = 1;");
+		sc.add("if (e.token != null) {");
+		sc.add("position = e.token.getCharPositionInLine();");
+		sc.add("line = e.token.getLine();");
+		sc.add("}");
+		// In cases of unexpected errors, produce an error and place it at the beginning of the file (Lies 1--5)
+		sc.add("addErrorToResource(finalMessage, position, line, 1, 5);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
