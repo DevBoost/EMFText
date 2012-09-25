@@ -1126,6 +1126,7 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 	
 	private void addNotifyDelayedMethod(JavaComposite sc) {
@@ -1136,6 +1137,7 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.add("delayedNotifications.clear();");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 	
 	private void addENotifyMethod(JavaComposite sc) {
@@ -1146,6 +1148,7 @@ public class TextResourceGenerator extends
 		sc.add("super.eNotify(notification);");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addReloadMethod(JavaComposite sc) {
