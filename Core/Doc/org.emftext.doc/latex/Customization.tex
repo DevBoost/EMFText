@@ -751,13 +751,13 @@ It is located in the plugin
 If you import the layout metamodel in your metamodel, you can obtain access
 to layout information. For this, you need to add references with multiplicity
 \texttt{*} to the EClass \emph{LayoutInformation} to each of your EClasses.
-(The preferred way of doing this is to have a comment super class for all your
-EClasses that contains this reference.) EMFText will then fill this reference with
-layout information during parsing. An example for using the layout metamodel
-is JaMoPP's Java metamodel.\footnote{\url{http://www.jamopp.org}}
+(The preferred way of doing this is to have a common super class for all your
+EClasses that contains this reference.) EMFText will then fill this reference 
+with layout information during parsing. An example for using the layout 
+metamodel is JaMoPP's Java metamodel.\footnote{\url{http://www.jamopp.org}}
 
 If you do not use layout information and want to discard it during parsing (to
-optmise memory usage) you may use the following option:
+optimise memory usage), you may use the following option when loading resources:
 \lstset{language=Java}
 \begin{lstlisting}
 IXyzOptions.DISABLE_LAYOUT_INFORMATION_RECORDING
