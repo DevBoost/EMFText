@@ -26,7 +26,10 @@ To ensure correct behavior of the constraint evaluation, make sure that the
 attribute \texttt{mode} must not be set in the \texttt{plugin.xml} file). 
 Otherwise, constraints will be evaluated only for one of the two modes, which 
 will cause confusing behavior. For example, error markers for live constraints
-might disappear when resources are saved. Other than that, constraints can be
+might disappear when resources are saved. To make constraints work both in batch
+and in live mode, implementations of live constraints must be constructed such 
+that evaluation is also possible if no fine grained change information is 
+available in the validation context. Other than that, constraints can be
 regularly registered as defined by the extension points of the EMF Validation 
 Framework.
 
