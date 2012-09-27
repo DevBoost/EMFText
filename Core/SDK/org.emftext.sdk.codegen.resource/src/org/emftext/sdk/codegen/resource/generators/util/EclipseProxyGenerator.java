@@ -22,15 +22,20 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EVALUATION_MODE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_NOTIFICATION_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BATCH_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LIVE_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODEL_VALIDATION_SERVICE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
@@ -45,6 +50,7 @@ import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -81,8 +87,35 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceFactoryExtensions(sc);
 		addGetResourceMethod(sc);
 		addCheckEMFValidationConstraints(sc);
+		addCreateNotificationsMethod(sc);
+		addCreateNotificationMethod(sc);
 		addAddStatusMethod(sc);
 		addGetPlatformResourceEncoding(sc);
+	}
+
+	private void addCreateNotificationMethod(JavaComposite sc) {
+		sc.add("private void createNotification(" + E_OBJECT + " eObject, " + LIST + "<" + NOTIFICATION + "> notifications) {");
+		sc.add("if (eObject instanceof " + INTERNAL_E_OBJECT + ") {");
+		sc.add(INTERNAL_E_OBJECT + " internalEObject = (" + INTERNAL_E_OBJECT + ") eObject;");
+		sc.add(NOTIFICATION + " notification = new " + E_NOTIFICATION_IMPL + "(internalEObject, 0, " + E_NOTIFICATION_IMPL + ".NO_FEATURE_ID, null, null);");
+		sc.add("notifications.add(notification);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateNotificationsMethod(JavaComposite sc) {
+		sc.add("private " + COLLECTION + "<" + NOTIFICATION + "> createNotifications(" + E_OBJECT + " eObject) {");
+		sc.add(LIST + "<" + NOTIFICATION + "> notifications = new " + ARRAY_LIST + "<" + NOTIFICATION + ">();");
+		sc.add("createNotification(eObject, notifications);");
+		sc.add(ITERATOR + "<" + E_OBJECT + "> allContents = eObject.eAllContents();");
+		sc.add("while (allContents.hasNext()) {");
+		sc.add(E_OBJECT + " next = (" + E_OBJECT + ") allContents.next();");
+		sc.add("createNotification(next, notifications);");
+		sc.add("}");
+		sc.add("return notifications;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetResourceFactoryExtensions(JavaComposite sc) {
@@ -175,7 +208,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"Note: EMF validation does not work if OSGi is not running.");
 		sc.add("@SuppressWarnings(\"restriction\")");
 		sc.addLineBreak();
-		sc.add("public void checkEMFValidationConstraints(" + iTextResourceClassName + " resource, " + E_OBJECT + " root) {");
+		sc.add("public void checkEMFValidationConstraints(" + iTextResourceClassName + " resource, " + E_OBJECT + " root, boolean includeBatchConstraints) {");
 		sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 				+ "This is a bug, which is fixed in the Helios release. Nonetheless, we need to catch the "
 				+ "exception here.");
@@ -186,10 +219,19 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN + ".getPlugin() != null) {");
 		sc.add("try {");
 		sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
+		sc.add(I_STATUS + " status;");
+		sc.addComment("Batch constraints are only evaluated if requested (e.g., when a resource is loaded for the first time).");
+		sc.add("if (includeBatchConstraints) {");
 		sc.add(I_BATCH_VALIDATOR + " validator = service.<" + E_OBJECT + ", " + I_BATCH_VALIDATOR + ">newValidator(" + EVALUATION_MODE + ".BATCH);");
-		sc.add("validator.setIncludeLiveConstraints(true);");
-		sc.add(I_STATUS + " status = validator.validate(root);");
-		sc.add("addStatus(status, resource, root);");
+		sc.add("validator.setIncludeLiveConstraints(false);");
+		sc.add("status = validator.validate(root);");
+		sc.add("addStatus(status, resource, root, " + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.BATCH_CONSTRAINT_PROBLEM.name() + ");");
+		sc.add("}");
+		sc.addComment("Live constraints are always evaluated");
+		sc.add(I_LIVE_VALIDATOR + " validator = service.<" + NOTIFICATION + ", " + I_LIVE_VALIDATOR + ">newValidator(" + EVALUATION_MODE + ".LIVE);");
+		sc.add(COLLECTION + "<" + NOTIFICATION + "> notifications = createNotifications(root);");
+		sc.add("status = validator.validate(notifications);");
+		sc.add("addStatus(status, resource, root, " + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.LIVE_CONSTRAINT_PROBLEM.name() + ");");
 		sc.add("} catch (Throwable t) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while checking contraints provided by EMF validator classes.\", t);");
 		sc.add("}");
@@ -203,7 +245,8 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public void addStatus(" + 
 				I_STATUS + " status, " + 
 				iTextResourceClassName + " resource, " + 
-				E_OBJECT + " root) {");
+				E_OBJECT + " root, " +
+				eProblemTypeClassName + " problemType) {");
 		sc.add(LIST + "<" + E_OBJECT + "> causes = new " + ARRAY_LIST + "<"
 				+ E_OBJECT + ">();");
 		sc.add("causes.add(root);");
@@ -215,25 +258,25 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("causes.clear();");
 		sc.add("causes.addAll(resultLocus);");
 		sc.add("}");
-		sc.add("boolean hasChildren = status.getChildren() != null && status.getChildren().length > 0;");
+		sc.add(I_STATUS + "[] children = status.getChildren();");
+		sc.add("boolean hasChildren = children != null && children.length > 0;");
 		sc.addComment("Ignore composite status objects that have children. "
 				+ "The actual status information is then contained in the child objects.");
 		sc.add("if (!status.isMultiStatus() || !hasChildren) {");
-		sc.add("if (status.getSeverity() == " + I_STATUS + ".ERROR) {");
+		sc.add("int severity = status.getSeverity();");
+		sc.add("if (severity == " + I_STATUS + ".ERROR) {");
 		sc.add("for (" + E_OBJECT + " cause : causes) {");
-		sc.add("resource.addError(status.getMessage(), " + eProblemTypeClassName
-				+ ".ANALYSIS_PROBLEM, cause);");
+		sc.add("resource.addError(status.getMessage(), problemType, cause);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("if (status.getSeverity() == " + I_STATUS + ".WARNING) {");
+		sc.add("if (severity == " + I_STATUS + ".WARNING) {");
 		sc.add("for (" + E_OBJECT + " cause : causes) {");
-		sc.add("resource.addWarning(status.getMessage(), " + eProblemTypeClassName
-				+ ".ANALYSIS_PROBLEM, cause);");
+		sc.add("resource.addWarning(status.getMessage(), problemType, cause);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("for (" + I_STATUS + " child : status.getChildren()) {");
-		sc.add("addStatus(child, resource, root);");
+		sc.add("for (" + I_STATUS + " child : children) {");
+		sc.add("addStatus(child, resource, root, problemType);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

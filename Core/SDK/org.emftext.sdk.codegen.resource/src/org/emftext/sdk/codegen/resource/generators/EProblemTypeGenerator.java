@@ -26,6 +26,8 @@ public class EProblemTypeGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		PRINT_PROBLEM, 
 		UNRESOLVED_REFERENCE, 
 		ANALYSIS_PROBLEM, 
+		BATCH_CONSTRAINT_PROBLEM, 
+		LIVE_CONSTRAINT_PROBLEM, 
 		BUILDER_ERROR, 
 		UNKNOWN
 	};

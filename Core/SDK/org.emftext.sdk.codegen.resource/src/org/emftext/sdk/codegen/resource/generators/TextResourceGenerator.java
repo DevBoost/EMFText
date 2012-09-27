@@ -183,7 +183,12 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 		if (!disableEMFValidationConstraints && !removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add("new " + eclipseProxyClassName + "().checkEMFValidationConstraints(this, root);");
+			sc.addComment(
+				"We do only evaluate batch constraints when the resource is loaded for the first time. " +
+				"If the resource is reloaded, only live constraints are evaluated."
+			);
+			sc.add("boolean includeBatchConstraints = !this.isReloading;");
+			sc.add("new " + eclipseProxyClassName + "().checkEMFValidationConstraints(this, root, includeBatchConstraints);");
 			sc.add("}");
 		} else {
 			sc.addComment("checking EMF validation constraints was disabled either by option '" + OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS.getLiteral() + "' or '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "'.");
@@ -613,9 +618,20 @@ public class TextResourceGenerator extends
 		sc.add("internalURIFragmentMap.clear();");
 		sc.add("getErrors().clear();");
 		sc.add("getWarnings().clear();");
-		sc.add("unmark(" + eProblemTypeClassName + ".UNKNOWN);");
-		sc.add("unmark(" + eProblemTypeClassName + ".SYNTAX_ERROR);");
-		sc.add("unmark(" + eProblemTypeClassName + ".UNRESOLVED_REFERENCE);");
+		sc.addComment("Remove temporary markers");
+		sc.add("unmark(" + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.UNKNOWN.name() + ");");
+		sc.add("unmark(" + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.SYNTAX_ERROR.name() + ");");
+		sc.add("unmark(" + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.UNRESOLVED_REFERENCE.name() + ");");
+		sc.add("unmark(" + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.LIVE_CONSTRAINT_PROBLEM.name() + ");");
+		sc.addComment(
+			"If the resource is reloaded, we do not remove the problems that were detected by batch constraints. " +
+			"This ensures that we can see the problems while typing. The problems might get out dated because of " +
+			"the ongoing modifications, but they will be updated (i.e., deleted and recreated) the next time the " +
+			"resource is saved (and loaded again)."
+		);
+		sc.add("if (!isReloading) {");
+		sc.add("unmark(" + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.BATCH_CONSTRAINT_PROBLEM.name() + ");");
+		sc.add("}");
 		sc.add("proxyCounter = 0;");
 		sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
 		sc.add("}");
@@ -924,7 +940,14 @@ public class TextResourceGenerator extends
 		sc.add("private " + LIST + "<" + NOTIFICATION + "> delayedNotifications = new " + ARRAY_LIST + "<" + NOTIFICATION + ">();");
 		sc.add("private " + INPUT_STREAM + " latestReloadInputStream = null;");
 		sc.add("private " + MAP + "<?, ?> latestReloadOptions = null;");
-		
+		sc.addLineBreak();
+		sc.addJavadoc(
+			"This flag indicates whether this resource is currently reloaded. " +
+			"The flag is set and unset in the reload() method and used to decide " +
+			"what kinds of constraints (live or batch) need to be evaluated. This " +
+			"decision is made in runValidators()."
+		);
+		sc.add("private boolean isReloading = false;");
 		sc.add("private " + interruptibleEcoreResolverClassName + " interruptibleResolver;");
 		sc.addLineBreak();
 		
@@ -1159,7 +1182,7 @@ public class TextResourceGenerator extends
 		sc.add("latestReloadInputStream = inputStream;");
 		sc.add("latestReloadOptions = options;");
 		sc.add("if (terminateReload == true) {");
-		sc.addComment("//reload already requested");
+		sc.addComment("reload already requested");
 		sc.add("}");
 		sc.add("terminateReload = true;");
 		sc.add("}");
@@ -1173,10 +1196,13 @@ public class TextResourceGenerator extends
 		sc.add("isLoaded = false;");
 		sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(latestReloadOptions);");
 		sc.add("try {");
+		sc.addComment("Set isReloading flag to allow other method to differentiate between loading and reloading.");
+		sc.add("this.isReloading = true;");
 		sc.add("doLoad(latestReloadInputStream, loadOptions);");
 		sc.add("} catch (" + terminateParsingExceptionClassName + " tpe) {");
 		sc.addComment("do nothing - the resource is left unchanged if this exception is thrown");
 		sc.add("}");
+		sc.add("this.isReloading = false;");
 		sc.add("resolveAfterParsing();");
 		sc.add("isLoaded = true;");
 		sc.add("}");
