@@ -98,7 +98,11 @@ public class GenerateResourcePluginsJob extends AbstractConcreteSyntaxJob {
 			}
 		} catch (Exception e) {
 			EMFTextSDKPlugin.logError("Exception while generating resource plug-ins.", e);
-			return new Status(Status.ERROR, EMFTextSDKUIPlugin.PLUGIN_ID, CoreException.class.getSimpleName(), new InvocationTargetException(e));
+			String message = e.getMessage();
+			if (message == null) {
+				message = CoreException.class.getSimpleName();
+			}
+			return new Status(Status.ERROR, EMFTextSDKUIPlugin.PLUGIN_ID, message, new InvocationTargetException(e));
 		}
 		return Status.OK_STATUS;
 	}
