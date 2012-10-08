@@ -214,29 +214,61 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 			for (Expectation expectation : followSetMap.get(firstID)) {
 				EObject follower = expectation.getExpectedElement();
 				List<ContainmentLink> containmentTrace = expectation.getContainmentTrace();
-				// the method call takes 6 bytes
-				int bytesUsed = 6;
+				// initialize with 1 (for the return statement)
+				int bytesUsed = 1;
+				// getstatic TERMINALS
+				// sipush INDEX or iconst_INDEX
+				// aaload
+				bytesUsed += 7;
+				// the method call takes 5 bytes
+				// INVOKEINTERFACE
+				bytesUsed += 5;
 				StringBuilder trace = new StringBuilder();
 				if (containmentTrace.isEmpty()) {
+					// getstatic TERMINALS
+					bytesUsed += 3;
 					trace.append(", EMPTY_LINK_ARRAY");
 				} else {
+					// iconst_ARRAYSIZE or sipus_ARRAYSIZE
+					bytesUsed += 3;
+					// anewarray
+					bytesUsed += 3;
+					// dup
+					bytesUsed += 1;
+					
 					trace.append(", new " + containedFeatureClassName + "[] {");
 					for (ContainmentLink link : containmentTrace) {
 						GenFeature genFeature = link.getFeature();
+						// new + dup
+						bytesUsed += 3 + 1;
 						trace.append("new ");
 						trace.append(containedFeatureClassName);
 						trace.append("(");
+						// getstatic + invokeinterface
+						bytesUsed += 3 + 5;
 						trace.append(generatorUtil.getClassifierAccessor(link.getContainerClass()));
 						trace.append(", ");
+						// getstatic + sipush_ARRAY_INDEX + aaload
+						bytesUsed += 3 + 3 + 1;
 						trace.append(constantsPool.getFeatureConstantFieldName(genFeature));
 						trace.append("), ");
-						// another 10 bytes for each access to a constant
-						bytesUsed += 10;
+						// invokespecial (<init> on ContainedFeature object)
+						bytesUsed += 3;
+						// aa store
+						bytesUsed += 1;
 						tempCount++;
 					}
 					trace.append("}");
 				}
-				String methodCall = firstID + ".addFollower(" + constantsPool.getTerminalFieldAccessor(follower) + trace + ");";
+
+				String terminalFieldAccessor = constantsPool.getTerminalFieldAccessor(follower);
+				// getstatic TERMINALS
+				// sipush INDEX or iconst_INDEX
+				// aaload
+				bytesUsed += 7;
+				// invokeinterface addFollowe
+				bytesUsed += 5;
+				String methodCall = firstID + ".addFollower(" + terminalFieldAccessor + trace + ");";
 				statements.add(new Pair<String, Integer>(methodCall, bytesUsed));
 			}
 			if (tempCount > 200) {
