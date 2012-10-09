@@ -37,9 +37,10 @@ import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.IProblemWrapper
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 /**
- * This post-processor searches for @SuppressWarnings annotations in the syntax
- * specification and for warnings that are caused by element which are covered
- * by these annotations. If it finds such warnings, they are removed/suppressed.
+ * This post-processor searches for '@SuppressWarnings' annotations in the 
+ * syntax specification and for warnings that are caused by element which are 
+ * covered by these annotations. If it finds such warnings, they are 
+ * removed/suppressed.
  */
 public class SuppressWarnings extends AbstractPostProcessor {
 
