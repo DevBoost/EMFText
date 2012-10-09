@@ -207,6 +207,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		ConstantsPool constantsPool = context.getConstantsPool();
 		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
 
+		// TODO figure out whether 'tempCount' is actually required here
 		int tempCount = 0;
 		// create multiple wireX() methods
 		List<Pair<String, Integer>> statements = new ArrayList<Pair<String, Integer>>();
@@ -266,7 +267,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 				// sipush INDEX or iconst_INDEX
 				// aaload
 				bytesUsed += 7;
-				// invokeinterface addFollowe
+				// invokeinterface addFollower
 				bytesUsed += 5;
 				String methodCall = firstID + ".addFollower(" + terminalFieldAccessor + trace + ");";
 				statements.add(new Pair<String, Integer>(methodCall, bytesUsed));
