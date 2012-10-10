@@ -87,17 +87,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_VIE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER;
 
-import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 
-@SyntaxDependent
 public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
@@ -524,16 +520,13 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addInitializeResourceObjectMethod(JavaComposite sc) {
-		// once this is remove here, the @SyntaxDependent annotation can probably be removed
-		boolean disableBuilder = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.DISABLE_BUILDER);
-
 		sc.add("private void initializeResourceObject(" + I_EDITOR_INPUT + " editorInput) {");
 		sc.add(FILE_EDITOR_INPUT + " input = (" + FILE_EDITOR_INPUT + ") editorInput;");
 		sc.add(I_FILE + " inputFile = input.getFile();");
-		if (!disableBuilder) {
-			// TODO activating the DSL nature here is ugly
-			sc.add(natureClassName + ".activate(inputFile.getProject());");
-		}
+		
+		// TODO activating the DSL nature here is ugly
+		sc.add(natureClassName + ".activate(inputFile.getProject());");
+
 		sc.add("String path = inputFile.getFullPath().toString();");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(path, true);");
 		sc.add(RESOURCE_SET + " resourceSet = editingDomain.getResourceSet();");
