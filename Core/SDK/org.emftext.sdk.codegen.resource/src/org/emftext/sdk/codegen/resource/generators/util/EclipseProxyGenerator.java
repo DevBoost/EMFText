@@ -275,8 +275,10 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
+		sc.add("if (children != null) {");
 		sc.add("for (" + I_STATUS + " child : children) {");
 		sc.add("addStatus(child, resource, root, problemType);");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
