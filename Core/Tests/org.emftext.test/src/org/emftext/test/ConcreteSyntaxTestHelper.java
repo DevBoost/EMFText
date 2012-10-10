@@ -157,11 +157,14 @@ public class ConcreteSyntaxTestHelper {
 		return tempGrammarFile;
 	}
 
-
 	public static Resource loadCsResource(String grammar) throws IOException {
+		return loadCsResource(grammar, null);
+	}
+
+	public static Resource loadCsResource(String grammar, Map<?,?> options) throws IOException {
 		File file = new File(grammar);
 
-		ICsTextResource resource = CsResourceUtil.getResource(file.getAbsoluteFile());
+		ICsTextResource resource = CsResourceUtil.getResource(file.getAbsoluteFile(), options);
 		assertNotNull(resource);
 
 		return resource;

@@ -35,7 +35,9 @@ Require-Bundle: org.junit4,
  org.emftext.sdk.codegen.antlr,
  org.emftext.sdk.ant,
  org.emftext.sdk.concretesyntax.resource.cs.ui,
- org.emftext.sdk.codegen.newproject
+ org.emftext.sdk.codegen.newproject,
+ org.eclipse.emf.edit.ui,
+ org.emftext.sdk.concretesyntax.edit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.emftext.sdk.codegen.composites,
  org.emftext.test,
