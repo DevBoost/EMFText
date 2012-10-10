@@ -399,7 +399,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 			"found, the identifier is used as URI. If the resource at this URI has a root element " +
 			"of the correct type, this element is returned."
 		);
-		sc.add("protected void resolve(String identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
+		sc.add("public void resolve(String identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add("try {");
 		sc.add(E_OBJECT + " root = container;");
 		sc.add("if (!enableScoping) {");
