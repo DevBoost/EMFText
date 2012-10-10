@@ -101,20 +101,31 @@ public class CsEclipseProxy {
 	 * work if OSGi is not running.
 	 */
 	@SuppressWarnings("restriction")	
-	public void checkEMFValidationConstraints(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.eclipse.emf.ecore.EObject root) {
+	public void checkEMFValidationConstraints(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.eclipse.emf.ecore.EObject root, boolean includeBatchConstraints) {
 		// The EMF validation framework code throws a NPE if the validation plug-in is not
 		// loaded. This is a bug, which is fixed in the Helios release. Nonetheless, we
 		// need to catch the exception here.
-		if (new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().isEclipsePlatformRunning()) {
+		org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil runtimeUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil();
+		if (runtimeUtil.isEclipsePlatformRunning() && runtimeUtil.isEMFValidationAvailable()) {
 			// The EMF validation framework code throws a NPE if the validation plug-in is not
 			// loaded. This is a workaround for bug 322079.
 			if (org.eclipse.emf.validation.internal.EMFModelValidationPlugin.getPlugin() != null) {
 				try {
 					org.eclipse.emf.validation.service.ModelValidationService service = org.eclipse.emf.validation.service.ModelValidationService.getInstance();
-					org.eclipse.emf.validation.service.IBatchValidator validator = service.<org.eclipse.emf.ecore.EObject, org.eclipse.emf.validation.service.IBatchValidator>newValidator(org.eclipse.emf.validation.model.EvaluationMode.BATCH);
-					validator.setIncludeLiveConstraints(true);
-					org.eclipse.core.runtime.IStatus status = validator.validate(root);
-					addStatus(status, resource, root);
+					org.eclipse.core.runtime.IStatus status;
+					// Batch constraints are only evaluated if requested (e.g., when a resource is
+					// loaded for the first time).
+					if (includeBatchConstraints) {
+						org.eclipse.emf.validation.service.IBatchValidator validator = service.<org.eclipse.emf.ecore.EObject, org.eclipse.emf.validation.service.IBatchValidator>newValidator(org.eclipse.emf.validation.model.EvaluationMode.BATCH);
+						validator.setIncludeLiveConstraints(false);
+						status = validator.validate(root);
+						addStatus(status, resource, root, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.BATCH_CONSTRAINT_PROBLEM);
+					}
+					// Live constraints are always evaluated
+					org.eclipse.emf.validation.service.ILiveValidator validator = service.<org.eclipse.emf.common.notify.Notification, org.eclipse.emf.validation.service.ILiveValidator>newValidator(org.eclipse.emf.validation.model.EvaluationMode.LIVE);
+					java.util.Collection<org.eclipse.emf.common.notify.Notification> notifications = createNotifications(root);
+					status = validator.validate(notifications);
+					addStatus(status, resource, root, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.LIVE_CONSTRAINT_PROBLEM);
 				} catch (Throwable t) {
 					new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while checking contraints provided by EMF validator classes.", t);
 				}
@@ -122,7 +133,26 @@ public class CsEclipseProxy {
 		}
 	}
 	
-	public void addStatus(org.eclipse.core.runtime.IStatus status, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.eclipse.emf.ecore.EObject root) {
+	private java.util.Collection<org.eclipse.emf.common.notify.Notification> createNotifications(org.eclipse.emf.ecore.EObject eObject) {
+		java.util.List<org.eclipse.emf.common.notify.Notification> notifications = new java.util.ArrayList<org.eclipse.emf.common.notify.Notification>();
+		createNotification(eObject, notifications);
+		java.util.Iterator<org.eclipse.emf.ecore.EObject> allContents = eObject.eAllContents();
+		while (allContents.hasNext()) {
+			org.eclipse.emf.ecore.EObject next = (org.eclipse.emf.ecore.EObject) allContents.next();
+			createNotification(next, notifications);
+		}
+		return notifications;
+	}
+	
+	private void createNotification(org.eclipse.emf.ecore.EObject eObject, java.util.List<org.eclipse.emf.common.notify.Notification> notifications) {
+		if (eObject instanceof org.eclipse.emf.ecore.InternalEObject) {
+			org.eclipse.emf.ecore.InternalEObject internalEObject = (org.eclipse.emf.ecore.InternalEObject) eObject;
+			org.eclipse.emf.common.notify.Notification notification = new org.eclipse.emf.ecore.impl.ENotificationImpl(internalEObject, 0, org.eclipse.emf.ecore.impl.ENotificationImpl.NO_FEATURE_ID, null, null);
+			notifications.add(notification);
+		}
+	}
+	
+	public void addStatus(org.eclipse.core.runtime.IStatus status, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.eclipse.emf.ecore.EObject root, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType problemType) {
 		java.util.List<org.eclipse.emf.ecore.EObject> causes = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
 		causes.add(root);
 		if (status instanceof org.eclipse.emf.validation.model.ConstraintStatus) {
@@ -131,23 +161,27 @@ public class CsEclipseProxy {
 			causes.clear();
 			causes.addAll(resultLocus);
 		}
-		boolean hasChildren = status.getChildren() != null && status.getChildren().length > 0;
+		org.eclipse.core.runtime.IStatus[] children = status.getChildren();
+		boolean hasChildren = children != null && children.length > 0;
 		// Ignore composite status objects that have children. The actual status
 		// information is then contained in the child objects.
 		if (!status.isMultiStatus() || !hasChildren) {
-			if (status.getSeverity() == org.eclipse.core.runtime.IStatus.ERROR) {
+			int severity = status.getSeverity();
+			if (severity == org.eclipse.core.runtime.IStatus.ERROR) {
 				for (org.eclipse.emf.ecore.EObject cause : causes) {
-					resource.addError(status.getMessage(), org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM, cause);
+					resource.addError(status.getMessage(), problemType, cause);
 				}
 			}
-			if (status.getSeverity() == org.eclipse.core.runtime.IStatus.WARNING) {
+			if (severity == org.eclipse.core.runtime.IStatus.WARNING) {
 				for (org.eclipse.emf.ecore.EObject cause : causes) {
-					resource.addWarning(status.getMessage(), org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ANALYSIS_PROBLEM, cause);
+					resource.addWarning(status.getMessage(), problemType, cause);
 				}
 			}
 		}
-		for (org.eclipse.core.runtime.IStatus child : status.getChildren()) {
-			addStatus(child, resource, root);
+		if (children != null) {
+			for (org.eclipse.core.runtime.IStatus child : children) {
+				addStatus(child, resource, root, problemType);
+			}
 		}
 	}
 	

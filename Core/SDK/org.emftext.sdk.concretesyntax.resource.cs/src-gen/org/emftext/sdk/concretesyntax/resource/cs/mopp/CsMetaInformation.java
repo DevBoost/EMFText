@@ -83,7 +83,10 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 	}
 	
 	public void registerResourceFactory() {
-		org.eclipse.emf.ecore.resource.Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory());
+		// if no resource factory registered, register delegator
+		if (org.eclipse.emf.ecore.resource.Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().get(getSyntaxName()) == null) {
+			org.eclipse.emf.ecore.resource.Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactoryDelegator());
+		}
 	}
 	
 	/**

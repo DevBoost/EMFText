@@ -162,6 +162,14 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	private java.util.List<org.eclipse.emf.common.notify.Notification> delayedNotifications = new java.util.ArrayList<org.eclipse.emf.common.notify.Notification>();
 	private java.io.InputStream latestReloadInputStream = null;
 	private java.util.Map<?, ?> latestReloadOptions = null;
+	
+	/**
+	 * This flag indicates whether this resource is currently reloaded. The flag is
+	 * set and unset in the reload() method and used to decide what kinds of
+	 * constraints (live or batch) need to be evaluated. This decision is made in
+	 * runValidators().
+	 */
+	private boolean isReloading = false;
 	private org.emftext.sdk.concretesyntax.resource.cs.util.CsInterruptibleEcoreResolver interruptibleResolver;
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
@@ -212,7 +220,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			}
 			
 			clearState();
-			getContentsInternal().clear();
+			unloadAndClearContents();
 			org.eclipse.emf.ecore.EObject root = null;
 			if (result != null) {
 				root = result.getRoot();
@@ -246,6 +254,21 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
+	protected void unloadAndClearContents() {
+		java.util.List<org.eclipse.emf.ecore.EObject> contentsInternal = getContentsInternal();
+		for (org.eclipse.emf.ecore.EObject eObject : contentsInternal) {
+			// unload the root object
+			unloaded((org.eclipse.emf.ecore.InternalEObject) eObject);
+			// unload all children
+			java.util.Iterator<org.eclipse.emf.ecore.EObject> allContents = eObject.eAllContents();
+			while (allContents.hasNext()) {
+				unloaded((org.eclipse.emf.ecore.InternalEObject) allContents.next());
+			}
+		}
+		// now we can clear the contents
+		contentsInternal.clear();
+	}
+	
 	protected boolean processTerminationRequested() {
 		if (terminateReload) {
 			delayNotifications = false;
@@ -254,6 +277,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 		return false;
 	}
+	
 	protected void notifyDelayed() {
 		delayNotifications = false;
 		for (org.eclipse.emf.common.notify.Notification delayedNotification : delayedNotifications) {
@@ -261,6 +285,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 		delayedNotifications.clear();
 	}
+	
 	public void eNotify(org.eclipse.emf.common.notify.Notification notification) {
 		if (delayNotifications) {
 			delayedNotifications.add(notification);
@@ -268,6 +293,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			super.eNotify(notification);
 		}
 	}
+	
 	/**
 	 * Reloads the contents of this resource from the given stream.
 	 */
@@ -276,7 +302,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			latestReloadInputStream = inputStream;
 			latestReloadOptions = options;
 			if (terminateReload == true) {
-				// //reload already requested
+				// reload already requested
 			}
 			terminateReload = true;
 		}
@@ -288,10 +314,14 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			isLoaded = false;
 			java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(latestReloadOptions);
 			try {
+				// Set isReloading flag to allow other method to differentiate between loading and
+				// reloading.
+				this.isReloading = true;
 				doLoad(latestReloadInputStream, loadOptions);
 			} catch (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException tpe) {
 				// do nothing - the resource is left unchanged if this exception is thrown
 			}
+			this.isReloading = false;
 			resolveAfterParsing();
 			isLoaded = true;
 		}
@@ -673,9 +703,19 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		internalURIFragmentMap.clear();
 		getErrors().clear();
 		getWarnings().clear();
+		// Remove temporary markers
 		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN);
 		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.SYNTAX_ERROR);
 		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNRESOLVED_REFERENCE);
+		unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.LIVE_CONSTRAINT_PROBLEM);
+		// If the resource is reloaded, we do not remove the problems that were detected
+		// by batch constraints. This ensures that we can see the problems while typing.
+		// The problems might get out dated because of the ongoing modifications, but they
+		// will be updated (i.e., deleted and recreated) the next time the resource is
+		// saved (and loaded again).
+		if (!isReloading) {
+			unmark(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.BATCH_CONSTRAINT_PROBLEM);
+		}
 		proxyCounter = 0;
 		resolverSwitch = null;
 	}

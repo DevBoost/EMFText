@@ -23,8 +23,23 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 public class CsRuntimeUtil {
 	
 	/**
-	 * Checks whether the class <code>org.eclipse.core.runtime.Platform</code> is
+	 * Checks whether the class
+	 * <code>org.eclipse.emf.validation.internal.EMFModelValidationPlugin</code> is
 	 * available on the classpath. This can be used to determine if Eclipse is
+	 * available in the current runtime environment.
+	 */
+	public boolean isEMFValidationAvailable() {
+		try {
+			Class.forName("org.eclipse.emf.validation.internal.EMFModelValidationPlugin");
+			return true;
+		} catch (ClassNotFoundException cnfe) {
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks whether the class <code>org.eclipse.core.runtime.Platform</code> is
+	 * available on the classpath. This can be used to determine if EMF Validation is
 	 * available in the current runtime environment.
 	 */
 	public boolean isEclipsePlatformAvailable() {

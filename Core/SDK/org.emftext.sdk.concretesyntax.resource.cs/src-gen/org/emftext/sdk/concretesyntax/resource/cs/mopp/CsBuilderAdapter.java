@@ -89,13 +89,11 @@ public class CsBuilderAdapter extends org.eclipse.core.resources.IncrementalProj
 		taskItemBuilder.build(resource, resourceSet, monitor);
 	}
 	
-	@Override	
 	public boolean visit(org.eclipse.core.resources.IResourceDelta delta) throws org.eclipse.core.runtime.CoreException {
 		org.eclipse.core.resources.IResource resource = delta.getResource();
 		return doVisit(resource, delta.getKind() == org.eclipse.core.resources.IResourceDelta.REMOVED);
 	}
 	
-	@Override	
 	public boolean visit(org.eclipse.core.resources.IResource resource) throws org.eclipse.core.runtime.CoreException {
 		return doVisit(resource, false);
 	}

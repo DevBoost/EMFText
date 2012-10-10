@@ -72,7 +72,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	
 	private static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.ICsNameProvider nameProvider = metaInformation.createNameProvider();
+	protected org.emftext.sdk.concretesyntax.resource.cs.ICsNameProvider nameProvider = metaInformation.createNameProvider();
 	
 	/**
 	 * This standard implementation searches for objects in the resource, which have
@@ -80,7 +80,7 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * matching object is found, the identifier is used as URI. If the resource at
 	 * this URI has a root element of the correct type, this element is returned.
 	 */
-	protected void resolve(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
+	public void resolve(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		try {
 			org.eclipse.emf.ecore.EObject root = container;
 			if (!enableScoping) {

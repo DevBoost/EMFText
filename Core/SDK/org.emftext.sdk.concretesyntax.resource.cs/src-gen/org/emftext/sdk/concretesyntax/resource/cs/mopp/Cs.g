@@ -511,7 +511,13 @@ options {
 			final org.antlr.runtime3_4_0.CommonToken ct = (org.antlr.runtime3_4_0.CommonToken) e.token;
 			addErrorToResource(finalMessage, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
 		} else {
-			addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5);
+			int position = 1;
+			int line = 1;
+			if (e.token != null) {
+				position = e.token.getCharPositionInLine();
+				line = e.token.getLine();
+			}
+			addErrorToResource(finalMessage, position, line, 1, 5);
 		}
 	}
 	
