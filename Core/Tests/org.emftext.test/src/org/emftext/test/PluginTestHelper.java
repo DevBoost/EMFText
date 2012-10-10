@@ -24,12 +24,21 @@ public class PluginTestHelper {
 		URL location = clazz.getProtectionDomain().getCodeSource().getLocation();
 		String binFolder = location.getFile().replace("%20", " ");
 		String rootPathString;
-		if (binFolder.endsWith(File.separator + "bin" + File.separator)) {
+		// we must not use File.separator here as the path is obtained from an URL
+		// which uses forward slashes on all OS
+		if (binFolder.endsWith("/bin/")) {
 			rootPathString = binFolder + File.separator + "..";
 		} else {
 			rootPathString = binFolder;
 		}
 		String pluginRootPath = new File(rootPathString).getAbsolutePath();
 		return pluginRootPath;
+	}
+
+	public String getSourcePackagePath(Class<?> clazz) {
+		String pluginRootPath = getPluginRootPath(clazz);
+		String packageDirectory = File.separator + "src" + File.separator + clazz.getPackage().getName().replace(".", File.separator) + File.separator;
+		String sourcePackagePath = pluginRootPath + packageDirectory;
+		return sourcePackagePath;
 	}
 }

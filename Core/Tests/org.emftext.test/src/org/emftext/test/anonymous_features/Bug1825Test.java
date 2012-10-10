@@ -40,9 +40,8 @@ public class Bug1825Test extends TestCase {
 	}
 
 	private void assertNoProblems(String fileName) {
-		String pluginRootPath = new PluginTestHelper().getPluginRootPath(getClass());
-		String path = pluginRootPath + File.separator + "src" + File.separator + this.getClass().getPackage().getName().replace(".", File.separator) + File.separator + fileName;
-		File input = new File(path).getAbsoluteFile();
+		String path = new PluginTestHelper().getSourcePackagePath(getClass());
+		File input = new File(path + File.separator + fileName).getAbsoluteFile();
 		URI uri = URI.createFileURI(input.getPath());
 		ConcreteSyntax syntax = CsResourceUtil.getResourceContent(uri);
 		assertNotNull(syntax);

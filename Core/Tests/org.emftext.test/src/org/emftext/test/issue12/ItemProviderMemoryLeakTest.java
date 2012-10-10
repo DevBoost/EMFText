@@ -13,7 +13,7 @@
  *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.test;
+package org.emftext.test.issue12;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,11 +31,12 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.provider.ConcreteSyntaxItemProvider;
 import org.emftext.sdk.concretesyntax.provider.ConcretesyntaxItemProviderAdapterFactory;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsOptions;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.test.ConcreteSyntaxTestHelper;
+import org.emftext.test.PluginTestHelper;
 
 /**
  * This is a test for EMFText GitHub issue #12. 
@@ -75,8 +76,8 @@ public class ItemProviderMemoryLeakTest extends TestCase {
 	}
 
 	public void testResourceReloading() {
-		String pluginRootPath = new PluginTestHelper().getPluginRootPath(ConcreteSyntax.class);
-		String path = pluginRootPath + "/../metamodel/concretesyntax.cs";
+		String sourcePackagePath = new PluginTestHelper().getSourcePackagePath(getClass());
+		String path = sourcePackagePath + "issue12.cs";
 		try {
 			Map<Object, Object> options = new LinkedHashMap<Object, Object>();
 			options.put(ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING, true);
