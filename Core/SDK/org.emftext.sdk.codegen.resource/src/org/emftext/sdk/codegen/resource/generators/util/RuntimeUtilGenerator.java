@@ -63,7 +63,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"determine if Eclipse is available in the current runtime " +
 			"environment."
 		);
-		sc.add("public boolean isEclipsePlatformAvailable() {");
+		sc.add("public boolean isEMFValidationAvailable() {");
 		sc.add("try {");
 		sc.add("Class.forName(\"" + EMF_MODEL_VALIDATION_PLUGIN + "\");");
 		sc.add("return true;");
@@ -81,7 +81,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"determine if EMF Validation is available in the current runtime " +
 			"environment."
 		);
-		sc.add("public boolean isEMFValidationAvailable() {");
+		sc.add("public boolean isEclipsePlatformAvailable() {");
 		sc.add("try {");
 		sc.add("Class.forName(\"" + PLATFORM + "\");");
 		sc.add("return true;");
