@@ -595,7 +595,7 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		sc.add("private static " + metaInformationClassName + " metaInformation = new " + metaInformationClassName +"();");
 		sc.addLineBreak();
-		sc.add("private " + iNameProviderClassName + " nameProvider = metaInformation.createNameProvider();");
+		sc.add("protected " + iNameProviderClassName + " nameProvider = metaInformation.createNameProvider();");
 		sc.addLineBreak();
 	}
 }
