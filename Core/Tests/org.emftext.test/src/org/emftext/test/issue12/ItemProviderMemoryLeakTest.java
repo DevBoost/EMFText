@@ -92,7 +92,8 @@ public class ItemProviderMemoryLeakTest extends TestCase {
 			InspectableConcreteSyntaxItemProvider inspectableProvider = inspectableAdapter.getInspectableProvider();
 			AdapterFactoryLabelProvider labelProvider = new AdapterFactoryLabelProvider(inspectableAdapter);
 
-			// reload twice
+			// reload three times to reproduce memory leak
+			reload(path, options, csResource, inspectableProvider, labelProvider);
 			reload(path, options, csResource, inspectableProvider, labelProvider);
 			reload(path, options, csResource, inspectableProvider, labelProvider);
 		} catch (IOException e) {
