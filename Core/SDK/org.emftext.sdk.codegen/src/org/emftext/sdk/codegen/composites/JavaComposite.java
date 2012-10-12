@@ -37,8 +37,9 @@ import org.emftext.sdk.util.StringUtil;
 public class JavaComposite extends StringComposite {
 
 	private Map<String, String> fields = new LinkedHashMap<String, String>();
-	private Map<String, String[]> fieldDoc = new LinkedHashMap<String, String[]>();
+	private Map<String, String[]> fieldDocs = new LinkedHashMap<String, String[]>();
 	private Map<String, String> getters = new LinkedHashMap<String, String>();
+	private Map<String, String[]> getterDocs = new LinkedHashMap<String, String[]>();
 	private Map<String, String> setters = new LinkedHashMap<String, String>();
 
 	public JavaComposite() {
@@ -86,6 +87,11 @@ public class JavaComposite extends StringComposite {
 	}
 	
 	public void addJavadoc(String... paragraphs) {
+		// skip empty documentation
+		if (paragraphs == null || paragraphs.length == 0) {
+			return;
+		}
+		
 		add("/**");
 		boolean wasParameterParagraph = false;
 		for (String paragraph : paragraphs) {
@@ -175,7 +181,11 @@ public class JavaComposite extends StringComposite {
 	 * @param type the type of the field
 	 */
 	public void addFieldGetSet(String fieldName, String type, String... javadoc) {
-		addFieldGet(fieldName, type, javadoc);
+		addFieldGetSet(fieldName, type, javadoc, null);
+	}
+
+	public void addFieldGetSet(String fieldName, String type, String[] fieldDoc, String[] getterDoc) {
+		addFieldGet(fieldName, type, fieldDoc, getterDoc);
 		setters.put(fieldName, type);
 	}
 
@@ -187,9 +197,14 @@ public class JavaComposite extends StringComposite {
 	 * @param type the type of the field
 	 */
 	public void addFieldGet(String fieldName, String type, String... javadoc) {
+		addFieldGet(fieldName, type, javadoc, null);
+	}
+	
+	public void addFieldGet(String fieldName, String type, String[] fieldDoc, String[] getterDoc) {
 		fields.put(fieldName, type);
-		fieldDoc.put(fieldName, javadoc);
+		fieldDocs.put(fieldName, fieldDoc);
 		getters.put(fieldName, type);
+		getterDocs.put(fieldName, getterDoc);
 	}
 	
 	public void addGettersSetters() {
@@ -210,6 +225,8 @@ public class JavaComposite extends StringComposite {
 	private void addGetters() {
 		for (String fieldName : getters.keySet()) {
 			String type = getters.get(fieldName);
+			String[] doc = getterDocs.get(fieldName);
+			addJavadoc(doc);
 			add("public " + type + " get" + StringUtil.capitalize(fieldName) + "() {");
 			add("return " + fieldName + ";");
 			add("}");
@@ -220,10 +237,8 @@ public class JavaComposite extends StringComposite {
 	public void addFields() {
 		for (String fieldName : fields.keySet()) {
 			String type = fields.get(fieldName);
-			String[] doc = fieldDoc.get(fieldName);
-			if (doc != null && doc.length > 0) {
-				addJavadoc(doc);
-			}
+			String[] doc = fieldDocs.get(fieldName);
+			addJavadoc(doc);
 			add("private " + type + " " + fieldName + ";");
 			addLineBreak();
 		}

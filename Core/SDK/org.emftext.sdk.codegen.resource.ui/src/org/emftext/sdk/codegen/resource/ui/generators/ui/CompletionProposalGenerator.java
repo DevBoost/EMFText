@@ -37,8 +37,6 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addJavadoc("A proposal for completing an incomplete document.");
 		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
 		
-		sc.addFieldGetSet("root", E_OBJECT, "The root object of the resource for which this proposal was computed.");
-
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor1(sc);
@@ -51,10 +49,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	private void addMethods(JavaComposite sc) {
 		sc.addGettersSetters();
 		
-		addGetInsertStringMethod(sc);
-		addGetDisplayStringMethod(sc);
 		addGetPrefixMethod(sc);
-		addGetStartsWithPrefixMethod(sc);
 		addImageMethod(sc);
 		addIsStructuralFeatureMethod(sc);
 		addGetStructuralFeatureMethod(sc);
@@ -138,34 +133,6 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addGetStartsWithPrefixMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Returns true if this proposal matched the prefix. " +
-			"This does not imply that the proposal exactly starts with the prefix, " +
-			"it can also match case-insensitive or using the camel case style. " +
-			"Only proposals that return true will be considered for the final list " +
-			"of proposals that is presented in the editor."
-		);
-		sc.add("public boolean getMatchesPrefix() {");
-		sc.add("return matchesPrefix;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetInsertStringMethod(StringComposite sc) {
-		sc.add("public String getInsertString() {");
-		sc.add("return insertString;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetDisplayStringMethod(StringComposite sc) {
-		sc.add("public String getDisplayString() {");
-		sc.add("return displayString;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addGetPrefixMethod(StringComposite sc) {
 		sc.add("public String getPrefix() {");
 		sc.add("return prefix;");
@@ -217,25 +184,18 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 	
 	private void addFields(JavaComposite sc) {
-		sc.addFields();
-		
+		sc.addFieldGetSet("root", E_OBJECT, "The root object of the resource for which this proposal was computed.");
+
 		sc.addJavadoc("The terminal that was expected at the cursor position.");
 		sc.add("private " + expectedTerminalClassName + " expectedTerminal;");
 		sc.addLineBreak();
 		
-		sc.addJavadoc(
+		sc.addFieldGetSet("insertString", "String", 
 			"The string that will be inserted if the user picks this proposal. " +
 			"This string can differ from 'displayString' because usually only " +
 			"the missing part of the text is inserted and an existing prefix is kept."
 		);
-		sc.add("private String insertString;");
-		sc.addLineBreak();
-
-		sc.addJavadoc(
-			"The string that will be shown in the pop-up containing the completion proposals."
-		);
-		sc.add("private String displayString;");
-		sc.addLineBreak();
+		sc.addFieldGetSet("displayString", "String", "The string that will be shown in the pop-up containing the completion proposals.");
 
 		sc.addJavadoc(
 			"The part of the document right before the cursor that belongs to the proposal. " +
@@ -244,16 +204,21 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("private String prefix;");
 		sc.addLineBreak();
 
-		sc.addJavadoc(
+		String fieldDoc = 
 			"A flag that indicates whether this proposal is valid w.r.t. the prefix (i.e., " +
 			"the text that has already been typed). We do keep proposals that do not match " +
 			"the prefix to allow proposal post processors to access these and add valid proposals " +
 			"even if the built-in proposal engine did not find a matching proposal. " +
 			"The completion pop-up will only show proposals for which this method returns true. " +
-			"See also {@link #getMatchesPrefix()}."
-		);
-		sc.add("private boolean matchesPrefix;");
-		sc.addLineBreak();
+			"See also {@link #getMatchesPrefix()}.";
+		String getterDoc =
+			"Returns true if this proposal matched the prefix. " +
+			"This does not imply that the proposal exactly starts with the prefix, " +
+			"it can also match case-insensitive or using the camel case style. " +
+			"Only proposals that return true will be considered for the final list " +
+			"of proposals that is presented in the editor.";
+
+		sc.addFieldGetSet("matchesPrefix", "boolean", new String[] {fieldDoc}, new String[] {getterDoc});
 
 		sc.addJavadoc("The structural feature (attribute or non-containment reference) that was expected at the cursor position.");
 		sc.add("private " + E_STRUCTURAL_FEATURE + " structuralFeature;");
@@ -272,5 +237,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 			);
 		sc.add("private " + IMAGE + " image;");
 		sc.addLineBreak();
+
+		sc.addFields();
 	}
 }
