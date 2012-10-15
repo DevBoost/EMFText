@@ -85,6 +85,8 @@ options {
 	 */
 	private int lastStartIncludingHidden;
 	
+	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
+	
 	protected void addErrorToResource(final String errorMessage, final int column, final int line, final int startIndex, final int stopIndex) {
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
@@ -143,13 +145,13 @@ options {
 		if (disableLocationMap) {
 			return;
 		}
+		final org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = this.locationMap;
+		if (locationMap == null) {
+			// the locationMap can be null if the parser is used for code completion
+			return;
+		}
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
-				if (locationMap == null) {
-					// the locationMap can be null if the parser is used for code completion
-					return true;
-				}
 				locationMap.setCharStart(target, locationMap.getCharStart(source));
 				locationMap.setCharEnd(target, locationMap.getCharEnd(source));
 				locationMap.setColumn(target, locationMap.getColumn(source));
@@ -163,13 +165,13 @@ options {
 		if (disableLocationMap) {
 			return;
 		}
+		final org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = this.locationMap;
+		if (locationMap == null) {
+			// the locationMap can be null if the parser is used for code completion
+			return;
+		}
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
-				if (locationMap == null) {
-					// the locationMap can be null if the parser is used for code completion
-					return true;
-				}
 				if (source == null) {
 					return true;
 				}
@@ -190,13 +192,13 @@ options {
 		if (disableLocationMap) {
 			return;
 		}
+		final org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = this.locationMap;
+		if (locationMap == null) {
+			// the locationMap can be null if the parser is used for code completion
+			return;
+		}
 		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
 			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
-				if (locationMap == null) {
-					// the locationMap can be null if the parser is used for code completion
-					return true;
-				}
 				locationMap.setCharEnd(object, endChar);
 				locationMap.setLine(object, endLine);
 				return true;
@@ -346,13 +348,21 @@ options {
 	 * RecognitionExceptions.
 	 */
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult parse() {
+		// Reset parser state
 		terminateParsing = false;
 		postParseCommands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>>();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult parseResult = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult();
+		if (disableLocationMap) {
+			locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDevNullLocationMap();
+		} else {
+			locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
+		}
+		// Run parser
 		try {
 			org.eclipse.emf.ecore.EObject result =  doParse();
 			if (lexerExceptions.isEmpty()) {
 				parseResult.setRoot(result);
+				parseResult.setLocationMap(locationMap);
 			}
 		} catch (org.antlr.runtime3_4_0.RecognitionException re) {
 			reportError(re);

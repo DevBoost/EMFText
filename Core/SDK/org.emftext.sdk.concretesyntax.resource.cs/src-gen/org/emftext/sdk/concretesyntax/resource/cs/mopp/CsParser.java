@@ -146,6 +146,8 @@ public class CsParser extends CsANTLRParserBase {
     	 */
     	private int lastStartIncludingHidden;
     	
+    	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
+    	
     	protected void addErrorToResource(final String errorMessage, final int column, final int line, final int startIndex, final int stopIndex) {
     		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
     			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
@@ -204,13 +206,13 @@ public class CsParser extends CsANTLRParserBase {
     		if (disableLocationMap) {
     			return;
     		}
+    		final org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = this.locationMap;
+    		if (locationMap == null) {
+    			// the locationMap can be null if the parser is used for code completion
+    			return;
+    		}
     		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
     			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-    				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
-    				if (locationMap == null) {
-    					// the locationMap can be null if the parser is used for code completion
-    					return true;
-    				}
     				locationMap.setCharStart(target, locationMap.getCharStart(source));
     				locationMap.setCharEnd(target, locationMap.getCharEnd(source));
     				locationMap.setColumn(target, locationMap.getColumn(source));
@@ -224,13 +226,13 @@ public class CsParser extends CsANTLRParserBase {
     		if (disableLocationMap) {
     			return;
     		}
+    		final org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = this.locationMap;
+    		if (locationMap == null) {
+    			// the locationMap can be null if the parser is used for code completion
+    			return;
+    		}
     		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
     			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-    				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
-    				if (locationMap == null) {
-    					// the locationMap can be null if the parser is used for code completion
-    					return true;
-    				}
     				if (source == null) {
     					return true;
     				}
@@ -251,13 +253,13 @@ public class CsParser extends CsANTLRParserBase {
     		if (disableLocationMap) {
     			return;
     		}
+    		final org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = this.locationMap;
+    		if (locationMap == null) {
+    			// the locationMap can be null if the parser is used for code completion
+    			return;
+    		}
     		postParseCommands.add(new org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>() {
     			public boolean execute(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
-    				org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = resource.getLocationMap();
-    				if (locationMap == null) {
-    					// the locationMap can be null if the parser is used for code completion
-    					return true;
-    				}
     				locationMap.setCharEnd(object, endChar);
     				locationMap.setLine(object, endLine);
     				return true;
@@ -407,13 +409,21 @@ public class CsParser extends CsANTLRParserBase {
     	 * RecognitionExceptions.
     	 */
     	public org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult parse() {
+    		// Reset parser state
     		terminateParsing = false;
     		postParseCommands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>>();
     		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult parseResult = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult();
+    		if (disableLocationMap) {
+    			locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDevNullLocationMap();
+    		} else {
+    			locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
+    		}
+    		// Run parser
     		try {
     			org.eclipse.emf.ecore.EObject result =  doParse();
     			if (lexerExceptions.isEmpty()) {
     				parseResult.setRoot(result);
+    				parseResult.setLocationMap(locationMap);
     			}
     		} catch (org.antlr.runtime3_4_0.RecognitionException re) {
     			reportError(re);
@@ -640,7 +650,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "start"
-    // Cs.g:580:1: start returns [ org.eclipse.emf.ecore.EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
+    // Cs.g:590:1: start returns [ org.eclipse.emf.ecore.EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
     public final org.eclipse.emf.ecore.EObject start() throws RecognitionException {
         org.eclipse.emf.ecore.EObject element =  null;
 
@@ -652,8 +662,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
 
-            // Cs.g:581:2: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
-            // Cs.g:582:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
+            // Cs.g:591:2: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
+            // Cs.g:592:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
             {
             if ( state.backtracking==0 ) {
             		// follow set for start rule(s)
@@ -663,8 +673,8 @@ public class CsParser extends CsANTLRParserBase {
             		expectedElementsIndexOfLastCompleteElement = 0;
             	}
 
-            // Cs.g:589:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
-            // Cs.g:590:3: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
+            // Cs.g:599:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
+            // Cs.g:600:3: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax_in_start82);
             c0=parse_org_emftext_sdk_concretesyntax_ConcreteSyntax();
@@ -703,7 +713,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_ConcreteSyntax"
-    // Cs.g:598:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' ;
+    // Cs.g:608:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' ;
     public final org.emftext.sdk.concretesyntax.ConcreteSyntax parse_org_emftext_sdk_concretesyntax_ConcreteSyntax() throws RecognitionException {
         org.emftext.sdk.concretesyntax.ConcreteSyntax element =  null;
 
@@ -754,10 +764,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return element; }
 
-            // Cs.g:601:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' )
-            // Cs.g:602:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}'
+            // Cs.g:611:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' )
+            // Cs.g:612:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}'
             {
-            // Cs.g:602:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:612:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -770,13 +780,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt1) {
             	case 1 :
-            	    // Cs.g:603:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:613:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:603:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:604:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:613:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:614:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:604:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:605:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:614:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:615:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax130);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -838,10 +848,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[8]);
             	}
 
-            // Cs.g:646:2: ( (a1= 'ABSTRACT' )? )
-            // Cs.g:647:3: (a1= 'ABSTRACT' )?
+            // Cs.g:656:2: ( (a1= 'ABSTRACT' )? )
+            // Cs.g:657:3: (a1= 'ABSTRACT' )?
             {
-            // Cs.g:647:3: (a1= 'ABSTRACT' )?
+            // Cs.g:657:3: (a1= 'ABSTRACT' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -850,7 +860,7 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt2) {
                 case 1 :
-                    // Cs.g:648:4: a1= 'ABSTRACT'
+                    // Cs.g:658:4: a1= 'ABSTRACT'
                     {
                     a1=(Token)match(input,25,FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax180); if (state.failed) return element;
 
@@ -909,8 +919,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[10]);
             	}
 
-            // Cs.g:691:2: (a5= QUALIFIED_NAME )
-            // Cs.g:692:3: a5= QUALIFIED_NAME
+            // Cs.g:701:2: (a5= QUALIFIED_NAME )
+            // Cs.g:702:3: a5= QUALIFIED_NAME
             {
             a5=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax219); if (state.failed) return element;
 
@@ -978,8 +988,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[12]);
             	}
 
-            // Cs.g:751:2: (a7= QUOTED_60_62 )
-            // Cs.g:752:3: a7= QUOTED_60_62
+            // Cs.g:761:2: (a7= QUOTED_60_62 )
+            // Cs.g:762:3: a7= QUOTED_60_62
             {
             a7=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax258); if (state.failed) return element;
 
@@ -1035,7 +1045,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[19]);
             	}
 
-            // Cs.g:802:2: ( ( (a8= QUOTED_60_62 ) ) )?
+            // Cs.g:812:2: ( ( (a8= QUOTED_60_62 ) ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1044,13 +1054,13 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt3) {
                 case 1 :
-                    // Cs.g:803:3: ( (a8= QUOTED_60_62 ) )
+                    // Cs.g:813:3: ( (a8= QUOTED_60_62 ) )
                     {
-                    // Cs.g:803:3: ( (a8= QUOTED_60_62 ) )
-                    // Cs.g:804:4: (a8= QUOTED_60_62 )
+                    // Cs.g:813:3: ( (a8= QUOTED_60_62 ) )
+                    // Cs.g:814:4: (a8= QUOTED_60_62 )
                     {
-                    // Cs.g:804:4: (a8= QUOTED_60_62 )
-                    // Cs.g:805:5: a8= QUOTED_60_62
+                    // Cs.g:814:4: (a8= QUOTED_60_62 )
+                    // Cs.g:815:5: a8= QUOTED_60_62
                     {
                     a8=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax294); if (state.failed) return element;
 
@@ -1120,7 +1130,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[31]);
             	}
 
-            // Cs.g:862:2: ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )?
+            // Cs.g:872:2: ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1129,10 +1139,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt5) {
                 case 1 :
-                    // Cs.g:863:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
+                    // Cs.g:873:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
                     {
-                    // Cs.g:863:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
-                    // Cs.g:864:4: a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
+                    // Cs.g:873:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
+                    // Cs.g:874:4: a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
                     {
                     a9=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax349); if (state.failed) return element;
 
@@ -1156,11 +1166,11 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[32]);
                     			}
 
-                    // Cs.g:883:4: ( (a10= QUALIFIED_NAME ) )
-                    // Cs.g:884:5: (a10= QUALIFIED_NAME )
+                    // Cs.g:893:4: ( (a10= QUALIFIED_NAME ) )
+                    // Cs.g:894:5: (a10= QUALIFIED_NAME )
                     {
-                    // Cs.g:884:5: (a10= QUALIFIED_NAME )
-                    // Cs.g:885:6: a10= QUALIFIED_NAME
+                    // Cs.g:894:5: (a10= QUALIFIED_NAME )
+                    // Cs.g:895:6: a10= QUALIFIED_NAME
                     {
                     a10=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax382); if (state.failed) return element;
 
@@ -1228,7 +1238,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[44]);
                     			}
 
-                    // Cs.g:945:4: ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
+                    // Cs.g:955:4: ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -1241,10 +1251,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // Cs.g:946:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
+                    	    // Cs.g:956:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
                     	    {
-                    	    // Cs.g:946:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
-                    	    // Cs.g:947:6: a11= ',' ( (a12= QUALIFIED_NAME ) )
+                    	    // Cs.g:956:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
+                    	    // Cs.g:957:6: a11= ',' ( (a12= QUALIFIED_NAME ) )
                     	    {
                     	    a11=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax447); if (state.failed) return element;
 
@@ -1268,11 +1278,11 @@ public class CsParser extends CsANTLRParserBase {
                     	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[45]);
                     	    					}
 
-                    	    // Cs.g:966:6: ( (a12= QUALIFIED_NAME ) )
-                    	    // Cs.g:967:7: (a12= QUALIFIED_NAME )
+                    	    // Cs.g:976:6: ( (a12= QUALIFIED_NAME ) )
+                    	    // Cs.g:977:7: (a12= QUALIFIED_NAME )
                     	    {
-                    	    // Cs.g:967:7: (a12= QUALIFIED_NAME )
-                    	    // Cs.g:968:8: a12= QUALIFIED_NAME
+                    	    // Cs.g:977:7: (a12= QUALIFIED_NAME )
+                    	    // Cs.g:978:8: a12= QUALIFIED_NAME
                     	    {
                     	    a12=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax490); if (state.failed) return element;
 
@@ -1380,7 +1390,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[68]);
             	}
 
-            // Cs.g:1051:2: ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )?
+            // Cs.g:1061:2: ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1389,10 +1399,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt7) {
                 case 1 :
-                    // Cs.g:1052:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
+                    // Cs.g:1062:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
                     {
-                    // Cs.g:1052:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
-                    // Cs.g:1053:4: a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}'
+                    // Cs.g:1062:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
+                    // Cs.g:1063:4: a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}'
                     {
                     a13=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax605); if (state.failed) return element;
 
@@ -1440,7 +1450,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[72]);
                     			}
 
-                    // Cs.g:1093:4: ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
+                    // Cs.g:1103:4: ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
                     loop6:
                     do {
                         int alt6=2;
@@ -1453,13 +1463,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // Cs.g:1094:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // Cs.g:1104:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
                     	    {
-                    	    // Cs.g:1094:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
-                    	    // Cs.g:1095:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // Cs.g:1104:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // Cs.g:1105:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
                     	    {
-                    	    // Cs.g:1095:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
-                    	    // Cs.g:1096:7: a15_0= parse_org_emftext_sdk_concretesyntax_Import
+                    	    // Cs.g:1105:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // Cs.g:1106:7: a15_0= parse_org_emftext_sdk_concretesyntax_Import
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Import_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax666);
                     	    a15_0=parse_org_emftext_sdk_concretesyntax_Import();
@@ -1563,7 +1573,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[86]);
             	}
 
-            // Cs.g:1169:2: ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )?
+            // Cs.g:1179:2: ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1572,10 +1582,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt9) {
                 case 1 :
-                    // Cs.g:1170:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
+                    // Cs.g:1180:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
                     {
-                    // Cs.g:1170:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
-                    // Cs.g:1171:4: a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}'
+                    // Cs.g:1180:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
+                    // Cs.g:1181:4: a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}'
                     {
                     a17=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax769); if (state.failed) return element;
 
@@ -1622,7 +1632,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[89]);
                     			}
 
-                    // Cs.g:1210:4: ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )*
+                    // Cs.g:1220:4: ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )*
                     loop8:
                     do {
                         int alt8=2;
@@ -1635,13 +1645,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // Cs.g:1211:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
+                    	    // Cs.g:1221:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
                     	    {
-                    	    // Cs.g:1211:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
-                    	    // Cs.g:1212:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';'
+                    	    // Cs.g:1221:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
+                    	    // Cs.g:1222:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';'
                     	    {
-                    	    // Cs.g:1212:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option )
-                    	    // Cs.g:1213:7: a19_0= parse_org_emftext_sdk_concretesyntax_Option
+                    	    // Cs.g:1222:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option )
+                    	    // Cs.g:1223:7: a19_0= parse_org_emftext_sdk_concretesyntax_Option
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Option_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax830);
                     	    a19_0=parse_org_emftext_sdk_concretesyntax_Option();
@@ -1763,7 +1773,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[100]);
             	}
 
-            // Cs.g:1301:2: ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )?
+            // Cs.g:1311:2: ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1772,10 +1782,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt11) {
                 case 1 :
-                    // Cs.g:1302:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
+                    // Cs.g:1312:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
                     {
-                    // Cs.g:1302:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
-                    // Cs.g:1303:4: a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}'
+                    // Cs.g:1312:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
+                    // Cs.g:1313:4: a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}'
                     {
                     a22=(Token)match(input,41,FOLLOW_41_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax959); if (state.failed) return element;
 
@@ -1826,7 +1836,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[107]);
                     			}
 
-                    // Cs.g:1346:4: ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )*
+                    // Cs.g:1356:4: ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )*
                     loop10:
                     do {
                         int alt10=2;
@@ -1839,13 +1849,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // Cs.g:1347:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
+                    	    // Cs.g:1357:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
                     	    {
-                    	    // Cs.g:1347:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
-                    	    // Cs.g:1348:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';'
+                    	    // Cs.g:1357:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
+                    	    // Cs.g:1358:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';'
                     	    {
-                    	    // Cs.g:1348:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
-                    	    // Cs.g:1349:7: a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
+                    	    // Cs.g:1358:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
+                    	    // Cs.g:1359:7: a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenDirective_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1020);
                     	    a24_0=parse_org_emftext_sdk_concretesyntax_TokenDirective();
@@ -1973,7 +1983,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[124]);
             	}
 
-            // Cs.g:1443:2: ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )?
+            // Cs.g:1453:2: ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1982,10 +1992,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt13) {
                 case 1 :
-                    // Cs.g:1444:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
+                    // Cs.g:1454:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
                     {
-                    // Cs.g:1444:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
-                    // Cs.g:1445:4: a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}'
+                    // Cs.g:1454:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
+                    // Cs.g:1455:4: a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}'
                     {
                     a27=(Token)match(input,42,FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1149); if (state.failed) return element;
 
@@ -2032,7 +2042,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[127]);
                     			}
 
-                    // Cs.g:1484:4: ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
+                    // Cs.g:1494:4: ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
                     loop12:
                     do {
                         int alt12=2;
@@ -2045,13 +2055,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // Cs.g:1485:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // Cs.g:1495:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
                     	    {
-                    	    // Cs.g:1485:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
-                    	    // Cs.g:1486:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // Cs.g:1495:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // Cs.g:1496:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
                     	    {
-                    	    // Cs.g:1486:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
-                    	    // Cs.g:1487:7: a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
+                    	    // Cs.g:1496:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // Cs.g:1497:7: a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenStyle_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1210);
                     	    a29_0=parse_org_emftext_sdk_concretesyntax_TokenStyle();
@@ -2193,7 +2203,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[137]);
             	}
 
-            // Cs.g:1592:2: ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )*
+            // Cs.g:1602:2: ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )*
             loop14:
             do {
                 int alt14=2;
@@ -2206,13 +2216,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt14) {
             	case 1 :
-            	    // Cs.g:1593:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
+            	    // Cs.g:1603:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
             	    {
-            	    // Cs.g:1593:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
-            	    // Cs.g:1594:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // Cs.g:1603:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
+            	    // Cs.g:1604:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
             	    {
-            	    // Cs.g:1594:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
-            	    // Cs.g:1595:5: a33_0= parse_org_emftext_sdk_concretesyntax_Rule
+            	    // Cs.g:1604:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // Cs.g:1605:5: a33_0= parse_org_emftext_sdk_concretesyntax_Rule
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Rule_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1347);
             	    a33_0=parse_org_emftext_sdk_concretesyntax_Rule();
@@ -2315,7 +2325,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Import"
-    // Cs.g:1656:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? ;
+    // Cs.g:1666:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? ;
     public final org.emftext.sdk.concretesyntax.Import parse_org_emftext_sdk_concretesyntax_Import() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Import element =  null;
 
@@ -2337,10 +2347,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
 
-            // Cs.g:1659:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? )
-            // Cs.g:1660:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
+            // Cs.g:1669:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? )
+            // Cs.g:1670:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
             {
-            // Cs.g:1660:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:1670:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop15:
             do {
                 int alt15=2;
@@ -2353,13 +2363,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt15) {
             	case 1 :
-            	    // Cs.g:1661:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1671:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:1661:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:1662:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1671:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1672:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:1662:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:1663:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:1672:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1673:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Import1432);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -2414,8 +2424,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[147]);
             	}
 
-            // Cs.g:1697:2: (a1= QUALIFIED_NAME )
-            // Cs.g:1698:3: a1= QUALIFIED_NAME
+            // Cs.g:1707:2: (a1= QUALIFIED_NAME )
+            // Cs.g:1708:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1477); if (state.failed) return element;
 
@@ -2473,8 +2483,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[149]);
             	}
 
-            // Cs.g:1747:2: (a3= QUOTED_60_62 )
-            // Cs.g:1748:3: a3= QUOTED_60_62
+            // Cs.g:1757:2: (a3= QUOTED_60_62 )
+            // Cs.g:1758:3: a3= QUOTED_60_62
             {
             a3=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1516); if (state.failed) return element;
 
@@ -2523,7 +2533,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[154]);
             	}
 
-            // Cs.g:1791:2: ( ( (a4= QUOTED_60_62 ) ) )?
+            // Cs.g:1801:2: ( ( (a4= QUOTED_60_62 ) ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2532,13 +2542,13 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt16) {
                 case 1 :
-                    // Cs.g:1792:3: ( (a4= QUOTED_60_62 ) )
+                    // Cs.g:1802:3: ( (a4= QUOTED_60_62 ) )
                     {
-                    // Cs.g:1792:3: ( (a4= QUOTED_60_62 ) )
-                    // Cs.g:1793:4: (a4= QUOTED_60_62 )
+                    // Cs.g:1802:3: ( (a4= QUOTED_60_62 ) )
+                    // Cs.g:1803:4: (a4= QUOTED_60_62 )
                     {
-                    // Cs.g:1793:4: (a4= QUOTED_60_62 )
-                    // Cs.g:1794:5: a4= QUOTED_60_62
+                    // Cs.g:1803:4: (a4= QUOTED_60_62 )
+                    // Cs.g:1804:5: a4= QUOTED_60_62
                     {
                     a4=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1552); if (state.failed) return element;
 
@@ -2599,7 +2609,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[162]);
             	}
 
-            // Cs.g:1842:2: ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
+            // Cs.g:1852:2: ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2608,10 +2618,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt18) {
                 case 1 :
-                    // Cs.g:1843:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
+                    // Cs.g:1853:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
                     {
-                    // Cs.g:1843:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
-                    // Cs.g:1844:4: a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )?
+                    // Cs.g:1853:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
+                    // Cs.g:1854:4: a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )?
                     {
                     a5=(Token)match(input,43,FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_Import1607); if (state.failed) return element;
 
@@ -2647,8 +2657,8 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[164]);
                     			}
 
-                    // Cs.g:1872:4: (a7= QUALIFIED_NAME )
-                    // Cs.g:1873:5: a7= QUALIFIED_NAME
+                    // Cs.g:1882:4: (a7= QUALIFIED_NAME )
+                    // Cs.g:1883:5: a7= QUALIFIED_NAME
                     {
                     a7=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1653); if (state.failed) return element;
 
@@ -2696,7 +2706,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[168]);
                     			}
 
-                    // Cs.g:1915:4: ( ( (a8= QUOTED_60_62 ) ) )?
+                    // Cs.g:1925:4: ( ( (a8= QUOTED_60_62 ) ) )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -2705,13 +2715,13 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     switch (alt17) {
                         case 1 :
-                            // Cs.g:1916:5: ( (a8= QUOTED_60_62 ) )
+                            // Cs.g:1926:5: ( (a8= QUOTED_60_62 ) )
                             {
-                            // Cs.g:1916:5: ( (a8= QUOTED_60_62 ) )
-                            // Cs.g:1917:6: (a8= QUOTED_60_62 )
+                            // Cs.g:1926:5: ( (a8= QUOTED_60_62 ) )
+                            // Cs.g:1927:6: (a8= QUOTED_60_62 )
                             {
-                            // Cs.g:1917:6: (a8= QUOTED_60_62 )
-                            // Cs.g:1918:7: a8= QUOTED_60_62
+                            // Cs.g:1927:6: (a8= QUOTED_60_62 )
+                            // Cs.g:1928:7: a8= QUOTED_60_62
                             {
                             a8=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1707); if (state.failed) return element;
 
@@ -2806,7 +2816,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Option"
-    // Cs.g:1975:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) ;
+    // Cs.g:1985:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) ;
     public final org.emftext.sdk.concretesyntax.Option parse_org_emftext_sdk_concretesyntax_Option() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Option element =  null;
 
@@ -2821,11 +2831,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
 
-            // Cs.g:1978:2: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) )
-            // Cs.g:1979:2: (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING )
+            // Cs.g:1988:2: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) )
+            // Cs.g:1989:2: (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING )
             {
-            // Cs.g:1979:2: (a0= QUALIFIED_NAME )
-            // Cs.g:1980:3: a0= QUALIFIED_NAME
+            // Cs.g:1989:2: (a0= QUALIFIED_NAME )
+            // Cs.g:1990:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Option1807); if (state.failed) return element;
 
@@ -2883,8 +2893,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[179]);
             	}
 
-            // Cs.g:2029:2: (a2= STRING )
-            // Cs.g:2030:3: a2= STRING
+            // Cs.g:2039:2: (a2= STRING )
+            // Cs.g:2040:3: a2= STRING
             {
             a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_Option1846); if (state.failed) return element;
 
@@ -2945,7 +2955,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Rule"
-    // Cs.g:2067:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
+    // Cs.g:2077:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
     public final org.emftext.sdk.concretesyntax.Rule parse_org_emftext_sdk_concretesyntax_Rule() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Rule element =  null;
 
@@ -2964,10 +2974,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
 
-            // Cs.g:2070:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
-            // Cs.g:2071:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
+            // Cs.g:2080:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
+            // Cs.g:2081:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
             {
-            // Cs.g:2071:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:2081:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop19:
             do {
                 int alt19=2;
@@ -2980,13 +2990,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt19) {
             	case 1 :
-            	    // Cs.g:2072:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:2082:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:2072:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:2073:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:2082:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:2083:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:2073:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:2074:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:2083:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:2084:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Rule1897);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -3041,8 +3051,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[184]);
             	}
 
-            // Cs.g:2108:2: (a1= QUALIFIED_NAME )
-            // Cs.g:2109:3: a1= QUALIFIED_NAME
+            // Cs.g:2118:2: (a1= QUALIFIED_NAME )
+            // Cs.g:2119:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Rule1942); if (state.failed) return element;
 
@@ -3113,8 +3123,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[195]);
             	}
 
-            // Cs.g:2171:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // Cs.g:2172:3: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // Cs.g:2181:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // Cs.g:2182:3: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_Rule1981);
             a3_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -3189,7 +3199,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Sequence"
-    // Cs.g:2215:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* ;
+    // Cs.g:2225:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* ;
     public final org.emftext.sdk.concretesyntax.Sequence parse_org_emftext_sdk_concretesyntax_Sequence() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Sequence element =  null;
 
@@ -3205,11 +3215,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
 
-            // Cs.g:2218:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* )
-            // Cs.g:2219:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
+            // Cs.g:2228:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* )
+            // Cs.g:2229:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
             {
-            // Cs.g:2219:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
-            // Cs.g:2220:3: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
+            // Cs.g:2229:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            // Cs.g:2230:3: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence2032);
             a0_0=parse_org_emftext_sdk_concretesyntax_Definition();
@@ -3257,7 +3267,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[212]);
             	}
 
-            // Cs.g:2257:2: ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
+            // Cs.g:2267:2: ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
             loop20:
             do {
                 int alt20=2;
@@ -3270,13 +3280,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt20) {
             	case 1 :
-            	    // Cs.g:2258:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
+            	    // Cs.g:2268:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
             	    {
-            	    // Cs.g:2258:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
-            	    // Cs.g:2259:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // Cs.g:2268:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
+            	    // Cs.g:2269:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
             	    {
-            	    // Cs.g:2259:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
-            	    // Cs.g:2260:5: a1_0= parse_org_emftext_sdk_concretesyntax_Definition
+            	    // Cs.g:2269:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // Cs.g:2270:5: a1_0= parse_org_emftext_sdk_concretesyntax_Definition
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence2065);
             	    a1_0=parse_org_emftext_sdk_concretesyntax_Definition();
@@ -3373,7 +3383,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Choice"
-    // Cs.g:2318:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
+    // Cs.g:2328:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
     public final org.emftext.sdk.concretesyntax.Choice parse_org_emftext_sdk_concretesyntax_Choice() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Choice element =  null;
 
@@ -3390,11 +3400,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
 
-            // Cs.g:2321:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
-            // Cs.g:2322:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // Cs.g:2331:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
+            // Cs.g:2332:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             {
-            // Cs.g:2322:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            // Cs.g:2323:3: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            // Cs.g:2332:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            // Cs.g:2333:3: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2125);
             a0_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -3432,7 +3442,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[241]);
             	}
 
-            // Cs.g:2350:2: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // Cs.g:2360:2: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             loop21:
             do {
                 int alt21=2;
@@ -3445,10 +3455,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt21) {
             	case 1 :
-            	    // Cs.g:2351:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // Cs.g:2361:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
             	    {
-            	    // Cs.g:2351:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
-            	    // Cs.g:2352:4: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // Cs.g:2361:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // Cs.g:2362:4: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
             	    {
             	    a1=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_Choice2152); if (state.failed) return element;
 
@@ -3476,8 +3486,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[251]);
             	    			}
 
-            	    // Cs.g:2375:4: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            	    // Cs.g:2376:5: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            	    // Cs.g:2385:4: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // Cs.g:2386:5: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2178);
             	    a2_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -3554,7 +3564,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CsString"
-    // Cs.g:2414:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= STRING ) ;
+    // Cs.g:2424:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= STRING ) ;
     public final org.emftext.sdk.concretesyntax.CsString parse_org_emftext_sdk_concretesyntax_CsString() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CsString element =  null;
 
@@ -3567,11 +3577,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
 
-            // Cs.g:2417:2: ( (a0= STRING ) )
-            // Cs.g:2418:2: (a0= STRING )
+            // Cs.g:2427:2: ( (a0= STRING ) )
+            // Cs.g:2428:2: (a0= STRING )
             {
-            // Cs.g:2418:2: (a0= STRING )
-            // Cs.g:2419:3: a0= STRING
+            // Cs.g:2428:2: (a0= STRING )
+            // Cs.g:2429:3: a0= STRING
             {
             a0=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_CsString2238); if (state.failed) return element;
 
@@ -3644,7 +3654,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken"
-    // Cs.g:2468:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) ;
+    // Cs.g:2478:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element =  null;
 
@@ -3663,11 +3673,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
 
-            // Cs.g:2471:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) )
-            // Cs.g:2472:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? )
+            // Cs.g:2481:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) )
+            // Cs.g:2482:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? )
             {
-            // Cs.g:2472:2: (a0= QUALIFIED_NAME )
-            // Cs.g:2473:3: a0= QUALIFIED_NAME
+            // Cs.g:2482:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2483:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2278); if (state.failed) return element;
 
@@ -3735,8 +3745,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[272]);
             	}
 
-            // Cs.g:2532:2: (a2= QUALIFIED_NAME )
-            // Cs.g:2533:3: a2= QUALIFIED_NAME
+            // Cs.g:2542:2: (a2= QUALIFIED_NAME )
+            // Cs.g:2543:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2317); if (state.failed) return element;
 
@@ -3804,10 +3814,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[274]);
             	}
 
-            // Cs.g:2592:2: ( (a4= '+' |a5= '*' |a6= '?' )? )
-            // Cs.g:2593:3: (a4= '+' |a5= '*' |a6= '?' )?
+            // Cs.g:2602:2: ( (a4= '+' |a5= '*' |a6= '?' )? )
+            // Cs.g:2603:3: (a4= '+' |a5= '*' |a6= '?' )?
             {
-            // Cs.g:2593:3: (a4= '+' |a5= '*' |a6= '?' )?
+            // Cs.g:2603:3: (a4= '+' |a5= '*' |a6= '?' )?
             int alt22=4;
             switch ( input.LA(1) ) {
                 case 17:
@@ -3829,7 +3839,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt22) {
                 case 1 :
-                    // Cs.g:2594:4: a4= '+'
+                    // Cs.g:2604:4: a4= '+'
                     {
                     a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2361); if (state.failed) return element;
 
@@ -3853,7 +3863,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:2610:8: a5= '*'
+                    // Cs.g:2620:8: a5= '*'
                     {
                     a5=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2376); if (state.failed) return element;
 
@@ -3877,7 +3887,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:2626:8: a6= '?'
+                    // Cs.g:2636:8: a6= '?'
                     {
                     a6=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2391); if (state.failed) return element;
 
@@ -3944,7 +3954,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken"
-    // Cs.g:2662:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
+    // Cs.g:2672:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element =  null;
 
@@ -3962,11 +3972,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
 
-            // Cs.g:2665:2: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
-            // Cs.g:2666:2: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:2675:2: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
+            // Cs.g:2676:2: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? )
             {
-            // Cs.g:2666:2: (a0= QUALIFIED_NAME )
-            // Cs.g:2667:3: a0= QUALIFIED_NAME
+            // Cs.g:2676:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2677:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2431); if (state.failed) return element;
 
@@ -4054,10 +4064,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[290]);
             	}
 
-            // Cs.g:2743:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
-            // Cs.g:2744:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:2753:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:2754:3: (a3= '+' |a4= '*' |a5= '?' )?
             {
-            // Cs.g:2744:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:2754:3: (a3= '+' |a4= '*' |a5= '?' )?
             int alt23=4;
             switch ( input.LA(1) ) {
                 case 17:
@@ -4079,7 +4089,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt23) {
                 case 1 :
-                    // Cs.g:2745:4: a3= '+'
+                    // Cs.g:2755:4: a3= '+'
                     {
                     a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2489); if (state.failed) return element;
 
@@ -4103,7 +4113,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:2761:8: a4= '*'
+                    // Cs.g:2771:8: a4= '*'
                     {
                     a4=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2504); if (state.failed) return element;
 
@@ -4127,7 +4137,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:2777:8: a5= '?'
+                    // Cs.g:2787:8: a5= '?'
                     {
                     a5=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2519); if (state.failed) return element;
 
@@ -4194,7 +4204,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes"
-    // Cs.g:2813:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) ;
+    // Cs.g:2823:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.PlaceholderInQuotes parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderInQuotes element =  null;
 
@@ -4217,11 +4227,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
 
-            // Cs.g:2816:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) )
-            // Cs.g:2817:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? )
+            // Cs.g:2826:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) )
+            // Cs.g:2827:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? )
             {
-            // Cs.g:2817:2: (a0= QUALIFIED_NAME )
-            // Cs.g:2818:3: a0= QUALIFIED_NAME
+            // Cs.g:2827:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2828:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2559); if (state.failed) return element;
 
@@ -4289,8 +4299,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[305]);
             	}
 
-            // Cs.g:2877:2: (a2= QUOTED_39_39_92 )
-            // Cs.g:2878:3: a2= QUOTED_39_39_92
+            // Cs.g:2887:2: (a2= QUOTED_39_39_92 )
+            // Cs.g:2888:3: a2= QUOTED_39_39_92
             {
             a2=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2598); if (state.failed) return element;
 
@@ -4354,8 +4364,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[307]);
             	}
 
-            // Cs.g:2933:2: (a4= QUOTED_39_39_92 )
-            // Cs.g:2934:3: a4= QUOTED_39_39_92
+            // Cs.g:2943:2: (a4= QUOTED_39_39_92 )
+            // Cs.g:2944:3: a4= QUOTED_39_39_92
             {
             a4=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2637); if (state.failed) return element;
 
@@ -4400,7 +4410,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[309]);
             	}
 
-            // Cs.g:2973:2: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
+            // Cs.g:2983:2: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -4409,10 +4419,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt24) {
                 case 1 :
-                    // Cs.g:2974:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // Cs.g:2984:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
                     {
-                    // Cs.g:2974:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
-                    // Cs.g:2975:4: a5= ',' (a6= QUOTED_39_39_92 )
+                    // Cs.g:2984:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // Cs.g:2985:4: a5= ',' (a6= QUOTED_39_39_92 )
                     {
                     a5=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2667); if (state.failed) return element;
 
@@ -4434,8 +4444,8 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[310]);
                     			}
 
-                    // Cs.g:2992:4: (a6= QUOTED_39_39_92 )
-                    // Cs.g:2993:5: a6= QUOTED_39_39_92
+                    // Cs.g:3002:4: (a6= QUOTED_39_39_92 )
+                    // Cs.g:3003:5: a6= QUOTED_39_39_92
                     {
                     a6=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2693); if (state.failed) return element;
 
@@ -4513,10 +4523,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[313]);
             	}
 
-            // Cs.g:3055:2: ( (a8= '+' |a9= '*' |a10= '?' )? )
-            // Cs.g:3056:3: (a8= '+' |a9= '*' |a10= '?' )?
+            // Cs.g:3065:2: ( (a8= '+' |a9= '*' |a10= '?' )? )
+            // Cs.g:3066:3: (a8= '+' |a9= '*' |a10= '?' )?
             {
-            // Cs.g:3056:3: (a8= '+' |a9= '*' |a10= '?' )?
+            // Cs.g:3066:3: (a8= '+' |a9= '*' |a10= '?' )?
             int alt25=4;
             switch ( input.LA(1) ) {
                 case 17:
@@ -4538,7 +4548,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt25) {
                 case 1 :
-                    // Cs.g:3057:4: a8= '+'
+                    // Cs.g:3067:4: a8= '+'
                     {
                     a8=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2762); if (state.failed) return element;
 
@@ -4562,7 +4572,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:3073:8: a9= '*'
+                    // Cs.g:3083:8: a9= '*'
                     {
                     a9=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2777); if (state.failed) return element;
 
@@ -4586,7 +4596,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:3089:8: a10= '?'
+                    // Cs.g:3099:8: a10= '?'
                     {
                     a10=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2792); if (state.failed) return element;
 
@@ -4653,7 +4663,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_BooleanTerminal"
-    // Cs.g:3125:1: parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.concretesyntax.BooleanTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
+    // Cs.g:3135:1: parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.concretesyntax.BooleanTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.BooleanTerminal parse_org_emftext_sdk_concretesyntax_BooleanTerminal() throws RecognitionException {
         org.emftext.sdk.concretesyntax.BooleanTerminal element =  null;
 
@@ -4674,11 +4684,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
 
-            // Cs.g:3128:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
-            // Cs.g:3129:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:3138:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
+            // Cs.g:3139:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
             {
-            // Cs.g:3129:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3130:3: a0= QUALIFIED_NAME
+            // Cs.g:3139:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3140:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2832); if (state.failed) return element;
 
@@ -4746,8 +4756,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[328]);
             	}
 
-            // Cs.g:3189:2: (a2= STRING )
-            // Cs.g:3190:3: a2= STRING
+            // Cs.g:3199:2: (a2= STRING )
+            // Cs.g:3200:3: a2= STRING
             {
             a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2871); if (state.failed) return element;
 
@@ -4811,8 +4821,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[330]);
             	}
 
-            // Cs.g:3245:2: (a4= STRING )
-            // Cs.g:3246:3: a4= STRING
+            // Cs.g:3255:2: (a4= STRING )
+            // Cs.g:3256:3: a4= STRING
             {
             a4=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2910); if (state.failed) return element;
 
@@ -4876,10 +4886,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[332]);
             	}
 
-            // Cs.g:3301:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
-            // Cs.g:3302:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3311:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:3312:3: (a6= '+' |a7= '*' |a8= '?' )?
             {
-            // Cs.g:3302:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3312:3: (a6= '+' |a7= '*' |a8= '?' )?
             int alt26=4;
             switch ( input.LA(1) ) {
                 case 17:
@@ -4901,7 +4911,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt26) {
                 case 1 :
-                    // Cs.g:3303:4: a6= '+'
+                    // Cs.g:3313:4: a6= '+'
                     {
                     a6=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2954); if (state.failed) return element;
 
@@ -4925,7 +4935,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:3319:8: a7= '*'
+                    // Cs.g:3329:8: a7= '*'
                     {
                     a7=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2969); if (state.failed) return element;
 
@@ -4949,7 +4959,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:3335:8: a8= '?'
+                    // Cs.g:3345:8: a8= '?'
                     {
                     a8=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2984); if (state.failed) return element;
 
@@ -5016,7 +5026,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_EnumTerminal"
-    // Cs.g:3371:1: parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concretesyntax.EnumTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
+    // Cs.g:3381:1: parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concretesyntax.EnumTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.EnumTerminal parse_org_emftext_sdk_concretesyntax_EnumTerminal() throws RecognitionException {
         org.emftext.sdk.concretesyntax.EnumTerminal element =  null;
 
@@ -5039,11 +5049,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return element; }
 
-            // Cs.g:3374:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
-            // Cs.g:3375:2: (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:3384:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
+            // Cs.g:3385:2: (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
             {
-            // Cs.g:3375:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3376:3: a0= QUALIFIED_NAME
+            // Cs.g:3385:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3386:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3024); if (state.failed) return element;
 
@@ -5111,8 +5121,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[347]);
             	}
 
-            // Cs.g:3435:2: (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
-            // Cs.g:3436:3: a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
+            // Cs.g:3445:2: (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
+            // Cs.g:3446:3: a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3063);
             a2_0=parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal();
@@ -5152,7 +5162,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[349]);
             	}
 
-            // Cs.g:3465:2: ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )*
+            // Cs.g:3475:2: ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )*
             loop27:
             do {
                 int alt27=2;
@@ -5165,10 +5175,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt27) {
             	case 1 :
-            	    // Cs.g:3466:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
+            	    // Cs.g:3476:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
             	    {
-            	    // Cs.g:3466:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
-            	    // Cs.g:3467:4: a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
+            	    // Cs.g:3476:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
+            	    // Cs.g:3477:4: a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
             	    {
             	    a3=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3090); if (state.failed) return element;
 
@@ -5190,8 +5200,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[350]);
             	    			}
 
-            	    // Cs.g:3484:4: (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
-            	    // Cs.g:3485:5: a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
+            	    // Cs.g:3494:4: (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
+            	    // Cs.g:3495:5: a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3116);
             	    a4_0=parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal();
@@ -5269,10 +5279,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[355]);
             	}
 
-            // Cs.g:3539:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
-            // Cs.g:3540:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3549:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:3550:3: (a6= '+' |a7= '*' |a8= '?' )?
             {
-            // Cs.g:3540:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3550:3: (a6= '+' |a7= '*' |a8= '?' )?
             int alt28=4;
             switch ( input.LA(1) ) {
                 case 17:
@@ -5294,7 +5304,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt28) {
                 case 1 :
-                    // Cs.g:3541:4: a6= '+'
+                    // Cs.g:3551:4: a6= '+'
                     {
                     a6=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3180); if (state.failed) return element;
 
@@ -5318,7 +5328,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:3557:8: a7= '*'
+                    // Cs.g:3567:8: a7= '*'
                     {
                     a7=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3195); if (state.failed) return element;
 
@@ -5342,7 +5352,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:3573:8: a8= '?'
+                    // Cs.g:3583:8: a8= '?'
                     {
                     a8=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3210); if (state.failed) return element;
 
@@ -5409,7 +5419,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal"
-    // Cs.g:3609:1: parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sdk.concretesyntax.EnumLiteralTerminal element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) ;
+    // Cs.g:3619:1: parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sdk.concretesyntax.EnumLiteralTerminal element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) ;
     public final org.emftext.sdk.concretesyntax.EnumLiteralTerminal parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal() throws RecognitionException {
         org.emftext.sdk.concretesyntax.EnumLiteralTerminal element =  null;
 
@@ -5424,11 +5434,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return element; }
 
-            // Cs.g:3612:2: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) )
-            // Cs.g:3613:2: (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING )
+            // Cs.g:3622:2: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) )
+            // Cs.g:3623:2: (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING )
             {
-            // Cs.g:3613:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3614:3: a0= QUALIFIED_NAME
+            // Cs.g:3623:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3624:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal3250); if (state.failed) return element;
 
@@ -5490,8 +5500,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[370]);
             	}
 
-            // Cs.g:3667:2: (a2= STRING )
-            // Cs.g:3668:3: a2= STRING
+            // Cs.g:3677:2: (a2= STRING )
+            // Cs.g:3678:3: a2= STRING
             {
             a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal3289); if (state.failed) return element;
 
@@ -5553,7 +5563,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Containment"
-    // Cs.g:3706:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) ;
+    // Cs.g:3716:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.Containment parse_org_emftext_sdk_concretesyntax_Containment() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Containment element =  null;
 
@@ -5573,11 +5583,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return element; }
 
-            // Cs.g:3709:2: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) )
-            // Cs.g:3710:2: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? )
+            // Cs.g:3719:2: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) )
+            // Cs.g:3720:2: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? )
             {
-            // Cs.g:3710:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3711:3: a0= QUALIFIED_NAME
+            // Cs.g:3720:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3721:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment3329); if (state.failed) return element;
 
@@ -5626,7 +5636,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[374]);
             	}
 
-            // Cs.g:3754:2: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
+            // Cs.g:3764:2: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -5635,10 +5645,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt30) {
                 case 1 :
-                    // Cs.g:3755:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // Cs.g:3765:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
                     {
-                    // Cs.g:3755:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
-                    // Cs.g:3756:4: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // Cs.g:3765:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // Cs.g:3766:4: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     {
                     a1=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_Containment3359); if (state.failed) return element;
 
@@ -5660,8 +5670,8 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[375]);
                     			}
 
-                    // Cs.g:3773:4: (a2= QUALIFIED_NAME )
-                    // Cs.g:3774:5: a2= QUALIFIED_NAME
+                    // Cs.g:3783:4: (a2= QUALIFIED_NAME )
+                    // Cs.g:3784:5: a2= QUALIFIED_NAME
                     {
                     a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment3385); if (state.failed) return element;
 
@@ -5710,7 +5720,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[377]);
                     			}
 
-                    // Cs.g:3817:4: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // Cs.g:3827:4: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     loop29:
                     do {
                         int alt29=2;
@@ -5723,10 +5733,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // Cs.g:3818:5: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // Cs.g:3828:5: (a3= ',' (a4= QUALIFIED_NAME ) )
                     	    {
-                    	    // Cs.g:3818:5: (a3= ',' (a4= QUALIFIED_NAME ) )
-                    	    // Cs.g:3819:6: a3= ',' (a4= QUALIFIED_NAME )
+                    	    // Cs.g:3828:5: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // Cs.g:3829:6: a3= ',' (a4= QUALIFIED_NAME )
                     	    {
                     	    a3=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_Containment3431); if (state.failed) return element;
 
@@ -5748,8 +5758,8 @@ public class CsParser extends CsANTLRParserBase {
                     	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[378]);
                     	    					}
 
-                    	    // Cs.g:3836:6: (a4= QUALIFIED_NAME )
-                    	    // Cs.g:3837:7: a4= QUALIFIED_NAME
+                    	    // Cs.g:3846:6: (a4= QUALIFIED_NAME )
+                    	    // Cs.g:3847:7: a4= QUALIFIED_NAME
                     	    {
                     	    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment3465); if (state.failed) return element;
 
@@ -5830,10 +5840,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[383]);
             	}
 
-            // Cs.g:3895:2: ( (a5= '+' |a6= '*' |a7= '?' )? )
-            // Cs.g:3896:3: (a5= '+' |a6= '*' |a7= '?' )?
+            // Cs.g:3905:2: ( (a5= '+' |a6= '*' |a7= '?' )? )
+            // Cs.g:3906:3: (a5= '+' |a6= '*' |a7= '?' )?
             {
-            // Cs.g:3896:3: (a5= '+' |a6= '*' |a7= '?' )?
+            // Cs.g:3906:3: (a5= '+' |a6= '*' |a7= '?' )?
             int alt31=4;
             switch ( input.LA(1) ) {
                 case 17:
@@ -5855,7 +5865,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt31) {
                 case 1 :
-                    // Cs.g:3897:4: a5= '+'
+                    // Cs.g:3907:4: a5= '+'
                     {
                     a5=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Containment3555); if (state.failed) return element;
 
@@ -5879,7 +5889,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:3913:8: a6= '*'
+                    // Cs.g:3923:8: a6= '*'
                     {
                     a6=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_Containment3570); if (state.failed) return element;
 
@@ -5903,7 +5913,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:3929:8: a7= '?'
+                    // Cs.g:3939:8: a7= '?'
                     {
                     a7=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_Containment3585); if (state.failed) return element;
 
@@ -5970,7 +5980,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CompoundDefinition"
-    // Cs.g:3965:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
+    // Cs.g:3975:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.CompoundDefinition parse_org_emftext_sdk_concretesyntax_CompoundDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CompoundDefinition element =  null;
 
@@ -5989,8 +5999,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return element; }
 
-            // Cs.g:3968:2: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
-            // Cs.g:3969:2: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:3978:2: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
+            // Cs.g:3979:2: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? )
             {
             a0=(Token)match(input,14,FOLLOW_14_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3621); if (state.failed) return element;
 
@@ -6021,8 +6031,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[406]);
             	}
 
-            // Cs.g:3995:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // Cs.g:3996:3: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // Cs.g:4005:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // Cs.g:4006:3: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3639);
             a1_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -6081,10 +6091,10 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[408]);
             	}
 
-            // Cs.g:4041:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
-            // Cs.g:4042:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:4051:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:4052:3: (a3= '+' |a4= '*' |a5= '?' )?
             {
-            // Cs.g:4042:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:4052:3: (a3= '+' |a4= '*' |a5= '?' )?
             int alt32=4;
             switch ( input.LA(1) ) {
                 case 17:
@@ -6106,7 +6116,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt32) {
                 case 1 :
-                    // Cs.g:4043:4: a3= '+'
+                    // Cs.g:4053:4: a3= '+'
                     {
                     a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3680); if (state.failed) return element;
 
@@ -6130,7 +6140,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:4059:8: a4= '*'
+                    // Cs.g:4069:8: a4= '*'
                     {
                     a4=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3695); if (state.failed) return element;
 
@@ -6154,7 +6164,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:4075:8: a5= '?'
+                    // Cs.g:4085:8: a5= '?'
                     {
                     a5=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3710); if (state.failed) return element;
 
@@ -6221,7 +6231,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_WhiteSpaces"
-    // Cs.g:4111:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
+    // Cs.g:4121:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
     public final org.emftext.sdk.concretesyntax.WhiteSpaces parse_org_emftext_sdk_concretesyntax_WhiteSpaces() throws RecognitionException {
         org.emftext.sdk.concretesyntax.WhiteSpaces element =  null;
 
@@ -6234,11 +6244,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return element; }
 
-            // Cs.g:4114:2: ( (a0= HEXNUMBER ) )
-            // Cs.g:4115:2: (a0= HEXNUMBER )
+            // Cs.g:4124:2: ( (a0= HEXNUMBER ) )
+            // Cs.g:4125:2: (a0= HEXNUMBER )
             {
-            // Cs.g:4115:2: (a0= HEXNUMBER )
-            // Cs.g:4116:3: a0= HEXNUMBER
+            // Cs.g:4125:2: (a0= HEXNUMBER )
+            // Cs.g:4126:3: a0= HEXNUMBER
             {
             a0=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_WhiteSpaces3750); if (state.failed) return element;
 
@@ -6311,7 +6321,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_LineBreak"
-    // Cs.g:4165:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : (a0= TABNUMBER ) ;
+    // Cs.g:4175:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : (a0= TABNUMBER ) ;
     public final org.emftext.sdk.concretesyntax.LineBreak parse_org_emftext_sdk_concretesyntax_LineBreak() throws RecognitionException {
         org.emftext.sdk.concretesyntax.LineBreak element =  null;
 
@@ -6324,11 +6334,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return element; }
 
-            // Cs.g:4168:2: ( (a0= TABNUMBER ) )
-            // Cs.g:4169:2: (a0= TABNUMBER )
+            // Cs.g:4178:2: ( (a0= TABNUMBER ) )
+            // Cs.g:4179:2: (a0= TABNUMBER )
             {
-            // Cs.g:4169:2: (a0= TABNUMBER )
-            // Cs.g:4170:3: a0= TABNUMBER
+            // Cs.g:4179:2: (a0= TABNUMBER )
+            // Cs.g:4180:3: a0= TABNUMBER
             {
             a0=(Token)match(input,TABNUMBER,FOLLOW_TABNUMBER_in_parse_org_emftext_sdk_concretesyntax_LineBreak3790); if (state.failed) return element;
 
@@ -6401,7 +6411,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenRedefinition"
-    // Cs.g:4219:1: parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.concretesyntax.TokenRedefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
+    // Cs.g:4229:1: parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.concretesyntax.TokenRedefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
     public final org.emftext.sdk.concretesyntax.TokenRedefinition parse_org_emftext_sdk_concretesyntax_TokenRedefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenRedefinition element =  null;
 
@@ -6424,10 +6434,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return element; }
 
-            // Cs.g:4222:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
-            // Cs.g:4223:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4232:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
+            // Cs.g:4233:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             {
-            // Cs.g:4223:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:4233:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop33:
             do {
                 int alt33=2;
@@ -6440,13 +6450,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt33) {
             	case 1 :
-            	    // Cs.g:4224:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4234:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:4224:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:4225:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4234:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4235:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:4225:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:4226:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:4235:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4236:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3841);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -6518,8 +6528,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[452]);
             	}
 
-            // Cs.g:4274:2: (a2= QUALIFIED_NAME )
-            // Cs.g:4275:3: a2= QUALIFIED_NAME
+            // Cs.g:4284:2: (a2= QUALIFIED_NAME )
+            // Cs.g:4285:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3900); if (state.failed) return element;
 
@@ -6581,8 +6591,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[454]);
             	}
 
-            // Cs.g:4328:2: (a4= QUALIFIED_NAME )
-            // Cs.g:4329:3: a4= QUALIFIED_NAME
+            // Cs.g:4338:2: (a4= QUALIFIED_NAME )
+            // Cs.g:4339:3: a4= QUALIFIED_NAME
             {
             a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3939); if (state.failed) return element;
 
@@ -6624,8 +6634,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[456]);
             	}
 
-            // Cs.g:4365:2: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // Cs.g:4366:3: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:4375:2: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:4376:3: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3964);
             a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -6662,7 +6672,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[458]);
             	}
 
-            // Cs.g:4392:2: ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4402:2: ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop34:
             do {
                 int alt34=2;
@@ -6675,10 +6685,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt34) {
             	case 1 :
-            	    // Cs.g:4393:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4403:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // Cs.g:4393:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // Cs.g:4394:4: a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4403:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4404:4: a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a6=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3991); if (state.failed) return element;
 
@@ -6698,8 +6708,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[460]);
             	    			}
 
-            	    // Cs.g:4409:4: (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // Cs.g:4410:5: a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:4419:4: (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4420:5: a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition4017);
             	    a7_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -6774,7 +6784,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition"
-    // Cs.g:4446:1: parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.sdk.concretesyntax.NormalTokenDefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? ;
+    // Cs.g:4456:1: parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.sdk.concretesyntax.NormalTokenDefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? ;
     public final org.emftext.sdk.concretesyntax.NormalTokenDefinition parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.NormalTokenDefinition element =  null;
 
@@ -6798,10 +6808,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return element; }
 
-            // Cs.g:4449:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? )
-            // Cs.g:4450:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
+            // Cs.g:4459:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? )
+            // Cs.g:4460:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
             {
-            // Cs.g:4450:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:4460:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop35:
             do {
                 int alt35=2;
@@ -6814,13 +6824,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt35) {
             	case 1 :
-            	    // Cs.g:4451:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4461:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:4451:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:4452:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4461:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4462:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:4452:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:4453:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:4462:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4463:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4088);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -6892,8 +6902,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[469]);
             	}
 
-            // Cs.g:4501:2: (a2= QUALIFIED_NAME )
-            // Cs.g:4502:3: a2= QUALIFIED_NAME
+            // Cs.g:4511:2: (a2= QUALIFIED_NAME )
+            // Cs.g:4512:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4147); if (state.failed) return element;
 
@@ -6935,8 +6945,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[471]);
             	}
 
-            // Cs.g:4538:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // Cs.g:4539:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:4548:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:4549:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4172);
             a3_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -6974,7 +6984,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[474]);
             	}
 
-            // Cs.g:4566:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4576:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop36:
             do {
                 int alt36=2;
@@ -6987,10 +6997,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt36) {
             	case 1 :
-            	    // Cs.g:4567:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4577:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // Cs.g:4567:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // Cs.g:4568:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4577:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4578:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4199); if (state.failed) return element;
 
@@ -7010,8 +7020,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[476]);
             	    			}
 
-            	    // Cs.g:4583:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // Cs.g:4584:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:4593:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4594:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4225);
             	    a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7068,7 +7078,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[482]);
             	}
 
-            // Cs.g:4620:2: ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
+            // Cs.g:4630:2: ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -7077,10 +7087,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt37) {
                 case 1 :
-                    // Cs.g:4621:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
+                    // Cs.g:4631:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
                     {
-                    // Cs.g:4621:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
-                    // Cs.g:4622:4: a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME )
+                    // Cs.g:4631:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
+                    // Cs.g:4632:4: a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME )
                     {
                     a6=(Token)match(input,27,FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4275); if (state.failed) return element;
 
@@ -7116,8 +7126,8 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[484]);
                     			}
 
-                    // Cs.g:4650:4: (a8= QUALIFIED_NAME )
-                    // Cs.g:4651:5: a8= QUALIFIED_NAME
+                    // Cs.g:4660:4: (a8= QUALIFIED_NAME )
+                    // Cs.g:4661:5: a8= QUALIFIED_NAME
                     {
                     a8=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4321); if (state.failed) return element;
 
@@ -7192,7 +7202,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition"
-    // Cs.g:4695:1: parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext.sdk.concretesyntax.PartialTokenDefinition element = null] : a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
+    // Cs.g:4705:1: parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext.sdk.concretesyntax.PartialTokenDefinition element = null] : a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
     public final org.emftext.sdk.concretesyntax.PartialTokenDefinition parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PartialTokenDefinition element =  null;
 
@@ -7212,8 +7222,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return element; }
 
-            // Cs.g:4698:2: (a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
-            // Cs.g:4699:2: a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4708:2: (a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
+            // Cs.g:4709:2: a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             {
             a0=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4382); if (state.failed) return element;
 
@@ -7249,8 +7259,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[488]);
             	}
 
-            // Cs.g:4727:2: (a2= QUALIFIED_NAME )
-            // Cs.g:4728:3: a2= QUALIFIED_NAME
+            // Cs.g:4737:2: (a2= QUALIFIED_NAME )
+            // Cs.g:4738:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4414); if (state.failed) return element;
 
@@ -7292,8 +7302,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[490]);
             	}
 
-            // Cs.g:4764:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // Cs.g:4765:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:4774:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:4775:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4439);
             a3_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7330,7 +7340,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[492]);
             	}
 
-            // Cs.g:4791:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4801:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop38:
             do {
                 int alt38=2;
@@ -7343,10 +7353,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt38) {
             	case 1 :
-            	    // Cs.g:4792:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4802:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // Cs.g:4792:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // Cs.g:4793:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4802:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4803:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4466); if (state.failed) return element;
 
@@ -7366,8 +7376,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[494]);
             	    			}
 
-            	    // Cs.g:4808:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // Cs.g:4809:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:4818:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4819:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4492);
             	    a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7442,7 +7452,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective"
-    // Cs.g:4845:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
+    // Cs.g:4855:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
     public final org.emftext.sdk.concretesyntax.TokenPriorityDirective parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenPriorityDirective element =  null;
 
@@ -7456,8 +7466,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return element; }
 
-            // Cs.g:4848:2: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
-            // Cs.g:4849:2: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
+            // Cs.g:4858:2: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
+            // Cs.g:4859:2: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
             {
             a0=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective4548); if (state.failed) return element;
 
@@ -7476,8 +7486,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[499]);
             	}
 
-            // Cs.g:4863:2: (a1= QUALIFIED_NAME )
-            // Cs.g:4864:3: a1= QUALIFIED_NAME
+            // Cs.g:4873:2: (a1= QUALIFIED_NAME )
+            // Cs.g:4874:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective4566); if (state.failed) return element;
 
@@ -7542,7 +7552,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_AtomicRegex"
-    // Cs.g:4905:1: parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concretesyntax.AtomicRegex element = null] : (a0= QUOTED_36_36 ) ;
+    // Cs.g:4915:1: parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concretesyntax.AtomicRegex element = null] : (a0= QUOTED_36_36 ) ;
     public final org.emftext.sdk.concretesyntax.AtomicRegex parse_org_emftext_sdk_concretesyntax_AtomicRegex() throws RecognitionException {
         org.emftext.sdk.concretesyntax.AtomicRegex element =  null;
 
@@ -7555,11 +7565,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return element; }
 
-            // Cs.g:4908:2: ( (a0= QUOTED_36_36 ) )
-            // Cs.g:4909:2: (a0= QUOTED_36_36 )
+            // Cs.g:4918:2: ( (a0= QUOTED_36_36 ) )
+            // Cs.g:4919:2: (a0= QUOTED_36_36 )
             {
-            // Cs.g:4909:2: (a0= QUOTED_36_36 )
-            // Cs.g:4910:3: a0= QUOTED_36_36
+            // Cs.g:4919:2: (a0= QUOTED_36_36 )
+            // Cs.g:4920:3: a0= QUOTED_36_36
             {
             a0=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_parse_org_emftext_sdk_concretesyntax_AtomicRegex4606); if (state.failed) return element;
 
@@ -7624,7 +7634,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_RegexReference"
-    // Cs.g:4951:1: parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.concretesyntax.RegexReference element = null] : (a0= QUALIFIED_NAME ) ;
+    // Cs.g:4961:1: parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.concretesyntax.RegexReference element = null] : (a0= QUALIFIED_NAME ) ;
     public final org.emftext.sdk.concretesyntax.RegexReference parse_org_emftext_sdk_concretesyntax_RegexReference() throws RecognitionException {
         org.emftext.sdk.concretesyntax.RegexReference element =  null;
 
@@ -7637,11 +7647,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return element; }
 
-            // Cs.g:4954:2: ( (a0= QUALIFIED_NAME ) )
-            // Cs.g:4955:2: (a0= QUALIFIED_NAME )
+            // Cs.g:4964:2: ( (a0= QUALIFIED_NAME ) )
+            // Cs.g:4965:2: (a0= QUALIFIED_NAME )
             {
-            // Cs.g:4955:2: (a0= QUALIFIED_NAME )
-            // Cs.g:4956:3: a0= QUALIFIED_NAME
+            // Cs.g:4965:2: (a0= QUALIFIED_NAME )
+            // Cs.g:4966:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_RegexReference4646); if (state.failed) return element;
 
@@ -7710,7 +7720,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenStyle"
-    // Cs.g:5001:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' ;
+    // Cs.g:5011:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' ;
     public final org.emftext.sdk.concretesyntax.TokenStyle parse_org_emftext_sdk_concretesyntax_TokenStyle() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenStyle element =  null;
 
@@ -7730,11 +7740,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return element; }
 
-            // Cs.g:5004:2: ( (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' )
-            // Cs.g:5005:2: (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';'
+            // Cs.g:5014:2: ( (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' )
+            // Cs.g:5015:2: (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';'
             {
-            // Cs.g:5005:2: (a0= STRING )
-            // Cs.g:5006:3: a0= STRING
+            // Cs.g:5015:2: (a0= STRING )
+            // Cs.g:5016:3: a0= STRING
             {
             a0=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4686); if (state.failed) return element;
 
@@ -7776,7 +7786,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[512]);
             	}
 
-            // Cs.g:5042:2: ( (a1= ',' (a2= STRING ) ) )*
+            // Cs.g:5052:2: ( (a1= ',' (a2= STRING ) ) )*
             loop39:
             do {
                 int alt39=2;
@@ -7789,10 +7799,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt39) {
             	case 1 :
-            	    // Cs.g:5043:3: (a1= ',' (a2= STRING ) )
+            	    // Cs.g:5053:3: (a1= ',' (a2= STRING ) )
             	    {
-            	    // Cs.g:5043:3: (a1= ',' (a2= STRING ) )
-            	    // Cs.g:5044:4: a1= ',' (a2= STRING )
+            	    // Cs.g:5053:3: (a1= ',' (a2= STRING ) )
+            	    // Cs.g:5054:4: a1= ',' (a2= STRING )
             	    {
             	    a1=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4716); if (state.failed) return element;
 
@@ -7811,8 +7821,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[513]);
             	    			}
 
-            	    // Cs.g:5058:4: (a2= STRING )
-            	    // Cs.g:5059:5: a2= STRING
+            	    // Cs.g:5068:4: (a2= STRING )
+            	    // Cs.g:5069:5: a2= STRING
             	    {
             	    a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4742); if (state.failed) return element;
 
@@ -7889,8 +7899,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[518]);
             	}
 
-            // Cs.g:5117:2: (a4= HEXNUMBER )
-            // Cs.g:5118:3: a4= HEXNUMBER
+            // Cs.g:5127:2: (a4= HEXNUMBER )
+            // Cs.g:5128:3: a4= HEXNUMBER
             {
             a4=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4806); if (state.failed) return element;
 
@@ -7932,7 +7942,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[520]);
             	}
 
-            // Cs.g:5154:2: ( (a5= ',' (a6= QUALIFIED_NAME ) ) )*
+            // Cs.g:5164:2: ( (a5= ',' (a6= QUALIFIED_NAME ) ) )*
             loop40:
             do {
                 int alt40=2;
@@ -7945,10 +7955,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt40) {
             	case 1 :
-            	    // Cs.g:5155:3: (a5= ',' (a6= QUALIFIED_NAME ) )
+            	    // Cs.g:5165:3: (a5= ',' (a6= QUALIFIED_NAME ) )
             	    {
-            	    // Cs.g:5155:3: (a5= ',' (a6= QUALIFIED_NAME ) )
-            	    // Cs.g:5156:4: a5= ',' (a6= QUALIFIED_NAME )
+            	    // Cs.g:5165:3: (a5= ',' (a6= QUALIFIED_NAME ) )
+            	    // Cs.g:5166:4: a5= ',' (a6= QUALIFIED_NAME )
             	    {
             	    a5=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4836); if (state.failed) return element;
 
@@ -7967,8 +7977,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[521]);
             	    			}
 
-            	    // Cs.g:5170:4: (a6= QUALIFIED_NAME )
-            	    // Cs.g:5171:5: a6= QUALIFIED_NAME
+            	    // Cs.g:5180:4: (a6= QUALIFIED_NAME )
+            	    // Cs.g:5181:5: a6= QUALIFIED_NAME
             	    {
             	    a6=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4862); if (state.failed) return element;
 
@@ -8066,7 +8076,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Annotation"
-    // Cs.g:5232:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
+    // Cs.g:5242:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
     public final org.emftext.sdk.concretesyntax.Annotation parse_org_emftext_sdk_concretesyntax_Annotation() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Annotation element =  null;
 
@@ -8087,8 +8097,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return element; }
 
-            // Cs.g:5235:2: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
-            // Cs.g:5236:2: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // Cs.g:5245:2: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
+            // Cs.g:5246:2: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             {
             a0=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_Annotation4937); if (state.failed) return element;
 
@@ -8107,8 +8117,8 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[528]);
             	}
 
-            // Cs.g:5250:2: (a1= QUALIFIED_NAME )
-            // Cs.g:5251:3: a1= QUALIFIED_NAME
+            // Cs.g:5260:2: (a1= QUALIFIED_NAME )
+            // Cs.g:5261:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Annotation4955); if (state.failed) return element;
 
@@ -8156,7 +8166,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[536]);
             	}
 
-            // Cs.g:5293:2: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // Cs.g:5303:2: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             int alt42=2;
             int LA42_0 = input.LA(1);
 
@@ -8165,10 +8175,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt42) {
                 case 1 :
-                    // Cs.g:5294:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // Cs.g:5304:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
                     {
-                    // Cs.g:5294:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
-                    // Cs.g:5295:4: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
+                    // Cs.g:5304:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // Cs.g:5305:4: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
                     {
                     a2=(Token)match(input,14,FOLLOW_14_in_parse_org_emftext_sdk_concretesyntax_Annotation4985); if (state.failed) return element;
 
@@ -8187,8 +8197,8 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[537]);
                     			}
 
-                    // Cs.g:5309:4: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    // Cs.g:5310:5: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    // Cs.g:5319:4: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    // Cs.g:5320:5: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation5011);
                     a3_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -8225,7 +8235,7 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[539]);
                     			}
 
-                    // Cs.g:5336:4: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
+                    // Cs.g:5346:4: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
                     loop41:
                     do {
                         int alt41=2;
@@ -8238,10 +8248,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt41) {
                     	case 1 :
-                    	    // Cs.g:5337:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // Cs.g:5347:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
                     	    {
-                    	    // Cs.g:5337:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
-                    	    // Cs.g:5338:6: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // Cs.g:5347:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // Cs.g:5348:6: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
                     	    {
                     	    a4=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_Annotation5052); if (state.failed) return element;
 
@@ -8260,8 +8270,8 @@ public class CsParser extends CsANTLRParserBase {
                     	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[540]);
                     	    					}
 
-                    	    // Cs.g:5352:6: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    	    // Cs.g:5353:7: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    	    // Cs.g:5362:6: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // Cs.g:5363:7: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation5086);
                     	    a5_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -8379,7 +8389,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_KeyValuePair"
-    // Cs.g:5422:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? ;
+    // Cs.g:5432:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? ;
     public final org.emftext.sdk.concretesyntax.KeyValuePair parse_org_emftext_sdk_concretesyntax_KeyValuePair() throws RecognitionException {
         org.emftext.sdk.concretesyntax.KeyValuePair element =  null;
 
@@ -8394,11 +8404,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return element; }
 
-            // Cs.g:5425:2: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? )
-            // Cs.g:5426:2: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )?
+            // Cs.g:5435:2: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? )
+            // Cs.g:5436:2: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )?
             {
-            // Cs.g:5426:2: (a0= QUALIFIED_NAME )
-            // Cs.g:5427:3: a0= QUALIFIED_NAME
+            // Cs.g:5436:2: (a0= QUALIFIED_NAME )
+            // Cs.g:5437:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair5199); if (state.failed) return element;
 
@@ -8441,7 +8451,7 @@ public class CsParser extends CsANTLRParserBase {
             		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[561]);
             	}
 
-            // Cs.g:5464:2: ( (a1= '=' (a2= STRING ) ) )?
+            // Cs.g:5474:2: ( (a1= '=' (a2= STRING ) ) )?
             int alt43=2;
             int LA43_0 = input.LA(1);
 
@@ -8450,10 +8460,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt43) {
                 case 1 :
-                    // Cs.g:5465:3: (a1= '=' (a2= STRING ) )
+                    // Cs.g:5475:3: (a1= '=' (a2= STRING ) )
                     {
-                    // Cs.g:5465:3: (a1= '=' (a2= STRING ) )
-                    // Cs.g:5466:4: a1= '=' (a2= STRING )
+                    // Cs.g:5475:3: (a1= '=' (a2= STRING ) )
+                    // Cs.g:5476:4: a1= '=' (a2= STRING )
                     {
                     a1=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair5229); if (state.failed) return element;
 
@@ -8472,8 +8482,8 @@ public class CsParser extends CsANTLRParserBase {
                     				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[562]);
                     			}
 
-                    // Cs.g:5480:4: (a2= STRING )
-                    // Cs.g:5481:5: a2= STRING
+                    // Cs.g:5490:4: (a2= STRING )
+                    // Cs.g:5491:5: a2= STRING
                     {
                     a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair5255); if (state.failed) return element;
 
@@ -8550,7 +8560,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenDirective"
-    // Cs.g:5527:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
+    // Cs.g:5537:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
     public final org.emftext.sdk.concretesyntax.TokenDirective parse_org_emftext_sdk_concretesyntax_TokenDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenDirective element =  null;
 
@@ -8568,12 +8578,12 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return element; }
 
-            // Cs.g:5528:2: (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
+            // Cs.g:5538:2: (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
             int alt44=4;
             alt44 = dfa44.predict(input);
             switch (alt44) {
                 case 1 :
-                    // Cs.g:5529:2: c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition
+                    // Cs.g:5539:2: c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenRedefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5312);
                     c0=parse_org_emftext_sdk_concretesyntax_TokenRedefinition();
@@ -8586,7 +8596,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:5530:4: c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition
+                    // Cs.g:5540:4: c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5322);
                     c1=parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition();
@@ -8599,7 +8609,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:5531:4: c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition
+                    // Cs.g:5541:4: c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5332);
                     c2=parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition();
@@ -8612,7 +8622,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 4 :
-                    // Cs.g:5532:4: c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
+                    // Cs.g:5542:4: c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5342);
                     c3=parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective();
@@ -8644,7 +8654,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Definition"
-    // Cs.g:5536:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak );
+    // Cs.g:5546:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak );
     public final org.emftext.sdk.concretesyntax.Definition parse_org_emftext_sdk_concretesyntax_Definition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Definition element =  null;
 
@@ -8674,7 +8684,7 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return element; }
 
-            // Cs.g:5537:2: (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak )
+            // Cs.g:5547:2: (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak )
             int alt45=10;
             switch ( input.LA(1) ) {
             case STRING:
@@ -8772,7 +8782,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt45) {
                 case 1 :
-                    // Cs.g:5538:2: c0= parse_org_emftext_sdk_concretesyntax_CsString
+                    // Cs.g:5548:2: c0= parse_org_emftext_sdk_concretesyntax_CsString
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CsString_in_parse_org_emftext_sdk_concretesyntax_Definition5363);
                     c0=parse_org_emftext_sdk_concretesyntax_CsString();
@@ -8785,7 +8795,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:5539:4: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
+                    // Cs.g:5549:4: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken_in_parse_org_emftext_sdk_concretesyntax_Definition5373);
                     c1=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken();
@@ -8798,7 +8808,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:5540:4: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
+                    // Cs.g:5550:4: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken_in_parse_org_emftext_sdk_concretesyntax_Definition5383);
                     c2=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken();
@@ -8811,7 +8821,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 4 :
-                    // Cs.g:5541:4: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
+                    // Cs.g:5551:4: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes_in_parse_org_emftext_sdk_concretesyntax_Definition5393);
                     c3=parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes();
@@ -8824,7 +8834,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 5 :
-                    // Cs.g:5542:4: c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal
+                    // Cs.g:5552:4: c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_BooleanTerminal_in_parse_org_emftext_sdk_concretesyntax_Definition5403);
                     c4=parse_org_emftext_sdk_concretesyntax_BooleanTerminal();
@@ -8837,7 +8847,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 6 :
-                    // Cs.g:5543:4: c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal
+                    // Cs.g:5553:4: c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_EnumTerminal_in_parse_org_emftext_sdk_concretesyntax_Definition5413);
                     c5=parse_org_emftext_sdk_concretesyntax_EnumTerminal();
@@ -8850,7 +8860,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 7 :
-                    // Cs.g:5544:4: c6= parse_org_emftext_sdk_concretesyntax_Containment
+                    // Cs.g:5554:4: c6= parse_org_emftext_sdk_concretesyntax_Containment
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Containment_in_parse_org_emftext_sdk_concretesyntax_Definition5423);
                     c6=parse_org_emftext_sdk_concretesyntax_Containment();
@@ -8863,7 +8873,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 8 :
-                    // Cs.g:5545:4: c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
+                    // Cs.g:5555:4: c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CompoundDefinition_in_parse_org_emftext_sdk_concretesyntax_Definition5433);
                     c7=parse_org_emftext_sdk_concretesyntax_CompoundDefinition();
@@ -8876,7 +8886,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 9 :
-                    // Cs.g:5546:4: c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
+                    // Cs.g:5556:4: c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_WhiteSpaces_in_parse_org_emftext_sdk_concretesyntax_Definition5443);
                     c8=parse_org_emftext_sdk_concretesyntax_WhiteSpaces();
@@ -8889,7 +8899,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 10 :
-                    // Cs.g:5547:4: c9= parse_org_emftext_sdk_concretesyntax_LineBreak
+                    // Cs.g:5557:4: c9= parse_org_emftext_sdk_concretesyntax_LineBreak
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_LineBreak_in_parse_org_emftext_sdk_concretesyntax_Definition5453);
                     c9=parse_org_emftext_sdk_concretesyntax_LineBreak();
@@ -8921,7 +8931,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_RegexPart"
-    // Cs.g:5551:1: parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concretesyntax.RegexPart element = null] : (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference );
+    // Cs.g:5561:1: parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concretesyntax.RegexPart element = null] : (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference );
     public final org.emftext.sdk.concretesyntax.RegexPart parse_org_emftext_sdk_concretesyntax_RegexPart() throws RecognitionException {
         org.emftext.sdk.concretesyntax.RegexPart element =  null;
 
@@ -8935,7 +8945,7 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return element; }
 
-            // Cs.g:5552:2: (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference )
+            // Cs.g:5562:2: (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference )
             int alt46=2;
             int LA46_0 = input.LA(1);
 
@@ -8955,7 +8965,7 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt46) {
                 case 1 :
-                    // Cs.g:5553:2: c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex
+                    // Cs.g:5563:2: c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_AtomicRegex_in_parse_org_emftext_sdk_concretesyntax_RegexPart5474);
                     c0=parse_org_emftext_sdk_concretesyntax_AtomicRegex();
@@ -8968,7 +8978,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:5554:4: c1= parse_org_emftext_sdk_concretesyntax_RegexReference
+                    // Cs.g:5564:4: c1= parse_org_emftext_sdk_concretesyntax_RegexReference
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexReference_in_parse_org_emftext_sdk_concretesyntax_RegexPart5484);
                     c1=parse_org_emftext_sdk_concretesyntax_RegexReference();
@@ -9065,7 +9075,7 @@ public class CsParser extends CsANTLRParserBase {
             this.transition = DFA44_transition;
         }
         public String getDescription() {
-            return "5527:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );";
+            return "5537:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );";
         }
     }
  

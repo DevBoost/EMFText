@@ -31,4 +31,10 @@ public interface ICsParseResult {
 	 */
 	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> getPostParseCommands();
 	
+	/**
+	 * Returns a map that can be used to retrieve the position of objects in the
+	 * parsed text.
+	 */
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap getLocationMap();
+	
 }

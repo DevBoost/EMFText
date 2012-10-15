@@ -206,6 +206,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 				}
 			}
 			
+			// We store the parser instance in a field instead of a local variable, because we
+			// may need to terminate the parser from another thread.
 			parser = getMetaInformation().createParser(actualInputStream, encoding);
 			parser.setOptions(options);
 			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
@@ -225,6 +227,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			if (result != null) {
 				root = result.getRoot();
 				if (root != null) {
+					org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap newLocationMap = result.getLocationMap();
+					if (newLocationMap != null) {
+						this.locationMap = newLocationMap;
+					}
 					if (isLayoutInformationRecordingEnabled()) {
 						layoutUtil.transferAllLayoutInformationToModel(root);
 					}
@@ -398,11 +404,9 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	 * Clears the location map by replacing it with a new instance.
 	 */
 	protected void resetLocationMap() {
-		if (isLocationMapEnabled()) {
-			locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
-		} else {
-			locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDevNullLocationMap();
-		}
+		// Although, the location map is obtained from the parser after every parse run,
+		// we initialize it here to avoid null pointer exceptions.
+		locationMap = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocationMap();
 	}
 	
 	public void addURIFragment(String internalURIFragment, org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment) {

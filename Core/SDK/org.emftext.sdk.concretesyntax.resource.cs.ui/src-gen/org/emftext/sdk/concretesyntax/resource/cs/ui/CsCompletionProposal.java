@@ -22,42 +22,15 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsCompletionProposal implements java.lang.Comparable<CsCompletionProposal> {
 	
 	/**
-	 * The root object of the resource for which this proposal was computed.
-	 */
-	private org.eclipse.emf.ecore.EObject root;
-	
-	/**
 	 * The terminal that was expected at the cursor position.
 	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal;
-	
-	/**
-	 * The string that will be inserted if the user picks this proposal. This string
-	 * can differ from 'displayString' because usually only the missing part of the
-	 * text is inserted and an existing prefix is kept.
-	 */
-	private String insertString;
-	
-	/**
-	 * The string that will be shown in the pop-up containing the completion proposals.
-	 */
-	private String displayString;
 	
 	/**
 	 * The part of the document right before the cursor that belongs to the proposal.
 	 * This may for example be a partial name of a cross-referenced element.
 	 */
 	private String prefix;
-	
-	/**
-	 * A flag that indicates whether this proposal is valid w.r.t. the prefix (i.e.,
-	 * the text that has already been typed). We do keep proposals that do not match
-	 * the prefix to allow proposal post processors to access these and add valid
-	 * proposals even if the built-in proposal engine did not find a matching
-	 * proposal. The completion pop-up will only show proposals for which this method
-	 * returns true. See also {@link #getMatchesPrefix()}.
-	 */
-	private boolean matchesPrefix;
 	
 	/**
 	 * The structural feature (attribute or non-containment reference) that was
@@ -76,6 +49,33 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	 * The image that will be shown in the pop-up containing the completion proposals.
 	 */
 	private org.eclipse.swt.graphics.Image image;
+	
+	/**
+	 * The root object of the resource for which this proposal was computed.
+	 */
+	private org.eclipse.emf.ecore.EObject root;
+	
+	/**
+	 * The string that will be inserted if the user picks this proposal. This string
+	 * can differ from 'displayString' because usually only the missing part of the
+	 * text is inserted and an existing prefix is kept.
+	 */
+	private String insertString;
+	
+	/**
+	 * The string that will be shown in the pop-up containing the completion proposals.
+	 */
+	private String displayString;
+	
+	/**
+	 * A flag that indicates whether this proposal is valid w.r.t. the prefix (i.e.,
+	 * the text that has already been typed). We do keep proposals that do not match
+	 * the prefix to allow proposal post processors to access these and add valid
+	 * proposals even if the built-in proposal engine did not find a matching
+	 * proposal. The completion pop-up will only show proposals for which this method
+	 * returns true. See also {@link #getMatchesPrefix()}.
+	 */
+	private boolean matchesPrefix;
 	
 	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container) {
 		super();
@@ -101,20 +101,12 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		return root;
 	}
 	
-	public void setRoot(org.eclipse.emf.ecore.EObject root) {
-		this.root = root;
-	}
-	
 	public String getInsertString() {
 		return insertString;
 	}
 	
 	public String getDisplayString() {
 		return displayString;
-	}
-	
-	public String getPrefix() {
-		return prefix;
 	}
 	
 	/**
@@ -125,6 +117,26 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	 */
 	public boolean getMatchesPrefix() {
 		return matchesPrefix;
+	}
+	
+	public void setRoot(org.eclipse.emf.ecore.EObject root) {
+		this.root = root;
+	}
+	
+	public void setInsertString(String insertString) {
+		this.insertString = insertString;
+	}
+	
+	public void setDisplayString(String displayString) {
+		this.displayString = displayString;
+	}
+	
+	public void setMatchesPrefix(boolean matchesPrefix) {
+		this.matchesPrefix = matchesPrefix;
+	}
+	
+	public String getPrefix() {
+		return prefix;
 	}
 	
 	public org.eclipse.swt.graphics.Image getImage() {
