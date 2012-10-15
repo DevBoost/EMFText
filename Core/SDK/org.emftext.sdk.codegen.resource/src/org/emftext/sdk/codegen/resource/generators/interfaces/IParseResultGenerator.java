@@ -43,6 +43,10 @@ public class IParseResultGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands();");
 		sc.addLineBreak();
 		
+		sc.addJavadoc("Returns a map that can be used to retrieve the position of objects in the parsed text.");
+		sc.add("public " + iLocationMapClassName + " getLocationMap();");
+		sc.addLineBreak();
+		
 		sc.add("}");
 	}
 }

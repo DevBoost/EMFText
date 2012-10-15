@@ -46,6 +46,7 @@ import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -415,6 +416,20 @@ public class GeneratorUtil {
 		
 		sc.add("public " + metaInformationClassName + " getMetaInformation() {");
 		sc.add("return new " + metaInformationClassName + "();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	public void addIsLocationMapEnabledMethod(JavaComposite sc, GenerationContext context) {
+		String iOptionsClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
+		
+		sc.add("protected boolean isLocationMapEnabled() {");
+		sc.add("if (loadOptions == null) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "."
+				+ IOptionsGenerator.DISABLE_LOCATION_MAP
+				+ ");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

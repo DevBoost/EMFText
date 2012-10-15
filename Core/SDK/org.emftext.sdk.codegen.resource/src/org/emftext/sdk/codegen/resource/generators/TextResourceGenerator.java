@@ -101,6 +101,8 @@ public class TextResourceGenerator extends
 	}
 
 	private void addMethods(JavaComposite sc) {
+		GenerationContext context = getContext();
+
 		addConstructors(sc);
 		addDoLoadMethod(sc);
 		addUnloadAndClearContentsMethod(sc);
@@ -119,7 +121,7 @@ public class TextResourceGenerator extends
 		addGetSyntaxNameMethod(sc);
 		addGetEncoding(sc);
 		addGetReferenceResolverSwitchMethod(sc);
-		generatorUtil.addGetMetaInformationMethod(sc, getContext());
+		generatorUtil.addGetMetaInformationMethod(sc, context);
 
 		addResetLocationMapMethod(sc);
 		addAddURIFragmentMethod(sc);
@@ -161,7 +163,7 @@ public class TextResourceGenerator extends
 		addGetMarkerHelperMethod(sc);
 
 		addIsMarkerCreationEnabledMethod(sc);
-		addIsLocationMapEnabledMethod(sc);
+		generatorUtil.addIsLocationMapEnabledMethod(sc, context);
 		addIsLayoutInformationRecordingEnabled(sc);
 	}
 
@@ -670,18 +672,6 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addIsLocationMapEnabledMethod(StringComposite sc) {
-		sc.add("protected boolean isLocationMapEnabled() {");
-		sc.add("if (loadOptions == null) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "."
-				+ IOptionsGenerator.DISABLE_LOCATION_MAP
-				+ ");");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
 	private void addIsLayoutInformationRecordingEnabled(StringComposite sc) {
 		sc.add("protected boolean isLayoutInformationRecordingEnabled() {");
 		sc.add("if (loadOptions == null) {");
@@ -914,11 +904,11 @@ public class TextResourceGenerator extends
 	private void addResetLocationMapMethod(JavaComposite sc) {
 		sc.addJavadoc("Clears the location map by replacing it with a new instance.");
 		sc.add("protected void resetLocationMap() {");
-		sc.add("if (isLocationMapEnabled()) {");
+		sc.addComment(
+			"Although, the location map is obtained from the parser after every " +
+			"parse run, we initialize it here to avoid null pointer exceptions."
+		);
 		sc.add("locationMap = new " + locationMapClassName + "();");
-		sc.add("} else {");
-		sc.add("locationMap = new " + devNullLocationMapClassName + "();");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -1103,6 +1093,10 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.addLineBreak();
 
+		sc.addComment(
+			"We store the parser instance in a field instead of a local variable, " +
+			"because we may need to terminate the parser from another thread."
+		);
 		sc.add("parser = getMetaInformation().createParser(actualInputStream, encoding);");
 		sc.add("parser.setOptions(options);");
 		sc.add(iReferenceResolverSwitchClassName
@@ -1123,6 +1117,10 @@ public class TextResourceGenerator extends
 		sc.add("if (result != null) {");
 		sc.add("root = result.getRoot();");
 		sc.add("if (root != null) {");
+		sc.add(iLocationMapClassName + " newLocationMap = result.getLocationMap();");
+		sc.add("if (newLocationMap != null) {");
+		sc.add("this.locationMap = newLocationMap;");
+		sc.add("}");
 		sc.add("if (isLayoutInformationRecordingEnabled()) {");
 		sc.add("layoutUtil.transferAllLayoutInformationToModel(root);");
 		sc.add("}");

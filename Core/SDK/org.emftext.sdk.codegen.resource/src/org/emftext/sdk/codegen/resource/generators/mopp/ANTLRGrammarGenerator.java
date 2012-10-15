@@ -407,13 +407,21 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addParseMethod(ANTLRGrammarComposite sc) {
 		sc.addJavadoc("Implementation that calls {@link #doParse()} and handles the thrown RecognitionExceptions.");
 		sc.add("public " + iParseResultClassName + " parse() {");
+		sc.addComment("Reset parser state");
 		sc.add("terminateParsing = false;");
 		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + iCommandClassName + "<" + iTextResourceClassName + ">>();");
 		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
+		sc.add("if (disableLocationMap) {");
+		sc.add("locationMap = new " + devNullLocationMapClassName + "();");
+		sc.add("} else {");
+		sc.add("locationMap = new " + locationMapClassName + "();");
+		sc.add("}");
+		sc.addComment("Run parser");
 		sc.add("try {");
 		sc.add(E_OBJECT + " result =  doParse();");
 		sc.add("if (lexerExceptions.isEmpty()) {");
 		sc.add("parseResult.setRoot(result);");
+		sc.add("parseResult.setLocationMap(locationMap);");
 		sc.add("}");
 		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
 		sc.add("reportError(re);");
@@ -718,6 +726,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		);
 		sc.add("private int lastStartIncludingHidden;");
 		sc.addLineBreak();
+		sc.add("private " + iLocationMapClassName + " locationMap;");
+		sc.addLineBreak();
 	}
 
 	private void addParseToExpectedElementsMethod(ANTLRGrammarComposite sc) {
@@ -825,13 +835,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (disableLocationMap) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
-		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
-		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
+		sc.add("final " + iLocationMapClassName + " locationMap = this.locationMap;");
 		sc.add("if (locationMap == null) {");
 		sc.addComment("the locationMap can be null if the parser is used for code completion");
-		sc.add("return true;");
+		sc.add("return;");
 		sc.add("}");
+		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
+		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add("locationMap.setCharStart(target, locationMap.getCharStart(source));");
 		sc.add("locationMap.setCharEnd(target, locationMap.getCharEnd(source));");
 		sc.add("locationMap.setColumn(target, locationMap.getColumn(source));");
@@ -849,13 +859,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (disableLocationMap) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
-		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
-		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
+		sc.add("final " + iLocationMapClassName + " locationMap = this.locationMap;");
 		sc.add("if (locationMap == null) {");
 		sc.addComment("the locationMap can be null if the parser is used for code completion");
-		sc.add("return true;");
+		sc.add("return;");
 		sc.add("}");
+		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
+		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add("locationMap.setCharEnd(object, endChar);");
 		sc.add("locationMap.setLine(object, endLine);");
 		sc.add("return true;");
@@ -871,13 +881,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (disableLocationMap) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
-		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
-		sc.add(iLocationMapClassName + " locationMap = resource.getLocationMap();");
+		sc.add("final " + iLocationMapClassName + " locationMap = this.locationMap;");
 		sc.add("if (locationMap == null) {");
 		sc.addComment("the locationMap can be null if the parser is used for code completion");
-		sc.add("return true;");
+		sc.add("return;");
 		sc.add("}");
+		sc.add("postParseCommands.add(new " + iCommandClassName + "<" + iTextResourceClassName + ">() {");
+		sc.add("public boolean execute(" + iTextResourceClassName + " resource) {");
 		sc.add("if (source == null) {");
 		sc.add("return true;");
 		sc.add("}");
