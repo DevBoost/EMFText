@@ -30,9 +30,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.SearchEngine;
-import org.eclipse.jdt.core.search.TypeNameRequestor;
 import org.emftext.commons.jdt.JDTJavaClassifier;
-import org.emftext.commons.jdt.JdtFactory;
 import org.emftext.commons.jdt.JdtPackage;
 
 /**
@@ -41,6 +39,11 @@ import org.emftext.commons.jdt.JdtPackage;
  */
 public class JDTClassifierResolver {
 
+	/**
+	 * Returns the Java project that is located at the given URI. If the project
+	 * at this locations is not a Java project or if there is no project at all,
+	 * <code>null</code> is returned.
+	 */
 	public IJavaProject getJavaProject(URI uri) {
 		IProject project = getProject(uri);
 		if (project == null) {
@@ -73,13 +76,17 @@ public class JDTClassifierResolver {
 		return (isJavaProject(project) ? JavaCore.create(project) : null);
 	}
 
-	public List<JDTJavaClassifier> getAllClassifiersInClassPath(final IJavaProject javaProject) {
+	/**
+	 * Returns a list of all Java classifiers that are available in the 
+	 * classpath of the given project.
+	 */
+	public List<JDTJavaClassifier> getAllClassifiersInClassPath(IJavaProject project) {
 		List<JDTJavaClassifier> classes = new ArrayList<JDTJavaClassifier>();
 		try {
 			SearchEngine searchEngine = new SearchEngine();
 			ClassifierVisitor visitor = new ClassifierVisitor();
 			searchEngine.searchAllTypeNames(null, null, 
-					SearchEngine.createJavaSearchScope(new IJavaProject[] {javaProject}), 
+					SearchEngine.createJavaSearchScope(new IJavaProject[] {project}), 
 					visitor, IJavaSearchConstants.FORCE_IMMEDIATE_SEARCH, null);
 			classes = visitor.getClassifiersInClasspath();
 		} catch (JavaModelException e) { 
@@ -92,30 +99,5 @@ public class JDTClassifierResolver {
 		String pluginName = JdtPackage.class.getPackage().getName();
 		Status status = new Status(IStatus.WARNING, pluginName, msg, e);
 		ResourcesPlugin.getPlugin().getLog().log(status);
-	}	
-
-	private static final class ClassifierVisitor extends TypeNameRequestor {
-		
-		private List<JDTJavaClassifier> classifiersInClasspath = new ArrayList<JDTJavaClassifier>();
-
-		@Override
-		public void acceptType(int modifiers,
-				char[] packageName, char[] simpleTypeName,
-				char[][] enclosingTypeNames, String path) {
-			
-			JDTJavaClassifier javaClass = JdtFactory.eINSTANCE.createJDTJavaClassifier();
-			javaClass.setPackageName(String.valueOf(packageName));
-			for (char[] enclosingType : enclosingTypeNames) {
-				javaClass.getEnclosingTypeNames().add(String.valueOf(enclosingType));
-			}
-			javaClass.setSimpleName(String.valueOf(simpleTypeName));
-			javaClass.setPath(path);
-			// TODO set modifiers (flags)
-			classifiersInClasspath.add(javaClass);			
-		}
-
-		public List<JDTJavaClassifier> getClassifiersInClasspath() {
-			return classifiersInClasspath;
-		}
 	}
 }
