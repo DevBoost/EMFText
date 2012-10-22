@@ -18,6 +18,7 @@ package org.emftext.commons.jdt.resolve;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.search.TypeNameRequestor;
 import org.emftext.commons.jdt.JDTJavaClassifier;
 import org.emftext.commons.jdt.JdtFactory;
@@ -33,6 +34,12 @@ import org.emftext.commons.jdt.JdtFactory;
 class ClassifierVisitor extends TypeNameRequestor {
 	
 	private List<JDTJavaClassifier> classifiersInClasspath = new ArrayList<JDTJavaClassifier>();
+	private IJavaProject project;
+	
+	public ClassifierVisitor(IJavaProject project) {
+		super();
+		this.project = project;
+	}
 
 	@Override
 	public void acceptType(int modifiers,
@@ -40,6 +47,7 @@ class ClassifierVisitor extends TypeNameRequestor {
 			char[][] enclosingTypeNames, String path) {
 		
 		JDTJavaClassifier javaClass = JdtFactory.eINSTANCE.createJDTJavaClassifier();
+		javaClass.setProject(project);
 		javaClass.setPackageName(String.valueOf(packageName));
 		for (char[] enclosingType : enclosingTypeNames) {
 			javaClass.getEnclosingTypeNames().add(String.valueOf(enclosingType));

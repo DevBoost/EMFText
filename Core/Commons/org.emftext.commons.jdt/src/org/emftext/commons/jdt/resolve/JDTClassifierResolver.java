@@ -84,7 +84,7 @@ public class JDTClassifierResolver {
 		List<JDTJavaClassifier> classes = new ArrayList<JDTJavaClassifier>();
 		try {
 			SearchEngine searchEngine = new SearchEngine();
-			ClassifierVisitor visitor = new ClassifierVisitor();
+			ClassifierVisitor visitor = new ClassifierVisitor(project);
 			searchEngine.searchAllTypeNames(null, null, 
 					SearchEngine.createJavaSearchScope(new IJavaProject[] {project}), 
 					visitor, IJavaSearchConstants.FORCE_IMMEDIATE_SEARCH, null);
