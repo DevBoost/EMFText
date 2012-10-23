@@ -33,9 +33,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LIVE_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_WORKSPACE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_WORKSPACE_ROOT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODEL_VALIDATION_SERVICE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
@@ -83,14 +86,26 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addGetDefaultLoadOptionProviderExtensions(sc);
-		addGetResourceFactoryExtensions(sc);
+		addGetDefaultLoadOptionProviderExtensionsMethod(sc);
+		addGetResourceFactoryExtensionsMethod(sc);
 		addGetResourceMethod(sc);
-		addCheckEMFValidationConstraints(sc);
+		addGetFileForResourceMethod(sc);
+		addCheckEMFValidationConstraintsMethod(sc);
 		addCreateNotificationsMethod(sc);
 		addCreateNotificationMethod(sc);
 		addAddStatusMethod(sc);
-		addGetPlatformResourceEncoding(sc);
+		addGetPlatformResourceEncodingMethod(sc);
+	}
+
+	private void addGetFileForResourceMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the file the contains the given resource.");
+		sc.add("public " + I_FILE + " getFileForResource(" + RESOURCE + " resource) {");
+		sc.add(I_WORKSPACE + " workspace = " + RESOURCES_PLUGIN + ".getWorkspace();");
+		sc.add(I_WORKSPACE_ROOT + " workspaceRoot = workspace.getRoot();");
+		sc.add(PATH + " path = new " + PATH + "(resource.getURI().toPlatformString(true));");
+		sc.add("return workspaceRoot.getFile(path);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCreateNotificationMethod(JavaComposite sc) {
@@ -118,7 +133,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addGetResourceFactoryExtensions(JavaComposite sc) {
+	private void addGetResourceFactoryExtensionsMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Adds all registered resource factory extensions to the given map. " +
 			"Such extensions can be used to register multiple resource factories " +
@@ -158,7 +173,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
     	sc.addLineBreak();
 	}
 
-	private void addGetDefaultLoadOptionProviderExtensions(JavaComposite sc) {
+	private void addGetDefaultLoadOptionProviderExtensionsMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Adds all registered load option provider extension to the given map. " +
 			"Load option providers can be used to set default options for loading resources " +
@@ -202,7 +217,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addCheckEMFValidationConstraints(JavaComposite sc) {
+	private void addCheckEMFValidationConstraintsMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Checks all registered EMF validation constraints. " +
 			"Note: EMF validation does not work if OSGi is not running.");
@@ -284,7 +299,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 	
-	private void addGetPlatformResourceEncoding(JavaComposite sc) {
+	private void addGetPlatformResourceEncodingMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns the encoding for this resource that is specified in the " +
 			"workspace file properties or determined by the default workspace " +
