@@ -111,7 +111,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	private void addResetTokenRegionMethod(JavaComposite sc) {
 		sc.addJavadoc("Resets the token region to enable remove highlighting if the text is changing.");
-		sc.add("public void resetTokenRegion(){");
+		sc.add("public void resetTokenRegion() {");
 		sc.add("tokenRegion = new " + REGION + "(-1, 0);");
 		sc.add("}");
 		sc.addLineBreak();
