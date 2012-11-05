@@ -26,7 +26,7 @@ public class CsOccurrence {
 	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner tokenScanner;
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner;
 	private java.util.List<String> quotedTokenArray;
 	private org.eclipse.jface.text.source.projection.ProjectionViewer projectionViewer;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource;
@@ -40,7 +40,7 @@ public class CsOccurrence {
 	 * @param sourceViewer the source viewer for the text
 	 * @param tokenScanner the token scanner helps to find the searched tokens
 	 */
-	public CsOccurrence(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner tokenScanner) {
+	public CsOccurrence(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner) {
 		this.textResource = textResource;
 		this.projectionViewer = sourceViewer;
 		

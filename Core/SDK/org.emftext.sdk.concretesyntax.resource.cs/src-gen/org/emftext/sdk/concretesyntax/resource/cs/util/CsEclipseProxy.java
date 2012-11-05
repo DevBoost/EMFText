@@ -97,6 +97,16 @@ public class CsEclipseProxy {
 	}
 	
 	/**
+	 * Returns the file the contains the given resource.
+	 */
+	public org.eclipse.core.resources.IFile getFileForResource(org.eclipse.emf.ecore.resource.Resource resource) {
+		org.eclipse.core.resources.IWorkspace workspace = org.eclipse.core.resources.ResourcesPlugin.getWorkspace();
+		org.eclipse.core.resources.IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		org.eclipse.core.runtime.Path path = new org.eclipse.core.runtime.Path(resource.getURI().toPlatformString(true));
+		return workspaceRoot.getFile(path);
+	}
+	
+	/**
 	 * Checks all registered EMF validation constraints. Note: EMF validation does not
 	 * work if OSGi is not running.
 	 */

@@ -65,7 +65,7 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 	}
 	
 	protected org.eclipse.jface.text.rules.ITokenScanner getScanner() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(resourceProvider.getResource(), colorManager);
+		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().createTokenScanner(resourceProvider.getResource(), colorManager);
 	}
 	
 	public org.eclipse.jface.text.presentation.IPresentationReconciler getPresentationReconciler(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {

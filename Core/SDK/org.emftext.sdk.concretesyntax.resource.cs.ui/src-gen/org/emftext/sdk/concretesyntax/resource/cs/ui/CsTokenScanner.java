@@ -21,7 +21,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * <code>org.eclipse.jface.text.rules.ITokenScanner</code> interface to the
  * generated lexer.
  */
-public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanner {
+public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextScanner lexer;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken currentToken;

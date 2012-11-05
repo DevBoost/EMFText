@@ -26,7 +26,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	private java.util.List<org.eclipse.jface.viewers.ISelectionChangedListener> selectionChangedListeners = new java.util.ArrayList<org.eclipse.jface.viewers.ISelectionChangedListener>();
 	private org.eclipse.jface.viewers.ISelection selection = null;
 	private boolean isHighlightBrackets = true;
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner scanner;
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner scanner;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	private org.eclipse.swt.graphics.Color bracketColor;
 	private org.eclipse.swt.graphics.Color black;
@@ -123,7 +123,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		this.editor = editor;
 		textWidget = sourceviewer.getTextWidget();
 		projectionViewer = sourceviewer;
-		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(textResource, colorManager);
+		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().createTokenScanner(textResource, colorManager);
 		occurrence = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence(textResource, sourceviewer, scanner);
 		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(editor, sourceviewer);
 		this.colorManager = colorManager;
