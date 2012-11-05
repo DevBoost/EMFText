@@ -49,6 +49,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String iAnnotationModelProviderClassName;
 	protected String iBracketHandlerClassName;
 	protected String iBracketHandlerProviderClassName;
+	protected String iTokenScannerClassName;
 	protected String imageProviderClassName;
 	protected String launchConfigurationMainTabClassName;
 	protected String launchConfigurationTabGroupClassName;
@@ -125,6 +126,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		iAnnotationModelProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_ANNOTATION_MODEL_PROVIDER);
 		iBracketHandlerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER);
 		iBracketHandlerProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_BACKET_HANDLER_PROVIDER);
+		iTokenScannerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.I_TOKEN_SCANNER);
 		imageProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.IMAGE_PROVIDER);
 		launchConfigurationMainTabClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_MAIN_TAB);
 		launchConfigurationTabGroupClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LAUNCH_CONFIGURATION_TAB_GROUP);

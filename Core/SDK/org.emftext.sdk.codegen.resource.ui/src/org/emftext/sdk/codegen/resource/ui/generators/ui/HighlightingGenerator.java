@@ -137,7 +137,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + ARRAY_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
 		sc.add("private " + I_SELECTION + " selection = null;");
 		sc.add("private boolean isHighlightBrackets = true;");
-		sc.add("private " + tokenScannerClassName + " scanner;");
+		sc.add("private " + iTokenScannerClassName + " scanner;");
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.add("private " + COLOR + " bracketColor;");
 		sc.add("private " + COLOR + " black;");
@@ -300,7 +300,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("this.editor = editor;");
 		sc.add("textWidget = sourceviewer.getTextWidget();");
 		sc.add("projectionViewer = sourceviewer;");
-		sc.add("scanner = new " + tokenScannerClassName + "(textResource, colorManager);");
+		sc.add("scanner = new " + uiMetaInformationClassName + "().createTokenScanner(textResource, colorManager);");
 		sc.add("occurrence = new " + occurrenceClassName + "(textResource, sourceviewer, scanner);");
 		sc.add("bracketSet = new " + bracketSetClassName + "(editor, sourceviewer);");
 		sc.add("this.colorManager = colorManager;");

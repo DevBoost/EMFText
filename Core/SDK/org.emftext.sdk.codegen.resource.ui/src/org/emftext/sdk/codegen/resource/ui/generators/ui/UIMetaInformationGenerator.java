@@ -55,7 +55,7 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator<ArtifactPara
 	}
 
 	private void addCreateTokenScannerMethod2(StringComposite sc) {
-		sc.add("public " + tokenScannerClassName + " createTokenScanner(" + iTextResourceClassName + " resource, " + colorManagerClassName + " colorManager) {");
+		sc.add("public " + iTextScannerClassName + " createTokenScanner(" + iTextResourceClassName + " resource, " + colorManagerClassName + " colorManager) {");
 		sc.add("return new " + tokenScannerClassName + "(resource, colorManager);");
         sc.add("}");
         sc.addLineBreak();

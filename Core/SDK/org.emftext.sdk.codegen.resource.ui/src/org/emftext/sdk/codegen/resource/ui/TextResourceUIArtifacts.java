@@ -58,6 +58,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.HyperlinkGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IAnnotationModelProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IBracketHandlerProviderGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.ITokenScannerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.IgnoredWordsFilterGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ImageProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerAnnotationGenerator;
@@ -130,6 +131,7 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> HTML_PRINTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "HTMLPrinter", HTMLPrinterGenerator.class, OptionTypes.OVERRIDE_HTML_PRINTER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> POSITION_CATEGORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PositionCategory", PositionCategoryGenerator.class, OptionTypes.OVERRIDE_POSITION_CATEGORY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OCCURRENCE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "Occurrence", OccurrenceGenerator.class, OptionTypes.OVERRIDE_OCCURRENCE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_TOKEN_SCANNER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "I", "TokenScanner", ITokenScannerGenerator.class, OptionTypes.OVERRIDE_ITOKEN_SCANNER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TOKEN_SCANNER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "TokenScanner", TokenScannerGenerator.class, OptionTypes.OVERRIDE_TOKEN_SCANNER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> HYPERLINK = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "Hyperlink", HyperlinkGenerator.class, OptionTypes.OVERRIDE_HYPERLINK);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> HYPERLINK_DETECTOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "HyperlinkDetector", HyperlinkDetectorGenerator.class, OptionTypes.OVERRIDE_HYPERLINK_DETECTOR); 

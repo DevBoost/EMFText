@@ -60,7 +60,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.addLineBreak();
-		sc.add("private " + tokenScannerClassName + " tokenScanner;");
+		sc.add("private " + iTokenScannerClassName + " tokenScanner;");
 		sc.add("private " + LIST + "<String> quotedTokenArray;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
 		sc.add("private " + iTextResourceClassName + " textResource;");
@@ -76,7 +76,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"@param sourceViewer the source viewer for the text",
 			"@param tokenScanner the token scanner helps to find the searched tokens"
 		);
-		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + tokenScannerClassName + " tokenScanner) {");
+		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + iTokenScannerClassName + " tokenScanner) {");
 		sc.add("this.textResource = textResource;");
 		sc.add("this.projectionViewer = sourceViewer;");
 		sc.addLineBreak();

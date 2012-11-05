@@ -23,6 +23,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.AbstractTokenDefinition;
 import org.emftext.sdk.concretesyntax.Annotable;
 import org.emftext.sdk.concretesyntax.Annotation;

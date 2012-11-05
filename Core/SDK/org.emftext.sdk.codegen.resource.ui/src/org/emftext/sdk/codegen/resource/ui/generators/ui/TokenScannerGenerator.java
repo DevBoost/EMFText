@@ -42,7 +42,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 			"An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface " +
 			"to the generated lexer."
 		);
-		sc.add("public class " + getResourceClassName() + " implements " + I_TOKEN_SCANNER + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + iTokenScannerClassName + " {");
 		sc.addLineBreak();
 		
 		addFields(sc);

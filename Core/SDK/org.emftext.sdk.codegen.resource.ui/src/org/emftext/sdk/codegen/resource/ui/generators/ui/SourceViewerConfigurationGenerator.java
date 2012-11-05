@@ -185,7 +185,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 
 	private void addGetScannerMethod(JavaComposite sc) {
 		sc.add("protected " + I_TOKEN_SCANNER + " getScanner() {");
-		sc.add("return new " + tokenScannerClassName + "(resourceProvider.getResource(), colorManager);");
+		sc.add("return new " + uiMetaInformationClassName + "().createTokenScanner(resourceProvider.getResource(), colorManager);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

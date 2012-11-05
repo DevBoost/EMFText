@@ -18,8 +18,9 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FIELD;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_LOCATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ACCESS_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MALFORMED_URL_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_SUCH_FIELD_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SECURITY_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE_DESCRIPTOR;
@@ -28,7 +29,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SHARED
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
 
 import org.eclipse.ui.ISharedImages;
 import org.emftext.sdk.codegen.composites.JavaComposite;

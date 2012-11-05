@@ -179,6 +179,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.POSITION_HELPER);
 	    add(creators, TextResourceUIArtifacts.PROPERTY_SHEET_PAGE);
 	    add(creators, TextResourceUIArtifacts.TEXT_HOVER);
+	    add(creators, TextResourceUIArtifacts.I_TOKEN_SCANNER);
 	    add(creators, TextResourceUIArtifacts.TOKEN_SCANNER);
 	    add(creators, TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.NEW_PROJECT_WIZARD);

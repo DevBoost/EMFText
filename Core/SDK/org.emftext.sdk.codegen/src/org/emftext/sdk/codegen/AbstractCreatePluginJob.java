@@ -30,6 +30,8 @@ public abstract class AbstractCreatePluginJob {
 			try {
 				project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
 				project.touch(new NullProgressMonitor());
+			} catch (NullPointerException npe) {
+				// ignore
 			} catch (OperationCanceledException oce) {
 				// ignore exception. if the user has cancelled the operation, it
 				// is clear that the project might be in some inconsistent state
