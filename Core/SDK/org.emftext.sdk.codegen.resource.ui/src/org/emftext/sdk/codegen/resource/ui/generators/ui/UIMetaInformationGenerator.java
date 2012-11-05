@@ -49,7 +49,7 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator<ArtifactPara
 				"@deprecated this method is only provided to preserve API compatibility. " +
 				"Use createTokenScanner(" + iTextResourceClassName + ", " + colorManagerClassName + ") instead.");
 		sc.add("public " + tokenScannerClassName + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
-		sc.add("return createTokenScanner(null, colorManager);");
+		sc.add("return (" + tokenScannerClassName + ") createTokenScanner(null, colorManager);");
         sc.add("}");
         sc.addLineBreak();
 	}
