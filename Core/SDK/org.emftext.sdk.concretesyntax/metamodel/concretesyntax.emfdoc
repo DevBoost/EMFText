@@ -672,6 +672,8 @@ OptionTypes.OVERRIDE_UI_ANTLR_TOKEN_HELPER : "If set to <code>false</code>, the 
 
 OptionTypes.OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER : "If set to <code>false</code>, the InterruptibleEcoreResolver class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_I_TOKEN_SCANNER : "If set to <code>false</code>, the ITokenScanner interface will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

@@ -7106,6 +7106,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the ITokenScanner interface will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ITOKEN_SCANNER
 	 * @model name="OVERRIDE_I_TOKEN_SCANNER" literal="overrideITokenScanner"
 	 * @generated
