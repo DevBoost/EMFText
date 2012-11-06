@@ -33,19 +33,18 @@ eclass JDTJavaClassifier {
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				IWorkspaceRoot root = workspace.getRoot();
 				IProject project = root.getProject(getProjectName());
-				org.eclipse.jdt.core.IJavaProject javaProject = JavaCore.create(project);
+				IJavaProject javaProject = JavaCore.create(project);
 				if (javaProject != null && javaProject.exists()) {
-					org.eclipse.jdt.core.IType type = javaProject.findType(getQualifiedName());
-					org.eclipse.jdt.core.IField[] fields = type.getFields();
-					for ( org.eclipse.jdt.core.IField field : fields) {
-						org.emftext.commons.jdt.JDTField newField = org.emftext.commons.jdt.JdtFactory.eINSTANCE.createJDTField();
+					IType type = javaProject.findType(getQualifiedName());
+					IField[] fields = type.getFields();
+					for (IField field : fields) {
+						JDTField newField = #JDTField;
 						newField.setName(field.getElementName());
 						getCachedFields().add(newField);
 					}
 				}
 			} catch (JavaModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// TODO handle exception
 			}
 			setHasCachedFields(true);
 		}
