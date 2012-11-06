@@ -32,15 +32,20 @@ eclass JDTJavaClassifier {
 			try {
 				IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				IWorkspaceRoot root = workspace.getRoot();
-				IProject project = root.getProject(getProjectName());
-				IJavaProject javaProject = JavaCore.create(project);
-				if (javaProject != null && javaProject.exists()) {
-					IType type = javaProject.findType(getQualifiedName());
-					IField[] fields = type.getFields();
-					for (IField field : fields) {
-						JDTField newField = #JDTField;
-						newField.setName(field.getElementName());
-						getCachedFields().add(newField);
+				String projectName = getProjectName();
+				if (projectName != null) {
+					IProject project = root.getProject(projectName);
+					if (project != null) {
+						IJavaProject javaProject = JavaCore.create(project);
+						if (javaProject != null && javaProject.exists()) {
+							IType type = javaProject.findType(getQualifiedName());
+							IField[] fields = type.getFields();
+							for (IField field : fields) {
+								JDTField newField = #JDTField;
+								newField.setName(field.getElementName());
+								getCachedFields().add(newField);
+							}
+						}
 					}
 				}
 			} catch (JavaModelException e) {
