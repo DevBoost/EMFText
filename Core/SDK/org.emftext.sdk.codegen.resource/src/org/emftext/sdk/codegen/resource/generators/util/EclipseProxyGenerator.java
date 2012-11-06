@@ -90,6 +90,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceFactoryExtensionsMethod(sc);
 		addGetResourceMethod(sc);
 		addGetFileForResourceMethod(sc);
+		addGetFileForURIMethod(sc);
 		addCheckEMFValidationConstraintsMethod(sc);
 		addCreateNotificationsMethod(sc);
 		addCreateNotificationMethod(sc);
@@ -98,11 +99,19 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetFileForResourceMethod(JavaComposite sc) {
-		sc.addJavadoc("Returns the file the contains the given resource.");
+		sc.addJavadoc("Returns the file that contains the given resource.");
 		sc.add("public " + I_FILE + " getFileForResource(" + RESOURCE + " resource) {");
+		sc.add("return getFileForURI(resource.getURI());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetFileForURIMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the file that corresponds to the given URI.");
+		sc.add("public " + I_FILE + " getFileForURI(" + URI + " uri) {");
 		sc.add(I_WORKSPACE + " workspace = " + RESOURCES_PLUGIN + ".getWorkspace();");
 		sc.add(I_WORKSPACE_ROOT + " workspaceRoot = workspace.getRoot();");
-		sc.add(PATH + " path = new " + PATH + "(resource.getURI().toPlatformString(true));");
+		sc.add(PATH + " path = new " + PATH + "(uri.toPlatformString(true));");
 		sc.add("return workspaceRoot.getFile(path);");
 		sc.add("}");
 		sc.addLineBreak();
