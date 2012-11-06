@@ -26,7 +26,7 @@ import org.emftext.commons.jdt.JdtFactory;
 /**
  * A ClassifierVisitor can be used to visit all search result items when using
  * the JDT SearchEngine class to find types on the classpath. It simply converts
- * every JDT Type to an instance of {@link JDTJavaClassifier} and make a list
+ * every JDT Type to an instance of {@link JDTJavaClassifier} and makes a list
  * of all these instances available via {@link #getClassifiersInClasspath()}.
  * 
  * This class is intended for internal use only.
@@ -47,7 +47,7 @@ class ClassifierVisitor extends TypeNameRequestor {
 			char[][] enclosingTypeNames, String path) {
 		
 		JDTJavaClassifier javaClass = JdtFactory.eINSTANCE.createJDTJavaClassifier();
-		javaClass.setProject(project);
+		javaClass.setProjectName(project.getProject().getName());
 		javaClass.setPackageName(String.valueOf(packageName));
 		for (char[] enclosingType : enclosingTypeNames) {
 			javaClass.getEnclosingTypeNames().add(String.valueOf(enclosingType));

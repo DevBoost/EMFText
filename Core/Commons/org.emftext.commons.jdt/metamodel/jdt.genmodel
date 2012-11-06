@@ -7,7 +7,6 @@
   <foreignModel>jdt.ecore</foreignModel>
   <genPackages prefix="Jdt" basePackage="org.emftext.commons" disposableProviderFactory="true"
       ecorePackage="jdt.ecore#/">
-    <genDataTypes ecoreDataType="jdt.ecore#//JDTIJavaProject"/>
     <genClasses ecoreClass="jdt.ecore#//JDTJavaClassifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/simpleName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/packageName"/>
@@ -15,7 +14,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/path"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference jdt.ecore#//JDTJavaClassifier/cachedFields"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/hasCachedFields"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/project"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jdt.ecore#//JDTJavaClassifier/projectName"/>
       <genOperations ecoreOperation="jdt.ecore#//JDTJavaClassifier/getQualifiedName"/>
       <genOperations ecoreOperation="jdt.ecore#//JDTJavaClassifier/getFields"/>
     </genClasses>
