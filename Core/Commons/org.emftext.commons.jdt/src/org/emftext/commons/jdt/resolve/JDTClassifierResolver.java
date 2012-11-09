@@ -69,7 +69,7 @@ public class JDTClassifierResolver {
 		if (uri.isPlatformResource() && uri.segmentCount() > 2) {
 			return root.getProject(uri.segment(1));
 		}
-		throw new IllegalArgumentException("Can't handle URIs that do not reference platform resources.");
+		throw new IllegalArgumentException("Can't handle URIs that do not reference platform resources: " + uri);
 	}
 	
 	private IJavaProject getJavaProject(IProject project) {
