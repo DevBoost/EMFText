@@ -97,14 +97,17 @@ public class GenerateAllHandler extends AbstractHandler {
 			IFile file = (IFile) resource;
 			process(file);
 		} else {
-			resource.accept(new IResourceVisitor() {
+			IProject project = resource.getProject();
+			if(project != null && project.isOpen()){
+				resource.accept(new IResourceVisitor() {
 
-				@Override
-				public boolean visit(IResource resource) throws CoreException {
-					process(resource);
-					return true;
-				}
-			});
+					@Override
+					public boolean visit(IResource resource) throws CoreException {
+						process(resource);
+						return true;
+					}
+				});
+			}
 		}
 	}
 
@@ -153,7 +156,7 @@ public class GenerateAllHandler extends AbstractHandler {
 			}
 		}
 	}
-	
+
 	private static  Set<String> getGeneratorTypes(IFile file, GenModel genModel) {
 		Set<String> typeSet = new LinkedHashSet<String>();
 		typeSet.add(GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE);
