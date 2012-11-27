@@ -293,7 +293,9 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add(ZIP_ENTRY + " zipEntry = (" + ZIP_ENTRY + ") e.nextElement();");
 		sc.add(FILE + " file = new " + FILE + "(projectFolderFile, zipEntry.getName());");
 		sc.addLineBreak();
-		sc.add("if (false == zipEntry.isDirectory()) {");
+		sc.add("if (zipEntry.isDirectory()) {");
+		sc.add("file.mkdirs();");
+		sc.add("} else {");
 		sc.addLineBreak();
 		sc.addComment("Copy files (and make sure parent directory exist)");
 		
