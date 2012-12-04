@@ -15,7 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.postprocessing.syntax_analysis;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.List;
+
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -44,19 +45,23 @@ public class EmptyCompoundAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ConcreteSyntax syntax) {
-		EList<Rule> rules = syntax.getRules();
+		List<Rule> rules = syntax.getRules();
 		for (Rule rule : rules) {
-			EList<SyntaxElement> children = rule.getChildren();
+			List<SyntaxElement> children = rule.getChildren();
 			checkCompounds(children);
 		}
 	}
 
-	private void checkCompounds(EList<SyntaxElement> children) {
+	private void checkCompounds(List<SyntaxElement> children) {
 		for (SyntaxElement syntaxElement : children) {
 			if (syntaxElement instanceof CompoundDefinition) {
 				CompoundDefinition compound = (CompoundDefinition) syntaxElement;
-				if (compound.getCardinality() == Cardinality.PLUS ||
-					compound.getCardinality() == Cardinality.STAR) {
+				Cardinality cardinality = compound.getCardinality();
+				boolean hasUnlimitedUpperBound = 
+					cardinality == Cardinality.PLUS ||
+					cardinality == Cardinality.STAR;
+				
+				if (hasUnlimitedUpperBound) {
 					// check whether the compound allows the empty sentence
 					if (csUtil.canBeEmpty(compound.getDefinition(), true)) {
 						addProblem(CsAnalysisProblemType.EMPTY_COMPOUND, EMPTY_COMPOUND_MESSAGE, compound, new RemoveElementQuickFix("Remove compound", compound));
