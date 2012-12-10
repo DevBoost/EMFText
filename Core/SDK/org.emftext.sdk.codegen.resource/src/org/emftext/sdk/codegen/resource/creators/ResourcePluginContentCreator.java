@@ -565,7 +565,9 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 		imports.add("org.eclipse.emf.validation;resolution:=optional");
 		imports.add("org.emftext.access;resolution:=optional");
 		
-		if (context.isDebugSupportEnabled()) {
+		// the dependency to 'org.eclipse.debug.core' is required both for the
+		// classes related to debugging and to launching
+		if (context.isDebugSupportEnabled() || context.isLaunchSupportEnabled()) {
 			imports.add("org.eclipse.debug.core;resolution:=optional");
 		}
 		// TODO implement extension mechanism to allow code generation plug-ins to add

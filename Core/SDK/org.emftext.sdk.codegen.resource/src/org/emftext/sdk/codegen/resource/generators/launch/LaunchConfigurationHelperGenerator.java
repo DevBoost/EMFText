@@ -108,34 +108,42 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 
 	private void addLaunchInterpreterMethod(JavaComposite sc) {
 		sc.add("public <ResultType, ContextType> void launchInterpreter(" + I_LAUNCH_CONFIGURATION + " configuration, String mode, " + I_LAUNCH + " launch, " + I_PROGRESS_MONITOR + " monitor, " + abstractInterpreterClassName + "<ResultType, ContextType> delegate, final ContextType context) throws " + CORE_EXCEPTION + " {");
-		sc.add("final boolean enableDebugger = mode.equals(" + I_LAUNCH_MANAGER + ".DEBUG_MODE);");
-		sc.addComment("step 1: find two free ports we can use to communicate between the Eclipse and the interpreter");
-		sc.add("int requestPort = findFreePort();");
-		sc.add("int eventPort = findFreePort();");
-		sc.add("if (requestPort < 0 || eventPort < 0) {");
-		sc.add("abort(\"Unable to find free port\", null);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("final " + debuggableInterpreterClassName + "<ResultType, ContextType> interpreter = new " + debuggableInterpreterClassName + "<ResultType, ContextType>(delegate, eventPort);");
-		sc.addLineBreak();
-		sc.addComment("step 2: prepare and start interpreter in separate thread");
-		sc.add("Thread interpreterThread = new Thread(new Runnable() {");
-		sc.addLineBreak();
-		sc.add("public void run() {");
-		sc.addComment("if we are in debug mode, the interpreter must wait for the debugger to attach");
-		sc.add("interpreter.interprete(context, enableDebugger);");
-		sc.add("}");
-		sc.add("});");
-		sc.add("interpreterThread.start();");
-		sc.addLineBreak();
-		sc.addComment("step 3: start debugger listener (sends commands from Eclipse debug framework to running process");
-		sc.add(debuggerListenerClassName + "<ResultType, ContextType> debugListener = new " + debuggerListenerClassName + "<ResultType, ContextType>(requestPort);");
-		sc.add("debugListener.setDebuggable(interpreter);");
-		sc.add("new Thread(debugListener).start();");
-		sc.addLineBreak();
-		sc.addComment("step 4: start debugger");
-		sc.add(debugProcessClassName + " process = new " + debugProcessClassName + "(launch);");
-		sc.add("launch.addDebugTarget(new " + debugTargetClassName + "(process, launch, requestPort, eventPort));");
+		
+		if (getContext().isDebugSupportEnabled()) {
+			sc.add("final boolean enableDebugger = mode.equals(" + I_LAUNCH_MANAGER + ".DEBUG_MODE);");
+			sc.addComment("step 1: find two free ports we can use to communicate between the Eclipse and the interpreter");
+			sc.add("int requestPort = findFreePort();");
+			sc.add("int eventPort = findFreePort();");
+			sc.add("if (requestPort < 0 || eventPort < 0) {");
+			sc.add("abort(\"Unable to find free port\", null);");
+			sc.add("}");
+			sc.addLineBreak();
+			sc.add("final " + debuggableInterpreterClassName + "<ResultType, ContextType> interpreter = new " + debuggableInterpreterClassName + "<ResultType, ContextType>(delegate, eventPort);");
+			sc.addLineBreak();
+			sc.addComment("step 2: prepare and start interpreter in separate thread");
+			sc.add("Thread interpreterThread = new Thread(new Runnable() {");
+			sc.addLineBreak();
+			sc.add("public void run() {");
+			sc.addComment("if we are in debug mode, the interpreter must wait for the debugger to attach");
+			sc.add("interpreter.interprete(context, enableDebugger);");
+			sc.add("}");
+			sc.add("});");
+			sc.add("interpreterThread.start();");
+			sc.addLineBreak();
+			sc.addComment("step 3: start debugger listener (sends commands from Eclipse debug framework to running process");
+			sc.add(debuggerListenerClassName + "<ResultType, ContextType> debugListener = new " + debuggerListenerClassName + "<ResultType, ContextType>(requestPort);");
+			sc.add("debugListener.setDebuggable(interpreter);");
+			sc.add("new Thread(debugListener).start();");
+			sc.addLineBreak();
+			sc.addComment("step 4: start debugger");
+			sc.add(debugProcessClassName + " process = new " + debugProcessClassName + "(launch);");
+			sc.add("launch.addDebugTarget(new " + debugTargetClassName + "(process, launch, requestPort, eventPort));");
+		} else {
+			sc.addComment(
+				"Support for debugging is disabled by option '" + OptionTypes.DISABLE_DEBUG_SUPPORT.getLiteral() + "'. " +
+				"To implement launching behavior, set option '" + OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_HELPER.getLiteral() + "' to false and add custom code here."
+			);
+		}
 		sc.add("}");
 		sc.addLineBreak();
 	}
