@@ -223,7 +223,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.IGNORED_WORDS_FILTER);
 
 		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceUIArtifacts.PLUGIN_XML;
-	    creators.add(new PluginXMLCreator<GenerationContext>(getPluginXmlParamters(context), doOverride(syntax, pluginXML)));
+	    creators.add(new PluginXMLCreator<GenerationContext>(getPluginXmlParameters(context), doOverride(syntax, pluginXML)));
 	    return creators;
 	}
 
@@ -242,7 +242,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		return new FileCopier<GenerationContext>(FileCopier.class.getResourceAsStream("default_" + icon.getFilename()), getIconFile(resourceUIPlugin, context, icon), false);
 	}
 
-	private XMLParameters<GenerationContext> getPluginXmlParamters(GenerationContext context) {
+	private XMLParameters<GenerationContext> getPluginXmlParameters(GenerationContext context) {
 		final String newFileWizardCategoryID = "org.emftext.runtime.ui.EMFTextFileCategory";
 		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
