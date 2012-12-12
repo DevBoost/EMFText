@@ -635,9 +635,13 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		runDescription.setAttribute("description", "Run " + syntaxName + " model");
 		runDescription.setAttribute("mode", "run");
 
-		XMLElement debugDescription = shortCut.createChild("description");
-		debugDescription.setAttribute("description", "Debug " + syntaxName + " model");
-		debugDescription.setAttribute("mode", "debug");
+		// disable launch shortcut for debugging mode if debug support is not
+		// enabled
+		if (context.isDebugSupportEnabled()) {
+			XMLElement debugDescription = shortCut.createChild("description");
+			debugDescription.setAttribute("description", "Debug " + syntaxName + " model");
+			debugDescription.setAttribute("mode", "debug");
+		}
 		
 		XMLElement contextualLaunch = shortCut.createChild("contextualLaunch");
 		XMLElement enablement = contextualLaunch.createChild("enablement");
