@@ -63,11 +63,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		boolean isImportedToken = definition.isImported(syntax);
 		if (isImportedToken) {
 			String importedTokenResolverClassName = nameUtil.getQualifiedTokenResolverClassName(syntax, definition, true);
-			sc.addComment(
-				"If this line does not compile, the imported language plug-ins were generated before EMFText 1.4.0. " +
-				"To resolve the compilation error remove the argument from the constructor call."
-			);
-			sc.add("private " + importedTokenResolverClassName + " importedResolver = new " + importedTokenResolverClassName + "(true);");
+			sc.add("private " + importedTokenResolverClassName + " importedResolver = new " + importedTokenResolverClassName + "();");
 			sc.addLineBreak();
 			generateDeResolveMethod2(sc);
 			generateResolveMethod2(sc);
