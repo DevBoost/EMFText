@@ -3,7 +3,7 @@
 		id="org.emftext.commons.jdt" 
 		label="EMFText JDT Integration"
 		provider-name="DevBoost GmbH" 
-		version="0.0.0">
+		version="1.4.2">
 
 	<description url="http://www.emftext.org">EMFText JDT Integration Plug-in: Provides access to the JDT types and ametamodel that can be imported from DSLs that require references to Javaclasses.</description>
 

@@ -2,7 +2,7 @@
 	<feature id="org.emftext.commons.layout"
 		label="EMFText Layout Model"
 		provider-name="DevBoost GmbH"
-		version="0.0.0">
+		version="1.4.2">
 
 	<description url="http://www.emftext.org">EMFText Layout Model Plug-in: Provides an Ecore model to hold layout information of a textual model.</description>
 

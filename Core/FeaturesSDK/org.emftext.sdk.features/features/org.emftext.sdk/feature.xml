@@ -2,7 +2,7 @@
 <feature
       id="org.emftext.sdk"
       label="EMFText SDK"
-      version="0.0.0"
+      version="1.4.2"
       provider-name="DevBoost GmbH">
 
    <description url="http://www.emftext.org">EMFText: a grammar-based text syntax definition tool for Ecore metamodels.</description>
