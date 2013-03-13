@@ -442,7 +442,7 @@ public class GeneratorUtil {
 		sc.add("if (loadOptions == null) {");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("Object value = loadOptions.containsKey(" + iOptionsClassName + "."
+		sc.add("Object value = loadOptions.get(" + iOptionsClassName + "."
 				+ option
 				+ ");");
 		sc.add("return value != null && !Boolean.FALSE.equals(value);");
