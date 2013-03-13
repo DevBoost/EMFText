@@ -421,15 +421,31 @@ public class GeneratorUtil {
 	}
 
 	public void addIsLocationMapEnabledMethod(JavaComposite sc, GenerationContext context) {
+		String option = IOptionsGenerator.DISABLE_LOCATION_MAP;
+		addIsOptionSetMethod(sc, context, "isLocationMapEnabled", option);
+	}
+
+	public void addIsMarkerCreationEnabledMethod(JavaComposite sc, GenerationContext context) {
+		String option = IOptionsGenerator.DISABLE_CREATING_MARKERS_FOR_PROBLEMS;
+		addIsOptionSetMethod(sc, context, "isMarkerCreationEnabled", option);
+	}
+
+	public void addIsLayoutInformationRecordingEnabled(JavaComposite sc, GenerationContext context) {
+		String option = IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING;
+		addIsOptionSetMethod(sc, context, "isLayoutInformationRecordingEnabled", option);
+	}
+	
+	private void addIsOptionSetMethod(JavaComposite sc, GenerationContext context, String methodName, String option) {
 		String iOptionsClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
-		
-		sc.add("protected boolean isLocationMapEnabled() {");
+
+		sc.add("public boolean " + methodName + "() {");
 		sc.add("if (loadOptions == null) {");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "."
-				+ IOptionsGenerator.DISABLE_LOCATION_MAP
+		sc.add("Object value = loadOptions.containsKey(" + iOptionsClassName + "."
+				+ option
 				+ ");");
+		sc.add("return value != null && !Boolean.FALSE.equals(value);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

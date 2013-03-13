@@ -162,9 +162,9 @@ public class TextResourceGenerator extends
 		addUnmarkMethod2(sc);
 		addGetMarkerHelperMethod(sc);
 
-		addIsMarkerCreationEnabledMethod(sc);
+		generatorUtil.addIsMarkerCreationEnabledMethod(sc, context);
 		generatorUtil.addIsLocationMapEnabledMethod(sc, context);
-		addIsLayoutInformationRecordingEnabled(sc);
+		generatorUtil.addIsLayoutInformationRecordingEnabled(sc, context);
 	}
 
 	private void addUnloadAndClearContentsMethod(JavaComposite sc) {
@@ -660,30 +660,6 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addIsMarkerCreationEnabledMethod(StringComposite sc) {
-		sc.add("public boolean isMarkerCreationEnabled() {");
-		sc.add("if (loadOptions == null) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "."
-				+ IOptionsGenerator.DISABLE_CREATING_MARKERS_FOR_PROBLEMS
-				+ ");");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addIsLayoutInformationRecordingEnabled(StringComposite sc) {
-		sc.add("protected boolean isLayoutInformationRecordingEnabled() {");
-		sc.add("if (loadOptions == null) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("return !loadOptions.containsKey(" + iOptionsClassName + "."
-				+ IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING
-				+ ");");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
 	private void addAttachResolveWarningsMethod(StringComposite sc) {
 		sc.add("protected void attachResolveWarnings("
 				+ iReferenceResolveResultClassName + "<? extends " + E_OBJECT
