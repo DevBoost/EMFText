@@ -445,7 +445,7 @@ public class GeneratorUtil {
 		sc.add("Object value = loadOptions.get(" + iOptionsClassName + "."
 				+ option
 				+ ");");
-		sc.add("return value != null && !Boolean.FALSE.equals(value);");
+		sc.add("return value == null || Boolean.FALSE.equals(value);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
