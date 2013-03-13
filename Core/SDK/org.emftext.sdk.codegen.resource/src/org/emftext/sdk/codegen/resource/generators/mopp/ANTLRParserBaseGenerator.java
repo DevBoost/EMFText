@@ -36,7 +36,6 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
-import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 
 public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -143,6 +142,8 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		addApplyMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, tokenResolveResultClassName);
 		generatorUtil.addGetReferenceResolverSwitchMethod(sc, context);
+		generatorUtil.addIsLayoutInformationRecordingEnabled(sc, context, "options");
+		generatorUtil.addIsLocationMapEnabledMethod(sc, context, "options");
 	}
 
 	private void addConstructor1(JavaComposite sc) {
@@ -252,15 +253,8 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	private void addSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
 		sc.add("this.options = options;");
-		sc.add("if (this.options == null) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("if (this.options.containsKey(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LOCATION_MAP + ")) {");
-		sc.add("this.disableLocationMap = true;");
-		sc.add("}");
-		sc.add("if (this.options.containsKey(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING + ")) {");
-		sc.add("this.disableLayoutRecording = true;");
-		sc.add("}");
+		sc.add("this.disableLocationMap = !isLocationMapEnabled();");
+		sc.add("this.disableLayoutRecording = !isLayoutInformationRecordingEnabled();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

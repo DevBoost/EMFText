@@ -162,9 +162,9 @@ public class TextResourceGenerator extends
 		addUnmarkMethod2(sc);
 		addGetMarkerHelperMethod(sc);
 
-		generatorUtil.addIsMarkerCreationEnabledMethod(sc, context);
-		generatorUtil.addIsLocationMapEnabledMethod(sc, context);
-		generatorUtil.addIsLayoutInformationRecordingEnabled(sc, context);
+		generatorUtil.addIsMarkerCreationEnabledMethod(sc, context, "loadOptions");
+		generatorUtil.addIsLocationMapEnabledMethod(sc, context, "loadOptions");
+		generatorUtil.addIsLayoutInformationRecordingEnabled(sc, context, "loadOptions");
 	}
 
 	private void addUnloadAndClearContentsMethod(JavaComposite sc) {

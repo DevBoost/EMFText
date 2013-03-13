@@ -420,29 +420,29 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addIsLocationMapEnabledMethod(JavaComposite sc, GenerationContext context) {
+	public void addIsLocationMapEnabledMethod(JavaComposite sc, GenerationContext context, String fieldName) {
 		String option = IOptionsGenerator.DISABLE_LOCATION_MAP;
-		addIsOptionSetMethod(sc, context, "isLocationMapEnabled", option);
+		addIsOptionSetMethod(sc, context, "isLocationMapEnabled", fieldName, option);
 	}
 
-	public void addIsMarkerCreationEnabledMethod(JavaComposite sc, GenerationContext context) {
+	public void addIsMarkerCreationEnabledMethod(JavaComposite sc, GenerationContext context, String fieldName) {
 		String option = IOptionsGenerator.DISABLE_CREATING_MARKERS_FOR_PROBLEMS;
-		addIsOptionSetMethod(sc, context, "isMarkerCreationEnabled", option);
+		addIsOptionSetMethod(sc, context, "isMarkerCreationEnabled", fieldName, option);
 	}
 
-	public void addIsLayoutInformationRecordingEnabled(JavaComposite sc, GenerationContext context) {
+	public void addIsLayoutInformationRecordingEnabled(JavaComposite sc, GenerationContext context, String fieldName) {
 		String option = IOptionsGenerator.DISABLE_LAYOUT_INFORMATION_RECORDING;
-		addIsOptionSetMethod(sc, context, "isLayoutInformationRecordingEnabled", option);
+		addIsOptionSetMethod(sc, context, "isLayoutInformationRecordingEnabled", fieldName, option);
 	}
 	
-	private void addIsOptionSetMethod(JavaComposite sc, GenerationContext context, String methodName, String option) {
+	private void addIsOptionSetMethod(JavaComposite sc, GenerationContext context, String methodName, String fieldName, String option) {
 		String iOptionsClassName = context.getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
 
 		sc.add("public boolean " + methodName + "() {");
-		sc.add("if (loadOptions == null) {");
+		sc.add("if (" + fieldName + " == null) {");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("Object value = loadOptions.get(" + iOptionsClassName + "."
+		sc.add("Object value = " + fieldName + ".get(" + iOptionsClassName + "."
 				+ option
 				+ ");");
 		sc.add("return value == null || Boolean.FALSE.equals(value);");
