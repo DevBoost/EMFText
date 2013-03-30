@@ -24,8 +24,8 @@ public class PluginTestHelper {
 		URL location = clazz.getProtectionDomain().getCodeSource().getLocation();
 		String binFolder = location.getFile().replace("%20", " ");
 		String rootPathString;
-		// we must not use File.separator here as the path is obtained from an URL
-		// which uses forward slashes on all OS
+		// we must not use File.separator here as the path is obtained from an
+		// URL which uses forward slashes on all OSs
 		if (binFolder.endsWith("/bin/")) {
 			rootPathString = binFolder + File.separator + "..";
 		} else {
