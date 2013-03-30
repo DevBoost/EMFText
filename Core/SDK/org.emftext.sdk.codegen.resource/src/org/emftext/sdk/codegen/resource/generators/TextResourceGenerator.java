@@ -104,6 +104,7 @@ public class TextResourceGenerator extends
 
 		addConstructors(sc);
 		addDoLoadMethod(sc);
+		addUnloadAndClearContentsMethod(sc);
 		addProcessTerminationRequestedMethod(sc);
 		addNotifyDelayedMethod(sc);
 		addENotifyMethod(sc);
@@ -164,6 +165,23 @@ public class TextResourceGenerator extends
 		generatorUtil.addIsLocationMapEnabledMethod(sc, context, "loadOptions");
 		generatorUtil.addIsLayoutInformationRecordingEnabled(sc, context, "loadOptions");
 	}
+
+	private void addUnloadAndClearContentsMethod(JavaComposite sc) {
+		sc.add("protected void unloadAndClearContents() {");
+		sc.add(LIST + "<" + E_OBJECT + "> contentsInternal = getContentsInternal();");
+		sc.addComment("unload the root objects");
+		sc.add("for (" + E_OBJECT + " eObject : contentsInternal) {");
+		sc.add("if (eObject instanceof " + INTERNAL_E_OBJECT + ") {");
+		sc.add("unloaded((" + INTERNAL_E_OBJECT + ") eObject);");
+		sc.add("}");
+		sc.add("}");
+		sc.addComment("unload all children using the super class method");
+		sc.add("unload();");
+		sc.addComment("now we can clear the contents");
+		sc.add("contentsInternal.clear();");
+		sc.add("}");
+		sc.addLineBreak();
+	} 
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
 		boolean disableEValidators = OptionManager.INSTANCE
@@ -1068,7 +1086,9 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("clearState();");
-		sc.add("unload();");
+		sc.add("unloadAndClearContents();");
+		sc.addComment("We must set the load options again since they are deleted by the unload() method.");
+		sc.add("this.loadOptions = options;");
 		sc.add(E_OBJECT + " root = null;");
 		sc.add("if (result != null) {");
 		sc.add("root = result.getRoot();");
