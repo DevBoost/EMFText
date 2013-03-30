@@ -97,12 +97,19 @@ public class CsEclipseProxy {
 	}
 	
 	/**
-	 * Returns the file the contains the given resource.
+	 * Returns the file that contains the given resource.
 	 */
 	public org.eclipse.core.resources.IFile getFileForResource(org.eclipse.emf.ecore.resource.Resource resource) {
+		return getFileForURI(resource.getURI());
+	}
+	
+	/**
+	 * Returns the file that corresponds to the given URI.
+	 */
+	public org.eclipse.core.resources.IFile getFileForURI(org.eclipse.emf.common.util.URI uri) {
 		org.eclipse.core.resources.IWorkspace workspace = org.eclipse.core.resources.ResourcesPlugin.getWorkspace();
 		org.eclipse.core.resources.IWorkspaceRoot workspaceRoot = workspace.getRoot();
-		org.eclipse.core.runtime.Path path = new org.eclipse.core.runtime.Path(resource.getURI().toPlatformString(true));
+		org.eclipse.core.runtime.Path path = new org.eclipse.core.runtime.Path(uri.toPlatformString(true));
 		return workspaceRoot.getFile(path);
 	}
 	

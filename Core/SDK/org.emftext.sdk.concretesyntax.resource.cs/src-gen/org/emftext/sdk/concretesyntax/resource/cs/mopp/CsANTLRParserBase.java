@@ -195,15 +195,8 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	
 	public void setOptions(java.util.Map<?,?> options) {
 		this.options = options;
-		if (this.options == null) {
-			return;
-		}
-		if (this.options.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP)) {
-			this.disableLocationMap = true;
-		}
-		if (this.options.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING)) {
-			this.disableLayoutRecording = true;
-		}
+		this.disableLocationMap = !isLocationMapEnabled();
+		this.disableLayoutRecording = !isLayoutInformationRecordingEnabled();
 	}
 	
 	/**
@@ -293,6 +286,22 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch resolverSwitch = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsReferenceResolverSwitch) metaInformation.getReferenceResolverSwitch();
 		resolverSwitch.setOptions(options);
 		return resolverSwitch;
+	}
+	
+	public boolean isLayoutInformationRecordingEnabled() {
+		if (options == null) {
+			return true;
+		}
+		Object value = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING);
+		return value == null || Boolean.FALSE.equals(value);
+	}
+	
+	public boolean isLocationMapEnabled() {
+		if (options == null) {
+			return true;
+		}
+		Object value = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP);
+		return value == null || Boolean.FALSE.equals(value);
 	}
 	
 }

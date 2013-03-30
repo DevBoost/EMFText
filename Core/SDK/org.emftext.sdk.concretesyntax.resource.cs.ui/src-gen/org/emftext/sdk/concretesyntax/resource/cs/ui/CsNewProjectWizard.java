@@ -223,7 +223,9 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 			java.util.zip.ZipEntry zipEntry = (java.util.zip.ZipEntry) e.nextElement();
 			java.io.File file = new java.io.File(projectFolderFile, zipEntry.getName());
 			
-			if (false == zipEntry.isDirectory()) {
+			if (zipEntry.isDirectory()) {
+				file.mkdirs();
+			} else {
 				
 				// Copy files (and make sure parent directory exist)
 				java.io.File parentFile = file.getParentFile();

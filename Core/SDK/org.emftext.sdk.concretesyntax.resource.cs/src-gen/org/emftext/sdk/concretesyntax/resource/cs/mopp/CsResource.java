@@ -222,7 +222,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			}
 			
 			clearState();
-			unloadAndClearContents();
+			unload();
 			org.eclipse.emf.ecore.EObject root = null;
 			if (result != null) {
 				root = result.getRoot();
@@ -258,21 +258,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			}
 			notifyDelayed();
 		}
-	}
-	
-	protected void unloadAndClearContents() {
-		java.util.List<org.eclipse.emf.ecore.EObject> contentsInternal = getContentsInternal();
-		for (org.eclipse.emf.ecore.EObject eObject : contentsInternal) {
-			// unload the root object
-			unloaded((org.eclipse.emf.ecore.InternalEObject) eObject);
-			// unload all children
-			java.util.Iterator<org.eclipse.emf.ecore.EObject> allContents = eObject.eAllContents();
-			while (allContents.hasNext()) {
-				unloaded((org.eclipse.emf.ecore.InternalEObject) allContents.next());
-			}
-		}
-		// now we can clear the contents
-		contentsInternal.clear();
 	}
 	
 	protected boolean processTerminationRequested() {
@@ -819,21 +804,24 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		if (loadOptions == null) {
 			return true;
 		}
-		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_CREATING_MARKERS_FOR_PROBLEMS);
+		Object value = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_CREATING_MARKERS_FOR_PROBLEMS);
+		return value == null || Boolean.FALSE.equals(value);
 	}
 	
-	protected boolean isLocationMapEnabled() {
+	public boolean isLocationMapEnabled() {
 		if (loadOptions == null) {
 			return true;
 		}
-		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP);
+		Object value = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP);
+		return value == null || Boolean.FALSE.equals(value);
 	}
 	
-	protected boolean isLayoutInformationRecordingEnabled() {
+	public boolean isLayoutInformationRecordingEnabled() {
 		if (loadOptions == null) {
 			return true;
 		}
-		return !loadOptions.containsKey(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING);
+		Object value = loadOptions.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING);
+		return value == null || Boolean.FALSE.equals(value);
 	}
 	
 }

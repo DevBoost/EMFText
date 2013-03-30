@@ -292,7 +292,7 @@ public class CsOccurrence {
 	/**
 	 * Resets the token region to enable remove highlighting if the text is changing.
 	 */
-	public void resetTokenRegion(){
+	public void resetTokenRegion() {
 		tokenRegion = new org.eclipse.jface.text.Region(-1, 0);
 	}
 	
