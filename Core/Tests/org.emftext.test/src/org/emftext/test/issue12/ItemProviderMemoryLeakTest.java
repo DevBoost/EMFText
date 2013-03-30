@@ -118,6 +118,9 @@ public class ItemProviderMemoryLeakTest extends TestCase {
 
 		// check adapters (before getting the text)
 		List<Adapter> eAdapters = root.eAdapters();
+		for (Adapter adapter : eAdapters) {
+			System.out.println("Found adapter " + adapter);
+		}
 		assertTrue("There must not be adapters after loading the resource", eAdapters.isEmpty());
 		
 		// get text using the label provider
@@ -126,6 +129,7 @@ public class ItemProviderMemoryLeakTest extends TestCase {
 		// check adapters (after getting the text)
 		assertFalse("There must be an adapter (ItemProviderAdapter) attached after calling getText()", eAdapters.isEmpty());
 		List<Notifier> targets = inspectableProvider.getTargets();
+		System.out.println("target = " + targets);
 		assertTrue("The targets list must remain empty or have a size of 1", targets == null || targets.size() <= 1);
 	}
 }
