@@ -222,7 +222,10 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			}
 			
 			clearState();
-			unload();
+			unloadAndClearContents();
+			// We must set the load options again since they are deleted by the unload()
+			// method.
+			this.loadOptions = options;
 			org.eclipse.emf.ecore.EObject root = null;
 			if (result != null) {
 				root = result.getRoot();
@@ -258,6 +261,20 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			}
 			notifyDelayed();
 		}
+	}
+	
+	protected void unloadAndClearContents() {
+		java.util.List<org.eclipse.emf.ecore.EObject> contentsInternal = getContentsInternal();
+		// unload the root objects
+		for (org.eclipse.emf.ecore.EObject eObject : contentsInternal) {
+			if (eObject instanceof org.eclipse.emf.ecore.InternalEObject) {
+				unloaded((org.eclipse.emf.ecore.InternalEObject) eObject);
+			}
+		}
+		// unload all children using the super class method
+		unload();
+		// now we can clear the contents
+		contentsInternal.clear();
 	}
 	
 	protected boolean processTerminationRequested() {
