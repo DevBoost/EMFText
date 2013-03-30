@@ -58,7 +58,7 @@ public class LocationMapOptionsTest extends TestCase {
 
 			resource.unload();
 			resource.load(Collections.singletonMap(
-					ICsOptions.DISABLE_LOCATION_MAP, null));
+					ICsOptions.DISABLE_LOCATION_MAP, true));
 			cs = getConcreteSyntax(resource);
 			l = resource.getLocationMap().getLine(cs.getRules().get(0));
 			//location map disabled -> no location information available
@@ -67,7 +67,7 @@ public class LocationMapOptionsTest extends TestCase {
 			resource.unload();
 			resource.load(null);
 			resource.load(Collections.singletonMap(
-					ICsOptions.DISABLE_LOCATION_MAP, null)); //no effect since already loaded
+					ICsOptions.DISABLE_LOCATION_MAP, true)); //no effect since already loaded
 			cs = getConcreteSyntax(resource);
 			l = resource.getLocationMap().getLine(cs.getRules().get(0));
 			//location map enabled -> location information available
