@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -32,7 +32,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IN
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
@@ -105,7 +104,6 @@ public class TextResourceGenerator extends
 
 		addConstructors(sc);
 		addDoLoadMethod(sc);
-		addUnloadAndClearContentsMethod(sc);
 		addProcessTerminationRequestedMethod(sc);
 		addNotifyDelayedMethod(sc);
 		addENotifyMethod(sc);
@@ -165,24 +163,6 @@ public class TextResourceGenerator extends
 		generatorUtil.addIsMarkerCreationEnabledMethod(sc, context, "loadOptions");
 		generatorUtil.addIsLocationMapEnabledMethod(sc, context, "loadOptions");
 		generatorUtil.addIsLayoutInformationRecordingEnabled(sc, context, "loadOptions");
-	}
-
-	private void addUnloadAndClearContentsMethod(JavaComposite sc) {
-		sc.add("protected void unloadAndClearContents() {");
-		sc.add(LIST + "<" + E_OBJECT + "> contentsInternal = getContentsInternal();");
-		sc.add("for (" + E_OBJECT + " eObject : contentsInternal) {");
-		sc.addComment("unload the root object");
-		sc.add("unloaded((" + INTERNAL_E_OBJECT + ") eObject);");
-		sc.addComment("unload all children");
-		sc.add(ITERATOR + "<" + E_OBJECT + "> allContents = eObject.eAllContents();");
-		sc.add("while (allContents.hasNext()) {");
-		sc.add("unloaded((" + INTERNAL_E_OBJECT + ") allContents.next());");
-		sc.add("}");
-		sc.add("}");
-		sc.addComment("now we can clear the contents");
-		sc.add("contentsInternal.clear();");
-		sc.add("}");
-		sc.addLineBreak();
 	}
 
 	private void addRunValidatorsMethods(JavaComposite sc) {
@@ -1088,7 +1068,7 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("clearState();");
-		sc.add("unloadAndClearContents();");
+		sc.add("unload();");
 		sc.add(E_OBJECT + " root = null;");
 		sc.add("if (result != null) {");
 		sc.add("root = result.getRoot();");
