@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -17,12 +17,13 @@ package org.emftext.test.locationmap;
 
 import static org.emftext.test.ConcreteSyntaxTestHelper.getConcreteSyntax;
 import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactories;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
-
-import junit.framework.TestCase;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -31,69 +32,70 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsOptions;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.test.PluginTestHelper;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * This is a test case for bug 856 (Syntaxes that import theirself cause a
- * StackOverflowError when opened in the editor). It loads a .cs file containing
- * a self import and checks the result.
+ * The {@link LocationMapOptionsTest} checks whether options to disabled layout
+ * information recording and the location map do work as expected.
  */
-public class LocationMapOptionsTest extends TestCase {
+public class LocationMapOptionsTest {
 
+	@Before
 	public void setUp() {
 		registerResourceFactories();
 	}
 
+	@Test
 	public void testDisableLocationMapOption() {
-		String pluginRootPath = new PluginTestHelper().getPluginRootPath(getClass());
-		String path = pluginRootPath + "/src/org/emftext/test/locationmap/main.cs";
-		File file = new File(path);
-		CsResource resource = (CsResource) new ResourceSetImpl().createResource(URI
-				.createFileURI(file.getAbsolutePath()));
+		Map<String, Boolean> options = Collections.singletonMap(
+				ICsOptions.DISABLE_LOCATION_MAP, true);
+
+		File file = getInputFile();
+		CsResource resource = createResource(file);
 		try {
 			resource.load(null);
 			ConcreteSyntax cs = getConcreteSyntax(resource);
 			int l = resource.getLocationMap().getLine(cs.getRules().get(0));
 			//location map enabled -> location information available
-			assertEquals(10, l);
+			assertEquals("Location information expected.", 10, l);
 
 			resource.unload();
-			resource.load(Collections.singletonMap(
-					ICsOptions.DISABLE_LOCATION_MAP, true));
+			resource.load(options);
 			cs = getConcreteSyntax(resource);
 			l = resource.getLocationMap().getLine(cs.getRules().get(0));
 			//location map disabled -> no location information available
-			assertEquals(-1, l);
+			assertEquals("Location information not expected.", -1, l);
 			
 			resource.unload();
 			resource.load(null);
-			resource.load(Collections.singletonMap(
-					ICsOptions.DISABLE_LOCATION_MAP, true)); //no effect since already loaded
+			resource.load(options); //no effect since already loaded
 			cs = getConcreteSyntax(resource);
 			l = resource.getLocationMap().getLine(cs.getRules().get(0));
 			//location map enabled -> location information available
-			assertEquals(10, l);
+			assertEquals("Location information expected.", 10, l);
 			
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
 	}
-	
+
+	@Test
 	public void testDisableLayoutInformationRecording() {
-		String pluginRootPath = new PluginTestHelper().getPluginRootPath(getClass());
-		String path = pluginRootPath + "/src/org/emftext/test/locationmap/main.cs";
-		File file = new File(path);
-		CsResource resource = (CsResource) new ResourceSetImpl().createResource(URI
-				.createFileURI(file.getAbsolutePath()));
+		Map<String, Boolean> options = Collections.singletonMap(
+				ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING, true);
+
+		File file = getInputFile();
+		CsResource resource = createResource(file);
 		try {
 			resource.load(null);
 			ConcreteSyntax cs = getConcreteSyntax(resource);
 			Rule r = cs.getRules().get(0);
 			// layout information adapter available
-			assertEquals(1, r.eAdapters().size());
+			assertEquals("Layout adapter expected.", 1, r.eAdapters().size());
 
 			resource.unload();
-			resource.load(Collections.singletonMap(
-					ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING, true));
+			resource.load(options);
 			cs = getConcreteSyntax(resource);
 			r = cs.getRules().get(0);
 			// no layout information adapter available
@@ -101,15 +103,29 @@ public class LocationMapOptionsTest extends TestCase {
 			
 			resource.unload();
 			resource.load(null);
-			resource.load(Collections.singletonMap(
-					ICsOptions.DISABLE_LAYOUT_INFORMATION_RECORDING, true)); //no effect since already loaded
+			resource.load(options); //no effect since already loaded
 			cs = getConcreteSyntax(resource);
 			r = cs.getRules().get(0);
 			// layout information adapter available
-			assertEquals(1, r.eAdapters().size());
+			assertEquals("Layout adapter expected.", 1, r.eAdapters().size());
 			
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
+	}
+
+	private CsResource createResource(File file) {
+		ResourceSetImpl rs = new ResourceSetImpl();
+		String absolutePath = file.getAbsolutePath();
+		URI uri = URI.createFileURI(absolutePath);
+		CsResource resource = (CsResource) rs.createResource(uri);
+		return resource;
+	}
+
+	private File getInputFile() {
+		String pluginRootPath = new PluginTestHelper().getPluginRootPath(getClass());
+		String path = pluginRootPath + "/src/org/emftext/test/locationmap/main.cs";
+		File file = new File(path);
+		return file;
 	}
 }
