@@ -17,7 +17,7 @@ package org.emftext.sdk.codegen.antlr.creators;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,17 +44,17 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * This class creates the contents of the org.emftext.commons.antlr_version plug-in 
- * by copying the ANTLR runtime classes from the org.emftext.sdk.antlr_version
- * plug-in. The creation of the commons plug-in can be disable using the syntax
- * option OptionTypes.OVERRIDE_ANTLR_PLUGIN.
+ * This class creates the contents of the org.emftext.commons.antlr_version
+ * plug-in by copying the ANTLR runtime classes from the
+ * org.emftext.sdk.antlr_version plug-in. The creation of the commons plug-in
+ * can be disable using the syntax option OptionTypes.OVERRIDE_ANTLR_PLUGIN.
  */
 public class ANTLRPluginContentCreator {
 
 	private static final String SRC_FOLDER = "src";
 	
 	/**
-	 * A list of all class to copy.
+	 * A list of all classes to copy.
 	 */
 	private Class<?>[] antlrClassNames = new Class<?>[] {
 			org.antlr.runtime3_4_0.ANTLRFileStream.class,
@@ -187,21 +187,22 @@ public class ANTLRPluginContentCreator {
 		exports.add(ANTLRPluginArtifacts.PACKAGE_ANTLR_RUNTIME_TREE.getPackage().getName(context));
 
 		manifestParameters.setPlugin(antlrPlugin);
-		manifestParameters.setBundleName("ANTLR 3.3.0 Runtime Classes");
+		// TODO Use constant for ANTLR version
+		manifestParameters.setBundleName("ANTLR 3.4.0 Runtime Classes");
 		creators.add(new ManifestCreator<ANTLRGenerationContext>(manifestParameters, true));
 
+		Class<?> referenceClass = EMFTextSDKAntlrPlugin.class;
+		SourceCodeStreamFactory sourceCodeStreamFactory = new SourceCodeStreamFactory();
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {
-			String relativePathSourceFile = antlrClass.getName().replace(".", "/") + ".java";
+			String className = antlrClass.getName();
+			InputStream sourceStream = sourceCodeStreamFactory.getSourceCodeStream(referenceClass,
+					className);
 			String pathFile = antlrClass.getName().replace(".", File.separator) + ".java";
-			Class<EMFTextSDKAntlrPlugin> antlrPluginClass = EMFTextSDKAntlrPlugin.class;
-			URL url = antlrPluginClass.getResource("");
-			String packagePath = antlrPluginClass.getPackage().getName().replace(".", "/");
-			String urlString = url.toString().replace("bin/" + packagePath + "/", "");
-			urlString = urlString.replace(packagePath + "/", "");
-			String pathToSourceFile = urlString + "/src-runtime/" + relativePathSourceFile;
-			creators.add(new FileCopier<ANTLRGenerationContext>(new URL(pathToSourceFile).openStream(), 
-					new File(sourceFolderPath + pathFile), true));
+			File targetFile = new File(sourceFolderPath + pathFile);
+			FileCopier<ANTLRGenerationContext> fileCopier = new FileCopier<ANTLRGenerationContext>(sourceStream, 
+					targetFile, true);
+			creators.add(fileCopier);
 	    }
 	    
 		for (IArtifactCreator<ANTLRGenerationContext> creator : creators) {

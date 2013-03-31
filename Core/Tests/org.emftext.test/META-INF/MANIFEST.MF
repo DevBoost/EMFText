@@ -47,4 +47,6 @@ Export-Package: org.emftext.sdk.codegen.composites,
  org.emftext.test.resource,
  org.emftext.test.syntax_analysis,
  org.emftext.test.syntax_extension
+Bundle-ClassPath: lib/SourceCodeStreamTestArchive.jar,
+ .
 
