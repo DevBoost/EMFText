@@ -34,8 +34,20 @@ public class StreamUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		addFields(sc);
+		addCopyMethod(sc);
+		addGetContentMethod1(sc);
+		addGetContentMethod2(sc);
+		addGetContentMethod3(sc);
+		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private final static int IO_BUFFER_SIZE = 4 * 1024;");
 		sc.addLineBreak();
+	}
+
+	private void addCopyMethod(JavaComposite sc) {
 		sc.add("public static void copy(" + INPUT_STREAM + " in, " + OUTPUT_STREAM + " out) throws " + IO_EXCEPTION + " {");
 		sc.add("byte[] b = new byte[IO_BUFFER_SIZE];");
 		sc.add("int read;");
@@ -45,15 +57,33 @@ public class StreamUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("out.flush();");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetContentMethod1(JavaComposite sc) {
 		sc.add("public static String getContent(" + INPUT_STREAM + " inputStream) throws " + IO_EXCEPTION + " {");
-		sc.add("StringBuffer content = new StringBuffer();");
 		sc.add(INPUT_STREAM_READER + " reader = new " + INPUT_STREAM_READER + "(inputStream);");
+		sc.add("return getContent(reader);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetContentMethod2(JavaComposite sc) {
+		sc.add("public static String getContent(" + INPUT_STREAM + " inputStream, String charset) throws " + IO_EXCEPTION + " {");
+		sc.add(INPUT_STREAM_READER + " reader = new " + INPUT_STREAM_READER + "(inputStream, charset);");
+		sc.add("return getContent(reader);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetContentMethod3(JavaComposite sc) {
+		sc.add("public static String getContent(" + INPUT_STREAM_READER + " reader) throws " + IO_EXCEPTION + " {");
+		sc.add("StringBuffer content = new StringBuffer();");
 		sc.add("int next = -1;");
 		sc.add("while ((next = reader.read()) >= 0) {");
 		sc.add("content.append((char) next);");
 		sc.add("}");
 		sc.add("return content.toString();");
 		sc.add("}");
-		sc.add("}");
+		sc.addLineBreak();
 	}
 }

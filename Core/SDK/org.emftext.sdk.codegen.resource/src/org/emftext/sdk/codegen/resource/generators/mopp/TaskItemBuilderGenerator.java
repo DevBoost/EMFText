@@ -79,7 +79,8 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add(taskItemDetectorClassName + " taskItemDetector = new " + taskItemDetectorClassName + "();");
 		sc.add("try {");
 		sc.add(INPUT_STREAM + " inputStream = resource.getContents();");
-		sc.add("String content = " + streamUtilClassName + ".getContent(inputStream);");
+		sc.add("String charset = resource.getCharset();");
+		sc.add("String content = " + streamUtilClassName + ".getContent(inputStream, charset);");
 		sc.add(iTextScannerClassName + " lexer = new " + metaInformationClassName + "().createLexer();");
 		sc.add("lexer.setText(content);");
 		sc.addLineBreak();
