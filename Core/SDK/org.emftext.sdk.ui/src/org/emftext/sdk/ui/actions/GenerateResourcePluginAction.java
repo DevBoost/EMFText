@@ -45,7 +45,8 @@ public class GenerateResourcePluginAction implements IObjectActionDelegate {
 				Object o = i.next();
 				if (o instanceof IFile) {
 					IFile file = (IFile) o;
-					if (file.getFileExtension().startsWith("cs")) {
+                    String fileExtension = file.getFileExtension();
+					if (fileExtension != null && fileExtension.startsWith("cs")) {
 						process(file);
 					}
 				}

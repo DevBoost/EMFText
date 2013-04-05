@@ -38,7 +38,8 @@ public class GenerateCustomSyntaxAction implements IObjectActionDelegate {
                 Object o = i.next();
                 if (o instanceof IFile) {
                     IFile file = (IFile) o;                   
-                    if (file.getFileExtension().startsWith("genmodel")) {
+                    String fileExtension = file.getFileExtension();
+					if (fileExtension != null && fileExtension.startsWith("genmodel")) {
                     	process(file);
                     }
                 }
