@@ -31,12 +31,22 @@ public class CsStreamUtil {
 	}
 	
 	public static String getContent(java.io.InputStream inputStream) throws java.io.IOException {
-		StringBuffer content = new StringBuffer();
 		java.io.InputStreamReader reader = new java.io.InputStreamReader(inputStream);
+		return getContent(reader);
+	}
+	
+	public static String getContent(java.io.InputStream inputStream, String charset) throws java.io.IOException {
+		java.io.InputStreamReader reader = new java.io.InputStreamReader(inputStream, charset);
+		return getContent(reader);
+	}
+	
+	public static String getContent(java.io.InputStreamReader reader) throws java.io.IOException {
+		StringBuffer content = new StringBuffer();
 		int next = -1;
 		while ((next = reader.read()) >= 0) {
 			content.append((char) next);
 		}
 		return content.toString();
 	}
+	
 }
