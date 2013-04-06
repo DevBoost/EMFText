@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,12 +15,21 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL_EQUALITY_HELPER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FEATURE_MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ELEMENT_COMPARER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER_FILTER;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -43,11 +52,31 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		
 		addInnerClassTypeFilter(sc);
+		addInnerClassFlatEObjectComparer(sc);
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
 
 		sc.add("}");
+	}
+
+	private void addInnerClassFlatEObjectComparer(JavaComposite sc) {
+		sc.add("private static class FlatEObjectComparer extends " + ECORE_UTIL_EQUALITY_HELPER + " {");
+		sc.addLineBreak();
+		sc.add("private static final long serialVersionUID = 1L;");
+		sc.addLineBreak();
+		sc.add("@Override").addLineBreak();
+		sc.add("protected boolean haveEqualReference(" + E_OBJECT + " eObject1, " + E_OBJECT + " eObject2, " + E_REFERENCE + " reference) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("@Override").addLineBreak();
+		sc.add("protected boolean equalFeatureMaps(" + FEATURE_MAP + " featureMap1, " + FEATURE_MAP + " featureMap2) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addRemoveTypeToFilterMethod(JavaComposite sc) {
@@ -247,6 +276,9 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean equals(Object o1, Object o2) {");
+		sc.add("if (o1 instanceof " + E_OBJECT + " && o2 instanceof " + E_OBJECT + ") {");
+		sc.add("return new FlatEObjectComparer().equals((" + E_OBJECT + ") o1, (" + E_OBJECT + ") o2);");
+		sc.add("}");
 		sc.add("String s1 = toString(o1);");
 		sc.add("String s2 = toString(o2);");
 		sc.add("if (s1 != null) {");
@@ -256,11 +288,6 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private String toString(Object o) {");
-		sc.add("if (o instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " e = (" + E_OBJECT + ") o;");
-		sc.add("String uri = getURI(e);");
-		sc.add("return uri;");
-		sc.add("}");
 		sc.add("if (o instanceof String) {");
 		sc.add("return (String) o;");
 		sc.add("}");
@@ -268,22 +295,6 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("return ((" + RESOURCE + ") o).getURI().toString();");
 		sc.add("}");
 		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private String getURI(" + E_OBJECT + " eObject) {");
-		sc.add(LIST + "<String> uriFragmentPath = getFragmentPath(eObject);");
-		sc.add("String uriFragment = " + stringUtilClassName + ".explode(uriFragmentPath, \"/\");");
-		sc.add("return uriFragment;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private " + LIST + "<String> getFragmentPath(" + E_OBJECT + " eObject) {");
-		sc.add(INTERNAL_E_OBJECT + " internalEObject = (" + INTERNAL_E_OBJECT + ") eObject;");
-		sc.add(sc.declareArrayList("uriFragmentPath", "String"));
-		sc.add("for (" + INTERNAL_E_OBJECT + " container = internalEObject.eInternalContainer(); container != null; container = internalEObject.eInternalContainer()) {");
-		sc.add("uriFragmentPath.add(0, container.eURIFragmentSegment(internalEObject.eContainingFeature(), internalEObject));");
-		sc.add("internalEObject = container;");
-		sc.add("}");
-		sc.add("return uriFragmentPath;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("});");

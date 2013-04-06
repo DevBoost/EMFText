@@ -171,6 +171,7 @@ import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreValidator;
+import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.EvaluationMode;
@@ -226,6 +227,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String ECORE_FACTORY = EcoreFactory.class.getName();
 	public static String ECORE_PLUGIN = EcorePlugin.class.getName();
 	public static String ECORE_UTIL = EcoreUtil.class.getName();
+	public static String ECORE_UTIL_EQUALITY_HELPER = EcoreUtil.EqualityHelper.class.getCanonicalName();
 	public static String ECORE_VALIDATOR = EcoreValidator.class.getName();
 	public static String EDITOR = Editor.class.getName();
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
@@ -250,6 +252,7 @@ public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.
 	public static String E_REFERENCE = EReference.class.getName();
 	public static String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
 	public static String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
+	public static String FEATURE_MAP = FeatureMap.class.getName();
 	public static String FIELD = Field.class.getName();
 	public static String FILE = File.class.getName();
 	public static String FILE_INPUT_STREAM = FileInputStream.class.getName();
