@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -202,9 +202,11 @@ import org.eclipse.jface.text.AbstractInformationControl;
 import org.eclipse.jface.text.AbstractReusableInformationControlCreator;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.BadPositionCategoryException;
+import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.DefaultInformationControl;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.DocumentEvent;
+import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDelayedInputChangeProvider;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
@@ -467,6 +469,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String DEBUG_UI_TOOLS = DebugUITools.class.getName();
 	public static String DEFAULT_ANNOTATION_HOVER = DefaultAnnotationHover.class.getName();
 	public static String DEFAULT_DAMAGER_REPAIRER = DefaultDamagerRepairer.class.getName();
+	public static String DEFAULT_INDENT_LINE_AUTO_EDIT_STRATEGY = DefaultIndentLineAutoEditStrategy.class.getName();
 	public static String DEFAULT_INFORMATION_CONTROL = DefaultInformationControl.class.getName();
 	public static String DIAGNOSTIC = org.eclipse.emf.common.util.Diagnostic.class.getName();
 	public static String DIAGNOSTICIAN = org.eclipse.emf.ecore.util.Diagnostician.class.getName();
@@ -544,6 +547,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_ANNOTATION_HOVER = IAnnotationHover.class.getName();
 	public static String I_ANNOTATION_MODEL = IAnnotationModel.class.getName();
 	public static String I_ANNOTATION_MODEL_FACTORY = IAnnotationModelFactory.class.getName();
+	public static String I_AUTO_EDIT_STRATEGY = IAutoEditStrategy.class.getName();
 	public static String I_BATCH_VALIDATOR = IBatchValidator.class.getName();
 	public static String I_CHILDREN_COUNT_UPDATE = IChildrenCountUpdate.class.getName();
 	public static String I_CHILDREN_UPDATE = IChildrenUpdate.class.getName();

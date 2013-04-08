@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -147,6 +147,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		}
 	    
 	    // add UI generators
+		add(creators, TextResourceUIArtifacts.AUTO_EDIT_STRATEGY);
 		add(creators, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.BRACKET_SET);
 	    add(creators, TextResourceUIArtifacts.BROWSER_INFORMATION_CONTROL);

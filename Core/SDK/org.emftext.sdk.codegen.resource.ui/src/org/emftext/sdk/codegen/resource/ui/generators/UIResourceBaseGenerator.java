@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -27,6 +27,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String abstractOutlinePageActionClassName;
 	protected String annotationModelClassName;
 	protected String annotationModelFactoryClassName;
+	protected String autoEditStrategyClassName;
 	protected String backgroundParsingStrategyClassName;
 	protected String bracketPreferencePageClassName;
 	protected String bracketSetClassName;
@@ -102,6 +103,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 
 		abstractOutlinePageActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
 		annotationModelClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL);
+		autoEditStrategyClassName = context.getQualifiedClassName(TextResourceUIArtifacts.AUTO_EDIT_STRATEGY);
 		uiAntlrTokenHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
 		annotationModelFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
 		backgroundParsingStrategyClassName = context.getQualifiedClassName(TextResourceUIArtifacts.BACKGROUND_PARSING_STRATEGY);

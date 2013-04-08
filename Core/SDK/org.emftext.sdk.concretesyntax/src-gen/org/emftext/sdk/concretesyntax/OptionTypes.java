@@ -2976,7 +2976,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITOKEN_SCANNER(297, "OVERRIDE_I_TOKEN_SCANNER", "overrideITokenScanner");
+	OVERRIDE_ITOKEN_SCANNER(297, "OVERRIDE_I_TOKEN_SCANNER", "overrideITokenScanner"), /**
+	 * The '<em><b>OVERRIDE AUTO EDIT STRATEGY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_AUTO_EDIT_STRATEGY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_AUTO_EDIT_STRATEGY(298, "OVERRIDE_AUTO_EDIT_STRATEGY", "overrideAutoEditStrategy");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7117,6 +7125,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_ITOKEN_SCANNER_VALUE = 297;
 
 	/**
+	 * The '<em><b>OVERRIDE AUTO EDIT STRATEGY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE AUTO EDIT STRATEGY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_AUTO_EDIT_STRATEGY
+	 * @model literal="overrideAutoEditStrategy"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_AUTO_EDIT_STRATEGY_VALUE = 298;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7419,6 +7442,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_UI_ANTLR_TOKEN_HELPER,
 			OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER,
 			OVERRIDE_ITOKEN_SCANNER,
+			OVERRIDE_AUTO_EDIT_STRATEGY,
 		};
 
 	/**
@@ -7762,6 +7786,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_UI_ANTLR_TOKEN_HELPER_VALUE: return OVERRIDE_UI_ANTLR_TOKEN_HELPER;
 			case OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER_VALUE: return OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER;
 			case OVERRIDE_ITOKEN_SCANNER_VALUE: return OVERRIDE_ITOKEN_SCANNER;
+			case OVERRIDE_AUTO_EDIT_STRATEGY_VALUE: return OVERRIDE_AUTO_EDIT_STRATEGY;
 		}
 		return null;
 	}

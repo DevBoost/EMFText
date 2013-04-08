@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -36,6 +36,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.AbstractOutlinePageActi
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelFactoryGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AntlrTokenHelperGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.AutoEditStrategyGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BracketPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.BracketSetGenerator;
@@ -114,13 +115,14 @@ public class TextResourceUIArtifacts {
 	public static final ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>>(null, ManifestCreator.FILENAME, "", null, null);
 	public static final ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_PLUGIN_XML);
 
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> AUTO_EDIT_STRATEGY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AutoEditStrategy", AutoEditStrategyGenerator.class, OptionTypes.OVERRIDE_AUTO_EDIT_STRATEGY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CODE_COMPLETION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CodeCompletionHelper", CodeCompletionHelperGenerator.class, OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROPOSAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProposal", CompletionProposalGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROPOSAL); 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PROPOSAL_POST_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ProposalPostProcessor", ProposalPostProcessorGenerator.class, OptionTypes.OVERRIDE_PROPOSAL_POST_PROCESSOR); 
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "HoverTextProvider", HoverTextProviderGenerator.class, OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DefaultHoverTextProvider", DefaultHoverTextProviderGenerator.class, OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER);
-
+	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BRACKET_SET = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BracketSet", BracketSetGenerator.class, OptionTypes.OVERRIDE_BRACKET_SET);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> POSITION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PositionHelper", PositionHelperGenerator.class, OptionTypes.OVERRIDE_POSITION_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CODE_FOLDING_MANAGER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CodeFoldingManager", CodeFoldingManagerGenerator.class, OptionTypes.OVERRIDE_CODE_FOLDING_MANAGER);

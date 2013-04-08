@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -23,6 +23,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_DAMAGER_REPAIRER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITORS_UI;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_HOVER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_AUTO_EDIT_STRATEGY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_ASSISTANT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_HYPERLINK_DETECTOR;
@@ -68,6 +69,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 	}
 
 	private void addMethods(JavaComposite sc) {
+		addGetAutoEditStrategies(sc);
 		addGetContentAssistantMethod(sc);
 		addGetConfiguredContentTypesMethod(sc);
 		addGetScannerMethod(sc);
@@ -77,6 +79,15 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		addGetHyperlinkDetectorsMethod(sc);
 		addGetQuickAssistAssistantMethod(sc);
 		addGetReconcilerMethod(sc);
+	}
+
+	private void addGetAutoEditStrategies(JavaComposite sc) {
+		sc.addJavadoc("Returns an instance of class " + 
+			autoEditStrategyClassName + ".");
+		sc.add("public " + I_AUTO_EDIT_STRATEGY + "[] getAutoEditStrategies(" + I_SOURCE_VIEWER + " sourceViewer, String contentType) {");
+		sc.add("return new " + I_AUTO_EDIT_STRATEGY + "[] {new " + autoEditStrategyClassName +"()};");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetReconcilerMethod(JavaComposite sc) {
