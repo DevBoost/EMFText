@@ -50,6 +50,10 @@ public class ITokenStyleGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("public boolean isBold();");
 		sc.addLineBreak();
 		
+		sc.addJavadoc("Sets whether the token must be displayed in bold face.");
+		sc.add("public void setBold(boolean bold);");
+		sc.addLineBreak();
+		
 		sc.addJavadoc("Returns true if the token must be displayed in italic face.");
 		sc.add("public boolean isItalic();");
 		sc.addLineBreak();

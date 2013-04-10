@@ -92,7 +92,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("if (object instanceof " + getResourceClassName() + ") {");
 		sc.add(getResourceClassName() + " other = (" + getResourceClassName() + ") object;");
 		sc.addComment("proposals that start with the prefix are preferred over the ones that do not");
-		sc.add("int startCompare = (matchesPrefix ? 1 : 0) - (other.getMatchesPrefix() ? 1 : 0);");
+		sc.add("int startCompare = (matchesPrefix ? 1 : 0) - (other.isMatchesPrefix() ? 1 : 0);");
 		sc.addComment("if both proposals start with the prefix of both do not the insert string is compared");
 		sc.add("return startCompare == 0 ? getInsertString().compareTo(other.getInsertString()) : -startCompare;");
 		sc.add("}");
@@ -210,7 +210,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 			"the prefix to allow proposal post processors to access these and add valid proposals " +
 			"even if the built-in proposal engine did not find a matching proposal. " +
 			"The completion pop-up will only show proposals for which this method returns true. " +
-			"See also {@link #getMatchesPrefix()}.";
+			"See also {@link #isMatchesPrefix()}.";
 		String getterDoc =
 			"Returns true if this proposal matched the prefix. " +
 			"This does not imply that the proposal exactly starts with the prefix, " +

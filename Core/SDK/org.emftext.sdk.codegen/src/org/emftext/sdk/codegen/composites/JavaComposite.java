@@ -180,6 +180,10 @@ public class JavaComposite extends StringComposite {
 	 * @param fieldName the name of the field to add
 	 * @param type the type of the field
 	 */
+	public void addFieldGetSet(String fieldName, String type) {
+		addFieldGetSet(fieldName, type, (String[]) null);
+	}
+
 	public void addFieldGetSet(String fieldName, String type, String... javadoc) {
 		addFieldGetSet(fieldName, type, javadoc, null);
 	}
@@ -227,7 +231,11 @@ public class JavaComposite extends StringComposite {
 			String type = getters.get(fieldName);
 			String[] doc = getterDocs.get(fieldName);
 			addJavadoc(doc);
-			add("public " + type + " get" + StringUtil.capitalize(fieldName) + "() {");
+			String methodPrefix = "get";
+			if ("boolean".equals(type)) {
+				methodPrefix = "is";
+			}
+			add("public " + type + " " + methodPrefix + StringUtil.capitalize(fieldName) + "() {");
 			add("return " + fieldName + ";");
 			add("}");
 			addLineBreak();

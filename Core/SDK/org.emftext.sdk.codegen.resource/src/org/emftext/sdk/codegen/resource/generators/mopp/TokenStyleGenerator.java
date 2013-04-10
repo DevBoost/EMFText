@@ -29,26 +29,27 @@ public class TokenStyleGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("public class " + getResourceClassName() + " implements " + iTokenStyleClassName + " {");
 		sc.addLineBreak();
         addFields(sc);
-        addConstructorMethod(sc);
-        addMethods(sc);
+        addConstructor1(sc);
+        addConstructor2(sc);
+        sc.addGettersSetters();
 		sc.add("}");
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private int[] color;");
-		sc.add("private int[] backgroundColor;");
-        sc.add("private boolean bold;");
-        sc.add("private boolean italic;");
-        sc.add("private boolean strikethrough;");
-        sc.add("private boolean underline;");
-        sc.addLineBreak();
+		sc.addFieldGetSet("colorAsRGB", "int[]");
+		sc.addFieldGetSet("backgroundColorAsRGB", "int[]");
+		sc.addFieldGetSet("bold", "boolean");
+		sc.addFieldGetSet("italic", "boolean");
+		sc.addFieldGetSet("strikethrough", "boolean");
+		sc.addFieldGetSet("underline", "boolean");
+		sc.addFields();
 	}
 
-	private void addConstructorMethod(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(int[] color, int[] backgroundColor, boolean bold, boolean italic, boolean striketrough, boolean underline) {");
+	private void addConstructor1(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(int[] colorAsRGB, int[] backgroundColorAsRGB, boolean bold, boolean italic, boolean striketrough, boolean underline) {");
         sc.add("super();");
-        sc.add("this.color = color;");
-        sc.add("this.backgroundColor = backgroundColor;");
+        sc.add("this.colorAsRGB = colorAsRGB;");
+        sc.add("this.backgroundColorAsRGB = backgroundColorAsRGB;");
         sc.add("this.bold = bold;");
         sc.add("this.italic = italic;");
         sc.add("this.strikethrough = striketrough;");
@@ -57,55 +58,10 @@ public class TokenStyleGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
         sc.addLineBreak();
 	}
 
-	private void addMethods(JavaComposite sc) {
-		addGetColorAsRGBMethod(sc);
-		addGetBackgroundColorAsRGBMethod(sc);
-        addIsBoldMethod(sc);
-        addIsItalicMethod(sc);
-        addIsStrikethroughMethod(sc);
-        addIsUnderlineMethod(sc);
-	}
-
-	private void addGetColorAsRGBMethod(JavaComposite sc) {
-		sc.add("public int[] getColorAsRGB() {");
-        sc.add("return color;");
+	private void addConstructor2(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + iTokenStyleClassName + " styleToCopy) {");
+        sc.add("this(styleToCopy.getColorAsRGB(), styleToCopy.getBackgroundColorAsRGB(), styleToCopy.isBold(), styleToCopy.isItalic(), styleToCopy.isStrikethrough(), styleToCopy.isUnderline());");
         sc.add("}");
         sc.addLineBreak();
 	}
-
-	private void addGetBackgroundColorAsRGBMethod(JavaComposite sc) {
-		sc.add("public int[] getBackgroundColorAsRGB() {");
-        sc.add("return backgroundColor;");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	private void addIsBoldMethod(JavaComposite sc) {
-		sc.add("public boolean isBold() {");
-        sc.add("return bold;");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	private void addIsItalicMethod(JavaComposite sc) {
-		sc.add("public boolean isItalic() {");
-        sc.add("return italic;");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	private void addIsStrikethroughMethod(JavaComposite sc) {
-		sc.add("public boolean isStrikethrough() {");
-        sc.add("return strikethrough;");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	private void addIsUnderlineMethod(JavaComposite sc) {
-		sc.add("public boolean isUnderline() {");
-        sc.add("return underline;");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
 }

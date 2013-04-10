@@ -687,7 +687,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addComment("Count the proposals before the cursor that match the prefix");
 		sc.add("int leftMatchingProposals = 0;");
 		sc.add("for (" + completionProposalClassName + " leftProposal : leftProposals) {");
-		sc.add("if (leftProposal.getMatchesPrefix()) {");
+		sc.add("if (leftProposal.isMatchesPrefix()) {");
 		sc.add("leftMatchingProposals++;");
 		sc.add("}");
 		sc.add("}");

@@ -118,7 +118,7 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("}");
 		sc.add(LIST + "<" + completionProposalClassName + "> finalProposalList = new " + ARRAY_LIST + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + completionProposalClassName + " proposal : extendedProposalList) {");
-		sc.add("if (proposal.getMatchesPrefix()) {");
+		sc.add("if (proposal.isMatchesPrefix()) {");
 		sc.add("finalProposalList.add(proposal);");
 		sc.add("}");
 		sc.add("}");
