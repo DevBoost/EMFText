@@ -201,6 +201,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("if (type.isInstance(container)) {");
 		sc.add("ancestor = container;");
 		sc.add("}");
+		sc.add("container = container.eContainer();");
 		sc.add("}");
 		sc.add("return ancestor;");
 		sc.add("}");
