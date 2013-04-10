@@ -19,6 +19,8 @@ import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OPERATION;
@@ -26,7 +28,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INVOCATION_TARGET_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.METHOD;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
 
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -57,6 +58,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addMethods(JavaComposite sc) {
 		addGetObjectsByTypeMethod(sc);
 		addFindRootContainerMethod(sc);
+		addFindAncestorByTypeMethod(sc);
 		addInvokeOperationMethod(sc);
 		addSetFeatureMethod(sc);
 		addGetDepthMethod(sc);
@@ -186,6 +188,21 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("} else {");
 		sc.add("return object;");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFindAncestorByTypeMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the ancestor with the given type.");
+		sc.add("public static " + E_OBJECT + " findAncestorByType(" + E_OBJECT + " object, " + E_CLASS + " type) {");
+		sc.add(E_OBJECT + " ancestor = null;");
+		sc.add(E_OBJECT + " container = object.eContainer();");
+		sc.add("while (container != null) {");
+		sc.add("if (type.isInstance(container)) {");
+		sc.add("ancestor = container;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return ancestor;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
