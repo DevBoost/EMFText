@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.composites.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_FACTORY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
@@ -75,6 +75,8 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addCreateLayoutInformation(sc);
 		
 		addGetLayoutInformationAdapterMethod(sc);
+		addRemoveLayoutInformationAdapterMethod(sc);
+		addRemoveLayoutInformationAdaptersMethod(sc);
 		addFindLayoutReference(sc);
 	}
 	
@@ -202,6 +204,27 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add(layoutInformationAdapterClassName + " newAdapter = new " + layoutInformationAdapterClassName + "();");
 		sc.add("element.eAdapters().add(newAdapter);");
 		sc.add("return newAdapter;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addRemoveLayoutInformationAdapterMethod(StringComposite sc) {
+		sc.add("public void removeLayoutInformationAdapter(" + E_OBJECT + " element) {");
+		sc.add(layoutInformationAdapterClassName + " existingAdapter = getLayoutInformationAdapter(element);");
+		sc.add("if (existingAdapter != null) {");
+		sc.add("element.eAdapters().remove(existingAdapter);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addRemoveLayoutInformationAdaptersMethod(StringComposite sc) {
+		sc.add("public void removeLayoutInformationAdapters(" + RESOURCE + " resource) {");
+		sc.add(ITERATOR + "<" + E_OBJECT + "> it = resource.getAllContents();");
+		sc.add("while (it.hasNext()) {");
+		sc.add(E_OBJECT + " next = it.next();");
+		sc.add("removeLayoutInformationAdapter(next);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
