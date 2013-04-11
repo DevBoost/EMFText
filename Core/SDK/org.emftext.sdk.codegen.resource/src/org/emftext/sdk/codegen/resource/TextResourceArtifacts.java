@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -173,6 +173,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.DynamicTokenStylerGenera
 import org.emftext.sdk.codegen.resource.generators.mopp.ExpectationsConstantsGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.LayoutInformationGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.LocalizedMessageGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.MarkerHelperGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.NatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.OptionProviderGenerator;
@@ -260,6 +261,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CHANGE_REFERENCE_QUICK_FIX = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ChangeReferenceQuickFix", ChangeReferenceQuickFixGenerator.class, OptionTypes.OVERRIDE_CHANGE_REFERENCE_QUICK_FIX);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OPTION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "OptionProvider", OptionProviderGenerator.class, OptionTypes.OVERRIDE_OPTION_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTAINED_FEATURE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ContainedFeature", ContainedFeatureGenerator.class, OptionTypes.OVERRIDE_CONTAINED_FEATURE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> LOCALIZED_MESSAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "LocalizedMessage", LocalizedMessageGenerator.class, OptionTypes.OVERRIDE_LOCALIZED_MESSAGE);
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> NEW_FILE_CONTENT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "NewFileContentProvider", NewFileContentProviderGenerator.class, OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PARSE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ParseResult", ParseResultGenerator.class, OptionTypes.OVERRIDE_PARSE_RESULT);

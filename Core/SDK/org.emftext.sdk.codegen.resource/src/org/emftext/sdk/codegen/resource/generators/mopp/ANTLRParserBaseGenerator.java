@@ -131,7 +131,6 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		addRetrieveLayoutInformationMethod(sc);
 		generatorUtil.addGetLayoutInformationAdapterMethod(sc, layoutInformationAdapterClassName);
 		generatorUtil.addRegisterContextDependentProxyMethod(sc, true, context);
-		addFormatTokenNameMethod(sc);
 		addGetOptionsMethod(sc);
 		addSetOptionsMethod(sc);
 		addCreateDynamicProxyMethod(sc);
@@ -222,23 +221,6 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("layoutInformationAdapter.addLayoutInformation(new " + layoutInformationClassName + "(syntaxElement, object, offset, hiddenTokenText.toString(), visibleTokenText.toString()));");
 		sc.add("this.lastPosition2 = (endPos < 0 ? 0 : endPos + 1);");
 		sc.add("anonymousTokens.clear();");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addFormatTokenNameMethod(JavaComposite sc) {
-		sc.add("protected String formatTokenName(int tokenType)  {");
-		sc.add("String tokenName = \"<unknown>\";");
-		sc.add("if (tokenType < 0) {");
-		sc.add("tokenName = \"EOF\";");
-		sc.add("} else {");
-		sc.add("if (tokenType < 0) {");
-		sc.add("return tokenName;");
-		sc.add("}");
-		sc.add("tokenName = getTokenNames()[tokenType];");
-		sc.add("tokenName = " + stringUtilClassName + ".formatTokenName(tokenName);");
-		sc.add("}");
-		sc.add("return tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

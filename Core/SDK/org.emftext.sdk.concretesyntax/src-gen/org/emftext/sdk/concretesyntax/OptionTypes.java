@@ -2992,7 +2992,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER(299, "OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER", "overrideSyntaxErrorMessageConverter");
+	OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER(299, "OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER", "overrideSyntaxErrorMessageConverter"), /**
+	 * The '<em><b>OVERRIDE LOCALIZED MESSAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LOCALIZED_MESSAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LOCALIZED_MESSAGE(300, "OVERRIDE_LOCALIZED_MESSAGE", "overrideLocalizedMessage");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7165,6 +7173,20 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER_VALUE = 299;
 
 	/**
+	 * The '<em><b>OVERRIDE LOCALIZED MESSAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the LocalizedMessage class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_LOCALIZED_MESSAGE
+	 * @model literal="overrideLocalizedMessage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LOCALIZED_MESSAGE_VALUE = 300;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7469,6 +7491,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ITOKEN_SCANNER,
 			OVERRIDE_AUTO_EDIT_STRATEGY,
 			OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER,
+			OVERRIDE_LOCALIZED_MESSAGE,
 		};
 
 	/**
@@ -7814,6 +7837,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ITOKEN_SCANNER_VALUE: return OVERRIDE_ITOKEN_SCANNER;
 			case OVERRIDE_AUTO_EDIT_STRATEGY_VALUE: return OVERRIDE_AUTO_EDIT_STRATEGY;
 			case OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER_VALUE: return OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER;
+			case OVERRIDE_LOCALIZED_MESSAGE_VALUE: return OVERRIDE_LOCALIZED_MESSAGE;
 		}
 		return null;
 	}

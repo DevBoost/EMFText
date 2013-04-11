@@ -209,6 +209,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String uriUtilClassName;
 	protected String antlrTextTokenClassName;
 	protected String syntaxErrorMessageConverterClassName;
+	protected String localizedMessageClassName;
 	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -390,6 +391,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		taskItemBuilderClassName = context.getQualifiedClassName(TextResourceArtifacts.TASK_ITEM_BUILDER);
 		uriUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.URI_UTIL);
 		antlrTextTokenClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_TEXT_TOKEN);
+		localizedMessageClassName = context.getQualifiedClassName(TextResourceArtifacts.LOCALIZED_MESSAGE);
 	}
 
 	protected String getResourceClassName() {

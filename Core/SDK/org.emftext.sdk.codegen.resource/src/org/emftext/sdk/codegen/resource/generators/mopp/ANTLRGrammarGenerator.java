@@ -24,12 +24,10 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EARLY_EXIT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INT_STREAM;
@@ -37,12 +35,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LEXER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_SET_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_TOKEN_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_TREE_NODE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
@@ -76,7 +68,6 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -242,11 +233,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 		sc.add("@lexer::members {");
 		sc.add("public " + LIST + "<" + RECOGNITION_EXCEPTION + "> lexerExceptions  = new " + ARRAY_LIST + "<" + RECOGNITION_EXCEPTION + ">();");
-		sc.add("public " + LIST + "<Integer> lexerExceptionsPosition = new " + ARRAY_LIST + "<Integer>();");
+		sc.add("public " + LIST + "<Integer> lexerExceptionPositions = new " + ARRAY_LIST + "<Integer>();");
 		sc.addLineBreak();
 		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " e) {");
 		sc.add("lexerExceptions.add(e);");
-		sc.add("lexerExceptionsPosition.add(((" + ANTLR_STRING_STREAM + ") input).index());");
+		sc.add("lexerExceptionPositions.add(((" + ANTLR_STRING_STREAM + ") input).index());");
 		sc.add("}");
 		sc.add("}");
 
@@ -285,7 +276,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			ANTLRGrammarComposite sc) {
 		GenerationContext context = getContext();
 		
+		addReportErrorMethod(sc);
 		generatorUtil.addAddErrorToResourceMethod(sc, context);
+		addAddErrorToResourceMethod(sc);
 		addAddExpectedElementMethod(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
 		addCopyLocalizationInfosMethod1(sc);
@@ -302,11 +295,27 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addParseToExpectedElementsMethod(sc);
 		addSetPositionMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
-		addReportErrorMethod(sc);
-		addReportLexicalErrorsMethod(sc);
 		addStartIncompleteElementMethod(sc);
 		addCompletedElementMethod(sc);
 		addGetLastIncompleteElementMethod(sc);
+	}
+
+	private void addReportErrorMethod(ANTLRGrammarComposite sc) {
+		sc.add("@Override").addLineBreak();
+		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " re) {");
+		sc.add("addErrorToResource(syntaxErrorMessageConverter.translateParseError(re));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddErrorToResourceMethod(ANTLRGrammarComposite sc) {
+		sc.add("protected void addErrorToResource(" + localizedMessageClassName + " message) {");
+		sc.add("if (message == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("addErrorToResource(message.getMessage(), message.getColumn(), message.getLine(), message.getCharStart(), message.getCharEnd());");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -322,84 +331,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addGetMismatchedTokenRecoveryTriesMethod(StringComposite sc) {
 		sc.add("public int getMismatchedTokenRecoveryTries() {");
 		sc.add("return mismatchedTokenRecoveryTries;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addReportLexicalErrorsMethod(JavaComposite sc) {
-		sc.addJavadoc("Translates errors thrown by the lexer into human readable messages.");
-		sc.add("public void reportLexicalError(final " + RECOGNITION_EXCEPTION + " e)  {");
-		sc.add("String message = \"\";");
-		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
-		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", \\\"\" + (char) mte.expecting + \"\\\" expected\";");
-		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
-		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", delete this token\";");
-		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
-		sc.add(EARLY_EXIT_EXCEPTION + " eee = (" + EARLY_EXIT_EXCEPTION + ") e;");
-		sc.add("message = \"required (...)+ loop (decision=\" + eee.decisionNumber + \") did not match anything; on line \" + e.line + \":\" + e.charPositionInLine + \" char=\" + ((char) e.c) + \"'\";");
-		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_RANGE_EXCEPTION + ") {");
-		sc.add(MISMATCHED_RANGE_EXCEPTION + " mre = (" + MISMATCHED_RANGE_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set '\" + (char) mre.a + \"'..'\" + (char) mre.b + \"'\";");
-		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
-		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
-		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" + fpe.predicateText + \"}?\";");
-		sc.add("}");
-		sc.add("addErrorToResource(message, e.charPositionInLine, e.line, lexerExceptionsPosition.get(lexerExceptions.indexOf(e)), lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addReportErrorMethod(ANTLRGrammarComposite sc) {
-		sc.addJavadoc("Translates errors thrown by the parser into human readable messages.");
-		sc.add("public void reportError(final " + RECOGNITION_EXCEPTION + " e)  {");
-		sc.add("String message = e.getMessage();");
-		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
-		sc.add("String expectedTokenName = formatTokenName(mte.expecting);");
-		sc.add("String actualTokenName = formatTokenName(e.token.getType());");
-		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \" (\" + actualTokenName + \")\\\", \\\"\" + expectedTokenName + \"\\\" expected\";");
-		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TREE_NODE_EXCEPTION + " mtne = (" + MISMATCHED_TREE_NODE_EXCEPTION + ") e;");
-		sc.add("String expectedTokenName = formatTokenName(mtne.expecting);");
-		sc.add("message = \"mismatched tree node: \" + \"xxx\" + \"; tokenName \" + expectedTokenName;");
-		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
-		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", check following tokens\";");
-		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
-		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", delete this token\";");
-		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched token: \" + e.token + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched token: \" +  e.token + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
-		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
-		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText + \"}?\";");
-		sc.add("}");
-		
-		sc.addComment("the resource may be null if the parser is used for code completion");
-		sc.add("final String finalMessage = message;");
-		
-		sc.add("if (e.token instanceof " + COMMON_TOKEN + ") {");
-		sc.add("final " + COMMON_TOKEN + " ct = (" + COMMON_TOKEN + ") e.token;");
-		sc.add("addErrorToResource(finalMessage, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());");
-		sc.add("} else {");
-		sc.add("int position = 1;");
-		sc.add("int line = 1;");
-		sc.add("if (e.token != null) {");
-		sc.add("position = e.token.getCharPositionInLine();");
-		sc.add("line = e.token.getLine();");
-		sc.add("}");
-		// In cases of unexpected errors, produce an error and place it at the beginning of the file (Lies 1--5)
-		sc.add("addErrorToResource(finalMessage, position, line, 1, 5);");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -424,7 +355,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("parseResult.setLocationMap(locationMap);");
 		sc.add("}");
 		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
-		sc.add("reportError(re);");
+		sc.add("addErrorToResource(syntaxErrorMessageConverter.translateParseError(re));");
 		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
 		sc.add("if (\"The 'no null' constraint is violated\".equals(iae.getMessage())) {");
 		sc.addComment(
@@ -436,7 +367,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + RECOGNITION_EXCEPTION + " re : lexerExceptions) {");
-		sc.add("reportLexicalError(re);");
+		sc.add("addErrorToResource(syntaxErrorMessageConverter.translateLexicalError(re, lexerExceptions, lexerExceptionPositions));");
 		sc.add("}");
 		sc.add("parseResult.getPostParseCommands().addAll(postParseCommands);");
 		sc.add("return parseResult;");
@@ -503,7 +434,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("this.lastPosition = 0;");
 		sc.addComment("required because the lexer class can not be subclassed");
 		sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;");
-		sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;");
+		sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptionPositions = lexerExceptionPositions;");
 		sc.add("Object typeObject = getTypeObject();");
 		sc.add("if (typeObject == null) {");
 		sc.add("return start();");
@@ -688,7 +619,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Another helper list to allow a lexer to pass positions of errors to its parser");
-		sc.add("protected " + LIST + "<Integer> lexerExceptionsPosition = " + COLLECTIONS
+		sc.add("protected " + LIST + "<Integer> lexerExceptionPositions = " + COLLECTIONS
 				+ ".synchronizedList(new " + ARRAY_LIST + "<Integer>());");
 		sc.addLineBreak();
 		
@@ -727,6 +658,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("private int lastStartIncludingHidden;");
 		sc.addLineBreak();
 		sc.add("private " + iLocationMapClassName + " locationMap;");
+		sc.addLineBreak();
+		sc.add("private " + syntaxErrorMessageConverterClassName + " syntaxErrorMessageConverter = new " + syntaxErrorMessageConverterClassName + "(tokenNames);");
 		sc.addLineBreak();
 	}
 

@@ -268,7 +268,6 @@ public class TextResourceGenerator extends
 				+ " uri, "
 				+ iProblemClassName
 				+ " problem, int column, int line, int charStart, int charEnd) {");
-		sc.addLineBreak();
 		sc.add("super();");
 		sc.add("this.uri = uri;");
 		sc.add("this.column = column;");
