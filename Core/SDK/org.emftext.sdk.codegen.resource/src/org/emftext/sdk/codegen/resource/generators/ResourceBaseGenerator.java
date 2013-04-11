@@ -208,6 +208,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String taskItemBuilderClassName;
 	protected String uriUtilClassName;
 	protected String antlrTextTokenClassName;
+	protected String syntaxErrorMessageConverterClassName;
 	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -368,6 +369,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		syntaxCoverageInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_COVERAGE_INFORMATION_PROVIDER);
 		syntaxElementClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_ELEMENT);
 		syntaxElementDecoratorClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_ELEMENT_DECORATOR);
+		syntaxErrorMessageConverterClassName = context.getQualifiedClassName(TextResourceArtifacts.SYNTAX_ERROR_MESSAGE_CONVERTER);
 		terminalClassName = context.getQualifiedClassName(TextResourceArtifacts.TERMINAL);
 		terminateParsingExceptionClassName = context.getQualifiedClassName(TextResourceArtifacts.TERMINATE_PARSING_EXCEPTION);
 		textResourceClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE);
