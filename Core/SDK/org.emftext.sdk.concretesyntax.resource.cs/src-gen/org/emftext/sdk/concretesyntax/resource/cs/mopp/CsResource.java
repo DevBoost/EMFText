@@ -88,7 +88,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		private org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem;
 		
 		public PositionBasedTextDiagnostic(org.eclipse.emf.common.util.URI uri, org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd) {
-			
 			super();
 			this.uri = uri;
 			this.column = column;

@@ -46,6 +46,14 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 		this.colorManager = colorManager;
 	}
 	
+	/**
+	 * Returns an instance of class
+	 * org.emftext.sdk.concretesyntax.resource.cs.ui.CsAutoEditStrategy.
+	 */
+	public org.eclipse.jface.text.IAutoEditStrategy[] getAutoEditStrategies(org.eclipse.jface.text.source.ISourceViewer sourceViewer, String contentType) {
+		return new org.eclipse.jface.text.IAutoEditStrategy[] {new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAutoEditStrategy()};
+	}
+	
 	public org.eclipse.jface.text.contentassist.IContentAssistant getContentAssistant(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
 		
 		org.eclipse.jface.text.contentassist.ContentAssistant assistant = new org.eclipse.jface.text.contentassist.ContentAssistant();

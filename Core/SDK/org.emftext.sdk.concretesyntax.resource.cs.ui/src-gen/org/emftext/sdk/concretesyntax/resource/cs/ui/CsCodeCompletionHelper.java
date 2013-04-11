@@ -73,7 +73,7 @@ public class CsCodeCompletionHelper {
 		// Count the proposals before the cursor that match the prefix
 		int leftMatchingProposals = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal leftProposal : leftProposals) {
-			if (leftProposal.getMatchesPrefix()) {
+			if (leftProposal.isMatchesPrefix()) {
 				leftMatchingProposals++;
 			}
 		}

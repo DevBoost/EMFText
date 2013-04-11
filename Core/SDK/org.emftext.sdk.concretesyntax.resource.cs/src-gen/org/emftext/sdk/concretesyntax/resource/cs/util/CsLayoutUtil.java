@@ -139,6 +139,21 @@ public class CsLayoutUtil {
 		return newAdapter;
 	}
 	
+	public void removeLayoutInformationAdapter(org.eclipse.emf.ecore.EObject element) {
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter existingAdapter = getLayoutInformationAdapter(element);
+		if (existingAdapter != null) {
+			element.eAdapters().remove(existingAdapter);
+		}
+	}
+	
+	public void removeLayoutInformationAdapters(org.eclipse.emf.ecore.resource.Resource resource) {
+		java.util.Iterator<org.eclipse.emf.ecore.EObject> it = resource.getAllContents();
+		while (it.hasNext()) {
+			org.eclipse.emf.ecore.EObject next = it.next();
+			removeLayoutInformationAdapter(next);
+		}
+	}
+	
 	public org.eclipse.emf.ecore.EReference findLayoutReference(org.eclipse.emf.ecore.EClass eClass) {
 		for (org.eclipse.emf.ecore.EReference ref : eClass.getEAllReferences()) {
 			org.eclipse.emf.ecore.EClass type = ref.getEReferenceType();

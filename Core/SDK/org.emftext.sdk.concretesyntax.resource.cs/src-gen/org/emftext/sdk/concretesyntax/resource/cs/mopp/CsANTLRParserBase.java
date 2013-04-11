@@ -175,20 +175,6 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 		});
 	}
 	
-	protected String formatTokenName(int tokenType)  {
-		String tokenName = "<unknown>";
-		if (tokenType < 0) {
-			tokenName = "EOF";
-		} else {
-			if (tokenType < 0) {
-				return tokenName;
-			}
-			tokenName = getTokenNames()[tokenType];
-			tokenName = org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.formatTokenName(tokenName);
-		}
-		return tokenName;
-	}
-	
 	protected java.util.Map<?,?> getOptions() {
 		return options;
 	}

@@ -58,7 +58,7 @@ public class CsProposalPostProcessor {
 								null,
 								"\"true\"",
 								proposal.getPrefix(), 
-								proposal.getMatchesPrefix(), 
+								proposal.isMatchesPrefix(), 
 								feature, 
 								container 
 						));
@@ -66,7 +66,7 @@ public class CsProposalPostProcessor {
 								null,
 								"\"false\"",
 								proposal.getPrefix(), 
-								proposal.getMatchesPrefix(), 
+								proposal.isMatchesPrefix(), 
 								feature, 
 								container 
 						));
@@ -79,7 +79,7 @@ public class CsProposalPostProcessor {
 						null,
 						"\"keyword\"",
 						proposal.getPrefix(), 
-						proposal.getMatchesPrefix(), 
+						proposal.isMatchesPrefix(), 
 						feature, 
 						container 
 				));
@@ -89,7 +89,7 @@ public class CsProposalPostProcessor {
 						null,
 						"TOKEN_NAME",
 						proposal.getPrefix(), 
-						proposal.getMatchesPrefix(), 
+						proposal.isMatchesPrefix(), 
 						feature, 
 						container 
 				));
@@ -98,7 +98,7 @@ public class CsProposalPostProcessor {
 				addColorProposals(
 						newProposals, 
 						proposal.getPrefix(), 
-						proposal.getMatchesPrefix(), 
+						proposal.isMatchesPrefix(), 
 						feature, 
 						container
 				);
@@ -117,7 +117,7 @@ public class CsProposalPostProcessor {
 											null,
 											problemType.getName(),
 											proposal.getPrefix(), 
-											proposal.getMatchesPrefix(), 
+											proposal.isMatchesPrefix(), 
 											feature, 
 											container 
 									));
@@ -150,7 +150,7 @@ public class CsProposalPostProcessor {
 						null,
 						insertString,
 						proposal.getPrefix(), 
-						proposal.getMatchesPrefix(), 
+						proposal.isMatchesPrefix(), 
 						feature, 
 						container 
 				));

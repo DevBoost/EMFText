@@ -44,7 +44,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> finalProposalList = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : extendedProposalList) {
-			if (proposal.getMatchesPrefix()) {
+			if (proposal.isMatchesPrefix()) {
 				finalProposalList.add(proposal);
 			}
 		}

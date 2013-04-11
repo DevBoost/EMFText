@@ -73,7 +73,7 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	 * the prefix to allow proposal post processors to access these and add valid
 	 * proposals even if the built-in proposal engine did not find a matching
 	 * proposal. The completion pop-up will only show proposals for which this method
-	 * returns true. See also {@link #getMatchesPrefix()}.
+	 * returns true. See also {@link #isMatchesPrefix()}.
 	 */
 	private boolean matchesPrefix;
 	
@@ -115,7 +115,7 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	 * using the camel case style. Only proposals that return true will be considered
 	 * for the final list of proposals that is presented in the editor.
 	 */
-	public boolean getMatchesPrefix() {
+	public boolean isMatchesPrefix() {
 		return matchesPrefix;
 	}
 	
@@ -175,7 +175,7 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		if (object instanceof CsCompletionProposal) {
 			CsCompletionProposal other = (CsCompletionProposal) object;
 			// proposals that start with the prefix are preferred over the ones that do not
-			int startCompare = (matchesPrefix ? 1 : 0) - (other.getMatchesPrefix() ? 1 : 0);
+			int startCompare = (matchesPrefix ? 1 : 0) - (other.isMatchesPrefix() ? 1 : 0);
 			// if both proposals start with the prefix of both do not the insert string is
 			// compared
 			return startCompare == 0 ? getInsertString().compareTo(other.getInsertString()) : -startCompare;

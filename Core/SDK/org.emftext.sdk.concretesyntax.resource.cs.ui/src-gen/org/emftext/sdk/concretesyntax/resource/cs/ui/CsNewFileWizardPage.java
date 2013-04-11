@@ -89,9 +89,11 @@ public class CsNewFileWizardPage extends org.eclipse.jface.wizard.WizardPage {
 	 */
 	private void initialize() {
 		String name = "new_file";
-		if (selection != null && selection.isEmpty() == false		&& selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
+		if (selection != null && selection.isEmpty() == false && selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 			org.eclipse.jface.viewers.IStructuredSelection ssel = (org.eclipse.jface.viewers.IStructuredSelection) selection;
-			if (ssel.size() > 1)			return;
+			if (ssel.size() > 1) {
+				return;
+			}
 			Object obj = ssel.getFirstElement();
 			// test for IAdaptable
 			if ((! (obj instanceof org.eclipse.core.resources.IResource)) && (obj instanceof org.eclipse.core.runtime.IAdaptable)) {
@@ -119,8 +121,7 @@ public class CsNewFileWizardPage extends org.eclipse.jface.wizard.WizardPage {
 	 * container field.
 	 */
 	private void handleBrowse() {
-		org.eclipse.ui.dialogs.ContainerSelectionDialog dialog = new org.eclipse.ui.dialogs.ContainerSelectionDialog(		getShell(), org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot(), false,
-		"Select new file container");
+		org.eclipse.ui.dialogs.ContainerSelectionDialog dialog = new org.eclipse.ui.dialogs.ContainerSelectionDialog(getShell(), org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot(), false, "Select new file container");
 		if (dialog.open() == org.eclipse.ui.dialogs.ContainerSelectionDialog.OK) {
 			Object[] result = dialog.getResult();
 			if (result.length == 1) {

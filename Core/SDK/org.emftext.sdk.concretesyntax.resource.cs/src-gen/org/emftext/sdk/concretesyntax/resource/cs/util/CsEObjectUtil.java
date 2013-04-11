@@ -51,6 +51,21 @@ public class CsEObjectUtil {
 		}
 	}
 	
+	/**
+	 * Returns the ancestor with the given type.
+	 */
+	public static org.eclipse.emf.ecore.EObject findAncestorByType(org.eclipse.emf.ecore.EObject object, org.eclipse.emf.ecore.EClass type) {
+		org.eclipse.emf.ecore.EObject ancestor = null;
+		org.eclipse.emf.ecore.EObject container = object.eContainer();
+		while (container != null) {
+			if (type.isInstance(container)) {
+				ancestor = container;
+			}
+			container = container.eContainer();
+		}
+		return ancestor;
+	}
+	
 	public static Object invokeOperation(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EOperation o) {
 		java.lang.reflect.Method method;
 		try {
