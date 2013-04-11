@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -26,8 +26,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.emftext.sdk.ui.jobs.GenerateResourcePluginsJob;
 
 /**
- * An action that generates a complete resource plug-in from
- * a CS specification and a meta model.
+ * An action that generates a complete resource plug-in from a CS specification
+ * and a meta model.
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
@@ -40,11 +40,12 @@ public class GenerateResourcePluginAction implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		if (selection instanceof IStructuredSelection) {
-			for (Iterator<?> i = ((IStructuredSelection) selection).iterator(); i
-					.hasNext();) {
-				Object o = i.next();
-				if (o instanceof IFile) {
-					IFile file = (IFile) o;
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			Iterator<?> it = structuredSelection.iterator();
+			while (it.hasNext()) {
+				Object next = it.next();
+				if (next instanceof IFile) {
+					IFile file = (IFile) next;
                     String fileExtension = file.getFileExtension();
 					if (fileExtension != null && fileExtension.startsWith("cs")) {
 						process(file);
@@ -60,31 +61,18 @@ public class GenerateResourcePluginAction implements IObjectActionDelegate {
 	 * @param file
 	 *            The file that contains the concrete syntax definition.
 	 */
-	public void process(final IFile file) {
-		GenerateResourcePluginsJob job = new GenerateResourcePluginsJob("Generating resource project for " + file.getName(), file);
+	public void process(IFile file) {
+		String jobName = "Generating resource project for " + file.getName();
+		GenerateResourcePluginsJob job = new GenerateResourcePluginsJob(jobName, file);
 		job.setUser(true);
 		job.schedule();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action
-	 * .IAction, org.eclipse.jface.viewers.ISelection)
-	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.selection = selection;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.
-	 * action.IAction, org.eclipse.ui.IWorkbenchPart)
-	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		// this.part = targetPart;
+		// do nothing as we do not need information about the action or part
 	}
 }
