@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -135,9 +135,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 			"the container field."
 		);
 		sc.add("private void handleBrowse() {");
-		sc.add(CONTAINER_SELECTION_DIALOG + " dialog = new " + CONTAINER_SELECTION_DIALOG + "(");
-		sc.add("getShell(), " + RESOURCES_PLUGIN + ".getWorkspace().getRoot(), false,");
-		sc.add("\"Select new file container\");");
+		sc.add(CONTAINER_SELECTION_DIALOG + " dialog = new " + CONTAINER_SELECTION_DIALOG + "(getShell(), " + RESOURCES_PLUGIN + ".getWorkspace().getRoot(), false, \"Select new file container\");");
 		sc.add("if (dialog.open() == " + CONTAINER_SELECTION_DIALOG + ".OK) {");
 		sc.add("Object[] result = dialog.getResult();");
 		sc.add("if (result.length == 1) {");
@@ -152,11 +150,11 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addJavadoc("Tests if the current workbench selection is a suitable container to use.");
 		sc.add("private void initialize() {");
 		sc.add("String name = \"new_file\";");
-		sc.add("if (selection != null && selection.isEmpty() == false");
-		sc.add("&& selection instanceof " + I_STRUCTURED_SELECTION + ") {");
+		sc.add("if (selection != null && selection.isEmpty() == false && selection instanceof " + I_STRUCTURED_SELECTION + ") {");
 		sc.add(I_STRUCTURED_SELECTION + " ssel = (" + I_STRUCTURED_SELECTION + ") selection;");
-		sc.add("if (ssel.size() > 1)");
+		sc.add("if (ssel.size() > 1) {");
 		sc.add("return;");
+		sc.add("}");
 		sc.add("Object obj = ssel.getFirstElement();");
 		sc.addComment("test for IAdaptable");
 		sc.add("if ((! (obj instanceof " + I_RESOURCE + ")) && (obj instanceof " + I_ADAPTABLE + ")) {");
