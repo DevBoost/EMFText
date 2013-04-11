@@ -2984,7 +2984,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_AUTO_EDIT_STRATEGY(298, "OVERRIDE_AUTO_EDIT_STRATEGY", "overrideAutoEditStrategy");
+	OVERRIDE_AUTO_EDIT_STRATEGY(298, "OVERRIDE_AUTO_EDIT_STRATEGY", "overrideAutoEditStrategy"), /**
+	 * The '<em><b>OVERRIDE SYNTAX ERROR MESSAGE CONVERTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER(299, "OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER", "overrideSyntaxErrorMessageConverter");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7143,6 +7151,20 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_AUTO_EDIT_STRATEGY_VALUE = 298;
 
 	/**
+	 * The '<em><b>OVERRIDE SYNTAX ERROR MESSAGE CONVERTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the SyntaxErrorMessageConverter class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER
+	 * @model literal="overrideSyntaxErrorMessageConverter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER_VALUE = 299;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7446,6 +7468,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER,
 			OVERRIDE_ITOKEN_SCANNER,
 			OVERRIDE_AUTO_EDIT_STRATEGY,
+			OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER,
 		};
 
 	/**
@@ -7790,6 +7813,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER_VALUE: return OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER;
 			case OVERRIDE_ITOKEN_SCANNER_VALUE: return OVERRIDE_ITOKEN_SCANNER;
 			case OVERRIDE_AUTO_EDIT_STRATEGY_VALUE: return OVERRIDE_AUTO_EDIT_STRATEGY;
+			case OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER_VALUE: return OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER;
 		}
 		return null;
 	}

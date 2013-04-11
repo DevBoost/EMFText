@@ -2052,6 +2052,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the AutoEditStrategy class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER" value="299" literal="overrideSyntaxErrorMessageConverter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the SyntaxErrorMessageConverter class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

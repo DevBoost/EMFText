@@ -676,6 +676,8 @@ OptionTypes.OVERRIDE_I_TOKEN_SCANNER : "If set to <code>false</code>, the IToken
 
 OptionTypes.OVERRIDE_AUTO_EDIT_STRATEGY : "If set to <code>false</code>, the AutoEditStrategy class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER : "If set to <code>false</code>, the SyntaxErrorMessageConverter class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

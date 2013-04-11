@@ -2520,6 +2520,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_INTERRUPTIBLE_ECORE_RESOLVER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITOKEN_SCANNER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_AUTO_EDIT_STRATEGY);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -4807,6 +4808,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AutoEditStrategy class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(296), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the SyntaxErrorMessageConverter class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 
