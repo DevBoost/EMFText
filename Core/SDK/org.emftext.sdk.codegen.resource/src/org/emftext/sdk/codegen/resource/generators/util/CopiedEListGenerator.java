@@ -69,6 +69,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		addSubListMethod(sc);
 		addToArrayMethod1(sc);
 		addToArrayMethod2(sc);
+		addToStringMethod(sc);
 	}
 
 	private void addFields(JavaComposite sc) {
@@ -274,6 +275,13 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addToArrayMethod2(JavaComposite sc) {
 		sc.add("public <T> T[] toArray(T[] a) {");
 		sc.add("return copy.toArray(a);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("public String toString() {");
+		sc.add("return copy.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
