@@ -61,34 +61,14 @@ public class SyntaxErrorMessageConverterGenerator extends JavaBaseGenerator<Arti
 	private void addMethods(JavaComposite sc) {
 		addReportLexicalErrorMethod(sc);
 		addReportParseErrorMethod(sc);
-		addFormatTokenNameMethod(sc);
+		addGetMessageMethod(sc);
+		addGetTokenNameMethod(sc);
 	}
 
 	private void addReportLexicalErrorMethod(JavaComposite sc) {
 		sc.addJavadoc("Translates errors thrown by the lexer into human readable messages.");
 		sc.add("public " + localizedMessageClassName + " translateLexicalError(" + RECOGNITION_EXCEPTION + " e, " + LIST + "<" + RECOGNITION_EXCEPTION + "> lexerExceptions, " + LIST + "<Integer> lexerExceptionPositions)  {");
-		sc.add("String message = \"\";");
-		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
-		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", \\\"\" + (char) mte.expecting + \"\\\" expected\";");
-		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
-		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", delete this token\";");
-		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
-		sc.add(EARLY_EXIT_EXCEPTION + " eee = (" + EARLY_EXIT_EXCEPTION + ") e;");
-		sc.add("message = \"required (...)+ loop (decision=\" + eee.decisionNumber + \") did not match anything; on line \" + e.line + \":\" + e.charPositionInLine + \" char=\" + ((char) e.c) + \"'\";");
-		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_RANGE_EXCEPTION + ") {");
-		sc.add(MISMATCHED_RANGE_EXCEPTION + " mre = (" + MISMATCHED_RANGE_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set '\" + (char) mre.a + \"'..'\" + (char) mre.b + \"'\";");
-		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
-		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
-		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" + fpe.predicateText + \"}?\";");
-		sc.add("}");
+		sc.add("String message = getMessage(e);");
 		sc.add("return new " + localizedMessageClassName + "(message, e.charPositionInLine, e.line, lexerExceptionPositions.get(lexerExceptions.indexOf(e)), lexerExceptionPositions.get(lexerExceptions.indexOf(e)));");
 		sc.add("}");
 		sc.addLineBreak();
@@ -97,30 +77,7 @@ public class SyntaxErrorMessageConverterGenerator extends JavaBaseGenerator<Arti
 	private void addReportParseErrorMethod(JavaComposite sc) {
 		sc.addJavadoc("Translates errors thrown by the parser into human readable messages.");
 		sc.add("public " + localizedMessageClassName + " translateParseError(" + RECOGNITION_EXCEPTION + " e)  {");
-		sc.add("String message = e.getMessage();");
-		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
-		sc.add("String expectedTokenName = formatTokenName(mte.expecting);");
-		sc.add("String actualTokenName = formatTokenName(e.token.getType());");
-		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \" (\" + actualTokenName + \")\\\", \\\"\" + expectedTokenName + \"\\\" expected\";");
-		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TREE_NODE_EXCEPTION + " mtne = (" + MISMATCHED_TREE_NODE_EXCEPTION + ") e;");
-		sc.add("String expectedTokenName = formatTokenName(mtne.expecting);");
-		sc.add("message = \"mismatched tree node: \" + \"xxx\" + \"; tokenName \" + expectedTokenName;");
-		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
-		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", check following tokens\";");
-		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
-		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", delete this token\";");
-		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched token: \" + e.token + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
-		sc.add("message = \"mismatched token: \" +  e.token + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
-		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
-		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText + \"}?\";");
-		sc.add("}");
+		sc.add("String message = getMessage(e);");
 		sc.addLineBreak();
 		sc.add("if (e.token instanceof " + COMMON_TOKEN + ") {");
 		sc.add(COMMON_TOKEN + " ct = (" + COMMON_TOKEN + ") e.token;");
@@ -139,8 +96,52 @@ public class SyntaxErrorMessageConverterGenerator extends JavaBaseGenerator<Arti
 		sc.addLineBreak();
 	}
 
-	private void addFormatTokenNameMethod(JavaComposite sc) {
-		sc.add("protected String formatTokenName(int tokenType)  {");
+	private void addGetMessageMethod(JavaComposite sc) {
+		sc.add("protected String getMessage(" + RECOGNITION_EXCEPTION + " e)  {");
+		sc.add("String message = e.getMessage();");
+		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
+		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
+		sc.add("String expectedTokenName = getTokenName(mte.expecting);");
+		sc.add("String actualTokenName = getTokenName(e.token.getType());");
+		sc.add("String actualText = e.token.getText();");
+		sc.add("message = \"Syntax error on token \\\"\" + actualText + \"\\\" \";");
+		sc.addComment(
+				"We mention the name of the actual token only if it differs " + 
+				"from the actual token text to reduce confusion in error messages."
+		);
+		sc.add("if (actualText != null && !actualText.equals(actualTokenName)) {");
+		sc.add("message += \"(\" + actualTokenName + \"). \";");
+		sc.add("}");
+		sc.add("message += \"Expected: \\\"\" + expectedTokenName + \"\\\".\";");
+		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
+		sc.add(MISMATCHED_TREE_NODE_EXCEPTION + " mtne = (" + MISMATCHED_TREE_NODE_EXCEPTION + ") e;");
+		sc.add("String expectedTokenName = getTokenName(mtne.expecting);");
+		sc.add("String actualTokenName = getTokenName(mtne.getUnexpectedType());");
+		sc.add("message = \"Mismatched tree node: \\\"\" + actualTokenName + \"\\\". Expected: \\\"\" + expectedTokenName + \"\\\"\";");
+		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\". Check following tokens.\";");
+		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\". Delete this token.\";");
+		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
+		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
+		sc.add("message = \"Mismatched token: \" + e.token + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
+		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
+		sc.add("message = \"Mismatched token: \" +  e.token + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + MISMATCHED_RANGE_EXCEPTION + ") {");
+		sc.add("message = \"Mismatched token: \" +  e.token + \"; expecting range\";");
+		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
+		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
+		sc.add("message = \"Rule \" + fpe.ruleName + \" failed. Predicate: {\" +  fpe.predicateText + \"}?\";");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("return message;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetTokenNameMethod(JavaComposite sc) {
+		sc.add("protected String getTokenName(int tokenType)  {");
 		sc.add("String tokenName = \"<unknown>\";");
 		sc.add("if (tokenType < 0) {");
 		sc.add("tokenName = \"EOF\";");
@@ -148,7 +149,7 @@ public class SyntaxErrorMessageConverterGenerator extends JavaBaseGenerator<Arti
 		sc.add("if (tokenType < 0) {");
 		sc.add("return tokenName;");
 		sc.add("}");
-		sc.add("tokenName =tokenNames[tokenType];");
+		sc.add("tokenName = tokenNames[tokenType];");
 		sc.add("tokenName = " + stringUtilClassName + ".formatTokenName(tokenName);");
 		sc.add("}");
 		sc.add("return tokenName;");
