@@ -74,6 +74,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod3(sc);
 		addGetResourceMethod4(sc);
 		addGetResourceMethod5(sc);
+		addGetResourceMethod6(sc);
 		addGetResourceContentMethod1(sc);
 		addGetResourceContentMethod2(sc);
 		addGetResourceContentMethod3(sc);
@@ -278,10 +279,18 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addGetResourceMethod5(JavaComposite sc) {
 		sc.addJavadoc("Returns the resource after parsing the given text.");
 		sc.add("public static " + RESOURCE + " getResource(String text) {");
+		sc.add(RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
+		sc.add("return getResource(text, resourceSet);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetResourceMethod6(JavaComposite sc) {
+		sc.addJavadoc("Returns the resource after parsing the given text.");
+		sc.add("public static " + RESOURCE + " getResource(String text, " + RESOURCE_SET + " resourceSet) {");
 		sc.add(metaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
 		sc.add("metaInformation.registerResourceFactory();");
 		sc.add(URI + " uri = " + URI + ".createURI(\"temp.\" + metaInformation.getSyntaxName());");
-		sc.add(RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
 		sc.add(RESOURCE + " resource = resourceSet.createResource(uri);");
 		sc.add("if (resource == null) {");
 		sc.add("return null;");
