@@ -72,9 +72,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 
 	private void addToStringMethod(JavaComposite sc) {
 		sc.add("public String toString() {");
-		sc.add("String result = (container == null ? \"null\" : container.eClass().getName()) + \".\";");
-		sc.add("result += (structuralFeature == null ? \"null\" : structuralFeature.getName());");
-		sc.add("result += \": \" + insertString;");
+		sc.add("String result = (container == null ? \"<NO_ECLASS>\" : container.eClass().getName()) + \".\";");
+		sc.add("result += (structuralFeature == null ? \"<NO_ESTRUCTURALFEATURE>\" : structuralFeature.getName());");
+		sc.add("result += \": '\" + insertString + \"'\";");
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
