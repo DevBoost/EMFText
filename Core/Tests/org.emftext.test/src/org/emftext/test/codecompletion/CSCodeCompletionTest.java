@@ -116,7 +116,7 @@ public class CSCodeCompletionTest extends TestCase {
 		List<CsCompletionProposal> processedProposals = postProcessor.process(Arrays.asList(proposals));
 		List<CsCompletionProposal> finalProposals = new ArrayList<CsCompletionProposal>();
 		for (CsCompletionProposal proposal : processedProposals) {
-			if (!proposal.getMatchesPrefix()) {
+			if (!proposal.isMatchesPrefix()) {
 				continue;
 			}
 			System.out.println("Proposal: InsertString: " + proposal.getInsertString());
