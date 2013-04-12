@@ -111,7 +111,12 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public " + I_FILE + " getFileForURI(" + URI + " uri) {");
 		sc.add(I_WORKSPACE + " workspace = " + RESOURCES_PLUGIN + ".getWorkspace();");
 		sc.add(I_WORKSPACE_ROOT + " workspaceRoot = workspace.getRoot();");
-		sc.add(PATH + " path = new " + PATH + "(uri.toPlatformString(true));");
+		sc.add("String platformString = uri.toPlatformString(true);");
+		sc.addComment("If the URI is not a platform URI, we cannot determine the file.");
+		sc.add("if (platformString == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add(PATH + " path = new " + PATH + "(platformString);");
 		sc.add("return workspaceRoot.getFile(path);");
 		sc.add("}");
 		sc.addLineBreak();
