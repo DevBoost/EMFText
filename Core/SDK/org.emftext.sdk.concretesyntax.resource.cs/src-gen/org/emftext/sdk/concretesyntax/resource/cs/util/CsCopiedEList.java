@@ -144,4 +144,8 @@ public class CsCopiedEList<E> implements org.eclipse.emf.common.util.EList<E> {
 		return copy.toArray(a);
 	}
 	
+	public String toString() {
+		return copy.toString();
+	}
+	
 }

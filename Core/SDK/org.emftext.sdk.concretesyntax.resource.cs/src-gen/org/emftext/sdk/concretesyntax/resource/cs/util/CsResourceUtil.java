@@ -105,10 +105,17 @@ public class CsResourceUtil {
 	 * Returns the resource after parsing the given text.
 	 */
 	public static org.eclipse.emf.ecore.resource.Resource getResource(String text) {
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
+		return getResource(text, resourceSet);
+	}
+	
+	/**
+	 * Returns the resource after parsing the given text.
+	 */
+	public static org.eclipse.emf.ecore.resource.Resource getResource(String text, org.eclipse.emf.ecore.resource.ResourceSet resourceSet) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 		metaInformation.registerResourceFactory();
 		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI("temp." + metaInformation.getSyntaxName());
-		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
 		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.createResource(uri);
 		if (resource == null) {
 			return null;

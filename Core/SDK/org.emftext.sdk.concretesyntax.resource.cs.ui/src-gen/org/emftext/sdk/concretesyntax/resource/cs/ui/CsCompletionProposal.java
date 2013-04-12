@@ -184,9 +184,9 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	}
 	
 	public String toString() {
-		String result = (container == null ? "null" : container.eClass().getName()) + ".";
-		result += (structuralFeature == null ? "null" : structuralFeature.getName());
-		result += ": " + insertString;
+		String result = (container == null ? "<NO_ECLASS>" : container.eClass().getName()) + ".";
+		result += (structuralFeature == null ? "<NO_ESTRUCTURALFEATURE>" : structuralFeature.getName());
+		result += ": '" + insertString + "'";
 		return result;
 	}
 	
