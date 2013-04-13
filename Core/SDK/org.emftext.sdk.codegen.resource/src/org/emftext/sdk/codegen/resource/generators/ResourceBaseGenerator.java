@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -210,6 +210,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String antlrTextTokenClassName;
 	protected String syntaxErrorMessageConverterClassName;
 	protected String localizedMessageClassName;
+	protected String bracketPairClassName;
 	
 	protected void initilizeClassNames() {
 		GenerationContext context = getContext();
@@ -222,6 +223,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		antlrParserClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_PARSER);
 		antlrScannerClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_SCANNER);
 		antlrTokenHelperClassName = context.getQualifiedClassName(TextResourceArtifacts.ANTLR_TOKEN_HELPER);
+		bracketPairClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_PAIR);
 		attributeValueProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
 		booleanTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.BOOLEAN_TERMINAL);
 		bracketInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.BRACKET_INFORMATION_PROVIDER);

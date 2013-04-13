@@ -164,6 +164,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRParserBaseGenerator
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRTextTokenGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.AntlrTokenHelperGenerator;
+import org.emftext.sdk.codegen.resource.generators.mopp.BracketPairGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.BuilderAdapterGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.BuilderGenerator;
 import org.emftext.sdk.codegen.resource.generators.mopp.ChangeReferenceQuickFixGenerator;
@@ -231,6 +232,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_PARSER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Parser", null, OptionTypes.OVERRIDE_PARSER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_PARSER_BASE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ANTLRParserBase", ANTLRParserBaseGenerator.class, OptionTypes.OVERRIDE_PARSER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANTLR_TOKEN_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "AntlrTokenHelper", AntlrTokenHelperGenerator.class, OptionTypes.OVERRIDE_ANTLR_TOKEN_HELPER); 
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BRACKET_PAIR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "BracketPair", BracketPairGenerator.class, OptionTypes.OVERRIDE_BRACKET_PAIR); 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTEXT_DEPENDENT_URI_FRAGMENT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ContextDependentURIFragment", ContextDependentURIFragmentGenerator.class, OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ContextDependentURIFragmentFactory", ContextDependentURIFragmentFactoryGenerator.class, OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DELEGATING_RESOLVE_RESULT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "DelegatingResolveResult", DelegatingResolveResultGenerator.class, OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT);

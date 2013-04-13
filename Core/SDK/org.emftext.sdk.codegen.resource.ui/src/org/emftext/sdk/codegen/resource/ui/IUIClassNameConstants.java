@@ -205,6 +205,7 @@ import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.DefaultInformationControl;
 import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDelayedInputChangeProvider;
@@ -476,6 +477,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String DIALOG = Dialog.class.getName();
 	public static String DISPLAY = Display.class.getName();
 	public static String DOCUMENT = Document.class.getName();
+	public static String DOCUMENT_COMMAND = DocumentCommand.class.getName();
 	public static String DOCUMENT_EVENT = DocumentEvent.class.getName();
 	public static String DOCUMENT_LISTENER = DocumentListener.class.getName();
 	public static String EARLY_EXIT_EXCEPTION = EarlyExitException.class.getName();

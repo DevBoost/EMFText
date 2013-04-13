@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -31,9 +31,25 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("package " + getResourcePackageName() +";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("A class used to initialize default preference values.");
+		sc.addJavadoc("This class can be used to initialize default preference values.");
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_PREFERENCE_INITIALIZER + " {");
 		sc.addLineBreak();
+		addMethods(sc);
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addMethods(JavaComposite sc) {
+		addInitializeDefaultPreferencesMethod(sc);
+		addInitializeDefaultBracketsMethod1(sc);
+		addInitializeDefaultBracketsMethod2(sc);
+		addInitializeDefaultSyntaxHighlightingMethod1(sc);
+		addInitializeDefaultSyntaxHighlightingMethod2(sc);
+		addSetPropertiesMethod(sc);
+		addGetColorStringMethod(sc);
+	}
+
+	private void addInitializeDefaultPreferencesMethod(JavaComposite sc) {
 		sc.add("public void initializeDefaultPreferences() {");
 		sc.addLineBreak();
 		sc.add("initializeDefaultSyntaxHighlighting();");
@@ -46,34 +62,42 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("private void initializeDefaultBrackets() {");
+	}
+
+	private void addInitializeDefaultBracketsMethod1(JavaComposite sc) {
+		sc.add("protected void initializeDefaultBrackets() {");
 		sc.add(I_PREFERENCE_STORE + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("initializeDefaultBrackets(store, new " + metaInformationClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
-		
+	}
+
+	private void addInitializeDefaultSyntaxHighlightingMethod1(JavaComposite sc) {
 		sc.add("public void initializeDefaultSyntaxHighlighting() {");
 		sc.add(I_PREFERENCE_STORE + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("initializeDefaultSyntaxHighlighting(store, new " + metaInformationClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("private void initializeDefaultBrackets(" + I_PREFERENCE_STORE + " store, " + iMetaInformationClassName + " metaInformation) {");
+	}
+
+	private void addInitializeDefaultBracketsMethod2(JavaComposite sc) {
+		sc.add("protected void initializeDefaultBrackets(" + I_PREFERENCE_STORE + " store, " + iMetaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
-		sc.addComment("set default brackets for ITextResource bracket set");
-		sc.add(bracketSetClassName + " bracketSet = new " + bracketSetClassName + "(null, null);");
+		sc.addComment("set default brackets");
+		sc.add(bracketSetClassName + " bracketSet = new " + bracketSetClassName + "();");
 		sc.add("final " + COLLECTION + "<" + iBracketPairClassName + "> bracketPairs = metaInformation.getBracketPairs();");
 		sc.add("if (bracketPairs != null) {");
 		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside());");
+		sc.add("bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside(), bracketPair.isCloseAfterEnter());");
 		sc.add("}");
 		sc.add("}");
-		sc.add("store.setDefault(languageId + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX, bracketSet.getBracketString());");
+		sc.add("store.setDefault(languageId + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX, bracketSet.serialize());");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("private void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE + " store, " + metaInformationClassName + " metaInformation) {");
+	}
+
+	private void addInitializeDefaultSyntaxHighlightingMethod2(JavaComposite sc) {
+		sc.add("protected void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE + " store, " + metaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.add("String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();");
 		sc.add("if (tokenNames == null) {");
@@ -91,8 +115,10 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("private void setProperties(" + I_PREFERENCE_STORE + " store, String languageID, String tokenName, String color, boolean bold, boolean enable, boolean italic, boolean strikethrough, boolean underline) {");
+	}
+
+	private void addSetPropertiesMethod(JavaComposite sc) {
+		sc.add("protected void setProperties(" + I_PREFERENCE_STORE + " store, String languageID, String tokenName, String color, boolean bold, boolean enable, boolean italic, boolean strikethrough, boolean underline) {");
 		sc.add("store.setDefault(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.BOLD), bold);");
 		sc.add("store.setDefault(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.COLOR), color);");
 		sc.add("store.setDefault(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.ENABLE), enable);");
@@ -101,8 +127,10 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("store.setDefault(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.UNDERLINE), underline);");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("private String getColorString(int[] colorAsRGB) {");
+	}
+
+	private void addGetColorStringMethod(JavaComposite sc) {
+		sc.add("protected String getColorString(int[] colorAsRGB) {");
 		sc.add("if (colorAsRGB == null) {");
 		sc.add("return \"0,0,0\";");
 		sc.add("}");
@@ -111,6 +139,6 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("return colorAsRGB[0] + \",\" +colorAsRGB[1] + \",\"+ colorAsRGB[2];");
 		sc.add("}");
-		sc.add("}");
+		sc.addLineBreak();
 	}
 }

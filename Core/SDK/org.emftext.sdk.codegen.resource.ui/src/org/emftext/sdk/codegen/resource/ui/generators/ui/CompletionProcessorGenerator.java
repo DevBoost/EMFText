@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -134,15 +134,12 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("info = new " + CONTEXT_INFORMATION + "(image, proposalString, proposalString);");
 		sc.add("int begin = offset - prefix.length();");
 		sc.add("int replacementLength = prefix.length();");
-		sc.addComment(
-			"if a closing bracket was automatically inserted right before, " +
-			"we enlarge the replacement length in order to overwrite the bracket."
-		);
-		sc.add(iBracketHandlerClassName + " bracketHandler = bracketHandlerProvider.getBracketHandler();");
-		sc.add("String closingBracket = bracketHandler.getClosingBracket();");
-		sc.add("if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {");
-		sc.add("replacementLength += closingBracket.length();");
-		sc.add("}");
+		// TODO mseifert: There has been code here that enlarged the replacement 
+		//      length if a closing bracket was automatically inserted right 
+		//      before (in order to overwrite the bracket). This code has been
+		//      removed when the bracket handling was moved from key listeners
+		//      to AutoEditStrategies. We must check whether this particular
+		//      behavior is still required.
 		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);");
 		sc.add("}");
 		sc.add("return result;");
@@ -157,6 +154,4 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }

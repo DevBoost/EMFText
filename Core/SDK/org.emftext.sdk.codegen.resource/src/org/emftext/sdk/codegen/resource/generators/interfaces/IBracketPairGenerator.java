@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -22,16 +22,30 @@ import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
 public class IBracketPairGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
+	private final static String closingEnabledDocumentation = " whether other bracket pairs shall be " +
+			"automatically closed, when used inside of this " +
+			"bracket pair.";
+
+	private final static String closeAfterEnterDocumentation = " whether this bracket pair shall be " +
+			"automatically closed, when a line break is entered. " +
+			"If this method returns false, the closing bracket is " +
+			"inserted right away when the opening bracket is typed.";
+
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("A simple interface to access information about matching brackets.");
+		sc.addJavadoc("A simple interface to access information about bracket handling.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addMethods(JavaComposite sc) {
 		sc.addJavadoc("Returns the opening bracket.");
 		sc.add("public String getOpeningBracket();");
 		sc.addLineBreak();
@@ -40,12 +54,20 @@ public class IBracketPairGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public String getClosingBracket();");
 		sc.addLineBreak();
 		
-		sc.addJavadoc(
-			"Returns whether other bracket pairs shall be " +
-			"automatically closed, when used inside of this " +
-			"bracket pair."
-		);
+		sc.addJavadoc("Returns" + closingEnabledDocumentation);
 		sc.add("public boolean isClosingEnabledInside();");
-		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Sets" + closingEnabledDocumentation);
+		sc.add("public void setClosingEnabledInside(boolean closingEnabledInside);");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Returns" + closeAfterEnterDocumentation);
+		sc.add("public boolean isCloseAfterEnter();");
+		sc.addLineBreak();
+		
+		sc.addJavadoc("Sets" + closeAfterEnterDocumentation);
+		sc.add("public void setCloseAfterEnter(boolean closingAfterEnter);");
+		sc.addLineBreak();
 	}
 }

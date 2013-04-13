@@ -3000,7 +3000,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_LOCALIZED_MESSAGE(300, "OVERRIDE_LOCALIZED_MESSAGE", "overrideLocalizedMessage");
+	OVERRIDE_LOCALIZED_MESSAGE(300, "OVERRIDE_LOCALIZED_MESSAGE", "overrideLocalizedMessage"), /**
+	 * The '<em><b>OVERRIDE BRACKET PAIR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BRACKET_PAIR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BRACKET_PAIR(301, "OVERRIDE_BRACKET_PAIR", "overrideBracketPair");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7187,6 +7195,20 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_LOCALIZED_MESSAGE_VALUE = 300;
 
 	/**
+	 * The '<em><b>OVERRIDE BRACKET PAIR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the BracketPair class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_BRACKET_PAIR
+	 * @model literal="overrideBracketPair"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BRACKET_PAIR_VALUE = 301;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7492,6 +7514,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_AUTO_EDIT_STRATEGY,
 			OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER,
 			OVERRIDE_LOCALIZED_MESSAGE,
+			OVERRIDE_BRACKET_PAIR,
 		};
 
 	/**
@@ -7838,6 +7861,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_AUTO_EDIT_STRATEGY_VALUE: return OVERRIDE_AUTO_EDIT_STRATEGY;
 			case OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER_VALUE: return OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER;
 			case OVERRIDE_LOCALIZED_MESSAGE_VALUE: return OVERRIDE_LOCALIZED_MESSAGE;
+			case OVERRIDE_BRACKET_PAIR_VALUE: return OVERRIDE_BRACKET_PAIR;
 		}
 		return null;
 	}

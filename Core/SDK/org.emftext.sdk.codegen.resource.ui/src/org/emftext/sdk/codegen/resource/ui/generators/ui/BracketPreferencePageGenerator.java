@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -23,6 +23,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GRID_DATA;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GRID_LAYOUT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_PART;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LABEL;
@@ -44,6 +45,9 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
+// TODO There seem to be leftovers from the time when a single preference page was
+//      used to configure bracket handling for all languages (e.g., the field
+//      'languageIDs'). We should check whether this code can be removed. 
 public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
@@ -67,6 +71,33 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 	}
 
+	private void addFields(StringComposite sc) {
+		sc.add("private static final String[] ALL_LEFT_BRACKETS = new String[] { \"{\", \"(\", \"[\", \"<\", \"\\\"\", \"'\", };");
+		sc.add("private static final String[] ALL_RIGHT_BRACKETS = new String[] { \"}\", \")\", \"]\", \">\", \"\\\"\", \"'\", };");
+		sc.addLineBreak();
+		sc.add("private String BRACKETS_COLOR = " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR;");
+		sc.addLineBreak();
+		sc.add("private " + SET + "<String> languageIDs = new " + LINKED_HASH_SET + "<String>();");
+		sc.addLineBreak();
+		sc.add("private " + COLOR_SELECTOR + " matchingBracketsColorEditor;");
+		sc.add("private " + LABEL + " colorEditorLabel;");
+		sc.add("private " + BUTTON + " enableCheckbox;");
+		sc.add("private " + BUTTON + " enableClosingInside;");
+		sc.add("private " + BUTTON + " enableCloseAfterEnter;");
+		sc.add("private " + BUTTON + " matchingBracketsColorButton;");
+		sc.add("private " + LABEL + " bracketTokensLabel;");
+		sc.add("private " + COMBO + " leftBracketTokensCombo;");
+		sc.add("private " + COMBO + " rightBracketTokensCombo;");
+		sc.add("private " + SWT_LIST + " bracketsList;");
+		sc.add("private " + BUTTON + " addBracketButton;");
+		sc.add("private " + BUTTON + " removeBracketButton;");
+		sc.add("private " + MAP + "<String, String> bracketSetTemp = new " + LINKED_HASH_MAP + "<String, String>();");
+		sc.add("private String language = new " + metaInformationClassName + "().getSyntaxName();");
+		sc.addLineBreak();
+		sc.add("private " + bracketSetClassName + " bracketsTmp;");
+		sc.addLineBreak();
+	}
+
 	private void addMethods(JavaComposite sc) {
 		addInitMethod(sc);
 		addCreateContentsMethod(sc);
@@ -77,15 +108,17 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		addPerformOkMethod(sc);
 		addPerformApplyMethod(sc);
 		addUpdateActiveEditorMethod(sc);
+		addGetSelectedBracketPairMethod(sc);
 	}
 
 	private void addUpdateActiveEditorMethod(JavaComposite sc) {
 		sc.addJavadoc("Sets the chosen options to the preference store and refreshes it in the editor.");
 		sc.add("private void updateActiveEditor() {");
 		sc.addComment("set the values after ok or apply");
-		sc.add(PREFERENCE_CONVERTER + ".setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());");
-		sc.add("getPreferenceStore().setValue(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());");
-		sc.add("getPreferenceStore().setValue(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(language));");
+		sc.add(I_PREFERENCE_STORE + " preferenceStore = getPreferenceStore();");
+		sc.add(PREFERENCE_CONVERTER + ".setValue(preferenceStore, BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());");
+		sc.add("preferenceStore.setValue(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());");
+		sc.add("preferenceStore.setValue(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(language));");
 		sc.add(I_WORKBENCH + " workbench = org.eclipse.ui.PlatformUI.getWorkbench();");
 		sc.add(I_EDITOR_PART + " editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
 		sc.add("if (editor != null && editor instanceof " + editorClassName + ") {");
@@ -116,31 +149,39 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 	private void addPerformDefaultsMethod(JavaComposite sc) {
 		sc.addJavadoc("Sets the default values for this preference page.");
 		sc.add("protected void performDefaults() {");
-		sc.add("enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
+		sc.add(I_PREFERENCE_STORE + " preferenceStore = getPreferenceStore();");
+		sc.add("enableCheckbox.setSelection(preferenceStore.getDefaultBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
 		sc.add("matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());");
-		sc.add("matchingBracketsColorEditor.setColorValue(" + PREFERENCE_CONVERTER + ".getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));");
-		sc.add("bracketSetTemp.put(language, getPreferenceStore().getDefaultString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
-		sc.add("bracketsTmp.setBrackets(bracketSetTemp.get(language));");
+		sc.add("matchingBracketsColorEditor.setColorValue(" + PREFERENCE_CONVERTER + ".getDefaultColor(preferenceStore, BRACKETS_COLOR));");
+		sc.add("String defaultBrackets = preferenceStore.getDefaultString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX);");
+		sc.add("bracketSetTemp.put(language, defaultBrackets);");
+		sc.add("bracketsTmp.deserialize(bracketSetTemp.get(language));");
 		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
+		sc.addComment("Reset check boxes and disable them because no item is selected in the bracketsList component.");
 		sc.add("enableClosingInside.setSelection(false);");
+		sc.add("enableCloseAfterEnter.setSelection(false);");
+		sc.add("enableClosingInside.setEnabled(false);");
+		sc.add("enableCloseAfterEnter.setEnabled(false);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addAddListenersToStyleButtonsMethod(StringComposite sc) {
+	private void addAddListenersToStyleButtonsMethod(JavaComposite sc) {
 		sc.add("private void addListenersToStyleButtons() {");
+		
 		sc.add("enableCheckbox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
 		sc.add("matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());");
 		sc.add("}");
-		sc.add("});");
-		sc.add("addBracketButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.addLineBreak();
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.addComment("do nothing");
 		sc.add("}");
+		sc.add("});");
+		sc.addLineBreak();
+		
+		sc.add("addBracketButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
 		sc.add("String open = leftBracketTokensCombo.getText();");
@@ -148,72 +189,112 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("if (bracketsTmp.isBracket(open) || bracketsTmp.isBracket(close)) {");
 		sc.add("setErrorMessage(\"One or both bracket parts are set!\");");
 		sc.add("} else {");
-		sc.add("bracketsTmp.addBracketPair(open, close, enableClosingInside.getSelection());");
+		sc.add("bracketsTmp.addBracketPair(open, close, enableClosingInside.getSelection(), enableCloseAfterEnter.getSelection());");
 		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
 		sc.add("setErrorMessage(null);");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.serialize());");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
+		
 		sc.add("removeBracketButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.addLineBreak();
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
 		sc.add("bracketsTmp.removeBracketPairs(bracketsList.getSelection());");
 		sc.add("setErrorMessage(null);");
 		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.serialize());");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
+		
 		sc.add("bracketsList.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("boolean isClosingInside = true;");
-		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
-		sc.add("for (int index : itemIndices) {");
-		sc.add(iBracketPairClassName + " bracketPair = bracketsTmp.getBracketPair(index);");
-		sc.add("if (bracketPair != null");
-		sc.add("&& !bracketPair.isClosingEnabledInside()) {");
-		sc.add("isClosingInside = false;");
-		sc.add("break;");
+		sc.add(iBracketPairClassName + " bracketPair = getSelectedBracketPair();");
+		sc.add("if (bracketPair == null) {");
+		sc.add("removeBracketButton.setEnabled(false);");
+		sc.add("return;");
 		sc.add("}");
-		sc.add("}");
-		sc.add("enableClosingInside.setSelection(isClosingInside);");
-		sc.add("removeBracketButton.setEnabled(itemIndices.length > 0);");
+		sc.add("enableClosingInside.setEnabled(true);");
+		sc.add("enableCloseAfterEnter.setEnabled(true);");
+		sc.add("enableClosingInside.setSelection(bracketPair.isClosingEnabledInside());");
+		sc.add("enableCloseAfterEnter.setSelection(bracketPair.isCloseAfterEnter());");
+		sc.add("removeBracketButton.setEnabled(true);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
+		
 		sc.add("enableClosingInside.addSelectionListener(new " + SELECTION_LISTENER + "() {");
 		sc.addLineBreak();
 		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("boolean isClosingInside = enableClosingInside.getSelection();");
-		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
-		sc.add("for (int idx : itemIndices) {");
-		sc.add(iBracketPairClassName + " bracketPair = bracketsTmp.getBracketPair(idx);");
-		sc.add("if (bracketPair != null)");
-		sc.add("bracketsTmp.setClosingEnabledInside(bracketPair, isClosingInside);");
+		sc.add(iBracketPairClassName + " bracketPair = getSelectedBracketPair();");
+		sc.add("if (bracketPair != null) {");
+		sc.add("boolean closingEnabledInside = enableClosingInside.getSelection();");
+		sc.add("bracketPair.setClosingEnabledInside(closingEnabledInside);");
 		sc.add("}");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.serialize());");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.addComment("do nothing");
 		sc.add("}");
 		sc.add("});");
+		sc.addLineBreak();
+		
+		sc.add("enableCloseAfterEnter.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.addLineBreak();
+		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add(iBracketPairClassName + " bracketPair = getSelectedBracketPair();");
+		sc.add("if (bracketPair != null) {");
+		sc.add("boolean closeAfterEnter = enableCloseAfterEnter.getSelection();");
+		sc.add("bracketPair.setCloseAfterEnter(closeAfterEnter);");
+		sc.add("}");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.serialize());");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.addComment("do nothing");
+		sc.add("}");
+		sc.add("});");
+		
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetSelectedBracketPairMethod(JavaComposite sc) {
+		sc.add("protected " + iBracketPairClassName +" getSelectedBracketPair() {");
+		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
+		sc.add("if (itemIndices == null || itemIndices.length != 1) {");
+		sc.addComment(
+			"The bracketsList component is set to single selection. " +
+			"Thus, we expect exactly one selected item."
+		);
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("int index = itemIndices[0];");
+		sc.add("return bracketsTmp.getBracketPair(index);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addInitializeLanguageMethod(StringComposite sc) {
 		sc.add("public void initializeLanguage() {");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
-		sc.add("bracketsTmp.setBrackets(bracketSetTemp.get(language));");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.serialize());");
+		sc.add("bracketsTmp.deserialize(bracketSetTemp.get(language));");
 		sc.add("leftBracketTokensCombo.setItems(ALL_LEFT_BRACKETS);");
 		sc.add("leftBracketTokensCombo.select(0);");
 		sc.add("rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);");
@@ -227,18 +308,16 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addJavadoc("Initialize and handle the values of this preference page.");
 		sc.add("private void handleMatchingBracketsSelection() {");
 		sc.addComment("not for the case of none existing language");
-		sc.add("enableCheckbox.setSelection(getPreferenceStore().getBoolean(");
-		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
+		sc.add("enableCheckbox.setSelection(getPreferenceStore().getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
 		sc.add("enableClosingInside.setSelection(false);");
 		sc.add("matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(");
 		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
-		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(),");
-		sc.add("BRACKETS_COLOR);");
+		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(), BRACKETS_COLOR);");
 		sc.add("matchingBracketsColorEditor.setColorValue(rgb);");
 		sc.add("removeBracketButton.setEnabled(false);");
 		sc.addLineBreak();
 		sc.add("initializeLanguage();");
-		sc.add("bracketsTmp.setBrackets(getPreferenceStore().getString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
+		sc.add("bracketsTmp.deserialize(getPreferenceStore().getString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
 		sc.add("String[] brackets = bracketsTmp.getBracketArray();");
 		sc.add("if (brackets != null) {");
 		sc.add("bracketsList.setItems(brackets);");
@@ -317,7 +396,7 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("configurePairsLabel.setText(\"Configure bracket pairs\");");
 		sc.add("configurePairsLabel.setLayoutData(gd);");
 		
-		sc.add("bracketsList = new " + SWT_LIST + "(tokenSelectionComposite, " + SWT + ".MULTI);");
+		sc.add("bracketsList = new " + SWT_LIST + "(tokenSelectionComposite, " + SWT + ".SINGLE);");
 		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".CENTER, " + GRID_DATA + ".FILL, false, true);");
 		sc.add("gd.horizontalSpan = 2;");
 		sc.add("gd.verticalSpan = 4;");
@@ -328,13 +407,18 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("enableClosingInside = new " + BUTTON + "(tokenSelectionComposite, " + SWT + ".CHECK);");
 		sc.add("enableClosingInside.setText(\"Enable closing inside\");");
 		sc.add("enableClosingInside.setToolTipText(\"If this option is enabled, other bracket pair can close inside this pair automatically.\");");
-		sc.add("enableClosingInside.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".BEGINNING,");
-		sc.add(GRID_DATA + ".BEGINNING, false, false));");
+		sc.add("enableClosingInside.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".BEGINNING, " + GRID_DATA + ".BEGINNING, false, false));");
+		sc.add("enableClosingInside.setEnabled(false);");
+		sc.addLineBreak();
+		sc.add("enableCloseAfterEnter = new " + BUTTON + "(tokenSelectionComposite, " + SWT + ".CHECK);");
+		sc.add("enableCloseAfterEnter.setText(\"Enable close after enter\");");
+		sc.add("enableCloseAfterEnter.setToolTipText(\"If this option is enabled the closing bracket is only inserted when the enter key is pressed.\");");
+		sc.add("enableCloseAfterEnter.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".BEGINNING, " + GRID_DATA + ".BEGINNING, false, false));");
+		sc.add("enableCloseAfterEnter.setEnabled(false);");
 		sc.addLineBreak();
 		sc.add("removeBracketButton = new " + BUTTON + "(tokenSelectionComposite, " + SWT + ".PUSH);");
 		sc.add("removeBracketButton.setText(\"Remove\");");
-		sc.add("removeBracketButton.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".BEGINNING,");
-		sc.add(GRID_DATA + ".BEGINNING, false, false));");
+		sc.add("removeBracketButton.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".BEGINNING, " + GRID_DATA + ".BEGINNING, false, false));");
 		sc.addLineBreak();
 		sc.add("addListenersToStyleButtons();");
 		sc.addLineBreak();
@@ -351,7 +435,7 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\"Define the coloring of matching brackets.\");");
 		sc.addLineBreak();
-		sc.add("bracketsTmp = new " + bracketSetClassName + "(null, null);");
+		sc.add("bracketsTmp = new " + bracketSetClassName + "();");
 		sc.add("for (String languageID : languageIDs) {");
 		sc.add("bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
 		sc.add("}");
@@ -370,32 +454,4 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	private void addFields(StringComposite sc) {
-		sc.add("private static final String[] ALL_LEFT_BRACKETS = new String[] { \"{\", \"(\", \"[\", \"<\", \"\\\"\", \"'\", };");
-		sc.add("private static final String[] ALL_RIGHT_BRACKETS = new String[] { \"}\", \")\", \"]\", \">\", \"\\\"\", \"'\", };");
-		sc.addLineBreak();
-		sc.add("private String BRACKETS_COLOR = " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR;");
-		sc.addLineBreak();
-		sc.add("private " + SET + "<String> languageIDs = new " + LINKED_HASH_SET + "<String>();");
-		sc.addLineBreak();
-		sc.add("private " + COLOR_SELECTOR + " matchingBracketsColorEditor;");
-		sc.add("private " + LABEL + " colorEditorLabel;");
-		sc.add("private " + BUTTON + " enableCheckbox;");
-		sc.add("private " + BUTTON + " enableClosingInside;");
-		sc.add("private " + BUTTON + " matchingBracketsColorButton;");
-		sc.add("private " + LABEL + " bracketTokensLabel;");
-		sc.add("private " + COMBO + " leftBracketTokensCombo;");
-		sc.add("private " + COMBO + " rightBracketTokensCombo;");
-		sc.add("private " + SWT_LIST + " bracketsList;");
-		sc.add("private " + BUTTON + " addBracketButton;");
-		sc.add("private " + BUTTON + " removeBracketButton;");
-		sc.add("private " + MAP + "<String, String> bracketSetTemp = new " + LINKED_HASH_MAP + "<String, String>();");
-		sc.add("private String language = new " + metaInformationClassName + "().getSyntaxName();");
-		sc.addLineBreak();
-		sc.add("private " + bracketSetClassName + " bracketsTmp;");
-		sc.addLineBreak();
-	}
-
-	
 }

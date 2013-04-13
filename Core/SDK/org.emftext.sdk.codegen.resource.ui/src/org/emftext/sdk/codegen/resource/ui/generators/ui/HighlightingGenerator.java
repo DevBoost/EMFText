@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -24,6 +24,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFER
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.KEY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.KEY_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
@@ -189,7 +190,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("public void resetValues() {");
 		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
 		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");
-		sc.add("bracketSet.resetBrackets();");
+		sc.add("bracketSet.resetBrackets(preferenceStore);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -266,7 +267,8 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("private void setHighlighting() {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
 		sc.add("if (isHighlightBrackets) {");
-		sc.add("bracketSet.matchingBrackets();");
+		sc.add("int offset = bracketSet.getCaretOffset((" + I_SOURCE_VIEWER + ") editor.getViewer(), textWidget);");
+		sc.add("bracketSet.findAndHighlightMatchingBrackets(document, offset);");
 		sc.add("}");
 		sc.add("occurrence.handleOccurrenceHighlighting(bracketSet);");
 		sc.add("setBracketHighlighting(document);");
@@ -302,7 +304,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("projectionViewer = sourceviewer;");
 		sc.add("scanner = new " + uiMetaInformationClassName + "().createTokenScanner(textResource, colorManager);");
 		sc.add("occurrence = new " + occurrenceClassName + "(textResource, sourceviewer, scanner);");
-		sc.add("bracketSet = new " + bracketSetClassName + "(editor, sourceviewer);");
+		sc.add("bracketSet = new " + bracketSetClassName + "();");
 		sc.add("this.colorManager = colorManager;");
 		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
 		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");

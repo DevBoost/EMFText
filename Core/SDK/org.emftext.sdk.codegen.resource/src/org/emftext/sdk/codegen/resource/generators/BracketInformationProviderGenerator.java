@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -39,16 +40,19 @@ import org.emftext.sdk.util.StringUtil;
 public class BracketInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private static class BracketPair {
+		
 		private final String openingBracket;
 		private final String closingBracket;
-		private final boolean closeInsideEnabled;
+		private final boolean closingInsideEnabled;
+		private final boolean closeAfterEnter;
 		
 		public BracketPair(String openingBracket, String closingBracket,
-				boolean closeInsideEnabled) {
+				boolean closingInsideEnabled, boolean closeAfterEnter) {
 			super();
 			this.openingBracket = openingBracket;
 			this.closingBracket = closingBracket;
-			this.closeInsideEnabled = closeInsideEnabled;
+			this.closingInsideEnabled = closingInsideEnabled;
+			this.closeAfterEnter = closeAfterEnter;
 		}
 		
 		public String getOpeningBracket() {
@@ -59,8 +63,12 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 			return closingBracket;
 		}
 
-		public boolean isCloseInsideEnabled() {
-			return closeInsideEnabled;
+		public boolean isClosingInsideEnabled() {
+			return closingInsideEnabled;
+		}
+		
+		public boolean isCloseAfterEnter() {
+			return closeAfterEnter;
 		}
 
 		@Override
@@ -105,52 +113,24 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
+		sc.addJavadoc(
+			"This class provides information about how brackets must be " +
+			"handled in the editor (e.g., whether they must be closed " +
+			"automatically)."
+		);
         sc.add("public class " + getResourceClassName()+ " {");
         sc.addLineBreak();
-		addBracketPairClass(sc);
-		addGetBracketPairsMethod(sc);
+        addMethods(sc);
 		sc.add("}");
 	}
 
-	private void addBracketPairClass(StringComposite sc) {
-		sc.add("public class BracketPair implements " + iBracketPairClassName + " {");
-        sc.addLineBreak();
-        sc.add("private String opening;");
-        sc.add("private String closing;");
-        sc.add("private boolean closingEnabledInside;");
-        sc.addLineBreak();
-        sc.add("public BracketPair(String opening, String closing, boolean closingEnabledInside) {");
-        sc.add("super();");
-        sc.add("this.opening = opening;");
-        sc.add("this.closing = closing;");
-        sc.add("this.closingEnabledInside = closingEnabledInside;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public String getOpeningBracket() {");
-        sc.add("return opening;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public String getClosingBracket() {");
-        sc.add("return closing;");
-        sc.add("}");
-        sc.addLineBreak();
-        sc.add("public boolean isClosingEnabledInside() {");
-        sc.add("return closingEnabledInside;");
-        sc.add("}");
-        sc.add("}");
-        sc.addLineBreak();
-    }
+	private void addMethods(JavaComposite sc) {
+		addGetBracketPairsMethod(sc);
+	}
 
 	private void addGetBracketPairsMethod(StringComposite sc) {
 		
-		Collection<BracketPair> defaultPairs = new ArrayList<BracketPair>();
-		defaultPairs.add(new BracketPair("{", "}", false));
-		defaultPairs.add(new BracketPair("(", ")", false));
-		defaultPairs.add(new BracketPair("[", "]", false));
-		defaultPairs.add(new BracketPair("<", ">", false));
-		defaultPairs.add(new BracketPair("\"", "\"", false));
-		defaultPairs.add(new BracketPair("'", "'", false));
-		
+		Collection<BracketPair> defaultPairs = getDefaultBracketPairs();
 		Collection<BracketPair> foundPairs = new LinkedHashSet<BracketPair>();
 		findBracketPairsInCsStrings(defaultPairs, foundPairs);
 		findBracketPairsInQuotedPlaceholders(defaultPairs, foundPairs);
@@ -158,14 +138,26 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.add("public " + COLLECTION + "<" + iBracketPairClassName + "> getBracketPairs() {");
 		sc.add(COLLECTION + "<" + iBracketPairClassName + "> result = new " + ARRAY_LIST + "<" + iBracketPairClassName + ">();");
 		for (BracketPair foundPair : foundPairs) {
-			final String left = StringUtil.escapeToJavaString(foundPair.getOpeningBracket());
-			final String right = StringUtil.escapeToJavaString(foundPair.getClosingBracket());
-			final boolean isClosingInsideEnabled = foundPair.isCloseInsideEnabled();
-			sc.add("result.add(new BracketPair(\"" + left + "\", \"" + right + "\", " + isClosingInsideEnabled + "));");
+			String left = StringUtil.escapeToJavaString(foundPair.getOpeningBracket());
+			String right = StringUtil.escapeToJavaString(foundPair.getClosingBracket());
+			boolean closingInsideEnabled = foundPair.isClosingInsideEnabled();
+			boolean closeAfterEnter = foundPair.isCloseAfterEnter();
+			sc.add("result.add(new " + bracketPairClassName + "(\"" + left + "\", \"" + right + "\", " + closingInsideEnabled + ", " + closeAfterEnter + "));");
 		}
 		sc.add("return result;");
 		sc.add("}");
         sc.addLineBreak();
+	}
+
+	private Collection<BracketPair> getDefaultBracketPairs() {
+		Collection<BracketPair> defaultPairs = new ArrayList<BracketPair>();
+		defaultPairs.add(new BracketPair("{", "}", false, true));
+		defaultPairs.add(new BracketPair("(", ")", false, false));
+		defaultPairs.add(new BracketPair("[", "]", false, false));
+		defaultPairs.add(new BracketPair("<", ">", false, false));
+		defaultPairs.add(new BracketPair("\"", "\"", false, false));
+		defaultPairs.add(new BracketPair("'", "'", false, false));
+		return defaultPairs;
 	}
 
 	private void findBracketPairsInCsStrings(
@@ -182,7 +174,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 				final String left = defaultPair.getOpeningBracket();
 				final String right = defaultPair.getClosingBracket();
 				if (csStringValues.contains(left) && csStringValues.contains(right)) {
-					foundPairs.add(new BracketPair(left, right, true));
+					foundPairs.add(new BracketPair(left, right, true, defaultPair.isCloseAfterEnter()));
 				}
 			}
 		}
@@ -191,22 +183,24 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 	private void findBracketPairsInQuotedPlaceholders(
 			Collection<BracketPair> defaultPairs,
 			Collection<BracketPair> foundPairs) {
+		
+		EClass placeholderInQuotesType = ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes();
+
 		List<Rule> rules = getContext().getConcreteSyntax().getAllRules();
 		for (Rule rule : rules) {
-			Collection<PlaceholderInQuotes> placeholdersInQuotes = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
+			Collection<PlaceholderInQuotes> placeholdersInQuotes = EObjectUtil.getObjectsByType(rule.eAllContents(), placeholderInQuotesType);
 			for (PlaceholderInQuotes placeholder : placeholdersInQuotes) {
-				final String left = placeholder.getNormalizedPrefix();
-				final String right = placeholder.getNormalizedSuffix();
+				String prefix = placeholder.getNormalizedPrefix();
+				String suffix = placeholder.getNormalizedSuffix();
 				for (BracketPair defaultPair : defaultPairs) {
 					String defaultLeft = defaultPair.getOpeningBracket();
 					String defaultRight = defaultPair.getClosingBracket();
-					if (defaultLeft.equals(left) && defaultRight.equals(right)) {
-						foundPairs.add(new BracketPair(left, right, false));
+					boolean placeholderEqualsBracketPair = defaultLeft.equals(prefix) && defaultRight.equals(suffix);
+					if (placeholderEqualsBracketPair) {
+						foundPairs.add(new BracketPair(prefix, suffix, false, defaultPair.isCloseAfterEnter()));
 					}
 				}
 			}
 		}
 	}
-
-	
 }
