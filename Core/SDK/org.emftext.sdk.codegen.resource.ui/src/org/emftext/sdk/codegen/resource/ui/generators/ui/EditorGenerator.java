@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -98,14 +98,15 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
+		GenerationContext context = getContext();
 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.addJavadoc("A text editor for '" + getContext().getConcreteSyntax().getName() + "' models."
+		sc.addJavadoc("A text editor for '" + context.getConcreteSyntax().getName() + "' models."
 				, "<p>"
-				, "This editor has id <code>" + getContext().getQualifiedClassName(TextResourceUIArtifacts.EDITOR) + "</code>"
-				, "The editor's context menu has id <code>" + getContext().getEditorContextID() + "</code>. "
-				, "The editor's ruler context menu has id <code>" + getContext().getEditorRulerID() + "</code>."
+				, "This editor has id <code>" + context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR) + "</code>"
+				, "The editor's context menu has id <code>" + context.getEditorContextID() + "</code>. "
+				, "The editor's ruler context menu has id <code>" + context.getEditorRulerID() + "</code>."
 				, "</p>");
 		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + ", " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + ", " + I_VIEWER_PROVIDER + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
 		sc.addLineBreak();
@@ -115,6 +116,36 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addMethods(sc);
 
 		sc.add("}");
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private " + highlightingClassName + " highlighting;");
+		sc.add("private " + PROJECTION_SUPPORT + " projectionSupport;");
+		sc.add("private " + codeFoldingManagerClassName + " codeFoldingManager;");
+		sc.add("private " + backgroundParsingStrategyClassName + " bgParsingStrategy = new " + backgroundParsingStrategyClassName + "();");
+		sc.add("private " + COLLECTION + "<" + iBackgroundParsingListenerClassName + "> bgParsingListeners = new " + ARRAY_LIST + "<" + iBackgroundParsingListenerClassName + ">();");
+		sc.add("private " + colorManagerClassName + " colorManager = new " + colorManagerClassName + "();");
+		sc.add("private " + outlinePageClassName + " outlinePage;");
+		sc.add("private " + iTextResourceClassName + " resource;");
+		sc.add("private " + I_RESOURCE_CHANGE_LISTENER + " resourceChangeListener = new ModelResourceChangeListener();");
+		sc.add("private " + propertySheetPageClassName + " propertySheetPage;");
+		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
+		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
+		sc.add("private " + iBracketHandlerClassName + " bracketHandler;");
+		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + LINKED_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
+		sc.add("private " + I_SELECTION + " editorSelection;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "() {");
+		sc.add("super();");
+		sc.add("setSourceViewerConfiguration(new " + sourceViewerConfigurationClassName + "(this, this, colorManager));");
+		sc.add("initializeEditingDomain();");
+		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
+		sc.add("addSelectionChangedListener(this);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -586,17 +617,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.add("setSourceViewerConfiguration(new " + sourceViewerConfigurationClassName + "(this, this, this, colorManager));");
-		sc.add("initializeEditingDomain();");
-		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
-		sc.add("addSelectionChangedListener(this);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addCreateActionsMethod(StringComposite sc) {
 		sc.add("public void createActions() {");
 		sc.add("super.createActions();");
@@ -750,25 +770,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("bgParsingStrategy.parse(event, getResource(), " + getResourceClassName() + ".this);");
 		sc.add("}");
 		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addFields(StringComposite sc) {
-		sc.add("private " + highlightingClassName + " highlighting;");
-		sc.add("private " + PROJECTION_SUPPORT + " projectionSupport;");
-		sc.add("private " + codeFoldingManagerClassName + " codeFoldingManager;");
-		sc.add("private " + backgroundParsingStrategyClassName + " bgParsingStrategy = new " + backgroundParsingStrategyClassName + "();");
-		sc.add("private " + COLLECTION + "<" + iBackgroundParsingListenerClassName + "> bgParsingListeners = new " + ARRAY_LIST + "<" + iBackgroundParsingListenerClassName + ">();");
-		sc.add("private " + colorManagerClassName + " colorManager = new " + colorManagerClassName + "();");
-		sc.add("private " + outlinePageClassName + " outlinePage;");
-		sc.add("private " + iTextResourceClassName + " resource;");
-		sc.add("private " + I_RESOURCE_CHANGE_LISTENER + " resourceChangeListener = new ModelResourceChangeListener();");
-		sc.add("private " + propertySheetPageClassName + " propertySheetPage;");
-		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
-		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
-		sc.add("private " + iBracketHandlerClassName + " bracketHandler;");
-		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + LINKED_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
-		sc.add("private " + I_SELECTION + " editorSelection;");
 		sc.addLineBreak();
 	}
 }

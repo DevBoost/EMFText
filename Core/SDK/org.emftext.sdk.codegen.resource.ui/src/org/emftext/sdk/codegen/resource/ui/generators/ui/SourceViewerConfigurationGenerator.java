@@ -68,6 +68,32 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 	}
 
+	private void addFields(StringComposite sc) {
+		sc.add("private " + colorManagerClassName + " colorManager;");
+		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
+		sc.add("private " + iAnnotationModelProviderClassName + " annotationModelProvider;");
+		sc.add("private " + quickAssistAssistantClassName + " quickAssistAssistant;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates a new editor configuration.",
+			"@param resourceProvider the provider for the resource (usually this is the editor)",
+			"@param colorManager the color manager to use"
+		);
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iAnnotationModelProviderClassName + " annotationModelProvider, " + colorManagerClassName + " colorManager) {");
+		sc.add("super(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
+		sc.add("this.fPreferenceStore.setDefault(" + SPELLING_SERVICE + ".PREFERENCE_SPELLING_ENABLED, true);");
+		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS + ".EDITOR_TAB_WIDTH, 4);");
+		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS + ".EDITOR_HYPERLINK_KEY_MODIFIER, " + ACTION + ".findModifierString(" + SWT + ".MOD1));");
+		sc.add("this.resourceProvider = resourceProvider;");
+		sc.add("this.annotationModelProvider = annotationModelProvider;");
+		sc.add("this.colorManager = colorManager;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addMethods(JavaComposite sc) {
 		addGetAutoEditStrategies(sc);
 		addGetContentAssistantMethod(sc);
@@ -214,7 +240,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("public " + I_CONTENT_ASSISTANT + " getContentAssistant(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.addLineBreak();
 		sc.add(CONTENT_ASSISTANT + " assistant = new " + CONTENT_ASSISTANT + "();");
-		sc.add("assistant.setContentAssistProcessor(new " + completionProcessorClassName + "(resourceProvider, bracketHandlerProvider), " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
+		sc.add("assistant.setContentAssistProcessor(new " + completionProcessorClassName + "(resourceProvider), " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
 		sc.add("assistant.enableAutoActivation(true);");
 		sc.add("assistant.setAutoActivationDelay(500);");
 		sc.add("assistant.setProposalPopupOrientation(" + I_CONTENT_ASSISTANT + ".PROPOSAL_OVERLAY);");
@@ -224,34 +250,4 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	private void addConstructor(JavaComposite sc) {
-		sc.addJavadoc(
-			"Creates a new editor configuration.",
-			"@param resourceProvider the provider for the resource (usually this is the editor)",
-			"@param colorManager the color manager to use"
-		);
-		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iAnnotationModelProviderClassName + " annotationModelProvider, " + iBracketHandlerProviderClassName + " bracketHandlerProvider, " + colorManagerClassName + " colorManager) {");
-		sc.add("super(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
-		sc.add("this.fPreferenceStore.setDefault(" + SPELLING_SERVICE + ".PREFERENCE_SPELLING_ENABLED, true);");
-		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS + ".EDITOR_TAB_WIDTH, 4);");
-		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS + ".EDITOR_HYPERLINK_KEY_MODIFIER, " + ACTION + ".findModifierString(" + SWT + ".MOD1));");
-		sc.add("this.resourceProvider = resourceProvider;");
-		sc.add("this.annotationModelProvider = annotationModelProvider;");
-		sc.add("this.bracketHandlerProvider = bracketHandlerProvider;");
-		sc.add("this.colorManager = colorManager;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addFields(StringComposite sc) {
-		sc.add("private " + colorManagerClassName + " colorManager;");
-		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
-		sc.add("private " + iAnnotationModelProviderClassName + " annotationModelProvider;");
-		sc.add("private " + iBracketHandlerProviderClassName + " bracketHandlerProvider;");
-		sc.add("private " + quickAssistAssistantClassName + " quickAssistAssistant;");
-		sc.addLineBreak();
-	}
-
-	
 }

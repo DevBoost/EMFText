@@ -52,7 +52,14 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
-		sc.add("private " + iBracketHandlerProviderClassName + " bracketHandlerProvider;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider) {");
+		sc.add("super();");
+		sc.add("this.resourceProvider = resourceProvider;");
+		sc.add("}");
 		sc.addLineBreak();
 	}
 
@@ -143,14 +150,6 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);");
 		sc.add("}");
 		sc.add("return result;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iBracketHandlerProviderClassName + " bracketHandlerProvider) {");
-		sc.add("this.resourceProvider = resourceProvider;");
-		sc.add("this.bracketHandlerProvider = bracketHandlerProvider;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
