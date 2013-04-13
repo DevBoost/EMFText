@@ -19,11 +19,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsCompletionProcessor implements org.eclipse.jface.text.contentassist.IContentAssistProcessor {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider bracketHandlerProvider;
 	
-	public CsCompletionProcessor(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider bracketHandlerProvider) {
+	public CsCompletionProcessor(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider) {
+		super();
 		this.resourceProvider = resourceProvider;
-		this.bracketHandlerProvider = bracketHandlerProvider;
 	}
 	
 	public org.eclipse.jface.text.contentassist.ICompletionProposal[] computeCompletionProposals(org.eclipse.jface.text.ITextViewer viewer, int offset) {
@@ -59,13 +58,6 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 			info = new org.eclipse.jface.text.contentassist.ContextInformation(image, proposalString, proposalString);
 			int begin = offset - prefix.length();
 			int replacementLength = prefix.length();
-			// if a closing bracket was automatically inserted right before, we enlarge the
-			// replacement length in order to overwrite the bracket.
-			org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler = bracketHandlerProvider.getBracketHandler();
-			String closingBracket = bracketHandler.getClosingBracket();
-			if (bracketHandler.addedClosingBracket() && proposalString.endsWith(closingBracket)) {
-				replacementLength += closingBracket.length();
-			}
 			result[i++] = new org.eclipse.jface.text.contentassist.CompletionProposal(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);
 		}
 		return result;

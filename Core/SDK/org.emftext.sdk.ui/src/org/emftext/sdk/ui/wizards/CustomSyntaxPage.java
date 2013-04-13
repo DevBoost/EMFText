@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -128,7 +128,7 @@ public class CustomSyntaxPage extends WizardPage implements ICsResourceProvider 
 		sourceViewer.setDocument(new Document());
 		sourceViewer.getTextWidget().setLayoutData(gd);
 		csColorManager = new CsColorManager();
-		sourceViewer.configure(new CsSourceViewerConfiguration(this, null, null, csColorManager));
+		sourceViewer.configure(new CsSourceViewerConfiguration(this, null, csColorManager));
 
 		Listener changeListener = new Listener() {
 			

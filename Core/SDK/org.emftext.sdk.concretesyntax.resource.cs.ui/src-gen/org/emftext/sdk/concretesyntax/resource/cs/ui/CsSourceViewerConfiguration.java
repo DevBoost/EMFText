@@ -25,7 +25,6 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider;
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider bracketHandlerProvider;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistAssistant quickAssistAssistant;
 	
 	/**
@@ -35,14 +34,13 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 	 * editor)
 	 * @param colorManager the color manager to use
 	 */
-	public CsSourceViewerConfiguration(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider bracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+	public CsSourceViewerConfiguration(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
 		super(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
 		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.spelling.SpellingService.PREFERENCE_SPELLING_ENABLED, true);
 		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH, 4);
 		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants.EDITOR_HYPERLINK_KEY_MODIFIER, org.eclipse.jface.action.Action.findModifierString(org.eclipse.swt.SWT.MOD1));
 		this.resourceProvider = resourceProvider;
 		this.annotationModelProvider = annotationModelProvider;
-		this.bracketHandlerProvider = bracketHandlerProvider;
 		this.colorManager = colorManager;
 	}
 	
@@ -57,7 +55,7 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 	public org.eclipse.jface.text.contentassist.IContentAssistant getContentAssistant(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
 		
 		org.eclipse.jface.text.contentassist.ContentAssistant assistant = new org.eclipse.jface.text.contentassist.ContentAssistant();
-		assistant.setContentAssistProcessor(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProcessor(resourceProvider, bracketHandlerProvider), org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE);
+		assistant.setContentAssistProcessor(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProcessor(resourceProvider), org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE);
 		assistant.enableAutoActivation(true);
 		assistant.setAutoActivationDelay(500);
 		assistant.setProposalPopupOrientation(org.eclipse.jface.text.contentassist.IContentAssistant.PROPOSAL_OVERLAY);

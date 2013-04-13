@@ -125,7 +125,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		projectionViewer = sourceviewer;
 		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().createTokenScanner(textResource, colorManager);
 		occurrence = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence(textResource, sourceviewer, scanner);
-		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(editor, sourceviewer);
+		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet();
 		this.colorManager = colorManager;
 		isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
 		bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
@@ -145,7 +145,8 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	private void setHighlighting() {
 		org.eclipse.jface.text.IDocument document = projectionViewer.getDocument();
 		if (isHighlightBrackets) {
-			bracketSet.matchingBrackets();
+			int offset = bracketSet.getCaretOffset((org.eclipse.jface.text.source.ISourceViewer) editor.getViewer(), textWidget);
+			bracketSet.findAndHighlightMatchingBrackets(document, offset);
 		}
 		occurrence.handleOccurrenceHighlighting(bracketSet);
 		setBracketHighlighting(document);
@@ -210,7 +211,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	public void resetValues() {
 		isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
 		bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
-		bracketSet.resetBrackets();
+		bracketSet.resetBrackets(preferenceStore);
 	}
 	
 	private org.eclipse.jface.text.Position convertToWidgetPosition(org.eclipse.jface.text.Position position) {
