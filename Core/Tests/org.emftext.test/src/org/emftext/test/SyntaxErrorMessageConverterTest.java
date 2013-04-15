@@ -31,8 +31,11 @@ import org.junit.Test;
 
 public class SyntaxErrorMessageConverterTest {
 
+	/**
+	 * This is a test for GitHub issue #21.
+	 */
 	@Test
-	public void testNPE() {
+	public void testNoNPE() {
 		assertNoNPE(new RecognitionException());
 		assertNoNPE(new EarlyExitException());
 		assertNoNPE(new FailedPredicateException());
