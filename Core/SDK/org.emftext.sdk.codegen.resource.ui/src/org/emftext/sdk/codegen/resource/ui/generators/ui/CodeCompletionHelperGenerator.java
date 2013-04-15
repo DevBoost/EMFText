@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -187,10 +187,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addJavadoc(
 			"Creates a set of completion proposals from the given keyword."
 		);
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleKeyword(" + expectedTerminalClassName + " expectedTerminal, " + expectedCsStringClassName + " csString, String prefix) {");
+		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleKeyword(" + expectedTerminalClassName + " expectedTerminal, " + expectedCsStringClassName + " csString, String prefix, " + E_OBJECT + " container) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.add("boolean matchesPrefix = matches(proposal, prefix);");
-		sc.add("return " + COLLECTIONS + ".singleton(new " + completionProposalClassName + "(expectedTerminal, proposal, prefix, matchesPrefix, null, null));");
+		sc.add("return " + COLLECTIONS + ".singleton(new " + completionProposalClassName + "(expectedTerminal, proposal, prefix, matchesPrefix, null, container));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -439,7 +439,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(iExpectedElementClassName + " expectedElement = (" + iExpectedElementClassName + ") expectedTerminal.getTerminal();");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
 		sc.add(expectedCsStringClassName + " csString = (" + expectedCsStringClassName + ") expectedElement;");
-		sc.add("return handleKeyword(expectedTerminal, csString, expectedTerminal.getPrefix());");
+		sc.add("return handleKeyword(expectedTerminal, csString, expectedTerminal.getPrefix(), expectedTerminal.getContainer());");
 		sc.add("} else if (expectedElement instanceof " + expectedBooleanTerminalClassName + ") {");
 		sc.add(expectedBooleanTerminalClassName + " expectedBooleanTerminal = (" + expectedBooleanTerminalClassName + ") expectedElement;");
 		sc.add("return handleBooleanTerminal(expectedTerminal, expectedBooleanTerminal, expectedTerminal.getPrefix());");

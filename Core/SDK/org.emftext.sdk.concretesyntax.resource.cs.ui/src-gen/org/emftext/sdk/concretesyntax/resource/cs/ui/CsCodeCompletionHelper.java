@@ -233,7 +233,7 @@ public class CsCodeCompletionHelper {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement = (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement) expectedTerminal.getTerminal();
 		if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString) expectedElement;
-			return handleKeyword(expectedTerminal, csString, expectedTerminal.getPrefix());
+			return handleKeyword(expectedTerminal, csString, expectedTerminal.getPrefix(), expectedTerminal.getContainer());
 		} else if (expectedElement instanceof org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedBooleanTerminal) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedBooleanTerminal expectedBooleanTerminal = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedBooleanTerminal) expectedElement;
 			return handleBooleanTerminal(expectedTerminal, expectedBooleanTerminal, expectedTerminal.getPrefix());
@@ -362,10 +362,10 @@ public class CsCodeCompletionHelper {
 	/**
 	 * Creates a set of completion proposals from the given keyword.
 	 */
-	protected java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleKeyword(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String prefix) {
+	protected java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> handleKeyword(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString csString, String prefix, org.eclipse.emf.ecore.EObject container) {
 		String proposal = csString.getValue();
 		boolean matchesPrefix = matches(proposal, prefix);
-		return java.util.Collections.singleton(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(expectedTerminal, proposal, prefix, matchesPrefix, null, null));
+		return java.util.Collections.singleton(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(expectedTerminal, proposal, prefix, matchesPrefix, null, container));
 	}
 	
 	/**
