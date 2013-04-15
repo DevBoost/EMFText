@@ -57,14 +57,7 @@ public class CsSyntaxErrorMessageConverter {
 		if (e instanceof org.antlr.runtime3_4_0.MismatchedTokenException) {
 			org.antlr.runtime3_4_0.MismatchedTokenException mte = (org.antlr.runtime3_4_0.MismatchedTokenException) e;
 			String expectedTokenName = getTokenName(mte.expecting);
-			String actualTokenName = getTokenName(e.token.getType());
-			String actualText = e.token.getText();
-			message = "Syntax error on token \"" + actualText + "\" ";
-			// We mention the name of the actual token only if it differs from the actual
-			// token text to reduce confusion in error messages.
-			if (actualText != null && !actualText.equals(actualTokenName)) {
-				message += "(" + actualTokenName + "). ";
-			}
+			message = "Syntax error on token \"" + toString(e.token) + "\" ";
 			message += "Expected: \"" + expectedTokenName + "\".";
 		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedTreeNodeException) {
 			org.antlr.runtime3_4_0.MismatchedTreeNodeException mtne = (org.antlr.runtime3_4_0.MismatchedTreeNodeException) e;
@@ -72,17 +65,17 @@ public class CsSyntaxErrorMessageConverter {
 			String actualTokenName = getTokenName(mtne.getUnexpectedType());
 			message = "Mismatched tree node: \"" + actualTokenName + "\". Expected: \"" + expectedTokenName + "\"";
 		} else if (e instanceof org.antlr.runtime3_4_0.NoViableAltException) {
-			message = "Syntax error on token \"" + e.token.getText() + "\". Check following tokens.";
+			message = "Syntax error on token \"" + toString(e.token) + "\". Check following tokens.";
 		} else if (e instanceof org.antlr.runtime3_4_0.EarlyExitException) {
-			message = "Syntax error on token \"" + e.token.getText() + "\". Delete this token.";
+			message = "Syntax error on token \"" + toString(e.token) + "\". Delete this token.";
 		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedSetException) {
 			org.antlr.runtime3_4_0.MismatchedSetException mse = (org.antlr.runtime3_4_0.MismatchedSetException) e;
-			message = "Mismatched token: " + e.token + "; expecting set " + mse.expecting;
+			message = "Mismatched token: " + toString(e.token) + "; expecting set " + mse.expecting;
 		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedNotSetException) {
 			org.antlr.runtime3_4_0.MismatchedNotSetException mse = (org.antlr.runtime3_4_0.MismatchedNotSetException) e;
-			message = "Mismatched token: " +  e.token + "; expecting set " + mse.expecting;
+			message = "Mismatched token: " +  toString(e.token) + "; expecting set " + mse.expecting;
 		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedRangeException) {
-			message = "Mismatched token: " +  e.token + "; expecting range";
+			message = "Mismatched token: " + toString(e.token) + "; expecting range";
 		} else if (e instanceof org.antlr.runtime3_4_0.FailedPredicateException) {
 			org.antlr.runtime3_4_0.FailedPredicateException fpe = (org.antlr.runtime3_4_0.FailedPredicateException) e;
 			message = "Rule " + fpe.ruleName + " failed. Predicate: {" +  fpe.predicateText + "}?";
@@ -91,12 +84,31 @@ public class CsSyntaxErrorMessageConverter {
 		return message;
 	}
 	
+	protected String toString(org.antlr.runtime3_4_0.Token token)  {
+		if (token == null) {
+			return "<UNKNOWN>";
+		}
+		
+		StringBuilder result = new StringBuilder();
+		String tokenName = getTokenName(token.getType());
+		String tokenText = token.getText();
+		result.append(tokenText);
+		// We mention the name of the actual token only if it differs from the actual
+		// token text to reduce confusion in error messages.
+		if (tokenText != null && !tokenText.equals(tokenName)) {
+			result.append(" (");
+			result.append(tokenName);
+			result.append(")");
+		}
+		return result.toString();
+	}
+	
 	protected String getTokenName(int tokenType)  {
 		String tokenName = "<unknown>";
 		if (tokenType < 0) {
 			tokenName = "EOF";
 		} else {
-			if (tokenType < 0) {
+			if (tokenType >= tokenNames.length) {
 				return tokenName;
 			}
 			tokenName = tokenNames[tokenType];
