@@ -56,6 +56,12 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	private org.eclipse.emf.ecore.EObject root;
 	
 	/**
+	 * The target object, if this proposal suggests to insert a reference to another
+	 * object.
+	 */
+	private Object referenceTarget;
+	
+	/**
 	 * The string that will be inserted if the user picks this proposal. This string
 	 * can differ from 'displayString' because usually only the missing part of the
 	 * text is inserted and an existing prefix is kept.
@@ -101,6 +107,10 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		return root;
 	}
 	
+	public Object getReferenceTarget() {
+		return referenceTarget;
+	}
+	
 	public String getInsertString() {
 		return insertString;
 	}
@@ -121,6 +131,10 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	
 	public void setRoot(org.eclipse.emf.ecore.EObject root) {
 		this.root = root;
+	}
+	
+	public void setReferenceTarget(Object referenceTarget) {
+		this.referenceTarget = referenceTarget;
 	}
 	
 	public void setInsertString(String insertString) {

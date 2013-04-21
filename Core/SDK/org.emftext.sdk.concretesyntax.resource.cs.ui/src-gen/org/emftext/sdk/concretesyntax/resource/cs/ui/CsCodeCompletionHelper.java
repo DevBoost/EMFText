@@ -329,7 +329,9 @@ public class CsCodeCompletionHelper {
 						image = getImage((org.eclipse.emf.ecore.EObject) target);
 					}
 					boolean matchesPrefix = matches(identifier, prefix);
-					resultSet.add(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(expectedTerminal, identifier, prefix, matchesPrefix, reference, container, image));
+					org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal(expectedTerminal, identifier, prefix, matchesPrefix, reference, container, image);
+					proposal.setReferenceTarget(target);
+					resultSet.add(proposal);
 				}
 			}
 			return resultSet;
