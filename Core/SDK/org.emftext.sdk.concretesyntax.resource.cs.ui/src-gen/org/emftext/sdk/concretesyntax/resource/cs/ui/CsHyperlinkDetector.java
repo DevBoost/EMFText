@@ -50,11 +50,11 @@ public class CsHyperlinkDetector implements org.eclipse.jface.text.hyperlink.IHy
 					text = textViewer.getDocument().get(offset, length);
 				} catch (org.eclipse.jface.text.BadLocationException e) {
 				}
-				// we skipt elements that are not contained in a resource, because we cannot jump
+				// we skip elements that are not contained in a resource, because we cannot jump
 				// to them anyway
 				if (resolvedEObject.eResource() != null) {
 					org.eclipse.jface.text.hyperlink.IHyperlink hyperlink = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHyperlink(new org.eclipse.jface.text.Region(offset, length), resolvedEObject, text);
-					return new org.eclipse.jface.text.hyperlink.IHyperlink[] { hyperlink };
+					return new org.eclipse.jface.text.hyperlink.IHyperlink[] {hyperlink};
 				}
 			}
 		}
