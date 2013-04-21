@@ -321,7 +321,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("image = getImage((" + E_OBJECT + ") target);");
 		sc.add("}");
 		sc.add("boolean matchesPrefix = matches(identifier, prefix);");
-		sc.add("resultSet.add(new " + completionProposalClassName + "(expectedTerminal, identifier, prefix, matchesPrefix, reference, container, image));");
+		sc.add(completionProposalClassName + " proposal = new " + completionProposalClassName + "(expectedTerminal, identifier, prefix, matchesPrefix, reference, container, image);");
+		sc.add("proposal.setReferenceTarget(target);");
+		sc.add("resultSet.add(proposal);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return resultSet;");

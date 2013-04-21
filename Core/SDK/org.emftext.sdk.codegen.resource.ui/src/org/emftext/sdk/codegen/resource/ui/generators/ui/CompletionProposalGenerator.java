@@ -185,6 +185,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	
 	private void addFields(JavaComposite sc) {
 		sc.addFieldGetSet("root", E_OBJECT, "The root object of the resource for which this proposal was computed.");
+		sc.addFieldGetSet("referenceTarget", "Object", "The target object, if this proposal suggests to insert a reference to another object.");
 
 		sc.addJavadoc("The terminal that was expected at the cursor position.");
 		sc.add("private " + expectedTerminalClassName + " expectedTerminal;");
