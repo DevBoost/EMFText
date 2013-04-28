@@ -77,8 +77,9 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("}");
 		sc.add(sc.declareArrayList("taskItems", taskItemClassName));
 		sc.add(taskItemDetectorClassName + " taskItemDetector = new " + taskItemDetectorClassName + "();");
+		sc.add(INPUT_STREAM + " inputStream = null;");
 		sc.add("try {");
-		sc.add(INPUT_STREAM + " inputStream = resource.getContents();");
+		sc.add("inputStream = resource.getContents();");
 		sc.add("String charset = resource.getCharset();");
 		sc.add("String content = " + streamUtilClassName + ".getContent(inputStream, charset);");
 		sc.add(iTextScannerClassName + " lexer = new " + metaInformationClassName + "().createLexer();");
@@ -94,6 +95,14 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add(pluginActivatorClassName + ".logError(\"Exception while searching for task items\", e);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
 		sc.add(pluginActivatorClassName + ".logError(\"Exception while searching for task items\", e);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("try {");
+		sc.add("if (inputStream != null) {");
+		sc.add("inputStream.close();");
+		sc.add("}");
+		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.addComment("Ignore this");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("for (" + taskItemClassName + " taskItem : taskItems) {");
