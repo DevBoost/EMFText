@@ -32,8 +32,9 @@ public class CsTaskItemBuilder {
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> taskItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector taskItemDetector = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector();
+		java.io.InputStream inputStream = null;
 		try {
-			java.io.InputStream inputStream = resource.getContents();
+			inputStream = resource.getContents();
 			String charset = resource.getCharset();
 			String content = org.emftext.sdk.concretesyntax.resource.cs.util.CsStreamUtil.getContent(inputStream, charset);
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTextScanner lexer = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().createLexer();
@@ -49,6 +50,14 @@ public class CsTaskItemBuilder {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while searching for task items", e);
 		} catch (org.eclipse.core.runtime.CoreException e) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while searching for task items", e);
+		}
+		
+		try {
+			if (inputStream != null) {
+				inputStream.close();
+			}
+		} catch (java.io.IOException e) {
+			// Ignore this
 		}
 		
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem taskItem : taskItems) {
