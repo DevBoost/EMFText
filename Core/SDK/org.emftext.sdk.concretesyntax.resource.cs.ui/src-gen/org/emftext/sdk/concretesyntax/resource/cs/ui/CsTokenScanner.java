@@ -33,7 +33,9 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 	
 	/**
+	 * Creates a new CsTokenScanner.
 	 * 
+	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects
 	 */
 	public CsTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
@@ -128,6 +130,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle getDynamicTokenStyle(org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle staticStyle) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDynamicTokenStyler dynamicTokenStyler = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsDynamicTokenStyler();
+		dynamicTokenStyler.setOffset(offset);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, currentToken, staticStyle);
 		return dynamicStyle;
 	}
