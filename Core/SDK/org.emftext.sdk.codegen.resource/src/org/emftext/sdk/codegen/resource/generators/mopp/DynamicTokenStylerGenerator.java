@@ -29,7 +29,10 @@ public class DynamicTokenStylerGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
+		sc.addFieldGetSet("offset", "int", "The offset in the text where the lexer started.");
+		sc.addFields();
 		addGetDynamicTokenStyleMethod(sc);
+		sc.addGettersSetters();
 		sc.add("}");
 	}
 

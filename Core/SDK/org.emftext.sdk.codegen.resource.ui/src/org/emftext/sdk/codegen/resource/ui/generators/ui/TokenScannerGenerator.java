@@ -65,7 +65,10 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 	
 	private void addConstructor(JavaComposite sc) {
-		sc.addJavadoc("@param colorManager A manager to obtain color objects");
+		sc.addJavadoc(
+			"Creates a new " + getResourceClassName() + ".",
+			"@param resource The resource to scan",
+			"@param colorManager A manager to obtain color objects");
 		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " resource, " + colorManagerClassName + " colorManager) {");
 		sc.add("this.resource = resource;");
 		sc.add("this.colorManager = colorManager;");
@@ -120,6 +123,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addGetDynamicTokenStyleMethod(JavaComposite sc) {
 		sc.add("public " + iTokenStyleClassName + " getDynamicTokenStyle(" + iTokenStyleClassName + " staticStyle) {");
 		sc.add(dynamicTokenStyleClassName + " dynamicTokenStyler = new " + dynamicTokenStyleClassName + "();");
+		sc.add("dynamicTokenStyler.setOffset(offset);");
 		sc.add(iTokenStyleClassName + " dynamicStyle = dynamicTokenStyler.getDynamicTokenStyle(resource, currentToken, staticStyle);");
 		sc.add("return dynamicStyle;");
 		sc.add("}");
