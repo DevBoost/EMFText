@@ -61,17 +61,24 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addGetImageDescriptorMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the image for the given key. " +
+			"Possible keys are:",
+			"<ul>",
+			"<li>platform:/plugin/your.plugin/icons/yourIcon.png</li>",
+			"<li>bundleentry://557.fwk3560063/icons/yourIcon.png</li>",
+			"</ul>"
+		);
 		sc.add("public " + IMAGE_DESCRIPTOR + " getImageDescriptor(String key) {");
 		sc.add(I_PATH + " path = new " + PATH + "(key);");
-		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(" + uiPluginActivatorClassName + ".getDefault().getBundle(), path, null));");
+		sc.add(uiPluginActivatorClassName + " plugin = " + uiPluginActivatorClassName + ".getDefault();");
+		sc.add("if (plugin == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(plugin.getBundle(), path, null));");
 		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
 		sc.addComment("try loading image from any bundle");
 		sc.add("try {");
-		sc.addComment(
-			"possible URLs:",
-			"platform:/plugin/your.plugin/icons/yourIcon.png",
-			"bundleentry://557.fwk3560063/icons/yourIcon.png"
-		);
 		sc.add(IClassNameConstants.URL + " pluginUrl = new " + IClassNameConstants.URL + "(key);");
 		sc.add("descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(pluginUrl);");
 		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
