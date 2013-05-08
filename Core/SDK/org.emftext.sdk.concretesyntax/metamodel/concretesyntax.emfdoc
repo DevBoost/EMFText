@@ -682,6 +682,8 @@ OptionTypes.OVERRIDE_LOCALIZED_MESSAGE : "If set to <code>false</code>, the Loca
 
 OptionTypes.OVERRIDE_BRACKET_PAIR : "If set to <code>false</code>, the BracketPair class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.PREFERENCE_PAGES_CATEGORY : "Specify the category for the generated preference pages. Default ID is <code>org.eclipse.ui.preferencePages.GeneralTextEditor</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

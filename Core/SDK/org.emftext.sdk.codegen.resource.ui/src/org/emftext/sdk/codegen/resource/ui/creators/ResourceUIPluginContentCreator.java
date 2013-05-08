@@ -301,7 +301,12 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		mainPage.setAttribute("name", context.getCapitalizedConcreteSyntaxName() + " Text Editor");
 		mainPage.setAttribute("id", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
 		mainPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
-		mainPage.setAttribute("category", "org.eclipse.ui.preferencePages.GeneralTextEditor");
+		String preferencePagesCategory = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.PREFERENCE_PAGES_CATEGORY);
+		if(preferencePagesCategory == null){
+			mainPage.setAttribute("category", "org.eclipse.ui.preferencePages.GeneralTextEditor");
+		} else {
+			mainPage.setAttribute("category", preferencePagesCategory);
+		}
 
 		//sub pages
 		XMLElement syntaxPage = preferencePageExtension.createChild("page");

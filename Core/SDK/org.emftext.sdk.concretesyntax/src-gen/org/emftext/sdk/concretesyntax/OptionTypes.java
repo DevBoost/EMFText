@@ -3008,7 +3008,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BRACKET_PAIR(301, "OVERRIDE_BRACKET_PAIR", "overrideBracketPair");
+	OVERRIDE_BRACKET_PAIR(301, "OVERRIDE_BRACKET_PAIR", "overrideBracketPair"), /**
+	 * The '<em><b>PREFERENCE PAGES CATEGORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PREFERENCE_PAGES_CATEGORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PREFERENCE_PAGES_CATEGORY(302, "PREFERENCE_PAGES_CATEGORY", "preferencePagesCategory");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7209,6 +7217,20 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_BRACKET_PAIR_VALUE = 301;
 
 	/**
+	 * The '<em><b>PREFERENCE PAGES CATEGORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specify the category for the generated preference pages. Default ID is <code>org.eclipse.ui.preferencePages.GeneralTextEditor</code>.
+	 * <!-- end-model-doc -->
+	 * @see #PREFERENCE_PAGES_CATEGORY
+	 * @model literal="preferencePagesCategory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PREFERENCE_PAGES_CATEGORY_VALUE = 302;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7515,6 +7537,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER,
 			OVERRIDE_LOCALIZED_MESSAGE,
 			OVERRIDE_BRACKET_PAIR,
+			PREFERENCE_PAGES_CATEGORY,
 		};
 
 	/**
@@ -7862,6 +7885,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER_VALUE: return OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER;
 			case OVERRIDE_LOCALIZED_MESSAGE_VALUE: return OVERRIDE_LOCALIZED_MESSAGE;
 			case OVERRIDE_BRACKET_PAIR_VALUE: return OVERRIDE_BRACKET_PAIR;
+			case PREFERENCE_PAGES_CATEGORY_VALUE: return PREFERENCE_PAGES_CATEGORY;
 		}
 		return null;
 	}

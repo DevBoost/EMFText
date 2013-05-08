@@ -2067,6 +2067,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the BracketPair class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="PREFERENCE_PAGES_CATEGORY" value="302" literal="preferencePagesCategory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specify the category for the generated preference pages. Default ID is &lt;code>org.eclipse.ui.preferencePages.GeneralTextEditor&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
