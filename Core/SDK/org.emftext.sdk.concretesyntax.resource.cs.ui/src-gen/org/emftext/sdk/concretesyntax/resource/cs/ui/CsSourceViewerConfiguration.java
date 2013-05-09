@@ -117,6 +117,7 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 		}
 		
 		org.eclipse.jface.text.reconciler.IReconcilingStrategy strategy = new org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy(sourceViewer, spellingService) {
+			
 			@Override			
 			protected org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector createSpellingProblemCollector() {
 				final org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector collector = super.createSpellingProblemCollector();
@@ -155,6 +156,7 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 				};
 			}
 		};
+		
 		org.eclipse.jface.text.reconciler.MonoReconciler reconciler = new org.eclipse.jface.text.reconciler.MonoReconciler(strategy, false);
 		reconciler.setDelay(500);
 		return reconciler;

@@ -26,7 +26,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	private java.util.List<org.eclipse.jface.viewers.ISelectionChangedListener> selectionChangedListeners = new java.util.ArrayList<org.eclipse.jface.viewers.ISelectionChangedListener>();
 	private org.eclipse.jface.viewers.ISelection selection = null;
 	private boolean isHighlightBrackets = true;
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner scanner;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	private org.eclipse.swt.graphics.Color bracketColor;
 	private org.eclipse.swt.graphics.Color black;
@@ -116,20 +115,19 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	 * @param colorManager the color manager provides highlighting colors
 	 * @param editor
 	 */
-	public CsHighlighting(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, org.eclipse.jface.text.source.projection.ProjectionViewer sourceviewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager, org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+	public CsHighlighting(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, org.eclipse.jface.text.source.projection.ProjectionViewer projectionViewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager, org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
 		this.display = org.eclipse.swt.widgets.Display.getCurrent();
-		sourceviewer.getSelectionProvider();
-		preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
+		projectionViewer.getSelectionProvider();
+		this.preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		this.editor = editor;
-		textWidget = sourceviewer.getTextWidget();
-		projectionViewer = sourceviewer;
-		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().createTokenScanner(textResource, colorManager);
-		occurrence = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence(textResource, sourceviewer, scanner);
-		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet();
+		this.textWidget = projectionViewer.getTextWidget();
+		this.projectionViewer = projectionViewer;
+		this.occurrence = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence(textResource, projectionViewer);
+		this.bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet();
 		this.colorManager = colorManager;
-		isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
-		bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
-		black = colorManager.getColor(new org.eclipse.swt.graphics.RGB(0, 0, 0));
+		this.isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
+		this.bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
+		this.black = colorManager.getColor(new org.eclipse.swt.graphics.RGB(0, 0, 0));
 		
 		addListeners(editor);
 	}
@@ -148,7 +146,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 			int offset = bracketSet.getCaretOffset((org.eclipse.jface.text.source.ISourceViewer) editor.getViewer(), textWidget);
 			bracketSet.findAndHighlightMatchingBrackets(document, offset);
 		}
-		occurrence.handleOccurrenceHighlighting(bracketSet);
+		occurrence.updateOccurrenceAnnotations();
 		setBracketHighlighting(document);
 	}
 	

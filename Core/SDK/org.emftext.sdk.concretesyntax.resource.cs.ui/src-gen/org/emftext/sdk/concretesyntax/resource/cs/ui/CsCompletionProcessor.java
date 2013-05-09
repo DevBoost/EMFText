@@ -51,11 +51,11 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		int i = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : finalProposalList) {
 			String proposalString = proposal.getInsertString();
-			String displayString = proposal.getDisplayString();
+			String displayString = (proposal.getDisplayString()==null)?proposalString:proposal.getDisplayString();
 			String prefix = proposal.getPrefix();
 			org.eclipse.swt.graphics.Image image = proposal.getImage();
 			org.eclipse.jface.text.contentassist.IContextInformation info;
-			info = new org.eclipse.jface.text.contentassist.ContextInformation(image, proposalString, proposalString);
+			info = new org.eclipse.jface.text.contentassist.ContextInformation(image, displayString, proposalString);
 			int begin = offset - prefix.length();
 			int replacementLength = prefix.length();
 			result[i++] = new org.eclipse.jface.text.contentassist.CompletionProposal(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);
