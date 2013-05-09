@@ -128,6 +128,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add(I_RECONCILING_STRATEGY + " strategy = new " + SPELLING_RECONCILE_STRATEGY + "(sourceViewer, spellingService) {");
+		sc.addLineBreak();
 		sc.add("@Override").addLineBreak();
 		sc.add("protected " + I_SPELLING_PROBLEM_COLLECTOR + " createSpellingProblemCollector() {");
 		sc.add("final " + I_SPELLING_PROBLEM_COLLECTOR + " collector = super.createSpellingProblemCollector();");
@@ -166,6 +167,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("};");
 		sc.add("}");
 		sc.add("};");
+		sc.addLineBreak();
 		sc.add(MONO_RECONCILER + " reconciler = new " + MONO_RECONCILER + "(strategy, false);");
 		sc.add("reconciler.setDelay(500);");
 		sc.add("return reconciler;");

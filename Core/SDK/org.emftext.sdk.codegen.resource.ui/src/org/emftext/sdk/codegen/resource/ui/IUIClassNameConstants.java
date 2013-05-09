@@ -224,6 +224,7 @@ import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.jface.text.ITextPresentationListener;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.ITextViewerExtension5;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.TextAttribute;
@@ -647,6 +648,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_TEXT_PRESENTATION_LISTENER = ITextPresentationListener.class.getName();
 	public static String I_TEXT_SELECTION = ITextSelection.class.getName();
 	public static String I_TEXT_VIEWER = ITextViewer.class.getName();
+	public static String I_TEXT_VIEWER_EXTENSION5 = ITextViewerExtension5.class.getName();
 	public static String I_TOGGLE_BREAKPOINTS_TARGET = IToggleBreakpointsTarget.class.getName();
 	public static String I_TOOL_BAR_MANAGER = IToolBarManager.class.getName();
 	public static String I_TOKEN = IToken.class.getName();

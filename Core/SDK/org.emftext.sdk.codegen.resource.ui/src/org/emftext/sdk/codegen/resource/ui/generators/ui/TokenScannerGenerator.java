@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -100,11 +100,17 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		String styleProperty = syntaxColoringHelperClassName + ".StyleProperty";
 
 		sc.add("public " + iTokenStyleClassName + " getStaticTokenStyle() {");
-		sc.add(iTokenStyleClassName + " staticStyle = null;");
 		sc.add("String tokenName = currentToken.getName();");
 		sc.add("String enableKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ENABLE);");
+		sc.add("if (store == null) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("boolean enabled = store.getBoolean(enableKey);");
-		sc.add("if (enabled) {");
+		sc.add("if (!enabled) {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("String colorKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".COLOR);");
 		sc.add(RGB + " foregroundRGB = " + PREFERENCE_CONVERTER + ".getColor(store, colorKey);");
 		// TODO support background color for token styles
@@ -113,9 +119,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("boolean italic = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ITALIC));");
 		sc.add("boolean strikethrough = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".STRIKETHROUGH));");
 		sc.add("boolean underline = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".UNDERLINE));");
-		sc.add("staticStyle = new " + tokenStyleClassName + "(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);");
-		sc.add("}");
-		sc.add("return staticStyle;");
+		sc.add("return new " + tokenStyleClassName + "(convertToIntArray(foregroundRGB), convertToIntArray(backgroundRGB), bold, italic, strikethrough, underline);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

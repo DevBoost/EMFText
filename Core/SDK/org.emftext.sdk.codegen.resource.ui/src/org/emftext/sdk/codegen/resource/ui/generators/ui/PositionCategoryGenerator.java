@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -29,7 +29,7 @@ public class PositionCategoryGenerator extends UIJavaBaseGenerator<ArtifactParam
 		
 		sc.addJavadoc("An enumeration of all position categories.");
 		sc.add("public enum " + getResourceClassName() + " {");
-		sc.add("BRACKET, DEFINTION, PROXY;");
+		sc.add("BRACKET, DEFINITION, PROXY;");
 		sc.add("}");
 	}
 }

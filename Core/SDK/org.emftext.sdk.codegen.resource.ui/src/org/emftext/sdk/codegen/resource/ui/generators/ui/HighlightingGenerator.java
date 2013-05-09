@@ -138,7 +138,6 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + ARRAY_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
 		sc.add("private " + I_SELECTION + " selection = null;");
 		sc.add("private boolean isHighlightBrackets = true;");
-		sc.add("private " + iTokenScannerClassName + " scanner;");
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.add("private " + COLOR + " bracketColor;");
 		sc.add("private " + COLOR + " black;");
@@ -270,7 +269,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("int offset = bracketSet.getCaretOffset((" + I_SOURCE_VIEWER + ") editor.getViewer(), textWidget);");
 		sc.add("bracketSet.findAndHighlightMatchingBrackets(document, offset);");
 		sc.add("}");
-		sc.add("occurrence.handleOccurrenceHighlighting(bracketSet);");
+		sc.add("occurrence.updateOccurrenceAnnotations();");
 		sc.add("setBracketHighlighting(document);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -295,20 +294,19 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 			"@param colorManager the color manager provides highlighting colors",
 			"@param editor"
 		);
-		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " sourceviewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
+		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " projectionViewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
 		sc.add("this.display = " + DISPLAY + ".getCurrent();");
-		sc.add("sourceviewer.getSelectionProvider();");
-		sc.add("preferenceStore = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add("projectionViewer.getSelectionProvider();");
+		sc.add("this.preferenceStore = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("this.editor = editor;");
-		sc.add("textWidget = sourceviewer.getTextWidget();");
-		sc.add("projectionViewer = sourceviewer;");
-		sc.add("scanner = new " + uiMetaInformationClassName + "().createTokenScanner(textResource, colorManager);");
-		sc.add("occurrence = new " + occurrenceClassName + "(textResource, sourceviewer, scanner);");
-		sc.add("bracketSet = new " + bracketSetClassName + "();");
+		sc.add("this.textWidget = projectionViewer.getTextWidget();");
+		sc.add("this.projectionViewer = projectionViewer;");
+		sc.add("this.occurrence = new " + occurrenceClassName + "(textResource, projectionViewer);");
+		sc.add("this.bracketSet = new " + bracketSetClassName + "();");
 		sc.add("this.colorManager = colorManager;");
-		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
-		sc.add("bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");
-		sc.add("black = colorManager.getColor(new " + RGB + "(0, 0, 0));");
+		sc.add("this.isHighlightBrackets = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
+		sc.add("this.bracketColor = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(preferenceStore, " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR));");
+		sc.add("this.black = colorManager.getColor(new " + RGB + "(0, 0, 0));");
 		sc.addLineBreak();
 		sc.add("addListeners(editor);");
 		sc.add("}");
