@@ -187,7 +187,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add(iTokenScannerClassName + " tokenScanner = scan(eObject, new ITokenScannerConstraint() {");
 		sc.addLineBreak();
 		sc.add("@Override").addLineBreak();
-		sc.add("public boolean mustStop(IHedlTokenScanner tokenScanner) {");
+		sc.add("public boolean mustStop(" + iTokenScannerClassName + " tokenScanner) {");
 		sc.add("String tokenText = tokenScanner.getTokenText();");
 		sc.add("return tokenText.equals(text);");
 		sc.add("}");
