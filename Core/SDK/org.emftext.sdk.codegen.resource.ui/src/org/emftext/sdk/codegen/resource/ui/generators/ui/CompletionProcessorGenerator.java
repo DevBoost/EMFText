@@ -134,11 +134,11 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.add("int i = 0;");
 		sc.add("for (" + completionProposalClassName + " proposal : finalProposalList) {");
 		sc.add("String proposalString = proposal.getInsertString();");
-		sc.add("String displayString = proposal.getDisplayString();");
+		sc.add("String displayString = (proposal.getDisplayString()==null)?proposalString:proposal.getDisplayString();");
 		sc.add("String prefix = proposal.getPrefix();");
 		sc.add(IMAGE + " image = proposal.getImage();");
 		sc.add(I_CONTEXT_INFORMATION + " info;");
-		sc.add("info = new " + CONTEXT_INFORMATION + "(image, proposalString, proposalString);");
+		sc.add("info = new " + CONTEXT_INFORMATION + "(image, displayString, proposalString);");
 		sc.add("int begin = offset - prefix.length();");
 		sc.add("int replacementLength = prefix.length();");
 		// TODO mseifert: There has been code here that enlarged the replacement 
