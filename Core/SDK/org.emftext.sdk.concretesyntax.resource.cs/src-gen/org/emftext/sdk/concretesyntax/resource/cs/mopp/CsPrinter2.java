@@ -1037,6 +1037,12 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	protected PrintToken createNewLineToken(org.eclipse.emf.ecore.EObject container) {
+		if (options != null) {
+			Object lineBreaks = options.get(org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.LINE_DELIMITER_FOR_PRINTING);
+			if (lineBreaks != null && lineBreaks instanceof String) {
+				return new PrintToken((String) lineBreaks, null, container);
+			}
+		}
 		return new PrintToken(NEW_LINE, null, container);
 	}
 	

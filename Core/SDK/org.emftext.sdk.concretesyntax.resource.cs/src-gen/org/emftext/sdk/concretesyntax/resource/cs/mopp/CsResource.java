@@ -360,6 +360,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getMetaInformation().createPrinter(outputStream, this);
 		org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		printer.setEncoding(getEncoding(options));
+		printer.setOptions(options);
 		referenceResolverSwitch.setOptions(options);
 		for (org.eclipse.emf.ecore.EObject root : getContentsInternal()) {
 			if (isLayoutInformationRecordingEnabled()) {

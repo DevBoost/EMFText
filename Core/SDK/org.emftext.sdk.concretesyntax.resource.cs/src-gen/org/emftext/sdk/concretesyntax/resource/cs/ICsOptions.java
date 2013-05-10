@@ -87,4 +87,12 @@ public interface ICsOptions {
 	 */
 	public final String OPTION_ENCODING = "ENCODING";
 	
+	/**
+	 * The key for the option to set the line delimiter character sequence that is
+	 * used when printing models. By default, platform line breaks are used. Note that
+	 * these characters are only used when the resource does not contain layout
+	 * information, but the syntax contains line break printing instructions.
+	 */
+	public final String LINE_DELIMITER_FOR_PRINTING = "LINE_DELIMITER_FOR_PRINTING";
+	
 }
