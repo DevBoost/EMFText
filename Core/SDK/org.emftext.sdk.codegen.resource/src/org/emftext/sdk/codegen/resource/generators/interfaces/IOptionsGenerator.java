@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -27,6 +27,7 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	public static final String DISABLE_LAYOUT_INFORMATION_RECORDING  = "DISABLE_LAYOUT_INFORMATION_RECORDING";
 	public static final String ADDITIONAL_REFERENCE_RESOLVERS  = "ADDITIONAL_REFERENCE_RESOLVERS";
 	public static final String OPTION_ENCODING = "OPTION_ENCODING";
+	public static final String LINE_DELIMITER_FOR_PRINTING = "LINE_DELIMITER_FOR_PRINTING";
 	
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
@@ -108,6 +109,16 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 				"@see org.eclipse.emf.ecore.xmi.XMLResource"
 			);
 		sc.add("public final String " + OPTION_ENCODING + " = \"ENCODING\";");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+				"The key for the option to set the line delimiter character sequence " +
+				"that is used when printing models. By default, platform line " +
+				"breaks are used. Note that these characters are only used when " +
+				"the resource does not contain layout information, but the syntax " +
+				"contains line break printing instructions."
+			);
+		sc.add("public final String " + LINE_DELIMITER_FOR_PRINTING + " = \"LINE_DELIMITER_FOR_PRINTING\";");
 		sc.addLineBreak();
 		
 		sc.add("}");

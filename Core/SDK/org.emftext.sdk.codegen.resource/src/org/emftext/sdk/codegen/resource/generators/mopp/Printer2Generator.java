@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -44,6 +44,7 @@ import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -267,6 +268,12 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 
 	private void addCreateNewLineTokenMethod(JavaComposite sc) {
 		sc.add("protected PrintToken createNewLineToken(" + E_OBJECT + " container) {");
+		sc.add("if (options != null) {");
+		sc.add("Object lineBreaks = options.get(" + iOptionsClassName + "." + IOptionsGenerator.LINE_DELIMITER_FOR_PRINTING + ");");
+		sc.add("if (lineBreaks != null && lineBreaks instanceof String) {");
+		sc.add("return new PrintToken((String) lineBreaks, null, container);");
+		sc.add("}");
+		sc.add("}");
 		sc.add("return new PrintToken(NEW_LINE, null, container);");
 		sc.add("}");
 		sc.addLineBreak();

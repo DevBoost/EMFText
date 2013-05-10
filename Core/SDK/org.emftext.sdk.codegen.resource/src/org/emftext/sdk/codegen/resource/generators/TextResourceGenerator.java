@@ -982,6 +982,7 @@ public class TextResourceGenerator extends
 		sc.add(iReferenceResolverSwitchClassName
 				+ " referenceResolverSwitch = getReferenceResolverSwitch();");
 		sc.add("printer.setEncoding(getEncoding(options));");
+		sc.add("printer.setOptions(options);");
 		sc.add("referenceResolverSwitch.setOptions(options);");
 		sc.add("for (" + E_OBJECT + " root : getContentsInternal()) {");
 		sc.add("if (isLayoutInformationRecordingEnabled()) {");
