@@ -188,9 +188,8 @@ public class CsOccurrence {
 			}
 		});
 		
-		if (tokenScanner == null) {
-			// caret is not in referenced element
-		} else {
+		if (tokenScanner != null) {
+			// caret is located in referenced element
 			removeAnnotations();
 			
 			int tokenOffset = tokenScanner.getTokenOffset();
@@ -199,7 +198,10 @@ public class CsOccurrence {
 			tokenRegion = new org.eclipse.jface.text.Region(tokenOffset, tokenLength);
 		}
 		
-		if (resolvedEObject == null) {
+		// The tokenScanner must always be not null if there was no proxy at the caret
+		// position, but to prevent JDT from complaining about a potential null pointer
+		// access, we check both conditions here.
+		if (resolvedEObject == null && tokenScanner != null) {
 			// caret is within definition
 			int tokenOffset = tokenScanner.getTokenOffset();
 			// we pass null as 'definitionText' because we do not know whether the token at
