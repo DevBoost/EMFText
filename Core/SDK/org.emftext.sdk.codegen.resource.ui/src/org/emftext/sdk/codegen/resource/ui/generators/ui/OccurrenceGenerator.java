@@ -366,9 +366,8 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("if (tokenScanner == null) {");
-		sc.addComment("caret is not in referenced element");
-		sc.add("} else {");
+		sc.add("if (tokenScanner != null) {");
+		sc.addComment("caret is located in referenced element");
 		sc.add("removeAnnotations();");
 		sc.addLineBreak();
 		sc.add("int tokenOffset = tokenScanner.getTokenOffset();");
@@ -377,7 +376,12 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("tokenRegion = new " + REGION + "(tokenOffset, tokenLength);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (resolvedEObject == null) {");
+		sc.addComment(
+			"The tokenScanner must always be not null if there was no proxy at " +
+			"the caret position, but to prevent JDT from complaining about a " +
+			"potential null pointer access, we check both conditions here."
+		);
+		sc.add("if (resolvedEObject == null && tokenScanner != null) {");
 		sc.addComment("caret is within definition");
 		sc.add("int tokenOffset = tokenScanner.getTokenOffset();");
 		sc.addComment("we pass null as 'definitionText' because we do not know whether "+
