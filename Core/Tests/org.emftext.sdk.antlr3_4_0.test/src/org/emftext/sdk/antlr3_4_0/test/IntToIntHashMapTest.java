@@ -13,10 +13,11 @@
  *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
-package org.antlr.runtime3_4_0.misc;
+package org.emftext.sdk.antlr3_4_0.test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.antlr.runtime3_4_0.misc.IntToIntHashMap;
 import org.junit.Test;
 
 public class IntToIntHashMapTest {
