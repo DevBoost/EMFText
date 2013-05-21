@@ -94,6 +94,26 @@ public class JDTClassifierResolver {
 		}
 		return classes;
 	}
+	
+	/**
+	 * Returns a list of all Java classifiers that are available in the 
+	 * classpath of the given project within the given package.
+	 */
+	public List<JDTJavaClassifier> getAllClassifiersForPackageInClassPath(String pkg, IJavaProject project) {
+		List<JDTJavaClassifier> classes = new ArrayList<JDTJavaClassifier>();
+		try {
+			SearchEngine searchEngine = new SearchEngine();
+			ClassifierVisitor visitor = new ClassifierVisitor(project);
+			searchEngine.searchAllTypeNames(new char[][]{pkg.toCharArray()}, null, 
+					SearchEngine.createJavaSearchScope(new IJavaProject[] {project}), 
+					visitor, IJavaSearchConstants.FORCE_IMMEDIATE_SEARCH, null);
+			classes = visitor.getClassifiersInClasspath();
+		} catch (JavaModelException e) { 
+			log("Problem building classpath", e);
+		}
+		return classes;
+	}
+
 
 	private void log(String msg, JavaModelException e) {
 		String pluginName = JdtPackage.class.getPackage().getName();
