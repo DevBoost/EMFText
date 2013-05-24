@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
@@ -29,6 +30,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
+import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.emftext.commons.jdt.JDTJavaClassifier;
 import org.emftext.commons.jdt.JdtPackage;
@@ -49,6 +51,7 @@ public class JDTClassifierResolver {
 		if (project == null) {
 			return null;
 		}
+		
 		IJavaProject javaProject = getJavaProject(project);
 		return javaProject;
 	}
@@ -57,6 +60,7 @@ public class JDTClassifierResolver {
 		if (project == null) {
 			return false;
 		}
+		
 		try {
 			return project.isNatureEnabled("org.eclipse.jdt.core.javanature");
 		} catch (CoreException e) {
@@ -80,44 +84,54 @@ public class JDTClassifierResolver {
 	 * Returns a list of all Java classifiers that are available in the 
 	 * classpath of the given project.
 	 */
-	public List<JDTJavaClassifier> getAllClassifiersInClassPath(IJavaProject project) {
-		List<JDTJavaClassifier> classes = new ArrayList<JDTJavaClassifier>();
-		try {
-			SearchEngine searchEngine = new SearchEngine();
-			ClassifierVisitor visitor = new ClassifierVisitor(project);
-			searchEngine.searchAllTypeNames(null, null, 
-					SearchEngine.createJavaSearchScope(new IJavaProject[] {project}), 
-					visitor, IJavaSearchConstants.FORCE_IMMEDIATE_SEARCH, null);
-			classes = visitor.getClassifiersInClasspath();
-		} catch (JavaModelException e) { 
-			log("Problem building classpath", e);
-		}
-		return classes;
+	public List<JDTJavaClassifier> getAllClassifiersInClassPath(
+			IJavaProject project) {
+		
+		return getAllClassifiersForPackageInClassPath(null, project);
 	}
 	
 	/**
-	 * Returns a list of all Java classifiers that are available in the 
-	 * classpath of the given project within the given package.
+	 * Returns a list of all Java classifiers that are available in the
+	 * classpath of the given project within the given package. If
+	 * <code>packageName</code> is null, all classifiers in the project are
+	 * returned.
 	 */
-	public List<JDTJavaClassifier> getAllClassifiersForPackageInClassPath(String pkg, IJavaProject project) {
+	public List<JDTJavaClassifier> getAllClassifiersForPackageInClassPath(
+			String packageName, IJavaProject project) {
+		
 		List<JDTJavaClassifier> classes = new ArrayList<JDTJavaClassifier>();
 		try {
 			SearchEngine searchEngine = new SearchEngine();
 			ClassifierVisitor visitor = new ClassifierVisitor(project);
-			searchEngine.searchAllTypeNames(new char[][]{pkg.toCharArray()}, null, 
-					SearchEngine.createJavaSearchScope(new IJavaProject[] {project}), 
-					visitor, IJavaSearchConstants.FORCE_IMMEDIATE_SEARCH, null);
+			
+			// prepare search parameters
+			char[][] packages = null;
+			if (packageName != null) {
+				packages = new char[][]{packageName.toCharArray()};
+			}
+			char[][] typeNames = null;
+			IJavaProject[] projects = new IJavaProject[] {project};
+			IJavaSearchScope searchScope = SearchEngine.createJavaSearchScope(projects);
+			int waitingPolicy = IJavaSearchConstants.FORCE_IMMEDIATE_SEARCH;
+			IProgressMonitor progessMonitor = null;
+			
+			// perform search
+			searchEngine.searchAllTypeNames(packages, typeNames, searchScope,
+					visitor, waitingPolicy, progessMonitor);
+			
 			classes = visitor.getClassifiersInClasspath();
 		} catch (JavaModelException e) { 
-			log("Problem building classpath", e);
+			logWarning("Search for Java classifiers failed.", e);
 		}
 		return classes;
 	}
 
-
-	private void log(String msg, JavaModelException e) {
+	/**
+	 * Logs the given exception.
+	 */
+	private void logWarning(String message, JavaModelException e) {
 		String pluginName = JdtPackage.class.getPackage().getName();
-		Status status = new Status(IStatus.WARNING, pluginName, msg, e);
+		Status status = new Status(IStatus.WARNING, pluginName, message, e);
 		ResourcesPlugin.getPlugin().getLog().log(status);
 	}
 }
