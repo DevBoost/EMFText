@@ -99,7 +99,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("metaInformation.registerResourceFactory();");
 			
 		sc.add(RESOURCE_SET + " rs = null;");
-		sc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") eObject.eResource();");
+		sc.add(textResourceClassName + " resource = (" + textResourceClassName + ") eObject.eResource();");
 		sc.add("if (resource != null) {");
 		sc.add("rs = resource.getResourceSet();");
 		sc.add("}");
@@ -108,7 +108,12 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("if (resource == null) {");
 		sc.add(URI + " uri = " + URI + ".createURI(\"temp.\" + metaInformation.getSyntaxName());");
-		sc.add("resource = (" + iTextResourceClassName + ") rs.createResource(uri);");
+		sc.add("resource = (" + textResourceClassName + ") rs.createResource(uri);");
+		sc.add("}");
+		sc.addComment("Convert layout information to EAdapters because the printer retrieves layout information from these adapters.");
+		sc.add(layoutUtilClassName + " layoutUtil = new " + layoutUtilClassName + "();");
+		sc.add("if (resource.isLayoutInformationRecordingEnabled()) {");
+		sc.add("layoutUtil.transferAllLayoutInformationFromModel(eObject);");
 		sc.add("}");
 		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " outputStream = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
 		sc.add(iTextPrinterClassName + " printer = metaInformation.createPrinter(outputStream, resource);");
@@ -116,6 +121,10 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("printer.print(eObject);");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
 		sc.add("return null;");
+		sc.add("}");
+		sc.addComment("Move layout information from EAdapters back to the model.");
+		sc.add("if (resource.isLayoutInformationRecordingEnabled()) {");
+		sc.add("layoutUtil.transferAllLayoutInformationToModel(eObject);");
 		sc.add("}");
 		sc.add("return outputStream.toString();");
 		sc.add("}");
