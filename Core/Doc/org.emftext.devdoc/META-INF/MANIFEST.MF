@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText Documentation for Developers
+Bundle-SymbolicName: org.emftext.devdoc
+Bundle-Version: 1.0.0.qualifier

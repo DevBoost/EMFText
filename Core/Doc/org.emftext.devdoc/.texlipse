@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Mon Apr 08 06:41:19 CEST 2013
+markTmpDer=true
+builderNum=2
+outputDir=pdf/
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=temp
+mainTexFile=EMFTextDevDoc.tex
+outputFile=EMFTextDevDoc.pdf
+langSpell=
+markDer=false
+srcDir=latex/

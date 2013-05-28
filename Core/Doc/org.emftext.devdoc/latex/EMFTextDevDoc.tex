@@ -1,0 +1,49 @@
+\documentclass{scrartcl}
+
+\title{EMFText Developers Guide}
+
+\begin{document}
+
+\section{How to add a new code generator}
+
+\begin{enumerate}
+	\item Add a new override option \texttt{OVERRIDE\_NEW\_CLASS} to 
+		  \texttt{concretesyntax.ecore}. The easiest way to do this, is to open
+		  \texttt{concretesyntax.ecore} with the Eclipse text editor and add a
+		  line like \texttt{<eLiterals name="OVERRIDE\_NEW\_CLASS" value="0"
+		  literal="overrideNewClass"/>} to the literal list of enumeration
+		  \texttt{OptionTypes}. Instead of \texttt{0} for attribute value, use
+		  the next free integer instead.
+	\item Reload \texttt{concretesyntax.genmodel}.
+	\item Regenerate the model code from \texttt{concretesyntax.genmodel}.
+	\item Create a new generator class called \texttt{NewClassGenerator.java},
+		  which extends either \texttt{JavaBaseGenerator} or
+		  \texttt{UIJavaBaseGenerator}. Place the new generator class in the
+		  respective package in plug-in 
+		  \texttt{org.emftext.sdk.codegen.resource} or
+		  \texttt{org.emftext.sdk.codegen.resource.ui}.
+	\item Add field \texttt{newClassClassName} to \texttt{ResourceBaseGenerator}
+		  or \texttt{UIResourceBaseGenerator}.
+	\item Add constant \texttt{NEW\_CLASS} to \texttt{TextResourceArtifacts} or
+		  \texttt{TextResourceUIArtifacts} using a line like:
+		  \texttt{public final static ArtifactDescriptor<GenerationContext,
+	ArtifactParameter<GenerationContext>> NEW\_CLASS = new
+	ArtifactDescriptor<GenerationContext,
+	ArtifactParameter<GenerationContext>>(XYZ\_PACKAGE, "", "NewClass",
+	NewClassGenerator.class, OptionTypes.OVERRIDE\_NEW\_CLASS);}
+	
+	\item Initialize field \texttt{newClassClassName} in method
+		  \texttt{initilizeClassNames()} \texttt{ResourceBaseGenerator} or
+		  \texttt{UIResourceBaseGenerator}.
+		  
+	\item Add line \texttt{add(creators, TextResourceArtifacts.NEW\_CLASS);} to\\
+		  class \texttt{ResourcePluginContentCreator} or \\
+	line \texttt{add(creators, TextResourceUIArtifacts.NEW\_CLASS);} to\\ 
+		  class \texttt{ResourceUIPluginContentCreator}.
+		  
+	\item Implement \texttt{NewClassGenerator}. Put constants for required
+		  classes into \texttt{IClassNameConstants} or 
+		  \texttt{IUIClassNameConstants}.
+\end{enumerate}
+
+\end{document}
