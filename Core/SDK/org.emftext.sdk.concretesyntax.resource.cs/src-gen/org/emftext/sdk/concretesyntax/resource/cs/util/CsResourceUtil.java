@@ -179,7 +179,7 @@ public class CsResourceUtil {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 		metaInformation.registerResourceFactory();
 		org.eclipse.emf.ecore.resource.ResourceSet rs = null;
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) eObject.eResource();
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource resource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) eObject.eResource();
 		if (resource != null) {
 			rs = resource.getResourceSet();
 		}
@@ -188,7 +188,13 @@ public class CsResourceUtil {
 		}
 		if (resource == null) {
 			org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createURI("temp." + metaInformation.getSyntaxName());
-			resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) rs.createResource(uri);
+			resource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) rs.createResource(uri);
+		}
+		// Convert layout information to EAdapters because the printer retrieves layout
+		// information from these adapters.
+		org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil layoutUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsLayoutUtil();
+		if (resource.isLayoutInformationRecordingEnabled()) {
+			layoutUtil.transferAllLayoutInformationFromModel(eObject);
 		}
 		java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = metaInformation.createPrinter(outputStream, resource);
@@ -196,6 +202,10 @@ public class CsResourceUtil {
 			printer.print(eObject);
 		} catch (java.io.IOException e) {
 			return null;
+		}
+		// Move layout information from EAdapters back to the model.
+		if (resource.isLayoutInformationRecordingEnabled()) {
+			layoutUtil.transferAllLayoutInformationToModel(eObject);
 		}
 		return outputStream.toString();
 	}
