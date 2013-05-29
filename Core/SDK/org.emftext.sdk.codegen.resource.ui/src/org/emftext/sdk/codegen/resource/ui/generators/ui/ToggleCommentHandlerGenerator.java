@@ -58,6 +58,8 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addFields(JavaComposite sc) {
+		sc.add("public static String[] COMMENT_PREFIXES = new String[] { \"//\" };");
+		sc.addLineBreak();
 		sc.add("private " + I_DOCUMENT + " document;");
 		sc.add("private " + I_TEXT_OPERATION_TARGET + " operationTarget;");
 		sc.add("private " + MAP + "<String, String[]> prefixesMap;");
@@ -105,7 +107,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		// TODO Use default prefixes and content types from SourceViewerConfiguration if possible
 		sc.add("prefixesMap = new " + LINKED_HASH_MAP + "<String, String[]>();");
-		sc.add("prefixesMap.put(" + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE, new String [] { \"//\" });");
+		sc.add("prefixesMap.put(" + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);");
 		sc.addLineBreak();
 		sc.add(I_SELECTION + " currentSelection = " + HANDLER_UTIL + ".getCurrentSelection(event);");
 		sc.add("final int operationCode;");
@@ -138,11 +140,13 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	private void addIsSelectionCommentedMethod(JavaComposite sc) {
 		sc.add("private boolean isSelectionCommented(" + I_SELECTION + " selection) {");
-		sc.add("if (!(selection instanceof " + I_TEXT_SELECTION + "))");
+		sc.add("if (!(selection instanceof " + I_TEXT_SELECTION + ")) {");
 		sc.add("return false;");
+		sc.add("}");
 		sc.add(I_TEXT_SELECTION + " textSelection = (" + I_TEXT_SELECTION + ") selection;");
-		sc.add("if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0)");
+		sc.add("if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0) {");
 		sc.add("return false;");
+		sc.add("}");
 		sc.add("try {");
 		sc.add(I_REGION + " block = getTextBlockFromSelection(textSelection, document);");
 		sc.add(I_TYPED_REGION + "[] regions = " + TEXT_UTILITIES + ".computePartitioning(document, " + I_DOCUMENT_EXTENSION_3 + ".DEFAULT_PARTITIONING, block.getOffset(), block.getLength(), false);");

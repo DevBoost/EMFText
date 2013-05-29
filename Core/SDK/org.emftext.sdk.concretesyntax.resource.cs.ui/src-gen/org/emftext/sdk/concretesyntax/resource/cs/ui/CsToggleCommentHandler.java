@@ -18,6 +18,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHandler {
 	
+	public static String[] COMMENT_PREFIXES = new String[] { "//" };
+	
 	private org.eclipse.jface.text.IDocument document;
 	private org.eclipse.jface.text.ITextOperationTarget operationTarget;
 	private java.util.Map<String, String[]> prefixesMap;
@@ -47,7 +49,7 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 		}
 		
 		prefixesMap = new java.util.LinkedHashMap<String, String[]>();
-		prefixesMap.put(org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE, new String [] { "//" });
+		prefixesMap.put(org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);
 		
 		org.eclipse.jface.viewers.ISelection currentSelection = org.eclipse.ui.handlers.HandlerUtil.getCurrentSelection(event);
 		final int operationCode;
@@ -79,9 +81,13 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 	// Parts of the implementation below have been copied from
 	// org.eclipse.jdt.internal.ui.javaeditor.ToggleCommentAction.
 	private boolean isSelectionCommented(org.eclipse.jface.viewers.ISelection selection) {
-		if (!(selection instanceof org.eclipse.jface.text.ITextSelection))		return false;
+		if (!(selection instanceof org.eclipse.jface.text.ITextSelection)) {
+			return false;
+		}
 		org.eclipse.jface.text.ITextSelection textSelection = (org.eclipse.jface.text.ITextSelection) selection;
-		if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0)		return false;
+		if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0) {
+			return false;
+		}
 		try {
 			org.eclipse.jface.text.IRegion block = getTextBlockFromSelection(textSelection, document);
 			org.eclipse.jface.text.ITypedRegion[] regions = org.eclipse.jface.text.TextUtilities.computePartitioning(document, org.eclipse.jface.text.IDocumentExtension3.DEFAULT_PARTITIONING, block.getOffset(), block.getLength(), false);
