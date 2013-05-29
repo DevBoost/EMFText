@@ -25,6 +25,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorContext</code>.
  * The editor's ruler context menu has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorRuler</code>.
+ * The editor's editing context has id
+ * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorScope</code>.
  * </p>
  */
 public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements org.eclipse.emf.edit.domain.IEditingDomainProvider, org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener, org.eclipse.emf.common.ui.viewer.IViewerProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
@@ -145,6 +147,9 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		// turn projection mode on
 		viewer.doOperation(org.eclipse.jface.text.source.projection.ProjectionViewer.TOGGLE);
 		codeFoldingManager = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeFoldingManager(viewer, this);
+		
+		org.eclipse.ui.contexts.IContextService contextService = (org.eclipse.ui.contexts.IContextService) getSite().getService(org.eclipse.ui.contexts.IContextService.class);
+		contextService.activateContext("org.emftext.sdk.concretesyntax.resource.cs.EditorScope");
 	}
 	
 	protected void doSetInput(org.eclipse.ui.IEditorInput editorInput) throws org.eclipse.core.runtime.CoreException {

@@ -81,12 +81,12 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.contexts">
-		<context name="Editing Cs Files" description="Editing Cs Files Context" parentId="org.eclipse.ui.textEditorScope" id="org.emftext.sdk.concretesyntax.resource.cs.ui.org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorScope">
+		<context name="Editing Cs Files" description="Editing Cs Files Context" parentId="org.eclipse.ui.textEditorScope" id="org.emftext.sdk.concretesyntax.resource.cs.EditorScope">
 		</context>
 	</extension>
 	
 	<extension point="org.eclipse.ui.bindings">
-		<key sequence="M1+7" commandId="org.emftext.sdk.concretesyntax.resource.cs.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="org.emftext.sdk.concretesyntax.resource.cs.ui.org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorScope">
+		<key sequence="M1+7" commandId="org.emftext.sdk.concretesyntax.resource.cs.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="org.emftext.sdk.concretesyntax.resource.cs.EditorScope">
 		</key>
 	</extension>
 	
