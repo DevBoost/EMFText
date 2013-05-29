@@ -94,6 +94,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.SourceViewerConfigurati
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringHelperGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.SyntaxColoringPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.TextHoverGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.ToggleCommentHandlerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.TokenScannerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.UIMetaInformationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.UIPluginActivatorGenerator;
@@ -157,7 +158,8 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProcessor", CompletionProcessorGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROCESSOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BROWSER_INFORMATION_CONTROL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BrowserInformationControl", BrowserInformationControlGenerator.class, OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> NEW_PROJECT_WIZARD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "NewProjectWizard", NewProjectWizardGenerator.class, OptionTypes.OVERRIDE_NEW_PROJECT_WIZARD);
-
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TOGGLE_COMMENT_HANDLER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ToggleCommentHandler", ToggleCommentHandlerGenerator.class, OptionTypes.OVERRIDE_TOGGLE_COMMENT_HANDLER);
+	
 	// preference pages
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PreferencePage", PreferencePageGenerator.class, OptionTypes.OVERRIDE_PREFERENCE_PAGE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BRACKET_PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BracketPreferencePage", BracketPreferencePageGenerator.class, OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE);

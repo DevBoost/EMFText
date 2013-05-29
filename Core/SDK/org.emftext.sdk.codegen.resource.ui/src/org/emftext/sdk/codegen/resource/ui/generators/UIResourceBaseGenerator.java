@@ -83,6 +83,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String syntaxColoringHelperClassName;
 	protected String syntaxColoringPreferencePageClassName;
 	protected String textHoverClassName;
+	protected String toggleCommentHandlerClassName;
 	protected String tokenScannerClassName;
 	protected String uiMetaInformationClassName;
 	protected String uiPluginActivatorClassName;
@@ -162,6 +163,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		syntaxColoringHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_HELPER);
 		syntaxColoringPreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
 		textHoverClassName = context.getQualifiedClassName(TextResourceUIArtifacts.TEXT_HOVER);
+		toggleCommentHandlerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.TOGGLE_COMMENT_HANDLER);
 		tokenScannerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.TOKEN_SCANNER);
 		uiMetaInformationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.UI_META_INFORMATION);
 		uiPluginActivatorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);

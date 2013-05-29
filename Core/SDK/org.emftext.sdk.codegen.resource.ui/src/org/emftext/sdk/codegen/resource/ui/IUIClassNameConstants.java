@@ -75,6 +75,9 @@ import org.antlr.runtime3_4_0.MismatchedTokenException;
 import org.antlr.runtime3_4_0.MismatchedTreeNodeException;
 import org.antlr.runtime3_4_0.NoViableAltException;
 import org.antlr.runtime3_4_0.RecognitionException;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.filebuffers.IAnnotationModelFactory;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
@@ -210,6 +213,7 @@ import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDelayedInputChangeProvider;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentExtension3;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.IInformationControl;
 import org.eclipse.jface.text.IInformationControlCreator;
@@ -225,11 +229,13 @@ import org.eclipse.jface.text.ITextPresentationListener;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.ITextViewerExtension5;
+import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.TextPresentation;
 import org.eclipse.jface.text.TextSelection;
+import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
@@ -375,6 +381,7 @@ import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
@@ -411,6 +418,7 @@ import org.osgi.framework.BundleContext;
 @SuppressWarnings("restriction")
 public interface IUIClassNameConstants extends IClassNameConstants {
 	
+	public static String ABSTRACT_HANDLER = AbstractHandler.class.getName();
 	public static String ABSTRACT_INFORMATION_CONTROL = AbstractInformationControl.class.getName();
 	public static String ABSTRACT_LAUNCH_CONFIGURATION_TAB = AbstractLaunchConfigurationTab.class.getName();
 	public static String ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP = AbstractLaunchConfigurationTabGroup.class.getName();
@@ -493,6 +501,8 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String ENUMERATION = Enumeration.class.getName();
 	public static String EVALUATION_MODE = EvaluationMode.class.getName();
 	public static String EVENT = Event.class.getName();
+	public static String EXECUTION_EVENT = ExecutionEvent.class.getName();
+	public static String EXECUTION_EXCEPTION = ExecutionException.class.getName();
 	public static String E_ATTRIBUTE = EAttribute.class.getName();
 	public static String E_CLASS = EClass.class.getName();
 	public static String E_CLASSIFIER = EClassifier.class.getName();
@@ -525,6 +535,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String GRID_LAYOUT = GridLayout.class.getName();
 	public static String GROUP = Group.class.getName();
 	public static String GROUP_MARKER = GroupMarker.class.getName();
+	public static String HANDLER_UTIL = HandlerUtil.class.getName();
 	public static String I_ELEMENT_COMPARER = IElementComparer.class.getName();
 	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
@@ -567,6 +578,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_DELAYED_INPUT_CHANGE_PROVIDER = IDelayedInputChangeProvider.class.getName();
 	public static String I_DIALOG_CONSTANTS = IDialogConstants.class.getName();
 	public static String I_DOCUMENT = IDocument.class.getName();
+	public static String I_DOCUMENT_EXTENSION_3 = IDocumentExtension3.class.getName();
 	public static String I_DOCUMENT_LISTENER = IDocumentListener.class.getName();
 	public static String I_EDITING_DOMAIN_PROVIDER = IEditingDomainProvider.class.getName();
 	public static String I_EDITOR_DESCRIPTOR = IEditorDescriptor.class.getName();
@@ -654,6 +666,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_TOKEN = IToken.class.getName();
 	public static String I_TOKEN_SCANNER = ITokenScanner.class.getName();
 	public static String I_TREE_CONTENT_PROVIDER = ITreeContentProvider.class.getName();
+	public static String I_TYPED_REGION = ITypedRegion.class.getName();
 	public static String I_VALUE_DETAIL_LISTENER = IValueDetailListener.class.getName();
 	public static String I_VERTICAL_RULER = IVerticalRuler.class.getName();
 	public static String I_VIEWER_PROVIDER = IViewerProvider.class.getName();
@@ -793,6 +806,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String TEXT_SELECTION = TextSelection.class.getName();
 	public static String TEXT_SOURCE_VIEWER_CONFIGURATION = TextSourceViewerConfiguration.class.getName();
 	public static String TEXT_STYLE = TextStyle.class.getName();
+	public static String TEXT_UTILITIES = TextUtilities.class.getName();
 	public static String TEXT_VIEWER = TextViewer.class.getName();
 	public static String TIMER = Timer.class.getName();
 	public static String TIMER_TASK = TimerTask.class.getName();

@@ -105,6 +105,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		addGetHyperlinkDetectorsMethod(sc);
 		addGetQuickAssistAssistantMethod(sc);
 		addGetReconcilerMethod(sc);
+		addGetDefaultPrefixesMethod(sc);
 	}
 
 	private void addGetAutoEditStrategies(JavaComposite sc) {
@@ -249,6 +250,16 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("assistant.setContextInformationPopupOrientation(" + I_CONTENT_ASSISTANT + ".CONTEXT_INFO_ABOVE);");
 		sc.addLineBreak();
 		sc.add("return assistant;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetDefaultPrefixesMethod(JavaComposite sc) {
+		// TODO Use tokens from CS
+		sc.add("@Override");
+		sc.addLineBreak();
+		sc.add("public String[] getDefaultPrefixes(" + I_SOURCE_VIEWER + " sourceViewer, String contentType) {");
+		sc.add("return new String[] { \"//\" };");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -222,6 +222,8 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.ADAPTER_FACTORY);
 	    
 	    add(creators, TextResourceUIArtifacts.IGNORED_WORDS_FILTER);
+	    
+	    add(creators, TextResourceUIArtifacts.TOGGLE_COMMENT_HANDLER);
 
 		ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> pluginXML = TextResourceUIArtifacts.PLUGIN_XML;
 	    creators.add(new PluginXMLCreator<GenerationContext>(getPluginXmlParameters(context), doOverride(syntax, pluginXML)));
@@ -428,6 +430,51 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		specification2.setAttribute("presentationLayer", "4");
 		specification2.setAttribute("textStylePreferenceKey", syntaxName + ".declarationTextStyle");
 		specification2.setAttribute("textStylePreferenceValue", "NONE");
+		
+		final String commandCategoryID = uiPluginID + ".command.category";
+		final String toggleCommentCommandID = uiPluginID + ".command.togglecomment";
+		final String editorScope = uiPluginID + "." + editorClassName + "Scope";
+		
+		// Command
+		XMLElement commandExtension = root.createChild("extension");
+		commandExtension.setAttribute("point", "org.eclipse.ui.commands");
+		
+		XMLElement commandCategory = commandExtension.createChild("category");
+		commandCategory.setAttribute("description", "All commands belonging to " + context.getCapitalizedConcreteSyntaxName());
+		commandCategory.setAttribute("id", commandCategoryID);
+		commandCategory.setAttribute("name", context.getCapitalizedConcreteSyntaxName());
+		
+		XMLElement toggleCommentCommand = commandExtension.createChild("command");
+		toggleCommentCommand.setAttribute("categoryId", commandCategoryID);
+		toggleCommentCommand.setAttribute("description", "Toggle comment of the selected lines");
+		toggleCommentCommand.setAttribute("id", toggleCommentCommandID);
+		toggleCommentCommand.setAttribute("name", "Toggle Comment");
+		
+		// Handler
+		XMLElement handlerExtension = root.createChild("extension");
+		handlerExtension.setAttribute("point", "org.eclipse.ui.handlers");
+		
+		XMLElement toggleCommentHandler = handlerExtension.createChild("handler");
+		toggleCommentHandler.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.TOGGLE_COMMENT_HANDLER));
+		toggleCommentHandler.setAttribute("commandId", toggleCommentCommandID);
+		
+		// Context
+		XMLElement contextExtension = root.createChild("extension");
+		contextExtension.setAttribute("point", "org.eclipse.ui.contexts");
+		XMLElement contextChild = contextExtension.createChild("context");
+		contextChild.setAttribute("name", "Editing " + context.getCapitalizedConcreteSyntaxName() + " Files");
+		contextChild.setAttribute("description", "Editing " + context.getCapitalizedConcreteSyntaxName() + " Files Context");
+		contextChild.setAttribute("parentId", "org.eclipse.ui.textEditorScope");
+		contextChild.setAttribute("id", editorScope);
+	
+		// Key binding
+		XMLElement bindingExtension = root.createChild("extension");
+		bindingExtension.setAttribute("point", "org.eclipse.ui.bindings");
+		XMLElement keyBinding = bindingExtension.createChild("key");
+		keyBinding.setAttribute("sequence", "M1+7");
+		keyBinding.setAttribute("commandId", toggleCommentCommandID);
+		keyBinding.setAttribute("schemeId", "org.eclipse.ui.defaultAcceleratorConfiguration");
+		keyBinding.setAttribute("contextId", editorScope);
 		
 		if (context.isGenerateTestActionEnabled()) {
 			root.addChild(generateTestActionExtension(context));
@@ -727,7 +774,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		
 		return launchTabGroupExtension;
 	}
-
+	
 	private String getProjectRelativeNewIconPath() {
 		// it is OK to use slashes here, because this path is put into
 		// the plugin.xml
