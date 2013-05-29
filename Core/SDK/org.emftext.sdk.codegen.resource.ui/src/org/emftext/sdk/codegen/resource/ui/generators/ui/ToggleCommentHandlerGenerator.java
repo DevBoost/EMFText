@@ -221,7 +221,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("String text = document.get(line.getOffset(), line.getLength());");
 		sc.add("int[] found = " + TEXT_UTILITIES + ".indexOf(prefixes, text, 0);");
 		sc.add("if (found[0] == -1) {");
-		sc.add("// found a line which is not commented");
+		sc.addComment("found a line which is not commented");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("String s = document.get(line.getOffset(), found[0]);");
