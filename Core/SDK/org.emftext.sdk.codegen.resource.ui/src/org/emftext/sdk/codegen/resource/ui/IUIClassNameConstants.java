@@ -373,6 +373,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.XMLMemento;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
@@ -574,6 +575,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String I_CONTENT_OUTLINE_PAGE = IContentOutlinePage.class.getName();
 	public static String I_CONTEXT_INFORMATION = IContextInformation.class.getName();
 	public static String I_CONTEXT_INFORMATION_VALIDATOR = IContextInformationValidator.class.getName();
+	public static String I_CONTEXT_SERVICE = IContextService.class.getName();
 	public static String I_DEBUG_MODEL_PRESENTATION = IDebugModelPresentation.class.getName();
 	public static String I_DELAYED_INPUT_CHANGE_PROVIDER = IDelayedInputChangeProvider.class.getName();
 	public static String I_DIALOG_CONSTANTS = IDialogConstants.class.getName();

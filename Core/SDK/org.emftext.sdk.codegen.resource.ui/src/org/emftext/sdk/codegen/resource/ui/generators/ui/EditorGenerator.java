@@ -40,6 +40,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_ACCESS_EXTENSION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_OUTLINE_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTEXT_SERVICE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITING_DOMAIN_PROVIDER;
@@ -94,6 +95,7 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
+
 public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
@@ -107,6 +109,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 				, "This editor has id <code>" + context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR) + "</code>"
 				, "The editor's context menu has id <code>" + context.getEditorContextID() + "</code>. "
 				, "The editor's ruler context menu has id <code>" + context.getEditorRulerID() + "</code>."
+				, "The editor's editing context has id <code>" + context.getEditorScopeID() + "</code>."
 				, "</p>");
 		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR + " implements " + I_EDITING_DOMAIN_PROVIDER + ", " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + ", " + I_VIEWER_PROVIDER + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
 		sc.addLineBreak();
@@ -117,7 +120,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 		sc.add("}");
 	}
-
+	
 	private void addFields(StringComposite sc) {
 		sc.add("private " + highlightingClassName + " highlighting;");
 		sc.add("private " + PROJECTION_SUPPORT + " projectionSupport;");
@@ -606,6 +609,9 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addComment("turn projection mode on");
 		sc.add("viewer.doOperation(" + PROJECTION_VIEWER + ".TOGGLE);");
 		sc.add("codeFoldingManager = new " + codeFoldingManagerClassName + "(viewer, this);");
+		sc.addLineBreak();
+		sc.add(I_CONTEXT_SERVICE + " contextService = ("+ I_CONTEXT_SERVICE + ") getSite().getService(" + I_CONTEXT_SERVICE + ".class);");
+		sc.add("contextService.activateContext(\"" + getContext().getEditorScopeID() + "\");");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("protected void doSetInput(" + I_EDITOR_INPUT + " editorInput) throws " + CORE_EXCEPTION + " {");

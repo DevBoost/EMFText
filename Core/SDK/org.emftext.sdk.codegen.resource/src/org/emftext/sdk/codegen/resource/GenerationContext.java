@@ -359,7 +359,15 @@ public abstract class GenerationContext extends AbstractGenerationContext<Genera
 	public String getEditorRulerID() {
 		return getResourcePlugin().getName() + ".EditorRuler";
 	}
+	
+	public String getEditorScopeID() {
+		return getResourcePlugin().getName() + ".EditorScope";
+	}
 
+	public String getEditorSID() {
+		return getResourcePlugin().getName() + ".EditorRuler";
+	}
+	
 	public ConstantsPool getConstantsPool() {
 		return constantsPool;
 	}

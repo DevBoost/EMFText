@@ -433,7 +433,6 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		
 		final String commandCategoryID = uiPluginID + ".command.category";
 		final String toggleCommentCommandID = uiPluginID + ".command.togglecomment";
-		final String editorScope = uiPluginID + "." + editorClassName + "Scope";
 		
 		// Command
 		XMLElement commandExtension = root.createChild("extension");
@@ -465,7 +464,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		contextChild.setAttribute("name", "Editing " + context.getCapitalizedConcreteSyntaxName() + " Files");
 		contextChild.setAttribute("description", "Editing " + context.getCapitalizedConcreteSyntaxName() + " Files Context");
 		contextChild.setAttribute("parentId", "org.eclipse.ui.textEditorScope");
-		contextChild.setAttribute("id", editorScope);
+		contextChild.setAttribute("id", context.getEditorScopeID());
 	
 		// Key binding
 		XMLElement bindingExtension = root.createChild("extension");
@@ -474,7 +473,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		keyBinding.setAttribute("sequence", "M1+7");
 		keyBinding.setAttribute("commandId", toggleCommentCommandID);
 		keyBinding.setAttribute("schemeId", "org.eclipse.ui.defaultAcceleratorConfiguration");
-		keyBinding.setAttribute("contextId", editorScope);
+		keyBinding.setAttribute("contextId", context.getEditorScopeID());
 		
 		if (context.isGenerateTestActionEnabled()) {
 			root.addChild(generateTestActionExtension(context));
