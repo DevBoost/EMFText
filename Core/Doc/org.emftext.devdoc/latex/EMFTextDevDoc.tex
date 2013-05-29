@@ -38,15 +38,16 @@
 		  
 	\item Add line \texttt{add(creators, TextResourceArtifacts.NEW\_CLASS);} to\\
 		  class \texttt{ResourcePluginContentCreator} or \\
-	line \texttt{add(creators, TextResourceUIArtifacts.NEW\_CLASS);} to\\ 
+		  line \texttt{add(creators, TextResourceUIArtifacts.NEW\_CLASS);} to\\ 
 		  class \texttt{ResourceUIPluginContentCreator}.
 		  
 	\item Implement \texttt{NewClassGenerator}. Put constants for required
 		  classes into \texttt{IClassNameConstants} or 
 		  \texttt{IUIClassNameConstants}.
+		  
 	\item Add documentation for the new override option
 		  \texttt{OVERRIDE\_NEW\_CLASS} to \texttt{concretesyntax.emfdoc} and
-		  regenerated the CS model code. Make sure you've got EMFDoc installed.
+		  regenerate the CS model code. Make sure you've got EMFDoc installed.
 		  Otherwise the documentation will not be added to
 		  \texttt{concretesyntax.ecore}.
 \end{enumerate}
