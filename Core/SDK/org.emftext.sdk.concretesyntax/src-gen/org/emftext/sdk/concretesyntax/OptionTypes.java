@@ -3016,7 +3016,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PREFERENCE_PAGES_CATEGORY(302, "PREFERENCE_PAGES_CATEGORY", "preferencePagesCategory");
+	PREFERENCE_PAGES_CATEGORY(302, "PREFERENCE_PAGES_CATEGORY", "preferencePagesCategory"), /**
+	 * The '<em><b>OVERRIDE TOGGLE COMMENT HANDLER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOGGLE_COMMENT_HANDLER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TOGGLE_COMMENT_HANDLER(303, "OVERRIDE_TOGGLE_COMMENT_HANDLER", "overrideToggleCommentHandler");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7231,6 +7239,20 @@ public enum OptionTypes implements Enumerator {
 	public static final int PREFERENCE_PAGES_CATEGORY_VALUE = 302;
 
 	/**
+	 * The '<em><b>OVERRIDE TOGGLE COMMENT HANDLER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the ToggleCommentHandler class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_TOGGLE_COMMENT_HANDLER
+	 * @model literal="overrideToggleCommentHandler"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TOGGLE_COMMENT_HANDLER_VALUE = 303;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7538,6 +7560,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_LOCALIZED_MESSAGE,
 			OVERRIDE_BRACKET_PAIR,
 			PREFERENCE_PAGES_CATEGORY,
+			OVERRIDE_TOGGLE_COMMENT_HANDLER,
 		};
 
 	/**
@@ -7886,6 +7909,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_LOCALIZED_MESSAGE_VALUE: return OVERRIDE_LOCALIZED_MESSAGE;
 			case OVERRIDE_BRACKET_PAIR_VALUE: return OVERRIDE_BRACKET_PAIR;
 			case PREFERENCE_PAGES_CATEGORY_VALUE: return PREFERENCE_PAGES_CATEGORY;
+			case OVERRIDE_TOGGLE_COMMENT_HANDLER_VALUE: return OVERRIDE_TOGGLE_COMMENT_HANDLER;
 		}
 		return null;
 	}
