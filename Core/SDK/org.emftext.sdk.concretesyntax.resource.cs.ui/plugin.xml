@@ -68,4 +68,26 @@
 		</specification>
 	</extension>
 	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Cs" id="org.emftext.sdk.concretesyntax.resource.cs.ui.command.category" name="Cs">
+		</category>
+		<command categoryId="org.emftext.sdk.concretesyntax.resource.cs.ui.command.category" description="Toggle comment of the selected lines" id="org.emftext.sdk.concretesyntax.resource.cs.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsToggleCommentHandler" commandId="org.emftext.sdk.concretesyntax.resource.cs.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Cs Files" description="Editing Cs Files Context" parentId="org.eclipse.ui.textEditorScope" id="org.emftext.sdk.concretesyntax.resource.cs.ui.org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="org.emftext.sdk.concretesyntax.resource.cs.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="org.emftext.sdk.concretesyntax.resource.cs.ui.org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditorScope">
+		</key>
+	</extension>
+	
 </plugin>

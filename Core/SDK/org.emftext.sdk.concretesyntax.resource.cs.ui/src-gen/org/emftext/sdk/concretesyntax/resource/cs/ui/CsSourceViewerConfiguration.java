@@ -162,4 +162,9 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 		return reconciler;
 	}
 	
+	@Override	
+	public String[] getDefaultPrefixes(org.eclipse.jface.text.source.ISourceViewer sourceViewer, String contentType) {
+		return new String[] { "//" };
+	}
+	
 }

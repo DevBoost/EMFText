@@ -66,7 +66,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	private void addMethods(JavaComposite sc) {
 		addIsEnableMethod(sc);
 		addExecuteMethod(sc);
-		sc.add("// Parts of the implementation below have been copied from org.eclipse.jdt.internal.ui.javaeditor.ToggleCommentAction.");
+		sc.addComment("Parts of the implementation below have been copied from org.eclipse.jdt.internal.ui.javaeditor.ToggleCommentAction.");
 		addIsSelectionCommentedMethod(sc);
 		addGetTextBlockFromSelectionMethod(sc);
 		addGetFirstCompleteLineOfRegionMethod(sc);
@@ -148,9 +148,9 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add(I_TYPED_REGION + "[] regions = " + TEXT_UTILITIES + ".computePartitioning(document, " + I_DOCUMENT_EXTENSION_3 + ".DEFAULT_PARTITIONING, block.getOffset(), block.getLength(), false);");
 		sc.add("int[] lines = new int[regions.length * 2]; // [startline, endline, startline, endline, ...]");
 		sc.add("for (int i = 0, j = 0; i < regions.length; i++, j+= 2) {");
-		sc.add("// start line of region");
+		sc.addComment("start line of region");
 		sc.add("lines[j] = getFirstCompleteLineOfRegion(regions[i], document);");
-		sc.add("// end line of region");
+		sc.addComment("end line of region");
 		sc.add("int length = regions[i].getLength();");
 		sc.add("int offset = regions[i].getOffset() + length;");
 		sc.add("if (length > 0) {");
@@ -158,7 +158,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.add("lines[j + 1] = (lines[j] == -1 ? -1 : document.getLineOfOffset(offset));");
 		sc.add("}");
-		sc.add("// Perform the check");
+		sc.addComment("Perform the check");
 		sc.add("for (int i = 0, j = 0; i < regions.length; i++, j += 2) {");
 		sc.add("String[] prefixes = prefixesMap.get(regions[i].getType());");
 		sc.add("if (prefixes != null && prefixes.length > 0 && lines[j] >= 0 && lines[j + 1] >= 0) {");
@@ -169,7 +169,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.add("return true;");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
-		sc.add("// should not happen");
+		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
@@ -183,7 +183,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("int length = selection.getLength() == 0 ? line.getLength() : selection.getLength() + (selection.getOffset() - line.getOffset());");
 		sc.add("return new " + REGION + "(line.getOffset(), length);");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
-		sc.add("// should not happen");
+		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
@@ -205,7 +205,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("offset = document.getLineOffset(nextLine);");
 		sc.add("return (offset > region.getOffset() + region.getLength() ? -1 : nextLine);");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
-		sc.add("// should not happen");
+		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return -1;");
 		sc.add("}");
@@ -215,7 +215,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	private void addIsBlockCommentedMethod(JavaComposite sc) {
 		sc.add("private boolean isBlockCommented(int startLine, int endLine, String[] prefixes, " + I_DOCUMENT + " document) {");
 		sc.add("try {");
-		sc.add("// check for occurrences of prefixes in the given lines");
+		sc.addComment("check for occurrences of prefixes in the given lines");
 		sc.add("for (int i = startLine; i <= endLine; i++) {");
 		sc.add(I_REGION + " line = document.getLineInformation(i);");
 		sc.add("String text = document.get(line.getOffset(), line.getLength());");
@@ -227,13 +227,13 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("String s = document.get(line.getOffset(), found[0]);");
 		sc.add("s = s.trim();");
 		sc.add("if (s.length() != 0) {");
-		sc.add("// found a line which is not commented");
+		sc.addComment("found a line which is not commented");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
 		sc.add("return true;");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
-		sc.add("// should not happen");
+		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
