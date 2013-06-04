@@ -3,15 +3,15 @@
 		id="org.emftext.commons.jdt" 
 		label="EMFText JDT Integration"
 		provider-name="DevBoost GmbH" 
-		version="1.4.2">
+		version="1.4.3">
 
-	<description url="http://www.emftext.org">EMFText JDT Integration Plug-in: Provides access to the JDT types and ametamodel that can be imported from DSLs that require references to Javaclasses.</description>
+	<description url="http://www.emftext.org">EMFText JDT Integration Plug-in: Provides access to the JDT types and a metamodel that can be imported from DSLs that require references to Java classes.</description>
 
-	<copyright>Copyright (c) 2006-2012 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.</copyright>
+	<copyright>Copyright (c) 2006-2013 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.</copyright>
 
 	<license>Eclipse Public License v1.0
 
-Copyright (c) 2006-2012
+Copyright (c) 2006-2013
 Software Technology Group, Dresden University of Technology
 DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.
 
@@ -23,12 +23,13 @@ Contributors:
      - initial API and implementation
  </license>
    
-   <requires>
-      <import feature="org.eclipse.emf"/>
-      <import feature="org.eclipse.jdt"/>
-   </requires>
+	<requires>
+		<import feature="org.eclipse.emf"/>
+		<import feature="org.eclipse.jdt"/>
+	</requires>
 
-   <plugin download-size="0" id="org.emftext.commons.jdt" install-size="0" unpack="false" version="0.0.0"/>
+	<plugin download-size="0" id="org.emftext.commons.jdt" install-size="0" unpack="false" version="0.0.0"/>
 
-   <plugin download-size="0" id="org.emftext.commons.jdt.edit" install-size="0" unpack="false" version="0.0.0"/>
+	<plugin download-size="0" id="org.emftext.commons.jdt.edit" install-size="0" unpack="false" version="0.0.0"/>
+   
 </feature>
