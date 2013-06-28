@@ -34,8 +34,7 @@ public class MarkerMock implements IMarker {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getAdapter(Class adapter) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -45,56 +44,47 @@ public class MarkerMock implements IMarker {
 
 	@Override
 	public boolean exists() {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Object getAttribute(String attributeName) throws CoreException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int getAttribute(String attributeName, int defaultValue) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public String getAttribute(String attributeName, String defaultValue) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean getAttribute(String attributeName, boolean defaultValue) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Map<String, Object> getAttributes() throws CoreException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Object[] getAttributes(String[] attributeNames) throws CoreException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public long getCreationTime() throws CoreException {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -109,42 +99,41 @@ public class MarkerMock implements IMarker {
 
 	@Override
 	public boolean isSubtypeOf(String superType) throws CoreException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void setAttribute(String attributeName, int value)
 			throws CoreException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
 	@Override
 	public void setAttribute(String attributeName, Object value)
 			throws CoreException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
 	@Override
 	public void setAttribute(String attributeName, boolean value)
 			throws CoreException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
 	@Override
 	public void setAttributes(String[] attributeNames, Object[] values)
 			throws CoreException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
 	@Override
 	public void setAttributes(Map<String, ? extends Object> attributes)
 			throws CoreException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
