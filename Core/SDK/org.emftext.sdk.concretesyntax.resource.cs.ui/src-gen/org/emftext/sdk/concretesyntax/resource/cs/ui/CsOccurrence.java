@@ -179,7 +179,6 @@ public class CsOccurrence {
 		// Scan the region in which the referenced object is located.
 		org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner = scan(referencedElement, new ITokenScannerConstraint() {
 			
-			@Override			
 			public boolean mustStop(org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner) {
 				int tokenOffset = tokenScanner.getTokenOffset();
 				int tokenLength = tokenScanner.getTokenLength();
@@ -275,7 +274,6 @@ public class CsOccurrence {
 			final java.util.List<String> names = new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsDefaultNameProvider().getNames(referencedElement);
 			scan(referencedElement, new ITokenScannerConstraint() {
 				
-				@Override				
 				public boolean mustStop(org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner) {
 					int offset = tokenScanner.getTokenOffset();
 					int length = tokenScanner.getTokenLength();
@@ -302,7 +300,6 @@ public class CsOccurrence {
 	protected int getIndexOf(org.eclipse.emf.ecore.EObject eObject, final String text) {
 		org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner = scan(eObject, new ITokenScannerConstraint() {
 			
-			@Override			
 			public boolean mustStop(org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner) {
 				String tokenText = tokenScanner.getTokenText();
 				return tokenText.equals(text);

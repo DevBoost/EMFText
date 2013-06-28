@@ -34,7 +34,6 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 		return false;
 	}
 	
-	@Override	
 	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 		org.eclipse.ui.IEditorPart editorPart = org.eclipse.ui.handlers.HandlerUtil.getActiveEditor(event);
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor = null;
