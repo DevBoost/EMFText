@@ -28,15 +28,12 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.compare.diff.metamodel.DiffGroup;
-import org.eclipse.emf.compare.diff.metamodel.DiffModel;
-import org.eclipse.emf.compare.diff.service.DiffService;
-import org.eclipse.emf.compare.match.metamodel.MatchModel;
-import org.eclipse.emf.compare.match.service.MatchService;
+import org.eclipse.emf.compare.Comparison;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.test.ConcreteSyntaxTestHelper;
+import org.emftext.test.ModelComparator;
 import org.emftext.test.bug1154.Bug1154Factory;
 import org.emftext.test.bug1154.Root;
 import org.emftext.test.bug1154.resource.bug1154.IBug1154TextResource;
@@ -211,10 +208,8 @@ public class Bug1154Test extends TestCase {
 	}
 
 	private void compareModels(EObject modelLeft, EObject modelRight) throws Exception {
-		MatchModel inputMatch = MatchService.doMatch(modelLeft, modelRight, null);
-		DiffModel inputDiff = DiffService.doDiff(inputMatch);
-
-		if (((DiffGroup) inputDiff.getOwnedElements().get(0)).getSubchanges() != 0) {
+		Comparison result = new ModelComparator().compare(modelLeft, modelRight);
+		if (!result.getDifferences().isEmpty()) {
 			fail("Diff failed");
 		}
 	}

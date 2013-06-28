@@ -10,6 +10,4 @@ Require-Bundle: org.junit,
  org.emftext.test.bug1154,
  org.emftext.test.bug1154.resource.bug1154,
  org.eclipse.emf.compare,
- org.eclipse.emf.compare.diff,
- org.eclipse.emf.compare.match,
  org.emftext.test
