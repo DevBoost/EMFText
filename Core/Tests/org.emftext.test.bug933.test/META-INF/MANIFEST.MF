@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: org.emftext.test.bug933.test
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.junit4,
+Require-Bundle: org.junit,
  org.eclipse.emf,
  org.eclipse.emf.ecore,
  org.emftext.test.bug933,

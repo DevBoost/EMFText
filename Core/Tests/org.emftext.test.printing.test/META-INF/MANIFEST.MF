@@ -4,7 +4,7 @@ Bundle-Name: Test
 Bundle-SymbolicName: org.emftext.test.printing.test
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.emftext.test.printing.test
-Require-Bundle: org.junit4,
+Require-Bundle: org.junit,
  org.emftext.test.printing,
  org.emftext.test.printing.resource.printing,
  org.emftext.test.printing.modellayout.resource.modellayout,

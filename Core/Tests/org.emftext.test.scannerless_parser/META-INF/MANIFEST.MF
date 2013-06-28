@@ -8,7 +8,7 @@ Require-Bundle: org.emftext.test.cct1,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.emf,
- org.junit4,
+ org.junit,
  org.emftext.test.grammar_features,
  org.emftext.test.grammar_features.resource.grammar_features
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

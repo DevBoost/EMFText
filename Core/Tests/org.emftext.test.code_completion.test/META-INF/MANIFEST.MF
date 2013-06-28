@@ -4,7 +4,7 @@ Bundle-Name: Test
 Bundle-SymbolicName: org.emftext.test.code_completion.test
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.junit4,
+Require-Bundle: org.junit,
  org.emftext.test.cct1,
  org.emftext.test.cct1.resource.cct1,
  org.emftext.test.cct1.resource.cct1.ui,
