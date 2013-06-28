@@ -105,15 +105,13 @@ public class MarkerMock implements IMarker {
 	@Override
 	public void setAttribute(String attributeName, int value)
 			throws CoreException {
-		throw new UnsupportedOperationException();
-
+		// do nothing
 	}
 
 	@Override
 	public void setAttribute(String attributeName, Object value)
 			throws CoreException {
-		throw new UnsupportedOperationException();
-
+		// do nothing
 	}
 
 	@Override
