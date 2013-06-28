@@ -90,8 +90,6 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addExecuteMethod(JavaComposite sc) {
-		sc.add("@Override");
-		sc.addLineBreak();
 		sc.add("public Object execute(" + EXECUTION_EVENT + " event) throws " + EXECUTION_EXCEPTION + " {");
 		sc.add(I_EDITOR_PART + " editorPart = " + HANDLER_UTIL + ".getActiveEditor(event);");
 		sc.add(editorClassName + " editor = null;");

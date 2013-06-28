@@ -186,7 +186,6 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("protected int getIndexOf(" + E_OBJECT + " eObject, final String text) {");
 		sc.add(iTokenScannerClassName + " tokenScanner = scan(eObject, new ITokenScannerConstraint() {");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
 		sc.add("public boolean mustStop(" + iTokenScannerClassName + " tokenScanner) {");
 		sc.add("String tokenText = tokenScanner.getTokenText();");
 		sc.add("return tokenText.equals(text);");
@@ -214,7 +213,6 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("final " + LIST + "<String> names = new " + defaultNameProviderClassName + "().getNames(referencedElement);");
 		sc.add("scan(referencedElement, new ITokenScannerConstraint() {");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
 		sc.add("public boolean mustStop(" + iTokenScannerClassName + " tokenScanner) {");
 		sc.add("int offset = tokenScanner.getTokenOffset();");
 		sc.add("int length = tokenScanner.getTokenLength();");
@@ -357,7 +355,6 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addComment("Scan the region in which the referenced object is located.");
 		sc.add(iTokenScannerClassName + " tokenScanner = scan(referencedElement, new ITokenScannerConstraint() {");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
 		sc.add("public boolean mustStop(" + iTokenScannerClassName + " tokenScanner) {");
 		sc.add("int tokenOffset = tokenScanner.getTokenOffset();");
 		sc.add("int tokenLength = tokenScanner.getTokenLength();");
