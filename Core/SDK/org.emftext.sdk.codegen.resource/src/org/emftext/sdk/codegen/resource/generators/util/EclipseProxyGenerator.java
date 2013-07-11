@@ -107,8 +107,16 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetFileForURIMethod(JavaComposite sc) {
-		sc.addJavadoc("Returns the file that corresponds to the given URI.");
+		sc.addJavadoc(
+			"Returns the file that corresponds to the given URI. If the URI " +
+			"does not correspond to a file (e.g., because it is not a platform " + 
+			"URI or because it is <code>null</code>), <code>null</code> is " +
+			"returned."
+		);
 		sc.add("public " + I_FILE + " getFileForURI(" + URI + " uri) {");
+		sc.add("if (uri == null) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add(I_WORKSPACE + " workspace = " + RESOURCES_PLUGIN + ".getWorkspace();");
 		sc.add(I_WORKSPACE_ROOT + " workspaceRoot = workspace.getRoot();");
 		sc.add("String platformString = uri.toPlatformString(true);");
