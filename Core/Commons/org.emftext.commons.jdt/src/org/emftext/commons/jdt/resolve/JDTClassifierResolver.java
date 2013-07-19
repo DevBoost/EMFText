@@ -71,7 +71,12 @@ public class JDTClassifierResolver {
 	private IProject getProject(URI uri) {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		if (uri.isPlatformResource() && uri.segmentCount() > 2) {
-			return root.getProject(uri.segment(1));
+			String segment = uri.segment(1);
+			// We must decode the URI segment to make sure the escaped
+			// characters (e.g., whitespace that is represented as %20) are
+			// correctly replaced.
+			String decoded = URI.decode(segment);
+			return root.getProject(decoded);
 		}
 		throw new IllegalArgumentException("Can't handle URIs that do not reference platform resources: " + uri);
 	}
