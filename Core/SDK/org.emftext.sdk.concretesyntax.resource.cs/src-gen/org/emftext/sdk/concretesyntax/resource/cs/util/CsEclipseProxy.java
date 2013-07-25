@@ -92,7 +92,7 @@ public class CsEclipseProxy {
 	 */
 	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.core.resources.IFile file) {
 		org.eclipse.emf.ecore.resource.ResourceSet rs = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
-		org.eclipse.emf.ecore.resource.Resource resource = rs.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
+		org.eclipse.emf.ecore.resource.Resource resource = rs.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true), true);
 		return (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) resource;
 	}
 	
@@ -104,9 +104,14 @@ public class CsEclipseProxy {
 	}
 	
 	/**
-	 * Returns the file that corresponds to the given URI.
+	 * Returns the file that corresponds to the given URI. If the URI does not
+	 * correspond to a file (e.g., because it is not a platform URI or because it is
+	 * <code>null</code>), <code>null</code> is returned.
 	 */
 	public org.eclipse.core.resources.IFile getFileForURI(org.eclipse.emf.common.util.URI uri) {
+		if (uri == null) {
+			return null;
+		}
 		org.eclipse.core.resources.IWorkspace workspace = org.eclipse.core.resources.ResourcesPlugin.getWorkspace();
 		org.eclipse.core.resources.IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		String platformString = uri.toPlatformString(true);
