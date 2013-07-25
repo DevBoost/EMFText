@@ -233,7 +233,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addJavadoc("Gets the resource that is contained in the give file.");
 		sc.add("public " + textResourceClassName + " getResource(" + I_FILE + " file) {");
 		sc.add(RESOURCE_SET + " rs = new " + RESOURCE_SET_IMPL + "();");
-		sc.add(RESOURCE + " resource = rs.getResource(" + URI + ".createPlatformResourceURI(file.getFullPath().toString(),true), true);");
+		sc.add(RESOURCE + " resource = rs.getResource(" + URI + ".createPlatformResourceURI(file.getFullPath().toString(), true), true);");
 		sc.add("return (" + textResourceClassName + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
