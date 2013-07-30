@@ -218,7 +218,6 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.add(PRINTER_WRITER + " out = new " + PRINTER_WRITER + "(new " + OUTPUT_STREAM_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream), encoding));");	
 		sc.add("doPrint(element, out, \"\");");
 		sc.add("out.flush();");
-		sc.add("out.close();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
