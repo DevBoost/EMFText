@@ -59,6 +59,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		addGetObjectsByTypeMethod(sc);
 		addFindRootContainerMethod(sc);
 		addFindAncestorByTypeMethod(sc);
+		addFindClosestsAncestorByTypeMethod(sc);
 		addInvokeOperationMethod(sc);
 		addSetFeatureMethod(sc);
 		addGetDepthMethod(sc);
@@ -204,6 +205,21 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("container = container.eContainer();");
 		sc.add("}");
 		sc.add("return ancestor;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFindClosestsAncestorByTypeMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns the closest ancestor with the given type.");
+		sc.add("public static " + E_OBJECT + " findClosestAncestorByType(" + E_OBJECT + " object, " + E_CLASS + " type) {");
+		sc.add(E_OBJECT + " container = object.eContainer();");
+		sc.add("while (container != null) {");
+		sc.add("if (type.isInstance(container)) {");
+		sc.add("return container;");
+		sc.add("}");
+		sc.add("container = container.eContainer();");
+		sc.add("}");
+		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
