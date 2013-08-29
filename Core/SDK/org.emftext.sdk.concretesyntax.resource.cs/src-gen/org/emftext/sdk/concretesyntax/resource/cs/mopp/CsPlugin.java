@@ -80,6 +80,18 @@ public class CsPlugin extends org.eclipse.core.runtime.Plugin {
 	}
 	
 	/**
+	 * Helper method for logging infos.
+	 * 
+	 * @param message the info message to log
+	 * @param throwable the exception that describes the info in detail (can be null)
+	 * 
+	 * @return the status object describing the info
+	 */
+	public static org.eclipse.core.runtime.IStatus logInfo(String message, Throwable throwable) {
+		return log(org.eclipse.core.runtime.IStatus.INFO, message, throwable);
+	}
+	
+	/**
 	 * Helper method for logging.
 	 * 
 	 * @param type the type of the message to log

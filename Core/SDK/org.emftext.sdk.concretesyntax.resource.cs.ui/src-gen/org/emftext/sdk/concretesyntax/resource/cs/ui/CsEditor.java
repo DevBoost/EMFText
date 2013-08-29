@@ -42,7 +42,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	private org.eclipse.core.resources.IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage propertySheetPage;
 	private org.eclipse.emf.edit.domain.EditingDomain editingDomain;
-	private org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler;
 	private java.util.List<org.eclipse.jface.viewers.ISelectionChangedListener> selectionChangedListeners = new java.util.LinkedList<org.eclipse.jface.viewers.ISelectionChangedListener>();
 	private org.eclipse.jface.viewers.ISelection editorSelection;
@@ -50,7 +49,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	public CsEditor() {
 		super();
 		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsSourceViewerConfiguration(this, this, colorManager));
-		initializeEditingDomain();
 		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
 		addSelectionChangedListener(this);
 	}
@@ -80,7 +78,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			org.eclipse.core.resources.IResourceDelta delta = event.getDelta();
 			try {
 				class ResourceDeltaVisitor implements org.eclipse.core.resources.IResourceDeltaVisitor {
-					protected org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
+					protected org.eclipse.emf.ecore.resource.ResourceSet resourceSet = getResourceSet();
 					
 					public boolean visit(org.eclipse.core.resources.IResourceDelta delta) {
 						if (delta.getResource().getType() != org.eclipse.core.resources.IResource.FILE) {
@@ -165,7 +163,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNature.activate(inputFile.getProject());
 		String path = inputFile.getFullPath().toString();
 		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true);
-		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = getResourceSet();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource loadedResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resourceSet.getResource(uri, false);
 		if (loadedResource == null) {
 			try {
@@ -235,7 +233,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	protected void performSaveAs(org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
 		org.eclipse.ui.part.FileEditorInput input = (org.eclipse.ui.part.FileEditorInput) getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
+		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = getResourceSet();
 		org.eclipse.emf.common.util.URI platformURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true);
 		org.eclipse.emf.ecore.resource.Resource oldFile = resourceSet.getResource(platformURI, true);
 		
@@ -268,7 +266,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	}
 	
 	public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
-		return editingDomain.getResourceSet();
+		return getEditingDomain().getResourceSet();
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource getResource() {
@@ -297,6 +295,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			propertySheetPage = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage();
 			// add a slightly modified adapter factory that does not return any editors for
 			// properties. this way, a model can never be modified through the properties view.
+			org.eclipse.emf.common.notify.AdapterFactory adapterFactory = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAdapterFactoryProvider().getAdapterFactory();
 			propertySheetPage.setPropertySourceProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(adapterFactory) {
 				protected org.eclipse.ui.views.properties.IPropertySource createPropertySource(Object object, org.eclipse.emf.edit.provider.IItemPropertySource itemPropertySource) {
 					return new org.eclipse.emf.edit.ui.provider.PropertySource(object, itemPropertySource) {
@@ -316,19 +315,10 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	}
 	
 	public org.eclipse.emf.edit.domain.EditingDomain getEditingDomain() {
+		if (editingDomain == null) {
+			editingDomain = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditingDomainProvider().getEditingDomain(getEditorInput());
+		}
 		return editingDomain;
-	}
-	
-	private void initializeEditingDomain() {
-		adapterFactory = new org.eclipse.emf.edit.provider.ComposedAdapterFactory(org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
-		adapterFactory.addAdapterFactory(new org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory());
-		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
-		
-		org.eclipse.emf.common.command.BasicCommandStack commandStack = new org.eclipse.emf.common.command.BasicCommandStack();
-		// CommandStackListeners can listen for changes. Not sure whether this is needed.
-		
-		editingDomain = new org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain(adapterFactory, commandStack, new java.util.LinkedHashMap<org.eclipse.emf.ecore.resource.Resource, Boolean>());
 	}
 	
 	/**

@@ -213,7 +213,6 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		java.io.PrintWriter out = new java.io.PrintWriter(new java.io.OutputStreamWriter(new java.io.BufferedOutputStream(outputStream), encoding));
 		doPrint(element, out, "");
 		out.flush();
-		out.close();
 	}
 	
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, java.io.PrintWriter out) {
