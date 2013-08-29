@@ -60,7 +60,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addDefaultTokenStyles(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
+	public void addDefaultTokenStyles(final ConcreteSyntax syntax, final EList<TokenStyle> allStyles) {
 		// add default styles
 		addTokenStylesForKeywords(syntax, allStyles);
 		addTokenStylesForQuotedTokens(syntax, allStyles);
@@ -73,7 +73,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addTokenStylesForKeywords(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
+	public void addTokenStylesForKeywords(final ConcreteSyntax syntax, final EList<TokenStyle> allStyles) {
 		final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());
 		final java.lang.String KEYWORD_COLOR = "800055";
 		for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {
@@ -95,7 +95,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addTokenStylesForQuotedTokens(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
+	public void addTokenStylesForQuotedTokens(final ConcreteSyntax syntax, final EList<TokenStyle> allStyles) {
 		java.lang.String QUOTED_TOKEN_COLOR = "2A00FF";
 		for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {
 			org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> placeholders = getAllPlaceholdersInQuotes(rule);
@@ -119,7 +119,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isCommentPattern(String regex) {
+	public boolean isCommentPattern(final String regex) {
 		final java.lang.String SL_COMMENT = "'//'(~('\n'|'\r'|'" + ((char) 0xffff) + "'))*";
 		final java.lang.String ML_COMMENT = "'/*'.*'*/'";
 		return SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);
@@ -130,7 +130,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addTokenStylesForComments(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
+	public void addTokenStylesForComments(final ConcreteSyntax syntax, final EList<TokenStyle> allStyles) {
 		final java.lang.String COMMENT_COLOR = "3F805D";
 		java.util.Collection< org.emftext.sdk.concretesyntax.CompleteTokenDefinition> tokens = syntax.getActiveTokens();
 		for ( org.emftext.sdk.concretesyntax.CompleteTokenDefinition tokenDefinition : tokens) {
@@ -149,7 +149,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<String> getAllKeywords(Rule rule) {
+	public EList<String> getAllKeywords(final Rule rule) {
 		org.eclipse.emf.common.util.EList< java.lang.String> allKeywords = new org.eclipse.emf.common.util.BasicEList< java.lang.String>();
 		org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();
 		while (iterator.hasNext()) {
@@ -174,7 +174,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PlaceholderInQuotes> getAllPlaceholdersInQuotes(Rule rule) {
+	public EList<PlaceholderInQuotes> getAllPlaceholdersInQuotes(final Rule rule) {
 		org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> allPlaceholders = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes>();
 		org.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();
 		while (iterator.hasNext()) {
@@ -201,7 +201,7 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addTokenStyleForTaskItems(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
+	public void addTokenStyleForTaskItems(final ConcreteSyntax syntax, final EList<TokenStyle> allStyles) {
 		final java.lang.String TASK_ITEM_COLOR = "7F9FBF";
 		
 		org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();

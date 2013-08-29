@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.parameters.ManifestParameters;
 import org.emftext.sdk.codegen.parameters.XMLParameters;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AbstractOutlinePageActionGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.AdapterFactoryProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelFactoryGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AnnotationModelGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.AntlrTokenHelperGenerator;
@@ -49,6 +50,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.CompletionProposalGener
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DefaultHoverTextProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DocBrowserInformationControlInputGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EObjectSelectionGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.EditingDomainProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EditorConfigurationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EditorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.HTMLPrinterGenerator;
@@ -113,8 +115,8 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, BuildPropertiesParameters<GenerationContext>> BUILD_PROPERTIES = new ArtifactDescriptor<GenerationContext, BuildPropertiesParameters<GenerationContext>>(null, BuildPropertiesCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_BUILD_PROPERTIES); 
 	public final static ArtifactDescriptor<GenerationContext, ClassPathParameters<GenerationContext>> DOT_CLASSPATH = new ArtifactDescriptor<GenerationContext, ClassPathParameters<GenerationContext>>(null, DotClasspathCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_DOT_CLASSPATH);
 	public final static ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>> DOT_PROJECT = new ArtifactDescriptor<GenerationContext, DotProjectParameters<GenerationContext>>(null, DotProjectCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_DOT_PROJECT);
-	public static final ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>>(null, ManifestCreator.FILENAME, "", null, null);
-	public static final ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_PLUGIN_XML);
+	public final static ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>> MANIFEST = new ArtifactDescriptor<GenerationContext, ManifestParameters<GenerationContext>>(null, ManifestCreator.FILENAME, "", null, null);
+	public final static ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>> PLUGIN_XML = new ArtifactDescriptor<GenerationContext, XMLParameters<GenerationContext>>(null, PluginXMLCreator.FILENAME, "", null, OptionTypes.OVERRIDE_UI_PLUGIN_XML);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> AUTO_EDIT_STRATEGY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AutoEditStrategy", AutoEditStrategyGenerator.class, OptionTypes.OVERRIDE_AUTO_EDIT_STRATEGY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CODE_COMPLETION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CodeCompletionHelper", CodeCompletionHelperGenerator.class, OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER);
@@ -124,10 +126,12 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "HoverTextProvider", HoverTextProviderGenerator.class, OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DEFAULT_HOVER_TEXT_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DefaultHoverTextProvider", DefaultHoverTextProviderGenerator.class, OptionTypes.OVERRIDE_DEFAULT_HOVER_TEXT_PROVIDER);
 	
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ADAPTER_FACTORY_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AdapterFactoryProvider", AdapterFactoryProviderGenerator.class, OptionTypes.OVERRIDE_ADAPTER_FACTORY_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BRACKET_SET = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BracketSet", BracketSetGenerator.class, OptionTypes.OVERRIDE_BRACKET_SET);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> POSITION_HELPER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PositionHelper", PositionHelperGenerator.class, OptionTypes.OVERRIDE_POSITION_HELPER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CODE_FOLDING_MANAGER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CodeFoldingManager", CodeFoldingManagerGenerator.class, OptionTypes.OVERRIDE_CODE_FOLDING_MANAGER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EDITOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "Editor", EditorGenerator.class, OptionTypes.OVERRIDE_EDITOR);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EDITING_DOMAIN_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "EditingDomainProvider", EditingDomainProviderGenerator.class, OptionTypes.OVERRIDE_EDITING_DOMAIN_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COLOR_MANAGER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ColorManager", ColorManagerGenerator.class, OptionTypes.OVERRIDE_COLOR_MANAGER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BACKGROUND_PARSING_STRATEGY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BackgroundParsingStrategy", BackgroundParsingStrategyGenerator.class, OptionTypes.OVERRIDE_PARSING_STRATEGY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TEXT_HOVER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "TextHover", TextHoverGenerator.class, OptionTypes.OVERRIDE_TEXT_HOVER);

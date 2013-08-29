@@ -591,7 +591,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Rule> getOperatorRuleSubset(String identifier) {
+	public EList<Rule> getOperatorRuleSubset(final String identifier) {
 		org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> subset = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>();
 		if (identifier == null) {
 			return subset;
@@ -732,7 +732,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isImportedRule(Rule rule) {
+	public boolean isImportedRule(final Rule rule) {
 		return rule.getSyntax() != this;
 	}
 
@@ -753,7 +753,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<GenClass> getClassesWithSyntax(boolean excludeOperatorRules) {
+	public EList<GenClass> getClassesWithSyntax(final boolean excludeOperatorRules) {
 		java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();
 		org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
 		
@@ -772,7 +772,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<GenClass> getSubClassesWithSyntax(GenClass superClass, boolean excludeOperatorRules) {
+	public EList<GenClass> getSubClassesWithSyntax(final GenClass superClass, final boolean excludeOperatorRules) {
 		org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();
 		
 		org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();
@@ -804,7 +804,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addTokenStyle(EList<TokenStyle> existingStyles, TokenStyle newStyle) {
+	public void addTokenStyle(final EList<TokenStyle> existingStyles, final TokenStyle newStyle) {
 		for ( java.lang.String tokenName : newStyle.getTokenNames()) {
 			boolean exists = containsTokenStyle(existingStyles, tokenName);
 			if (!exists) {
@@ -822,7 +822,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean containsTokenStyle(EList<TokenStyle> styles, String tokenName) {
+	public boolean containsTokenStyle(final EList<TokenStyle> styles, final String tokenName) {
 		for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {
 			for ( java.lang.String existingName : existingStyle.getTokenNames()) {
 				if (existingName.equals(tokenName)) {
@@ -838,7 +838,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addImportedTokenStyles(EList<TokenStyle> allStyles) {
+	public void addImportedTokenStyles(final EList<TokenStyle> allStyles) {
 		// add the imported token styles
 		org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();
 		for ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {

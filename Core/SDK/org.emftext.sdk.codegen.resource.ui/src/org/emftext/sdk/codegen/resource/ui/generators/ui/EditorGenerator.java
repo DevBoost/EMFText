@@ -16,20 +16,17 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_MARKER_ANNOTATION_MODEL;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_EDITING_DOMAIN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BASIC_COMMAND_STACK;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CELL_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITING_DOMAIN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ENUMERATION;
@@ -67,7 +64,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_O
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_PRESENTATION_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VERTICAL_RULER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VIEWER_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
@@ -75,11 +71,9 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTI
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROPERTY_DESCRIPTOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROPERTY_SOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_BUNDLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECT_MARKER_RULES_ACTION;
@@ -133,7 +127,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("private " + I_RESOURCE_CHANGE_LISTENER + " resourceChangeListener = new ModelResourceChangeListener();");
 		sc.add("private " + propertySheetPageClassName + " propertySheetPage;");
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
-		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
 		sc.add("private " + iBracketHandlerClassName + " bracketHandler;");
 		sc.add("private " + LIST + "<" + I_SELECTION_CHANGED_LISTENER + "> selectionChangedListeners = new " + LINKED_LIST + "<" + I_SELECTION_CHANGED_LISTENER + ">();");
 		sc.add("private " + I_SELECTION + " editorSelection;");
@@ -144,7 +137,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.add("setSourceViewerConfiguration(new " + sourceViewerConfigurationClassName + "(this, this, colorManager));");
-		sc.add("initializeEditingDomain();");
 		sc.add(RESOURCES_PLUGIN + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT + ".POST_CHANGE);");
 		sc.add("addSelectionChangedListener(this);");
 		sc.add("}");
@@ -169,7 +161,6 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addGetOutlinePageMethod(sc);
 		addGetPropertySheetPageMethod(sc);
 		addGetEditingDomainMethod(sc);
-		addInitializeEditingDomainMethod(sc);
 		addSetCaretMethod(sc);
 		addCreateSourceViewerMethod(sc);
 		addAddBackgroundParsingListenerMethod(sc);
@@ -379,23 +370,11 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addInitializeEditingDomainMethod(JavaComposite sc) {
-		sc.add("private void initializeEditingDomain() {");
-		sc.add("adapterFactory = new " + COMPOSED_ADAPTER_FACTORY + "(" + COMPOSED_ADAPTER_FACTORY + ".Descriptor.Registry.INSTANCE);");
-		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.addLineBreak();
-		sc.add(BASIC_COMMAND_STACK + " commandStack = new " + BASIC_COMMAND_STACK + "();");
-		sc.addComment("CommandStackListeners can listen for changes. Not sure whether this is needed.");
-		sc.addLineBreak();
-		sc.add("editingDomain = new " + ADAPTER_FACTORY_EDITING_DOMAIN + "(adapterFactory, commandStack, new " + LINKED_HASH_MAP + "<" + RESOURCE + ", Boolean>());");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addGetEditingDomainMethod(StringComposite sc) {
 		sc.add("public " + EDITING_DOMAIN + " getEditingDomain() {");
+		sc.add("if (editingDomain == null) {");
+		sc.add("editingDomain = new " + editingDomainProviderClassName + "().getEditingDomain(getEditorInput());");
+		sc.add("}");
 		sc.add("return editingDomain;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -411,6 +390,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 				"this way, a model can never be modified through the properties " +
 				"view."
 		);
+		sc.add(ADAPTER_FACTORY + " adapterFactory = new " + adapterFactoryProviderClassName + "().getAdapterFactory();");
 		sc.add("propertySheetPage.setPropertySourceProvider(new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory) {");
 		sc.add("protected " + I_PROPERTY_SOURCE + " createPropertySource(Object object, " + I_ITEM_PROPERTY_SOURCE + " itemPropertySource) {");
 		sc.add("return new " + PROPERTY_SOURCE + "(object, itemPropertySource) {");
@@ -463,7 +443,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 	private void addGetResourceSetMethod(StringComposite sc) {
 		sc.add("public " + RESOURCE_SET + " getResourceSet() {");
-		sc.add("return editingDomain.getResourceSet();");
+		sc.add("return getEditingDomain().getResourceSet();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -472,7 +452,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("protected void performSaveAs(" + I_PROGRESS_MONITOR + " progressMonitor) {");
 		sc.add(FILE_EDITOR_INPUT + " input = (" + FILE_EDITOR_INPUT + ") getEditorInput();");
 		sc.add("String path = input.getFile().getFullPath().toString();");
-		sc.add(RESOURCE_SET + " resourceSet = editingDomain.getResourceSet();");
+		sc.add(RESOURCE_SET + " resourceSet = getResourceSet();");
 		sc.add(URI + " platformURI = " + URI + ".createPlatformResourceURI(path, true);");
 		sc.add(RESOURCE + " oldFile = resourceSet.getResource(platformURI, true);");
 		sc.addLineBreak();
@@ -563,7 +543,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 
 		sc.add("String path = inputFile.getFullPath().toString();");
 		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(path, true);");
-		sc.add(RESOURCE_SET + " resourceSet = editingDomain.getResourceSet();");
+		sc.add(RESOURCE_SET + " resourceSet = getResourceSet();");
 		sc.add(iTextResourceClassName + " loadedResource = (" + iTextResourceClassName + ") resourceSet.getResource(uri, false);");
 		sc.add("if (loadedResource == null) {");
 		sc.add("try {");
@@ -723,7 +703,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add(I_RESOURCE_DELTA + " delta = event.getDelta();");
 		sc.add("try {");
 		sc.add("class ResourceDeltaVisitor implements " + I_RESOURCE_DELTA_VISITOR + " {");
-		sc.add("protected " + RESOURCE_SET + " resourceSet = editingDomain.getResourceSet();");
+		sc.add("protected " + RESOURCE_SET + " resourceSet = getResourceSet();");
 		sc.addLineBreak();
 		sc.add("public boolean visit(" + I_RESOURCE_DELTA + " delta) {");
 		sc.add("if (delta.getResource().getType() != " + I_RESOURCE + ".FILE) {");

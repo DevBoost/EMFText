@@ -223,7 +223,7 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isImported(ConcreteSyntax syntax) {
+	public boolean isImported(final ConcreteSyntax syntax) {
 		return !syntax.equals(getContainingSyntax(syntax));
 	}
 
@@ -232,7 +232,7 @@ public abstract class CompleteTokenDefinitionImpl extends TokenDirectiveImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConcreteSyntax getContainingSyntax(ConcreteSyntax syntax) {
+	public ConcreteSyntax getContainingSyntax(final ConcreteSyntax syntax) {
 		org.eclipse.emf.ecore.EObject container = this.eContainer();
 		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
 			return ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;

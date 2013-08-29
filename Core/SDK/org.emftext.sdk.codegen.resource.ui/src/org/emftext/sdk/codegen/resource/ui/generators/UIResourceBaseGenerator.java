@@ -25,6 +25,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String ignoredWordsFilterClassName;
 
 	protected String abstractOutlinePageActionClassName;
+	protected String adapterFactoryProviderClassName;
 	protected String annotationModelClassName;
 	protected String annotationModelFactoryClassName;
 	protected String autoEditStrategyClassName;
@@ -40,6 +41,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String defaultHoverTextProviderClassName;
 	protected String docBrowserInformationControlInputClassName;
 	protected String eObjectSelectionClassName;
+	protected String editingDomainProviderClassName;
 	protected String editorClassName;
 	protected String editorConfigurationClassName;
 	protected String highlightingClassName;
@@ -103,6 +105,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		ignoredWordsFilterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.IGNORED_WORDS_FILTER);
 
 		abstractOutlinePageActionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ABSTRACT_OUTLINE_PAGE_ACTION);
+		adapterFactoryProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ADAPTER_FACTORY_PROVIDER);
 		annotationModelClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL);
 		autoEditStrategyClassName = context.getQualifiedClassName(TextResourceUIArtifacts.AUTO_EDIT_STRATEGY);
 		uiAntlrTokenHelperClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANTLR_TOKEN_HELPER);
@@ -119,6 +122,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		defaultHoverTextProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
 		docBrowserInformationControlInputClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 		eObjectSelectionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.E_OBJECT_SELECTION);
+		editingDomainProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITING_DOMAIN_PROVIDER);
 		editorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR);
 		editorConfigurationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR_CONFIGURATION);
 		highlightingClassName = context.getQualifiedClassName(TextResourceUIArtifacts.HIGHLIGHTING);

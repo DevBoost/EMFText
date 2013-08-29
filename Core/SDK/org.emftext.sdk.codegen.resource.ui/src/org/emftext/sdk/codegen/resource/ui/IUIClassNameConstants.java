@@ -136,6 +136,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.templates.editor.Editor;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.Notifier;
@@ -429,6 +430,7 @@ public interface IUIClassNameConstants extends IClassNameConstants {
 	public static String ABSTRACT_UI_PLUGIN = AbstractUIPlugin.class.getName();
 	public static String ACTION = Action.class.getName();
 	public static String ADAPTER = Adapter.class.getName();
+	public static String ADAPTER_FACTORY = AdapterFactory.class.getName();
 	public static String ADAPTER_FACTORY_CONTENT_PROVIDER = AdapterFactoryContentProvider.class.getName();
 	public static String ADAPTER_FACTORY_EDITING_DOMAIN = AdapterFactoryEditingDomain.class.getName();
 	public static String ADAPTER_FACTORY_LABEL_PROVIDER = AdapterFactoryLabelProvider.class.getName();

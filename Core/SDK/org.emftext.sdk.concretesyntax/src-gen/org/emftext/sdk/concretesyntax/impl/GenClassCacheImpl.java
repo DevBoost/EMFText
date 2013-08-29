@@ -89,7 +89,7 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getQualifiedInterfaceName(GenClass genClass) {
+	public String getQualifiedInterfaceName(final GenClass genClass) {
 		if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {
 			java.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();
 			get_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);
@@ -102,7 +102,7 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getEscapedTypeName(GenClass genClass) {
+	public String getEscapedTypeName(final GenClass genClass) {
 		java.lang.String interfaceName = getQualifiedInterfaceName(genClass);
 		java.lang.String escapedName = interfaceName.replace("_", "_005f");
 		escapedName = escapedName.replace(".", "_");
@@ -114,7 +114,7 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean hasMapType(GenClass genClass) {
+	public boolean hasMapType(final GenClass genClass) {
 		return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());
 	}
 
@@ -123,7 +123,7 @@ public class GenClassCacheImpl extends EObjectImpl implements GenClassCache {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean containsEqualByName(EList<GenClass> list, GenClass genClass) {
+	public boolean containsEqualByName(final EList<GenClass> list, final GenClass genClass) {
 		for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {
 			org.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();
 			org.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();

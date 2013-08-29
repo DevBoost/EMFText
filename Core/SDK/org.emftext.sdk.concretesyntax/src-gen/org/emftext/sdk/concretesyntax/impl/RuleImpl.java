@@ -148,7 +148,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 */
 	public ConcreteSyntax getSyntax() {
 		if (eContainerFeatureID() != ConcretesyntaxPackage.RULE__SYNTAX) return null;
-		return (ConcreteSyntax)eContainer();
+		return (ConcreteSyntax)eInternalContainer();
 	}
 
 	/**
@@ -245,7 +245,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean hasAnnotation(AnnotationType type, String key, String value) {
+	public boolean hasAnnotation(final AnnotationType type, final String key, final String value) {
 		for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {
 			if (annotation.getType() == type) {
 				if (key != null) {
@@ -278,7 +278,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isOverrideRule(GenClass metaClass) {
+	public boolean isOverrideRule(final GenClass metaClass) {
 		if (metaClass == null || getMetaclass() == metaClass) {
 			if (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {
 				return true;

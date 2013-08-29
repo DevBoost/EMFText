@@ -147,6 +147,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		}
 	    
 	    // add UI generators
+	    add(creators, TextResourceUIArtifacts.ADAPTER_FACTORY_PROVIDER);
 		add(creators, TextResourceUIArtifacts.AUTO_EDIT_STRATEGY);
 		add(creators, TextResourceUIArtifacts.HOVER_TEXT_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.BRACKET_SET);
@@ -158,6 +159,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	    add(creators, TextResourceUIArtifacts.EDITOR_CONFIGURATION);
 	    add(creators, TextResourceUIArtifacts.SOURCE_VIEWER_CONFIGURATION);
+	    add(creators, TextResourceUIArtifacts.EDITING_DOMAIN_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.EDITOR);
 	    add(creators, TextResourceUIArtifacts.E_OBJECT_SELECTION);
 	    add(creators, TextResourceUIArtifacts.HIGHLIGHTING);

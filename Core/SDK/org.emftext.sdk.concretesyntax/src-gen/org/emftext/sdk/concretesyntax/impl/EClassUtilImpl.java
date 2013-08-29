@@ -56,7 +56,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSubClass(EClass subClassCandidate, EClass superClass) {
+	public boolean isSubClass(final EClass subClassCandidate, final EClass superClass) {
 		if (subClassCandidate == null) {
 			return false;
 		}
@@ -79,7 +79,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EClass> getSubClasses(EClass superClass, EList<EClass> availableClasses) {
+	public EList<EClass> getSubClasses(final EClass superClass, final EList<EClass> availableClasses) {
 		org.eclipse.emf.common.util.EList< org.eclipse.emf.ecore.EClass> result = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.ecore.EClass>();
 		for ( org.eclipse.emf.ecore.EClass next : availableClasses) {
 			if (isSubClass(next, superClass) &&
@@ -95,7 +95,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean namesAndPackageURIsAreEqual(EClass classA, EClass classB) {
+	public boolean namesAndPackageURIsAreEqual(final EClass classA, final EClass classB) {
 		return namesAreEqual(classA, classB) && 
 			packageURIsAreEqual(classA, classB);
 	}
@@ -105,7 +105,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean packageURIsAreEqual(EClass classA, EClass classB) {
+	public boolean packageURIsAreEqual(final EClass classA, final EClass classB) {
 		java.lang.String nsURI_A = classA.getEPackage().getNsURI();
 		java.lang.String nsURI_B = classB.getEPackage().getNsURI();
 		if (nsURI_A == null && nsURI_B == null) {
@@ -124,7 +124,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean namesAreEqual(EClass classA, EClass classB) {
+	public boolean namesAreEqual(final EClass classA, final EClass classB) {
 		if (classA == null || classB == null) {
 			return false;
 		}
@@ -141,7 +141,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isConcrete(EClass eClass) {
+	public boolean isConcrete(final EClass eClass) {
 		return !eClass.isAbstract() && !eClass.isInterface();
 	}
 
@@ -150,7 +150,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isNotConcrete(EClass eClass) {
+	public boolean isNotConcrete(final EClass eClass) {
 		return !isConcrete(eClass);
 	}
 
@@ -159,7 +159,7 @@ public class EClassUtilImpl extends EObjectImpl implements EClassUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSubClassOrEqual(EClass subclassCandidate, EClass superType) {
+	public boolean isSubClassOrEqual(final EClass subclassCandidate, final EClass superType) {
 		boolean isEqual = namesAndPackageURIsAreEqual(subclassCandidate, superType);
 		boolean isSubclass = isSubClass(subclassCandidate, superType);
 		return isEqual || isSubclass;

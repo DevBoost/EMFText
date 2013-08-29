@@ -134,7 +134,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getValue(String key) {
+	public String getValue(final String key) {
 		for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {
 			if (key.equals(parameter.getKey())){
 				java.lang.String value = parameter.getValue();

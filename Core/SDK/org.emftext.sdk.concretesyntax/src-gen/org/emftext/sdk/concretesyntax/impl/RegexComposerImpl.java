@@ -57,7 +57,7 @@ public class RegexComposerImpl extends EObjectImpl implements RegexComposer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getComposedRegex(AbstractTokenDefinition token, EList<AbstractTokenDefinition> visitedTokens) {
+	public String getComposedRegex(final AbstractTokenDefinition token, final EList<AbstractTokenDefinition> visitedTokens) {
 		visitedTokens.add(token);
 		
 		java.lang.StringBuilder result = new java.lang.StringBuilder();
