@@ -60,6 +60,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		addGetDefaultMethod(sc);
 		addLogErrorMethod(sc);
 		addLogWarningMethod(sc);
+		addLogInfoMethod(sc);
 		addLogMethod(sc);
 	}
 
@@ -85,6 +86,19 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		);
 		sc.add("public static " + I_STATUS + " logWarning(String message, Throwable throwable) {");
 		sc.add("return log(" + I_STATUS + ".WARNING, message, throwable);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addLogInfoMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Helper method for logging infos.",
+			"@param message the info message to log",
+			"@param throwable the exception that describes the info in detail (can be null)",
+			"@return the status object describing the info"
+		);
+		sc.add("public static " + I_STATUS + " logInfo(String message, Throwable throwable) {");
+		sc.add("return log(" + I_STATUS + ".INFO, message, throwable);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
