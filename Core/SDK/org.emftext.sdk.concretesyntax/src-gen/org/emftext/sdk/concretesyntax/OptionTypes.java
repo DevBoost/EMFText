@@ -7276,6 +7276,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the EditingDomainProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_EDITING_DOMAIN_PROVIDER
 	 * @model literal="overrideEditingDomainProvider"
 	 * @generated
@@ -7291,6 +7294,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the AdapterFactoryProvider class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_ADAPTER_FACTORY_PROVIDER
 	 * @model literal="overrideAdapterFactoryProvider"
 	 * @generated

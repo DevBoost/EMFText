@@ -686,6 +686,10 @@ OptionTypes.PREFERENCE_PAGES_CATEGORY : "Specify the category for the generated 
 
 OptionTypes.OVERRIDE_TOGGLE_COMMENT_HANDLER : "If set to <code>false</code>, the ToggleCommentHandler class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_EDITING_DOMAIN_PROVIDER : "If set to <code>false</code>, the EditingDomainProvider class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.OVERRIDE_ADAPTER_FACTORY_PROVIDER : "If set to <code>false</code>, the AdapterFactoryProvider class will not be overridden. The default value for this option is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
