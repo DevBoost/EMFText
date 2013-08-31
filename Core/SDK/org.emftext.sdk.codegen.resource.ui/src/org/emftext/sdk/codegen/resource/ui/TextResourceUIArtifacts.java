@@ -69,6 +69,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.MarkerResolutionGenerat
 import org.emftext.sdk.codegen.resource.ui.generators.ui.NewFileWizardGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.NewFileWizardPageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.NewProjectWizardGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.NewProjectWizardLogicGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.OccurrenceGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.OccurrencePreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.OutlinePageActionProviderGenerator;
@@ -162,6 +163,7 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProcessor", CompletionProcessorGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROCESSOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BROWSER_INFORMATION_CONTROL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BrowserInformationControl", BrowserInformationControlGenerator.class, OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> NEW_PROJECT_WIZARD = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "NewProjectWizard", NewProjectWizardGenerator.class, OptionTypes.OVERRIDE_NEW_PROJECT_WIZARD);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> NEW_PROJECT_WIZARD_LOGIC = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "NewProjectWizardLogic", NewProjectWizardLogicGenerator.class, OptionTypes.OVERRIDE_NEW_PROJECT_WIZARD_LOGIC);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TOGGLE_COMMENT_HANDLER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ToggleCommentHandler", ToggleCommentHandlerGenerator.class, OptionTypes.OVERRIDE_TOGGLE_COMMENT_HANDLER);
 	
 	// preference pages

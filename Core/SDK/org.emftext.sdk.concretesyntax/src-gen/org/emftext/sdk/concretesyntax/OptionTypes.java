@@ -3040,7 +3040,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ADAPTER_FACTORY_PROVIDER(305, "OVERRIDE_ADAPTER_FACTORY_PROVIDER", "overrideAdapterFactoryProvider");
+	OVERRIDE_ADAPTER_FACTORY_PROVIDER(305, "OVERRIDE_ADAPTER_FACTORY_PROVIDER", "overrideAdapterFactoryProvider"), /**
+	 * The '<em><b>OVERRIDE NEW PROJECT WIZARD LOGIC</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_PROJECT_WIZARD_LOGIC_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_NEW_PROJECT_WIZARD_LOGIC(306, "OVERRIDE_NEW_PROJECT_WIZARD_LOGIC", "overrideNewProjectWizardLogic");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7305,6 +7313,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_ADAPTER_FACTORY_PROVIDER_VALUE = 305;
 
 	/**
+	 * The '<em><b>OVERRIDE NEW PROJECT WIZARD LOGIC</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE NEW PROJECT WIZARD LOGIC</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_PROJECT_WIZARD_LOGIC
+	 * @model literal="overrideNewProjectWizardLogic"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_NEW_PROJECT_WIZARD_LOGIC_VALUE = 306;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7615,6 +7638,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TOGGLE_COMMENT_HANDLER,
 			OVERRIDE_EDITING_DOMAIN_PROVIDER,
 			OVERRIDE_ADAPTER_FACTORY_PROVIDER,
+			OVERRIDE_NEW_PROJECT_WIZARD_LOGIC,
 		};
 
 	/**
@@ -7966,6 +7990,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TOGGLE_COMMENT_HANDLER_VALUE: return OVERRIDE_TOGGLE_COMMENT_HANDLER;
 			case OVERRIDE_EDITING_DOMAIN_PROVIDER_VALUE: return OVERRIDE_EDITING_DOMAIN_PROVIDER;
 			case OVERRIDE_ADAPTER_FACTORY_PROVIDER_VALUE: return OVERRIDE_ADAPTER_FACTORY_PROVIDER;
+			case OVERRIDE_NEW_PROJECT_WIZARD_LOGIC_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD_LOGIC;
 		}
 		return null;
 	}
