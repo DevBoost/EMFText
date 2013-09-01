@@ -29,7 +29,7 @@ public class CsNewProjectWizardLogic {
 	 * Creates the example project by unzipping the contents of
 	 * <code>newProjectZip</code>.
 	 */
-	public void createExampleProject(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IPath projectPath, String projectName, String newProjectZip) throws InterruptedException {
+	public void createExampleProject(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IPath projectPath, String projectName, String bundleName, String newProjectZip) throws InterruptedException {
 		try {
 			monitor.beginTask("Creating Example Project", 120);
 			
@@ -45,7 +45,7 @@ public class CsNewProjectWizardLogic {
 				projectFolderFile.mkdirs();
 				monitor.worked(10);
 				
-				org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle("org.emftext.sdk.concretesyntax.resource.cs.ui");
+				org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle(bundleName);
 				java.net.URL newProjectZipURL = bundle.getEntry(newProjectZip);
 				
 				if (newProjectZipURL != null) {

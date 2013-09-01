@@ -25,6 +25,12 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implements org.eclipse.ui.INewWizard, org.eclipse.core.runtime.IExecutableExtension {
 	
 	/**
+	 * The name of the ZIP file that is used as content for the new project (relative
+	 * to the resource UI plugin's root).
+	 */
+	public final static String NEW_PROJECT_ZIP_FILE_NAME = "newProject.zip";
+	
+	/**
 	 * The single page provided by this base implementation. It provides all the
 	 * functionality required to capture the name and location of the target project.
 	 */
@@ -51,24 +57,13 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 	private String  pageProjectName = "";
 	
 	/**
-	 * The name of the new project zip file (relative to the UI plugin's root)
-	 */
-	private final static String NEW_PROJECT_ZIP_FILE_NAME = "newProject.zip";
-	
-	/**
 	 * The configuration element associated with this new project wizard
 	 */
 	private org.eclipse.core.runtime.IConfigurationElement config;
 	
 	/**
-	 * The constructor.
-	 */
-	public CsNewProjectWizard() {
-		super();
-	}
-	
-	/**
-	 * Creates the example project.
+	 * Creates the example project by delegating the work to
+	 * org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewProjectWizardLogic.
 	 */
 	public boolean performFinish() {
 		
@@ -77,7 +72,7 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 				
 				public void execute(org.eclipse.core.runtime.IProgressMonitor monitor) throws InterruptedException {
 					try {
-						new org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewProjectWizardLogic().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), NEW_PROJECT_ZIP_FILE_NAME);
+						new org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewProjectWizardLogic().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
@@ -120,8 +115,8 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 		this.addPage(wizardNewProjectCreationPage);
 	}
 	
-	public void setInitializationData(org.eclipse.core.runtime.IConfigurationElement configIn, String propertyName, Object data) throws org.eclipse.core.runtime.CoreException {
-		config = configIn;
+	public void setInitializationData(org.eclipse.core.runtime.IConfigurationElement config, String propertyName, Object data) throws org.eclipse.core.runtime.CoreException {
+		this.config = config;
 	}
 	
 }
