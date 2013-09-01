@@ -54,12 +54,15 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("public class " + getResourceClassName() + " extends " + WIZARD + " implements " + I_NEW_WIZARD + ", " + I_EXECUTABLE_EXTENSION + " {");
 		sc.addLineBreak();
 		addFields(sc);
-		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
 	}
 
 	private void addFields(JavaComposite sc) {
+		sc.addJavadoc("The name of the ZIP file that is used as content for the new project (relative to the resource UI plugin's root).");
+		sc.add("public final static String NEW_PROJECT_ZIP_FILE_NAME = \"newProject.zip\";");
+		sc.addLineBreak();
+		
 		sc.addJavadoc(
 			"The single page provided by this base implementation. It provides all the " + 
 			"functionality required to capture the name and location of the target " +
@@ -84,20 +87,8 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("private String  pageProjectName = \"\";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("The name of the new project zip file (relative to the UI plugin's root)");
-		sc.add("private final static String NEW_PROJECT_ZIP_FILE_NAME = \"newProject.zip\";");
-		sc.addLineBreak();
-		
 		sc.addJavadoc("The configuration element associated with this new project wizard");		
 		sc.add("private " + I_CONFIGURATION_ELEMENT + " config;");
-		sc.addLineBreak();
-	}
-
-	private void addConstructor(JavaComposite sc) {
-		sc.addJavadoc("The constructor.");
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.add("}");
 		sc.addLineBreak();
 	}
 
@@ -108,7 +99,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addPerformFinishMethod(JavaComposite sc) {
-		sc.addJavadoc("Creates the example project.");
+		sc.addJavadoc("Creates the example project by delegating the work to " + newProjectWizardLogicClassName + ".");
 		sc.add("public boolean performFinish() {");
 		sc.addLineBreak();
 		sc.add("try {");
@@ -116,7 +107,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		sc.add("public void execute(" + I_PROGRESS_MONITOR + " monitor) throws InterruptedException {");
 		sc.add("try {");
-		sc.add("new " + newProjectWizardLogicClassName + "().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), NEW_PROJECT_ZIP_FILE_NAME);");
+		sc.add("new " + newProjectWizardLogicClassName + "().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), " + uiPluginActivatorClassName + ".PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);");
 		sc.add("} catch (Exception e) {");
 		sc.add("throw new RuntimeException(e);");
 		sc.add("}");
@@ -162,8 +153,8 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addSetInitializationDataMethod(JavaComposite sc) {
-		sc.add("public void setInitializationData(" + I_CONFIGURATION_ELEMENT + " configIn, String propertyName, Object data) throws " + CORE_EXCEPTION + " {");
-		sc.add("config = configIn;");
+		sc.add("public void setInitializationData(" + I_CONFIGURATION_ELEMENT + " config, String propertyName, Object data) throws " + CORE_EXCEPTION + " {");
+		sc.add("this.config = config;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

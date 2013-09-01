@@ -81,7 +81,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addJavadoc(
 			"Creates the example project by unzipping the contents of <code>newProjectZip</code>."
 		);
-		sc.add("public void createExampleProject(" + I_PROGRESS_MONITOR + " monitor, " + I_PATH + " projectPath, String projectName, String newProjectZip) throws InterruptedException {");
+		sc.add("public void createExampleProject(" + I_PROGRESS_MONITOR + " monitor, " + I_PATH + " projectPath, String projectName, String bundleName, String newProjectZip) throws InterruptedException {");
 		sc.add("try {");
 		sc.add("monitor.beginTask(\"Creating Example Project\", 120);");
 		sc.addLineBreak();
@@ -98,7 +98,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("projectFolderFile.mkdirs();");
 		sc.add("monitor.worked(10);");
 		sc.addLineBreak();
-		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(\"" + getContext().getResourceUIPlugin().getName() + "\");");
+		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(bundleName);");
 		sc.add(URL + " newProjectZipURL = bundle.getEntry(newProjectZip);");
 		sc.addLineBreak();
 		sc.add("if (newProjectZipURL != null) {");
