@@ -294,7 +294,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("private void renameProject(" + I_PROJECT + " project, String projectName) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_PROJECT_DESCRIPTION + " description = project.getDescription();");
 		sc.add("description.setName(projectName);");
-		sc.add("project.move(description, " + I_RESOURCE + ".FORCE | " + I_RESOURCE + ".SHALLOW, null);");
+		//sc.add("project.move(description, " + I_RESOURCE + ".FORCE | " + I_RESOURCE + ".SHALLOW, null);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
