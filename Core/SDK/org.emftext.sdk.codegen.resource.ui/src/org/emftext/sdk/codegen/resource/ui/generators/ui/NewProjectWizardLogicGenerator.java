@@ -35,7 +35,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PATH;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROJECT_DESCRIPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKSPACE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OUTPUT_STREAM;
