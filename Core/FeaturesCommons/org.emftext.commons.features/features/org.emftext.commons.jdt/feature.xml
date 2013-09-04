@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<feature 
+<feature 
 		id="org.emftext.commons.jdt" 
 		label="EMFText JDT Integration"
 		provider-name="DevBoost GmbH" 
-		version="1.4.3">
+		version="1.4.4">
 
 	<description url="http://www.emftext.org">EMFText JDT Integration Plug-in: Provides access to the JDT types and a metamodel that can be imported from DSLs that require references to Java classes.</description>
 
