@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site associateSitesURL="http://www.emftext.org/update_trunk/associateSites.xml">
-   <description>
-      Update site for EMFText.
-   </description>
-   <feature url="features/org.emftext.commons.antlr3_4_0_0.0.0.v0.jar" id="org.emftext.commons.antlr3_4_0" version="0.0.0.v0">
-      <category name="EMFText"/>
-   </feature>
-   <feature url="features/org.emftext.access_0.0.0.v0.jar" id="org.emftext.access" version="0.0.0.v0">
-      <category name="EMFText"/>
-   </feature>
-   <feature url="features/org.emftext.sdk_0.0.0.v0.jar" id="org.emftext.sdk" version="0.0.0.v0">
-      <category name="EMFText"/>
-   </feature>
-   <feature url="features/org.emftext.commons.layout_0.0.0.v0.jar" id="org.emftext.commons.layout" version="0.0.0.v0">
-      <category name="EMFText"/>
-   </feature>
-   <feature url="features/org.emftext.commons.jdt_0.0.0.v0.jar" id="org.emftext.commons.jdt" version="0.0.0.v0">
-      <category name="EMFText"/>
-   </feature>
-   <feature url="features/de.devboost.codecomposers_0.0.0.v0.jar" id="de.devboost.codecomposers" version="0.0.0.v0">
-      <category name="EMFText"/>
-   </feature>
-   <category-def name="EMFText" label="EMFText">
-      <description>
-         Tool for defining textual syntax for EMF models.
-      </description>
-   </category-def>
+	<description>
+		Update site for EMFText.
+	</description>
+	<feature url="features/org.emftext.commons.antlr3_4_0_0.0.0.v0.jar" id="org.emftext.commons.antlr3_4_0" version="0.0.0.v0">
+		<category name="EMFText"/>
+	</feature>
+	<feature url="features/org.emftext.access_0.0.0.v0.jar" id="org.emftext.access" version="0.0.0.v0">
+		<category name="EMFText"/>
+	</feature>
+	<feature url="features/org.emftext.sdk_0.0.0.v0.jar" id="org.emftext.sdk" version="0.0.0.v0">
+		<category name="EMFText"/>
+	</feature>
+	<feature url="features/org.emftext.commons.layout_0.0.0.v0.jar" id="org.emftext.commons.layout" version="0.0.0.v0">
+		<category name="EMFText"/>
+	</feature>
+	<feature url="features/org.emftext.commons.jdt_0.0.0.v0.jar" id="org.emftext.commons.jdt" version="0.0.0.v0">
+		<category name="EMFText"/>
+	</feature>
+	<feature url="features/de.devboost.codecomposers_0.0.0.v0.jar" id="de.devboost.codecomposers" version="0.0.0.v0">
+		<category name="EMFText"/>
+	</feature>
+	<category-def name="EMFText" label="EMFText">
+		<description>
+			EMFText is a tool for defining textual syntax for EMF models.
+		</description>
+	</category-def>
 </site>
