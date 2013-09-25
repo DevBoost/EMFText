@@ -23,10 +23,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class EditingDomainProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

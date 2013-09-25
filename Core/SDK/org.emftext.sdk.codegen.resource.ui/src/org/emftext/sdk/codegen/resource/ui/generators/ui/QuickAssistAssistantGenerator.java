@@ -25,10 +25,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.QUICK_ASSIST_ASSISTANT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class QuickAssistAssistantGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

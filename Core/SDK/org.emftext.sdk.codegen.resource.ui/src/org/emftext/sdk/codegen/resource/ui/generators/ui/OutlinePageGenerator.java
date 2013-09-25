@@ -15,36 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GROUP_MARKER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_OUTLINE_PAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MENU_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MENU_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PAGE_SITE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH_ACTION_CONSTANTS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LISTENER_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MENU;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MENU_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.UIGeneratorUtil;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

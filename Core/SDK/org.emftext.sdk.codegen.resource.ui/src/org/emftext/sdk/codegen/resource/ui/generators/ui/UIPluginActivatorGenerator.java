@@ -25,12 +25,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 // TODO this is a copy of class PluginActivatorGenerator in codegen.resource!
 public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {

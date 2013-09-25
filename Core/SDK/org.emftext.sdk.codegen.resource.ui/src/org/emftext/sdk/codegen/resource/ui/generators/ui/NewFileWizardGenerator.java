@@ -43,11 +43,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * The NewFileContentGenerator can be used to create a NewFileWizard that 

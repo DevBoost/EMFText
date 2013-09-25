@@ -46,12 +46,13 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WINDOW;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WORKBENCH_CONTENT_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WORKBENCH_LABEL_PROVIDER;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class LaunchConfigurationMainTabGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

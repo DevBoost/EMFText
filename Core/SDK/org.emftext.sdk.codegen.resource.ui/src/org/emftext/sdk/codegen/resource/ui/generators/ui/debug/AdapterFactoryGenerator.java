@@ -29,11 +29,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOUR
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOGGLE_BREAKPOINTS_TARGET;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

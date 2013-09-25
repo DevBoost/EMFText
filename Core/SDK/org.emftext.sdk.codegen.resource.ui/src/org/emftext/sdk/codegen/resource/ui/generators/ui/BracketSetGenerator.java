@@ -23,11 +23,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLED_TEXT;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 // TODO mseifert: Consider case where an opening bracket is deleted on the left side of the caret.
 // In such a situation, the closing bracket on the right side of this caret must deleted as well.

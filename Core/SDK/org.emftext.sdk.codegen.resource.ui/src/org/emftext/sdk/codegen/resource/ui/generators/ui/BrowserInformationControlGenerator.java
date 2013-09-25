@@ -51,10 +51,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_STY
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOOL_BAR_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WINDOW_EVENT;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

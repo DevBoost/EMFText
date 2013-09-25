@@ -33,11 +33,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

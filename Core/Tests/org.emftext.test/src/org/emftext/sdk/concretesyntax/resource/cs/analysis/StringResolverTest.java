@@ -22,8 +22,9 @@ import junit.framework.TestCase;
 
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult;
-import org.emftext.sdk.util.Pair;
 import org.junit.Test;
+
+import de.devboost.codecomposers.util.Pair;
 
 public class StringResolverTest extends TestCase {
 

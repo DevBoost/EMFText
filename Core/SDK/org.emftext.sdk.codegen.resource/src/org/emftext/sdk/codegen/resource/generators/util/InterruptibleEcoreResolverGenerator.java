@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,12 +15,21 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
+import static de.devboost.codecomposers.java.IClassNameConstants.LINKED_HASH_SET;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
+
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
-
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,20 +15,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SERVER_SOCKET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

@@ -20,6 +20,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.codegen.ecore;visibility:=reexport,
  org.eclipse.emf.codegen.ecore.ui;visibility:=reexport,
  org.emftext.sdk,
- org.emftext.sdk.concretesyntax;visibility:=reexport
+ org.emftext.sdk.concretesyntax;visibility:=reexport,
+ de.devboost.codecomposers
 Bundle-ActivationPolicy: lazy
 

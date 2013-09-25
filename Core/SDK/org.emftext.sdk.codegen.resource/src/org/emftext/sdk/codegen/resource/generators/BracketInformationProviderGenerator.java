@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 
 import java.util.ArrayList;
@@ -25,8 +25,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -34,7 +32,10 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.EObjectUtil;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 @SyntaxDependent
 public class BracketInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {

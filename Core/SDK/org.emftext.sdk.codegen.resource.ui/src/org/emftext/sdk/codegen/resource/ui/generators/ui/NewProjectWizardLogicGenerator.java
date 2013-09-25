@@ -45,11 +45,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SUB_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URL;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

@@ -18,10 +18,11 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class ITextPrinterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

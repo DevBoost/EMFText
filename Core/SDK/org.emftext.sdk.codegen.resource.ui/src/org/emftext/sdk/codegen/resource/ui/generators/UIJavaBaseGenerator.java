@@ -18,12 +18,13 @@ package org.emftext.sdk.codegen.resource.ui.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.IArtifactParameter;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.LicenceHeaderUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 // TODO mseifert: some of this code is copied from JavaBaseGenerator
 public abstract class UIJavaBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends UIResourceBaseGenerator<ParameterType> {

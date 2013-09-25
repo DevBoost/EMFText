@@ -36,8 +36,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
-import org.emftext.sdk.util.StringUtil;
-import org.emftext.sdk.util.ToStringConverter;
+
+import de.devboost.codecomposers.util.StringUtil;
+import de.devboost.codecomposers.util.ToStringConverter;
 
 /**
  * A utility class that can be used to derive names for different artifacts

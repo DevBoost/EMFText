@@ -19,10 +19,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

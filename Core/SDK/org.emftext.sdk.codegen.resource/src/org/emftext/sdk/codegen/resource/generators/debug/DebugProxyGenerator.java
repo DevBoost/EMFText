@@ -28,11 +28,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TREE_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.UNKNOWN_HOST_EXCEPTION;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

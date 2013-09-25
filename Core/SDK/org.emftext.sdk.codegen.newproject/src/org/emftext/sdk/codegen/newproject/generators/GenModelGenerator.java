@@ -26,7 +26,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.emftext.sdk.codegen.newproject.NewProjectParameters;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * Initializes a new generator model from the Ecore model generated before.

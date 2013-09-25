@@ -15,23 +15,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_SCANNER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.J_FACE_TOKEN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PREFERENCE_CONVERTER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

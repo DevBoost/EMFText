@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
@@ -46,14 +46,15 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.UR
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * Generates the resource class. The created <code>doLoad()</code> and

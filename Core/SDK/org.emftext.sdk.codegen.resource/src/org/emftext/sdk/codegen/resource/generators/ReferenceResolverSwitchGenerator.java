@@ -29,8 +29,6 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -41,7 +39,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.GenClassUtil;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * A generator that creates a multiplexing reference resolver.

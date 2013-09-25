@@ -19,10 +19,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

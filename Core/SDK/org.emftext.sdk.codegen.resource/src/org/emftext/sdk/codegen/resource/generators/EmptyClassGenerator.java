@@ -15,8 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.resource.ClassParameters;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class EmptyClassGenerator extends JavaBaseGenerator<ClassParameters> {
 

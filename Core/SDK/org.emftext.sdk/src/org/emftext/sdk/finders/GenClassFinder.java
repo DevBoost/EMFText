@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -32,7 +32,8 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.util.GenClassUtil;
-import org.emftext.sdk.util.Pair;
+
+import de.devboost.codecomposers.util.Pair;
 
 /**
  * A GenClassFinder can be used to look up all generator classes that are 

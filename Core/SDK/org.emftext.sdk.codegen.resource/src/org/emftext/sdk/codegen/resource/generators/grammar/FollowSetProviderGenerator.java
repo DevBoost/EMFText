@@ -24,7 +24,6 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.ConstantsPool;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -39,7 +38,9 @@ import org.emftext.sdk.concretesyntax.EnumTerminal;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.SyntaxElement;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.util.Pair;
+
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.Pair;
 
 public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

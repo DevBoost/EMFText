@@ -15,7 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EARLY_EXIT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
@@ -25,11 +26,13 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MI
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MISMATCHED_TREE_NODE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class SyntaxErrorMessageConverterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

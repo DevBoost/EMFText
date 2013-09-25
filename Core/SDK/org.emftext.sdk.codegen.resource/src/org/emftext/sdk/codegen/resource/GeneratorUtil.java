@@ -16,7 +16,7 @@
 package org.emftext.sdk.codegen.resource;
 
 import static org.emftext.sdk.codegen.antlr.Constants.DEFAULT_ANTLR_PLUGIN_NAME;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
@@ -44,14 +44,15 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * A utility class used by all generators to reuse code fragments that are

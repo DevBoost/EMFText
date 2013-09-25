@@ -18,11 +18,12 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
-import org.emftext.sdk.util.Pair;
+
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.Pair;
 
 public class ExpectationsConstantsGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

@@ -18,9 +18,10 @@ package org.emftext.sdk.codegen.resource.generators;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * Generates a factory for the TextResource which loads and stores generated resources. 

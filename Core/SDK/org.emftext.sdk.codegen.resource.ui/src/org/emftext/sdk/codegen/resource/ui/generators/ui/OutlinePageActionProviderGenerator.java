@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+import de.devboost.codecomposers.java.JavaComposite;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 public class OutlinePageActionProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {

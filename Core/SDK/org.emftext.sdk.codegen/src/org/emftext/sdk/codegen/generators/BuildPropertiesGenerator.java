@@ -21,7 +21,8 @@ import java.util.Collection;
 import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.parameters.BuildPropertiesParameters;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * A generator for build.properties files. The content of the file is determined by

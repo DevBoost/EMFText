@@ -27,12 +27,13 @@ are redistributed with this tool.
 Copyright (c) 2003-2011, Terence Parr. All rights reserved.
    </license>
 
-   <requires>
-      <import feature="org.eclipse.platform"/>
-      <import feature="org.eclipse.emf"/>
-      <import feature="org.eclipse.emf.validation"/>
-      <import feature="org.emftext.access"/>
-   </requires>
+	<requires>
+	<import feature="org.eclipse.platform"/>
+	<import feature="org.eclipse.emf"/>
+	<import feature="org.eclipse.emf.validation"/>
+	<import feature="org.emftext.access"/>
+	<import feature="de.devboost.codecomposers"/>
+	</requires>
 
    <plugin
          id="org.emftext.sdk"

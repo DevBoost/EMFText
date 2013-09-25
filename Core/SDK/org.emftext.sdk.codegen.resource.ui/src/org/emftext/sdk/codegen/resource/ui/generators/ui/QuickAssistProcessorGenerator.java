@@ -33,10 +33,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POINT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_INVOCATION_CONTEXT;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

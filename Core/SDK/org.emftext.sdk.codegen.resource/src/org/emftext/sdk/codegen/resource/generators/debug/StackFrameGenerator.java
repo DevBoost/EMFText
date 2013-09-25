@@ -15,18 +15,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_REGISTER_GROUP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STACK_FRAME;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_THREAD;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

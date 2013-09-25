@@ -15,18 +15,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

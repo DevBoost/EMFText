@@ -19,8 +19,7 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
-
-import org.emftext.sdk.codegen.composites.StringComposite;
+import de.devboost.codecomposers.StringComposite;
 
 public class UIGeneratorUtil {
 

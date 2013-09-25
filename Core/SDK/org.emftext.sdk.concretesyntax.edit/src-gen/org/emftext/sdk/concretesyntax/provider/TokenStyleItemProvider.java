@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -34,7 +34,8 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.TokenStyle} object.

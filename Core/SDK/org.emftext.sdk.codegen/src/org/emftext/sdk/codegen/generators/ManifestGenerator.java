@@ -20,10 +20,11 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.IContext;
-import org.emftext.sdk.codegen.composites.ManifestComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ManifestParameters;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.manifest.ManifestComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * A generator that creates manifest files.

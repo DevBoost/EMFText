@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
@@ -36,12 +36,13 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 @SyntaxDependent
 public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {

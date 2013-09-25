@@ -20,10 +20,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUSY_IND
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE_DESCRIPTOR;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class AbstractOutlinePageActionGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

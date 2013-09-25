@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.MAP_ENTRY;
+import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.MAP_ENTRY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMPTY_STACK_EXCEPTION;
@@ -32,15 +32,16 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenClassInheritanceComparator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 @SyntaxDependent
 public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {

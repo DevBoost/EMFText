@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_STRING_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BIT_SET;
@@ -67,9 +67,6 @@ import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
-import org.emftext.sdk.codegen.composites.StringComponent;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.ConstantsPool;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -108,7 +105,11 @@ import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.GenClassUtil;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComponent;
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.antlr.ANTLRGrammarComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * The text parser generator maps from one or more concrete syntaxes (*.cs) and

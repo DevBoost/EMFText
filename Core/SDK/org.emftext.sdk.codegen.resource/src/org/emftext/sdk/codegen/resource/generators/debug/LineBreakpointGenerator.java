@@ -24,11 +24,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_WORKSPACE_RUNNABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINE_BREAKPOINT;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class LineBreakpointGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

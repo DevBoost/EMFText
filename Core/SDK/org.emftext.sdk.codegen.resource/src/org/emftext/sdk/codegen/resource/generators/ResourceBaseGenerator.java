@@ -19,11 +19,12 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.ArtifactDescriptor;
 import org.emftext.sdk.codegen.IArtifactParameter;
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends BaseGenerator<GenerationContext, ParameterType> {
 

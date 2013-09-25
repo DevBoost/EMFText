@@ -21,10 +21,11 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.xml.XMLComposite;
 
 @SyntaxDependent
 public class AdditionalExtensionParserExtensionPointSchemaGenerator extends ResourceBaseGenerator<ArtifactParameter<GenerationContext>> {

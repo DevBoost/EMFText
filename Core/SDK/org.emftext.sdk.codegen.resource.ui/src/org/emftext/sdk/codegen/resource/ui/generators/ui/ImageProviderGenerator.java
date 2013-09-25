@@ -32,11 +32,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
 
 import org.eclipse.ui.ISharedImages;
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.IClassNameConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

@@ -21,10 +21,11 @@ import java.util.Map;
 import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.IContext;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.XMLParameters;
 import org.emftext.sdk.codegen.parameters.xml.XMLElement;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.xml.XMLComposite;
 
 /**
  * A generator for plugin.xml files.

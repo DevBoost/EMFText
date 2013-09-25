@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.composites;
 
-import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.junit.Test;
 
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.xml.XMLComposite;
 import junit.framework.TestCase;
 
 /**

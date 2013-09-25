@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -185,7 +185,7 @@ import org.osgi.framework.BundleContext;
  * Constants for class names used in the generated code.
  */
 @SuppressWarnings("restriction")
-public interface IClassNameConstants extends org.emftext.sdk.codegen.composites.IClassNameConstants {
+public interface IClassNameConstants extends de.devboost.codecomposers.java.IClassNameConstants {
 
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ADAPTER = Adapter.class.getName();

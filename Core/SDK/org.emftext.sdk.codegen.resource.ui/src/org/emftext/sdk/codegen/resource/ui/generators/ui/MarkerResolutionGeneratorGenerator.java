@@ -33,11 +33,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.interfaces.IOptionsGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class MarkerResolutionGeneratorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

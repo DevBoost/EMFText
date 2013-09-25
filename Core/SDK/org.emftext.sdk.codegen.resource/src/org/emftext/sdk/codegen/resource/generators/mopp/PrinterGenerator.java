@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.composites.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAYS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
@@ -49,9 +49,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.CollectInFeatureHelper;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComponent;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.BooleanTerminal;
 import org.emftext.sdk.concretesyntax.Cardinality;
@@ -71,7 +68,11 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComponent;
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * A generator that creates the class for the classic printer. This generator

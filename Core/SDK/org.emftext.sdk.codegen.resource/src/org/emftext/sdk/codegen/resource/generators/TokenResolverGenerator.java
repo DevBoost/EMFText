@@ -19,8 +19,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.TokenResolverParameters;
@@ -28,7 +26,10 @@ import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * A TokenResolverGenerator generates a single TokenResolver for a given TokenDefinition.

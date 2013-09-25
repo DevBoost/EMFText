@@ -20,11 +20,12 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BREAKPOINT_MANAGER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_DEBUG_TARGET;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class DebugElementGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

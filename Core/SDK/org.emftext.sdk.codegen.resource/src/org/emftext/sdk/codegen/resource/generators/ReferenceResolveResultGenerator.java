@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,14 +15,16 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+
+import de.devboost.codecomposers.java.JavaComposite;
+import static de.devboost.codecomposers.java.IClassNameConstants.*;
 
 public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

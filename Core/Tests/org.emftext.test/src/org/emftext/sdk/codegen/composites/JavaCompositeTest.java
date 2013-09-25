@@ -19,9 +19,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComponent;
 import org.junit.Test;
+
+import de.devboost.codecomposers.StringComponent;
+import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * A test for the JavaStringComposite class.

@@ -16,10 +16,6 @@
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +25,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -55,7 +49,10 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
+import de.devboost.codecomposers.util.StringUtil;
 
 /**
  * A generator that creates a class that contains the syntax structure given

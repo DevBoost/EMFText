@@ -19,10 +19,11 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CO
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

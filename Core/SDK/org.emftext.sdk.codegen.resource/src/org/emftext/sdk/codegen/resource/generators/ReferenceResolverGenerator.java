@@ -23,8 +23,6 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.UR
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.ReferenceResolverParameters;
@@ -33,6 +31,9 @@ import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.finders.GenClassFinder;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * A generator that can create a basic stub for a single reference resolver.

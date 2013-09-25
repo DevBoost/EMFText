@@ -18,11 +18,12 @@ package org.emftext.sdk.codegen.resource.generators.debug;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ABSTRACT_SOURCE_LOOKUP_DIRECTOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SOURCE_LOOKUP_PARTICIPANT;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class SourceLocatorGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

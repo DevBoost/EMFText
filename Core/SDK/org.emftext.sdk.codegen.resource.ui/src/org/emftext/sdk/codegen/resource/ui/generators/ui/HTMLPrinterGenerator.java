@@ -28,10 +28,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLE_RA
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_PRESENTATION;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

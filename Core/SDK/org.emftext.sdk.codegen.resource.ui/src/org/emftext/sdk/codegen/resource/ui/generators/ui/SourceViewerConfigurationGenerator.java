@@ -43,11 +43,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SPELLING
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_SOURCE_VIEWER_CONFIGURATION;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

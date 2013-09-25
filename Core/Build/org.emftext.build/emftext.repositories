@@ -27,5 +27,8 @@ get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/compare/do
 // Google Guava (required by EMF Compare)
 get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/tools/orbit/downloads/drops/R20130517111416/repository/plugins/com.google.guava_11.0.2.v201303041551.jar
 
+// CodeComposers
+git:https://github.com/DevBoost/CodeComposers.git
+
 // Feedback
 git:https://github.com/DevBoost/Feedback.git!Core/

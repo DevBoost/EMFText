@@ -27,7 +27,8 @@ import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.GenClassUtil;
-import org.emftext.sdk.util.Pair;
+
+import de.devboost.codecomposers.util.Pair;
 
 /**
  * A resolver for EMF generator classes. The classes must be identified

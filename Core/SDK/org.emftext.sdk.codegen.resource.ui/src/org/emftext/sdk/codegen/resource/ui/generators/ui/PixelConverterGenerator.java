@@ -20,10 +20,11 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FONT_MET
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GC;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.JFACE_DIALOG;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class PixelConverterGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

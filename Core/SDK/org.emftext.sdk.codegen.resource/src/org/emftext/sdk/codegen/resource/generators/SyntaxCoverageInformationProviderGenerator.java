@@ -21,12 +21,13 @@ import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.GenClassUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 // TODO maybe we should merge this with the GrammarInformationProvider
 @SyntaxDependent

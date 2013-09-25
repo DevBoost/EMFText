@@ -15,11 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class EDebugMessageTypesGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

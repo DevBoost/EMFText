@@ -31,9 +31,9 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAnalysisProblemType;
 import org.emftext.sdk.concretesyntax.resource.cs.postprocessing.AbstractPostProcessor;
 import org.emftext.sdk.regex.SorterException;
-import org.emftext.sdk.util.StringUtil;
-import org.emftext.sdk.util.ToStringConverter;
 
+import de.devboost.codecomposers.util.StringUtil;
+import de.devboost.codecomposers.util.ToStringConverter;
 import dk.brics.automaton.Automaton;
 
 public class TokenConflictsAnalyser extends AbstractPostProcessor {

@@ -22,8 +22,6 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -31,6 +29,9 @@ import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.GenClassUtil;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 
 @SyntaxDependent
 public class FoldingInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {

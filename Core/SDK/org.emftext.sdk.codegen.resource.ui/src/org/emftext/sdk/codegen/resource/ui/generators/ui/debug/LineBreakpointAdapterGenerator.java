@@ -26,11 +26,12 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_S
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOGGLE_BREAKPOINTS_TARGET;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH_PART;
 
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class LineBreakpointAdapterGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 

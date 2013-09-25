@@ -19,9 +19,10 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.AbstractGenerator;
 import org.emftext.sdk.codegen.IContext;
-import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.codegen.parameters.DotProjectParameters;
+
+import de.devboost.codecomposers.StringComposite;
+import de.devboost.codecomposers.xml.XMLComposite;
 
 /**
  * Creates the content for .project files, which are used by Eclipse to store meta data

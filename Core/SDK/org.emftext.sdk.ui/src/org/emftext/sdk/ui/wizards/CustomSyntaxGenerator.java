@@ -40,7 +40,8 @@ import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.ui.AbstractSyntaxGenerator;
 import org.emftext.sdk.ui.wizards.CustomSyntaxConfiguration.KeywordStyle;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.util.StringUtil;
 
 public class CustomSyntaxGenerator extends AbstractSyntaxGenerator {
 

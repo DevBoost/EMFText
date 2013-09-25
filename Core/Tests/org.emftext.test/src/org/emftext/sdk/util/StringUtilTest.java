@@ -16,8 +16,7 @@
 package org.emftext.sdk.util;
 
 import junit.framework.TestCase;
-
-import org.emftext.sdk.util.StringUtil;
+import de.devboost.codecomposers.util.StringUtil;
 
 public class StringUtilTest extends TestCase {
 

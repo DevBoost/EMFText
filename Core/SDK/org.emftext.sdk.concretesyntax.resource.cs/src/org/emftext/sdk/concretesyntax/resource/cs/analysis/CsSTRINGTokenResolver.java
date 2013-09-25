@@ -20,7 +20,8 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
-import org.emftext.sdk.util.StringUtil;
+
+import de.devboost.codecomposers.util.StringUtil;
 
 /** 
  * This resolver converts strings enclosed in double quotes. The conversion
