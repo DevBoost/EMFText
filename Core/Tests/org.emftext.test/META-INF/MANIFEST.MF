@@ -37,8 +37,7 @@ Require-Bundle: org.junit,
  org.emftext.sdk.concretesyntax.edit,
  org.eclipse.emf.ecore.xmi
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.emftext.sdk.codegen.composites,
- org.emftext.test,
+Export-Package: org.emftext.test,
  org.emftext.test.bug674,
  org.emftext.test.expectationcomputer,
  org.emftext.test.options,
