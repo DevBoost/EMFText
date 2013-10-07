@@ -188,7 +188,7 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 	/**
 	 * Creates a dynamic Java proxy that mimics the interface of the given class.
 	 */
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public <T> T createDynamicProxy(Class<T> clazz) {
 		Object proxy = java.lang.reflect.Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{clazz, org.eclipse.emf.ecore.EObject.class, org.eclipse.emf.ecore.InternalEObject.class}, new java.lang.reflect.InvocationHandler() {
 			
@@ -242,12 +242,14 @@ public abstract class CsANTLRParserBase extends org.antlr.runtime3_4_0.Parser im
 		}
 	}
 	
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
+	
 	public boolean addObjectToList(org.eclipse.emf.ecore.EObject container, int featureID, Object object) {
 		return ((java.util.List<Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);
 	}
 	
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
+	
 	public boolean addObjectToList(org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EStructuralFeature feature, Object object) {
 		return ((java.util.List<Object>) container.eGet(feature)).add(object);
 	}

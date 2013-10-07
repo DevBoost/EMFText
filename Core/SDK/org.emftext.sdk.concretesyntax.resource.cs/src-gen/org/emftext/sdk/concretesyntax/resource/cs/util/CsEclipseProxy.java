@@ -127,7 +127,8 @@ public class CsEclipseProxy {
 	 * Checks all registered EMF validation constraints. Note: EMF validation does not
 	 * work if OSGi is not running.
 	 */
-	@SuppressWarnings("restriction")	
+	@SuppressWarnings("restriction")
+	
 	public void checkEMFValidationConstraints(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.eclipse.emf.ecore.EObject root, boolean includeBatchConstraints) {
 		// The EMF validation framework code throws a NPE if the validation plug-in is not
 		// loaded. This is a bug, which is fixed in the Helios release. Nonetheless, we

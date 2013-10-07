@@ -89,7 +89,7 @@ options {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxErrorMessageConverter syntaxErrorMessageConverter = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxErrorMessageConverter(tokenNames);
 	
-	@Override	
+	@Override
 	public void reportError(org.antlr.runtime3_4_0.RecognitionException re) {
 		addErrorToResource(syntaxErrorMessageConverter.translateParseError(re));
 	}

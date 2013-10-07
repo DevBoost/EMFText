@@ -40,12 +40,13 @@ public class CsAutoEditStrategy extends org.eclipse.jface.text.DefaultIndentLine
 	/**
 	 * This method is only used for injecting a bracket set during tests.
 	 */
-	@Deprecated	
+	@Deprecated
 	public void setBracketSet(org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet) {
 		this.bracketSet = bracketSet;
 	}
 	
-	@Override	public void customizeDocumentCommand(org.eclipse.jface.text.IDocument document, org.eclipse.jface.text.DocumentCommand command) {
+	@Override
+	public void customizeDocumentCommand(org.eclipse.jface.text.IDocument document, org.eclipse.jface.text.DocumentCommand command) {
 		String text = command.text;
 		String textBefore = command.text;
 		super.customizeDocumentCommand(document, command);

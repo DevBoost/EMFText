@@ -73,7 +73,7 @@ public interface ICsTextResource extends org.eclipse.emf.ecore.resource.Resource
 	 */
 	public <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, ContainerType container, org.eclipse.emf.ecore.EReference reference, String id, org.eclipse.emf.ecore.EObject proxyElement, int position);
 	
-	@Deprecated	
+	@Deprecated
 	public void addWarning(String message, org.eclipse.emf.ecore.EObject cause);
 	
 	/**
@@ -81,7 +81,7 @@ public interface ICsTextResource extends org.eclipse.emf.ecore.resource.Resource
 	 */
 	public void addWarning(String message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type, org.eclipse.emf.ecore.EObject cause);
 	
-	@Deprecated	
+	@Deprecated
 	public void addError(String message, org.eclipse.emf.ecore.EObject cause);
 	
 	/**

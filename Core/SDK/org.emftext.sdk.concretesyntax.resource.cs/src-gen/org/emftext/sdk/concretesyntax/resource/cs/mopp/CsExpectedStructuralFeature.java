@@ -58,7 +58,7 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 		}
 		return false;
 	}
-	@Override	
+	@Override
 	public int hashCode() {
 		return getFeature().hashCode();
 	}

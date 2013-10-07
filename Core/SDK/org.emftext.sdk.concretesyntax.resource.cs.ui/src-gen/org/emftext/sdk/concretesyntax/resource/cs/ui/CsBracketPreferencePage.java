@@ -75,7 +75,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 		}
 	}
 	
-	@Override	
+	@Override
 	protected org.eclipse.swt.widgets.Control createContents(org.eclipse.swt.widgets.Composite parent) {
 		
 		// outer Composite

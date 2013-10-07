@@ -22,7 +22,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
  */
 public class CsListUtil {
 	
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public static <T> java.util.List<T> castListUnchecked(Object list) {
 		return (java.util.List<T>) list;
 	}

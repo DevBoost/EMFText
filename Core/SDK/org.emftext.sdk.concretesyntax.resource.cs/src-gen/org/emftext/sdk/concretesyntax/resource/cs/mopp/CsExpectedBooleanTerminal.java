@@ -55,7 +55,7 @@ public class CsExpectedBooleanTerminal extends org.emftext.sdk.concretesyntax.re
 		return false;
 	}
 	
-	@Override	
+	@Override
 	public int hashCode() {
 		return getFeature().hashCode();
 	}

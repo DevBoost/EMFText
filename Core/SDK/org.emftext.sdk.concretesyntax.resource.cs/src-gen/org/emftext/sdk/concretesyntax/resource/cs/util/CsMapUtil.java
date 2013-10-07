@@ -27,7 +27,7 @@ public class CsMapUtil {
 	 * 
 	 * @return the same object casted to a map
 	 */
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public static java.util.Map<Object, Object> castToMap(Object value) {
 		return (java.util.Map<Object,Object>) value;
 	}
@@ -40,7 +40,8 @@ public class CsMapUtil {
 	 * 
 	 * @return the same object casted to a map
 	 */
-	@SuppressWarnings("unchecked")	public static org.eclipse.emf.common.util.EMap<Object, Object> castToEMap(Object value) {
+	@SuppressWarnings("unchecked")
+	public static org.eclipse.emf.common.util.EMap<Object, Object> castToEMap(Object value) {
 		return (org.eclipse.emf.common.util.EMap<Object,Object>) value;
 	}
 	

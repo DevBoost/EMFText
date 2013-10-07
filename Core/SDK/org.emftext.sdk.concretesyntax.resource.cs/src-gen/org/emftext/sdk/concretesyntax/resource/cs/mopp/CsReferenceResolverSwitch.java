@@ -228,7 +228,7 @@ public class CsReferenceResolverSwitch implements org.emftext.sdk.concretesyntax
 		return null;
 	}
 	
-	@SuppressWarnings({"rawtypes", "unchecked"})	
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<ContainerType, ReferenceType> getResolverChain(org.eclipse.emf.ecore.EStructuralFeature reference, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<ContainerType, ReferenceType> originalResolver) {
 		if (options == null) {
 			return originalResolver;

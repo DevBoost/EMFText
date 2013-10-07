@@ -661,7 +661,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		}
 	}
 	
-	@Deprecated	
+	@Deprecated
 	public void addError(String message, org.eclipse.emf.ecore.EObject cause) {
 		addError(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN, cause);
 	}
@@ -670,7 +670,7 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, type, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity.ERROR), cause);
 	}
 	
-	@Deprecated	
+	@Deprecated
 	public void addWarning(String message, org.eclipse.emf.ecore.EObject cause) {
 		addWarning(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.UNKNOWN, cause);
 	}

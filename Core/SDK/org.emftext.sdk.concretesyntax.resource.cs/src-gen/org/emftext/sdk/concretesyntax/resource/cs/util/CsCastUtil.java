@@ -22,7 +22,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
  */
 public class CsCastUtil {
 	
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public static <T> T cast(Object temp) {
 		return (T) temp;
 	}

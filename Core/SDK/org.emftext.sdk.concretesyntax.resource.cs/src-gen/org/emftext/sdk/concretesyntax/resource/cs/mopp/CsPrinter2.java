@@ -717,7 +717,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		startedPrintingContainedObject = true;
 	}
 	
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public void printReference(org.eclipse.emf.ecore.EObject eObject, org.eclipse.emf.ecore.EReference reference, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsPlaceholder placeholder, int index, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement> foundFormattingElements, java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformation> layoutInformations) {
 		String tokenName = placeholder.getTokenName();
 		Object referencedObject = org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.getFeatureValue(eObject, reference, index, false);
@@ -742,7 +742,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 			// NC-References must always be printed by deresolving the reference. We cannot
 			// use the visible token information, because deresolving usually depends on
 			// attribute values of the referenced object instead of the object itself.
-			@SuppressWarnings("rawtypes")			
+			@SuppressWarnings("rawtypes")
 			org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver referenceResolver = getReferenceResolverSwitch().getResolver(reference);
 			referenceResolver.setOptions(getOptions());
 			deresolvedReference = referenceResolver.deResolve((org.eclipse.emf.ecore.EObject) referencedObject, eObject, reference);
@@ -754,7 +754,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 		tokenOutputStream.add(new PrintToken(deresolvedToken, tokenName, eObject));
 	}
 	
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public PrintCountingMap initializePrintCountingMap(org.eclipse.emf.ecore.EObject eObject) {
 		// The PrintCountingMap contains a mapping from feature names to the number of
 		// remaining elements that still need to be printed. The map is initialized with

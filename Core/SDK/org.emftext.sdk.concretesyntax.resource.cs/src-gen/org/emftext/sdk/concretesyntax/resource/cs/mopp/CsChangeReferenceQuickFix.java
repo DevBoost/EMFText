@@ -36,7 +36,7 @@ public class CsChangeReferenceQuickFix extends org.emftext.sdk.concretesyntax.re
 		this.newTarget = newTarget;
 	}
 	
-	@Override	
+	@Override
 	public void applyChanges() {
 		org.eclipse.emf.ecore.util.EcoreUtil.replace(container, reference, oldTarget, newTarget);
 	}

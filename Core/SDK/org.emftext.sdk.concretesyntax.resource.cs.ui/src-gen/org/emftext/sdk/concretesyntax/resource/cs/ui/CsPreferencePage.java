@@ -26,7 +26,7 @@ public class CsPreferencePage extends org.eclipse.jface.preference.PreferencePag
 		setDescription("Cs Text Editor Preferences");
 	}
 	
-	@Override	
+	@Override
 	protected org.eclipse.swt.widgets.Control createContents(org.eclipse.swt.widgets.Composite parent) {
 		org.eclipse.swt.widgets.Composite settingComposite = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NONE);
 		org.eclipse.swt.layout.GridLayout layout = new org.eclipse.swt.layout.GridLayout();

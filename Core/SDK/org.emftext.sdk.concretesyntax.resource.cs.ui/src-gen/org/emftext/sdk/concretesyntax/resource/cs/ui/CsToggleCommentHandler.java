@@ -24,7 +24,8 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 	private org.eclipse.jface.text.ITextOperationTarget operationTarget;
 	private java.util.Map<String, String[]> prefixesMap;
 	
-	@Override	
+	@Override
+	
 	public boolean isEnabled() {
 		org.eclipse.ui.IEditorPart activeEditor = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if (activeEditor instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {

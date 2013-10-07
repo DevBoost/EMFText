@@ -46,7 +46,7 @@ public class CsOutlinePageTreeViewerComparator extends org.eclipse.jface.viewers
 		this.sortLexically = on;
 	}
 	
-	@Override	
+	@Override
 	public int category(Object element) {
 		if (!groupTypes) {
 			return 0;

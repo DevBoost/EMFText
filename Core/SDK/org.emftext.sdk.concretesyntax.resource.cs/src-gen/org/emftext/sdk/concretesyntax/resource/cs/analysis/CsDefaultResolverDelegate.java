@@ -283,7 +283,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	 * cannot do this cast strictly type safe, because type parameters are erased by
 	 * compilation. Thus, an instanceof check cannot be performed at runtime.
 	 */
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
+	
 	protected ReferenceType cast(org.eclipse.emf.ecore.EObject element) {
 		return (ReferenceType) element;
 	}

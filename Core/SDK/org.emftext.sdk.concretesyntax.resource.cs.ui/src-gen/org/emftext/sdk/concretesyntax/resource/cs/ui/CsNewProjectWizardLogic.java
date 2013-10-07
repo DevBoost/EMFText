@@ -236,7 +236,6 @@ public class CsNewProjectWizardLogic {
 	private void renameProject(org.eclipse.core.resources.IProject project, String projectName) throws org.eclipse.core.runtime.CoreException {
 		org.eclipse.core.resources.IProjectDescription description = project.getDescription();
 		description.setName(projectName);
-		project.move(description, org.eclipse.core.resources.IResource.FORCE | org.eclipse.core.resources.IResource.SHALLOW, null);
 	}
 	
 }

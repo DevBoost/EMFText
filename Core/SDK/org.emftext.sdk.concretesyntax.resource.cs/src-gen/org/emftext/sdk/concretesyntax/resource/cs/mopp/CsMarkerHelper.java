@@ -74,7 +74,7 @@ public class CsMarkerHelper {
 		
 		private void scheduleRunCommandsJob() {
 			org.eclipse.core.runtime.jobs.Job job = new org.eclipse.core.runtime.jobs.Job("updating markers") {
-				@Override				
+				@Override
 				protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
 					runCommands();
 					return org.eclipse.core.runtime.Status.OK_STATUS;

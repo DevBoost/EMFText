@@ -30,7 +30,7 @@ public class CsEObjectUtil {
 		while (iterator.hasNext()) {
 			Object object = iterator.next();
 			if (type.isInstance(object)) {
-				@SuppressWarnings("unchecked")				
+				@SuppressWarnings("unchecked")
 				T t = (T) object;
 				result.add(t);
 			}
@@ -41,7 +41,7 @@ public class CsEObjectUtil {
 	/**
 	 * Use EcoreUtil.getRootContainer() instead.
 	 */
-	@Deprecated	
+	@Deprecated
 	public static org.eclipse.emf.ecore.EObject findRootContainer(org.eclipse.emf.ecore.EObject object) {
 		org.eclipse.emf.ecore.EObject container = object.eContainer();
 		if (container != null) {
@@ -102,7 +102,7 @@ public class CsEObjectUtil {
 		return null;
 	}
 	
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public static void setFeature(org.eclipse.emf.ecore.EObject object, org.eclipse.emf.ecore.EStructuralFeature eFeature, Object value, boolean clearIfList) {
 		int upperBound = eFeature.getUpperBound();
 		if (upperBound > 1 || upperBound < 0) {
@@ -169,7 +169,7 @@ public class CsEObjectUtil {
 	 * Checks whether the given object has an EAdapter that is an instance of the
 	 * given class. If one is found, it is returned, otherwise the result is null.
 	 */
-	@SuppressWarnings("unchecked")	
+	@SuppressWarnings("unchecked")
 	public static <T> T getEAdapter(org.eclipse.emf.ecore.EObject object, Class<T> clazz) {
 		java.util.List<org.eclipse.emf.common.notify.Adapter> eAdapters = object.eAdapters();
 		for (org.eclipse.emf.common.notify.Adapter adapter : eAdapters) {

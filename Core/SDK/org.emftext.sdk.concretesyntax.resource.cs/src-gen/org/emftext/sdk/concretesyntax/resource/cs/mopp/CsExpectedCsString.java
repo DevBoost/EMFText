@@ -55,7 +55,7 @@ public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.
 		return false;
 	}
 	
-	@Override	
+	@Override
 	public int hashCode() {
 		return getValue().hashCode();
 	}

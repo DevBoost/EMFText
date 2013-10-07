@@ -36,7 +36,7 @@ public abstract class AbstractCsOutlinePageAction extends org.eclipse.jface.acti
 		valueChanged(checked, false);
 	}
 	
-	@Override	
+	@Override
 	public void run() {
 		if (keepState()) {
 			valueChanged(isChecked(), true);

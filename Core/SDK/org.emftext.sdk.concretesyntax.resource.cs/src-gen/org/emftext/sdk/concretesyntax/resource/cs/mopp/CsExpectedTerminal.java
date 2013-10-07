@@ -80,7 +80,7 @@ public class CsExpectedTerminal {
 		return this.terminal.equals((otherExpectedTerminal).terminal) && (containersBothNull || this.container.equals(otherExpectedTerminal.container));
 	}
 	
-	@Override	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

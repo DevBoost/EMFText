@@ -26,7 +26,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		
 		private java.util.Set<org.eclipse.emf.ecore.EClass> filteredTypes = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EClass>();
 		
-		@Override		
+		@Override
 		public boolean select(org.eclipse.jface.viewers.Viewer viewer, Object parentElement, Object element) {
 			if (element instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) element;
@@ -48,12 +48,12 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		
 		private static final long serialVersionUID = 1L;
 		
-		@Override		
+		@Override
 		protected boolean haveEqualReference(org.eclipse.emf.ecore.EObject eObject1, org.eclipse.emf.ecore.EObject eObject2, org.eclipse.emf.ecore.EReference reference) {
 			return true;
 		}
 		
-		@Override		
+		@Override
 		protected boolean equalFeatureMaps(org.eclipse.emf.ecore.util.FeatureMap featureMap1, org.eclipse.emf.ecore.util.FeatureMap featureMap2) {
 			return true;
 		}

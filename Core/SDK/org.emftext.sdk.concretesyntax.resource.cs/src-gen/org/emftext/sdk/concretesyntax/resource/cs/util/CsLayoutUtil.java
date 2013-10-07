@@ -56,7 +56,7 @@ public class CsLayoutUtil {
 			if (layoutReference != null) {
 				org.eclipse.emf.ecore.EObject layoutInformationModelElement = createLayoutInformationModelElement(layoutInformation, layoutReference.getEType().getEPackage());
 				if (layoutInformationModelElement != null) {
-					@SuppressWarnings("unchecked")					
+					@SuppressWarnings("unchecked")
 					java.util.List<org.eclipse.emf.ecore.EObject> list = (java.util.List<org.eclipse.emf.ecore.EObject>) element.eGet(layoutReference);
 					list.add(layoutInformationModelElement);
 					i.remove();
@@ -69,7 +69,7 @@ public class CsLayoutUtil {
 		org.eclipse.emf.ecore.EReference layoutReference = findLayoutReference(element.eClass());
 		if (layoutReference != null) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLayoutInformationAdapter layoutInformationAdapter = getLayoutInformationAdapter(element);
-			@SuppressWarnings("unchecked")			
+			@SuppressWarnings("unchecked")
 			java.util.List<org.eclipse.emf.ecore.EObject> list = (java.util.List<org.eclipse.emf.ecore.EObject>) element.eGet(layoutReference);
 			for (java.util.Iterator<org.eclipse.emf.ecore.EObject> i = list.iterator(); i.hasNext(); ) {
 				org.eclipse.emf.ecore.EObject layoutModelElement = i.next();

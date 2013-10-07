@@ -40,7 +40,7 @@ public class CsPair<T1, T2> {
 		return right;
 	}
 	
-	@Override	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -49,7 +49,7 @@ public class CsPair<T1, T2> {
 		return result;
 	}
 	
-	@Override	
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
