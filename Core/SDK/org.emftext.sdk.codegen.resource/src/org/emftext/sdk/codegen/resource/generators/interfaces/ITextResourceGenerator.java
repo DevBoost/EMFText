@@ -91,14 +91,14 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, String id, " + E_OBJECT + " proxyElement, int position);");
 		sc.addLineBreak();
 		
-		sc.add("@Deprecated").addLineBreak();
+		sc.add("@Deprecated");
 		sc.add("public void addWarning(String message, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
 		sc.addJavadoc("Attaches a warning with the given message to object 'cause'.");
 		sc.add("public void addWarning(String message, " + eProblemTypeClassName + " type, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
 		
-		sc.add("@Deprecated").addLineBreak();
+		sc.add("@Deprecated");
 		sc.add("public void addError(String message, " + E_OBJECT + " cause);");
 		sc.addLineBreak();
 		sc.addJavadoc("Attaches an error with the given message to object 'cause'.");

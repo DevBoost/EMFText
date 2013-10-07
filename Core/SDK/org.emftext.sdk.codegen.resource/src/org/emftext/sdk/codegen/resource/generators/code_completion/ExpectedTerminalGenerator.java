@@ -138,7 +138,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 	
 	private void addHashCodeMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public int hashCode() {");
 		sc.add("final int prime = 31;");
 		sc.add("int result = 1;");

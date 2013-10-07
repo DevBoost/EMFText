@@ -244,7 +244,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addCreateDynamicProxyMethod(JavaComposite sc) {
 		sc.addJavadoc("Creates a dynamic Java proxy that mimics the interface of the given class.");
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public <T> T createDynamicProxy(Class<T> clazz) {");
 		sc.add("Object proxy = " + PROXY + ".newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{clazz, " + E_OBJECT + ".class, " + INTERNAL_E_OBJECT + ".class}, new " + INVOCATION_HANDLER + "() {");
 		sc.addLineBreak();

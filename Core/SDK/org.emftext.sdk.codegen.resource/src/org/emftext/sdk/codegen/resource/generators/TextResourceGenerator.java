@@ -452,7 +452,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAddErrorMethod1(StringComposite sc) {
-		sc.add("@Deprecated").addLineBreak();
+		sc.add("@Deprecated");
 		sc.add("public void addError(String message, " + E_OBJECT + " cause) {");
 		sc.add("addError(message, " + eProblemTypeClassName
 				+ ".UNKNOWN, cause);");
@@ -470,7 +470,7 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAddWarningMethod1(StringComposite sc) {
-		sc.add("@Deprecated").addLineBreak();
+		sc.add("@Deprecated");
 		sc.add("public void addWarning(String message, " + E_OBJECT
 				+ " cause) {");
 		sc.add("addWarning(message, " + eProblemTypeClassName

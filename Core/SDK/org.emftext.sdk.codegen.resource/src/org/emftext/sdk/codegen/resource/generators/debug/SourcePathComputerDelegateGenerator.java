@@ -51,7 +51,7 @@ public class SourcePathComputerDelegateGenerator extends JavaBaseGenerator<Artif
 		sc.add("public " + I_SOURCE_CONTAINER + "[] computeSourceContainers(" + I_LAUNCH_CONFIGURATION + " configuration, " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
 		sc.add("return new " + I_SOURCE_CONTAINER + "[] {new " + I_SOURCE_CONTAINER + "() {");
 		sc.addLineBreak();
-		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"rawtypes\")");
 		sc.add("public Object getAdapter(Class adapter) {");
 		sc.add("return null;");
 		sc.add("}");

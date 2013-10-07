@@ -66,12 +66,12 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		sc.add("private static final long serialVersionUID = 1L;");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("protected boolean haveEqualReference(" + E_OBJECT + " eObject1, " + E_OBJECT + " eObject2, " + E_REFERENCE + " reference) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("protected boolean equalFeatureMaps(" + FEATURE_MAP + " featureMap1, " + FEATURE_MAP + " featureMap2) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -99,7 +99,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		sc.add("private " +  sc.declareLinkedHashSet("filteredTypes", E_CLASS));
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public boolean select(" + VIEWER + " viewer, Object parentElement, Object element) {");
 		sc.add("if (element instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") element;");

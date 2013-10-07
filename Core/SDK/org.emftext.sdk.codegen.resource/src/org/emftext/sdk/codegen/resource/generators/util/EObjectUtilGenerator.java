@@ -87,7 +87,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"Checks whether the given object has an EAdapter that is an instance of " +
 			"the given class. If one is found, it is returned, otherwise the result is null."
 		);
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public static <T> T getEAdapter(" + E_OBJECT + " object, Class<T> clazz) {");
 		sc.add(LIST + "<" + ADAPTER + "> eAdapters = object.eAdapters();");
 		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
@@ -148,7 +148,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("while (iterator.hasNext()) {");
 		sc.add("Object object = iterator.next();");
 		sc.add("if (type.isInstance(object)) {");
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("T t = (T) object;");
 		sc.add("result.add(t);");
 		sc.add("}");
@@ -159,7 +159,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addSetFeatureMethod(StringComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public static void setFeature(" + E_OBJECT + " object, " + E_STRUCTURAL_FEATURE + " eFeature, Object value, boolean clearIfList) {");
 		sc.add("int upperBound = eFeature.getUpperBound();");
 		sc.add("if (upperBound > 1 || upperBound < 0) {");
@@ -182,7 +182,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addFindRootContainerMethod(JavaComposite sc) {
 		sc.addJavadoc("Use EcoreUtil.getRootContainer() instead.");
-		sc.add("@Deprecated").addLineBreak();
+		sc.add("@Deprecated");
 		sc.add("public static " + E_OBJECT + " findRootContainer(" + E_OBJECT + " object) {");
 		sc.add(E_OBJECT + " container = object.eContainer();");
 		sc.add("if (container != null) {");

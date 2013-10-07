@@ -80,7 +80,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public " + getResourceClassName() + "(" + E_LIST + "<E> original) {");
 		sc.add("super();");
 		sc.add("this.original = original;");

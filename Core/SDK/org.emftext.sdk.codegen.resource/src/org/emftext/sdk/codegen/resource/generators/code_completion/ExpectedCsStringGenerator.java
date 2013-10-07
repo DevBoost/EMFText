@@ -75,7 +75,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addHashCodeMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public int hashCode() {");
 		sc.add("return getValue().hashCode();");
 		sc.add("}");

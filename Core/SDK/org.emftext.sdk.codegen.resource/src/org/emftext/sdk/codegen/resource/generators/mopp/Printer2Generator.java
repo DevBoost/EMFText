@@ -761,7 +761,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addInitializePrintCountingMapMethod(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public PrintCountingMap initializePrintCountingMap(" + E_OBJECT + " eObject) {");
 		sc.addComment(
 			"The PrintCountingMap contains a mapping from feature names to " +
@@ -892,7 +892,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 	}
 
 	private void addPrintReferenceMethod(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public void printReference(" + E_OBJECT + " eObject, " + E_REFERENCE + " reference, " + placeholderClassName + " placeholder, int index, " + LIST + "<" + formattingElementClassName + "> foundFormattingElements, " + LIST + "<" + layoutInformationClassName + "> layoutInformations) {");
 		sc.add("String tokenName = placeholder.getTokenName();");
 		sc.add("Object referencedObject = " + eObjectUtilClassName + ".getFeatureValue(eObject, reference, index, false);");
@@ -908,7 +908,7 @@ public class Printer2Generator extends AbstractPrinterGenerator {
 			"usually depends on attribute values of the referenced object instead of the " +
 			"object itself."
 		);
-		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"rawtypes\")");
 		sc.add(iReferenceResolverClassName + " referenceResolver = getReferenceResolverSwitch().getResolver(reference);");
 		sc.add("referenceResolver.setOptions(getOptions());");
 		

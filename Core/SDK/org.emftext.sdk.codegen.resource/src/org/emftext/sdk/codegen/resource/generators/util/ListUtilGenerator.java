@@ -38,7 +38,7 @@ public class ListUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public static <T> " + LIST + "<T> castListUnchecked(Object list) {");
 		sc.add("return (" + LIST + "<T>) list;");
 		sc.add("}");

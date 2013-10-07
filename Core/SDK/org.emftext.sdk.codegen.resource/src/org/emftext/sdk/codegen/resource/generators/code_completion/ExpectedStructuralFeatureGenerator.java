@@ -75,7 +75,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 	}
 
 	private void addHashCodeMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public int hashCode() {");
 		sc.add("return getFeature().hashCode();");
 		sc.add("}");

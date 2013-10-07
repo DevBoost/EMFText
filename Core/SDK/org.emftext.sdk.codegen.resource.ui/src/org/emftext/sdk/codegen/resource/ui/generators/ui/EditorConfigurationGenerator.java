@@ -33,7 +33,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 			sourceViewerConfigurationClassName + ". This class is only " +
 			"generated to avoid compile errors with existing versions of this " +
 			"class.");
-		sc.add("@Deprecated").addLineBreak();
+		sc.add("@Deprecated");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("}");

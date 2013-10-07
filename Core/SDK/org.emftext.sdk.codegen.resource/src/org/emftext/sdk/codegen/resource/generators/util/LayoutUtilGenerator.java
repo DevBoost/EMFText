@@ -112,7 +112,7 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("if (layoutReference != null) {");
 		sc.add(E_OBJECT + " layoutInformationModelElement = createLayoutInformationModelElement(layoutInformation, layoutReference.getEType().getEPackage());");
 		sc.add("if (layoutInformationModelElement != null) {");
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add(LIST + "<" + E_OBJECT + "> list = (" + LIST + "<" + E_OBJECT + ">) element.eGet(layoutReference);");
 		sc.add("list.add(layoutInformationModelElement);");
 		sc.add("i.remove();");
@@ -128,7 +128,7 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add(E_REFERENCE + " layoutReference = findLayoutReference(element.eClass());");
 		sc.add("if (layoutReference != null) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add(LIST + "<" + E_OBJECT + "> list = (" + LIST + "<" + E_OBJECT + ">) element.eGet(layoutReference);");
 		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> i = list.iterator(); i.hasNext(); ) {");
 		sc.add(E_OBJECT + " layoutModelElement = i.next();");

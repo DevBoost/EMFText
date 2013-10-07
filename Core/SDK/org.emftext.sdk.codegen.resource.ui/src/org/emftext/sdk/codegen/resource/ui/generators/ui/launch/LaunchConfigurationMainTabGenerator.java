@@ -118,7 +118,7 @@ public class LaunchConfigurationMainTabGenerator extends UIJavaBaseGenerator<Art
 		sc.add("dialog.setInput(" + RESOURCES_PLUGIN + ".getWorkspace().getRoot());");
 		sc.add("dialog.addFilter(new " + VIEWER_FILTER + "() {");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public boolean select(" + VIEWER +" viewer, Object parentElement, Object element) {");
 		sc.add("if (element instanceof " + I_FILE + ") {");
 		sc.add(I_FILE + " file = (" + I_FILE + ") element;");
@@ -147,7 +147,7 @@ public class LaunchConfigurationMainTabGenerator extends UIJavaBaseGenerator<Art
 	}
 
 	private void addGetImageMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public " + IMAGE + " getImage() {");
 		sc.add("return " + imageProviderClassName + ".INSTANCE.getImage(\"" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.Icon.DEFAULT_LAUNCH_TAB_MAIN_ICON.getFilename() + "\");");
 		sc.add("}");

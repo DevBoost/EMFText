@@ -145,7 +145,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addGetResolverChainMethod(JavaComposite sc) {
-		sc.add("@SuppressWarnings({\"rawtypes\", \"unchecked\"})").addLineBreak();
+		sc.add("@SuppressWarnings({\"rawtypes\", \"unchecked\"})");
 		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> " + iReferenceResolverClassName + "<ContainerType, ReferenceType> getResolverChain(" + E_STRUCTURAL_FEATURE + " reference, " + iReferenceResolverClassName + "<ContainerType, ReferenceType> originalResolver) {");
 		sc.add("if (options == null) {");
 		sc.add("return originalResolver;");

@@ -152,7 +152,7 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 	private void addSystemOutInterpreterClass(JavaComposite sc) {
 		sc.add("public static class SystemOutInterpreter extends " + abstractInterpreterClassName + "<Void,Void> {");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public Void interprete(" + E_OBJECT + " object, Void context) {");
 		sc.add("System.out.println(\"Found \" + object + \", but don't know what to do with it.\");");
 		sc.add("return null;");

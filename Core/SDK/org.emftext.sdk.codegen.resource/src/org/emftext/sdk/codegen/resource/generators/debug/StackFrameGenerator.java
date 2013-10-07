@@ -289,7 +289,7 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addHashCodeMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public int hashCode() {");
 		sc.add("final int prime = 31;");
 		sc.add("int result = 1;");
@@ -302,7 +302,7 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addEqualsMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public boolean equals(Object obj) {");
 		sc.add("if (this == obj)");
 		sc.add("return true;");

@@ -328,7 +328,7 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addCreateContentsMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
 		sc.addLineBreak();
 		sc.addComment("outer Composite");

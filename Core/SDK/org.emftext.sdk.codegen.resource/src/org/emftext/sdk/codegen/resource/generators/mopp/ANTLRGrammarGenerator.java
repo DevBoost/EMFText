@@ -302,7 +302,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addReportErrorMethod(ANTLRGrammarComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " re) {");
 		sc.add("addErrorToResource(syntaxErrorMessageConverter.translateParseError(re));");
 		sc.add("}");

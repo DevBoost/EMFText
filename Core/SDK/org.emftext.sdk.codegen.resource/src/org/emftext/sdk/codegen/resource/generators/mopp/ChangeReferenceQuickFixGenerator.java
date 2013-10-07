@@ -66,7 +66,7 @@ public class ChangeReferenceQuickFixGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addApplyChangesMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public void applyChanges() {");
 		sc.add(ECORE_UTIL + ".replace(container, reference, oldTarget, newTarget);");
 		sc.add("}");

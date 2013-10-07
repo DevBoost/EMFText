@@ -82,7 +82,7 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 			"@param value the object to cast",
 			"@return the same object casted to a map"
 		);
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public static " + MAP + "<Object, Object> castToMap(Object value) {");
 		sc.add("return (" + MAP + "<Object,Object>) value;");
 		sc.add("}");

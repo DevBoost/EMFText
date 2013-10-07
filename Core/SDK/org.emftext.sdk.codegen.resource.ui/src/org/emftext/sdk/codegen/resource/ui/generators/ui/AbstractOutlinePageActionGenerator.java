@@ -92,7 +92,7 @@ public class AbstractOutlinePageActionGenerator extends UIJavaBaseGenerator<Arti
 	}
 
 	private void addRunMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public void run() {");
 		sc.add("if (keepState()) {");
 		sc.add("valueChanged(isChecked(), true);");

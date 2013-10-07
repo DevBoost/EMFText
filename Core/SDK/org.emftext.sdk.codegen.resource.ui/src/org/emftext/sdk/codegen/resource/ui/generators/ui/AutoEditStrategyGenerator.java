@@ -60,7 +60,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		
 		sc.addJavadoc("This method is only used for injecting a bracket set during tests.");
-		sc.add("@Deprecated").addLineBreak();
+		sc.add("@Deprecated");
 		sc.add("public void setBracketSet(" + bracketSetClassName + " bracketSet) {");
 		sc.add("this.bracketSet = bracketSet;");
 		sc.add("}");

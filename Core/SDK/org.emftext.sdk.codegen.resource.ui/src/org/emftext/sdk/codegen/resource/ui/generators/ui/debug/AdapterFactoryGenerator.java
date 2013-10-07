@@ -45,7 +45,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		}
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("@SuppressWarnings(\"restriction\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"restriction\")");
 		sc.add("public class " + getResourceClassName() + " implements " + I_ADAPTER_FACTORY + " {");
 		sc.addLineBreak();
 		addMethods(sc);
@@ -58,7 +58,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetAdapterMethod(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"rawtypes\")");
 		sc.add("public Object getAdapter(Object adaptableObject, Class adapterType) {");
 		sc.add("if (adaptableObject instanceof " + I_TEXT_EDITOR + ") {");
 		sc.add(I_TEXT_EDITOR + " editorPart = (" + I_TEXT_EDITOR + ") adaptableObject;");
@@ -144,7 +144,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetAdapterListMethod(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"rawtypes\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"rawtypes\")");
 		sc.add("public Class[] getAdapterList() {");
 		sc.add("return new Class[] {" + I_TOGGLE_BREAKPOINTS_TARGET + ".class};");
 		sc.add("}");

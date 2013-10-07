@@ -131,7 +131,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		sc.add(I_RECONCILING_STRATEGY + " strategy = new " + SPELLING_RECONCILE_STRATEGY + "(sourceViewer, spellingService) {");
 		sc.addLineBreak();
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("protected " + I_SPELLING_PROBLEM_COLLECTOR + " createSpellingProblemCollector() {");
 		sc.add("final " + I_SPELLING_PROBLEM_COLLECTOR + " collector = super.createSpellingProblemCollector();");
 		sc.addLineBreak();

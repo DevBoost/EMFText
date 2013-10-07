@@ -35,7 +35,7 @@ public class CastUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public static <T> T cast(Object temp) {");
 		sc.add("return (T) temp;");
 		sc.add("}");

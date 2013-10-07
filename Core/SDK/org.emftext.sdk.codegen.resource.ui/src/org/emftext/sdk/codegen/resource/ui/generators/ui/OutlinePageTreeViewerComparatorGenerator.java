@@ -77,7 +77,7 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 	}
 
 	private void addCategoryMethod(JavaComposite sc) {
-		sc.add("@Override").addLineBreak();
+		sc.add("@Override");
 		sc.add("public int category(Object element) {");
 		sc.add("if (!groupTypes) {");
 		sc.add("return 0;");
