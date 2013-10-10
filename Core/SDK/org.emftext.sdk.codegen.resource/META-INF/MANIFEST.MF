@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Resource
+Bundle-Name: EMFText SDK Code Generators for Text Resources
 Bundle-SymbolicName: org.emftext.sdk.codegen.resource
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.emftext.sdk.codegen.resource,
