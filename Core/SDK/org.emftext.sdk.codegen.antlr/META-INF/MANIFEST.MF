@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Antlr
+Bundle-Name: EMFText SDK Code Generators for ANTLR Runtime
 Bundle-SymbolicName: org.emftext.sdk.codegen.antlr
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
