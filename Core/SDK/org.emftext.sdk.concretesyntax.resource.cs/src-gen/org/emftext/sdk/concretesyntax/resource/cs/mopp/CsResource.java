@@ -774,6 +774,18 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsCopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getErrors());
 	}
 	
+	/**
+	 * Returns true if errors are associated with this resource.
+	 */
+	public boolean hasErrors() {
+		// We use the method of the super class to avoid copying the list of errors which
+		// is done by getErrors() in this class. Creating a copy is not required to check
+		// whether the list of errors is empty and moreover it did cause race conditions
+		// in the editor that led to ArrayIndexOutOfBoundsExceptions while copying the
+		// error list.
+		return !super.getErrors().isEmpty();
+	}
+	
 	protected void runValidators(org.eclipse.emf.ecore.EObject root) {
 		// checking constraints provided by EMF validator classes was disabled by option
 		// 'disableEValidators'.

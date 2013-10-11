@@ -354,13 +354,12 @@ public class CsCodeFoldingManager {
 	}
 	
 	protected void calculatePositions() {
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) editor.getResource();
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource) editor.getResource();
 		org.eclipse.jface.text.IDocument document = sourceViewer.getDocument();
 		if (textResource == null || document == null) {
 			return;
 		}
-		org.eclipse.emf.common.util.EList<?> errorList = textResource.getErrors();
-		if (errorList != null && errorList.size() > 0) {
+		if (textResource.hasErrors()) {
 			return;
 		}
 		final java.util.List<org.eclipse.jface.text.Position> positions = new java.util.ArrayList<org.eclipse.jface.text.Position>();
