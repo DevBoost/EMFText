@@ -154,6 +154,7 @@ public class TextResourceGenerator extends
 		addGetContentsInternalMethod(sc);
 		addGetWarningsMethod(sc);
 		addGetErrorsMethod(sc);
+		addHasErrorsMethod(sc);
 		addRunValidatorsMethods(sc);
 		addGetQuickFixMethod(sc);
 
@@ -1282,6 +1283,21 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC
 				+ ">(super.getErrors());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addHasErrorsMethod(JavaComposite sc) {
+		sc.addJavadoc("Returns true if errors are associated with this resource.");
+		sc.add("public boolean hasErrors() {");
+		sc.addComment(
+			"We use the method of the super class to avoid copying the list " +
+			"of errors which is done by getErrors() in this class. Creating a " +
+			"copy is not required to check whether the list of errors is " +
+			"empty and moreover it did cause race conditions in the editor " +
+			"that led to ArrayIndexOutOfBoundsExceptions while copying the " +
+			"error list.");
+		sc.add("return !super.getErrors().isEmpty();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

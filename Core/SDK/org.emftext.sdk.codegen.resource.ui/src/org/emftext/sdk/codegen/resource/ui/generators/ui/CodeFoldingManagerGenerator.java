@@ -22,7 +22,6 @@ import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUFFERED
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_INPUT_STREAM;
@@ -151,13 +150,12 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 
 	private void addCalculatePositionsMethod(StringComposite sc) {
 		sc.add("protected void calculatePositions() {");
-		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") editor.getResource();");
+		sc.add(textResourceClassName + " textResource = (" + textResourceClassName + ") editor.getResource();");
 		sc.add(I_DOCUMENT + " document = sourceViewer.getDocument();");
 		sc.add("if (textResource == null || document == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(E_LIST + "<?> errorList = textResource.getErrors();");
-		sc.add("if (errorList != null && errorList.size() > 0) {");
+		sc.add("if (textResource.hasErrors()) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("final " + LIST + "<" + POSITION + "> positions = new " + ARRAY_LIST + "<" + POSITION + ">();");
