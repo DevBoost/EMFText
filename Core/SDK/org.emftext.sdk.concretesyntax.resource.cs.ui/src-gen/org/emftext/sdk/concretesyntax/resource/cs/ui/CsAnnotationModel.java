@@ -16,13 +16,18 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-public class CsAnnotationModel extends org.eclipse.ui.texteditor.ResourceMarkerAnnotationModel {
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.ui.texteditor.MarkerAnnotation;
+import org.eclipse.ui.texteditor.ResourceMarkerAnnotationModel;
+
+public class CsAnnotationModel extends ResourceMarkerAnnotationModel {
 	
-	public CsAnnotationModel(org.eclipse.core.resources.IResource resource) {
+	public CsAnnotationModel(IResource resource) {
 		super(resource);
 	}
 	
-	protected org.eclipse.ui.texteditor.MarkerAnnotation createMarkerAnnotation(org.eclipse.core.resources.IMarker marker) {
+	protected MarkerAnnotation createMarkerAnnotation(IMarker marker) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerAnnotation(marker);
 	}
 	

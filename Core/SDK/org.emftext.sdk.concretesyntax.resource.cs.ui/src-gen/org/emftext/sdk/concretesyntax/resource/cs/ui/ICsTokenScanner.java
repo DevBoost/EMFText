@@ -16,7 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-public interface ICsTokenScanner extends org.eclipse.jface.text.rules.ITokenScanner {
+import org.eclipse.jface.text.rules.ITokenScanner;
+
+public interface ICsTokenScanner extends ITokenScanner {
 	
 	public String getTokenText();
 	

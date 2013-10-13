@@ -16,6 +16,11 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.BadPositionCategoryException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.Position;
+
 /**
  * A helper class to add, get or remove positions with a specific category in a
  * document.
@@ -30,18 +35,18 @@ public class CsPositionHelper {
 	 * @param offset the offset of the position
 	 * @param length the length of the position
 	 */
-	public void addPosition(org.eclipse.jface.text.IDocument document, String category, int offset, int length) {
+	public void addPosition(IDocument document, String category, int offset, int length) {
 		try {
 			document.addPositionCategory(category);
-			org.eclipse.jface.text.Position position = new org.eclipse.jface.text.Position(offset, length);
+			Position position = new Position(offset, length);
 			document.addPosition(category, position);
-		} catch (org.eclipse.jface.text.BadLocationException e) {
-		} catch (org.eclipse.jface.text.BadPositionCategoryException e) {
+		} catch (BadLocationException e) {
+		} catch (BadPositionCategoryException e) {
 		}
 	}
 	
-	public org.eclipse.jface.text.Position createPosition(int offset, int length) {
-		return new org.eclipse.jface.text.Position(offset, length);
+	public Position createPosition(int offset, int length) {
+		return new Position(offset, length);
 	}
 	
 	/**
@@ -53,12 +58,12 @@ public class CsPositionHelper {
 	 * @return an array of positions. If there is none return an array with the length
 	 * = 0
 	 */
-	public org.eclipse.jface.text.Position[] getPositions(org.eclipse.jface.text.IDocument document, String category) {
+	public Position[] getPositions(IDocument document, String category) {
 		try {
 			return document.getPositions(category);
-		} catch (org.eclipse.jface.text.BadPositionCategoryException e) {
+		} catch (BadPositionCategoryException e) {
 		}
-		return new org.eclipse.jface.text.Position[0];
+		return new Position[0];
 	}
 	
 	/**
@@ -69,13 +74,13 @@ public class CsPositionHelper {
 	 * 
 	 * @return a position. If there is none return <code>null</code>.
 	 */
-	public org.eclipse.jface.text.Position getFirstPosition(org.eclipse.jface.text.IDocument document, String category) {
+	public Position getFirstPosition(IDocument document, String category) {
 		try {
-			org.eclipse.jface.text.Position[] positions = document.getPositions(category);
+			Position[] positions = document.getPositions(category);
 			if (positions.length > 0) {
 				return positions[0];
 			}
-		} catch (org.eclipse.jface.text.BadPositionCategoryException e) {
+		} catch (BadPositionCategoryException e) {
 		}
 		return null;
 	}
@@ -87,10 +92,10 @@ public class CsPositionHelper {
 	 * @param document the document contains the category
 	 * @param category the category to be removed
 	 */
-	public void removePositions(org.eclipse.jface.text.IDocument document, String category) {
+	public void removePositions(IDocument document, String category) {
 		try {
 			document.removePositionCategory(category);
-		} catch (org.eclipse.jface.text.BadPositionCategoryException e) {
+		} catch (BadPositionCategoryException e) {
 		}
 	}
 }

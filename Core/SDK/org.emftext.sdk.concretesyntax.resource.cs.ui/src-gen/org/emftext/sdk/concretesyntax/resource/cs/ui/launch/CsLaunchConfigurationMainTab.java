@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui.launch;
 
+
 /**
  * A class that provides the main tab to parameterize launch configurations
  * (currently disabled).

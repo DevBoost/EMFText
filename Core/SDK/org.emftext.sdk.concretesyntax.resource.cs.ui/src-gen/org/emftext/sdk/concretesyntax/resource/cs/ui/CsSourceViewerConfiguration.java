@@ -16,11 +16,39 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IAutoEditStrategy;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextHover;
+import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.IContentAssistant;
+import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
+import org.eclipse.jface.text.presentation.IPresentationReconciler;
+import org.eclipse.jface.text.presentation.PresentationReconciler;
+import org.eclipse.jface.text.quickassist.IQuickAssistAssistant;
+import org.eclipse.jface.text.reconciler.IReconciler;
+import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
+import org.eclipse.jface.text.reconciler.MonoReconciler;
+import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
+import org.eclipse.jface.text.rules.ITokenScanner;
+import org.eclipse.jface.text.source.DefaultAnnotationHover;
+import org.eclipse.jface.text.source.IAnnotationHover;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector;
+import org.eclipse.ui.texteditor.spelling.SpellingProblem;
+import org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy;
+import org.eclipse.ui.texteditor.spelling.SpellingService;
+
 /**
  * This class provides the configuration for the generated editor. It registers
  * content assistance and syntax highlighting.
  */
-public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.TextSourceViewerConfiguration {
+public class CsSourceViewerConfiguration extends TextSourceViewerConfiguration {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
@@ -36,9 +64,9 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 	 */
 	public CsSourceViewerConfiguration(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
 		super(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
-		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.spelling.SpellingService.PREFERENCE_SPELLING_ENABLED, true);
-		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH, 4);
-		this.fPreferenceStore.setDefault(org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants.EDITOR_HYPERLINK_KEY_MODIFIER, org.eclipse.jface.action.Action.findModifierString(org.eclipse.swt.SWT.MOD1));
+		this.fPreferenceStore.setDefault(SpellingService.PREFERENCE_SPELLING_ENABLED, true);
+		this.fPreferenceStore.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH, 4);
+		this.fPreferenceStore.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_HYPERLINK_KEY_MODIFIER, Action.findModifierString(SWT.MOD1));
 		this.resourceProvider = resourceProvider;
 		this.annotationModelProvider = annotationModelProvider;
 		this.colorManager = colorManager;
@@ -48,96 +76,96 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 	 * Returns an instance of class
 	 * org.emftext.sdk.concretesyntax.resource.cs.ui.CsAutoEditStrategy.
 	 */
-	public org.eclipse.jface.text.IAutoEditStrategy[] getAutoEditStrategies(org.eclipse.jface.text.source.ISourceViewer sourceViewer, String contentType) {
-		return new org.eclipse.jface.text.IAutoEditStrategy[] {new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAutoEditStrategy()};
+	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType) {
+		return new IAutoEditStrategy[] {new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAutoEditStrategy()};
 	}
 	
-	public org.eclipse.jface.text.contentassist.IContentAssistant getContentAssistant(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+	public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
 		
-		org.eclipse.jface.text.contentassist.ContentAssistant assistant = new org.eclipse.jface.text.contentassist.ContentAssistant();
-		assistant.setContentAssistProcessor(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProcessor(resourceProvider), org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE);
+		ContentAssistant assistant = new ContentAssistant();
+		assistant.setContentAssistProcessor(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProcessor(resourceProvider), IDocument.DEFAULT_CONTENT_TYPE);
 		assistant.enableAutoActivation(true);
 		assistant.setAutoActivationDelay(500);
-		assistant.setProposalPopupOrientation(org.eclipse.jface.text.contentassist.IContentAssistant.PROPOSAL_OVERLAY);
-		assistant.setContextInformationPopupOrientation(org.eclipse.jface.text.contentassist.IContentAssistant.CONTEXT_INFO_ABOVE);
+		assistant.setProposalPopupOrientation(IContentAssistant.PROPOSAL_OVERLAY);
+		assistant.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
 		
 		return assistant;
 	}
 	
-	public String[] getConfiguredContentTypes(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
-			org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE,
+			IDocument.DEFAULT_CONTENT_TYPE,
 		};
 	}
 	
-	protected org.eclipse.jface.text.rules.ITokenScanner getScanner() {
+	protected ITokenScanner getScanner() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().createTokenScanner(resourceProvider.getResource(), colorManager);
 	}
 	
-	public org.eclipse.jface.text.presentation.IPresentationReconciler getPresentationReconciler(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
 		
-		org.eclipse.jface.text.presentation.PresentationReconciler reconciler = new org.eclipse.jface.text.presentation.PresentationReconciler();
-		org.eclipse.jface.text.rules.DefaultDamagerRepairer repairer = new org.eclipse.jface.text.rules.DefaultDamagerRepairer(getScanner());
-		reconciler.setDamager(repairer, org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE);
-		reconciler.setRepairer(repairer, org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE);
+		PresentationReconciler reconciler = new PresentationReconciler();
+		DefaultDamagerRepairer repairer = new DefaultDamagerRepairer(getScanner());
+		reconciler.setDamager(repairer, IDocument.DEFAULT_CONTENT_TYPE);
+		reconciler.setRepairer(repairer, IDocument.DEFAULT_CONTENT_TYPE);
 		
 		return reconciler;
 	}
 	
-	public org.eclipse.jface.text.source.IAnnotationHover getAnnotationHover(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
-		return new org.eclipse.jface.text.source.DefaultAnnotationHover();
+	public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
+		return new DefaultAnnotationHover();
 	}
 	
-	public org.eclipse.jface.text.ITextHover getTextHover(org.eclipse.jface.text.source.ISourceViewer sourceViewer, String contentType) {
+	public ITextHover getTextHover(ISourceViewer sourceViewer, String contentType) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTextHover(resourceProvider);
 	}
 	
-	public org.eclipse.jface.text.hyperlink.IHyperlinkDetector[] getHyperlinkDetectors(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+	public IHyperlinkDetector[] getHyperlinkDetectors(ISourceViewer sourceViewer) {
 		if (sourceViewer == null) {
 			return null;
 		}
-		return new org.eclipse.jface.text.hyperlink.IHyperlinkDetector[] { new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHyperlinkDetector(resourceProvider.getResource()) };
+		return new IHyperlinkDetector[] { new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHyperlinkDetector(resourceProvider.getResource()) };
 	}
 	
-	public org.eclipse.jface.text.quickassist.IQuickAssistAssistant getQuickAssistAssistant(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
+	public IQuickAssistAssistant getQuickAssistAssistant(ISourceViewer sourceViewer) {
 		if (quickAssistAssistant == null) {
 			quickAssistAssistant = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistAssistant(resourceProvider, annotationModelProvider);
 		}
 		return quickAssistAssistant;
 	}
 	
-	public org.eclipse.jface.text.reconciler.IReconciler getReconciler(final org.eclipse.jface.text.source.ISourceViewer sourceViewer) {
-		if (fPreferenceStore == null || !fPreferenceStore.getBoolean(org.eclipse.ui.texteditor.spelling.SpellingService.PREFERENCE_SPELLING_ENABLED)) {
+	public IReconciler getReconciler(final ISourceViewer sourceViewer) {
+		if (fPreferenceStore == null || !fPreferenceStore.getBoolean(SpellingService.PREFERENCE_SPELLING_ENABLED)) {
 			return null;
 		}
 		
-		org.eclipse.ui.texteditor.spelling.SpellingService spellingService = org.eclipse.ui.editors.text.EditorsUI.getSpellingService();
+		SpellingService spellingService = EditorsUI.getSpellingService();
 		if (spellingService.getActiveSpellingEngineDescriptor(fPreferenceStore) == null) {
 			return null;
 		}
 		
-		org.eclipse.jface.text.reconciler.IReconcilingStrategy strategy = new org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy(sourceViewer, spellingService) {
+		IReconcilingStrategy strategy = new SpellingReconcileStrategy(sourceViewer, spellingService) {
 			
 			@Override
-			protected org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector createSpellingProblemCollector() {
-				final org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector collector = super.createSpellingProblemCollector();
+			protected ISpellingProblemCollector createSpellingProblemCollector() {
+				final ISpellingProblemCollector collector = super.createSpellingProblemCollector();
 				
-				return new org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector() {
+				return new ISpellingProblemCollector() {
 					
-					public void accept(org.eclipse.ui.texteditor.spelling.SpellingProblem problem) {
+					public void accept(SpellingProblem problem) {
 						int offset = problem.getOffset();
 						int length = problem.getLength();
 						if (sourceViewer == null) {
 							return;
 						}
-						org.eclipse.jface.text.IDocument document = sourceViewer.getDocument();
+						IDocument document = sourceViewer.getDocument();
 						if (document == null) {
 							return;
 						}
 						String text;
 						try {
 							text = document.get(offset, length);
-						} catch (org.eclipse.jface.text.BadLocationException e) {
+						} catch (BadLocationException e) {
 							return;
 						}
 						if (new org.emftext.sdk.concretesyntax.resource.cs.ui.CsIgnoredWordsFilter().ignoreWord(text)) {
@@ -157,14 +185,14 @@ public class CsSourceViewerConfiguration extends org.eclipse.ui.editors.text.Tex
 			}
 		};
 		
-		org.eclipse.jface.text.reconciler.MonoReconciler reconciler = new org.eclipse.jface.text.reconciler.MonoReconciler(strategy, false);
+		MonoReconciler reconciler = new MonoReconciler(strategy, false);
 		reconciler.setDelay(500);
 		return reconciler;
 	}
 	
 	@Override
 	
-	public String[] getDefaultPrefixes(org.eclipse.jface.text.source.ISourceViewer sourceViewer, String contentType) {
+	public String[] getDefaultPrefixes(ISourceViewer sourceViewer, String contentType) {
 		return new String[] { "//" };
 	}
 	

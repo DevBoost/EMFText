@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+
 /**
  * Provides input for the <code>TextHover</code>. The most is copied from
  * <code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocBrowserInformationContr
@@ -25,10 +28,10 @@ public class CsDocBrowserInformationControlInput {
 	
 	private final CsDocBrowserInformationControlInput fPrevious;
 	private CsDocBrowserInformationControlInput fNext;
-	private final org.eclipse.emf.ecore.EObject element;
+	private final EObject element;
 	private final String htmlContent;
 	private final String tokenText;
-	private final org.eclipse.emf.ecore.resource.Resource resource;
+	private final Resource resource;
 	
 	/**
 	 * Creates a new browser information control input.
@@ -37,7 +40,7 @@ public class CsDocBrowserInformationControlInput {
 	 * @param element the element, or <code>null</code> if none available
 	 * @param htmlContent HTML contents, must not be null
 	 */
-	public CsDocBrowserInformationControlInput(CsDocBrowserInformationControlInput previous, org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.resource.Resource resource, String htmlContent, String tokenText) {
+	public CsDocBrowserInformationControlInput(CsDocBrowserInformationControlInput previous, EObject element, Resource resource, String htmlContent, String tokenText) {
 		fPrevious= previous;
 		if (previous != null) {
 			previous.fNext= this;
@@ -71,7 +74,7 @@ public class CsDocBrowserInformationControlInput {
 	 * 
 	 * @return the resource
 	 */
-	public org.eclipse.emf.ecore.resource.Resource getResource() {
+	public Resource getResource() {
 		return resource;
 	}
 	

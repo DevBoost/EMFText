@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui.launch;
 
+
 /**
  * A class that converts the current selection or active editor to a launch
  * configuration (currently disabled).

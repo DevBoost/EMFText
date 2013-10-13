@@ -16,6 +16,32 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import org.eclipse.core.resources.ICommand;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SubProgressMonitor;
+import org.osgi.framework.Bundle;
+
 /**
  * This class is used to create an example project via the new dialog of Eclipse.
  * The contents of the example project are obtained from a ZIP file named
@@ -29,63 +55,63 @@ public class CsNewProjectWizardLogic {
 	 * Creates the example project by unzipping the contents of
 	 * <code>newProjectZip</code>.
 	 */
-	public void createExampleProject(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IPath projectPath, String projectName, String bundleName, String newProjectZip) throws InterruptedException {
+	public void createExampleProject(IProgressMonitor monitor, IPath projectPath, String projectName, String bundleName, String newProjectZip) throws InterruptedException {
 		try {
 			monitor.beginTask("Creating Example Project", 120);
 			
 			// Create the project folder
-			String projectFolder = projectPath.toOSString() + java.io.File.separator + projectName;
-			java.io.File projectFolderFile = new java.io.File(projectFolder);
+			String projectFolder = projectPath.toOSString() + File.separator + projectName;
+			File projectFolderFile = new File(projectFolder);
 			
-			org.eclipse.core.resources.IWorkspace workspace = org.eclipse.core.resources.ResourcesPlugin.getWorkspace();
-			org.eclipse.core.resources.IProject project = workspace.getRoot().getProject(projectName);
+			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			IProject project = workspace.getRoot().getProject(projectName);
 			
 			// If the project does not exist, we will create it and populate it.
 			if (!project.exists()) {
 				projectFolderFile.mkdirs();
 				monitor.worked(10);
 				
-				org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle(bundleName);
-				java.net.URL newProjectZipURL = bundle.getEntry(newProjectZip);
+				Bundle bundle = Platform.getBundle(bundleName);
+				URL newProjectZipURL = bundle.getEntry(newProjectZip);
 				
 				if (newProjectZipURL != null) {
 					// Copy plug-in project code
-					extractProject(projectFolderFile, newProjectZipURL, new org.eclipse.core.runtime.SubProgressMonitor(monitor, 100));
+					extractProject(projectFolderFile, newProjectZipURL, new SubProgressMonitor(monitor, 100));
 				}
 				
 				if (monitor.isCanceled()) {
 					throw new InterruptedException();
 				}
 				
-				org.eclipse.core.resources.IProjectDescription desc = workspace.newProjectDescription(project.getName());
+				IProjectDescription desc = workspace.newProjectDescription(project.getName());
 				if (!projectPath.equals(workspace.getRoot().getLocation())) {
-					desc.setLocation(new org.eclipse.core.runtime.Path(projectFolder));
+					desc.setLocation(new Path(projectFolder));
 				}
 				
 				String natureID = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNature.NATURE_ID;
-				java.util.List<org.eclipse.core.resources.ICommand> buildCommands = new java.util.ArrayList<org.eclipse.core.resources.ICommand>();
+				List<ICommand> buildCommands = new ArrayList<ICommand>();
 				for (String builderID : org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNature.BUILDER_IDS) {
-					org.eclipse.core.resources.ICommand command = desc.newCommand();
+					ICommand command = desc.newCommand();
 					command.setBuilderName(builderID);
 					buildCommands.add(command);
 				}
 				
 				desc.setNatureIds(new String[] {natureID});
-				desc.setBuildSpec(buildCommands.toArray(new org.eclipse.core.resources.ICommand[buildCommands.size()]));
+				desc.setBuildSpec(buildCommands.toArray(new ICommand[buildCommands.size()]));
 				project.create(desc, monitor);
 				// Now, we ensure that the project is open.
 				project.open(monitor);
 				renameProject(project, projectName);
 				
-				org.eclipse.core.resources.IFile defaultNewFile = project.getFile("NEW_FILE_PLACEHOLDER");
+				IFile defaultNewFile = project.getFile("NEW_FILE_PLACEHOLDER");
 				if (newProjectZipURL == null) {
-					defaultNewFile.create(new java.io.ByteArrayInputStream(new byte[0]), true, null);
+					defaultNewFile.create(new ByteArrayInputStream(new byte[0]), true, null);
 				}
 				if (defaultNewFile.exists()) {
 					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation info = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 					String fileName = "new_file." + info.getSyntaxName();
 					String content = info.getNewFileContentProvider().getNewFileContent("new_file." + info.getSyntaxName());
-					defaultNewFile.setContents(new java.io.ByteArrayInputStream(content.getBytes()), org.eclipse.core.resources.IFile.FORCE, null);
+					defaultNewFile.setContents(new ByteArrayInputStream(content.getBytes()), IFile.FORCE, null);
 					defaultNewFile.move(project.getProjectRelativePath().append(fileName), true, null);
 				}
 			}
@@ -95,9 +121,9 @@ public class CsNewProjectWizardLogic {
 				throw new InterruptedException();
 			}
 			
-		} catch (java.io.IOException e) {
+		} catch (IOException e) {
 			throw new RuntimeException(e);
-		} catch (org.eclipse.core.runtime.CoreException e) {
+		} catch (CoreException e) {
 			throw new RuntimeException(e);
 		} finally {
 			monitor.done();
@@ -110,16 +136,16 @@ public class CsNewProjectWizardLogic {
 	 * @param projectFolderFile The folder where to unzip the project archive
 	 * @param monitor Monitor to display progress and/or cancel operation
 	 * 
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 * 
 	 * @throws InterruptedException
 	 * 
 	 * @throws java.io.FileNotFoundException
 	 */
-	private void extractProject(java.io.File projectFolderFile, java.net.URL url, org.eclipse.core.runtime.IProgressMonitor monitor) throws java.io.FileNotFoundException, java.io.IOException, InterruptedException {
+	private void extractProject(File projectFolderFile, URL url, IProgressMonitor monitor) throws java.io.FileNotFoundException, IOException, InterruptedException {
 		
 		// Get project archive
-		java.net.URL urlZipLocal = org.eclipse.core.runtime.FileLocator.toFileURL(url);
+		URL urlZipLocal = org.eclipse.core.runtime.FileLocator.toFileURL(url);
 		
 		// Walk each element and unzip
 		java.util.zip.ZipFile zipFile = new java.util.zip.ZipFile(urlZipLocal.getPath());
@@ -142,38 +168,38 @@ public class CsNewProjectWizardLogic {
 	 * @param projectFolderFile The folder where to unzip the project archive
 	 * @param monitor Monitor to display progress and/or cancel operation
 	 * 
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 * 
 	 * @throws java.io.FileNotFoundException
 	 * 
 	 * @throws InterruptedException
 	 */
-	private void unzip(java.util.zip.ZipFile zipFile, java.io.File projectFolderFile, org.eclipse.core.runtime.IProgressMonitor monitor) throws java.io.IOException, java.io.FileNotFoundException, InterruptedException {
+	private void unzip(java.util.zip.ZipFile zipFile, File projectFolderFile, IProgressMonitor monitor) throws IOException, java.io.FileNotFoundException, InterruptedException {
 		
-		java.util.Enumeration<? extends java.util.zip.ZipEntry> e = zipFile.entries();
+		Enumeration<? extends java.util.zip.ZipEntry> e = zipFile.entries();
 		
 		while (e.hasMoreElements()) {
 			java.util.zip.ZipEntry zipEntry = (java.util.zip.ZipEntry) e.nextElement();
-			java.io.File file = new java.io.File(projectFolderFile, zipEntry.getName());
+			File file = new File(projectFolderFile, zipEntry.getName());
 			
 			if (zipEntry.isDirectory()) {
 				file.mkdirs();
 			} else {
 				
 				// Copy files (and make sure parent directory exist)
-				java.io.File parentFile = file.getParentFile();
+				File parentFile = file.getParentFile();
 				if (null != parentFile && false == parentFile.exists()) {
 					parentFile.mkdirs();
 				}
 				
-				org.eclipse.core.runtime.Path path = new org.eclipse.core.runtime.Path(file.getPath());
+				Path path = new Path(file.getPath());
 				if ("java".equals(path.getFileExtension())) {
-					java.io.InputStreamReader is = null;
-					java.io.OutputStreamWriter os = null;
+					InputStreamReader is = null;
+					OutputStreamWriter os = null;
 					
 					try {
-						is = new java.io.InputStreamReader(zipFile.getInputStream(zipEntry), "ISO-8859-1");
-						os = new java.io.OutputStreamWriter(new java.io.FileOutputStream(file), org.eclipse.core.resources.ResourcesPlugin.getEncoding());
+						is = new InputStreamReader(zipFile.getInputStream(zipEntry), "ISO-8859-1");
+						os = new OutputStreamWriter(new FileOutputStream(file), ResourcesPlugin.getEncoding());
 						char[] buffer = new char[102400];
 						while (true) {
 							int len = is.read(buffer);
@@ -191,12 +217,12 @@ public class CsNewProjectWizardLogic {
 						}
 					}
 				} else {
-					java.io.InputStream is = null;
-					java.io.OutputStream os = null;
+					InputStream is = null;
+					OutputStream os = null;
 					
 					try {
 						is = zipFile.getInputStream(zipEntry);
-						os = new java.io.FileOutputStream(file);
+						os = new FileOutputStream(file);
 						
 						byte[] buffer = new byte[102400];
 						while (true) {
@@ -231,10 +257,10 @@ public class CsNewProjectWizardLogic {
 	 * @param project a project to rename
 	 * @param projectName a new name for the project
 	 * 
-	 * @throws org.eclipse.core.runtime.CoreException if something goes wrong
+	 * @throws CoreException if something goes wrong
 	 */
-	private void renameProject(org.eclipse.core.resources.IProject project, String projectName) throws org.eclipse.core.runtime.CoreException {
-		org.eclipse.core.resources.IProjectDescription description = project.getDescription();
+	private void renameProject(IProject project, String projectName) throws CoreException {
+		IProjectDescription description = project.getDescription();
 		description.setName(projectName);
 	}
 	

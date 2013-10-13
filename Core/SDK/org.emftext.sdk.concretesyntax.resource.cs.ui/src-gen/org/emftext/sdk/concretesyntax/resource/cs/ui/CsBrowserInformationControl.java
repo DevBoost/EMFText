@@ -16,8 +16,44 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Iterator;
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.AbstractInformationControl;
+import org.eclipse.jface.text.IDelayedInputChangeProvider;
+import org.eclipse.jface.text.IInformationControlExtension2;
+import org.eclipse.jface.text.IInputChangedListener;
+import org.eclipse.jface.text.TextPresentation;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTError;
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.LocationListener;
+import org.eclipse.swt.browser.OpenWindowListener;
+import org.eclipse.swt.browser.ProgressAdapter;
+import org.eclipse.swt.browser.ProgressEvent;
+import org.eclipse.swt.browser.WindowEvent;
+import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.TextStyle;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Slider;
+
 /**
- * Displays HTML information in a {@link org.eclipse.swt.browser.Browser} widget.
+ * Displays HTML information in a {@link Browser} widget.
  * <p>
  * This IInformationControlExtension2 expects {@link #setInput(Object)} to be
  * called with an argument of type BrowserInformationControlInput.
@@ -35,32 +71,32 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * 
  * @since 3.2
  */
-public class CsBrowserInformationControl extends org.eclipse.jface.text.AbstractInformationControl implements org.eclipse.jface.text.IInformationControlExtension2, org.eclipse.jface.text.IDelayedInputChangeProvider {
+public class CsBrowserInformationControl extends AbstractInformationControl implements IInformationControlExtension2, IDelayedInputChangeProvider {
 	
 	/**
-	 * Tells whether the org.eclipse.swt.SWT org.eclipse.swt.browser.Browser widget
-	 * and hence this information control is available.
+	 * Tells whether the SWT Browser widget and hence this information control is
+	 * available.
 	 * 
 	 * @param parent the parent component used for checking or <code>null</code> if
 	 * none
 	 * 
 	 * @return <code>true</code> if this control is available
 	 */
-	public static boolean isAvailable(org.eclipse.swt.widgets.Composite parent) {
+	public static boolean isAvailable(Composite parent) {
 		if (!fgAvailabilityChecked) {
 			try {
-				org.eclipse.swt.browser.Browser browser= new org.eclipse.swt.browser.Browser(parent, org.eclipse.swt.SWT.NONE);
+				Browser browser= new Browser(parent, SWT.NONE);
 				browser.dispose();
 				fgIsAvailable= true;
 				
-				org.eclipse.swt.widgets.Slider sliderV= new org.eclipse.swt.widgets.Slider(parent, org.eclipse.swt.SWT.VERTICAL);
-				org.eclipse.swt.widgets.Slider sliderH= new org.eclipse.swt.widgets.Slider(parent, org.eclipse.swt.SWT.HORIZONTAL);
-				int width= sliderV.computeSize(org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT).x;
-				int height= sliderH.computeSize(org.eclipse.swt.SWT.DEFAULT, org.eclipse.swt.SWT.DEFAULT).y;
-				fgScrollBarSize= new org.eclipse.swt.graphics.Point(width, height);
+				Slider sliderV= new Slider(parent, SWT.VERTICAL);
+				Slider sliderH= new Slider(parent, SWT.HORIZONTAL);
+				int width= sliderV.computeSize(SWT.DEFAULT, SWT.DEFAULT).x;
+				int height= sliderH.computeSize(SWT.DEFAULT, SWT.DEFAULT).y;
+				fgScrollBarSize= new Point(width, height);
 				sliderV.dispose();
 				sliderH.dispose();
-			} catch (org.eclipse.swt.SWTError er) {
+			} catch (SWTError er) {
 				fgIsAvailable= false;
 			} finally {
 				fgAvailabilityChecked= true;
@@ -87,12 +123,12 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	/**
 	 * Cached scroll bar width and height
 	 */
-	private static org.eclipse.swt.graphics.Point fgScrollBarSize;
+	private static Point fgScrollBarSize;
 	
 	/**
 	 * The control's browser widget
 	 */
-	private org.eclipse.swt.browser.Browser fBrowser;
+	private Browser fBrowser;
 	/**
 	 * Tells whether the browser has content
 	 */
@@ -100,11 +136,11 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	/**
 	 * Text layout used to approximate size of content when rendered in browser
 	 */
-	private org.eclipse.swt.graphics.TextLayout fTextLayout;
+	private TextLayout fTextLayout;
 	/**
 	 * Bold text style
 	 */
-	private org.eclipse.swt.graphics.TextStyle fBoldStyle;
+	private TextStyle fBoldStyle;
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput fInput;
 	
@@ -117,12 +153,12 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	/**
 	 * The listener to be notified when a delayed location changing event happened.
 	 */
-	private org.eclipse.jface.text.IInputChangedListener fDelayedInputChangeListener;
+	private IInputChangedListener fDelayedInputChangeListener;
 	
 	/**
 	 * The listeners to be notified when the input changed.
 	 */
-	private org.eclipse.core.runtime.ListenerList fInputChangeListeners = new org.eclipse.core.runtime.ListenerList(org.eclipse.core.runtime.ListenerList.IDENTITY);
+	private ListenerList fInputChangeListeners = new ListenerList(ListenerList.IDENTITY);
 	
 	/**
 	 * The symbolic name of the font used for size computations, or <code>null</code>
@@ -137,7 +173,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * @param symbolicFontName the symbolic name of the font used for size computations
 	 * @param resizable <code>true</code> if the control should be resizable
 	 */
-	public CsBrowserInformationControl(org.eclipse.swt.widgets.Shell parent, String symbolicFontName, boolean resizable) {
+	public CsBrowserInformationControl(Shell parent, String symbolicFontName, boolean resizable) {
 		super(parent, resizable);
 		fSymbolicFontName= symbolicFontName;
 		create();
@@ -151,7 +187,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * @param statusFieldText the text to be used in the optional status field or
 	 * <code>null</code> if the status field should be hidden
 	 */
-	public CsBrowserInformationControl(org.eclipse.swt.widgets.Shell parent, String symbolicFontName, String statusFieldText) {
+	public CsBrowserInformationControl(Shell parent, String symbolicFontName, String statusFieldText) {
 		super(parent, statusFieldText);
 		fSymbolicFontName= symbolicFontName;
 		create();
@@ -166,7 +202,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * 
 	 * @since 3.4
 	 */
-	public CsBrowserInformationControl(org.eclipse.swt.widgets.Shell parent, String symbolicFontName, org.eclipse.jface.action.ToolBarManager toolBarManager) {
+	public CsBrowserInformationControl(Shell parent, String symbolicFontName, ToolBarManager toolBarManager) {
 		super(parent, toolBarManager);
 		fSymbolicFontName= symbolicFontName;
 		create();
@@ -174,38 +210,36 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	
 	/**
 	 * 
-	 * @see
-	 * org.eclipse.jface.text.org.eclipse.jface.text.AbstractInformationControl#createC
-	 * ontent(org.eclipse.swt.widgets.Composite)
+	 * @see org.eclipse.jface.text.AbstractInformationControl#createContent(Composite)
 	 */
-	protected void createContent(org.eclipse.swt.widgets.Composite parent) {
-		fBrowser= new org.eclipse.swt.browser.Browser(parent, org.eclipse.swt.SWT.NONE);
-		org.eclipse.swt.widgets.Display display= getShell().getDisplay();
-		fBrowser.setForeground(display.getSystemColor(org.eclipse.swt.SWT.COLOR_INFO_FOREGROUND));
-		fBrowser.setBackground(display.getSystemColor(org.eclipse.swt.SWT.COLOR_INFO_BACKGROUND));
-		fBrowser.addKeyListener(new org.eclipse.swt.events.KeyListener() {
-			public void keyPressed(org.eclipse.swt.events.KeyEvent e)  {
+	protected void createContent(Composite parent) {
+		fBrowser= new Browser(parent, SWT.NONE);
+		Display display= getShell().getDisplay();
+		fBrowser.setForeground(display.getSystemColor(SWT.COLOR_INFO_FOREGROUND));
+		fBrowser.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+		fBrowser.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e)  {
 				if (e.character == 0x1B) // ESC
 				dispose(); // XXX: Just hide? Would avoid constant recreations.
 			}
 			
-			public void keyReleased(org.eclipse.swt.events.KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {}
 		});
 		
-		fBrowser.addProgressListener(new org.eclipse.swt.browser.ProgressAdapter() {
-			public void completed(org.eclipse.swt.browser.ProgressEvent event) {
+		fBrowser.addProgressListener(new ProgressAdapter() {
+			public void completed(ProgressEvent event) {
 				fCompleted= true;
 			}
 		});
 		
-		fBrowser.addOpenWindowListener(new org.eclipse.swt.browser.OpenWindowListener() {
-			public void open(org.eclipse.swt.browser.WindowEvent event) {
+		fBrowser.addOpenWindowListener(new OpenWindowListener() {
+			public void open(WindowEvent event) {
 				event.required= true; // Cancel opening of new windows
 			}
 		});
 		
 		// Replace browser's built-in context menu with none
-		fBrowser.setMenu(new org.eclipse.swt.widgets.Menu(getShell(), org.eclipse.swt.SWT.NONE));
+		fBrowser.setMenu(new Menu(getShell(), SWT.NONE));
 		
 		createTextLayout();
 	}
@@ -215,7 +249,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * {@inheritDoc} This control can handle {@link String}(no handle) and
 	 */
 	public void setInput(Object input) {
-		org.eclipse.core.runtime.Assert.isLegal(input == null || input instanceof String || input instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput);
+		Assert.isLegal(input == null || input instanceof String || input instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput);
 		
 		if (input instanceof String) {
 			setInformation((String)input);
@@ -231,7 +265,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		
 		if (!fBrowserHasContent)		content= "<html><body ></html>";
 		
-		boolean RTL= (getShell().getStyle() & org.eclipse.swt.SWT.RIGHT_TO_LEFT) != 0;
+		boolean RTL= (getShell().getStyle() & SWT.RIGHT_TO_LEFT) != 0;
 		boolean resizable= isResizable();
 		
 		// The default "overflow:auto" would not result in a predictable width for the
@@ -263,12 +297,12 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		
 		Object[] listeners= fInputChangeListeners.getListeners();
 		for (int i= 0; i < listeners.length; i++) {
-			((org.eclipse.jface.text.IInputChangedListener)listeners[i]).inputChanged(fInput);
+			((IInputChangedListener)listeners[i]).inputChanged(fInput);
 		}
 	}
 	
 	public void setVisible(boolean visible) {
-		org.eclipse.swt.widgets.Shell shell= getShell();
+		Shell shell= getShell();
 		if (shell.isVisible() == visible) {
 			return;
 		}
@@ -282,7 +316,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		// The Browser widget flickers when made visible while it is not completely
 		// loaded. The fix is to delay the call to setVisible until either loading is
 		// completed (see ProgressListener in constructor), or a timeout has been reached.
-		final org.eclipse.swt.widgets.Display display = shell.getDisplay();
+		final Display display = shell.getDisplay();
 		
 		// Make sure the display wakes from sleep after timeout:
 		display.timerExec(100, new Runnable() {
@@ -306,7 +340,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		
 		// Avoids flickering when replacing hovers, especially on Vista in ON_CLICK mode.
 		// Causes flickering on GTK. Carbon does not care.
-		if ("win32".equals(org.eclipse.swt.SWT.getPlatform())) {
+		if ("win32".equals(SWT.getPlatform())) {
 			shell.moveAbove(null);
 		}
 		
@@ -315,7 +349,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	
 	/**
 	 * 
-	 * @see org.eclipse.jface.text.AbstractInformationControl#setSize(int, int)
+	 * @see AbstractInformationControl#setSize(int, int)
 	 */
 	public void setSize(int width, int height) {
 		fBrowser.setRedraw(false); // avoid flickering
@@ -332,15 +366,15 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * @since 3.2
 	 */
 	private void createTextLayout() {
-		fTextLayout= new org.eclipse.swt.graphics.TextLayout(fBrowser.getDisplay());
+		fTextLayout= new TextLayout(fBrowser.getDisplay());
 		
 		// Initialize fonts
-		String symbolicFontName= fSymbolicFontName == null ? org.eclipse.jface.resource.JFaceResources.DIALOG_FONT : fSymbolicFontName;
-		org.eclipse.swt.graphics.Font font = org.eclipse.jface.resource.JFaceResources.getFont(symbolicFontName);
+		String symbolicFontName= fSymbolicFontName == null ? JFaceResources.DIALOG_FONT : fSymbolicFontName;
+		Font font = JFaceResources.getFont(symbolicFontName);
 		fTextLayout.setFont(font);
 		fTextLayout.setWidth(-1);
-		font = org.eclipse.jface.resource.JFaceResources.getFontRegistry().getBold(symbolicFontName);
-		fBoldStyle = new org.eclipse.swt.graphics.TextStyle(font, null, null);
+		font = JFaceResources.getFontRegistry().getBold(symbolicFontName);
+		fBoldStyle = new TextStyle(font, null, null);
 		
 		// Compute and set tab width
 		fTextLayout.setText("    ");
@@ -360,33 +394,33 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		super.dispose();
 	}
 	
-	public org.eclipse.swt.graphics.Point computeSizeHint() {
-		org.eclipse.swt.graphics.Point sizeConstraints = getSizeConstraints();
-		org.eclipse.swt.graphics.Rectangle trim = computeTrim();
+	public Point computeSizeHint() {
+		Point sizeConstraints = getSizeConstraints();
+		Rectangle trim = computeTrim();
 		int height = trim.height;
 		
-		org.eclipse.jface.text.TextPresentation presentation= new org.eclipse.jface.text.TextPresentation();
+		TextPresentation presentation= new TextPresentation();
 		String text;
 		try {
-			text = org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.html2text(new java.io.StringReader(fInput.getHtml()), presentation);
-		} catch (java.io.IOException e) {
+			text = org.emftext.sdk.concretesyntax.resource.cs.ui.CsHTMLPrinter.html2text(new StringReader(fInput.getHtml()), presentation);
+		} catch (IOException e) {
 			text = "";
 		}
 		fTextLayout.setText(text);
-		fTextLayout.setWidth(sizeConstraints == null ? org.eclipse.swt.SWT.DEFAULT : sizeConstraints.x - trim.width);
-		java.util.Iterator<?> iter= presentation.getAllStyleRangeIterator();
+		fTextLayout.setWidth(sizeConstraints == null ? SWT.DEFAULT : sizeConstraints.x - trim.width);
+		Iterator<?> iter= presentation.getAllStyleRangeIterator();
 		while (iter.hasNext()) {
-			org.eclipse.swt.custom.StyleRange sr= (org.eclipse.swt.custom.StyleRange)iter.next();
-			if (sr.fontStyle == org.eclipse.swt.SWT.BOLD) {
+			StyleRange sr= (StyleRange)iter.next();
+			if (sr.fontStyle == SWT.BOLD) {
 				fTextLayout.setStyle(fBoldStyle, sr.start, sr.start + sr.length - 1);
 			}
 		}
 		
-		org.eclipse.swt.graphics.Rectangle bounds= fTextLayout.getBounds(); // does not return minimum width, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=217446
+		Rectangle bounds= fTextLayout.getBounds(); // does not return minimum width, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=217446
 		int lineCount= fTextLayout.getLineCount();
 		int textWidth= 0;
 		for (int i= 0; i < lineCount; i++) {
-			org.eclipse.swt.graphics.Rectangle rect= fTextLayout.getLineBounds(i);
+			Rectangle rect= fTextLayout.getLineBounds(i);
 			int lineWidth= rect.x + rect.width;
 			if (i == 0) {
 				lineWidth += fInput.getLeadingImageWidth();
@@ -406,10 +440,10 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		
 		// Apply max size constraints
 		if (sizeConstraints != null) {
-			if (sizeConstraints.x != org.eclipse.swt.SWT.DEFAULT) {
+			if (sizeConstraints.x != SWT.DEFAULT) {
 				minWidth= Math.min(sizeConstraints.x, minWidth + trim.width);
 			}
-			if (sizeConstraints.y != org.eclipse.swt.SWT.DEFAULT) {
+			if (sizeConstraints.y != SWT.DEFAULT) {
 				height= Math.min(sizeConstraints.y, height);
 			}
 		}
@@ -417,7 +451,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		// Ensure minimal size
 		int width= Math.max(MIN_WIDTH, minWidth);
 		height= Math.max(MIN_HEIGHT, height);
-		org.eclipse.swt.graphics.Point windowSize = new org.eclipse.swt.graphics.Point(width, height);
+		Point windowSize = new Point(width, height);
 		return windowSize;
 	}
 	
@@ -425,10 +459,10 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * 
 	 * @see org.eclipse.jface.text.IInformationControlExtension3#computeTrim()
 	 */
-	public org.eclipse.swt.graphics.Rectangle computeTrim() {
-		org.eclipse.swt.graphics.Rectangle trim = super.computeTrim();
+	public Rectangle computeTrim() {
+		Rectangle trim = super.computeTrim();
 		if (isResizable()) {
-			boolean RTL = (getShell().getStyle() & org.eclipse.swt.SWT.RIGHT_TO_LEFT) != 0;
+			boolean RTL = (getShell().getStyle() & SWT.RIGHT_TO_LEFT) != 0;
 			if (RTL) {
 				trim.x-= fgScrollBarSize.x;
 			}
@@ -446,16 +480,16 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * 
 	 * @since 3.4
 	 */
-	public void addLocationListener(org.eclipse.swt.browser.LocationListener listener) {
+	public void addLocationListener(LocationListener listener) {
 		fBrowser.addLocationListener(listener);
 	}
 	
-	public void setForegroundColor(org.eclipse.swt.graphics.Color foreground) {
+	public void setForegroundColor(Color foreground) {
 		super.setForegroundColor(foreground);
 		fBrowser.setForeground(foreground);
 	}
 	
-	public void setBackgroundColor(org.eclipse.swt.graphics.Color background) {
+	public void setBackgroundColor(Color background) {
 		super.setBackgroundColor(background);
 		fBrowser.setBackground(background);
 	}
@@ -472,8 +506,8 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * 
 	 * @since 3.4
 	 */
-	public void addInputChangeListener(org.eclipse.jface.text.IInputChangedListener inputChangeListener) {
-		org.eclipse.core.runtime.Assert.isNotNull(inputChangeListener);
+	public void addInputChangeListener(IInputChangedListener inputChangeListener) {
+		Assert.isNotNull(inputChangeListener);
 		fInputChangeListeners.add(inputChangeListener);
 	}
 	
@@ -485,19 +519,18 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * 
 	 * @since 3.4
 	 */
-	public void removeInputChangeListener(org.eclipse.jface.text.IInputChangedListener inputChangeListener) {
+	public void removeInputChangeListener(IInputChangedListener inputChangeListener) {
 		fInputChangeListeners.remove(inputChangeListener);
 	}
 	
 	/**
 	 * 
 	 * @see
-	 * org.eclipse.jface.text.IDelayedInputChangeProvider#setDelayedInputChangeListener
-	 * (org.eclipse.jface.text.IInputChangedListener)
+	 * IDelayedInputChangeProvider#setDelayedInputChangeListener(IInputChangedListener)
 	 * 
 	 * @since 3.4
 	 */
-	public void setDelayedInputChangeListener(org.eclipse.jface.text.IInputChangedListener inputChangeListener) {
+	public void setDelayedInputChangeListener(IInputChangedListener inputChangeListener) {
 		fDelayedInputChangeListener= inputChangeListener;
 	}
 	
@@ -531,7 +564,7 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * @since 3.4
 	 */
 	public String toString() {
-		String style= (getShell().getStyle() & org.eclipse.swt.SWT.RESIZE) == 0 ? "fixed" : "resizeable";
+		String style= (getShell().getStyle() & SWT.RESIZE) == 0 ? "fixed" : "resizeable";
 		return super.toString() + " -  style: " + style;
 	}
 	
@@ -549,19 +582,19 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 	 * org.eclipse.jface.text.IInformationControlExtension5#computeSizeConstraints(int,
 	 * int)
 	 */
-	public org.eclipse.swt.graphics.Point computeSizeConstraints(int widthInChars, int heightInChars) {
+	public Point computeSizeConstraints(int widthInChars, int heightInChars) {
 		if (fSymbolicFontName == null) {
 			return null;
 		}
 		
-		org.eclipse.swt.graphics.GC gc= new org.eclipse.swt.graphics.GC(fBrowser);
-		org.eclipse.swt.graphics.Font font= fSymbolicFontName == null ? org.eclipse.jface.resource.JFaceResources.getDialogFont() : org.eclipse.jface.resource.JFaceResources.getFont(fSymbolicFontName);
+		GC gc= new GC(fBrowser);
+		Font font= fSymbolicFontName == null ? JFaceResources.getDialogFont() : JFaceResources.getFont(fSymbolicFontName);
 		gc.setFont(font);
 		int width= gc.getFontMetrics().getAverageCharWidth();
 		int height= gc.getFontMetrics().getHeight();
 		gc.dispose();
 		
-		return new org.eclipse.swt.graphics.Point(widthInChars * width, heightInChars * height);
+		return new Point(widthInChars * width, heightInChars * height);
 	}
 	
 }

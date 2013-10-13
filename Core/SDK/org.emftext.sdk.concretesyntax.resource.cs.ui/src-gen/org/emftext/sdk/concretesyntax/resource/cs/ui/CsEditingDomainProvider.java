@@ -16,6 +16,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.LinkedHashMap;
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.ui.IEditorInput;
+
 /**
  * The EditingDomainProvider is used by the editor to obtain an EMF editing
  * domain. This default implementation creates a new editing domain for each
@@ -23,16 +31,16 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  */
 public class CsEditingDomainProvider {
 	
-	public org.eclipse.emf.edit.domain.EditingDomain getEditingDomain(org.eclipse.ui.IEditorInput editorInput) {
+	public EditingDomain getEditingDomain(IEditorInput editorInput) {
 		return createEditingDomain();
 	}
 	
-	private org.eclipse.emf.edit.domain.EditingDomain createEditingDomain() {
-		org.eclipse.emf.common.notify.AdapterFactory adapterFactory = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAdapterFactoryProvider().getAdapterFactory();
+	private EditingDomain createEditingDomain() {
+		AdapterFactory adapterFactory = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAdapterFactoryProvider().getAdapterFactory();
 		
-		org.eclipse.emf.common.command.BasicCommandStack commandStack = new org.eclipse.emf.common.command.BasicCommandStack();
+		BasicCommandStack commandStack = new BasicCommandStack();
 		
-		return new org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain(adapterFactory, commandStack, new java.util.LinkedHashMap<org.eclipse.emf.ecore.resource.Resource, Boolean>());
+		return new AdapterFactoryEditingDomain(adapterFactory, commandStack, new LinkedHashMap<Resource, Boolean>());
 	}
 	
 }

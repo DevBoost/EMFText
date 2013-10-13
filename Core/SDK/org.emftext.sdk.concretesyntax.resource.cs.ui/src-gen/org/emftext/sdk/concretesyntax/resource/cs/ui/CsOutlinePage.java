@@ -16,10 +16,37 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.List;
+import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.part.IPageSite;
+import org.eclipse.ui.part.Page;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+
 /**
  * Simple Outline Page using the ReflectiveItemAdapters provided by EMF
  */
-public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener, org.eclipse.ui.views.contentoutline.IContentOutlinePage {
+public class CsOutlinePage extends Page implements ISelectionProvider, ISelectionChangedListener, IContentOutlinePage {
 	
 	public final static String CONTEXT_MENU_ID = "org.emftext.sdk.concretesyntax.resource.cs.ui.outlinecontext";
 	
@@ -35,18 +62,18 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer treeViewer;
-	private org.eclipse.core.runtime.ListenerList selectionChangedListeners = new org.eclipse.core.runtime.ListenerList();
+	private ListenerList selectionChangedListeners = new ListenerList();
 	
 	public CsOutlinePage(org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider) {
 		super();
 		this.resourceProvider = resourceProvider;
 	}
 	
-	public void createControl(org.eclipse.swt.widgets.Composite parent) {
-		treeViewer = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer(parent, org.eclipse.swt.SWT.MULTI | org.eclipse.swt.SWT.H_SCROLL | org.eclipse.swt.SWT.V_SCROLL);
+	public void createControl(Composite parent) {
+		treeViewer = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		Object[] listeners = selectionChangedListeners.getListeners();
 		for (int i = 0; i < listeners.length; ++i) {
-			org.eclipse.jface.viewers.ISelectionChangedListener l = (org.eclipse.jface.viewers.ISelectionChangedListener) listeners[i];
+			ISelectionChangedListener l = (ISelectionChangedListener) listeners[i];
 			treeViewer.addSelectionChangedListener(l);
 		}
 		selectionChangedListeners.clear();
@@ -54,15 +81,15 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
-		org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider contentProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(adapterFactory);
+		AdapterFactoryContentProvider contentProvider = new AdapterFactoryContentProvider(adapterFactory);
 		treeViewer.setAutoExpandLevel(AUTO_EXPAND_LEVEL);
 		treeViewer.setContentProvider(contentProvider);
-		treeViewer.setLabelProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(adapterFactory));
-		org.eclipse.emf.ecore.resource.Resource resource = resourceProvider.getResource();
+		treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+		Resource resource = resourceProvider.getResource();
 		treeViewer.setInput(resource);
 		if (resource != null) {
 			// Select the root object in the view.
-			treeViewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(resource), true);
+			treeViewer.setSelection(new StructuredSelection(resource), true);
 		}
 		treeViewer.setComparator(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewerComparator());
 		createContextMenu();
@@ -71,35 +98,35 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 	
 	private void createContextMenu() {
 		// create menu manager
-		org.eclipse.jface.action.MenuManager menuManager = new org.eclipse.jface.action.MenuManager();
+		MenuManager menuManager = new MenuManager();
 		menuManager.setRemoveAllWhenShown(true);
-		menuManager.addMenuListener(new org.eclipse.jface.action.IMenuListener() {
-			public void menuAboutToShow(org.eclipse.jface.action.IMenuManager manager) {
+		menuManager.addMenuListener(new IMenuListener() {
+			public void menuAboutToShow(IMenuManager manager) {
 				fillContextMenu(manager);
 			}
 		});
 		// create menu
-		org.eclipse.swt.widgets.Menu menu = menuManager.createContextMenu(treeViewer.getControl());
+		Menu menu = menuManager.createContextMenu(treeViewer.getControl());
 		treeViewer.getControl().setMenu(menu);
 		// register menu for extension
 		getSite().registerContextMenu("org.emftext.sdk.concretesyntax.resource.cs.ui.outlinecontext", menuManager, treeViewer);
 	}
 	
-	private void fillContextMenu(org.eclipse.jface.action.IMenuManager manager) {
-		manager.add(new org.eclipse.jface.action.GroupMarker(org.eclipse.ui.IWorkbenchActionConstants.MB_ADDITIONS));
+	private void fillContextMenu(IMenuManager manager) {
+		manager.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 	
 	private void createActions() {
-		org.eclipse.ui.part.IPageSite site = getSite();
-		org.eclipse.ui.IActionBars actionBars = site.getActionBars();
-		org.eclipse.jface.action.IToolBarManager toolBarManager = actionBars.getToolBarManager();
-		java.util.List<org.eclipse.jface.action.IAction> actions = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageActionProvider().getActions(treeViewer);
-		for (org.eclipse.jface.action.IAction action : actions) {
+		IPageSite site = getSite();
+		IActionBars actionBars = site.getActionBars();
+		IToolBarManager toolBarManager = actionBars.getToolBarManager();
+		List<IAction> actions = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageActionProvider().getActions(treeViewer);
+		for (IAction action : actions) {
 			toolBarManager.add(action);
 		}
 	}
 	
-	public void addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 		if (getTreeViewer() == null) {
 			selectionChangedListeners.add(listener);
 		} else {
@@ -107,16 +134,16 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 		}
 	}
 	
-	public org.eclipse.swt.widgets.Control getControl() {
+	public Control getControl() {
 		if (treeViewer == null) {
 			return null;
 		}
 		return treeViewer.getControl();
 	}
 	
-	public org.eclipse.jface.viewers.ISelection getSelection() {
+	public ISelection getSelection() {
 		if (treeViewer == null) {
-			return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
+			return StructuredSelection.EMPTY;
 		}
 		return treeViewer.getSelection();
 	}
@@ -127,15 +154,15 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 	 * @return this page's tree viewer, or <code>null</code> if
 	 * <code>createControl</code> has not been called yet
 	 */
-	protected org.eclipse.jface.viewers.TreeViewer getTreeViewer() {
+	protected TreeViewer getTreeViewer() {
 		return treeViewer;
 	}
 	
-	public void init(org.eclipse.ui.part.IPageSite pageSite) {
+	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 	}
 	
-	public void removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 		if (getTreeViewer() == null) {
 			selectionChangedListeners.remove(listener);
 		} else {
@@ -143,7 +170,7 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 		}
 	}
 	
-	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
+	public void selectionChanged(SelectionChangedEvent event) {
 		if (getTreeViewer() != null) {
 			getTreeViewer().setSelection(event.getSelection(), true);
 		}
@@ -156,7 +183,7 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 		treeViewer.getControl().setFocus();
 	}
 	
-	public void setSelection(org.eclipse.jface.viewers.ISelection selection) {
+	public void setSelection(ISelection selection) {
 		if (treeViewer != null) {
 			treeViewer.setSelection(selection);
 		}

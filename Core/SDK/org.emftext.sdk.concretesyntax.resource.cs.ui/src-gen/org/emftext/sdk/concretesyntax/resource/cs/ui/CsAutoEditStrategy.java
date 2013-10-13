@@ -16,6 +16,11 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
+import org.eclipse.jface.text.DocumentCommand;
+import org.eclipse.jface.text.IDocument;
+
 /**
  * The CsAutoEditStrategy extends the default auto edit strategy such that an
  * additional tab is added if a line break is entered after opening brackets which
@@ -23,7 +28,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * automatically inserted right away when opening brackets are added where
  * <code>closeAfterEnter</code> is set to <code>false</code>.
  */
-public class CsAutoEditStrategy extends org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy {
+public class CsAutoEditStrategy extends DefaultIndentLineAutoEditStrategy {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet;
 	
@@ -31,7 +36,7 @@ public class CsAutoEditStrategy extends org.eclipse.jface.text.DefaultIndentLine
 		super();
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin plugin = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault();
 		if (plugin != null) {
-			org.eclipse.jface.preference.IPreferenceStore preferenceStore = plugin.getPreferenceStore();
+			IPreferenceStore preferenceStore = plugin.getPreferenceStore();
 			bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet();
 			bracketSet.resetBrackets(preferenceStore);
 		}
@@ -46,7 +51,7 @@ public class CsAutoEditStrategy extends org.eclipse.jface.text.DefaultIndentLine
 	}
 	
 	@Override
-	public void customizeDocumentCommand(org.eclipse.jface.text.IDocument document, org.eclipse.jface.text.DocumentCommand command) {
+	public void customizeDocumentCommand(IDocument document, DocumentCommand command) {
 		String text = command.text;
 		String textBefore = command.text;
 		super.customizeDocumentCommand(document, command);
@@ -59,7 +64,7 @@ public class CsAutoEditStrategy extends org.eclipse.jface.text.DefaultIndentLine
 		addClosingBracket(command);
 	}
 	
-	protected void addClosingBracket(org.eclipse.jface.text.DocumentCommand command) {
+	protected void addClosingBracket(DocumentCommand command) {
 		String insertedText = command.text;
 		boolean closeInstantly = bracketSet.isCloseInstantly(insertedText);
 		if (!closeInstantly) {
@@ -71,7 +76,7 @@ public class CsAutoEditStrategy extends org.eclipse.jface.text.DefaultIndentLine
 		command.caretOffset = command.offset + 1;
 	}
 	
-	protected void addClosingBracketAfterEnterIfRequired(org.eclipse.jface.text.IDocument document, org.eclipse.jface.text.DocumentCommand command, String text, String textBefore, String textAfter) {
+	protected void addClosingBracketAfterEnterIfRequired(IDocument document, DocumentCommand command, String text, String textBefore, String textAfter) {
 		boolean isLineBreak = isLineBreak(text);
 		if (!isLineBreak) {
 			return;

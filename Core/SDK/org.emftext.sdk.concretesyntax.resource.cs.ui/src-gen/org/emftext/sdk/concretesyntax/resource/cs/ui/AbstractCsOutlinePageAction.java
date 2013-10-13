@@ -16,7 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-public abstract class AbstractCsOutlinePageAction extends org.eclipse.jface.action.Action {
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.swt.widgets.Display;
+
+public abstract class AbstractCsOutlinePageAction extends Action {
 	
 	private String preferenceKey = this.getClass().getSimpleName() + ".isChecked";
 	
@@ -28,7 +33,7 @@ public abstract class AbstractCsOutlinePageAction extends org.eclipse.jface.acti
 	}
 	
 	public void initialize(String imagePath) {
-		org.eclipse.jface.resource.ImageDescriptor descriptor = org.emftext.sdk.concretesyntax.resource.cs.ui.CsImageProvider.INSTANCE.getImageDescriptor(imagePath);
+		ImageDescriptor descriptor = org.emftext.sdk.concretesyntax.resource.cs.ui.CsImageProvider.INSTANCE.getImageDescriptor(imagePath);
 		setDisabledImageDescriptor(descriptor);
 		setImageDescriptor(descriptor);
 		setHoverImageDescriptor(descriptor);
@@ -46,7 +51,7 @@ public abstract class AbstractCsOutlinePageAction extends org.eclipse.jface.acti
 	}
 	
 	public void runBusy(final boolean on) {
-		org.eclipse.swt.custom.BusyIndicator.showWhile(org.eclipse.swt.widgets.Display.getCurrent(), new Runnable() {
+		BusyIndicator.showWhile(Display.getCurrent(), new Runnable() {
 			public void run() {
 				runInternal(on);
 			}

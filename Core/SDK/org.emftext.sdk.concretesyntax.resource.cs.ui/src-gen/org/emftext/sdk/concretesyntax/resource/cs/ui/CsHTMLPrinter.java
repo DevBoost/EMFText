@@ -16,6 +16,19 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.io.IOException;
+import java.io.PushbackReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import org.eclipse.jface.text.TextPresentation;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.graphics.FontData;
+
 /**
  * This class is copied from org.eclipse.jface.internal.text.html.HTMLPrinter.
  */
@@ -27,14 +40,14 @@ public class CsHTMLPrinter {
 	 * <p>Moved into HTMLPrinter as inner class from
 	 * <code>org.eclipse.jface.internal.text.html</code>.</p>
 	 */
-	private static final class HTML2TextReader extends java.io.Reader {
+	private static final class HTML2TextReader extends Reader {
 		
 		private static final String EMPTY_STRING= "";
-		private java.util.Map<String, String> fgEntityLookup;
-		private java.util.Set<String> fgTags;
+		private Map<String, String> fgEntityLookup;
+		private Set<String> fgTags;
 		
 		private int fCounter= 0;
-		private org.eclipse.jface.text.TextPresentation fTextPresentation;
+		private TextPresentation fTextPresentation;
 		private int fBold= 0;
 		private int fStartOffset= -1;
 		private boolean fInParagraph= false;
@@ -44,7 +57,7 @@ public class CsHTMLPrinter {
 		
 		protected final String LINE_DELIM= System.getProperty("line.separator", "\n");
 		
-		private java.io.Reader fReader;
+		private Reader fReader;
 		protected boolean fWasWhiteSpace;
 		private int fCharAfterWhiteSpace;
 		
@@ -64,7 +77,7 @@ public class CsHTMLPrinter {
 		 * @param presentation If not <code>null</code>, formattings will be applied to
 		 * the presentation.
 		 */
-		public HTML2TextReader(java.io.Reader reader, org.eclipse.jface.text.TextPresentation presentation) {
+		public HTML2TextReader(Reader reader, TextPresentation presentation) {
 			
 			fReader= reader;
 			fBuffer= new StringBuffer();
@@ -73,7 +86,7 @@ public class CsHTMLPrinter {
 			fCharAfterWhiteSpace= -1;
 			fWasWhiteSpace= true;
 			
-			fgTags= new java.util.LinkedHashSet<String>();
+			fgTags= new LinkedHashSet<String>();
 			fgTags.add("b");
 			fgTags.add("br");
 			fgTags.add("br/");
@@ -93,7 +106,7 @@ public class CsHTMLPrinter {
 			fgTags.add("pre");
 			fgTags.add("head");
 			
-			fgEntityLookup= new java.util.LinkedHashMap<String, String>(7);
+			fgEntityLookup= new LinkedHashMap<String, String>(7);
 			fgEntityLookup.put("lt", "<");
 			fgEntityLookup.put("gt", ">");
 			fgEntityLookup.put("nbsp", " ");
@@ -104,7 +117,7 @@ public class CsHTMLPrinter {
 			fTextPresentation= presentation;
 		}
 		
-		public int read() throws java.io.IOException {
+		public int read() throws IOException {
 			int c;
 			do {
 				
@@ -141,7 +154,7 @@ public class CsHTMLPrinter {
 			-- fBold;
 			if (fBold == 0) {
 				if (fTextPresentation != null) {
-					fTextPresentation.addStyleRange(new org.eclipse.swt.custom.StyleRange(fStartOffset, fCounter - fStartOffset, null, null, org.eclipse.swt.SWT.BOLD));
+					fTextPresentation.addStyleRange(new StyleRange(fStartOffset, fCounter - fStartOffset, null, null, SWT.BOLD));
 				}
 				fStartOffset= -1;
 			}
@@ -152,7 +165,7 @@ public class CsHTMLPrinter {
 		 * @see
 		 * org.eclipse.jdt.internal.ui.text.SubstitutionTextReader#computeSubstitution(int)
 		 */
-		protected String computeSubstitution(int c) throws java.io.IOException {
+		protected String computeSubstitution(int c) throws IOException {
 			
 			if (c == '<') {
 				return  processHTMLTag();
@@ -266,7 +279,7 @@ public class CsHTMLPrinter {
 		/**
 		 * A '<' has been read. Process a html tag
 		 */
-		private String processHTMLTag() throws java.io.IOException {
+		private String processHTMLTag() throws IOException {
 			
 			StringBuffer buf= new StringBuffer();
 			int ch;
@@ -322,8 +335,8 @@ public class CsHTMLPrinter {
 		}
 		
 		
-		private void unread(int ch) throws java.io.IOException {
-			((java.io.PushbackReader) getReader()).unread(ch);
+		private void unread(int ch) throws IOException {
+			((PushbackReader) getReader()).unread(ch);
 		}
 		
 		protected String entity2Text(String symbol) {
@@ -350,7 +363,7 @@ public class CsHTMLPrinter {
 		/**
 		 * A '&' has been read. Process a entity
 		 */
-		private String processEntity() throws java.io.IOException {
+		private String processEntity() throws IOException {
 			StringBuffer buf= new StringBuffer();
 			int ch= nextChar();
 			while (Character.isLetterOrDigit((char)ch) || ch == '#') {
@@ -369,11 +382,11 @@ public class CsHTMLPrinter {
 			return buf.toString();
 		}
 		
-		public void close() throws java.io.IOException {
+		public void close() throws IOException {
 			fReader.close();
 		}
 		
-		public int read(char[] cbuf, int off, int len) throws java.io.IOException {
+		public int read(char[] cbuf, int off, int len) throws IOException {
 			int end= off + len;
 			for (int i= off; i < end; i++) {
 				int ch= read();
@@ -393,7 +406,7 @@ public class CsHTMLPrinter {
 		 * 
 		 * @return the internal reader
 		 */
-		protected java.io.Reader getReader() {
+		protected Reader getReader() {
 			return fReader;
 		}
 		
@@ -402,9 +415,9 @@ public class CsHTMLPrinter {
 		 * 
 		 * @return the next character
 		 * 
-		 * @throws java.io.IOException in case reading the character fails
+		 * @throws IOException in case reading the character fails
 		 */
-		protected int nextChar() throws java.io.IOException {
+		protected int nextChar() throws IOException {
 			fReadFromBuffer= (fBuffer.length() > 0);
 			if (fReadFromBuffer) {
 				char ch= fBuffer.charAt(fIndex++);
@@ -434,18 +447,18 @@ public class CsHTMLPrinter {
 		}
 		/**
 		 * 
-		 * @see java.io.Reader#ready()
+		 * @see Reader#ready()
 		 */
-		public boolean ready() throws java.io.IOException {
+		public boolean ready() throws IOException {
 			return fReader.ready();
 		}
 		
 		
 		/**
 		 * 
-		 * @see java.io.Reader#reset()
+		 * @see Reader#reset()
 		 */
-		public void reset() throws java.io.IOException {
+		public void reset() throws IOException {
 			fReader.reset();
 			fWasWhiteSpace= true;
 			fCharAfterWhiteSpace= -1;
@@ -462,9 +475,9 @@ public class CsHTMLPrinter {
 		 * 
 		 * @return the readable content as string
 		 * 
-		 * @throws java.io.IOException in case reading fails
+		 * @throws IOException in case reading fails
 		 */
-		public String getString() throws java.io.IOException {
+		public String getString() throws IOException {
 			StringBuffer buf= new StringBuffer();
 			int ch;
 			while ((ch= read()) != -1) {
@@ -478,7 +491,7 @@ public class CsHTMLPrinter {
 	// See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993
 	// if the platform is a mac the UNIT is set to "px"
 	static {
-		String platform = org.eclipse.swt.SWT.getPlatform();
+		String platform = SWT.getPlatform();
 		UNIT = (platform.equals("carbon")||platform.equals("cocoa")) ? "px" : "pt";
 	}
 	
@@ -516,9 +529,9 @@ public class CsHTMLPrinter {
 		}
 	}
 	
-	public static String convertTopLevelFont(String styles, org.eclipse.swt.graphics.FontData fontData) {
-		boolean bold = (fontData.getStyle() & org.eclipse.swt.SWT.BOLD) != 0;
-		boolean italic = (fontData.getStyle() & org.eclipse.swt.SWT.ITALIC) != 0;
+	public static String convertTopLevelFont(String styles, FontData fontData) {
+		boolean bold = (fontData.getStyle() & SWT.BOLD) != 0;
+		boolean italic = (fontData.getStyle() & SWT.ITALIC) != 0;
 		String size = Integer.toString(fontData.getHeight()) + UNIT;
 		String family = "'" + fontData.getName() + "',sans-serif";
 		
@@ -558,7 +571,7 @@ public class CsHTMLPrinter {
 		}
 	}
 	
-	public static String html2text(java.io.StringReader stringReader, org.eclipse.jface.text.TextPresentation presentation) throws java.io.IOException {
+	public static String html2text(StringReader stringReader, TextPresentation presentation) throws IOException {
 		HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);
 		String text = html2TextReader.getString();
 		html2TextReader.close();

@@ -16,32 +16,52 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHandler {
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentExtension3;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.ITextOperationTarget;
+import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.text.ITypedRegion;
+import org.eclipse.jface.text.Region;
+import org.eclipse.jface.text.TextUtilities;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
+
+public class CsToggleCommentHandler extends AbstractHandler {
 	
 	public static String[] COMMENT_PREFIXES = new String[] { "//" };
 	
-	private org.eclipse.jface.text.IDocument document;
-	private org.eclipse.jface.text.ITextOperationTarget operationTarget;
+	private IDocument document;
+	private ITextOperationTarget operationTarget;
 	private java.util.Map<String, String[]> prefixesMap;
 	
 	@Override
 	
 	public boolean isEnabled() {
-		org.eclipse.ui.IEditorPart activeEditor = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if (activeEditor instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
-			org.eclipse.jface.text.ITextOperationTarget operationTarget = (org.eclipse.jface.text.ITextOperationTarget) activeEditor.getAdapter(org.eclipse.jface.text.ITextOperationTarget.class);
-			return (operationTarget != null && operationTarget.canDoOperation(org.eclipse.jface.text.ITextOperationTarget.PREFIX) && operationTarget.canDoOperation(org.eclipse.jface.text.ITextOperationTarget.STRIP_PREFIX));
+			ITextOperationTarget operationTarget = (ITextOperationTarget) activeEditor.getAdapter(ITextOperationTarget.class);
+			return (operationTarget != null && operationTarget.canDoOperation(ITextOperationTarget.PREFIX) && operationTarget.canDoOperation(ITextOperationTarget.STRIP_PREFIX));
 		}
 		return false;
 	}
 	
-	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
-		org.eclipse.ui.IEditorPart editorPart = org.eclipse.ui.handlers.HandlerUtil.getActiveEditor(event);
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IEditorPart editorPart = HandlerUtil.getActiveEditor(event);
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor = null;
 		
 		if (editorPart instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
 			editor = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) editorPart;
-			operationTarget = (org.eclipse.jface.text.ITextOperationTarget) editorPart.getAdapter(org.eclipse.jface.text.ITextOperationTarget.class);
+			operationTarget = (ITextOperationTarget) editorPart.getAdapter(ITextOperationTarget.class);
 			document = editor.getDocumentProvider().getDocument(editor.getEditorInput());
 		}
 		if (editor == null || operationTarget == null || document == null) {
@@ -49,27 +69,27 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 		}
 		
 		prefixesMap = new java.util.LinkedHashMap<String, String[]>();
-		prefixesMap.put(org.eclipse.jface.text.IDocument.DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);
+		prefixesMap.put(IDocument.DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);
 		
-		org.eclipse.jface.viewers.ISelection currentSelection = org.eclipse.ui.handlers.HandlerUtil.getCurrentSelection(event);
+		ISelection currentSelection = HandlerUtil.getCurrentSelection(event);
 		final int operationCode;
 		if (isSelectionCommented(currentSelection)) {
-			operationCode = org.eclipse.jface.text.ITextOperationTarget.STRIP_PREFIX;
+			operationCode = ITextOperationTarget.STRIP_PREFIX;
 		} else {
-			operationCode = org.eclipse.jface.text.ITextOperationTarget.PREFIX;
+			operationCode = ITextOperationTarget.PREFIX;
 		}
 		
 		if (!operationTarget.canDoOperation(operationCode)) {
 			return null;
 		}
 		
-		org.eclipse.swt.widgets.Shell shell = editorPart.getSite().getShell();
-		org.eclipse.swt.widgets.Display display = null;
+		Shell shell = editorPart.getSite().getShell();
+		Display display = null;
 		if (shell != null && !shell.isDisposed()) {
 			display = shell.getDisplay();
 		}
 		
-		org.eclipse.swt.custom.BusyIndicator.showWhile(display, new  Runnable() {
+		BusyIndicator.showWhile(display, new  Runnable() {
 			public void run() {
 				operationTarget.doOperation(operationCode);
 			}
@@ -80,17 +100,17 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 	
 	// Parts of the implementation below have been copied from
 	// org.eclipse.jdt.internal.ui.javaeditor.ToggleCommentAction.
-	private boolean isSelectionCommented(org.eclipse.jface.viewers.ISelection selection) {
-		if (!(selection instanceof org.eclipse.jface.text.ITextSelection)) {
+	private boolean isSelectionCommented(ISelection selection) {
+		if (!(selection instanceof ITextSelection)) {
 			return false;
 		}
-		org.eclipse.jface.text.ITextSelection textSelection = (org.eclipse.jface.text.ITextSelection) selection;
+		ITextSelection textSelection = (ITextSelection) selection;
 		if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0) {
 			return false;
 		}
 		try {
-			org.eclipse.jface.text.IRegion block = getTextBlockFromSelection(textSelection, document);
-			org.eclipse.jface.text.ITypedRegion[] regions = org.eclipse.jface.text.TextUtilities.computePartitioning(document, org.eclipse.jface.text.IDocumentExtension3.DEFAULT_PARTITIONING, block.getOffset(), block.getLength(), false);
+			IRegion block = getTextBlockFromSelection(textSelection, document);
+			ITypedRegion[] regions = TextUtilities.computePartitioning(document, IDocumentExtension3.DEFAULT_PARTITIONING, block.getOffset(), block.getLength(), false);
 			int[] lines = new int[regions.length * 2]; // [startline, endline, startline, endline, ...]
 			for (int i = 0, j = 0; i < regions.length; i++, j+= 2) {
 				// start line of region
@@ -113,24 +133,24 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 				}
 			}
 			return true;
-		} catch (org.eclipse.jface.text.BadLocationException x) {
+		} catch (BadLocationException x) {
 			// should not happen
 		}
 		return false;
 	}
 	
-	private org.eclipse.jface.text.IRegion getTextBlockFromSelection(org.eclipse.jface.text.ITextSelection selection, org.eclipse.jface.text.IDocument document) {
+	private IRegion getTextBlockFromSelection(ITextSelection selection, IDocument document) {
 		try {
-			org.eclipse.jface.text.IRegion line = document.getLineInformationOfOffset(selection.getOffset());
+			IRegion line = document.getLineInformationOfOffset(selection.getOffset());
 			int length = selection.getLength() == 0 ? line.getLength() : selection.getLength() + (selection.getOffset() - line.getOffset());
-			return new org.eclipse.jface.text.Region(line.getOffset(), length);
-		} catch (org.eclipse.jface.text.BadLocationException x) {
+			return new Region(line.getOffset(), length);
+		} catch (BadLocationException x) {
 			// should not happen
 		}
 		return null;
 	}
 	
-	private int getFirstCompleteLineOfRegion(org.eclipse.jface.text.IRegion region, org.eclipse.jface.text.IDocument document) {
+	private int getFirstCompleteLineOfRegion(IRegion region, IDocument document) {
 		try {
 			final int startLine = document.getLineOfOffset(region.getOffset());
 			int offset = document.getLineOffset(startLine);
@@ -143,19 +163,19 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 			}
 			offset = document.getLineOffset(nextLine);
 			return (offset > region.getOffset() + region.getLength() ? -1 : nextLine);
-		} catch (org.eclipse.jface.text.BadLocationException x) {
+		} catch (BadLocationException x) {
 			// should not happen
 		}
 		return -1;
 	}
 	
-	private boolean isBlockCommented(int startLine, int endLine, String[] prefixes, org.eclipse.jface.text.IDocument document) {
+	private boolean isBlockCommented(int startLine, int endLine, String[] prefixes, IDocument document) {
 		try {
 			// check for occurrences of prefixes in the given lines
 			for (int i = startLine; i <= endLine; i++) {
-				org.eclipse.jface.text.IRegion line = document.getLineInformation(i);
+				IRegion line = document.getLineInformation(i);
 				String text = document.get(line.getOffset(), line.getLength());
-				int[] found = org.eclipse.jface.text.TextUtilities.indexOf(prefixes, text, 0);
+				int[] found = TextUtilities.indexOf(prefixes, text, 0);
 				if (found[0] == -1) {
 					// found a line which is not commented
 					return false;
@@ -168,7 +188,7 @@ public class CsToggleCommentHandler extends org.eclipse.core.commands.AbstractHa
 				}
 			}
 			return true;
-		} catch (org.eclipse.jface.text.BadLocationException x) {
+		} catch (BadLocationException x) {
 			// should not happen
 		}
 		return false;

@@ -16,7 +16,20 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-public class CsCompletionProcessor implements org.eclipse.jface.text.contentassist.IContentAssistProcessor {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.contentassist.CompletionProposal;
+import org.eclipse.jface.text.contentassist.ContextInformation;
+import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.jface.text.contentassist.IContextInformation;
+import org.eclipse.jface.text.contentassist.IContextInformationValidator;
+import org.eclipse.swt.graphics.Image;
+
+public class CsCompletionProcessor implements IContentAssistProcessor {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
 	
@@ -25,10 +38,10 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		this.resourceProvider = resourceProvider;
 	}
 	
-	public org.eclipse.jface.text.contentassist.ICompletionProposal[] computeCompletionProposals(org.eclipse.jface.text.ITextViewer viewer, int offset) {
+	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = resourceProvider.getResource();
 		if (textResource == null) {
-			return new org.eclipse.jface.text.contentassist.ICompletionProposal[0];
+			return new ICompletionProposal[0];
 		}
 		String content = viewer.getDocument().get();
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper();
@@ -36,34 +49,34 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		
 		// call completion proposal post processor to allow for customizing the proposals
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor proposalPostProcessor = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor();
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> computedProposalList = java.util.Arrays.asList(computedProposals);
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> extendedProposalList = proposalPostProcessor.process(computedProposalList);
+		List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> computedProposalList = Arrays.asList(computedProposals);
+		List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> extendedProposalList = proposalPostProcessor.process(computedProposalList);
 		if (extendedProposalList == null) {
-			extendedProposalList = java.util.Collections.emptyList();
+			extendedProposalList = Collections.emptyList();
 		}
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> finalProposalList = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
+		List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> finalProposalList = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : extendedProposalList) {
 			if (proposal.isMatchesPrefix()) {
 				finalProposalList.add(proposal);
 			}
 		}
-		org.eclipse.jface.text.contentassist.ICompletionProposal[] result = new org.eclipse.jface.text.contentassist.ICompletionProposal[finalProposalList.size()];
+		ICompletionProposal[] result = new ICompletionProposal[finalProposalList.size()];
 		int i = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : finalProposalList) {
 			String proposalString = proposal.getInsertString();
 			String displayString = (proposal.getDisplayString()==null)?proposalString:proposal.getDisplayString();
 			String prefix = proposal.getPrefix();
-			org.eclipse.swt.graphics.Image image = proposal.getImage();
-			org.eclipse.jface.text.contentassist.IContextInformation info;
-			info = new org.eclipse.jface.text.contentassist.ContextInformation(image, displayString, proposalString);
+			Image image = proposal.getImage();
+			IContextInformation info;
+			info = new ContextInformation(image, displayString, proposalString);
 			int begin = offset - prefix.length();
 			int replacementLength = prefix.length();
-			result[i++] = new org.eclipse.jface.text.contentassist.CompletionProposal(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);
+			result[i++] = new CompletionProposal(proposalString, begin, replacementLength, proposalString.length(), image, displayString, info, proposalString);
 		}
 		return result;
 	}
 	
-	public org.eclipse.jface.text.contentassist.IContextInformation[] computeContextInformation(org.eclipse.jface.text.ITextViewer viewer, int offset) {
+	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
 		return null;
 	}
 	
@@ -75,7 +88,7 @@ public class CsCompletionProcessor implements org.eclipse.jface.text.contentassi
 		return null;
 	}
 	
-	public org.eclipse.jface.text.contentassist.IContextInformationValidator getContextInformationValidator() {
+	public IContextInformationValidator getContextInformationValidator() {
 		return null;
 	}
 	

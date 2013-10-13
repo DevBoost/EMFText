@@ -16,6 +16,73 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.ui.viewer.IViewerProvider;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
+import org.eclipse.emf.edit.ui.provider.PropertySource;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.DocumentEvent;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentListener;
+import org.eclipse.jface.text.ITextOperationTarget;
+import org.eclipse.jface.text.ITextPresentationListener;
+import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.TextViewer;
+import org.eclipse.jface.text.source.Annotation;
+import org.eclipse.jface.text.source.IAnnotationAccessExtension;
+import org.eclipse.jface.text.source.IAnnotationModel;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.text.source.IVerticalRuler;
+import org.eclipse.jface.text.source.projection.ProjectionSupport;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.editors.text.TextEditor;
+import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel;
+import org.eclipse.ui.texteditor.ITextEditorActionConstants;
+import org.eclipse.ui.texteditor.SelectMarkerRulerAction;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.IPropertySource;
+
 /**
  * A text editor for 'cs' models.
  * <p>
@@ -29,39 +96,39 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorScope</code>.
  * </p>
  */
-public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements org.eclipse.emf.edit.domain.IEditingDomainProvider, org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener, org.eclipse.emf.common.ui.viewer.IViewerProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
+public class CsEditor extends TextEditor implements IEditingDomainProvider, ISelectionProvider, ISelectionChangedListener, IViewerProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsHighlighting highlighting;
-	private org.eclipse.jface.text.source.projection.ProjectionSupport projectionSupport;
+	private ProjectionSupport projectionSupport;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeFoldingManager codeFoldingManager;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsBackgroundParsingStrategy bgParsingStrategy = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBackgroundParsingStrategy();
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener> bgParsingListeners = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener>();
+	private Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener> bgParsingListeners = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener>();
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePage outlinePage;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
-	private org.eclipse.core.resources.IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
+	private IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage propertySheetPage;
-	private org.eclipse.emf.edit.domain.EditingDomain editingDomain;
+	private EditingDomain editingDomain;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandler bracketHandler;
-	private java.util.List<org.eclipse.jface.viewers.ISelectionChangedListener> selectionChangedListeners = new java.util.LinkedList<org.eclipse.jface.viewers.ISelectionChangedListener>();
-	private org.eclipse.jface.viewers.ISelection editorSelection;
+	private List<ISelectionChangedListener> selectionChangedListeners = new LinkedList<ISelectionChangedListener>();
+	private ISelection editorSelection;
 	
 	public CsEditor() {
 		super();
 		setSourceViewerConfiguration(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsSourceViewerConfiguration(this, this, colorManager));
-		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, org.eclipse.core.resources.IResourceChangeEvent.POST_CHANGE);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, IResourceChangeEvent.POST_CHANGE);
 		addSelectionChangedListener(this);
 	}
 	
 	/**
 	 * A custom document listener that triggers background parsing if needed.
 	 */
-	private final class DocumentListener implements org.eclipse.jface.text.IDocumentListener {
+	private final class DocumentListener implements IDocumentListener {
 		
-		public void documentAboutToBeChanged(org.eclipse.jface.text.DocumentEvent event) {
+		public void documentAboutToBeChanged(DocumentEvent event) {
 		}
 		
-		public void documentChanged(org.eclipse.jface.text.DocumentEvent event) {
+		public void documentChanged(DocumentEvent event) {
 			bgParsingStrategy.parse(event, getResource(), CsEditor.this);
 		}
 	}
@@ -73,20 +140,20 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	 * resource is made after each change.
 	 * The code pretty much corresponds to what EMF generates for a tree editor.
 	 */
-	private class ModelResourceChangeListener implements org.eclipse.core.resources.IResourceChangeListener {
-		public void resourceChanged(org.eclipse.core.resources.IResourceChangeEvent event) {
-			org.eclipse.core.resources.IResourceDelta delta = event.getDelta();
+	private class ModelResourceChangeListener implements IResourceChangeListener {
+		public void resourceChanged(IResourceChangeEvent event) {
+			IResourceDelta delta = event.getDelta();
 			try {
-				class ResourceDeltaVisitor implements org.eclipse.core.resources.IResourceDeltaVisitor {
-					protected org.eclipse.emf.ecore.resource.ResourceSet resourceSet = getResourceSet();
+				class ResourceDeltaVisitor implements IResourceDeltaVisitor {
+					protected ResourceSet resourceSet = getResourceSet();
 					
-					public boolean visit(org.eclipse.core.resources.IResourceDelta delta) {
-						if (delta.getResource().getType() != org.eclipse.core.resources.IResource.FILE) {
+					public boolean visit(IResourceDelta delta) {
+						if (delta.getResource().getType() != IResource.FILE) {
 							return true;
 						}
 						int deltaKind = delta.getKind();
-						if (deltaKind == org.eclipse.core.resources.IResourceDelta.CHANGED && delta.getFlags() != org.eclipse.core.resources.IResourceDelta.MARKERS) {
-							org.eclipse.emf.ecore.resource.Resource changedResource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createURI(delta.getFullPath().toString()), false);
+						if (deltaKind == IResourceDelta.CHANGED && delta.getFlags() != IResourceDelta.MARKERS) {
+							Resource changedResource = resourceSet.getResource(URI.createURI(delta.getFullPath().toString()), false);
 							if (changedResource != null) {
 								changedResource.unload();
 								org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = getResource();
@@ -95,7 +162,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 									resourceSet.getResource(currentResource.getURI(), true);
 								}
 								if (currentResource != null && currentResource.getErrors().isEmpty()) {
-									org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(currentResource);
+									EcoreUtil.resolveAll(currentResource);
 								}
 								// reset the selected element in outline and properties by text position
 								if (highlighting != null) {
@@ -110,7 +177,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 				
 				ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
 				delta.accept(visitor);
-			} catch (org.eclipse.core.runtime.CoreException exception) {
+			} catch (CoreException exception) {
 				org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("Unexpected Error: ", exception);
 			}
 		}
@@ -123,51 +190,51 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	}
 	
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
-		if (org.eclipse.ui.views.contentoutline.IContentOutlinePage.class.equals(required)) {
+		if (IContentOutlinePage.class.equals(required)) {
 			return getOutlinePage();
-		} else if (required.equals(org.eclipse.ui.views.properties.IPropertySheetPage.class)) {
+		} else if (required.equals(IPropertySheetPage.class)) {
 			return getPropertySheetPage();
 		}
 		return super.getAdapter(required);
 	}
 	
-	public void createPartControl(org.eclipse.swt.widgets.Composite parent) {
+	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		
 		// Code Folding
-		org.eclipse.jface.text.source.projection.ProjectionViewer viewer = (org.eclipse.jface.text.source.projection.ProjectionViewer) getSourceViewer();
+		ProjectionViewer viewer = (ProjectionViewer) getSourceViewer();
 		// Occurrence initiation, need ITextResource and ISourceViewer.
 		highlighting = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHighlighting(getResource(), viewer, colorManager, this);
 		
-		projectionSupport = new org.eclipse.jface.text.source.projection.ProjectionSupport(viewer, getAnnotationAccess(), getSharedColors());
+		projectionSupport = new ProjectionSupport(viewer, getAnnotationAccess(), getSharedColors());
 		projectionSupport.install();
 		
 		// turn projection mode on
-		viewer.doOperation(org.eclipse.jface.text.source.projection.ProjectionViewer.TOGGLE);
+		viewer.doOperation(ProjectionViewer.TOGGLE);
 		codeFoldingManager = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeFoldingManager(viewer, this);
 		
-		org.eclipse.ui.contexts.IContextService contextService = (org.eclipse.ui.contexts.IContextService) getSite().getService(org.eclipse.ui.contexts.IContextService.class);
+		IContextService contextService = (IContextService) getSite().getService(IContextService.class);
 		contextService.activateContext("org.emftext.sdk.concretesyntax.resource.cs.EditorScope");
 	}
 	
-	protected void doSetInput(org.eclipse.ui.IEditorInput editorInput) throws org.eclipse.core.runtime.CoreException {
+	protected void doSetInput(IEditorInput editorInput) throws CoreException {
 		super.doSetInput(editorInput);
 		initializeResourceObject(editorInput);
-		org.eclipse.jface.text.IDocument document = getDocumentProvider().getDocument(getEditorInput());
+		IDocument document = getDocumentProvider().getDocument(getEditorInput());
 		document.addDocumentListener(new DocumentListener());
 	}
 	
-	private void initializeResourceObject(org.eclipse.ui.IEditorInput editorInput) {
-		org.eclipse.ui.part.FileEditorInput input = (org.eclipse.ui.part.FileEditorInput) editorInput;
-		org.eclipse.core.resources.IFile inputFile = input.getFile();
+	private void initializeResourceObject(IEditorInput editorInput) {
+		FileEditorInput input = (FileEditorInput) editorInput;
+		IFile inputFile = input.getFile();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNature.activate(inputFile.getProject());
 		String path = inputFile.getFullPath().toString();
-		org.eclipse.emf.common.util.URI uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true);
-		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = getResourceSet();
+		URI uri = URI.createPlatformResourceURI(path, true);
+		ResourceSet resourceSet = getResourceSet();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource loadedResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resourceSet.getResource(uri, false);
 		if (loadedResource == null) {
 			try {
-				org.eclipse.emf.ecore.resource.Resource demandLoadedResource = null;
+				Resource demandLoadedResource = null;
 				// here we do not use getResource(), because 'resource' might be null, which is ok
 				// when initializing the resource object
 				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = this.resource;
@@ -195,11 +262,11 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public void dispose() {
 		colorManager.dispose();
-		org.eclipse.core.resources.ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
 		super.dispose();
 	}
 	
-	protected void performSave(boolean overwrite, org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
+	protected void performSave(boolean overwrite, IProgressMonitor progressMonitor) {
 		
 		super.performSave(overwrite, progressMonitor);
 		
@@ -207,15 +274,15 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());
 	}
 	
-	public void registerTextPresentationListener(org.eclipse.jface.text.ITextPresentationListener listener) {
-		org.eclipse.jface.text.source.ISourceViewer viewer = getSourceViewer();
-		if (viewer instanceof org.eclipse.jface.text.TextViewer) {
-			((org.eclipse.jface.text.TextViewer) viewer).addTextPresentationListener(listener);
+	public void registerTextPresentationListener(ITextPresentationListener listener) {
+		ISourceViewer viewer = getSourceViewer();
+		if (viewer instanceof TextViewer) {
+			((TextViewer) viewer).addTextPresentationListener(listener);
 		}
 	}
 	
 	public void invalidateTextRepresentation() {
-		org.eclipse.jface.text.source.ISourceViewer viewer = getSourceViewer();
+		ISourceViewer viewer = getSourceViewer();
 		if (viewer != null) {
 			viewer.invalidateTextPresentation();
 		}
@@ -230,20 +297,20 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		bgParsingStrategy.parse(getSourceViewer().getDocument(), resource, this, 10);
 	}
 	
-	protected void performSaveAs(org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
-		org.eclipse.ui.part.FileEditorInput input = (org.eclipse.ui.part.FileEditorInput) getEditorInput();
+	protected void performSaveAs(IProgressMonitor progressMonitor) {
+		FileEditorInput input = (FileEditorInput) getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = getResourceSet();
-		org.eclipse.emf.common.util.URI platformURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true);
-		org.eclipse.emf.ecore.resource.Resource oldFile = resourceSet.getResource(platformURI, true);
+		ResourceSet resourceSet = getResourceSet();
+		URI platformURI = URI.createPlatformResourceURI(path, true);
+		Resource oldFile = resourceSet.getResource(platformURI, true);
 		
 		super.performSaveAs(progressMonitor);
 		
 		// load and resave - input has been changed to new path by super
-		org.eclipse.ui.part.FileEditorInput newInput = (org.eclipse.ui.part.FileEditorInput) getEditorInput();
+		FileEditorInput newInput = (FileEditorInput) getEditorInput();
 		String newPath = newInput.getFile().getFullPath().toString();
-		org.eclipse.emf.common.util.URI newPlatformURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(newPath, true);
-		org.eclipse.emf.ecore.resource.Resource newFile = resourceSet.createResource(newPlatformURI);
+		URI newPlatformURI = URI.createPlatformResourceURI(newPath, true);
+		Resource newFile = resourceSet.createResource(newPlatformURI);
 		// if the extension is the same, saving was already performed by super by saving
 		// the plain text
 		if (platformURI.fileExtension().equals(newPlatformURI.fileExtension())) {
@@ -265,7 +332,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		}
 	}
 	
-	public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
+	public ResourceSet getResourceSet() {
 		return getEditingDomain().getResourceSet();
 	}
 	
@@ -277,7 +344,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		assert resource != null;
 		this.resource = resource;
 		if (this.resource.getErrors().isEmpty()) {
-			org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(this.resource);
+			EcoreUtil.resolveAll(this.resource);
 		}
 	}
 	
@@ -290,18 +357,18 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		return outlinePage;
 	}
 	
-	public org.eclipse.ui.views.properties.IPropertySheetPage getPropertySheetPage() {
+	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
 			propertySheetPage = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage();
 			// add a slightly modified adapter factory that does not return any editors for
 			// properties. this way, a model can never be modified through the properties view.
-			org.eclipse.emf.common.notify.AdapterFactory adapterFactory = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAdapterFactoryProvider().getAdapterFactory();
-			propertySheetPage.setPropertySourceProvider(new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(adapterFactory) {
-				protected org.eclipse.ui.views.properties.IPropertySource createPropertySource(Object object, org.eclipse.emf.edit.provider.IItemPropertySource itemPropertySource) {
-					return new org.eclipse.emf.edit.ui.provider.PropertySource(object, itemPropertySource) {
-						protected org.eclipse.ui.views.properties.IPropertyDescriptor createPropertyDescriptor(org.eclipse.emf.edit.provider.IItemPropertyDescriptor itemPropertyDescriptor) {
-							return new org.eclipse.emf.edit.ui.provider.PropertyDescriptor(object, itemPropertyDescriptor) {
-								public org.eclipse.jface.viewers.CellEditor createPropertyEditor(org.eclipse.swt.widgets.Composite composite) {
+			AdapterFactory adapterFactory = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsAdapterFactoryProvider().getAdapterFactory();
+			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory) {
+				protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
+					return new PropertySource(object, itemPropertySource) {
+						protected IPropertyDescriptor createPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
+							return new PropertyDescriptor(object, itemPropertyDescriptor) {
+								public CellEditor createPropertyEditor(Composite composite) {
 									return null;
 								}
 							};
@@ -314,7 +381,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		return propertySheetPage;
 	}
 	
-	public org.eclipse.emf.edit.domain.EditingDomain getEditingDomain() {
+	public EditingDomain getEditingDomain() {
 		if (editingDomain == null) {
 			editingDomain = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditingDomainProvider().getEditingDomain(getEditorInput());
 		}
@@ -326,12 +393,12 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	 * 
 	 * @param element has to be contained in the resource of this editor.
 	 */
-	public void setCaret(org.eclipse.emf.ecore.EObject element, String text) {
+	public void setCaret(EObject element, String text) {
 		try {
 			if (element == null || text == null || text.equals("")) {
 				return;
 			}
-			org.eclipse.jface.text.source.ISourceViewer viewer = getSourceViewer();
+			ISourceViewer viewer = getSourceViewer();
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) element.eResource();
 			org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 			int destination = locationMap.getCharStart(element);
@@ -353,9 +420,9 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 					}
 					tokenText = token.getText();
 				}
-			} catch (org.eclipse.jface.text.BadLocationException e) {
+			} catch (BadLocationException e) {
 			}
-			destination = ((org.eclipse.jface.text.source.projection.ProjectionViewer) viewer).modelOffset2WidgetOffset(destination);
+			destination = ((ProjectionViewer) viewer).modelOffset2WidgetOffset(destination);
 			if (destination < 0) {
 				destination = 0;
 			}
@@ -365,10 +432,10 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		}
 	}
 	
-	protected org.eclipse.jface.text.source.ISourceViewer createSourceViewer(org.eclipse.swt.widgets.Composite parent, org.eclipse.jface.text.source.IVerticalRuler ruler, int styles) {
-		org.eclipse.jface.text.source.ISourceViewer viewer = new org.eclipse.jface.text.source.projection.ProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles) {
+	protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles) {
+		ISourceViewer viewer = new ProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles) {
 			
-			public void setSelection(org.eclipse.jface.viewers.ISelection selection, boolean reveal) {
+			public void setSelection(ISelection selection, boolean reveal) {
 				if (!CsEditor.this.setSelection(selection, reveal)) {
 					super.setSelection(selection, reveal);
 				}
@@ -400,13 +467,13 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public void createActions() {
 		super.createActions();
-		java.util.ResourceBundle resourceBundle = new java.util.ResourceBundle() {
-			public java.util.Enumeration<String> getKeys() {
-				java.util.List<String> keys = new java.util.ArrayList<String>(3);
+		ResourceBundle resourceBundle = new ResourceBundle() {
+			public Enumeration<String> getKeys() {
+				List<String> keys = new ArrayList<String>(3);
 				keys.add("SelectAnnotationRulerAction.QuickFix.label");
 				keys.add("SelectAnnotationRulerAction.QuickFix.tooltip");
 				keys.add("SelectAnnotationRulerAction.QuickFix.description");
-				return java.util.Collections.enumeration(keys);
+				return Collections.enumeration(keys);
 			}
 			public Object handleGetObject(String key) {
 				if (key.equals("SelectAnnotationRulerAction.QuickFix.label")) return "&Quick Fix";
@@ -415,16 +482,16 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 				return null;
 			}
 		};
-		setAction(org.eclipse.ui.texteditor.ITextEditorActionConstants.RULER_CLICK, new org.eclipse.ui.texteditor.SelectMarkerRulerAction(resourceBundle, "SelectAnnotationRulerAction.", this, getVerticalRuler()) {
+		setAction(ITextEditorActionConstants.RULER_CLICK, new SelectMarkerRulerAction(resourceBundle, "SelectAnnotationRulerAction.", this, getVerticalRuler()) {
 			public void run() {
 				runWithEvent(null);
 			}
 			
-			public void runWithEvent(org.eclipse.swt.widgets.Event event) {
-				org.eclipse.jface.text.ITextOperationTarget operation = (org.eclipse.jface.text.ITextOperationTarget) getAdapter(org.eclipse.jface.text.ITextOperationTarget.class);
-				final int opCode = org.eclipse.jface.text.source.ISourceViewer.QUICK_ASSIST;
+			public void runWithEvent(Event event) {
+				ITextOperationTarget operation = (ITextOperationTarget) getAdapter(ITextOperationTarget.class);
+				final int opCode = ISourceViewer.QUICK_ASSIST;
 				if (operation != null && operation.canDoOperation(opCode)) {
-					org.eclipse.jface.text.Position position = getPosition();
+					Position position = getPosition();
 					if (position != null) {
 						selectAndReveal(position.getOffset(), position.getLength());
 					}
@@ -432,20 +499,20 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 				}
 			}
 			
-			private org.eclipse.jface.text.Position getPosition() {
-				org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel model = getAnnotationModel();
-				org.eclipse.jface.text.source.IAnnotationAccessExtension  annotationAccess = getAnnotationAccessExtension();
+			private Position getPosition() {
+				AbstractMarkerAnnotationModel model = getAnnotationModel();
+				IAnnotationAccessExtension  annotationAccess = getAnnotationAccessExtension();
 				
-				org.eclipse.jface.text.IDocument document = getDocument();
+				IDocument document = getDocument();
 				if (model == null) {
 					return null;
 				}
 				
-				java.util.Iterator<?> iter = model.getAnnotationIterator();
+				Iterator<?> iter = model.getAnnotationIterator();
 				int layer = Integer.MIN_VALUE;
 				
 				while (iter.hasNext()) {
-					org.eclipse.jface.text.source.Annotation annotation = (org.eclipse.jface.text.source.Annotation) iter.next();
+					Annotation annotation = (Annotation) iter.next();
 					if (annotation.isMarkedDeleted()) {
 						continue;
 					}
@@ -457,7 +524,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 						}
 					}
 					
-					org.eclipse.jface.text.Position position = model.getPosition(annotation);
+					Position position = model.getPosition(annotation);
 					if (!includesRulerLine(position, document)) {
 						continue;
 					}
@@ -470,41 +537,41 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		});
 	}
 	
-	public org.eclipse.jface.text.source.IAnnotationModel getAnnotationModel() {
+	public IAnnotationModel getAnnotationModel() {
 		return getDocumentProvider().getAnnotationModel(getEditorInput());
 	}
 	
-	public void addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionChangedListeners.add(listener);
 	}
 	
-	public org.eclipse.jface.viewers.ISelection getSelection() {
+	public ISelection getSelection() {
 		return editorSelection;
 	}
 	
-	public void removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionChangedListeners.remove(listener);
 	}
 	
-	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
-		org.eclipse.jface.viewers.ISelection selection = event.getSelection();
+	public void selectionChanged(SelectionChangedEvent event) {
+		ISelection selection = event.getSelection();
 		setSelection(selection, true);
 	}
 	
-	public void setSelection(org.eclipse.jface.viewers.ISelection selection) {
+	public void setSelection(ISelection selection) {
 		editorSelection = selection;
-		for (org.eclipse.jface.viewers.ISelectionChangedListener listener : selectionChangedListeners) {
-			listener.selectionChanged(new org.eclipse.jface.viewers.SelectionChangedEvent(this, selection));
+		for (ISelectionChangedListener listener : selectionChangedListeners) {
+			listener.selectionChanged(new SelectionChangedEvent(this, selection));
 		}
 	}
 	
-	private boolean setSelection(org.eclipse.jface.viewers.ISelection selection, boolean reveal) {
-		if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
-			org.eclipse.jface.viewers.IStructuredSelection structuredSelection = (org.eclipse.jface.viewers.IStructuredSelection) selection;
+	private boolean setSelection(ISelection selection, boolean reveal) {
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 			Object object = structuredSelection.getFirstElement();
-			if (object instanceof org.eclipse.emf.ecore.EObject) {
-				org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) object;
-				org.eclipse.emf.ecore.resource.Resource resource = element.eResource();
+			if (object instanceof EObject) {
+				EObject element = (EObject) object;
+				Resource resource = element.eResource();
 				if (resource == null) {
 					return false;
 				}
@@ -527,8 +594,8 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		return false;
 	}
 	
-	public org.eclipse.jface.viewers.Viewer getViewer() {
-		return (org.eclipse.jface.text.source.projection.ProjectionViewer) getSourceViewer();
+	public Viewer getViewer() {
+		return (ProjectionViewer) getSourceViewer();
 	}
 	
 }

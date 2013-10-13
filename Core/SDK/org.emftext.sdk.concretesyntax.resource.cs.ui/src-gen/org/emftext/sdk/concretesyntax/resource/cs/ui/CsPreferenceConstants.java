@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+
 /**
  * An interface that defines some constants used to create the keys for
  * preferences.

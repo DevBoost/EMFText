@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.text.source.IAnnotationModel;
+
 /**
  * A provider for annotation models.
  */
@@ -24,6 +26,6 @@ public interface ICsAnnotationModelProvider {
 	/**
 	 * Returns the annotation model.
 	 */
-	public org.eclipse.jface.text.source.IAnnotationModel getAnnotationModel();
+	public IAnnotationModel getAnnotationModel();
 	
 }

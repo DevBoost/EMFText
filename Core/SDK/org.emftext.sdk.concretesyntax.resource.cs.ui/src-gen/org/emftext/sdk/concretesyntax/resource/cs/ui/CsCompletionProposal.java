@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.swt.graphics.Image;
+
 /**
  * A proposal for completing an incomplete document.
  */
@@ -48,7 +50,7 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 	/**
 	 * The image that will be shown in the pop-up containing the completion proposals.
 	 */
-	private org.eclipse.swt.graphics.Image image;
+	private Image image;
 	
 	/**
 	 * The root object of the resource for which this proposal was computed.
@@ -93,12 +95,12 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		this.container = container;
 	}
 	
-	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image) {
+	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, Image image) {
 		this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container);
 		this.image = image;
 	}
 	
-	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, org.eclipse.swt.graphics.Image image, String displayString) {
+	public CsCompletionProposal(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal, String insertString, String prefix, boolean matchesPrefix, org.eclipse.emf.ecore.EStructuralFeature structuralFeature, org.eclipse.emf.ecore.EObject container, Image image, String displayString) {
 		this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container, image);
 		this.displayString = displayString;
 	}
@@ -153,7 +155,7 @@ public class CsCompletionProposal implements java.lang.Comparable<CsCompletionPr
 		return prefix;
 	}
 	
-	public org.eclipse.swt.graphics.Image getImage() {
+	public Image getImage() {
 		return image;
 	}
 	

@@ -16,13 +16,30 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.net.URL;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.INewWizard;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
+import org.osgi.framework.Bundle;
+
 /**
  * This class is based on:
  * <i>org.eclipse.gef.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard</i>
  * .
  * It is responsible for offering an example project via the new dialog of Eclipse.
  */
-public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implements org.eclipse.ui.INewWizard, org.eclipse.core.runtime.IExecutableExtension {
+public class CsNewProjectWizard extends Wizard implements INewWizard, org.eclipse.core.runtime.IExecutableExtension {
 	
 	/**
 	 * The name of the ZIP file that is used as content for the new project (relative
@@ -34,7 +51,7 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 	 * The single page provided by this base implementation. It provides all the
 	 * functionality required to capture the name and location of the target project.
 	 */
-	private org.eclipse.ui.dialogs.WizardNewProjectCreationPage wizardNewProjectCreationPage;
+	private WizardNewProjectCreationPage wizardNewProjectCreationPage;
 	
 	/**
 	 * The name of the project creation page
@@ -59,7 +76,7 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 	/**
 	 * The configuration element associated with this new project wizard
 	 */
-	private org.eclipse.core.runtime.IConfigurationElement config;
+	private IConfigurationElement config;
 	
 	/**
 	 * Creates the example project by delegating the work to
@@ -68,9 +85,9 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 	public boolean performFinish() {
 		
 		try {
-			org.eclipse.jface.operation.IRunnableWithProgress operation = new org.eclipse.ui.actions.WorkspaceModifyOperation() {
+			IRunnableWithProgress operation = new WorkspaceModifyOperation() {
 				
-				public void execute(org.eclipse.core.runtime.IProgressMonitor monitor) throws InterruptedException {
+				public void execute(IProgressMonitor monitor) throws InterruptedException {
 					try {
 						new org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewProjectWizardLogic().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);
 					} catch (Exception e) {
@@ -82,7 +99,7 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 			getContainer().run(false, true, operation);
 			
 			// Set perspective
-			org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard.updatePerspective(config);
+			BasicNewProjectResourceWizard.updatePerspective(config);
 		} catch (InterruptedException e) {
 			return false;
 		} catch (Exception e) {
@@ -95,19 +112,17 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 	 * Creates the sole wizard page contributed by this base implementation; the
 	 * standard Eclipse WizardNewProjectCreationPage.
 	 * 
-	 * @see
-	 * org.eclipse.ui.dialogs.WizardNewProjectCreationPage#org.eclipse.ui.dialogs.Wizar
-	 * dNewProjectCreationPage(String)
+	 * @see WizardNewProjectCreationPage#WizardNewProjectCreationPage(String)
 	 */
-	public void init(org.eclipse.ui.IWorkbench workbench, org.eclipse.jface.viewers.IStructuredSelection selection) {
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		// Set default image for all wizard pages
-		org.eclipse.core.runtime.IPath path = new org.eclipse.core.runtime.Path("icons/new_project_wizban.gif");
-		org.osgi.framework.Bundle bundle = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getBundle();
-		java.net.URL url = org.eclipse.core.runtime.FileLocator.find(bundle, path, null);
-		org.eclipse.jface.resource.ImageDescriptor descriptor = org.eclipse.jface.resource.ImageDescriptor.createFromURL(url);
+		IPath path = new Path("icons/new_project_wizban.gif");
+		Bundle bundle = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getBundle();
+		URL url = org.eclipse.core.runtime.FileLocator.find(bundle, path, null);
+		ImageDescriptor descriptor = ImageDescriptor.createFromURL(url);
 		setDefaultPageImageDescriptor(descriptor);
 		
-		wizardNewProjectCreationPage = new org.eclipse.ui.dialogs.WizardNewProjectCreationPage(pageName);
+		wizardNewProjectCreationPage = new WizardNewProjectCreationPage(pageName);
 		wizardNewProjectCreationPage.setTitle(pageTitle);
 		wizardNewProjectCreationPage.setDescription(pageDescription);
 		wizardNewProjectCreationPage.setInitialProjectName(pageProjectName);
@@ -115,7 +130,7 @@ public class CsNewProjectWizard extends org.eclipse.jface.wizard.Wizard implemen
 		this.addPage(wizardNewProjectCreationPage);
 	}
 	
-	public void setInitializationData(org.eclipse.core.runtime.IConfigurationElement config, String propertyName, Object data) throws org.eclipse.core.runtime.CoreException {
+	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		this.config = config;
 	}
 	

@@ -16,10 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.action.IAction;
+
 public class CsOutlinePageTypeSortingAction extends org.emftext.sdk.concretesyntax.resource.cs.ui.AbstractCsOutlinePageAction {
 	
 	public CsOutlinePageTypeSortingAction(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer treeViewer) {
-		super(treeViewer, "Group types", org.eclipse.jface.action.IAction.AS_CHECK_BOX);
+		super(treeViewer, "Group types", IAction.AS_CHECK_BOX);
 		initialize("icons/group_types_icon.gif");
 	}
 	

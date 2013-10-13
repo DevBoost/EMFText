@@ -16,6 +16,19 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.TextAttribute;
+import org.eclipse.jface.text.rules.IToken;
+import org.eclipse.jface.text.rules.Token;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
+
 /**
  * An adapter from the Eclipse
  * <code>org.eclipse.jface.text.rules.ITokenScanner</code> interface to the
@@ -25,10 +38,10 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextScanner lexer;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken currentToken;
-	private java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken> nextTokens;
+	private List<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken> nextTokens;
 	private int offset;
 	private String languageId;
-	private org.eclipse.jface.preference.IPreferenceStore store;
+	private IPreferenceStore store;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 	
@@ -47,7 +60,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		if (plugin != null) {
 			this.store = plugin.getPreferenceStore();
 		}
-		this.nextTokens = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken>();
+		this.nextTokens = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken>();
 	}
 	
 	public int getTokenLength() {
@@ -58,7 +71,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		return offset + currentToken.getOffset();
 	}
 	
-	public org.eclipse.jface.text.rules.IToken nextToken() {
+	public IToken nextToken() {
 		boolean isOriginalToken = true;
 		if (!nextTokens.isEmpty()) {
 			currentToken = nextTokens.remove(0);
@@ -67,14 +80,14 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 			currentToken = lexer.getNextToken();
 		}
 		if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {
-			return org.eclipse.jface.text.rules.Token.EOF;
+			return Token.EOF;
 		}
 		
 		if (isOriginalToken) {
 			splitCurrentToken();
 		}
 		
-		org.eclipse.jface.text.TextAttribute textAttribute = null;
+		TextAttribute textAttribute = null;
 		String tokenName = currentToken.getName();
 		if (tokenName != null) {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle staticStyle = getStaticTokenStyle();
@@ -86,14 +99,14 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 			}
 		}
 		
-		return new org.eclipse.jface.text.rules.Token(textAttribute);
+		return new Token(textAttribute);
 	}
 	
-	public void setRange(org.eclipse.jface.text.IDocument document, int offset, int length) {
+	public void setRange(IDocument document, int offset, int length) {
 		this.offset = offset;
 		try {
 			lexer.setText(document.get(offset, length));
-		} catch (org.eclipse.jface.text.BadLocationException e) {
+		} catch (BadLocationException e) {
 			// ignore this error. It might occur during editing when locations are outdated
 			// quickly.
 		}
@@ -103,7 +116,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		return currentToken.getText();
 	}
 	
-	public int[] convertToIntArray(org.eclipse.swt.graphics.RGB rgb) {
+	public int[] convertToIntArray(RGB rgb) {
 		if (rgb == null) {
 			return null;
 		}
@@ -123,8 +136,8 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		}
 		
 		String colorKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.COLOR);
-		org.eclipse.swt.graphics.RGB foregroundRGB = org.eclipse.jface.preference.PreferenceConverter.getColor(store, colorKey);
-		org.eclipse.swt.graphics.RGB backgroundRGB = null;
+		RGB foregroundRGB = PreferenceConverter.getColor(store, colorKey);
+		RGB backgroundRGB = null;
 		boolean bold = store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.BOLD));
 		boolean italic = store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.ITALIC));
 		boolean strikethrough = store.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageId, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.STRIKETHROUGH));
@@ -139,34 +152,34 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		return dynamicStyle;
 	}
 	
-	public org.eclipse.jface.text.TextAttribute getTextAttribute(org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle tokeStyle) {
+	public TextAttribute getTextAttribute(org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle tokeStyle) {
 		int[] foregroundColorArray = tokeStyle.getColorAsRGB();
-		org.eclipse.swt.graphics.Color foregroundColor = null;
+		Color foregroundColor = null;
 		if (colorManager != null) {
-			foregroundColor = colorManager.getColor(new org.eclipse.swt.graphics.RGB(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));
+			foregroundColor = colorManager.getColor(new RGB(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));
 		}
 		int[] backgroundColorArray = tokeStyle.getBackgroundColorAsRGB();
-		org.eclipse.swt.graphics.Color backgroundColor = null;
+		Color backgroundColor = null;
 		if (backgroundColorArray != null) {
-			org.eclipse.swt.graphics.RGB backgroundRGB = new org.eclipse.swt.graphics.RGB(backgroundColorArray[0], backgroundColorArray[1], backgroundColorArray[2]);
+			RGB backgroundRGB = new RGB(backgroundColorArray[0], backgroundColorArray[1], backgroundColorArray[2]);
 			if (colorManager != null) {
 				backgroundColor = colorManager.getColor(backgroundRGB);
 			}
 		}
-		int style = org.eclipse.swt.SWT.NORMAL;
+		int style = SWT.NORMAL;
 		if (tokeStyle.isBold()) {
-			style = style | org.eclipse.swt.SWT.BOLD;
+			style = style | SWT.BOLD;
 		}
 		if (tokeStyle.isItalic()) {
-			style = style | org.eclipse.swt.SWT.ITALIC;
+			style = style | SWT.ITALIC;
 		}
 		if (tokeStyle.isStrikethrough()) {
-			style = style | org.eclipse.jface.text.TextAttribute.STRIKETHROUGH;
+			style = style | TextAttribute.STRIKETHROUGH;
 		}
 		if (tokeStyle.isUnderline()) {
-			style = style | org.eclipse.jface.text.TextAttribute.UNDERLINE;
+			style = style | TextAttribute.UNDERLINE;
 		}
-		return new org.eclipse.jface.text.TextAttribute(foregroundColor, backgroundColor, style);
+		return new TextAttribute(foregroundColor, backgroundColor, style);
 	}
 	
 	/**
@@ -179,7 +192,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		final int charStart = currentToken.getOffset();
 		final int column = currentToken.getColumn();
 		
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> taskItems = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector().findTaskItems(text, line, charStart);
+		List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> taskItems = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector().findTaskItems(text, line, charStart);
 		
 		// this is the offset for the next token to be added
 		int offset = charStart;

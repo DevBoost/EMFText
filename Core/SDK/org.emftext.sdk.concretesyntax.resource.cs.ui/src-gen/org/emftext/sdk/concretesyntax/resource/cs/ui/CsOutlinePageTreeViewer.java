@@ -16,21 +16,35 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.Set;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.viewers.IElementComparer;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Composite;
+
 /**
  * This custom implementation of a TreeViewer expands the tree automatically up to
  * a specified depth.
  */
-public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewer {
+public class CsOutlinePageTreeViewer extends TreeViewer {
 	
-	public class TypeFilter extends org.eclipse.jface.viewers.ViewerFilter {
+	public class TypeFilter extends ViewerFilter {
 		
-		private java.util.Set<org.eclipse.emf.ecore.EClass> filteredTypes = new java.util.LinkedHashSet<org.eclipse.emf.ecore.EClass>();
+		private java.util.Set<EClass> filteredTypes = new java.util.LinkedHashSet<EClass>();
 		
 		@Override
-		public boolean select(org.eclipse.jface.viewers.Viewer viewer, Object parentElement, Object element) {
-			if (element instanceof org.eclipse.emf.ecore.EObject) {
-				org.eclipse.emf.ecore.EObject eObject = (org.eclipse.emf.ecore.EObject) element;
-				for (org.eclipse.emf.ecore.EClass filteredType : filteredTypes) {
+		public boolean select(Viewer viewer, Object parentElement, Object element) {
+			if (element instanceof EObject) {
+				EObject eObject = (EObject) element;
+				for (EClass filteredType : filteredTypes) {
 					if (filteredType.isInstance(eObject)) {
 						return false;
 					}
@@ -39,7 +53,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 			return true;
 		}
 		
-		public java.util.Set<org.eclipse.emf.ecore.EClass> getFilteredTypes() {
+		public Set<EClass> getFilteredTypes() {
 			return filteredTypes;
 		}
 	}
@@ -49,7 +63,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		protected boolean haveEqualReference(org.eclipse.emf.ecore.EObject eObject1, org.eclipse.emf.ecore.EObject eObject2, org.eclipse.emf.ecore.EReference reference) {
+		protected boolean haveEqualReference(EObject eObject1, EObject eObject2, EReference reference) {
 			return true;
 		}
 		
@@ -68,10 +82,10 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 	
 	private TypeFilter typeFilter = new TypeFilter();
 	
-	public CsOutlinePageTreeViewer(org.eclipse.swt.widgets.Composite parent, int style) {
+	public CsOutlinePageTreeViewer(Composite parent, int style) {
 		super(parent, style);
 		addFilter(typeFilter);
-		setComparer(new org.eclipse.jface.viewers.IElementComparer() {
+		setComparer(new IElementComparer() {
 			
 			public int hashCode(Object element) {
 				String s = toString(element);
@@ -82,8 +96,8 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 			}
 			
 			public boolean equals(Object o1, Object o2) {
-				if (o1 instanceof org.eclipse.emf.ecore.EObject && o2 instanceof org.eclipse.emf.ecore.EObject) {
-					return new FlatEObjectComparer().equals((org.eclipse.emf.ecore.EObject) o1, (org.eclipse.emf.ecore.EObject) o2);
+				if (o1 instanceof EObject && o2 instanceof EObject) {
+					return new FlatEObjectComparer().equals((EObject) o1, (EObject) o2);
 				}
 				String s1 = toString(o1);
 				String s2 = toString(o2);
@@ -97,8 +111,8 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 				if (o instanceof String) {
 					return (String) o;
 				}
-				if (o instanceof org.eclipse.emf.ecore.resource.Resource) {
-					return ((org.eclipse.emf.ecore.resource.Resource) o).getURI().toString();
+				if (o instanceof Resource) {
+					return ((Resource) o).getURI().toString();
 				}
 				return null;
 			}
@@ -107,7 +121,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		
 	}
 	
-	public void setSelection(org.eclipse.jface.viewers.ISelection selection, boolean reveal) {
+	public void setSelection(ISelection selection, boolean reveal) {
 		if (!linkWithEditor) {
 			return;
 		}
@@ -121,7 +135,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		}
 	}
 	
-	protected void handleSelect(org.eclipse.swt.events.SelectionEvent event) {
+	protected void handleSelect(SelectionEvent event) {
 		if (event.item == null) {
 			// In the cases of an invalid document, the tree widget in the outline might fire
 			// an event (with item == null) without user interaction. We do not want to react
@@ -131,7 +145,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		}
 	}
 	
-	protected void handleInvalidSelection(org.eclipse.jface.viewers.ISelection selection, org.eclipse.jface.viewers.ISelection newSelection) {
+	protected void handleInvalidSelection(ISelection selection, ISelection newSelection) {
 		// this may not fire a selection changed event to avoid cyclic events between
 		// editor and outline
 	}
@@ -171,7 +185,7 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		}
 	}
 	
-	protected void fireSelectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
+	protected void fireSelectionChanged(SelectionChangedEvent event) {
 		if (suppressNotifications == true) {
 			return;
 		}
@@ -189,11 +203,11 @@ public class CsOutlinePageTreeViewer extends org.eclipse.jface.viewers.TreeViewe
 		expandToLevel(getAutoExpandLevel());
 	}
 	
-	public void addTypeToFilter(org.eclipse.emf.ecore.EClass typeToFilter) {
+	public void addTypeToFilter(EClass typeToFilter) {
 		typeFilter.getFilteredTypes().add(typeToFilter);
 	}
 	
-	public void removeTypeToFilter(org.eclipse.emf.ecore.EClass typeToNotFilter) {
+	public void removeTypeToFilter(EClass typeToNotFilter) {
 		typeFilter.getFilteredTypes().remove(typeToNotFilter);
 	}
 	

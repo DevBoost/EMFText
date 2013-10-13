@@ -16,10 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.action.IAction;
+
 public class CsOutlinePageExpandAllAction extends org.emftext.sdk.concretesyntax.resource.cs.ui.AbstractCsOutlinePageAction {
 	
 	public CsOutlinePageExpandAllAction(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer treeViewer) {
-		super(treeViewer, "Expand all", org.eclipse.jface.action.IAction.AS_PUSH_BUTTON);
+		super(treeViewer, "Expand all", IAction.AS_PUSH_BUTTON);
 		initialize("icons/expand_all_icon.gif");
 	}
 	

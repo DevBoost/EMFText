@@ -16,6 +16,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.ArrayList;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.swt.custom.StyledText;
+
 /**
  * A container for all bracket pairs.
  */
@@ -31,7 +39,7 @@ public class CsBracketSet {
 	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
 	
-	private java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> bracketPairs;
+	private ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> bracketPairs;
 	private String languageID;
 	
 	/**
@@ -40,7 +48,7 @@ public class CsBracketSet {
 	public CsBracketSet() {
 		super();
 		this.languageID = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
-		this.bracketPairs = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair>();
+		this.bracketPairs = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair>();
 	}
 	
 	/**
@@ -103,7 +111,7 @@ public class CsBracketSet {
 	 * Removes all bracket pairs from this bracket set and reloads the bracket set
 	 * from the preference store.
 	 */
-	public boolean resetBrackets(org.eclipse.jface.preference.IPreferenceStore preferenceStore) {
+	public boolean resetBrackets(IPreferenceStore preferenceStore) {
 		String bracketPairs = preferenceStore.getString(languageID + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX);
 		if (bracketPairs == null) {
 			return false;
@@ -163,7 +171,7 @@ public class CsBracketSet {
 	 * 'closeAfterEnter'.
 	 */
 	public void deserialize(String bracketSet) {
-		bracketPairs = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair>();
+		bracketPairs = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair>();
 		String[] parts = bracketSet.split(SERIAL_SEPARATOR + SERIAL_SEPARATOR);
 		for (String part : parts) {
 			String[] fields = part.split(SERIAL_SEPARATOR);
@@ -193,9 +201,9 @@ public class CsBracketSet {
 	
 	/**
 	 * Returns this bracket set as <code>String</code>. This is useful to store the
-	 * set in the <code>org.eclipse.jface.preference.IPreferenceStore</code>.
+	 * set in the <code>IPreferenceStore</code>.
 	 * 
-	 * @see org.eclipse.jface.preference.IPreferenceStore
+	 * @see IPreferenceStore
 	 */
 	public String serialize() {
 		StringBuilder result = new StringBuilder();
@@ -214,11 +222,11 @@ public class CsBracketSet {
 		return result.toString();
 	}
 	
-	public int getCaretOffset(org.eclipse.jface.text.source.ISourceViewer viewer, org.eclipse.swt.custom.StyledText textWidget) {
-		org.eclipse.jface.text.IDocument document = viewer.getDocument();
-		org.eclipse.jface.text.source.projection.ProjectionViewer projectionViewer = null;
-		if (viewer instanceof org.eclipse.jface.text.source.projection.ProjectionViewer) {
-			projectionViewer = (org.eclipse.jface.text.source.projection.ProjectionViewer) viewer;
+	public int getCaretOffset(ISourceViewer viewer, StyledText textWidget) {
+		IDocument document = viewer.getDocument();
+		ProjectionViewer projectionViewer = null;
+		if (viewer instanceof ProjectionViewer) {
+			projectionViewer = (ProjectionViewer) viewer;
 		}
 		if (document == null) {
 			return -1;
@@ -232,10 +240,10 @@ public class CsBracketSet {
 	
 	/**
 	 * Searches the matching bracket at the left side of the caret. The position
-	 * information will be stored in the <code>org.eclipse.jface.text.IDocument</code>
-	 * in the category <code>ExtensionConstants.PositionCategory.BRACKET</code>.
+	 * information will be stored in the <code>IDocument</code> in the category
+	 * <code>ExtensionConstants.PositionCategory.BRACKET</code>.
 	 */
-	public void findAndHighlightMatchingBrackets(org.eclipse.jface.text.IDocument document, int caretOffset) {
+	public void findAndHighlightMatchingBrackets(IDocument document, int caretOffset) {
 		if (caretOffset <= 0) {
 			return;
 		}
@@ -243,7 +251,7 @@ public class CsBracketSet {
 		final String prevStr;
 		try {
 			prevStr = "" + document.getChar(caretOffset - 1);
-		} catch (org.eclipse.jface.text.BadLocationException e) {
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 			return;
 		}
@@ -268,7 +276,7 @@ public class CsBracketSet {
 				}
 				position += isForward ? 1 : -1;
 			}
-		} catch (org.eclipse.jface.text.BadLocationException e) {
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 			return;
 		}

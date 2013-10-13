@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+
 public class CsUIMetaInformation extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation {
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider getHoverTextProvider() {

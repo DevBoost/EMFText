@@ -16,11 +16,22 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.List;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.Region;
+import org.eclipse.jface.text.hyperlink.IHyperlink;
+import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
+
 /**
  * A hyperlink detector returns hyperlink if the token, where the mouse cursor
  * hovers, is a proxy.
  */
-public class CsHyperlinkDetector implements org.eclipse.jface.text.hyperlink.IHyperlinkDetector {
+public class CsHyperlinkDetector implements IHyperlinkDetector {
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource;
 	
@@ -29,17 +40,17 @@ public class CsHyperlinkDetector implements org.eclipse.jface.text.hyperlink.IHy
 	 * 
 	 * @param resource the resource to use for calculating the locations.
 	 */
-	public CsHyperlinkDetector(org.eclipse.emf.ecore.resource.Resource resource) {
+	public CsHyperlinkDetector(Resource resource) {
 		textResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resource;
 	}
 	
-	public org.eclipse.jface.text.hyperlink.IHyperlink[] detectHyperlinks(org.eclipse.jface.text.ITextViewer textViewer, org.eclipse.jface.text.IRegion region, boolean canShowMultipleHyperlinks) {
+	public IHyperlink[] detectHyperlinks(ITextViewer textViewer, IRegion region, boolean canShowMultipleHyperlinks) {
 		org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
-		java.util.List<org.eclipse.emf.ecore.EObject> elementsAtOffset = locationMap.getElementsAt(region.getOffset());
-		org.eclipse.emf.ecore.EObject resolvedEObject = null;
-		for (org.eclipse.emf.ecore.EObject eObject : elementsAtOffset) {
+		List<EObject> elementsAtOffset = locationMap.getElementsAt(region.getOffset());
+		EObject resolvedEObject = null;
+		for (EObject eObject : elementsAtOffset) {
 			if (eObject.eIsProxy()) {
-				resolvedEObject = org.eclipse.emf.ecore.util.EcoreUtil.resolve(eObject, textResource);
+				resolvedEObject = EcoreUtil.resolve(eObject, textResource);
 				if (resolvedEObject == eObject) {
 					continue;
 				}
@@ -48,13 +59,13 @@ public class CsHyperlinkDetector implements org.eclipse.jface.text.hyperlink.IHy
 				String text = null;
 				try {
 					text = textViewer.getDocument().get(offset, length);
-				} catch (org.eclipse.jface.text.BadLocationException e) {
+				} catch (BadLocationException e) {
 				}
 				// we skip elements that are not contained in a resource, because we cannot jump
 				// to them anyway
 				if (resolvedEObject.eResource() != null) {
-					org.eclipse.jface.text.hyperlink.IHyperlink hyperlink = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHyperlink(new org.eclipse.jface.text.Region(offset, length), resolvedEObject, text);
-					return new org.eclipse.jface.text.hyperlink.IHyperlink[] {hyperlink};
+					IHyperlink hyperlink = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHyperlink(new Region(offset, length), resolvedEObject, text);
+					return new IHyperlink[] {hyperlink};
 				}
 			}
 		}

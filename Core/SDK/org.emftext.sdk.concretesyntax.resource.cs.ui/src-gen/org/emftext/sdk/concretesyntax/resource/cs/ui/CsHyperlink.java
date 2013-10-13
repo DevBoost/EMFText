@@ -16,14 +16,38 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.ui.viewer.IViewerProvider;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.hyperlink.IHyperlink;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
+
 /**
  * A hyperlink for the proxy elements in source code.
  */
-public class CsHyperlink implements org.eclipse.jface.text.hyperlink.IHyperlink {
+public class CsHyperlink implements IHyperlink {
 	
 	private String text;
-	private org.eclipse.emf.ecore.EObject linkTarget;
-	private org.eclipse.jface.text.IRegion region;
+	private EObject linkTarget;
+	private IRegion region;
 	
 	/**
 	 * Creates the hyperlink.
@@ -33,7 +57,7 @@ public class CsHyperlink implements org.eclipse.jface.text.hyperlink.IHyperlink 
 	 * @param targetText the text to specify the target position in the
 	 * <code>linkTarget</code>
 	 */
-	public CsHyperlink(org.eclipse.jface.text.IRegion region, org.eclipse.emf.ecore.EObject linkTarget, String targetText) {
+	public CsHyperlink(IRegion region, EObject linkTarget, String targetText) {
 		this.region = region;
 		this.linkTarget = linkTarget;
 		this.text = targetText;
@@ -64,54 +88,54 @@ public class CsHyperlink implements org.eclipse.jface.text.hyperlink.IHyperlink 
 		if (linkTarget == null) {
 			return;
 		}
-		org.eclipse.core.resources.IFile file = getIFileFromResource();
+		IFile file = getIFileFromResource();
 		if (file != null) {
-			org.eclipse.ui.IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
-			org.eclipse.ui.IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
+			IWorkbench workbench = PlatformUI.getWorkbench();
+			IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
 			try {
-				org.eclipse.ui.IEditorDescriptor desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());
+				IEditorDescriptor desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());
 				if (desc == null) {
 					desc = workbench.getEditorRegistry().findEditor("org.eclipse.emf.ecore.presentation.ReflectiveEditorID");
 				}
-				org.eclipse.ui.IEditorPart editorPart = page.openEditor(new org.eclipse.ui.part.FileEditorInput(file), desc.getId());
-				if (editorPart instanceof org.eclipse.emf.edit.domain.IEditingDomainProvider) {
-					org.eclipse.emf.edit.domain.IEditingDomainProvider editingDomainProvider = (org.eclipse.emf.edit.domain.IEditingDomainProvider) editorPart;
-					org.eclipse.emf.edit.domain.EditingDomain editingDomain = editingDomainProvider.getEditingDomain();
-					org.eclipse.emf.common.util.URI uri = org.eclipse.emf.ecore.util.EcoreUtil.getURI(linkTarget);
-					org.eclipse.emf.ecore.EObject originalObject = editingDomain.getResourceSet().getEObject(uri, true);
-					if (editingDomainProvider instanceof org.eclipse.emf.common.ui.viewer.IViewerProvider) {
-						org.eclipse.emf.common.ui.viewer.IViewerProvider viewerProvider = (org.eclipse.emf.common.ui.viewer.IViewerProvider) editingDomainProvider;
-						org.eclipse.jface.viewers.Viewer viewer = viewerProvider.getViewer();
-						viewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(originalObject), true);
+				IEditorPart editorPart = page.openEditor(new FileEditorInput(file), desc.getId());
+				if (editorPart instanceof IEditingDomainProvider) {
+					IEditingDomainProvider editingDomainProvider = (IEditingDomainProvider) editorPart;
+					EditingDomain editingDomain = editingDomainProvider.getEditingDomain();
+					URI uri = EcoreUtil.getURI(linkTarget);
+					EObject originalObject = editingDomain.getResourceSet().getEObject(uri, true);
+					if (editingDomainProvider instanceof IViewerProvider) {
+						IViewerProvider viewerProvider = (IViewerProvider) editingDomainProvider;
+						Viewer viewer = viewerProvider.getViewer();
+						viewer.setSelection(new StructuredSelection(originalObject), true);
 					}
 				}
-			} catch (org.eclipse.ui.PartInitException e) {
+			} catch (PartInitException e) {
 				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while opening hyperlink target.", e);
 			}
 		}
 	}
 	
-	private org.eclipse.core.resources.IFile getIFileFromResource() {
-		org.eclipse.emf.ecore.resource.Resource linkTargetResource = linkTarget.eResource();
+	private IFile getIFileFromResource() {
+		Resource linkTargetResource = linkTarget.eResource();
 		if (linkTargetResource == null) {
 			return null;
 		}
-		org.eclipse.emf.common.util.URI resourceURI = linkTargetResource.getURI();
+		URI resourceURI = linkTargetResource.getURI();
 		if (linkTargetResource.getResourceSet() != null && linkTargetResource.getResourceSet().getURIConverter() != null) {
 			resourceURI = linkTargetResource.getResourceSet().getURIConverter().normalize(resourceURI);
 		}
 		if (resourceURI.isPlatformResource()) {
 			String platformString = resourceURI.toPlatformString(true);
 			if (platformString != null) {
-				org.eclipse.core.resources.IWorkspace workspace = org.eclipse.core.resources.ResourcesPlugin.getWorkspace();
-				org.eclipse.core.resources.IWorkspaceRoot root = workspace.getRoot();
-				return root.getFile(new org.eclipse.core.runtime.Path(platformString));
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				IWorkspaceRoot root = workspace.getRoot();
+				return root.getFile(new Path(platformString));
 			}
 		}
 		return null;
 	}
 	
-	public org.eclipse.jface.text.IRegion getHyperlinkRegion() {
+	public IRegion getHyperlinkRegion() {
 		return region;
 	}
 	

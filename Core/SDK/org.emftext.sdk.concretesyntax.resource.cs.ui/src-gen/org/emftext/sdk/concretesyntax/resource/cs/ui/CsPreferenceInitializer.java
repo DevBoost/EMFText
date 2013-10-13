@@ -16,17 +16,21 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.Collection;
+import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.jface.preference.IPreferenceStore;
+
 /**
  * This class can be used to initialize default preference values.
  */
-public class CsPreferenceInitializer extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer {
+public class CsPreferenceInitializer extends AbstractPreferenceInitializer {
 	
 	public void initializeDefaultPreferences() {
 		
 		initializeDefaultSyntaxHighlighting();
 		initializeDefaultBrackets();
 		
-		org.eclipse.jface.preference.IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		// Set default value for matching brackets
 		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR, "192,192,192");
 		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, true);
@@ -34,15 +38,15 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 	}
 	
 	protected void initializeDefaultBrackets() {
-		org.eclipse.jface.preference.IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		initializeDefaultBrackets(store, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation());
 	}
 	
-	protected void initializeDefaultBrackets(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation) {
+	protected void initializeDefaultBrackets(IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation) {
 		String languageId = metaInformation.getSyntaxName();
 		// set default brackets
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet();
-		final java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> bracketPairs = metaInformation.getBracketPairs();
+		final Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> bracketPairs = metaInformation.getBracketPairs();
 		if (bracketPairs != null) {
 			for (org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair : bracketPairs) {
 				bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside(), bracketPair.isCloseAfterEnter());
@@ -52,11 +56,11 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 	}
 	
 	public void initializeDefaultSyntaxHighlighting() {
-		org.eclipse.jface.preference.IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		initializeDefaultSyntaxHighlighting(store, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation());
 	}
 	
-	protected void initializeDefaultSyntaxHighlighting(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation) {
+	protected void initializeDefaultSyntaxHighlighting(IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation) {
 		String languageId = metaInformation.getSyntaxName();
 		String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();
 		if (tokenNames == null) {
@@ -74,7 +78,7 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 		}
 	}
 	
-	protected void setProperties(org.eclipse.jface.preference.IPreferenceStore store, String languageID, String tokenName, String color, boolean bold, boolean enable, boolean italic, boolean strikethrough, boolean underline) {
+	protected void setProperties(IPreferenceStore store, String languageID, String tokenName, String color, boolean bold, boolean enable, boolean italic, boolean strikethrough, boolean underline) {
 		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.BOLD), bold);
 		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.COLOR), color);
 		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.ENABLE), enable);

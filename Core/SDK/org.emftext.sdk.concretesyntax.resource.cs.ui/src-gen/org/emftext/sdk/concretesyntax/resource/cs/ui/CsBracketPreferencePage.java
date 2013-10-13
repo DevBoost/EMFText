@@ -16,6 +16,30 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import org.eclipse.jface.preference.ColorSelector;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
+
 /**
  * The preference page for the bracket setting with following features:
  * <ul>
@@ -24,28 +48,28 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
  * <li>customizes bracket set</li>
  * </ul>
  */
-public class CsBracketPreferencePage extends org.eclipse.jface.preference.PreferencePage implements org.eclipse.ui.IWorkbenchPreferencePage {
+public class CsBracketPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	
 	private static final String[] ALL_LEFT_BRACKETS = new String[] { "{", "(", "[", "<", "\"", "'", };
 	private static final String[] ALL_RIGHT_BRACKETS = new String[] { "}", ")", "]", ">", "\"", "'", };
 	
 	private String BRACKETS_COLOR = org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR;
 	
-	private java.util.Set<String> languageIDs = new java.util.LinkedHashSet<String>();
+	private Set<String> languageIDs = new LinkedHashSet<String>();
 	
-	private org.eclipse.jface.preference.ColorSelector matchingBracketsColorEditor;
-	private org.eclipse.swt.widgets.Label colorEditorLabel;
-	private org.eclipse.swt.widgets.Button enableCheckbox;
-	private org.eclipse.swt.widgets.Button enableClosingInside;
-	private org.eclipse.swt.widgets.Button enableCloseAfterEnter;
-	private org.eclipse.swt.widgets.Button matchingBracketsColorButton;
-	private org.eclipse.swt.widgets.Label bracketTokensLabel;
-	private org.eclipse.swt.widgets.Combo leftBracketTokensCombo;
-	private org.eclipse.swt.widgets.Combo rightBracketTokensCombo;
-	private org.eclipse.swt.widgets.List bracketsList;
-	private org.eclipse.swt.widgets.Button addBracketButton;
-	private org.eclipse.swt.widgets.Button removeBracketButton;
-	private java.util.Map<String, String> bracketSetTemp = new java.util.LinkedHashMap<String, String>();
+	private ColorSelector matchingBracketsColorEditor;
+	private Label colorEditorLabel;
+	private Button enableCheckbox;
+	private Button enableClosingInside;
+	private Button enableCloseAfterEnter;
+	private Button matchingBracketsColorButton;
+	private Label bracketTokensLabel;
+	private Combo leftBracketTokensCombo;
+	private Combo rightBracketTokensCombo;
+	private List bracketsList;
+	private Button addBracketButton;
+	private Button removeBracketButton;
+	private Map<String, String> bracketSetTemp = new LinkedHashMap<String, String>();
 	private String language = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketsTmp;
@@ -63,9 +87,9 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	
 	/**
 	 * 
-	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
+	 * @see IWorkbenchPreferencePage#init(IWorkbench)
 	 */
-	public void init(org.eclipse.ui.IWorkbench workbench) {
+	public void init(IWorkbench workbench) {
 		setPreferenceStore(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
 		setDescription("Define the coloring of matching brackets.");
 		
@@ -76,95 +100,95 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	}
 	
 	@Override
-	protected org.eclipse.swt.widgets.Control createContents(org.eclipse.swt.widgets.Composite parent) {
+	protected Control createContents(Composite parent) {
 		
 		// outer Composite
-		org.eclipse.swt.widgets.Composite settingComposite = new org.eclipse.swt.widgets.Composite(parent, org.eclipse.swt.SWT.NONE);
-		org.eclipse.swt.layout.GridLayout layout = new org.eclipse.swt.layout.GridLayout();
-		org.eclipse.swt.layout.GridData gd;
+		Composite settingComposite = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		GridData gd;
 		layout.numColumns = 2;
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING);
+		gd = new GridData(GridData.BEGINNING);
 		settingComposite.setLayout(layout);
 		settingComposite.setLayoutData(gd);
 		
-		enableCheckbox = new org.eclipse.swt.widgets.Button(settingComposite, org.eclipse.swt.SWT.CHECK);
+		enableCheckbox = new Button(settingComposite, SWT.CHECK);
 		enableCheckbox.setText("Enable");
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING);
-		gd.horizontalAlignment = org.eclipse.swt.layout.GridData.BEGINNING;
+		gd = new GridData(GridData.BEGINNING);
+		gd.horizontalAlignment = GridData.BEGINNING;
 		gd.horizontalSpan = 2;
 		enableCheckbox.setLayoutData(gd);
 		
-		colorEditorLabel = new org.eclipse.swt.widgets.Label(settingComposite, org.eclipse.swt.SWT.LEFT);
+		colorEditorLabel = new Label(settingComposite, SWT.LEFT);
 		colorEditorLabel.setText("Color:");
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_BEGINNING);
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		gd.horizontalIndent = 20;
 		colorEditorLabel.setLayoutData(gd);
 		
-		matchingBracketsColorEditor = new org.eclipse.jface.preference.ColorSelector(settingComposite);
+		matchingBracketsColorEditor = new ColorSelector(settingComposite);
 		matchingBracketsColorButton = matchingBracketsColorEditor.getButton();
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.HORIZONTAL_ALIGN_BEGINNING);
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		matchingBracketsColorButton.setLayoutData(gd);
 		
-		org.eclipse.swt.widgets.Composite tokenSelectionComposite = new org.eclipse.swt.widgets.Composite(settingComposite, org.eclipse.swt.SWT.NONE);
-		layout = new org.eclipse.swt.layout.GridLayout();
+		Composite tokenSelectionComposite = new Composite(settingComposite, SWT.NONE);
+		layout = new GridLayout();
 		layout.numColumns = 3;
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL_HORIZONTAL);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
 		gd.verticalIndent = 20;
 		tokenSelectionComposite.setLayout(layout);
 		tokenSelectionComposite.setLayoutData(gd);
 		
-		bracketTokensLabel = new org.eclipse.swt.widgets.Label(tokenSelectionComposite, org.eclipse.swt.SWT.LEFT);
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING);
+		bracketTokensLabel = new Label(tokenSelectionComposite, SWT.LEFT);
+		gd = new GridData(GridData.BEGINNING);
 		gd.horizontalSpan = 3;
 		bracketTokensLabel.setText("Add new bracket pair");
 		bracketTokensLabel.setLayoutData(gd);
 		
-		leftBracketTokensCombo = new org.eclipse.swt.widgets.Combo(tokenSelectionComposite,org.eclipse.swt.SWT.DROP_DOWN | org.eclipse.swt.SWT.READ_ONLY);
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING);
+		leftBracketTokensCombo = new Combo(tokenSelectionComposite,SWT.DROP_DOWN | SWT.READ_ONLY);
+		gd = new GridData(GridData.BEGINNING);
 		leftBracketTokensCombo.setLayoutData(gd);
 		
-		rightBracketTokensCombo = new org.eclipse.swt.widgets.Combo(tokenSelectionComposite,org.eclipse.swt.SWT.DROP_DOWN | org.eclipse.swt.SWT.READ_ONLY);
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL);
+		rightBracketTokensCombo = new Combo(tokenSelectionComposite,SWT.DROP_DOWN | SWT.READ_ONLY);
+		gd = new GridData(GridData.FILL);
 		rightBracketTokensCombo.setLayoutData(gd);
 		
-		addBracketButton = new org.eclipse.swt.widgets.Button(tokenSelectionComposite, org.eclipse.swt.SWT.PUSH);
+		addBracketButton = new Button(tokenSelectionComposite, SWT.PUSH);
 		addBracketButton.setText("Add");
-		addBracketButton.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING, org.eclipse.swt.layout.GridData.BEGINNING, false, false));
+		addBracketButton.setLayoutData(new GridData(GridData.BEGINNING, GridData.BEGINNING, false, false));
 		
-		org.eclipse.swt.widgets.Label configurePairsLabel = new org.eclipse.swt.widgets.Label(tokenSelectionComposite, org.eclipse.swt.SWT.LEFT);
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING);
+		Label configurePairsLabel = new Label(tokenSelectionComposite, SWT.LEFT);
+		gd = new GridData(GridData.BEGINNING);
 		gd.horizontalSpan = 3;
 		gd.verticalIndent = 20;
 		configurePairsLabel.setText("Configure bracket pairs");
 		configurePairsLabel.setLayoutData(gd);
-		bracketsList = new org.eclipse.swt.widgets.List(tokenSelectionComposite, org.eclipse.swt.SWT.SINGLE);
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.CENTER, org.eclipse.swt.layout.GridData.FILL, false, true);
+		bracketsList = new List(tokenSelectionComposite, SWT.SINGLE);
+		gd = new GridData(GridData.CENTER, GridData.FILL, false, true);
 		gd.horizontalSpan = 2;
 		gd.verticalSpan = 4;
 		gd.widthHint = 100;
 		gd.heightHint = 300;
 		bracketsList.setLayoutData(gd);
 		
-		enableClosingInside = new org.eclipse.swt.widgets.Button(tokenSelectionComposite, org.eclipse.swt.SWT.CHECK);
+		enableClosingInside = new Button(tokenSelectionComposite, SWT.CHECK);
 		enableClosingInside.setText("Enable closing inside");
 		enableClosingInside.setToolTipText("If this option is enabled, other bracket pair can close inside this pair automatically.");
-		enableClosingInside.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING, org.eclipse.swt.layout.GridData.BEGINNING, false, false));
+		enableClosingInside.setLayoutData(new GridData(GridData.BEGINNING, GridData.BEGINNING, false, false));
 		enableClosingInside.setEnabled(false);
 		
-		enableCloseAfterEnter = new org.eclipse.swt.widgets.Button(tokenSelectionComposite, org.eclipse.swt.SWT.CHECK);
+		enableCloseAfterEnter = new Button(tokenSelectionComposite, SWT.CHECK);
 		enableCloseAfterEnter.setText("Enable close after enter");
 		enableCloseAfterEnter.setToolTipText("If this option is enabled the closing bracket is only inserted when the enter key is pressed.");
-		enableCloseAfterEnter.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING, org.eclipse.swt.layout.GridData.BEGINNING, false, false));
+		enableCloseAfterEnter.setLayoutData(new GridData(GridData.BEGINNING, GridData.BEGINNING, false, false));
 		enableCloseAfterEnter.setEnabled(false);
 		
-		removeBracketButton = new org.eclipse.swt.widgets.Button(tokenSelectionComposite, org.eclipse.swt.SWT.PUSH);
+		removeBracketButton = new Button(tokenSelectionComposite, SWT.PUSH);
 		removeBracketButton.setText("Remove");
-		removeBracketButton.setLayoutData(new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING, org.eclipse.swt.layout.GridData.BEGINNING, false, false));
+		removeBracketButton.setLayoutData(new GridData(GridData.BEGINNING, GridData.BEGINNING, false, false));
 		
 		addListenersToStyleButtons();
 		
@@ -181,7 +205,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 		enableCheckbox.setSelection(getPreferenceStore().getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
 		enableClosingInside.setSelection(false);
 		matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(		org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
-		org.eclipse.swt.graphics.RGB rgb = org.eclipse.jface.preference.PreferenceConverter.getColor(getPreferenceStore(), BRACKETS_COLOR);
+		RGB rgb = PreferenceConverter.getColor(getPreferenceStore(), BRACKETS_COLOR);
 		matchingBracketsColorEditor.setColorValue(rgb);
 		removeBracketButton.setEnabled(false);
 		
@@ -204,20 +228,20 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	}
 	
 	private void addListenersToStyleButtons() {
-		enableCheckbox.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+		enableCheckbox.addSelectionListener(new SelectionListener() {
 			
-			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());
 			}
 			
-			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) {
 				// do nothing
 			}
 		});
 		
-		addBracketButton.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+		addBracketButton.addSelectionListener(new SelectionListener() {
 			
-			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				String open = leftBracketTokensCombo.getText();
 				String close = rightBracketTokensCombo.getText();
 				if (bracketsTmp.isBracket(open) || bracketsTmp.isBracket(close)) {
@@ -230,28 +254,28 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 				}
 			}
 			
-			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) {
 				// do nothing
 			}
 		});
 		
-		removeBracketButton.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+		removeBracketButton.addSelectionListener(new SelectionListener() {
 			
-			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				bracketsTmp.removeBracketPairs(bracketsList.getSelection());
 				setErrorMessage(null);
 				bracketsList.setItems(bracketsTmp.getBracketArray());
 				bracketSetTemp.put(language, bracketsTmp.serialize());
 			}
 			
-			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) {
 				// do nothing
 			}
 		});
 		
-		bracketsList.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+		bracketsList.addSelectionListener(new SelectionListener() {
 			
-			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair = getSelectedBracketPair();
 				if (bracketPair == null) {
 					removeBracketButton.setEnabled(false);
@@ -264,14 +288,14 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 				removeBracketButton.setEnabled(true);
 			}
 			
-			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) {
 				// do nothing
 			}
 		});
 		
-		enableClosingInside.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+		enableClosingInside.addSelectionListener(new SelectionListener() {
 			
-			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair = getSelectedBracketPair();
 				if (bracketPair != null) {
 					boolean closingEnabledInside = enableClosingInside.getSelection();
@@ -280,14 +304,14 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 				bracketSetTemp.put(language, bracketsTmp.serialize());
 			}
 			
-			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) {
 				// do nothing
 			}
 		});
 		
-		enableCloseAfterEnter.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
+		enableCloseAfterEnter.addSelectionListener(new SelectionListener() {
 			
-			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetSelected(SelectionEvent e) {
 				org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair = getSelectedBracketPair();
 				if (bracketPair != null) {
 					boolean closeAfterEnter = enableCloseAfterEnter.getSelection();
@@ -296,7 +320,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 				bracketSetTemp.put(language, bracketsTmp.serialize());
 			}
 			
-			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) {
 				// do nothing
 			}
 		});
@@ -306,10 +330,10 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	 * Sets the default values for this preference page.
 	 */
 	protected void performDefaults() {
-		org.eclipse.jface.preference.IPreferenceStore preferenceStore = getPreferenceStore();
+		IPreferenceStore preferenceStore = getPreferenceStore();
 		enableCheckbox.setSelection(preferenceStore.getDefaultBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
 		matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());
-		matchingBracketsColorEditor.setColorValue(org.eclipse.jface.preference.PreferenceConverter.getDefaultColor(preferenceStore, BRACKETS_COLOR));
+		matchingBracketsColorEditor.setColorValue(PreferenceConverter.getDefaultColor(preferenceStore, BRACKETS_COLOR));
 		String defaultBrackets = preferenceStore.getDefaultString(language + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX);
 		bracketSetTemp.put(language, defaultBrackets);
 		bracketsTmp.deserialize(bracketSetTemp.get(language));
@@ -339,12 +363,12 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	 */
 	private void updateActiveEditor() {
 		// set the values after ok or apply
-		org.eclipse.jface.preference.IPreferenceStore preferenceStore = getPreferenceStore();
-		org.eclipse.jface.preference.PreferenceConverter.setValue(preferenceStore, BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());
+		IPreferenceStore preferenceStore = getPreferenceStore();
+		PreferenceConverter.setValue(preferenceStore, BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());
 		preferenceStore.setValue(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());
 		preferenceStore.setValue(language + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(language));
-		org.eclipse.ui.IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
-		org.eclipse.ui.IEditorPart editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
+		IEditorPart editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if (editor != null && editor instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
 			((org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) editor).invalidateTextRepresentation();
 		}

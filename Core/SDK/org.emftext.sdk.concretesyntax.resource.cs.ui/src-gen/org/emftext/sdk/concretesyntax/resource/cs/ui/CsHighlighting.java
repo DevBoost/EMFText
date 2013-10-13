@@ -16,26 +16,54 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
+
 /**
  * A manager class for the highlighting of occurrences and brackets.
  */
-public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvider, org.eclipse.jface.viewers.ISelectionChangedListener {
+public class CsHighlighting implements ISelectionProvider, ISelectionChangedListener {
 	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper positionHelper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionHelper();
 	
-	private java.util.List<org.eclipse.jface.viewers.ISelectionChangedListener> selectionChangedListeners = new java.util.ArrayList<org.eclipse.jface.viewers.ISelectionChangedListener>();
-	private org.eclipse.jface.viewers.ISelection selection = null;
+	private List<ISelectionChangedListener> selectionChangedListeners = new ArrayList<ISelectionChangedListener>();
+	private ISelection selection = null;
 	private boolean isHighlightBrackets = true;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
-	private org.eclipse.swt.graphics.Color bracketColor;
-	private org.eclipse.swt.graphics.Color black;
-	private org.eclipse.swt.custom.StyledText textWidget;
-	private org.eclipse.jface.preference.IPreferenceStore preferenceStore;
+	private Color bracketColor;
+	private Color black;
+	private StyledText textWidget;
+	private IPreferenceStore preferenceStore;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
-	private org.eclipse.jface.text.source.projection.ProjectionViewer projectionViewer;
+	private ProjectionViewer projectionViewer;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence occurrence;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet;
-	private org.eclipse.swt.widgets.Display display;
+	private Display display;
 	
 	/**
 	 * A key and mouse listener for the highlighting. It removes the highlighting
@@ -43,15 +71,15 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	 * increase the performance. Occurrences are not searched if the caret is still in
 	 * the same token to increase the performance.
 	 */
-	private final class UpdateHighlightingListener implements org.eclipse.swt.events.KeyListener, org.eclipse.swt.events.VerifyListener, org.eclipse.swt.events.MouseListener, org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener {
+	private final class UpdateHighlightingListener implements KeyListener, VerifyListener, MouseListener, org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener {
 		
 		private boolean changed = false;
 		private int caret = -1;
 		
-		public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
+		public void keyPressed(KeyEvent e) {
 		}
 		
-		public void keyReleased(org.eclipse.swt.events.KeyEvent e) {
+		public void keyReleased(KeyEvent e) {
 			if (changed) {
 				changed = false;
 				return;
@@ -75,20 +103,20 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 			}
 		}
 		
-		public void verifyText(org.eclipse.swt.events.VerifyEvent e) {
+		public void verifyText(VerifyEvent e) {
 			occurrence.resetTokenRegion();
 			removeHighlighting();
 			changed = true;
 		}
 		
-		public void mouseDoubleClick(org.eclipse.swt.events.MouseEvent e) {
+		public void mouseDoubleClick(MouseEvent e) {
 		}
 		
-		public void mouseDown(org.eclipse.swt.events.MouseEvent e) {
+		public void mouseDown(MouseEvent e) {
 		}
 		
 		// 1-left click, 2-middle click,
-		public void mouseUp(org.eclipse.swt.events.MouseEvent e) {
+		public void mouseUp(MouseEvent e) {
 			// 3-right click
 			if (e.button != 1) {
 				return;
@@ -96,7 +124,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 			refreshHighlighting();
 		}
 		
-		public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource resource) {
+		public void parsingCompleted(Resource resource) {
 			display.asyncExec(new Runnable() {
 				
 				public void run() {
@@ -115,8 +143,8 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	 * @param colorManager the color manager provides highlighting colors
 	 * @param editor
 	 */
-	public CsHighlighting(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, org.eclipse.jface.text.source.projection.ProjectionViewer projectionViewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager, org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
-		this.display = org.eclipse.swt.widgets.Display.getCurrent();
+	public CsHighlighting(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, ProjectionViewer projectionViewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager, org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+		this.display = Display.getCurrent();
 		projectionViewer.getSelectionProvider();
 		this.preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		this.editor = editor;
@@ -126,8 +154,8 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		this.bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet();
 		this.colorManager = colorManager;
 		this.isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
-		this.bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
-		this.black = colorManager.getColor(new org.eclipse.swt.graphics.RGB(0, 0, 0));
+		this.bracketColor = colorManager.getColor(PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
+		this.black = colorManager.getColor(new RGB(0, 0, 0));
 		
 		addListeners(editor);
 	}
@@ -141,24 +169,24 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	}
 	
 	private void setHighlighting() {
-		org.eclipse.jface.text.IDocument document = projectionViewer.getDocument();
+		IDocument document = projectionViewer.getDocument();
 		if (isHighlightBrackets) {
-			int offset = bracketSet.getCaretOffset((org.eclipse.jface.text.source.ISourceViewer) editor.getViewer(), textWidget);
+			int offset = bracketSet.getCaretOffset((ISourceViewer) editor.getViewer(), textWidget);
 			bracketSet.findAndHighlightMatchingBrackets(document, offset);
 		}
 		occurrence.updateOccurrenceAnnotations();
 		setBracketHighlighting(document);
 	}
 	
-	private void setBracketHighlighting(org.eclipse.jface.text.IDocument document) {
-		org.eclipse.swt.custom.StyleRange styleRange = null;
-		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
+	private void setBracketHighlighting(IDocument document) {
+		StyleRange styleRange = null;
+		Position[] positions = positionHelper.getPositions(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
 		
-		for (org.eclipse.jface.text.Position position : positions) {
-			org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
+		for (Position position : positions) {
+			Position tmpPosition = convertToWidgetPosition(position);
 			if (tmpPosition != null) {
 				styleRange = getStyleRangeAtPosition(tmpPosition);
-				styleRange.borderStyle = org.eclipse.swt.SWT.BORDER_SOLID;
+				styleRange.borderStyle = SWT.BORDER_SOLID;
 				styleRange.borderColor = bracketColor;
 				if (styleRange.foreground == null) {
 					styleRange.foreground = black;
@@ -169,20 +197,20 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	}
 	
 	private void removeHighlighting() {
-		org.eclipse.jface.text.IDocument document = projectionViewer.getDocument();
+		IDocument document = projectionViewer.getDocument();
 		// remove highlighted matching brackets
 		removeHighlightingCategory(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString());
 	}
 	
-	private void removeHighlightingCategory(org.eclipse.jface.text.IDocument document, String category) {
-		org.eclipse.jface.text.Position[] positions = positionHelper.getPositions(document, category);
+	private void removeHighlightingCategory(IDocument document, String category) {
+		Position[] positions = positionHelper.getPositions(document, category);
 		if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString())) {
-			org.eclipse.swt.custom.StyleRange styleRange;
-			for (org.eclipse.jface.text.Position position : positions) {
-				org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
+			StyleRange styleRange;
+			for (Position position : positions) {
+				Position tmpPosition = convertToWidgetPosition(position);
 				if (tmpPosition != null) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
-					styleRange.borderStyle = org.eclipse.swt.SWT.NONE;
+					styleRange.borderStyle = SWT.NONE;
 					styleRange.borderColor = null;
 					styleRange.background = null;
 					textWidget.setStyleRange(styleRange);
@@ -195,7 +223,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	public void setEObjectSelection() {
 		display.asyncExec(new Runnable() {
 			public void run() {
-				org.eclipse.emf.ecore.EObject selectedEObject = occurrence.getEObjectAtCurrentPosition();
+				EObject selectedEObject = occurrence.getEObjectAtCurrentPosition();
 				if (selectedEObject != null) {
 					setSelection(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection(selectedEObject, false));
 				}
@@ -208,11 +236,11 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	 */
 	public void resetValues() {
 		isHighlightBrackets = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
-		bracketColor = colorManager.getColor(org.eclipse.jface.preference.PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
+		bracketColor = colorManager.getColor(PreferenceConverter.getColor(preferenceStore, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		bracketSet.resetBrackets(preferenceStore);
 	}
 	
-	private org.eclipse.jface.text.Position convertToWidgetPosition(org.eclipse.jface.text.Position position) {
+	private Position convertToWidgetPosition(Position position) {
 		if (position == null) {
 			return null;
 		}
@@ -221,49 +249,49 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		if (endOffset - startOffset != position.length || startOffset == -1 || textWidget.getCharCount() < endOffset) {
 			return null;
 		}
-		return new org.eclipse.jface.text.Position(startOffset, endOffset - startOffset);
+		return new Position(startOffset, endOffset - startOffset);
 	}
 	
-	private org.eclipse.swt.custom.StyleRange getStyleRangeAtPosition(org.eclipse.jface.text.Position position) {
-		org.eclipse.swt.custom.StyleRange styleRange = null;
+	private StyleRange getStyleRangeAtPosition(Position position) {
+		StyleRange styleRange = null;
 		try {
 			styleRange = textWidget.getStyleRangeAtOffset(position.offset);
 		} catch (IllegalArgumentException iae) {
 		}
 		if (styleRange == null) {
-			styleRange = new org.eclipse.swt.custom.StyleRange(position.offset, position.length, black, null);
+			styleRange = new StyleRange(position.offset, position.length, black, null);
 		} else {
 			styleRange.length = position.length;
 		}
 		return styleRange;
 	}
 	
-	public void addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionChangedListeners.add(listener);
 	}
 	
-	public void removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionChangedListeners.remove(listener);
 	}
 	
-	public void setSelection(org.eclipse.jface.viewers.ISelection selection) {
+	public void setSelection(ISelection selection) {
 		this.selection = selection;
-		for (org.eclipse.jface.viewers.ISelectionChangedListener listener : selectionChangedListeners) {
-			listener.selectionChanged(new org.eclipse.jface.viewers.SelectionChangedEvent(this, selection));
+		for (ISelectionChangedListener listener : selectionChangedListeners) {
+			listener.selectionChanged(new SelectionChangedEvent(this, selection));
 		}
 	}
 	
-	public org.eclipse.jface.viewers.ISelection getSelection() {
+	public ISelection getSelection() {
 		return selection;
 	}
 	
-	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
-		if (event.getSelection() instanceof org.eclipse.jface.viewers.TreeSelection) {
+	public void selectionChanged(SelectionChangedEvent event) {
+		if (event.getSelection() instanceof TreeSelection) {
 			handleContentOutlineSelection(event.getSelection());
 		}
 	}
 	
-	private void handleContentOutlineSelection(org.eclipse.jface.viewers.ISelection selection) {
+	private void handleContentOutlineSelection(ISelection selection) {
 		if (!selection.isEmpty()) {
 			editor.setSelection(selection);
 		}

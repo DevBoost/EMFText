@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+
 public class CsSyntaxColoringHelper {
 	
 	public static enum StyleProperty {

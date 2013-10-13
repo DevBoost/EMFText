@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+
 /**
  * A provider for BracketHandler objects.
  */

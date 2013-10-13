@@ -16,10 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.action.IAction;
+
 public class CsOutlinePageLexicalSortingAction extends org.emftext.sdk.concretesyntax.resource.cs.ui.AbstractCsOutlinePageAction {
 	
 	public CsOutlinePageLexicalSortingAction(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer treeViewer) {
-		super(treeViewer, "Sort alphabetically", org.eclipse.jface.action.IAction.AS_CHECK_BOX);
+		super(treeViewer, "Sort alphabetically", IAction.AS_CHECK_BOX);
 		initialize("icons/sort_lexically_icon.gif");
 	}
 	

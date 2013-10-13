@@ -16,10 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.jface.action.IAction;
+
 public class CsOutlinePageCollapseAllAction extends org.emftext.sdk.concretesyntax.resource.cs.ui.AbstractCsOutlinePageAction {
 	
 	public CsOutlinePageCollapseAllAction(org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer treeViewer) {
-		super(treeViewer, "Collapse all", org.eclipse.jface.action.IAction.AS_PUSH_BUTTON);
+		super(treeViewer, "Collapse all", IAction.AS_PUSH_BUTTON);
 		initialize("icons/collapse_all_icon.gif");
 	}
 	

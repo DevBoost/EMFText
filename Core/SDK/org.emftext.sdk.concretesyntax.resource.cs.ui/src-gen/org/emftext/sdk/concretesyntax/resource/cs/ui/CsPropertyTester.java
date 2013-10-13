@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+
 public class CsPropertyTester {
 	
 	// This class is currently empty, because launch support was disabled for this DSL.

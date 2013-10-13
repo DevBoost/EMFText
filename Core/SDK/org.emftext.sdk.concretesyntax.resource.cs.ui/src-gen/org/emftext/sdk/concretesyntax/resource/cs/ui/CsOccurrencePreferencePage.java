@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+
 /**
  * The preference page to set the occurrence highlighting is not used anymore.
  * This empty class is only generated to override old existing preference page
