@@ -133,7 +133,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 	}
 
 	private void addGetCurrentContextMethod(JavaComposite sc) {
-		sc.add("public Object getCurrentContext() {");
+		sc.add("public ContextType getCurrentContext() {");
 		sc.add("return currentContext;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -226,7 +226,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.add("private " + STACK(sc) + "<" + E_OBJECT(sc) + "> interpretationStack = new " + STACK(sc) + "<" + E_OBJECT(sc) + ">();");
 		sc.add("private " + LIST(sc) + "<" + iInterpreterListenerClassName + "> listeners = new " + ARRAY_LIST(sc) + "<" + iInterpreterListenerClassName + ">();");
 		sc.add("private " + E_OBJECT(sc) + " nextObjectToInterprete;");
-		sc.add("private Object currentContext;");
+		sc.add("private ContextType currentContext;");
 		sc.addLineBreak();
 	}
 
