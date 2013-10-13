@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ACTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ACTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class OutlinePageLinkWithEditorActionGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + abstractOutlinePageActionClassName + " {");
 		sc.addLineBreak();
@@ -38,7 +38,7 @@ public class OutlinePageLinkWithEditorActionGenerator extends UIJavaBaseGenerato
 
 	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + outlinePageTreeViewerClassName + " treeViewer) {");
-		sc.add("super(treeViewer, \"Link with Editor\", " + I_ACTION + ".AS_CHECK_BOX);");
+		sc.add("super(treeViewer, \"Link with Editor\", " + I_ACTION(sc) + ".AS_CHECK_BOX);");
 		sc.add("initialize(\"" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.Icon.DEFAULT_LINK_WITH_EDITOR_ICON.getFilename() + "\");");
 		sc.add("}");
 		sc.addLineBreak();

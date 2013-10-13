@@ -15,14 +15,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_UI_PLUGIN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUNDLE_CONTEXT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DIALOG_CONSTANTS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MESSAGE_DIALOG;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_UI_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE_CONTEXT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DIALOG_CONSTANTS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MESSAGE_DIALOG;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -38,10 +38,10 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("A singleton class for the text resource UI plug-in.");
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_UI_PLUGIN + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_UI_PLUGIN(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -65,12 +65,12 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 			"@param exception the exception that describes the error in detail",
 			"@return the status object describing the error"
 		);
-		sc.add("public static " + I_STATUS + " logError(String message, Throwable exception) {");
-		sc.add(I_STATUS + " status;");
+		sc.add("public static " + I_STATUS(sc) + " logError(String message, Throwable exception) {");
+		sc.add(I_STATUS(sc) + " status;");
 		sc.add("if (exception != null) {");
-		sc.add("status = new " + STATUS + "(" + I_STATUS + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, 0, message, exception);");
+		sc.add("status = new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, 0, message, exception);");
 		sc.add("} else {");
-		sc.add("status = new " + STATUS + "(" + I_STATUS + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, message);");
+		sc.add("status = new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, message);");
 		sc.add("}");
 			
 		sc.add("final " + getResourceClassName() + " pluginInstance = " + getResourceClassName() + ".getDefault();");
@@ -87,12 +87,12 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.addLineBreak();
 	}
 
-	private void addShowErrorMethod(StringComposite sc) {
+	private void addShowErrorMethod(JavaComposite sc) {
 		sc.add("public static void showErrorDialog(final String title, final String message) {");
-		sc.add(DISPLAY + ".getDefault().asyncExec(new Runnable() {");
+		sc.add(DISPLAY(sc) + ".getDefault().asyncExec(new Runnable() {");
 		sc.add("public void run() {");
-		sc.add(SHELL + " parent = new " + SHELL + "();");
-		sc.add(MESSAGE_DIALOG + " dialog = new " + MESSAGE_DIALOG + "(parent, title, null, message, " + MESSAGE_DIALOG + ".ERROR, new String[] { " + I_DIALOG_CONSTANTS + ".OK_LABEL }, 0) {");
+		sc.add(SHELL(sc) + " parent = new " + SHELL(sc) + "();");
+		sc.add(MESSAGE_DIALOG(sc) + " dialog = new " + MESSAGE_DIALOG(sc) + "(parent, title, null, message, " + MESSAGE_DIALOG(sc) + ".ERROR, new String[] { " + I_DIALOG_CONSTANTS(sc) + ".OK_LABEL }, 0) {");
 		sc.add("};");
 		sc.add("dialog.open();");
 		sc.add("}");
@@ -108,16 +108,16 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.addLineBreak();
 	}
 
-	private void addStopMethod(StringComposite sc) {
-		sc.add("public void stop(" + BUNDLE_CONTEXT + " context) throws Exception {");
+	private void addStopMethod(JavaComposite sc) {
+		sc.add("public void stop(" + BUNDLE_CONTEXT(sc) + " context) throws Exception {");
 		sc.add("plugin = null;");
 		sc.add("super.stop(context);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addStartMethod(StringComposite sc) {
-		sc.add("public void start(" + BUNDLE_CONTEXT + " context) throws Exception {");
+	private void addStartMethod(JavaComposite sc) {
+		sc.add("public void start(" + BUNDLE_CONTEXT(sc) + " context) throws Exception {");
 		sc.add("super.start(context);");
 		sc.add("plugin = this;");
 		sc.add("}");

@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_INDENT_LINE_AUTO_EDIT_STRATEGY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_COMMAND;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEFAULT_INDENT_LINE_AUTO_EDIT_STRATEGY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DOCUMENT_COMMAND;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,7 +31,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -42,7 +42,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 			"inserted right away when opening brackets are added where " +
 			"<code>closeAfterEnter</code> is set to <code>false</code>."
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + DEFAULT_INDENT_LINE_AUTO_EDIT_STRATEGY + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + DEFAULT_INDENT_LINE_AUTO_EDIT_STRATEGY(sc) + " {");
 		sc.addLineBreak();
 
 		sc.add("private " + bracketSetClassName + " bracketSet;");
@@ -52,7 +52,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("super();");
 		sc.add(uiPluginActivatorClassName + " plugin = " + uiPluginActivatorClassName + ".getDefault();");
 		sc.add("if (plugin != null) {");
-		sc.add(I_PREFERENCE_STORE + " preferenceStore = plugin.getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE(sc) + " preferenceStore = plugin.getPreferenceStore();");
 		sc.add("bracketSet = new " + bracketSetClassName + "();");
 		sc.add("bracketSet.resetBrackets(preferenceStore);");
 		sc.add("}");
@@ -67,7 +67,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		
 		sc.add("@Override");
-		sc.add("public void customizeDocumentCommand(" + I_DOCUMENT + " document, " + DOCUMENT_COMMAND + " command) {");
+		sc.add("public void customizeDocumentCommand(" + I_DOCUMENT(sc) + " document, " + DOCUMENT_COMMAND(sc) + " command) {");
 		sc.add("String text = command.text;");
 		sc.add("String textBefore = command.text;");
 		sc.add("super.customizeDocumentCommand(document, command);");
@@ -81,7 +81,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("protected void addClosingBracket(" + DOCUMENT_COMMAND + " command) {");
+		sc.add("protected void addClosingBracket(" + DOCUMENT_COMMAND(sc) + " command) {");
 		sc.add("String insertedText = command.text;");
 		sc.add("boolean closeInstantly = bracketSet.isCloseInstantly(insertedText);");
 		sc.add("if (!closeInstantly) {");
@@ -94,7 +94,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("protected void addClosingBracketAfterEnterIfRequired(" + I_DOCUMENT + " document, " + DOCUMENT_COMMAND + " command, String text, String textBefore, String textAfter) {");
+		sc.add("protected void addClosingBracketAfterEnterIfRequired(" + I_DOCUMENT(sc) + " document, " + DOCUMENT_COMMAND(sc) + " command, String text, String textBefore, String textAfter) {");
 		sc.add("boolean isLineBreak = isLineBreak(text);");
 		sc.add("if (!isLineBreak) {");
 		sc.add("return;");

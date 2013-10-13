@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_FIXABLE_ANNOTATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MARKER_ANNOTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_FIXABLE_ANNOTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MARKER_ANNOTATION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,9 +29,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class MarkerAnnotationGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + MARKER_ANNOTATION + " implements " + I_QUICK_FIXABLE_ANNOTATION + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + MARKER_ANNOTATION(sc) + " implements " + I_QUICK_FIXABLE_ANNOTATION(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -47,7 +47,7 @@ public class MarkerAnnotationGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + I_MARKER + " marker) {");
+		sc.add("public " + getResourceClassName() + "(" + I_MARKER(sc) + " marker) {");
 		sc.add("super(marker);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -70,8 +70,8 @@ public class MarkerAnnotationGenerator extends UIJavaBaseGenerator<ArtifactParam
 	private void addIsQuickFixableMethod(JavaComposite sc) {
 		sc.add("public boolean isQuickFixable() {");
 		sc.add("try {");
-		sc.add("return getMarker().getAttribute(" + I_MARKER + ".SOURCE_ID) != null;");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("return getMarker().getAttribute(" + I_MARKER(sc) + ".SOURCE_ID) != null;");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add("// ignore");
 		sc.add("}");
 		sc.add("return false;");

@@ -17,25 +17,25 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_HANDLER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUSY_INDICATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXECUTION_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EXECUTION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.HANDLER_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT_EXTENSION_3;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_PART;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_OPERATION_TARGET;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TYPED_REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_UTILITIES;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_HANDLER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUSY_INDICATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EXECUTION_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EXECUTION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.HANDLER_UTIL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT_EXTENSION_3;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_PART;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_OPERATION_TARGET;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TYPED_REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_UI;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_UTILITIES;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -47,10 +47,10 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_HANDLER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_HANDLER(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		sc.addLineBreak();
@@ -61,8 +61,8 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	private void addFields(JavaComposite sc) {
 		sc.add("public static String[] COMMENT_PREFIXES = new String[] { \"//\" };");
 		sc.addLineBreak();
-		sc.add("private " + I_DOCUMENT + " document;");
-		sc.add("private " + I_TEXT_OPERATION_TARGET + " operationTarget;");
+		sc.add("private " + I_DOCUMENT(sc) + " document;");
+		sc.add("private " + I_TEXT_OPERATION_TARGET(sc) + " operationTarget;");
 		sc.add("private " + MAP + "<String, String[]> prefixesMap;");
 	}
 	
@@ -80,10 +80,10 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("@Override");
 		sc.addLineBreak();
 		sc.add("public boolean isEnabled() {");
-		sc.add(I_EDITOR_PART + " activeEditor = " + PLATFORM_UI + ".getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
+		sc.add(I_EDITOR_PART(sc) + " activeEditor = " + PLATFORM_UI(sc) + ".getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
 		sc.add("if (activeEditor instanceof " + editorClassName + ") {");
-		sc.add(I_TEXT_OPERATION_TARGET + " operationTarget = (" + I_TEXT_OPERATION_TARGET + ") activeEditor.getAdapter(" + I_TEXT_OPERATION_TARGET + ".class);");
-		sc.add("return (operationTarget != null && operationTarget.canDoOperation(" + I_TEXT_OPERATION_TARGET + ".PREFIX) && operationTarget.canDoOperation(" + I_TEXT_OPERATION_TARGET + ".STRIP_PREFIX));");
+		sc.add(I_TEXT_OPERATION_TARGET(sc) + " operationTarget = (" + I_TEXT_OPERATION_TARGET(sc) + ") activeEditor.getAdapter(" + I_TEXT_OPERATION_TARGET(sc) + ".class);");
+		sc.add("return (operationTarget != null && operationTarget.canDoOperation(" + I_TEXT_OPERATION_TARGET(sc) + ".PREFIX) && operationTarget.canDoOperation(" + I_TEXT_OPERATION_TARGET(sc) + ".STRIP_PREFIX));");
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
@@ -91,13 +91,13 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addExecuteMethod(JavaComposite sc) {
-		sc.add("public Object execute(" + EXECUTION_EVENT + " event) throws " + EXECUTION_EXCEPTION + " {");
-		sc.add(I_EDITOR_PART + " editorPart = " + HANDLER_UTIL + ".getActiveEditor(event);");
+		sc.add("public Object execute(" + EXECUTION_EVENT(sc) + " event) throws " + EXECUTION_EXCEPTION(sc) + " {");
+		sc.add(I_EDITOR_PART(sc) + " editorPart = " + HANDLER_UTIL(sc) + ".getActiveEditor(event);");
 		sc.add(editorClassName + " editor = null;");
 		sc.addLineBreak();
 		sc.add("if (editorPart instanceof " + editorClassName + ") {");
 		sc.add("editor = (" + editorClassName + ") editorPart;");
-		sc.add("operationTarget = (" + I_TEXT_OPERATION_TARGET + ") editorPart.getAdapter(" + I_TEXT_OPERATION_TARGET + ".class);");
+		sc.add("operationTarget = (" + I_TEXT_OPERATION_TARGET(sc) + ") editorPart.getAdapter(" + I_TEXT_OPERATION_TARGET(sc) + ".class);");
 		sc.add("document = editor.getDocumentProvider().getDocument(editor.getEditorInput());");
 		sc.add("}");
 		sc.add("if (editor == null || operationTarget == null || document == null) {");
@@ -106,27 +106,27 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		// TODO Use default prefixes and content types from SourceViewerConfiguration if possible
 		sc.add("prefixesMap = new " + LINKED_HASH_MAP + "<String, String[]>();");
-		sc.add("prefixesMap.put(" + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);");
+		sc.add("prefixesMap.put(" + I_DOCUMENT(sc) + ".DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);");
 		sc.addLineBreak();
-		sc.add(I_SELECTION + " currentSelection = " + HANDLER_UTIL + ".getCurrentSelection(event);");
+		sc.add(I_SELECTION(sc) + " currentSelection = " + HANDLER_UTIL(sc) + ".getCurrentSelection(event);");
 		sc.add("final int operationCode;");
 		sc.add("if (isSelectionCommented(currentSelection)) {");
-		sc.add("operationCode = " + I_TEXT_OPERATION_TARGET + ".STRIP_PREFIX;");
+		sc.add("operationCode = " + I_TEXT_OPERATION_TARGET(sc) + ".STRIP_PREFIX;");
 		sc.add("} else {");
-		sc.add("operationCode = " + I_TEXT_OPERATION_TARGET + ".PREFIX;");
+		sc.add("operationCode = " + I_TEXT_OPERATION_TARGET(sc) + ".PREFIX;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (!operationTarget.canDoOperation(operationCode)) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(SHELL + " shell = editorPart.getSite().getShell();");
-		sc.add(DISPLAY + " display = null;");
+		sc.add(SHELL(sc) + " shell = editorPart.getSite().getShell();");
+		sc.add(DISPLAY(sc) + " display = null;");
 		sc.add("if (shell != null && !shell.isDisposed()) {");
 		sc.add("display = shell.getDisplay();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(BUSY_INDICATOR + ".showWhile(display, new  Runnable() {");
+		sc.add(BUSY_INDICATOR(sc) + ".showWhile(display, new  Runnable() {");
 		sc.add("public void run() {");
 		sc.add("operationTarget.doOperation(operationCode);");
 		sc.add("}");
@@ -138,17 +138,17 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addIsSelectionCommentedMethod(JavaComposite sc) {
-		sc.add("private boolean isSelectionCommented(" + I_SELECTION + " selection) {");
-		sc.add("if (!(selection instanceof " + I_TEXT_SELECTION + ")) {");
+		sc.add("private boolean isSelectionCommented(" + I_SELECTION(sc) + " selection) {");
+		sc.add("if (!(selection instanceof " + I_TEXT_SELECTION(sc) + ")) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add(I_TEXT_SELECTION + " textSelection = (" + I_TEXT_SELECTION + ") selection;");
+		sc.add(I_TEXT_SELECTION(sc) + " textSelection = (" + I_TEXT_SELECTION(sc) + ") selection;");
 		sc.add("if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("try {");
-		sc.add(I_REGION + " block = getTextBlockFromSelection(textSelection, document);");
-		sc.add(I_TYPED_REGION + "[] regions = " + TEXT_UTILITIES + ".computePartitioning(document, " + I_DOCUMENT_EXTENSION_3 + ".DEFAULT_PARTITIONING, block.getOffset(), block.getLength(), false);");
+		sc.add(I_REGION(sc) + " block = getTextBlockFromSelection(textSelection, document);");
+		sc.add(I_TYPED_REGION(sc) + "[] regions = " + TEXT_UTILITIES(sc) + ".computePartitioning(document, " + I_DOCUMENT_EXTENSION_3(sc) + ".DEFAULT_PARTITIONING, block.getOffset(), block.getLength(), false);");
 		sc.add("int[] lines = new int[regions.length * 2]; // [startline, endline, startline, endline, ...]");
 		sc.add("for (int i = 0, j = 0; i < regions.length; i++, j+= 2) {");
 		sc.addComment("start line of region");
@@ -171,7 +171,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.add("}");
 		sc.add("return true;");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " x) {");
 		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return false;");
@@ -180,12 +180,12 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 	
 	private void addGetTextBlockFromSelectionMethod(JavaComposite sc) {
-		sc.add("private " + I_REGION + " getTextBlockFromSelection(" + I_TEXT_SELECTION + " selection, " + I_DOCUMENT + " document) {");
+		sc.add("private " + I_REGION(sc) + " getTextBlockFromSelection(" + I_TEXT_SELECTION(sc) + " selection, " + I_DOCUMENT(sc) + " document) {");
 		sc.add("try {");
-		sc.add(I_REGION + " line = document.getLineInformationOfOffset(selection.getOffset());");
+		sc.add(I_REGION(sc) + " line = document.getLineInformationOfOffset(selection.getOffset());");
 		sc.add("int length = selection.getLength() == 0 ? line.getLength() : selection.getLength() + (selection.getOffset() - line.getOffset());");
-		sc.add("return new " + REGION + "(line.getOffset(), length);");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
+		sc.add("return new " + REGION(sc) + "(line.getOffset(), length);");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " x) {");
 		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return null;");
@@ -194,7 +194,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 	
 	private void addGetFirstCompleteLineOfRegionMethod(JavaComposite sc) {
-		sc.add("private int getFirstCompleteLineOfRegion(" + I_REGION + " region, " + I_DOCUMENT + " document) {");
+		sc.add("private int getFirstCompleteLineOfRegion(" + I_REGION(sc) + " region, " + I_DOCUMENT(sc) + " document) {");
 		sc.add("try {");
 		sc.add("final int startLine = document.getLineOfOffset(region.getOffset());");
 		sc.add("int offset = document.getLineOffset(startLine);");
@@ -207,7 +207,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.add("offset = document.getLineOffset(nextLine);");
 		sc.add("return (offset > region.getOffset() + region.getLength() ? -1 : nextLine);");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " x) {");
 		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return -1;");
@@ -216,13 +216,13 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addIsBlockCommentedMethod(JavaComposite sc) {
-		sc.add("private boolean isBlockCommented(int startLine, int endLine, String[] prefixes, " + I_DOCUMENT + " document) {");
+		sc.add("private boolean isBlockCommented(int startLine, int endLine, String[] prefixes, " + I_DOCUMENT(sc) + " document) {");
 		sc.add("try {");
 		sc.addComment("check for occurrences of prefixes in the given lines");
 		sc.add("for (int i = startLine; i <= endLine; i++) {");
-		sc.add(I_REGION + " line = document.getLineInformation(i);");
+		sc.add(I_REGION(sc) + " line = document.getLineInformation(i);");
 		sc.add("String text = document.get(line.getOffset(), line.getLength());");
-		sc.add("int[] found = " + TEXT_UTILITIES + ".indexOf(prefixes, text, 0);");
+		sc.add("int[] found = " + TEXT_UTILITIES(sc) + ".indexOf(prefixes, text, 0);");
 		sc.add("if (found[0] == -1) {");
 		sc.addComment("found a line which is not commented");
 		sc.add("return false;");
@@ -235,7 +235,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.add("}");
 		sc.add("return true;");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " x) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " x) {");
 		sc.addComment("should not happen");
 		sc.add("}");
 		sc.add("return false;");

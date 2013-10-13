@@ -15,23 +15,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_COMPLETION_PROPOSAL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTEXT_INFORMATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_ASSIST_INVOCATION_CONTEXT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_ASSIST_PROCESSOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POINT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_INVOCATION_CONTEXT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ANNOTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_MODEL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_COMPLETION_PROPOSAL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_ASSIST_INVOCATION_CONTEXT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_ASSIST_PROCESSOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POINT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POSITION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_INVOCATION_CONTEXT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -42,9 +42,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + I_QUICK_ASSIST_PROCESSOR + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + I_QUICK_ASSIST_PROCESSOR(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -78,32 +78,32 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addCanAssistMethod(JavaComposite sc) {
-		sc.add("public boolean canAssist(" + I_QUICK_ASSIST_INVOCATION_CONTEXT + " invocationContext) {");
+		sc.add("public boolean canAssist(" + I_QUICK_ASSIST_INVOCATION_CONTEXT(sc) + " invocationContext) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCanFixMethod(JavaComposite sc) {
-		sc.add("public boolean canFix(" + ANNOTATION + " annotation) {");
-		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(annotation);");
+		sc.add("public boolean canFix(" + ANNOTATION(sc) + " annotation) {");
+		sc.add(COLLECTION(sc) + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(annotation);");
 		sc.add("return quickFixes.size() > 0;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addComputeQuickAssistProposalsMethod(JavaComposite sc) {
-		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeQuickAssistProposals(" + I_QUICK_ASSIST_INVOCATION_CONTEXT + " invocationContext) {");
-		sc.add(I_SOURCE_VIEWER + " sourceViewer = invocationContext.getSourceViewer();");
+		sc.add("public " + I_COMPLETION_PROPOSAL(sc) + "[] computeQuickAssistProposals(" + I_QUICK_ASSIST_INVOCATION_CONTEXT(sc) + " invocationContext) {");
+		sc.add(I_SOURCE_VIEWER(sc) + " sourceViewer = invocationContext.getSourceViewer();");
 		sc.add("int offset = -1;");
 		sc.add("int length = 0;");
-		sc.add("if (invocationContext instanceof " + TEXT_INVOCATION_CONTEXT + ") {");
-		sc.add(TEXT_INVOCATION_CONTEXT + " textContext = (" + TEXT_INVOCATION_CONTEXT + ") invocationContext;");
+		sc.add("if (invocationContext instanceof " + TEXT_INVOCATION_CONTEXT(sc) + ") {");
+		sc.add(TEXT_INVOCATION_CONTEXT(sc) + " textContext = (" + TEXT_INVOCATION_CONTEXT(sc) + ") invocationContext;");
 		sc.add("offset = textContext.getOffset();");
 		sc.add("length = textContext.getLength();");
 		sc.add("}");
-		sc.add(LIST + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(sourceViewer, offset, length);");
-		sc.add(I_COMPLETION_PROPOSAL + "[] proposals = new " + I_COMPLETION_PROPOSAL + "[quickFixes.size()];");
+		sc.add(LIST(sc) + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(sourceViewer, offset, length);");
+		sc.add(I_COMPLETION_PROPOSAL(sc) + "[] proposals = new " + I_COMPLETION_PROPOSAL(sc) + "[quickFixes.size()];");
 		sc.add("for (int i = 0; i < proposals.length; i++) {");
 		sc.add("proposals[i] = createCompletionProposal(sourceViewer, quickFixes.get(i));");
 		sc.add("}");
@@ -113,14 +113,14 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addCreateCompletionProposalMethod(JavaComposite sc) {
-		sc.add("private " + I_COMPLETION_PROPOSAL + " createCompletionProposal(final " + I_SOURCE_VIEWER + " sourceViewer, final " + iQuickFixClassName + " quickFix) {");
-		sc.add("return new " + I_COMPLETION_PROPOSAL + "() {");
+		sc.add("private " + I_COMPLETION_PROPOSAL(sc) + " createCompletionProposal(final " + I_SOURCE_VIEWER(sc) + " sourceViewer, final " + iQuickFixClassName + " quickFix) {");
+		sc.add("return new " + I_COMPLETION_PROPOSAL(sc) + "() {");
 		sc.addLineBreak();
-		sc.add("public " + POINT + " getSelection(" + I_DOCUMENT + " document) {");
+		sc.add("public " + POINT(sc) + " getSelection(" + I_DOCUMENT(sc) + " document) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + IMAGE + " getImage() {");
+		sc.add("public " + IMAGE(sc) + " getImage() {");
 		sc.add("return new " + uiMetaInformationClassName + "().getImageProvider().getImage(quickFix.getImageKey());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -128,7 +128,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return quickFix.getDisplayString();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + I_CONTEXT_INFORMATION + " getContextInformation() {");
+		sc.add("public " + I_CONTEXT_INFORMATION(sc) + " getContextInformation() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -136,7 +136,7 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void apply(" + I_DOCUMENT + " document) {");
+		sc.add("public void apply(" + I_DOCUMENT(sc) + " document) {");
 		sc.add("String currentContent = sourceViewer.getDocument().get();");
 		sc.add("String newContent = quickFix.apply(currentContent);");
 		sc.add("if (newContent != null) {");
@@ -150,24 +150,24 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetQuickFixesMethod1(JavaComposite sc) {
-		sc.add("private " + LIST + "<" + iQuickFixClassName + "> getQuickFixes(" + I_SOURCE_VIEWER + " sourceViewer, int offset, int length) {");
-		sc.add(LIST + "<" + iQuickFixClassName + "> foundFixes = new " + ARRAY_LIST + "<" + iQuickFixClassName + ">();");
-		sc.add(I_ANNOTATION_MODEL + " model = annotationModelProvider.getAnnotationModel();");
+		sc.add("private " + LIST(sc) + "<" + iQuickFixClassName + "> getQuickFixes(" + I_SOURCE_VIEWER(sc) + " sourceViewer, int offset, int length) {");
+		sc.add(LIST(sc) + "<" + iQuickFixClassName + "> foundFixes = new " + ARRAY_LIST(sc) + "<" + iQuickFixClassName + ">();");
+		sc.add(I_ANNOTATION_MODEL(sc) + " model = annotationModelProvider.getAnnotationModel();");
 		sc.addLineBreak();
 		sc.add("if (model == null) {");
 		sc.add("return foundFixes;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(ITERATOR + "<?> iter = model.getAnnotationIterator();");
+		sc.add(ITERATOR(sc) + "<?> iter = model.getAnnotationIterator();");
 		sc.add("while (iter.hasNext()) {");
-		sc.add(ANNOTATION + " annotation = (" + ANNOTATION + ") iter.next();");
-		sc.add(POSITION + " position = model.getPosition(annotation);");
+		sc.add(ANNOTATION(sc) + " annotation = (" + ANNOTATION(sc) + ") iter.next();");
+		sc.add(POSITION(sc) + " position = model.getPosition(annotation);");
 		sc.add("if (offset >= 0) {");
 		sc.add("if (!position.overlapsWith(offset, length)) {");
 		sc.add("continue;");
 		sc.add("}");
 		sc.add("}");
-		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(annotation);");
+		sc.add(COLLECTION(sc) + "<" + iQuickFixClassName + "> quickFixes = getQuickFixes(annotation);");
 		sc.add("if (quickFixes != null) {");
 		sc.add("foundFixes.addAll(quickFixes);");
 		sc.add("}");
@@ -178,16 +178,16 @@ public class QuickAssistProcessorGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetQuickFixesMethod2(JavaComposite sc) {
-		sc.add("private " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes(" + ANNOTATION + " annotation) {");
+		sc.add("private " + COLLECTION(sc) + "<" + iQuickFixClassName + "> getQuickFixes(" + ANNOTATION(sc) + " annotation) {");
 		sc.addLineBreak();
-		sc.add(COLLECTION + "<" + iQuickFixClassName + "> foundQuickFixes = new " + ARRAY_LIST + "<" + iQuickFixClassName + ">();");
+		sc.add(COLLECTION(sc) + "<" + iQuickFixClassName + "> foundQuickFixes = new " + ARRAY_LIST(sc) + "<" + iQuickFixClassName + ">();");
 		sc.add("if (annotation.isMarkedDeleted()) {");
 		sc.add("return foundQuickFixes;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (annotation instanceof " + markerAnnotationClassName + ") {");
 		sc.add(markerAnnotationClassName + " markerAnnotation = (" + markerAnnotationClassName + ") annotation;");
-		sc.add(I_MARKER + " marker = markerAnnotation.getMarker();");
+		sc.add(I_MARKER(sc) + " marker = markerAnnotation.getMarker();");
 		sc.add("foundQuickFixes.addAll(new " + markerResolutionGeneratorClassName + "().getQuickFixes(resourceProvider.getResource(), marker));");
 		sc.add("}");
 		sc.add("return foundQuickFixes;");

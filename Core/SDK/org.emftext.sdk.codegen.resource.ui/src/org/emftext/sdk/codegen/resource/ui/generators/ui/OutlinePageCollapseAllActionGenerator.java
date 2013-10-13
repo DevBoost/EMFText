@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ACTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ACTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class OutlinePageCollapseAllActionGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + abstractOutlinePageActionClassName + " {");
 		sc.addLineBreak();
@@ -43,7 +43,7 @@ public class OutlinePageCollapseAllActionGenerator extends UIJavaBaseGenerator<A
 
 	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + outlinePageTreeViewerClassName + " treeViewer) {");
-		sc.add("super(treeViewer, \"Collapse all\", " + I_ACTION + ".AS_PUSH_BUTTON);");
+		sc.add("super(treeViewer, \"Collapse all\", " + I_ACTION(sc) + ".AS_PUSH_BUTTON);");
 		sc.add("initialize(\"" + UIConstants.DEFAULT_ICON_DIR + "/" + UIConstants.Icon.DEFAULT_COLLAPSE_ALL_ICON.getFilename() + "\");");
 		sc.add("}");
 		sc.addLineBreak();

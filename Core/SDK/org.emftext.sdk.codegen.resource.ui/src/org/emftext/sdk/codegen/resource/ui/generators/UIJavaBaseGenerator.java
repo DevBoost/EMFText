@@ -27,7 +27,7 @@ import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 // TODO mseifert: some of this code is copied from JavaBaseGenerator
-public abstract class UIJavaBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends UIResourceBaseGenerator<ParameterType> {
+public abstract class UIJavaBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext,ParameterType>> extends UIResourceBaseGenerator<ParameterType> {
 
 	private LicenceHeaderUtil licenceHeaderUtil = new LicenceHeaderUtil();
 

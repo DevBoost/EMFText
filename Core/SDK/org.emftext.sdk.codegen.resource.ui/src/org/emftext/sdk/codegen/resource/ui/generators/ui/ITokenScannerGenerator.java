@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_SCANNER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN_SCANNER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -26,9 +26,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class ITokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public interface " + getResourceClassName() + " extends " + I_TOKEN_SCANNER + " {");
+		sc.add("public interface " + getResourceClassName() + " extends " + I_TOKEN_SCANNER(sc) + " {");
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");

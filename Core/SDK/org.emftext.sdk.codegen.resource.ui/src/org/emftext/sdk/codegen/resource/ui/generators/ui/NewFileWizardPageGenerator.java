@@ -15,27 +15,27 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUTTON;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTAINER_SELECTION_DIALOG;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GRID_DATA;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GRID_LAYOUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ADAPTABLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTAINER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LABEL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MODIFY_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MODIFY_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_ADAPTER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTAINER_SELECTION_DIALOG;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_DATA;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_LAYOUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ADAPTABLE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTAINER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MODIFY_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MODIFY_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_ADAPTER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WIZARD_PAGE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -48,7 +48,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -56,7 +56,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 			"as the file name. The page will only accept file names without extension " +
 			"OR with an extension that matches the expected one."
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + WIZARD_PAGE + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + WIZARD_PAGE(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -98,14 +98,14 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	private void addDialogChangedMethod(JavaComposite sc) {
 		sc.addJavadoc("Ensures that both text fields are set.");
 		sc.add("private void dialogChanged() {");
-		sc.add(I_RESOURCE + " container = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(new " + PATH + "(getContainerName()));");
+		sc.add(I_RESOURCE(sc) + " container = " + RESOURCES_PLUGIN(sc) + ".getWorkspace().getRoot().findMember(new " + PATH(sc) + "(getContainerName()));");
 		sc.add("String fileName = getFileName();");
 		sc.addLineBreak();
 		sc.add("if (getContainerName().length() == 0) {");
 		sc.add("updateStatus(\"File container must be specified\");");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("if (container == null || (container.getType() & (" + I_RESOURCE + ".PROJECT | " + I_RESOURCE + ".FOLDER)) == 0) {");
+		sc.add("if (container == null || (container.getType() & (" + I_RESOURCE(sc) + ".PROJECT | " + I_RESOURCE(sc) + ".FOLDER)) == 0) {");
 		sc.add("updateStatus(\"File container must exist\");");
 		sc.add("return;");
 		sc.add("}");
@@ -136,11 +136,11 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 			"the container field."
 		);
 		sc.add("private void handleBrowse() {");
-		sc.add(CONTAINER_SELECTION_DIALOG + " dialog = new " + CONTAINER_SELECTION_DIALOG + "(getShell(), " + RESOURCES_PLUGIN + ".getWorkspace().getRoot(), false, \"Select new file container\");");
-		sc.add("if (dialog.open() == " + CONTAINER_SELECTION_DIALOG + ".OK) {");
+		sc.add(CONTAINER_SELECTION_DIALOG(sc) + " dialog = new " + CONTAINER_SELECTION_DIALOG(sc) + "(getShell(), " + RESOURCES_PLUGIN(sc) + ".getWorkspace().getRoot(), false, \"Select new file container\");");
+		sc.add("if (dialog.open() == " + CONTAINER_SELECTION_DIALOG(sc) + ".OK) {");
 		sc.add("Object[] result = dialog.getResult();");
 		sc.add("if (result.length == 1) {");
-		sc.add("containerText.setText(((" + PATH + ") result[0]).toString());");
+		sc.add("containerText.setText(((" + PATH(sc) + ") result[0]).toString());");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -151,27 +151,27 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addJavadoc("Tests if the current workbench selection is a suitable container to use.");
 		sc.add("private void initialize() {");
 		sc.add("String name = \"new_file\";");
-		sc.add("if (selection != null && selection.isEmpty() == false && selection instanceof " + I_STRUCTURED_SELECTION + ") {");
-		sc.add(I_STRUCTURED_SELECTION + " ssel = (" + I_STRUCTURED_SELECTION + ") selection;");
+		sc.add("if (selection != null && selection.isEmpty() == false && selection instanceof " + I_STRUCTURED_SELECTION(sc) + ") {");
+		sc.add(I_STRUCTURED_SELECTION(sc) + " ssel = (" + I_STRUCTURED_SELECTION(sc) + ") selection;");
 		sc.add("if (ssel.size() > 1) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("Object obj = ssel.getFirstElement();");
 		sc.addComment("test for IAdaptable");
-		sc.add("if ((! (obj instanceof " + I_RESOURCE + ")) && (obj instanceof " + I_ADAPTABLE + ")) {");
-		sc.add("obj = (" + I_RESOURCE + ") ((" + I_ADAPTABLE + ") obj).getAdapter(" + I_RESOURCE + ".class);");
+		sc.add("if ((! (obj instanceof " + I_RESOURCE(sc) + ")) && (obj instanceof " + I_ADAPTABLE(sc) + ")) {");
+		sc.add("obj = (" + I_RESOURCE(sc) + ") ((" + I_ADAPTABLE(sc) + ") obj).getAdapter(" + I_RESOURCE(sc) + ".class);");
 		sc.add("}");
-		sc.add("if (obj instanceof " + I_RESOURCE + ") {");
-		sc.add(I_CONTAINER + " container;");
-		sc.add("if (obj instanceof " + I_CONTAINER + ") {");
-		sc.add("container = (" + I_CONTAINER + ") obj;");
+		sc.add("if (obj instanceof " + I_RESOURCE(sc) + ") {");
+		sc.add(I_CONTAINER(sc) + " container;");
+		sc.add("if (obj instanceof " + I_CONTAINER(sc) + ") {");
+		sc.add("container = (" + I_CONTAINER(sc) + ") obj;");
 		sc.add("} else {");
-		sc.add(I_RESOURCE + " resource = (" + I_RESOURCE + ") obj;");
+		sc.add(I_RESOURCE(sc) + " resource = (" + I_RESOURCE(sc) + ") obj;");
 		sc.add("container = resource.getParent();");
 		sc.addComment("we use the name of the currently selected file instead of 'new_file'.");
 		sc.add("name = resource.getFullPath().removeFileExtension().lastSegment();");
 		sc.add("}");
-		sc.add(I_PATH + " fullPath = container.getFullPath();");
+		sc.add(I_PATH(sc) + " fullPath = container.getFullPath();");
 		sc.add("containerText.setText(fullPath.toString());");
 		sc.add("}");
 		sc.add("}");
@@ -181,40 +181,40 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	}
 
 	private void addCreateControlMethod(JavaComposite sc) {
-		sc.addJavadoc("@see IDialogPage#createControl(" + COMPOSITE + ")");
-		sc.add("public void createControl(" + COMPOSITE + " parent) {");
-		sc.add(COMPOSITE + " container = new " + COMPOSITE + "(parent, " + SWT + ".NULL);");
-		sc.add(GRID_LAYOUT + " layout = new " + GRID_LAYOUT + "();");
+		sc.addJavadoc("@see IDialogPage#createControl(" + COMPOSITE(sc) + ")");
+		sc.add("public void createControl(" + COMPOSITE(sc) + " parent) {");
+		sc.add(COMPOSITE(sc) + " container = new " + COMPOSITE(sc) + "(parent, " + SWT(sc) + ".NULL);");
+		sc.add(GRID_LAYOUT(sc) + " layout = new " + GRID_LAYOUT(sc) + "();");
 		sc.add("container.setLayout(layout);");
 		sc.add("layout.numColumns = 3;");
 		sc.add("layout.verticalSpacing = 9;");
-		sc.add(LABEL + " label = new " + LABEL + "(container, " + SWT + ".NULL);");
+		sc.add(LABEL(sc) + " label = new " + LABEL(sc) + "(container, " + SWT(sc) + ".NULL);");
 		sc.add("label.setText(\"&Container:\");");
 		sc.addLineBreak();
-		sc.add("containerText = new " + TEXT + "(container, " + SWT + ".BORDER | " + SWT + ".SINGLE);");
-		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL_HORIZONTAL);");
+		sc.add("containerText = new " + TEXT(sc) + "(container, " + SWT(sc) + ".BORDER | " + SWT(sc) + ".SINGLE);");
+		sc.add(GRID_DATA(sc) + " gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".FILL_HORIZONTAL);");
 		sc.add("containerText.setLayoutData(gd);");
-		sc.add("containerText.addModifyListener(new " + MODIFY_LISTENER + "() {");
-		sc.add("public void modifyText(" + MODIFY_EVENT + " e) {");
+		sc.add("containerText.addModifyListener(new " + MODIFY_LISTENER(sc) + "() {");
+		sc.add("public void modifyText(" + MODIFY_EVENT(sc) + " e) {");
 		sc.add("dialogChanged();");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add(BUTTON + " button = new " + BUTTON + "(container, " + SWT + ".PUSH);");
+		sc.add(BUTTON(sc) + " button = new " + BUTTON(sc) + "(container, " + SWT(sc) + ".PUSH);");
 		sc.add("button.setText(\"Browse...\");");
-		sc.add("button.addSelectionListener(new " + SELECTION_ADAPTER + "() {");
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("button.addSelectionListener(new " + SELECTION_ADAPTER(sc) + "() {");
+		sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.add("handleBrowse();");
 		sc.add("}");
 		sc.add("});");
-		sc.add("label = new " + LABEL + "(container, " + SWT + ".NULL);");
+		sc.add("label = new " + LABEL(sc) + "(container, " + SWT(sc) + ".NULL);");
 		sc.add("label.setText(\"&File name:\");");
 		sc.addLineBreak();
-		sc.add("fileText = new " + TEXT + "(container, " + SWT + ".BORDER | " + SWT + ".SINGLE);");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL_HORIZONTAL);");
+		sc.add("fileText = new " + TEXT(sc) + "(container, " + SWT(sc) + ".BORDER | " + SWT(sc) + ".SINGLE);");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".FILL_HORIZONTAL);");
 		sc.add("fileText.setLayoutData(gd);");
-		sc.add("fileText.addModifyListener(new " + MODIFY_LISTENER + "() {");
-		sc.add("public void modifyText(" + MODIFY_EVENT + " e) {");
+		sc.add("fileText.addModifyListener(new " + MODIFY_LISTENER(sc) + "() {");
+		sc.add("public void modifyText(" + MODIFY_EVENT(sc) + " e) {");
 		sc.add("dialogChanged();");
 		sc.add("}");
 		sc.add("});");
@@ -229,7 +229,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		String syntaxName = getContext().getConcreteSyntax().getName();
 
 		sc.addJavadoc("Constructor for the NewFileWizardPage.");
-		sc.add("public " + getResourceClassName() + "(" + I_SELECTION + " selection, String fileExtension) {");
+		sc.add("public " + getResourceClassName() + "(" + I_SELECTION(sc) + " selection, String fileExtension) {");
 		sc.add("super(\"wizardPage\");");
 		sc.add("setTitle(\"Create new " + syntaxName + " file\");");
 		sc.add("setDescription(\"This wizard creates a new file with *.\" + fileExtension + \" extension that can be opened with the EMFText editor.\");");
@@ -239,11 +239,11 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private final String fileExtension;");
-		sc.add("private " + TEXT + " containerText;");
-		sc.add("private " + TEXT + " fileText;");
-		sc.add("private " + I_SELECTION + " selection;");
+		sc.add("private " + TEXT(sc) + " containerText;");
+		sc.add("private " + TEXT(sc) + " fileText;");
+		sc.add("private " + I_SELECTION(sc) + " selection;");
 		sc.addLineBreak();
 	}
 }

@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_PREFERENCE_INITIALIZER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_PREFERENCE_INITIALIZER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,11 +29,11 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() +";");
+		sc.add("package " + getResourcePackageName() +";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("This class can be used to initialize default preference values.");
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_PREFERENCE_INITIALIZER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_PREFERENCE_INITIALIZER(sc) + " {");
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
@@ -56,7 +56,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("initializeDefaultSyntaxHighlighting();");
 		sc.add("initializeDefaultBrackets();");
 		sc.addLineBreak();
-		sc.add(I_PREFERENCE_STORE + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE(sc) + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.addComment("Set default value for matching brackets");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR, \"192,192,192\");");
 		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, true);");
@@ -67,7 +67,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 
 	private void addInitializeDefaultBracketsMethod1(JavaComposite sc) {
 		sc.add("protected void initializeDefaultBrackets() {");
-		sc.add(I_PREFERENCE_STORE + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE(sc) + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("initializeDefaultBrackets(store, new " + metaInformationClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -75,18 +75,18 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 
 	private void addInitializeDefaultSyntaxHighlightingMethod1(JavaComposite sc) {
 		sc.add("public void initializeDefaultSyntaxHighlighting() {");
-		sc.add(I_PREFERENCE_STORE + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE(sc) + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("initializeDefaultSyntaxHighlighting(store, new " + metaInformationClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addInitializeDefaultBracketsMethod2(JavaComposite sc) {
-		sc.add("protected void initializeDefaultBrackets(" + I_PREFERENCE_STORE + " store, " + iMetaInformationClassName + " metaInformation) {");
+		sc.add("protected void initializeDefaultBrackets(" + I_PREFERENCE_STORE(sc) + " store, " + iMetaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.addComment("set default brackets");
 		sc.add(bracketSetClassName + " bracketSet = new " + bracketSetClassName + "();");
-		sc.add("final " + COLLECTION + "<" + iBracketPairClassName + "> bracketPairs = metaInformation.getBracketPairs();");
+		sc.add("final " + COLLECTION(sc) + "<" + iBracketPairClassName + "> bracketPairs = metaInformation.getBracketPairs();");
 		sc.add("if (bracketPairs != null) {");
 		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
 		sc.add("bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside(), bracketPair.isCloseAfterEnter());");
@@ -98,7 +98,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addInitializeDefaultSyntaxHighlightingMethod2(JavaComposite sc) {
-		sc.add("protected void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE + " store, " + metaInformationClassName + " metaInformation) {");
+		sc.add("protected void initializeDefaultSyntaxHighlighting(" + I_PREFERENCE_STORE(sc) + " store, " + metaInformationClassName + " metaInformation) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.add("String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();");
 		sc.add("if (tokenNames == null) {");
@@ -119,7 +119,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addSetPropertiesMethod(JavaComposite sc) {
-		sc.add("protected void setProperties(" + I_PREFERENCE_STORE + " store, String languageID, String tokenName, String color, boolean bold, boolean enable, boolean italic, boolean strikethrough, boolean underline) {");
+		sc.add("protected void setProperties(" + I_PREFERENCE_STORE(sc) + " store, String languageID, String tokenName, String color, boolean bold, boolean enable, boolean italic, boolean strikethrough, boolean underline) {");
 		sc.add("store.setDefault(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.BOLD), bold);");
 		sc.add("store.setDefault(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.COLOR), color);");
 		sc.add("store.setDefault(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.ENABLE), enable);");

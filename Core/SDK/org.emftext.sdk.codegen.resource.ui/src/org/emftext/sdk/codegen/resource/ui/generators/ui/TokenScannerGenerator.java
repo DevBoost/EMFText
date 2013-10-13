@@ -15,7 +15,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_SCANNER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.J_FACE_TOKEN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_CONVERTER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RGB;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_ATTRIBUTE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +39,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface " +
@@ -43,13 +55,13 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private " + iTextScannerClassName + " lexer;");
 		sc.add("private " + iTextTokenClassName + " currentToken;");
-		sc.add("private " + LIST +  "<" + iTextTokenClassName + "> nextTokens;");
+		sc.add("private " + LIST(sc) +  "<" + iTextTokenClassName + "> nextTokens;");
 		sc.add("private int offset;");
 		sc.add("private String languageId;");
-		sc.add("private " + I_PREFERENCE_STORE + " store;");
+		sc.add("private " + I_PREFERENCE_STORE(sc) + " store;");
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.addLineBreak();
@@ -69,7 +81,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("if (plugin != null) {");
 		sc.add("this.store = plugin.getPreferenceStore();");
 		sc.add("}");
-		sc.add("this.nextTokens = new " + ARRAY_LIST + "<" + iTextTokenClassName + ">();");
+		sc.add("this.nextTokens = new " + ARRAY_LIST(sc) + "<" + iTextTokenClassName + ">();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -103,9 +115,9 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("String colorKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".COLOR);");
-		sc.add(RGB + " foregroundRGB = " + PREFERENCE_CONVERTER + ".getColor(store, colorKey);");
+		sc.add(RGB(sc) + " foregroundRGB = " + PREFERENCE_CONVERTER(sc) + ".getColor(store, colorKey);");
 		// TODO support background color for token styles
-		sc.add(RGB + " backgroundRGB = null;");
+		sc.add(RGB(sc) + " backgroundRGB = null;");
 		sc.add("boolean bold = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".BOLD));");
 		sc.add("boolean italic = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".ITALIC));");
 		sc.add("boolean strikethrough = store.getBoolean(" + syntaxColoringHelperClassName + ".getPreferenceKey(languageId, tokenName, " + styleProperty + ".STRIKETHROUGH));");
@@ -126,7 +138,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addConvertToIntArrayMethod(JavaComposite sc) {
-		sc.add("public int[] convertToIntArray(" + RGB + " rgb) {");
+		sc.add("public int[] convertToIntArray(" + RGB(sc) + " rgb) {");
 		sc.add("if (rgb == null) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -143,11 +155,11 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addSetRangeMethod(JavaComposite sc) {
-		sc.add("public void setRange(" + I_DOCUMENT + " document, int offset, int length) {");
+		sc.add("public void setRange(" + I_DOCUMENT(sc) + " document, int offset, int length) {");
 		sc.add("this.offset = offset;");
 		sc.add("try {");
 		sc.add("lexer.setText(document.get(offset, length));");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
 		sc.addComment("ignore this error. It might occur during editing when locations are outdated quickly.");
 		sc.add("}");
 		sc.add("}");
@@ -163,7 +175,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("final int charStart = currentToken.getOffset();");
 		sc.add("final int column = currentToken.getColumn();");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + taskItemClassName + "> taskItems = new " + taskItemDetectorClassName + "().findTaskItems(text, line, charStart);");
+		sc.add(LIST(sc) + "<" + taskItemClassName + "> taskItems = new " + taskItemDetectorClassName + "().findTaskItems(text, line, charStart);");
 		sc.addLineBreak();
 		sc.addComment("this is the offset for the next token to be added");
 		sc.add("int offset = charStart;");
@@ -212,7 +224,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addNextTokenMethod(JavaComposite sc) {
-		sc.add("public " + I_TOKEN + " nextToken() {");
+		sc.add("public " + I_TOKEN(sc) + " nextToken() {");
 		sc.add("boolean isOriginalToken = true;");
 		sc.add("if (!nextTokens.isEmpty()) {");
 		sc.add("currentToken = nextTokens.remove(0);");
@@ -221,14 +233,14 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("currentToken = lexer.getNextToken();");
 		sc.add("}");
 		sc.add("if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {");
-		sc.add("return " + J_FACE_TOKEN + ".EOF;");
+		sc.add("return " + J_FACE_TOKEN(sc) + ".EOF;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (isOriginalToken) {");
 		sc.add("splitCurrentToken();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(TEXT_ATTRIBUTE + " textAttribute = null;");
+		sc.add(TEXT_ATTRIBUTE(sc) + " textAttribute = null;");
 		sc.add("String tokenName = currentToken.getName();");
 		sc.add("if (tokenName != null) {");
 		sc.add(iTokenStyleClassName + " staticStyle = getStaticTokenStyle();");
@@ -241,40 +253,40 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 		// potential performance improvement for large files in the future:
 		// build a map of tokens and reuse them instead of creating new ones
-		sc.add("return new " + J_FACE_TOKEN + "(textAttribute);");
+		sc.add("return new " + J_FACE_TOKEN(sc) + "(textAttribute);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetTextAttributeMethod(StringComposite sc) {
-		sc.add("public " + TEXT_ATTRIBUTE + " getTextAttribute(" + iTokenStyleClassName + " tokeStyle) {");
+	private void addGetTextAttributeMethod(JavaComposite sc) {
+		sc.add("public " + TEXT_ATTRIBUTE(sc) + " getTextAttribute(" + iTokenStyleClassName + " tokeStyle) {");
 		sc.add("int[] foregroundColorArray = tokeStyle.getColorAsRGB();");
-		sc.add(COLOR + " foregroundColor = null;");
+		sc.add(COLOR(sc) + " foregroundColor = null;");
 		sc.add("if (colorManager != null) {");
-		sc.add("foregroundColor = colorManager.getColor(new " + RGB + "(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));");
+		sc.add("foregroundColor = colorManager.getColor(new " + RGB(sc) + "(foregroundColorArray[0], foregroundColorArray[1], foregroundColorArray[2]));");
 		sc.add("}");
 		sc.add("int[] backgroundColorArray = tokeStyle.getBackgroundColorAsRGB();");
-		sc.add(COLOR + " backgroundColor = null;");
+		sc.add(COLOR(sc) + " backgroundColor = null;");
 		sc.add("if (backgroundColorArray != null) {");
-		sc.add(RGB + " backgroundRGB = new " + RGB + "(backgroundColorArray[0], backgroundColorArray[1], backgroundColorArray[2]);");
+		sc.add(RGB(sc) + " backgroundRGB = new " + RGB(sc) + "(backgroundColorArray[0], backgroundColorArray[1], backgroundColorArray[2]);");
 		sc.add("if (colorManager != null) {");
 		sc.add("backgroundColor = colorManager.getColor(backgroundRGB);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("int style = " + SWT + ".NORMAL;");
+		sc.add("int style = " + SWT(sc) + ".NORMAL;");
 		sc.add("if (tokeStyle.isBold()) {");
-		sc.add("style = style | " + SWT + ".BOLD;");
+		sc.add("style = style | " + SWT(sc) + ".BOLD;");
 		sc.add("}");
 		sc.add("if (tokeStyle.isItalic()) {");
-		sc.add("style = style | " + SWT + ".ITALIC;");
+		sc.add("style = style | " + SWT(sc) + ".ITALIC;");
 		sc.add("}");
 		sc.add("if (tokeStyle.isStrikethrough()) {");
-		sc.add("style = style | " + TEXT_ATTRIBUTE + ".STRIKETHROUGH;");
+		sc.add("style = style | " + TEXT_ATTRIBUTE(sc) + ".STRIKETHROUGH;");
 		sc.add("}");
 		sc.add("if (tokeStyle.isUnderline()) {");
-		sc.add("style = style | " + TEXT_ATTRIBUTE + ".UNDERLINE;");
+		sc.add("style = style | " + TEXT_ATTRIBUTE(sc) + ".UNDERLINE;");
 		sc.add("}");
-		sc.add("return new " + TEXT_ATTRIBUTE + "(foregroundColor, backgroundColor, style);");
+		sc.add("return new " + TEXT_ATTRIBUTE(sc) + "(foregroundColor, backgroundColor, style);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

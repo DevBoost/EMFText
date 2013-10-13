@@ -25,7 +25,7 @@ public class EditorConfigurationGenerator extends UIJavaBaseGenerator<ArtifactPa
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"This class is deprecated and not used as of EMFText 1.4.1. " +

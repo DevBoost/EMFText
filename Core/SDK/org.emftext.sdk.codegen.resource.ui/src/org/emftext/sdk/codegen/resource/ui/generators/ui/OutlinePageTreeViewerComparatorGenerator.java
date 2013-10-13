@@ -15,7 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_PACKAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER_COMPARATOR;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,15 +35,15 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + VIEWER_COMPARATOR + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + VIEWER_COMPARATOR(sc) + " {");
 		sc.addLineBreak();
-		sc.add("private static " + MAP + "<" + E_PACKAGE + ", Integer> ePackageMap = new " + LINKED_HASH_MAP + "<" + E_PACKAGE + ", Integer>();");
+		sc.add("private static " + MAP(sc) + "<" + E_PACKAGE(sc) + ", Integer> ePackageMap = new " + LINKED_HASH_MAP(sc) + "<" + E_PACKAGE(sc) + ", Integer>();");
 		sc.add("private static int nextPackageID;");
 		sc.addLineBreak();
-		sc.add("private " + COMPARATOR + "<Object> comparator = new " + COMPARATOR + "<Object>() {");
+		sc.add("private " + COMPARATOR(sc) + "<Object> comparator = new " + COMPARATOR(sc) + "<Object>() {");
 		sc.addLineBreak();
 		sc.add("public int compare(Object o1, Object o2) {");
 		sc.add("if (!sortLexically) {");
@@ -82,10 +90,10 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 		sc.add("if (!groupTypes) {");
 		sc.add("return 0;");
 		sc.add("}");
-		sc.add("if (element instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") element;");
-		sc.add(E_CLASS + " eClass = eObject.eClass();");
-		sc.add(E_PACKAGE + " ePackage = eClass.getEPackage();");
+		sc.add("if (element instanceof " + E_OBJECT(sc) + ") {");
+		sc.add(E_OBJECT(sc) + " eObject = (" + E_OBJECT(sc) + ") element;");
+		sc.add(E_CLASS(sc) + " eClass = eObject.eClass();");
+		sc.add(E_PACKAGE(sc) + " ePackage = eClass.getEPackage();");
 		sc.add("int packageID = getEPackageID(ePackage);");
 		sc.add("int classifierID = eClass.getClassifierID();");
 		sc.add("return packageID + classifierID;");
@@ -97,7 +105,7 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 	}
 
 	private void addGetEPackageIDMethod(JavaComposite sc) {
-		sc.add("private int getEPackageID(" + E_PACKAGE + " ePackage) {");
+		sc.add("private int getEPackageID(" + E_PACKAGE(sc) + " ePackage) {");
 		sc.add("Integer packageID = ePackageMap.get(ePackage);");
 		sc.add("if (packageID == null) {");
 		sc.add("packageID = nextPackageID;");
@@ -111,14 +119,14 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 	}
 
 	private void addGetComparatorMethod(JavaComposite sc) {
-		sc.add("public " + COMPARATOR + "<?> getComparator() {");
+		sc.add("public " + COMPARATOR(sc) + "<?> getComparator() {");
 		sc.add("return this.comparator;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCompareMethod(JavaComposite sc) {
-		sc.add("public int compare(" + VIEWER + " viewer, Object o1, Object o2) {");
+		sc.add("public int compare(" + VIEWER(sc) + " viewer, Object o1, Object o2) {");
 		sc.addComment("first check categories");
 		sc.add("int cat1 = category(o1);");
 		sc.add("int cat2 = category(o2);");
@@ -126,12 +134,12 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 		sc.add("return cat1 - cat2;");
 		sc.add("}");
 		sc.addComment("then try to compare the names");
-		sc.add("if (sortLexically && o1 instanceof " + E_OBJECT + " && o2 instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " e1 = (" + E_OBJECT + ") o1;");
-		sc.add(E_OBJECT + " e2 = (" + E_OBJECT + ") o2;");
+		sc.add("if (sortLexically && o1 instanceof " + E_OBJECT(sc) + " && o2 instanceof " + E_OBJECT(sc) + ") {");
+		sc.add(E_OBJECT(sc) + " e1 = (" + E_OBJECT(sc) + ") o1;");
+		sc.add(E_OBJECT(sc) + " e2 = (" + E_OBJECT(sc) + ") o2;");
 		sc.add(iNameProviderClassName + " nameProvider = new " + metaInformationClassName + "().createNameProvider();");
-		sc.add(LIST + "<String> names1 = nameProvider.getNames(e1);");
-		sc.add(LIST + "<String> names2 = nameProvider.getNames(e2);");
+		sc.add(LIST(sc) + "<String> names1 = nameProvider.getNames(e1);");
+		sc.add(LIST(sc) + "<String> names2 = nameProvider.getNames(e2);");
 		sc.add("if (names1 != null && !names1.isEmpty() && names2 != null && !names2.isEmpty()) {");
 		sc.add("String name1 = names1.get(0);");
 		sc.add("String name2 = names2.get(0);");

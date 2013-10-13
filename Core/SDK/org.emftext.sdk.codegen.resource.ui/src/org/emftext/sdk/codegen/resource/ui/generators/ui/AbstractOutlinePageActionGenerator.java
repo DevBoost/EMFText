@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ACTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUSY_INDICATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE_DESCRIPTOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ACTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUSY_INDICATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE_DESCRIPTOR;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,9 +29,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class AbstractOutlinePageActionGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public abstract class " + getResourceClassName() + " extends " + ACTION + " {");
+		sc.add("public abstract class " + getResourceClassName() + " extends " + ACTION(sc) + " {");
 		sc.addLineBreak();
 		sc.add("private String preferenceKey = this.getClass().getSimpleName() + \".isChecked\";");
 		sc.addLineBreak();
@@ -81,7 +81,7 @@ public class AbstractOutlinePageActionGenerator extends UIJavaBaseGenerator<Arti
 
 	private void addInitializeMethod(JavaComposite sc) {
 		sc.add("public void initialize(String imagePath) {");
-		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + imageProviderClassName + ".INSTANCE.getImageDescriptor(imagePath);");
+		sc.add(IMAGE_DESCRIPTOR(sc) + " descriptor = " + imageProviderClassName + ".INSTANCE.getImageDescriptor(imagePath);");
 		sc.add("setDisabledImageDescriptor(descriptor);");
 		sc.add("setImageDescriptor(descriptor);");
 		sc.add("setHoverImageDescriptor(descriptor);");
@@ -115,7 +115,7 @@ public class AbstractOutlinePageActionGenerator extends UIJavaBaseGenerator<Arti
 
 	private void addRunBusyMethod(JavaComposite sc) {
 		sc.add("public void runBusy(final boolean on) {");
-		sc.add(BUSY_INDICATOR + ".showWhile(" + DISPLAY + ".getCurrent(), new Runnable() {");
+		sc.add(BUSY_INDICATOR(sc) + ".showWhile(" + DISPLAY(sc) + ".getCurrent(), new Runnable() {");
 		sc.add("public void run() {");
 		sc.add("runInternal(on);");
 		sc.add("}");

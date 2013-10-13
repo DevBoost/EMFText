@@ -16,9 +16,9 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PROPERTY_TESTER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,7 +31,7 @@ public class PropertyTesterGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName());
@@ -55,12 +55,12 @@ public class PropertyTesterGenerator extends UIJavaBaseGenerator<ArtifactParamet
 
 	private void addTestMethod(JavaComposite sc) {
 		sc.add("public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {");
-		sc.add("if (receiver instanceof " + I_RESOURCE + ") {");
-		sc.add(I_RESOURCE + " resource = (" + I_RESOURCE + ") receiver;");
+		sc.add("if (receiver instanceof " + I_RESOURCE(sc) + ") {");
+		sc.add(I_RESOURCE(sc) + " resource = (" + I_RESOURCE(sc) + ") receiver;");
 		sc.add("return hasMatchingURI(resource);");
-		sc.add("} else if (receiver instanceof " + FILE_EDITOR_INPUT + ") {");
-		sc.add(FILE_EDITOR_INPUT + " editorInput = (" + FILE_EDITOR_INPUT + ") receiver;");
-		sc.add(I_FILE + " file = editorInput.getFile();");
+		sc.add("} else if (receiver instanceof " + FILE_EDITOR_INPUT(sc) + ") {");
+		sc.add(FILE_EDITOR_INPUT(sc) + " editorInput = (" + FILE_EDITOR_INPUT(sc) + ") receiver;");
+		sc.add(I_FILE(sc) + " file = editorInput.getFile();");
 		sc.add("return hasMatchingURI(file);");
 		sc.add("}");
 		sc.add("return false;");
@@ -69,7 +69,7 @@ public class PropertyTesterGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addHasMatchingURIMethod(JavaComposite sc) {
-		sc.add("private boolean hasMatchingURI(" + I_RESOURCE + " resource) {");
+		sc.add("private boolean hasMatchingURI(" + I_RESOURCE(sc) + " resource) {");
 		sc.add("String path = resource.getLocationURI().getPath();");
 		sc.add("return path.endsWith(\".\" + new " + metaInformationClassName + "().getSyntaxName());");
 		sc.add("}");

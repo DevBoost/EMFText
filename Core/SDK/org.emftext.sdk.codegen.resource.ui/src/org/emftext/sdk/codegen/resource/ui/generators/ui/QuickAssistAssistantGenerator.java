@@ -15,15 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_INFORMATION_CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_PRESENTER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_ASSIST_ASSISTANT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_ASSIST_INVOCATION_CONTEXT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.QUICK_ASSIST_ASSISTANT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ANNOTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEFAULT_INFORMATION_CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_PRESENTER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_ASSIST_ASSISTANT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_ASSIST_INVOCATION_CONTEXT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.QUICK_ASSIST_ASSISTANT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -34,9 +34,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class QuickAssistAssistantGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + QUICK_ASSIST_ASSISTANT + " implements " + I_QUICK_ASSIST_ASSISTANT + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + QUICK_ASSIST_ASSISTANT(sc) + " implements " + I_QUICK_ASSIST_ASSISTANT(sc) + " {");
 		sc.addLineBreak();
 		addConstructor(sc);
 		addCanAssistMethod(sc);
@@ -47,9 +47,9 @@ public class QuickAssistAssistantGenerator extends UIJavaBaseGenerator<ArtifactP
 	private void addConstructor(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iAnnotationModelProviderClassName + " annotationModelProvider) {");
 		sc.add("setQuickAssistProcessor(new " + quickAssistProcessorClassName + "(resourceProvider, annotationModelProvider));");
-		sc.add("setInformationControlCreator(new " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + "() {");
-		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
-		sc.add("return new " + DEFAULT_INFORMATION_CONTROL + "(parent, (" + I_INFORMATION_PRESENTER + ") null);");
+		sc.add("setInformationControlCreator(new " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR(sc) + "() {");
+		sc.add("public " + I_INFORMATION_CONTROL(sc) + " doCreateInformationControl(" + SHELL(sc) + " parent) {");
+		sc.add("return new " + DEFAULT_INFORMATION_CONTROL(sc) + "(parent, (" + I_INFORMATION_PRESENTER(sc) + ") null);");
 		sc.add("}");
 		sc.add("});");
 		sc.add("}");
@@ -57,14 +57,14 @@ public class QuickAssistAssistantGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addCanAssistMethod(JavaComposite sc) {
-		sc.add("public boolean canAssist(" + I_QUICK_ASSIST_INVOCATION_CONTEXT + " invocationContext) {");
+		sc.add("public boolean canAssist(" + I_QUICK_ASSIST_INVOCATION_CONTEXT(sc) + " invocationContext) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCanFixMethod(JavaComposite sc) {
-		sc.add("public boolean canFix(" + ANNOTATION + " annotation) {");
+		sc.add("public boolean canFix(" + ANNOTATION(sc) + " annotation) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -16,14 +16,14 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FILE_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DEBUG_MODEL_PRESENTATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LABEL_PROVIDER_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LINE_BREAKPOINT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_VALUE_DETAIL_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DEBUG_MODEL_PRESENTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LABEL_PROVIDER_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LINE_BREAKPOINT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_VALUE_DETAIL_LISTENER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -39,9 +39,9 @@ public class DebugModelPresentationGenerator extends UIJavaBaseGenerator<Artifac
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + I_DEBUG_MODEL_PRESENTATION + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + I_DEBUG_MODEL_PRESENTATION(sc) + " {");
 		sc.addLineBreak();
 		addConstructor(sc);
 		addMethods(sc);
@@ -69,7 +69,7 @@ public class DebugModelPresentationGenerator extends UIJavaBaseGenerator<Artifac
 	}
 
 	private void addAddListenerMethod(JavaComposite sc) {
-		sc.add("public void addListener(" + I_LABEL_PROVIDER_LISTENER + " listener) {");
+		sc.add("public void addListener(" + I_LABEL_PROVIDER_LISTENER(sc) + " listener) {");
 		sc.add("// do nothing");
 		sc.add("}");
 		sc.addLineBreak();
@@ -90,18 +90,18 @@ public class DebugModelPresentationGenerator extends UIJavaBaseGenerator<Artifac
 	}
 
 	private void addRemoveListener(JavaComposite sc) {
-		sc.add("public void removeListener(" + I_LABEL_PROVIDER_LISTENER + " listener) {");
+		sc.add("public void removeListener(" + I_LABEL_PROVIDER_LISTENER(sc) + " listener) {");
 		sc.add("// do nothing");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetEditorInputMethod(JavaComposite sc) {
-		sc.add("public " + I_EDITOR_INPUT + " getEditorInput(Object element) {");
-		sc.add("if (element instanceof " + I_FILE + ") {");
-		sc.add("return new " + FILE_EDITOR_INPUT + "((" + I_FILE + ") element);");
-		sc.add("} else if (element instanceof " + I_LINE_BREAKPOINT + ") {");
-		sc.add("return new " + FILE_EDITOR_INPUT + "((" + I_FILE + ") ((" + I_LINE_BREAKPOINT + ") element).getMarker().getResource());");
+		sc.add("public " + I_EDITOR_INPUT(sc) + " getEditorInput(Object element) {");
+		sc.add("if (element instanceof " + I_FILE(sc) + ") {");
+		sc.add("return new " + FILE_EDITOR_INPUT(sc) + "((" + I_FILE(sc) + ") element);");
+		sc.add("} else if (element instanceof " + I_LINE_BREAKPOINT(sc) + ") {");
+		sc.add("return new " + FILE_EDITOR_INPUT(sc) + "((" + I_FILE(sc) + ") ((" + I_LINE_BREAKPOINT(sc) + ") element).getMarker().getResource());");
 		sc.add("} else {");
 		sc.add("return null;");
 		sc.add("}");
@@ -110,8 +110,8 @@ public class DebugModelPresentationGenerator extends UIJavaBaseGenerator<Artifac
 	}
 
 	private void addGetEditorIDMethod(JavaComposite sc) {
-		sc.add("public String getEditorId(" + I_EDITOR_INPUT + " input, Object element) {");
-		sc.add("if (element instanceof " + I_FILE + " || element instanceof " + I_LINE_BREAKPOINT + ") {");
+		sc.add("public String getEditorId(" + I_EDITOR_INPUT(sc) + " input, Object element) {");
+		sc.add("if (element instanceof " + I_FILE(sc) + " || element instanceof " + I_LINE_BREAKPOINT(sc) + ") {");
 		sc.add("return " + uiPluginActivatorClassName + ".EDITOR_ID;");
 		sc.add("}");
 		sc.add("return null;");
@@ -127,7 +127,7 @@ public class DebugModelPresentationGenerator extends UIJavaBaseGenerator<Artifac
 	}
 
 	private void addGetImageMethod(JavaComposite sc) {
-		sc.add("public " + IMAGE + " getImage(Object element) {");
+		sc.add("public " + IMAGE(sc) + " getImage(Object element) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -141,7 +141,7 @@ public class DebugModelPresentationGenerator extends UIJavaBaseGenerator<Artifac
 	}
 
 	private void addComputeDetailMethod(JavaComposite sc) {
-		sc.add("public void computeDetail(" + I_VALUE + " value, " + I_VALUE_DETAIL_LISTENER + " listener) {");
+		sc.add("public void computeDetail(" + I_VALUE + " value, " + I_VALUE_DETAIL_LISTENER(sc) + " listener) {");
 		sc.addComment("listener.detailComputed(value, \"detail\");");
 		sc.add("}");
 		sc.addLineBreak();

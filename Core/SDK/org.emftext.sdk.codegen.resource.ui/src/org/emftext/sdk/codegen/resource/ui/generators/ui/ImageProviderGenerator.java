@@ -21,15 +21,15 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IL
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MALFORMED_URL_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_SUCH_FIELD_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SECURITY_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE_DESCRIPTOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SHARED_IMAGES;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE_DESCRIPTOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SHARED_IMAGES;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_UI;
 
 import org.eclipse.ui.ISharedImages;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -42,7 +42,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A provider class for all images that are required by the generated UI plug-in. " +
@@ -69,20 +69,20 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 			"<li>bundleentry://557.fwk3560063/icons/yourIcon.png</li>",
 			"</ul>"
 		);
-		sc.add("public " + IMAGE_DESCRIPTOR + " getImageDescriptor(String key) {");
-		sc.add(I_PATH + " path = new " + PATH + "(key);");
+		sc.add("public " + IMAGE_DESCRIPTOR(sc) + " getImageDescriptor(String key) {");
+		sc.add(I_PATH(sc) + " path = new " + PATH(sc) + "(key);");
 		sc.add(uiPluginActivatorClassName + " plugin = " + uiPluginActivatorClassName + ".getDefault();");
 		sc.add("if (plugin == null) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(" + FILE_LOCATOR + ".find(plugin.getBundle(), path, null));");
-		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
+		sc.add(IMAGE_DESCRIPTOR(sc) + " descriptor = " + IMAGE_DESCRIPTOR(sc) + ".createFromURL(" + FILE_LOCATOR + ".find(plugin.getBundle(), path, null));");
+		sc.add("if (" + IMAGE_DESCRIPTOR(sc) + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
 		sc.addComment("try loading image from any bundle");
 		sc.add("try {");
 		sc.add(IClassNameConstants.URL + " pluginUrl = new " + IClassNameConstants.URL + "(key);");
-		sc.add("descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(pluginUrl);");
-		sc.add("if (" + IMAGE_DESCRIPTOR + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
+		sc.add("descriptor = " + IMAGE_DESCRIPTOR(sc) + ".createFromURL(pluginUrl);");
+		sc.add("if (" + IMAGE_DESCRIPTOR(sc) + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("} catch (" + MALFORMED_URL_EXCEPTION + " mue) {");
@@ -97,7 +97,7 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 	private void addFields(JavaComposite sc) {
 		sc.add("public final static " + getResourceClassName() + " INSTANCE = new " + getResourceClassName() + "();");
 		sc.addLineBreak();
-		sc.add("private " + MAP + "<String, " + IMAGE + "> imageCache = new " + LINKED_HASH_MAP + "<String, " + IMAGE + ">();");
+		sc.add("private " + MAP(sc) + "<String, " + IMAGE(sc) + "> imageCache = new " + LINKED_HASH_MAP(sc) + "<String, " + IMAGE(sc) + ">();");
 		sc.addLineBreak();
 	}
 
@@ -107,22 +107,22 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 			"The key can be either a path to an image file in the resource bundle or " +
 			"a shared image from " + ISharedImages.class.getName() + "."
 		);
-		sc.add("public " + IMAGE + " getImage(String key) {");
+		sc.add("public " + IMAGE(sc) + " getImage(String key) {");
 		sc.add("if (key == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(IMAGE + " image = null;");
+		sc.add(IMAGE(sc) + " image = null;");
 		sc.addComment("try shared images");
 		sc.add("try {");
-		sc.add(FIELD + " declaredField = " + I_SHARED_IMAGES + ".class.getDeclaredField(key);");
+		sc.add(FIELD + " declaredField = " + I_SHARED_IMAGES(sc) + ".class.getDeclaredField(key);");
 		sc.add("Object valueObject = declaredField.get(null);");
 		sc.add("if (valueObject instanceof String) {");
 		sc.add("String value = (String) valueObject;");
-		sc.add("image = " + PLATFORM_UI + ".getWorkbench().getSharedImages().getImage(value);");
+		sc.add("image = " + PLATFORM_UI(sc) + ".getWorkbench().getSharedImages().getImage(value);");
 		sc.add("}");
 		sc.add("} catch (" + SECURITY_EXCEPTION + " e) {");
 		sc.add("} catch (" + NO_SUCH_FIELD_EXCEPTION + " e) {");
-		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " e) {");
+		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION(sc) + " e) {");
 		sc.add("} catch (" + ILLEGAL_ACCESS_EXCEPTION + " e) {");
 		sc.add("}");
 		sc.add("if (image != null) {");
@@ -135,7 +135,7 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addComment("try loading image from UI bundle");
-		sc.add(IMAGE_DESCRIPTOR + " descriptor = getImageDescriptor(key);");
+		sc.add(IMAGE_DESCRIPTOR(sc) + " descriptor = getImageDescriptor(key);");
 		sc.add("if (descriptor == null) {");
 		sc.add("return null;");
 		sc.add("}");

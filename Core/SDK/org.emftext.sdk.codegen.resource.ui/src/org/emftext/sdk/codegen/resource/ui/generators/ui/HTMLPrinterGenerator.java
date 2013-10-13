@@ -15,18 +15,18 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FONT_DATA;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PUSHBACK_READER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.READER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING_READER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLE_RANGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_PRESENTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FONT_DATA;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PUSHBACK_READER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.READER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRING_READER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STYLE_RANGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_PRESENTATION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -38,7 +38,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("This class is copied from org.eclipse.jface.internal.text.html.HTMLPrinter.");
@@ -62,7 +62,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	}
 
 	private void addHtml2textMethod(JavaComposite sc) {
-		sc.add("public static String html2text(" + STRING_READER + " stringReader, " + TEXT_PRESENTATION + " presentation) throws " + IO_EXCEPTION + " {");
+		sc.add("public static String html2text(" + STRING_READER(sc) + " stringReader, " + TEXT_PRESENTATION(sc) + " presentation) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("HTML2TextReader html2TextReader = new HTML2TextReader(stringReader, presentation);");
 		sc.add("String text = html2TextReader.getString();");
 		sc.add("html2TextReader.close();");
@@ -106,9 +106,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	}
 
 	private void addConvertTopLevelFontMethod(JavaComposite sc) {
-		sc.add("public static String convertTopLevelFont(String styles, " + FONT_DATA + " fontData) {");
-		sc.add("boolean bold = (fontData.getStyle() & " + SWT + ".BOLD) != 0;");
-		sc.add("boolean italic = (fontData.getStyle() & " + SWT + ".ITALIC) != 0;");
+		sc.add("public static String convertTopLevelFont(String styles, " + FONT_DATA(sc) + " fontData) {");
+		sc.add("boolean bold = (fontData.getStyle() & " + SWT(sc) + ".BOLD) != 0;");
+		sc.add("boolean italic = (fontData.getStyle() & " + SWT(sc) + ".ITALIC) != 0;");
 		sc.add("String size = Integer.toString(fontData.getHeight()) + UNIT;");
 		sc.add("String family = \"'\" + fontData.getName() + \"',sans-serif\";");
 		sc.addLineBreak();
@@ -175,7 +175,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 			"if the platform is a mac the UNIT is set to \"px\""
 		);
 		sc.add("static {");
-		sc.add("String platform = " + SWT + ".getPlatform();");
+		sc.add("String platform = " + SWT(sc) + ".getPlatform();");
 		sc.add("UNIT = (platform.equals(\"carbon\")||platform.equals(\"cocoa\")) ? \"px\" : \"pt\";");
 		sc.add("}");
 		sc.addLineBreak();
@@ -187,14 +187,14 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 			"the tags or cut them out.",
 			"<p>Moved into HTMLPrinter as inner class from <code>org.eclipse.jface.internal.text.html</code>.</p>"
 		);
-		sc.add("private static final class HTML2TextReader extends " + READER + " {");
+		sc.add("private static final class HTML2TextReader extends " + READER(sc) + " {");
 		sc.addLineBreak();
 		sc.add("private static final String EMPTY_STRING= \"\";");
-		sc.add("private " + MAP + "<String, String> fgEntityLookup;");
-		sc.add("private " + SET + "<String> fgTags;");
+		sc.add("private " + MAP(sc) + "<String, String> fgEntityLookup;");
+		sc.add("private " + SET(sc) + "<String> fgTags;");
 		sc.addLineBreak();
 		sc.add("private int fCounter= 0;");
-		sc.add("private " + TEXT_PRESENTATION + " fTextPresentation;");
+		sc.add("private " + TEXT_PRESENTATION(sc) + " fTextPresentation;");
 		sc.add("private int fBold= 0;");
 		sc.add("private int fStartOffset= -1;");
 		sc.add("private boolean fInParagraph= false;");
@@ -204,7 +204,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 		sc.add("protected final String LINE_DELIM= System.getProperty(\"line.separator\", \"\\n\");");
 		sc.addLineBreak();
-		sc.add("private " + READER + " fReader;");
+		sc.add("private " + READER(sc) + " fReader;");
 		sc.add("protected boolean fWasWhiteSpace;");
 		sc.add("private int fCharAfterWhiteSpace;");
 		sc.addLineBreak();
@@ -223,7 +223,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 			"@param reader the reader",
 			"@param presentation If not <code>null</code>, formattings will be applied to the presentation."
 		);
-		sc.add("public HTML2TextReader(" + READER + " reader, " + TEXT_PRESENTATION + " presentation) {");
+		sc.add("public HTML2TextReader(" + READER(sc) + " reader, " + TEXT_PRESENTATION(sc) + " presentation) {");
 		sc.addLineBreak();
 		
 		sc.add("fReader= reader;");
@@ -233,7 +233,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("fCharAfterWhiteSpace= -1;");
 		sc.add("fWasWhiteSpace= true;");
 		sc.addLineBreak();
-		sc.add("fgTags= new " + LINKED_HASH_SET + "<String>();");
+		sc.add("fgTags= new " + LINKED_HASH_SET(sc) + "<String>();");
 		sc.add("fgTags.add(\"b\");");
 		sc.add("fgTags.add(\"br\");");
 		sc.add("fgTags.add(\"br/\");");
@@ -253,7 +253,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("fgTags.add(\"pre\");");
 		sc.add("fgTags.add(\"head\");");
 		sc.addLineBreak();
-		sc.add("fgEntityLookup= new " + LINKED_HASH_MAP + "<String, String>(7);");
+		sc.add("fgEntityLookup= new " + LINKED_HASH_MAP(sc) + "<String, String>(7);");
 		sc.add("fgEntityLookup.put(\"lt\", \"<\");");
 		sc.add("fgEntityLookup.put(\"gt\", \">\");");
 		sc.add("fgEntityLookup.put(\"nbsp\", \" \");");
@@ -264,7 +264,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("fTextPresentation= presentation;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public int read() throws " + IO_EXCEPTION + " {");
+		sc.add("public int read() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("int c;");
 		sc.add("do {");
 		sc.addLineBreak();
@@ -305,7 +305,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("-- fBold;");
 		sc.add("if (fBold == 0) {");
 		sc.add("if (fTextPresentation != null) {");
-		sc.add("fTextPresentation.addStyleRange(new " + STYLE_RANGE + "(fStartOffset, fCounter - fStartOffset, null, null, " + SWT + ".BOLD));");
+		sc.add("fTextPresentation.addStyleRange(new " + STYLE_RANGE(sc) + "(fStartOffset, fCounter - fStartOffset, null, null, " + SWT(sc) + ".BOLD));");
 		sc.add("}");
 		sc.add("fStartOffset= -1;");
 		sc.add("}");
@@ -313,7 +313,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@see org.eclipse.jdt.internal.ui.text.SubstitutionTextReader#computeSubstitution(int)");
-		sc.add("protected String computeSubstitution(int c) throws " + IO_EXCEPTION + " {");
+		sc.add("protected String computeSubstitution(int c) throws " + IO_EXCEPTION(sc) + " {");
 		sc.addLineBreak();
 		sc.add("if (c == '<') {");
 		sc.add("return  processHTMLTag();");
@@ -428,7 +428,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A '<' has been read. Process a html tag");
-		sc.add("private String processHTMLTag() throws " + IO_EXCEPTION + " {");
+		sc.add("private String processHTMLTag() throws " + IO_EXCEPTION(sc) + " {");
 		sc.addLineBreak();
 		sc.add("StringBuffer buf= new StringBuffer();");
 		sc.add("int ch;");
@@ -484,8 +484,8 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addLineBreak();
-		sc.add("private void unread(int ch) throws " + IO_EXCEPTION + " {");
-		sc.add("((" + PUSHBACK_READER + ") getReader()).unread(ch);");
+		sc.add("private void unread(int ch) throws " + IO_EXCEPTION(sc) + " {");
+		sc.add("((" + PUSHBACK_READER(sc) + ") getReader()).unread(ch);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("protected String entity2Text(String symbol) {");
@@ -511,7 +511,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A '&' has been read. Process a entity");
-		sc.add("private String processEntity() throws " + IO_EXCEPTION + " {");
+		sc.add("private String processEntity() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("StringBuffer buf= new StringBuffer();");
 		sc.add("int ch= nextChar();");
 		sc.add("while (Character.isLetterOrDigit((char)ch) || ch == '#') {");
@@ -531,12 +531,12 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public void close() throws " + IO_EXCEPTION + " {");
+		sc.add("public void close() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("fReader.close();");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public int read(char[] cbuf, int off, int len) throws " + IO_EXCEPTION + " {");
+		sc.add("public int read(char[] cbuf, int off, int len) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("int end= off + len;");
 		sc.add("for (int i= off; i < end; i++) {");
 		sc.add("int ch= read();");
@@ -557,7 +557,7 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 			"@return the internal reader"
 		);
 		
-		sc.add("protected " + READER + " getReader() {");
+		sc.add("protected " + READER(sc) + " getReader() {");
 		sc.add("return fReader;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -565,10 +565,10 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addJavadoc(
 			"Returns the next character.",
 			"@return the next character",
-			"@throws " + IO_EXCEPTION + " in case reading the character fails"
+			"@throws " + IO_EXCEPTION(sc) + " in case reading the character fails"
 		);
 		
-		sc.add("protected int nextChar() throws " + IO_EXCEPTION + " {");
+		sc.add("protected int nextChar() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("fReadFromBuffer= (fBuffer.length() > 0);");
 		sc.add("if (fReadFromBuffer) {");
 		sc.add("char ch= fBuffer.charAt(fIndex++);");
@@ -597,15 +597,15 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("return ch;");
 		sc.add("}");
 		
-		sc.addJavadoc("@see " + READER + "#ready()");
-		sc.add("public boolean ready() throws " + IO_EXCEPTION + " {");
+		sc.addJavadoc("@see " + READER(sc) + "#ready()");
+		sc.add("public boolean ready() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("return fReader.ready();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see " + READER + "#reset()");
-		sc.add("public void reset() throws " + IO_EXCEPTION + " {");
+		sc.addJavadoc("@see " + READER(sc) + "#reset()");
+		sc.add("public void reset() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("fReader.reset();");
 		sc.add("fWasWhiteSpace= true;");
 		sc.add("fCharAfterWhiteSpace= -1;");
@@ -621,9 +621,9 @@ public class HTMLPrinterGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addJavadoc(
 			"Returns the readable content as string.",
 			"@return the readable content as string",
-			"@throws " + IO_EXCEPTION + " in case reading fails"
+			"@throws " + IO_EXCEPTION(sc) + " in case reading fails"
 		);
-		sc.add("public String getString() throws " + IO_EXCEPTION + " {");
+		sc.add("public String getString() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("StringBuffer buf= new StringBuffer();");
 		sc.add("int ch;");
 		sc.add("while ((ch= read()) != -1) {");

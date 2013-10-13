@@ -15,41 +15,41 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUTTON;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLOR_SELECTOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GRID_DATA;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GRID_LAYOUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_PART;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TREE_CONTENT_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LABEL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LABEL_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PREFERENCE_CONVERTER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PREFERENCE_PAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RGB;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SCROLLABLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SCROLL_BAR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTURED_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR_SELECTOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_DATA;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_LAYOUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_PART;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TREE_CONTENT_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_CONVERTER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RGB;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SCROLLABLE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SCROLL_BAR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRUCTURED_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TREE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -62,7 +62,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Preference page for configuring syntax coloring.",
@@ -70,7 +70,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 			"<i>Parts of the code were taken from the JDT Java Editor</i>"
 		);
 		
-		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE(sc) + " implements " + I_WORKBENCH_PREFERENCE_PAGE(sc) + " {");
 		sc.addLineBreak();
 		addConstants(sc);
 		addConstructor(sc);
@@ -113,8 +113,8 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 
 	private void addUpdateActiveEditorMethod(JavaComposite sc) {
 		sc.add("private void updateActiveEditor() {");
-		sc.add(I_WORKBENCH + " workbench = org.eclipse.ui.PlatformUI.getWorkbench();");
-		sc.add(I_EDITOR_PART + " editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
+		sc.add(I_WORKBENCH(sc) + " workbench = org.eclipse.ui.PlatformUI.getWorkbench();");
+		sc.add(I_EDITOR_PART(sc) + " editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
 		sc.add("if (editor != null && editor instanceof " + editorClassName + ") {");
 		sc.add(editorClassName + " emfTextEditor = (" + editorClassName + ") editor;");
 		sc.add("emfTextEditor.invalidateTextRepresentation();");
@@ -124,14 +124,14 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addRestoreDefaultStringValueMethod(JavaComposite sc) {
-		sc.add("private void restoreDefaultStringValue(" + I_PREFERENCE_STORE + " preferenceStore, String key) {");
+		sc.add("private void restoreDefaultStringValue(" + I_PREFERENCE_STORE(sc) + " preferenceStore, String key) {");
 		sc.add("preferenceStore.setValue(key, preferenceStore.getDefaultString(key));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRestoreDefaultBooleanValueMethod(JavaComposite sc) {
-		sc.add("private void restoreDefaultBooleanValue(" + I_PREFERENCE_STORE + " preferenceStore, String key) {");
+		sc.add("private void restoreDefaultBooleanValue(" + I_PREFERENCE_STORE(sc) + " preferenceStore, String key) {");
 		sc.add("preferenceStore.setValue(key, preferenceStore.getDefaultBoolean(key));");
 		sc.add("}");
 		sc.addLineBreak();
@@ -141,10 +141,10 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("public void performDefaults() {");
 		sc.add("super.performDefaults();");
 		sc.addLineBreak();
-		sc.add(I_PREFERENCE_STORE + " preferenceStore = getPreferenceStore();");
+		sc.add(I_PREFERENCE_STORE(sc) + " preferenceStore = getPreferenceStore();");
 		sc.addComment("reset all preferences to their default values");
 		sc.add("for (String languageID : content.keySet()) {");
-		sc.add(LIST + "<HighlightingColorListItem> items = content.get(languageID);");
+		sc.add(LIST(sc) + "<HighlightingColorListItem> items = content.get(languageID);");
 		sc.add("for (HighlightingColorListItem item : items) {");
 		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getBoldKey());");
 		sc.add("restoreDefaultBooleanValue(preferenceStore, item.getEnableKey());");
@@ -195,15 +195,15 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addCreateContentsMethod(JavaComposite sc) {
-		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
-		sc.add(CONTROL + " content = createSyntaxPage(parent);");
+		sc.add("protected " + CONTROL(sc) + " createContents(" + COMPOSITE(sc) + " parent) {");
+		sc.add(CONTROL(sc) + " content = createSyntaxPage(parent);");
 		sc.add("return content;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addInitMethod(JavaComposite sc) {
-		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
+		sc.add("public void init(" + I_WORKBENCH(sc) + " workbench) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -216,14 +216,14 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.addLineBreak();
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.addLineBreak();
-		sc.add(LIST + "<HighlightingColorListItem> terminals = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
+		sc.add(LIST(sc) + "<HighlightingColorListItem> terminals = new " + ARRAY_LIST(sc) + "<HighlightingColorListItem>();");
 		sc.add("String[] tokenNames = metaInformation.getSyntaxHighlightableTokenNames();");
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < tokenNames.length; i++) {");
 		sc.add("HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenNames[i]);");
 		sc.add("terminals.add(item);");
 		sc.add("}");
-		sc.add(COLLECTIONS + ".sort(terminals);");
+		sc.add(COLLECTIONS(sc) + ".sort(terminals);");
 		sc.add("content.put(languageId, terminals);");
 		sc.addLineBreak();
 		sc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
@@ -235,7 +235,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	private void addGetHighlightingColorListItemMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the current highlighting color list item.");
 		sc.add("private HighlightingColorListItem getHighlightingColorListItem() {");
-		sc.add(I_STRUCTURED_SELECTION + " selection = (" + I_STRUCTURED_SELECTION + ") fListViewer.getSelection();");
+		sc.add(I_STRUCTURED_SELECTION(sc) + " selection = (" + I_STRUCTURED_SELECTION(sc) + ") fListViewer.getSelection();");
 		sc.add("Object element = selection.getFirstElement();");
 		sc.add("if (element instanceof String) {");
 		sc.add("return null;");
@@ -246,10 +246,10 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addAddFillerMethod(JavaComposite sc) {
-		sc.add("private void addFiller(" + COMPOSITE + " composite, int horizontalSpan) {");
+		sc.add("private void addFiller(" + COMPOSITE(sc) + " composite, int horizontalSpan) {");
 		sc.add(pixelConverterClassName + " pixelConverter = new " + pixelConverterClassName + "(composite);");
-		sc.add(LABEL + " filler = new " + LABEL + "(composite, " + SWT + ".LEFT);");
-		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_FILL);");
+		sc.add(LABEL(sc) + " filler = new " + LABEL(sc) + "(composite, " + SWT(sc) + ".LEFT);");
+		sc.add(GRID_DATA(sc) + " gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".HORIZONTAL_ALIGN_FILL);");
 		sc.add("gd.horizontalSpan = horizontalSpan;");
 		sc.add("gd.heightHint = pixelConverter.convertHeightInCharsToPixels(1) / 2;");
 		sc.add("filler.setLayoutData(gd);");
@@ -258,59 +258,59 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addCreateStylesCompositeMethod(JavaComposite sc) {
-		sc.add("private void createStylesComposite(" + COMPOSITE + " editorComposite) {");
-		sc.add(GRID_LAYOUT + " layout;");
-		sc.add(GRID_DATA + " gd;");
-		sc.add(COMPOSITE + " stylesComposite = new " + COMPOSITE + "(editorComposite, " + SWT + ".NONE);");
-		sc.add("layout = new " + GRID_LAYOUT + "();");
+		sc.add("private void createStylesComposite(" + COMPOSITE(sc) + " editorComposite) {");
+		sc.add(GRID_LAYOUT(sc) + " layout;");
+		sc.add(GRID_DATA(sc) + " gd;");
+		sc.add(COMPOSITE(sc) + " stylesComposite = new " + COMPOSITE(sc) + "(editorComposite, " + SWT(sc) + ".NONE);");
+		sc.add("layout = new " + GRID_LAYOUT(sc) + "();");
 		sc.add("layout.marginHeight = 0;");
 		sc.add("layout.marginWidth = 0;");
 		sc.add("layout.numColumns = 2;");
 		sc.add("stylesComposite.setLayout(layout);");
-		sc.add("stylesComposite.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".END, " + GRID_DATA + ".FILL, false, true));");
+		sc.add("stylesComposite.setLayoutData(new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".END, " + GRID_DATA(sc) + ".FILL, false, true));");
 		sc.addLineBreak();
-		sc.add("fEnableCheckbox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fEnableCheckbox = new " + BUTTON(sc) + "(stylesComposite, " + SWT(sc) + ".CHECK);");
 		sc.add("fEnableCheckbox.setText(\"Enable\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL_HORIZONTAL);");
-		sc.add("gd.horizontalAlignment = " + GRID_DATA + ".BEGINNING;");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".FILL_HORIZONTAL);");
+		sc.add("gd.horizontalAlignment = " + GRID_DATA(sc) + ".BEGINNING;");
 		sc.add("gd.horizontalSpan = 2;");
 		sc.add("fEnableCheckbox.setLayoutData(gd);");
 		sc.addLineBreak();
-		sc.add("fColorEditorLabel = new " + LABEL + "(stylesComposite, " + SWT + ".LEFT);");
+		sc.add("fColorEditorLabel = new " + LABEL(sc) + "(stylesComposite, " + SWT(sc) + ".LEFT);");
 		sc.add("fColorEditorLabel.setText(\"Color:\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".HORIZONTAL_ALIGN_BEGINNING);");
 		sc.add("gd.horizontalIndent = 20;");
 		sc.add("fColorEditorLabel.setLayoutData(gd);");
 		sc.addLineBreak();
-		sc.add("fSyntaxForegroundColorEditor = new " + COLOR_SELECTOR + "(stylesComposite);");
+		sc.add("fSyntaxForegroundColorEditor = new " + COLOR_SELECTOR(sc) + "(stylesComposite);");
 		sc.add("fForegroundColorButton = fSyntaxForegroundColorEditor.getButton();");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".HORIZONTAL_ALIGN_BEGINNING);");
 		sc.add("fForegroundColorButton.setLayoutData(gd);");
 		sc.addLineBreak();
-		sc.add("fBoldCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fBoldCheckBox = new " + BUTTON(sc) + "(stylesComposite, " + SWT(sc) + ".CHECK);");
 		sc.add("fBoldCheckBox.setText(\"Bold\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".HORIZONTAL_ALIGN_BEGINNING);");
 		sc.add("gd.horizontalIndent = 20;");
 		sc.add("gd.horizontalSpan = 2;");
 		sc.add("fBoldCheckBox.setLayoutData(gd);");
 		sc.addLineBreak();
-		sc.add("fItalicCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fItalicCheckBox = new " + BUTTON(sc) + "(stylesComposite, " + SWT(sc) + ".CHECK);");
 		sc.add("fItalicCheckBox.setText(\"Italic\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".HORIZONTAL_ALIGN_BEGINNING);");
 		sc.add("gd.horizontalIndent = 20;");
 		sc.add("gd.horizontalSpan = 2;");
 		sc.add("fItalicCheckBox.setLayoutData(gd);");
 		sc.addLineBreak();
-		sc.add("fStrikethroughCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fStrikethroughCheckBox = new " + BUTTON(sc) + "(stylesComposite, " + SWT(sc) + ".CHECK);");
 		sc.add("fStrikethroughCheckBox.setText(\"Strikethrough\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".HORIZONTAL_ALIGN_BEGINNING);");
 		sc.add("gd.horizontalIndent = 20;");
 		sc.add("gd.horizontalSpan = 2;");
 		sc.add("fStrikethroughCheckBox.setLayoutData(gd);");
 		sc.addLineBreak();
-		sc.add("fUnderlineCheckBox = new " + BUTTON + "(stylesComposite, " + SWT + ".CHECK);");
+		sc.add("fUnderlineCheckBox = new " + BUTTON(sc) + "(stylesComposite, " + SWT(sc) + ".CHECK);");
 		sc.add("fUnderlineCheckBox.setText(\"Underlined\");");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".HORIZONTAL_ALIGN_BEGINNING);");
+		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".HORIZONTAL_ALIGN_BEGINNING);");
 		sc.add("gd.horizontalIndent = 20;");
 		sc.add("gd.horizontalSpan = 2;");
 		sc.add("fUnderlineCheckBox.setLayoutData(gd);");
@@ -320,71 +320,71 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 
 	private void addAddListenersToStyleButtonsMethod(JavaComposite sc) {
 		sc.add("private void addListenersToStyleButtons() {");
-		sc.add("fForegroundColorButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("fForegroundColorButton.addSelectionListener(new " + SELECTION_LISTENER(sc) + "() {");
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
 		sc.addLineBreak();
 		sc.add("changedPreferences.add(new ChangedRGBPreference(item.getColorKey(), fSyntaxForegroundColorEditor.getColorValue()));");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("fBoldCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("fBoldCheckBox.addSelectionListener(new " + SELECTION_LISTENER(sc) + "() {");
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
 		sc.add("changedPreferences.add(new ChangedBooleanPreference(item.getBoldKey(),");
 		sc.add("fBoldCheckBox.getSelection()));");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("fItalicCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("fItalicCheckBox.addSelectionListener(new " + SELECTION_LISTENER(sc) + "() {");
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
 		sc.add("changedPreferences.add(new ChangedBooleanPreference(item.getItalicKey(),");
 		sc.add("fItalicCheckBox.getSelection()));");
 		sc.add("}");
 		sc.add("});");
-		sc.add("fStrikethroughCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("fStrikethroughCheckBox.addSelectionListener(new " + SELECTION_LISTENER(sc) + "() {");
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
 		sc.add("changedPreferences.add(new ChangedBooleanPreference(item.getStrikethroughKey(),");
 		sc.add("fStrikethroughCheckBox.getSelection()));");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("fUnderlineCheckBox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("fUnderlineCheckBox.addSelectionListener(new " + SELECTION_LISTENER(sc) + "() {");
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
 		sc.add("changedPreferences.add(new ChangedBooleanPreference(item.getUnderlineKey(),");
 		sc.add("fUnderlineCheckBox.getSelection()));");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("fEnableCheckbox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("fEnableCheckbox.addSelectionListener(new " + SELECTION_LISTENER(sc) + "() {");
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
 		sc.add("HighlightingColorListItem item = getHighlightingColorListItem();");
 		sc.addLineBreak();
 		sc.add("boolean enable = fEnableCheckbox.getSelection();");
@@ -405,21 +405,21 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addCreateListViewerMethod(JavaComposite sc) {
-		sc.add("private void createListViewer(" + COMPOSITE + " editorComposite) {");
-		sc.add("fListViewer = new " + TREE_VIEWER + "(editorComposite, " + SWT + ".SINGLE | " + SWT + ".BORDER);");
+		sc.add("private void createListViewer(" + COMPOSITE(sc) + " editorComposite) {");
+		sc.add("fListViewer = new " + TREE_VIEWER(sc) + "(editorComposite, " + SWT(sc) + ".SINGLE | " + SWT(sc) + ".BORDER);");
 		sc.add("fListViewer.setLabelProvider(new ColorListLabelProvider());");
 		sc.add("fListViewer.setContentProvider(new ColorListContentProvider());");
 		sc.addLineBreak();
-		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".FILL, true, true);");
+		sc.add(GRID_DATA(sc) + " gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".FILL, " + GRID_DATA(sc) + ".FILL, true, true);");
 		sc.add("gd.heightHint = convertHeightInCharsToPixels(26);");
 		sc.add("int maxWidth = 0;");
-		sc.add("for (" + ITERATOR + "<" + LIST + "<HighlightingColorListItem>> it = content.values().iterator(); it.hasNext();) {");
-		sc.add("for (" + ITERATOR + "<HighlightingColorListItem> j = it.next().iterator(); j.hasNext();) {");
+		sc.add("for (" + ITERATOR(sc) + "<" + LIST(sc) + "<HighlightingColorListItem>> it = content.values().iterator(); it.hasNext();) {");
+		sc.add("for (" + ITERATOR(sc) + "<HighlightingColorListItem> j = it.next().iterator(); j.hasNext();) {");
 		sc.add("HighlightingColorListItem item = j.next();");
 		sc.add("maxWidth = Math.max(maxWidth, convertWidthInCharsToPixels(item.getDisplayName().length()));");
 		sc.add("}");
 		sc.add("}");
-		sc.add(SCROLL_BAR + " vBar = ((" + SCROLLABLE + ") fListViewer.getControl()).getVerticalBar();");
+		sc.add(SCROLL_BAR(sc) + " vBar = ((" + SCROLLABLE(sc) + ") fListViewer.getControl()).getVerticalBar();");
 		sc.add("if (vBar != null) {");
 		sc.addComment("scrollbars and tree indentation guess");
 		sc.add("maxWidth += vBar.getSize().x * 3;");
@@ -429,9 +429,9 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("fListViewer.getControl().setLayoutData(gd);");
 		sc.addLineBreak();
 		sc.add("fListViewer.setInput(content);");
-		sc.add("fListViewer.setSelection(new " + STRUCTURED_SELECTION + "(content.values().iterator().next()));");
-		sc.add("fListViewer.addSelectionChangedListener(new " + I_SELECTION_CHANGED_LISTENER + "() {");
-		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+		sc.add("fListViewer.setSelection(new " + STRUCTURED_SELECTION(sc) + "(content.values().iterator().next()));");
+		sc.add("fListViewer.addSelectionChangedListener(new " + I_SELECTION_CHANGED_LISTENER(sc) + "() {");
+		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT(sc) + " event) {");
 		sc.add("handleSyntaxColorListSelection();");
 		sc.add("}");
 		sc.add("});");
@@ -440,15 +440,15 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addCreateEditorCompositeMethod(JavaComposite sc) {
-		sc.add("private " + COMPOSITE + " createEditorComposite(" + COMPOSITE + " colorComposite) {");
-		sc.add(GRID_LAYOUT + " layout;");
-		sc.add(COMPOSITE + " editorComposite = new " + COMPOSITE + "(colorComposite, " + SWT + ".NONE);");
-		sc.add("layout = new " + GRID_LAYOUT + "();");
+		sc.add("private " + COMPOSITE(sc) + " createEditorComposite(" + COMPOSITE(sc) + " colorComposite) {");
+		sc.add(GRID_LAYOUT(sc) + " layout;");
+		sc.add(COMPOSITE(sc) + " editorComposite = new " + COMPOSITE(sc) + "(colorComposite, " + SWT(sc) + ".NONE);");
+		sc.add("layout = new " + GRID_LAYOUT(sc) + "();");
 		sc.add("layout.numColumns = 2;");
 		sc.add("layout.marginHeight = 0;");
 		sc.add("layout.marginWidth = 0;");
 		sc.add("editorComposite.setLayout(layout);");
-		sc.add(GRID_DATA + " gd = new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".FILL, true, true);");
+		sc.add(GRID_DATA(sc) + " gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".FILL, " + GRID_DATA(sc) + ".FILL, true, true);");
 		sc.add("editorComposite.setLayoutData(gd);");
 		sc.add("return editorComposite;");
 		sc.add("}");
@@ -456,21 +456,21 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 	}
 
 	private void addCreateSyntaxPageMethod(JavaComposite sc) {
-		sc.add("private " + CONTROL + " createSyntaxPage(final " + COMPOSITE + " parent) {");
+		sc.add("private " + CONTROL(sc) + " createSyntaxPage(final " + COMPOSITE(sc) + " parent) {");
 		sc.addLineBreak();
-		sc.add(COMPOSITE + " colorComposite = new " + COMPOSITE + "(parent, " + SWT + ".NONE);");
-		sc.add(GRID_LAYOUT + " layout = new " + GRID_LAYOUT + "();");
+		sc.add(COMPOSITE(sc) + " colorComposite = new " + COMPOSITE(sc) + "(parent, " + SWT(sc) + ".NONE);");
+		sc.add(GRID_LAYOUT(sc) + " layout = new " + GRID_LAYOUT(sc) + "();");
 		sc.add("layout.marginHeight = 0;");
 		sc.add("layout.marginWidth = 0;");
 		sc.add("colorComposite.setLayout(layout);");
 		sc.addLineBreak();
 		sc.add("addFiller(colorComposite, 1);");
 		sc.addLineBreak();
-		sc.add(LABEL + " label = new " + LABEL + "(colorComposite, " + SWT + ".LEFT);");
+		sc.add(LABEL(sc) + " label = new " + LABEL(sc) + "(colorComposite, " + SWT(sc) + ".LEFT);");
 		sc.add("label.setText(\"Element:\");");
-		sc.add("label.setLayoutData(new " + GRID_DATA + "(" + GRID_DATA + ".FILL, " + GRID_DATA + ".BEGINNING, true, false));");
+		sc.add("label.setLayoutData(new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".FILL, " + GRID_DATA(sc) + ".BEGINNING, true, false));");
 		sc.addLineBreak();
-		sc.add(COMPOSITE + " editorComposite = createEditorComposite(colorComposite);");
+		sc.add(COMPOSITE(sc) + " editorComposite = createEditorComposite(colorComposite);");
 		sc.add("createListViewer(editorComposite);");
 		sc.add("createStylesComposite(editorComposite);");
 		sc.addLineBreak();
@@ -496,7 +496,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("fUnderlineCheckBox.setEnabled(false);");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(), item.getColorKey());");
+		sc.add(RGB(sc) + " rgb = " + PREFERENCE_CONVERTER(sc) + ".getColor(getPreferenceStore(), item.getColorKey());");
 		sc.add("fSyntaxForegroundColorEditor.setColorValue(rgb);");
 		sc.add("fBoldCheckBox.setSelection(getPreferenceStore().getBoolean(item.getBoldKey()));");
 		sc.add("fItalicCheckBox.setSelection(getPreferenceStore().getBoolean(item.getItalicKey()));");
@@ -525,15 +525,15 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 
 	private void addColorListContentProviderClass(JavaComposite sc) {
 		sc.addJavadoc("Color list content provider.");
-		sc.add("private class ColorListContentProvider implements " + I_TREE_CONTENT_PROVIDER + " {");
+		sc.add("private class ColorListContentProvider implements " + I_TREE_CONTENT_PROVIDER(sc) + " {");
 		sc.addLineBreak();
 		sc.add("public ColorListContentProvider() {");
 		sc.add("super();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public Object[] getElements(Object inputElement) {");
-		sc.add(LIST + "<HighlightingColorListItem> contentsList = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
-		sc.add("for (" + LIST + "<HighlightingColorListItem> l : content.values()) {");
+		sc.add(LIST(sc) + "<HighlightingColorListItem> contentsList = new " + ARRAY_LIST(sc) + "<HighlightingColorListItem>();");
+		sc.add("for (" + LIST(sc) + "<HighlightingColorListItem> l : content.values()) {");
 		sc.add("contentsList.addAll(l);");
 		sc.add("}");
 		sc.add("return contentsList.toArray();");
@@ -542,7 +542,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("public void dispose() {");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void inputChanged(" + VIEWER + " viewer, Object oldInput, Object newInput) {");
+		sc.add("public void inputChanged(" + VIEWER(sc) + " viewer, Object oldInput, Object newInput) {");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public Object[] getChildren(Object parentElement) {");
@@ -562,7 +562,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 
 	private void addColorListLabelProviderClass(JavaComposite sc) {
 		sc.addJavadoc("Color list label provider.");
-		sc.add("private class ColorListLabelProvider extends " + LABEL_PROVIDER + " {");
+		sc.add("private class ColorListLabelProvider extends " + LABEL_PROVIDER(sc) + " {");
 		sc.addLineBreak();
 		sc.add("public String getText(Object element) {");
 		sc.add("if (element instanceof String) {");
@@ -669,24 +669,24 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.addLineBreak();
 	}
 
-	private void addChangedRGBPreferenceClass(StringComposite sc) {
+	private void addChangedRGBPreferenceClass(JavaComposite sc) {
 		sc.add("private static class ChangedRGBPreference extends AbstractChangedPreference {");
 		sc.addLineBreak();
-		sc.add("private " + RGB + " newValue;");
+		sc.add("private " + RGB(sc) + " newValue;");
 		sc.addLineBreak();
-		sc.add("public ChangedRGBPreference(String key, " + RGB + " newValue) {");
+		sc.add("public ChangedRGBPreference(String key, " + RGB(sc) + " newValue) {");
 		sc.add("super(key);");
 		sc.add("this.newValue = newValue;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void apply(" + I_PREFERENCE_STORE + " store) {");
-		sc.add(PREFERENCE_CONVERTER + ".setValue(store, getKey(), newValue);");
+		sc.add("public void apply(" + I_PREFERENCE_STORE(sc) + " store) {");
+		sc.add(PREFERENCE_CONVERTER(sc) + ".setValue(store, getKey(), newValue);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addChangedBooleanPreferenceClass(StringComposite sc) {
+	private void addChangedBooleanPreferenceClass(JavaComposite sc) {
 		sc.add("private static class ChangedBooleanPreference extends AbstractChangedPreference {");
 		sc.addLineBreak();
 		sc.add("private boolean newValue;");
@@ -696,7 +696,7 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.add("this.newValue = newValue;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void apply(" + I_PREFERENCE_STORE + " store) {");
+		sc.add("public void apply(" + I_PREFERENCE_STORE(sc) + " store) {");
 		sc.add("store.setValue(getKey(), newValue);");
 		sc.add("}");
 		sc.add("}");
@@ -720,34 +720,34 @@ public class SyntaxColoringPreferencePageGenerator extends UIJavaBaseGenerator<A
 		sc.addLineBreak();
 	}
 
-	private void addIChangePreferenceInterface(StringComposite sc) {
+	private void addIChangePreferenceInterface(JavaComposite sc) {
 		sc.add("private interface IChangedPreference {");
-		sc.add("public void apply(" + I_PREFERENCE_STORE + " store);");
+		sc.add("public void apply(" + I_PREFERENCE_STORE(sc) + " store);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + COLOR_SELECTOR + " fSyntaxForegroundColorEditor;");
-		sc.add("private " + LABEL + " fColorEditorLabel;");
-		sc.add("private " + BUTTON + " fBoldCheckBox;");
-		sc.add("private " + BUTTON + " fEnableCheckbox;");
+		sc.add("private " + COLOR_SELECTOR(sc) + " fSyntaxForegroundColorEditor;");
+		sc.add("private " + LABEL(sc) + " fColorEditorLabel;");
+		sc.add("private " + BUTTON(sc) + " fBoldCheckBox;");
+		sc.add("private " + BUTTON(sc) + " fEnableCheckbox;");
 		sc.addJavadoc("Check box for italic preference.");
-		sc.add("private " + BUTTON + " fItalicCheckBox;");
+		sc.add("private " + BUTTON(sc) + " fItalicCheckBox;");
 		sc.addJavadoc("Check box for strikethrough preference.");
-		sc.add("private " + BUTTON + " fStrikethroughCheckBox;");
+		sc.add("private " + BUTTON(sc) + " fStrikethroughCheckBox;");
 		sc.addJavadoc("Check box for underline preference.");
-		sc.add("private " + BUTTON + " fUnderlineCheckBox;");
-		sc.add("private " + BUTTON + " fForegroundColorButton;");
+		sc.add("private " + BUTTON(sc) + " fUnderlineCheckBox;");
+		sc.add("private " + BUTTON(sc) + " fForegroundColorButton;");
 		sc.addLineBreak();
 		sc.addJavadoc("Highlighting color list viewer");
-		sc.add("private " + STRUCTURED_VIEWER + " fListViewer;");
+		sc.add("private " + STRUCTURED_VIEWER(sc) + " fListViewer;");
 		sc.addLineBreak();
 	}
 
 	private void addConstants(JavaComposite sc) {
-		sc.add("private final static " + MAP + "<String, " + LIST + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP + "<String, " + LIST + "<HighlightingColorListItem>>();");
-		sc.add("private final static " + COLLECTION + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST + "<IChangedPreference>();");
+		sc.add("private final static " + MAP(sc) + "<String, " + LIST(sc) + "<HighlightingColorListItem>> content = new " + LINKED_HASH_MAP(sc) + "<String, " + LIST(sc) + "<HighlightingColorListItem>>();");
+		sc.add("private final static " + COLLECTION(sc) + "<IChangedPreference> changedPreferences = new " + ARRAY_LIST(sc) + "<IChangedPreference>();");
 		sc.addLineBreak();
 	}
 }

@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_EDITING_DOMAIN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BASIC_COMMAND_STACK;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITING_DOMAIN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_EDITING_DOMAIN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BASIC_COMMAND_STACK;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EDITING_DOMAIN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,7 +33,7 @@ public class EditingDomainProviderGenerator extends UIJavaBaseGenerator<Artifact
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"The EditingDomainProvider is used by the editor to obtain an EMF editing domain. " +
@@ -53,19 +53,19 @@ public class EditingDomainProviderGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addGetEditingDomainMethod(JavaComposite sc) {
-		sc.add("public " + EDITING_DOMAIN + " getEditingDomain(" + I_EDITOR_INPUT + " editorInput) {");
+		sc.add("public " + EDITING_DOMAIN(sc) + " getEditingDomain(" + I_EDITOR_INPUT(sc) + " editorInput) {");
 		sc.add("return createEditingDomain();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addCreateEditingDomainMethod(JavaComposite sc) {
-		sc.add("private " + EDITING_DOMAIN + " createEditingDomain() {");
-		sc.add(ADAPTER_FACTORY + " adapterFactory = new " + adapterFactoryProviderClassName + "().getAdapterFactory();");
+		sc.add("private " + EDITING_DOMAIN(sc) + " createEditingDomain() {");
+		sc.add(ADAPTER_FACTORY(sc) + " adapterFactory = new " + adapterFactoryProviderClassName + "().getAdapterFactory();");
 		sc.addLineBreak();
-		sc.add(BASIC_COMMAND_STACK + " commandStack = new " + BASIC_COMMAND_STACK + "();");
+		sc.add(BASIC_COMMAND_STACK(sc) + " commandStack = new " + BASIC_COMMAND_STACK(sc) + "();");
 		sc.addLineBreak();
-		sc.add("return new " + ADAPTER_FACTORY_EDITING_DOMAIN + "(adapterFactory, commandStack, new " + LINKED_HASH_MAP + "<" + RESOURCE + ", Boolean>());");
+		sc.add("return new " + ADAPTER_FACTORY_EDITING_DOMAIN(sc) + "(adapterFactory, commandStack, new " + LINKED_HASH_MAP(sc) + "<" + RESOURCE(sc) + ", Boolean>());");
 		sc.add("}");
 		sc.addLineBreak();
 	}

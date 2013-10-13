@@ -15,7 +15,32 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GROUP_MARKER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ACTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ACTION_BARS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTENT_OUTLINE_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MENU_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MENU_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PAGE_SITE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOOL_BAR_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_ACTION_CONSTANTS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TREE_VIEWER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,10 +57,10 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	public void generateJavaContents(JavaComposite sc) {
 		String outlineContextMenuID = getContext().getResourceUIPlugin().getName() + ".outlinecontext";
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("Simple Outline Page using the ReflectiveItemAdapters provided by EMF");
-		sc.add("public class " + getResourceClassName() + " extends " + PAGE + " implements " + I_SELECTION_PROVIDER + ", " + I_SELECTION_CHANGED_LISTENER + ", " + I_CONTENT_OUTLINE_PAGE + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + PAGE(sc) + " implements " + I_SELECTION_PROVIDER(sc) + ", " + I_SELECTION_CHANGED_LISTENER(sc) + ", " + I_CONTENT_OUTLINE_PAGE(sc) + " {");
 		sc.addLineBreak();
 		
 		addFields(sc, outlineContextMenuID);
@@ -61,8 +86,8 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		addSetSelectionMethod(sc);
 	}
 
-	private void addSetSelectionMethod(StringComposite sc) {
-		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
+	private void addSetSelectionMethod(JavaComposite sc) {
+		sc.add("public void setSelection(" + I_SELECTION(sc) + " selection) {");
 		sc.add("if (treeViewer != null) {");
 		sc.add("treeViewer.setSelection(selection);");
 		sc.add("}");
@@ -78,8 +103,8 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addSelectionChangedMethod(StringComposite sc) {
-		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+	private void addSelectionChangedMethod(JavaComposite sc) {
+		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT(sc) + " event) {");
 		sc.add("if (getTreeViewer() != null) {");
 		sc.add("getTreeViewer().setSelection(event.getSelection(), true);");
 		sc.add("}");
@@ -87,8 +112,8 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addRemoveSelectionChangedListenerMethod(StringComposite sc) {
-		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
+	private void addRemoveSelectionChangedListenerMethod(JavaComposite sc) {
+		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(sc) + " listener) {");
 		sc.add("if (getTreeViewer() == null) {");
 		sc.add("selectionChangedListeners.remove(listener);");
 		sc.add("} else {");
@@ -98,8 +123,8 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addInitMethod(StringComposite sc) {
-		sc.add("public void init(" + I_PAGE_SITE + " pageSite) {");
+	private void addInitMethod(JavaComposite sc) {
+		sc.add("public void init(" + I_PAGE_SITE(sc) + " pageSite) {");
 		sc.add("super.init(pageSite);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -110,24 +135,24 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 			"Returns this page's tree viewer.",
 			"@return this page's tree viewer, or <code>null</code> if <code>createControl</code> has not been called yet"
 		);
-		sc.add("protected " + TREE_VIEWER + " getTreeViewer() {");
+		sc.add("protected " + TREE_VIEWER(sc) + " getTreeViewer() {");
 		sc.add("return treeViewer;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetSelectionMethod(StringComposite sc) {
-		sc.add("public " + I_SELECTION + " getSelection() {");
+	private void addGetSelectionMethod(JavaComposite sc) {
+		sc.add("public " + I_SELECTION(sc) + " getSelection() {");
 		sc.add("if (treeViewer == null) {");
-		sc.add("return " + STRUCTURED_SELECTION + ".EMPTY;");
+		sc.add("return " + STRUCTURED_SELECTION(sc) + ".EMPTY;");
 		sc.add("}");
 		sc.add("return treeViewer.getSelection();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetControlMethod(StringComposite sc) {
-		sc.add("public " + CONTROL + " getControl() {");
+	private void addGetControlMethod(JavaComposite sc) {
+		sc.add("public " + CONTROL(sc) + " getControl() {");
 		sc.add("if (treeViewer == null) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -136,8 +161,8 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addAddSelectionChangedListenerMethod(StringComposite sc) {
-		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
+	private void addAddSelectionChangedListenerMethod(JavaComposite sc) {
+		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(sc) + " listener) {");
 		sc.add("if (getTreeViewer() == null) {");
 		sc.add("selectionChangedListeners.add(listener);");
 		sc.add("} else {");
@@ -148,24 +173,24 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	}
 
 	private void addCreateControlMethod(JavaComposite sc) {
-		sc.add("public void createControl(" + COMPOSITE + " parent) {");
-		sc.add("treeViewer = new " + outlinePageTreeViewerClassName + "(parent, " + SWT + ".MULTI | " + SWT + ".H_SCROLL | " + SWT + ".V_SCROLL);");
+		sc.add("public void createControl(" + COMPOSITE(sc) + " parent) {");
+		sc.add("treeViewer = new " + outlinePageTreeViewerClassName + "(parent, " + SWT(sc) + ".MULTI | " + SWT(sc) + ".H_SCROLL | " + SWT(sc) + ".V_SCROLL);");
 		sc.add("Object[] listeners = selectionChangedListeners.getListeners();");
 		sc.add("for (int i = 0; i < listeners.length; ++i) {");
-		sc.add(I_SELECTION_CHANGED_LISTENER + " l = (" + I_SELECTION_CHANGED_LISTENER + ") listeners[i];");
+		sc.add(I_SELECTION_CHANGED_LISTENER(sc) + " l = (" + I_SELECTION_CHANGED_LISTENER(sc) + ") listeners[i];");
 		sc.add("treeViewer.addSelectionChangedListener(l);");
 		sc.add("}");
 		sc.add("selectionChangedListeners.clear();");
 		generatorUtil.addCreateAdapterFactoryCode(sc);
-		sc.add(ADAPTER_FACTORY_CONTENT_PROVIDER + " contentProvider = new " + ADAPTER_FACTORY_CONTENT_PROVIDER + "(adapterFactory);");
+		sc.add(ADAPTER_FACTORY_CONTENT_PROVIDER(sc) + " contentProvider = new " + ADAPTER_FACTORY_CONTENT_PROVIDER(sc) + "(adapterFactory);");
 		sc.add("treeViewer.setAutoExpandLevel(AUTO_EXPAND_LEVEL);");
 		sc.add("treeViewer.setContentProvider(contentProvider);");
-		sc.add("treeViewer.setLabelProvider(new " + ADAPTER_FACTORY_LABEL_PROVIDER + "(adapterFactory));");
-		sc.add(RESOURCE + " resource = resourceProvider.getResource();");
+		sc.add("treeViewer.setLabelProvider(new " + ADAPTER_FACTORY_LABEL_PROVIDER(sc) + "(adapterFactory));");
+		sc.add(RESOURCE(sc) + " resource = resourceProvider.getResource();");
 		sc.add("treeViewer.setInput(resource);");
 		sc.add("if (resource != null) {");
 		sc.addComment("Select the root object in the view.");
-		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION + "(resource), true);");
+		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION(sc) + "(resource), true);");
 		sc.add("}");
 		sc.add("treeViewer.setComparator(new "+ outlinePageTreeViewerComparatorClassName + "());");
 		sc.add("createContextMenu();");
@@ -176,11 +201,11 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 
 	private void addCreateActionsMethod(JavaComposite sc) {
 		sc.add("private void createActions() {");
-		sc.add(I_PAGE_SITE + " site = getSite();");
-		sc.add(I_ACTION_BARS + " actionBars = site.getActionBars();");
-		sc.add(I_TOOL_BAR_MANAGER + " toolBarManager = actionBars.getToolBarManager();");
-		sc.add(LIST + "<" + I_ACTION + "> actions = new " + outlinePageActionProviderClassName + "().getActions(treeViewer);");
-		sc.add("for (" + I_ACTION + " action : actions) {");
+		sc.add(I_PAGE_SITE(sc) + " site = getSite();");
+		sc.add(I_ACTION_BARS(sc) + " actionBars = site.getActionBars();");
+		sc.add(I_TOOL_BAR_MANAGER(sc) + " toolBarManager = actionBars.getToolBarManager();");
+		sc.add(LIST(sc) + "<" + I_ACTION(sc) + "> actions = new " + outlinePageActionProviderClassName + "().getActions(treeViewer);");
+		sc.add("for (" + I_ACTION(sc) + " action : actions) {");
 		sc.add("toolBarManager.add(action);");
 		sc.add("}");
 		sc.add("}");
@@ -190,15 +215,15 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	private void addCreateContextMenuMethod(JavaComposite sc, String outlineContextMenuID) {
 		sc.add("private void createContextMenu() {");
 		sc.addComment("create menu manager");
-		sc.add(MENU_MANAGER + " menuManager = new " + MENU_MANAGER + "();");
+		sc.add(MENU_MANAGER(sc) + " menuManager = new " + MENU_MANAGER(sc) + "();");
 		sc.add("menuManager.setRemoveAllWhenShown(true);");
-		sc.add("menuManager.addMenuListener(new " + I_MENU_LISTENER + "() {");
-		sc.add("public void menuAboutToShow(" + I_MENU_MANAGER + " manager) {");
+		sc.add("menuManager.addMenuListener(new " + I_MENU_LISTENER(sc) + "() {");
+		sc.add("public void menuAboutToShow(" + I_MENU_MANAGER(sc) + " manager) {");
 		sc.add("fillContextMenu(manager);");
 		sc.add("}");
 		sc.add("});");
 		sc.addComment("create menu");
-		sc.add(MENU + " menu = menuManager.createContextMenu(treeViewer.getControl());");
+		sc.add(MENU(sc) + " menu = menuManager.createContextMenu(treeViewer.getControl());");
 		sc.add("treeViewer.getControl().setMenu(menu);");
 		sc.addComment("register menu for extension");
 		sc.add("getSite().registerContextMenu(\"" + outlineContextMenuID + "\", menuManager, treeViewer);");
@@ -207,8 +232,8 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 	}
 
 	private void addFillContextMenuMethod(JavaComposite sc) {
-		sc.add("private void fillContextMenu(" + I_MENU_MANAGER + " manager) {");
-		sc.add("manager.add(new " + GROUP_MARKER + "(" + I_WORKBENCH_ACTION_CONSTANTS + ".MB_ADDITIONS));");
+		sc.add("private void fillContextMenu(" + I_MENU_MANAGER(sc) + " manager) {");
+		sc.add("manager.add(new " + GROUP_MARKER(sc) + "(" + I_WORKBENCH_ACTION_CONSTANTS(sc) + ".MB_ADDITIONS));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -233,7 +258,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		);
 		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
 		sc.add("private " + outlinePageTreeViewerClassName + " treeViewer;");
-		sc.add("private " + LISTENER_LIST + " selectionChangedListeners = new " + LISTENER_LIST + "();");
+		sc.add("private " + LISTENER_LIST(sc) + " selectionChangedListeners = new " + LISTENER_LIST(sc) + "();");
 		sc.addLineBreak();
 	}
 }

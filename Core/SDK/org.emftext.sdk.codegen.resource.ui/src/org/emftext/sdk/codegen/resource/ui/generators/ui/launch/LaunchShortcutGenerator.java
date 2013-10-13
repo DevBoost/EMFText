@@ -15,23 +15,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.launch;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEBUG_PLUGIN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEBUG_UI_TOOLS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_EDITOR_PART;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_FILE_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_CONFIGURATION_TYPE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_CONFIGURATION_WORKING_COPY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_SHORTCUT2;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEBUG_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEBUG_UI_TOOLS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_PART;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION_TYPE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION_WORKING_COPY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_SHORTCUT2;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -43,7 +43,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A class that converts the current selection or active editor to a launch configuration" +
@@ -53,7 +53,7 @@ public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		);
 		sc.add("public class " + getResourceClassName());
 		if (getContext().isLaunchSupportEnabled()) {
-			sc.add(" implements " + I_LAUNCH_SHORTCUT2);
+			sc.add(" implements " + I_LAUNCH_SHORTCUT2(sc));
 		}
 		sc.add(" {");
 		sc.addLineBreak();
@@ -74,14 +74,14 @@ public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addLaunchMethod1(JavaComposite sc) {
-		sc.add("public void launch(" + I_SELECTION + " selection, String mode) {");
-		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION + ") {");
-		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") selection;");
-		sc.add(ITERATOR + "<?> it = structuredSelection.iterator();");
+		sc.add("public void launch(" + I_SELECTION(sc) + " selection, String mode) {");
+		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION(sc) + ") {");
+		sc.add(I_STRUCTURED_SELECTION(sc) + " structuredSelection = (" + I_STRUCTURED_SELECTION(sc) + ") selection;");
+		sc.add(ITERATOR(sc) + "<?> it = structuredSelection.iterator();");
 		sc.add("while (it.hasNext()) {");
 		sc.add("Object object = it.next();");
-		sc.add("if (object instanceof " + I_FILE + ") {");
-		sc.add(I_FILE + " file = (" + I_FILE + ") object;");
+		sc.add("if (object instanceof " + I_FILE(sc) + ") {");
+		sc.add(I_FILE(sc) + " file = (" + I_FILE(sc) + ") object;");
 		sc.add("launch(file, mode);");
 		sc.add("}");
 		sc.add("}");
@@ -91,10 +91,10 @@ public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addLaunchMethod2(JavaComposite sc) {
-		sc.add("public void launch(" + I_EDITOR_PART + " editorPart, String mode) {");
-		sc.add(I_EDITOR_INPUT + " editorInput = editorPart.getEditorInput();");
-		sc.add("if (editorInput instanceof " + I_FILE_EDITOR_INPUT + ") {");
-		sc.add(I_FILE_EDITOR_INPUT + " fileInput = (" + I_FILE_EDITOR_INPUT + ") editorInput;");
+		sc.add("public void launch(" + I_EDITOR_PART(sc) + " editorPart, String mode) {");
+		sc.add(I_EDITOR_INPUT(sc) + " editorInput = editorPart.getEditorInput();");
+		sc.add("if (editorInput instanceof " + I_FILE_EDITOR_INPUT(sc) + ") {");
+		sc.add(I_FILE_EDITOR_INPUT(sc) + " fileInput = (" + I_FILE_EDITOR_INPUT(sc) + ") editorInput;");
 		sc.add("launch(fileInput.getFile(), mode);");
 		sc.add("}");
 		sc.add("}");
@@ -102,16 +102,16 @@ public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addLaunchMethod3(JavaComposite sc) {
-		sc.add("private void launch(" + I_FILE + " file, String mode) {");
+		sc.add("private void launch(" + I_FILE(sc) + " file, String mode) {");
 		sc.add("try {");
-		sc.add(I_LAUNCH_MANAGER + " lm = " + DEBUG_PLUGIN + ".getDefault().getLaunchManager();");
-		sc.add(I_LAUNCH_CONFIGURATION_TYPE + " type = lm.getLaunchConfigurationType(new " + metaInformationClassName + "().getLaunchConfigurationType());");
-		sc.add(I_LAUNCH_CONFIGURATION_WORKING_COPY + " workingCopy = type.newInstance(null, file.getName());");
-		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(file.getFullPath().toString(), true);");
+		sc.add(I_LAUNCH_MANAGER + " lm = " + DEBUG_PLUGIN(sc) + ".getDefault().getLaunchManager();");
+		sc.add(I_LAUNCH_CONFIGURATION_TYPE(sc) + " type = lm.getLaunchConfigurationType(new " + metaInformationClassName + "().getLaunchConfigurationType());");
+		sc.add(I_LAUNCH_CONFIGURATION_WORKING_COPY(sc) + " workingCopy = type.newInstance(null, file.getName());");
+		sc.add(URI(sc) + " uri = " + URI(sc) + ".createPlatformResourceURI(file.getFullPath().toString(), true);");
 		sc.add("workingCopy.setAttribute(" + launchConfigurationDelegateClassName + ".ATTR_RESOURCE_URI, uri.toString());");
-		sc.add(I_LAUNCH_CONFIGURATION + " configuration = workingCopy.doSave();");
-		sc.add(DEBUG_UI_TOOLS + ".launch(configuration, mode);");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add(I_LAUNCH_CONFIGURATION(sc) + " configuration = workingCopy.doSave();");
+		sc.add(DEBUG_UI_TOOLS(sc) + ".launch(configuration, mode);");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add(pluginActivatorClassName + ".logError(\"Exception while launching selection\", e);");
 		sc.add("}");
 		sc.add("}");
@@ -119,28 +119,28 @@ public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetLaunchConfigurationsMethod1(JavaComposite sc) {
-		sc.add("public " + I_LAUNCH_CONFIGURATION + "[] getLaunchConfigurations(" + I_SELECTION + " selection) {");
+		sc.add("public " + I_LAUNCH_CONFIGURATION(sc) + "[] getLaunchConfigurations(" + I_SELECTION(sc) + " selection) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetLaunchConfigurationsMethod2(JavaComposite sc) {
-		sc.add("public " + I_LAUNCH_CONFIGURATION + "[] getLaunchConfigurations(" + I_EDITOR_PART + " editorPart) {");
+		sc.add("public " + I_LAUNCH_CONFIGURATION(sc) + "[] getLaunchConfigurations(" + I_EDITOR_PART(sc) + " editorPart) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetLaunchableResourceMethod1(JavaComposite sc) {
-		sc.add("public " + I_RESOURCE + " getLaunchableResource(" + I_SELECTION + " selection) {");
+		sc.add("public " + I_RESOURCE(sc) + " getLaunchableResource(" + I_SELECTION(sc) + " selection) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetLaunchableResourceMethod2(JavaComposite sc) {
-		sc.add("public " + I_RESOURCE + " getLaunchableResource(" + I_EDITOR_PART + " editorPart) {");
+		sc.add("public " + I_RESOURCE(sc) + " getLaunchableResource(" + I_EDITOR_PART(sc) + " editorPart) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_POSITION_CATEGORY_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_POSITION_CATEGORY_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POSITION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParamet
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A helper class to add, get or remove positions with a specific category in a document.");
@@ -49,8 +49,8 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addCreatePositionMethod(JavaComposite sc) {
-		sc.add("public " + POSITION + " createPosition(int offset, int length) {");
-		sc.add("return new " + POSITION + "(offset, length);");
+		sc.add("public " + POSITION(sc) + " createPosition(int offset, int length) {");
+		sc.add("return new " + POSITION(sc) + "(offset, length);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -62,10 +62,10 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParamet
 			"@param document the document contains the category",
 			"@param category the category to be removed"
 		);
-		sc.add("public void removePositions(" + I_DOCUMENT + " document, String category) {");
+		sc.add("public void removePositions(" + I_DOCUMENT(sc) + " document, String category) {");
 		sc.add("try {");
 		sc.add("document.removePositionCategory(category);");
-		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("}");
 	}
@@ -77,13 +77,13 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParamet
 			"@param category the category of the position",
 			"@return a position. If there is none return <code>null</code>."
 		);
-		sc.add("public " + POSITION + " getFirstPosition(" + I_DOCUMENT + " document, String category) {");
+		sc.add("public " + POSITION(sc) + " getFirstPosition(" + I_DOCUMENT(sc) + " document, String category) {");
 		sc.add("try {");
-		sc.add(POSITION + "[] positions = document.getPositions(category);");
+		sc.add(POSITION(sc) + "[] positions = document.getPositions(category);");
 		sc.add("if (positions.length > 0) {");
 		sc.add("return positions[0];");
 		sc.add("}");
-		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
@@ -97,12 +97,12 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParamet
 			"@param category the position's category",
 			"@return an array of positions. If there is none return an array with the length = 0"
 		);
-		sc.add("public " + POSITION + "[] getPositions(" + I_DOCUMENT + " document, String category) {");
+		sc.add("public " + POSITION(sc) + "[] getPositions(" + I_DOCUMENT(sc) + " document, String category) {");
 		sc.add("try {");
 		sc.add("return document.getPositions(category);");
-		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION(sc) + " e) {");
 		sc.add("}");
-		sc.add("return new " + POSITION + "[0];");
+		sc.add("return new " + POSITION(sc) + "[0];");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -115,13 +115,13 @@ public class PositionHelperGenerator extends UIJavaBaseGenerator<ArtifactParamet
 			"@param offset the offset of the position",
 			"@param length the length of the position"
 		);
-		sc.add("public void addPosition(" + I_DOCUMENT + " document, String category, int offset, int length) {");
+		sc.add("public void addPosition(" + I_DOCUMENT(sc) + " document, String category, int offset, int length) {");
 		sc.add("try {");
 		sc.add("document.addPositionCategory(category);");
-		sc.add(POSITION + " position = new " + POSITION + "(offset, length);");
+		sc.add(POSITION(sc) + " position = new " + POSITION(sc) + "(offset, length);");
 		sc.add("document.addPosition(category, position);");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
-		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
+		sc.add("} catch (" + BAD_POSITION_CATEGORY_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

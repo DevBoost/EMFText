@@ -15,56 +15,55 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ACTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUNDLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_INFORMATION_CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITORS_UI;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FONT_DATA;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_CONTROL_CREATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_CONTROL_EXTENSION4;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INPUT_CHANGED_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SHARED_IMAGES;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_HOVER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_HOVER_EXTENSION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_HOVER_EXTENSION2;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.J_FACE_RESOURCES;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LISTENER_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PLATFORM_UI;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POINT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOOL_BAR_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ACTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEFAULT_INFORMATION_CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EDITORS_UI;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FONT_DATA;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL_CREATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL_EXTENSION4;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INPUT_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SHARED_IMAGES;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_HOVER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_HOVER_EXTENSION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_HOVER_EXTENSION2;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.J_FACE_RESOURCES;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_UI;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POINT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TOOL_BAR_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URL;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -72,7 +71,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 			"Most of the code is taken from " +
 			"<code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover</code>."
 		);
-		sc.add("public class " + getResourceClassName() + " implements " + I_TEXT_HOVER + ", " + I_TEXT_HOVER_EXTENSION + ", " + I_TEXT_HOVER_EXTENSION2 + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + I_TEXT_HOVER(sc) + ", " + I_TEXT_HOVER_EXTENSION(sc) + ", " + I_TEXT_HOVER_EXTENSION2(sc) + " {");
 		sc.addLineBreak();
 
 		addFields(sc);
@@ -107,42 +106,42 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addHoverControlCreatorClass(JavaComposite sc) {
 		sc.addJavadoc("Hover control creator. Creates a hover control before focus.");
-		sc.add("public static final class HoverControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + " {");
+		sc.add("public static final class HoverControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR(sc) + " {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The information presenter control creator.");
-		sc.add("private final " + I_INFORMATION_CONTROL_CREATOR + " fInformationPresenterControlCreator;");
+		sc.add("private final " + I_INFORMATION_CONTROL_CREATOR(sc) + " fInformationPresenterControlCreator;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@param informationPresenterControlCreator control creator for enriched hover");
-		sc.add("public HoverControlCreator(" + I_INFORMATION_CONTROL_CREATOR + " informationPresenterControlCreator) {");
+		sc.add("public HoverControlCreator(" + I_INFORMATION_CONTROL_CREATOR(sc) + " informationPresenterControlCreator) {");
 		sc.add("fInformationPresenterControlCreator = informationPresenterControlCreator;");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
-		sc.add("String tooltipAffordanceString = " + EDITORS_UI + ".getTooltipAffordanceString();");
+		sc.add("public " + I_INFORMATION_CONTROL(sc) + " doCreateInformationControl(" + SHELL(sc) + " parent) {");
+		sc.add("String tooltipAffordanceString = " + EDITORS_UI(sc) + ".getTooltipAffordanceString();");
 		sc.add("if (" + browserInformationControlClassName + ".isAvailable(parent)) {");
 		sc.add(browserInformationControlClassName + " iControl = new " + browserInformationControlClassName + "(parent, FONT, tooltipAffordanceString) {");
-		sc.add("public " + I_INFORMATION_CONTROL_CREATOR + " getInformationPresenterControlCreator() {");
+		sc.add("public " + I_INFORMATION_CONTROL_CREATOR(sc) + " getInformationPresenterControlCreator() {");
 		sc.add("return fInformationPresenterControlCreator;");
 		sc.add("}");
 		sc.add("};");
 		sc.add("return iControl;");
 		sc.add("} else {");
-		sc.add("return new " + DEFAULT_INFORMATION_CONTROL + "(parent, tooltipAffordanceString);");
+		sc.add("return new " + DEFAULT_INFORMATION_CONTROL(sc) + "(parent, tooltipAffordanceString);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public boolean canReuse(" + I_INFORMATION_CONTROL + " control) {");
+		sc.add("public boolean canReuse(" + I_INFORMATION_CONTROL(sc) + " control) {");
 		sc.add("if (!super.canReuse(control)) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("if (control instanceof " + I_INFORMATION_CONTROL_EXTENSION4 + ") {");
-		sc.add("String tooltipAffordanceString = " + EDITORS_UI + ".getTooltipAffordanceString();");
-		sc.add("((" + I_INFORMATION_CONTROL_EXTENSION4 + ") control).setStatusText(tooltipAffordanceString);");
+		sc.add("if (control instanceof " + I_INFORMATION_CONTROL_EXTENSION4(sc) + ") {");
+		sc.add("String tooltipAffordanceString = " + EDITORS_UI(sc) + ".getTooltipAffordanceString();");
+		sc.add("((" + I_INFORMATION_CONTROL_EXTENSION4(sc) + ") control).setStatusText(tooltipAffordanceString);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("return true;");
@@ -153,7 +152,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addGetHoverInfoMethod(JavaComposite sc) {
 		sc.addComment("The warning about overriding or implementing a deprecated API cannot be avoided because the SourceViewerConfiguration class depends on ITextHover.");
-		sc.add("public String getHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
+		sc.add("public String getHoverInfo(" + I_TEXT_VIEWER(sc) + " textViewer, " + I_REGION(sc) + " hoverRegion) {");
 		sc.add("Object hoverInfo = getHoverInfo2(textViewer, hoverRegion);");
 		sc.add("if (hoverInfo == null) {");
 		sc.add("return null;");
@@ -163,19 +162,19 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverRegionMethod(StringComposite sc) {
-		sc.add("public " + I_REGION + " getHoverRegion(" + I_TEXT_VIEWER + " textViewer, int offset) {");
-		sc.add(POINT + " selection = textViewer.getSelectedRange();");
+	private void addGetHoverRegionMethod(JavaComposite sc) {
+		sc.add("public " + I_REGION(sc) + " getHoverRegion(" + I_TEXT_VIEWER(sc) + " textViewer, int offset) {");
+		sc.add(POINT(sc) + " selection = textViewer.getSelectedRange();");
 		sc.add("if (selection.x <= offset && offset < selection.x + selection.y) {");
-		sc.add("return new " + REGION + "(selection.x, selection.y);");
+		sc.add("return new " + REGION(sc) + "(selection.x, selection.y);");
 		sc.add("}");
-		sc.add("return new " + REGION + "(offset, 0);");
+		sc.add("return new " + REGION(sc) + "(offset, 0);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private static final String FONT = " + J_FACE_RESOURCES + ".DIALOG_FONT;");
+		sc.add("private static final String FONT = " + J_FACE_RESOURCES(sc) + ".DIALOG_FONT;");
 		sc.addLineBreak();
 
 		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
@@ -186,16 +185,16 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The hover control creator.");
-		sc.add("private " + I_INFORMATION_CONTROL_CREATOR + " hoverControlCreator;");
+		sc.add("private " + I_INFORMATION_CONTROL_CREATOR(sc) + " hoverControlCreator;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The presentation control creator.");
-		sc.add("private " + I_INFORMATION_CONTROL_CREATOR + " presenterControlCreator;");
+		sc.add("private " + I_INFORMATION_CONTROL_CREATOR(sc) + " presenterControlCreator;");
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverControlCreatorMethod(StringComposite sc) {
-		sc.add("public " + I_INFORMATION_CONTROL_CREATOR + " getHoverControlCreator() {");
+	private void addGetHoverControlCreatorMethod(JavaComposite sc) {
+		sc.add("public " + I_INFORMATION_CONTROL_CREATOR(sc) + " getHoverControlCreator() {");
 		sc.add("if (hoverControlCreator == null) {");
 		sc.add("hoverControlCreator = new HoverControlCreator(getInformationPresenterControlCreator());");
 		sc.add("}");
@@ -204,8 +203,8 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addGetInformationPresenterControlCreatorMethod(StringComposite sc) {
-		sc.add("public " + I_INFORMATION_CONTROL_CREATOR + " getInformationPresenterControlCreator() {");
+	private void addGetInformationPresenterControlCreatorMethod(JavaComposite sc) {
+		sc.add("public " + I_INFORMATION_CONTROL_CREATOR(sc) + " getInformationPresenterControlCreator() {");
 		sc.add("if (presenterControlCreator == null) {");
 		sc.add("presenterControlCreator = new PresenterControlCreator();");
 		sc.add("}");
@@ -214,21 +213,21 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addGetHoverInfo2Method(StringComposite sc) {
-		sc.add("public Object getHoverInfo2(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
+	private void addGetHoverInfo2Method(JavaComposite sc) {
+		sc.add("public Object getHoverInfo2(" + I_TEXT_VIEWER(sc) + " textViewer, " + I_REGION(sc) + " hoverRegion) {");
 		sc.add("return hoverTextProvider == null ? null : internalGetHoverInfo(textViewer, hoverRegion);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addInternalGetHoverInfoMethod(StringComposite sc) {
-		sc.add("private " + docBrowserInformationControlInputClassName + " internalGetHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
+	private void addInternalGetHoverInfoMethod(JavaComposite sc) {
+		sc.add("private " + docBrowserInformationControlInputClassName + " internalGetHoverInfo(" + I_TEXT_VIEWER(sc) + " textViewer, " + I_REGION(sc) + " hoverRegion) {");
 		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
 		sc.add("if (textResource == null) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());");
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() == 0) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -245,11 +244,11 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 			"@param previousInput the previous input, or <code>null</code>",
 			"@return the HTML hover info for the given element(s) or <code>null</code> if no information is available"
 		);
-		sc.add("private " + docBrowserInformationControlInputClassName + " getHoverInfo(" + LIST + "<" + E_OBJECT + "> elements, " + I_TEXT_VIEWER + " textViewer, " + docBrowserInformationControlInputClassName + " previousInput) {");
+		sc.add("private " + docBrowserInformationControlInputClassName + " getHoverInfo(" + LIST(sc) + "<" + E_OBJECT(sc) + "> elements, " + I_TEXT_VIEWER(sc) + " textViewer, " + docBrowserInformationControlInputClassName + " previousInput) {");
 		sc.add("StringBuffer buffer = new StringBuffer();");
-		sc.add(E_OBJECT + " proxyObject = getFirstProxy(elements);");
-		sc.add(E_OBJECT + " containerObject = getFirstNonProxy(elements);");
-		sc.add(E_OBJECT + " declarationObject = null;");
+		sc.add(E_OBJECT(sc) + " proxyObject = getFirstProxy(elements);");
+		sc.add(E_OBJECT(sc) + " containerObject = getFirstNonProxy(elements);");
+		sc.add(E_OBJECT(sc) + " declarationObject = null;");
 		sc.addComment("get the token text, which is hovered. It is needed to jump to the declaration.");
 		sc.add("String tokenText = \"\";");
 		sc.add("if (proxyObject != null) {");
@@ -259,9 +258,9 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("int length = locationMap.getCharEnd(proxyObject) + 1 - offset;");
 		sc.add("try {");
 		sc.add("tokenText = textViewer.getDocument().get(offset, length);");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
 		sc.add("}");
-		sc.add("declarationObject = " + ECORE_UTIL + ".resolve(proxyObject, resourceProvider.getResource());");
+		sc.add("declarationObject = " + ECORE_UTIL(sc) + ".resolve(proxyObject, resourceProvider.getResource());");
 		sc.add("if (declarationObject != null) {");
 		sc.add(htmlPrinterClassName + ".addParagraph(buffer, hoverTextProvider.getHoverText(containerObject, declarationObject));");
 		sc.add("}");
@@ -290,7 +289,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("String css = styleSheet;");
 		sc.addComment("Sets background color for the hover text window");
 		sc.add("css += \"body {background-color:#FFFFE1;}\\n\";");
-		sc.add(FONT_DATA + " fontData = " + J_FACE_RESOURCES + ".getFontRegistry().getFontData(FONT)[0];");
+		sc.add(FONT_DATA(sc) + " fontData = " + J_FACE_RESOURCES(sc) + ".getFontRegistry().getFontData(FONT)[0];");
 		sc.add("css = " + htmlPrinterClassName + ".convertTopLevelFont(css, fontData);");
 		sc.addLineBreak();
 		sc.add("return css;");
@@ -298,23 +297,23 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addGetFirstProxyMethod(StringComposite sc) {
-		sc.add("private static " + E_OBJECT + " getFirstProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
+	private void addGetFirstProxyMethod(JavaComposite sc) {
+		sc.add("private static " + E_OBJECT(sc) + " getFirstProxy(" + LIST(sc) + "<" + E_OBJECT(sc) + "> elements) {");
 		sc.add("return getFirstObject(elements, true);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetFirstNonProxyMethod(StringComposite sc) {
-		sc.add("private static " + E_OBJECT + " getFirstNonProxy(" + LIST + "<" + E_OBJECT + "> elements) {");
+	private void addGetFirstNonProxyMethod(JavaComposite sc) {
+		sc.add("private static " + E_OBJECT(sc) + " getFirstNonProxy(" + LIST(sc) + "<" + E_OBJECT(sc) + "> elements) {");
 		sc.add("return getFirstObject(elements, false);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetFirstObjectMethod(StringComposite sc) {
-		sc.add("private static " + E_OBJECT + " getFirstObject(" + LIST + "<" + E_OBJECT + "> elements, boolean proxy) {");
-		sc.add("for (" + E_OBJECT + " object : elements) {");
+	private void addGetFirstObjectMethod(JavaComposite sc) {
+		sc.add("private static " + E_OBJECT(sc) + " getFirstObject(" + LIST(sc) + "<" + E_OBJECT(sc) + "> elements, boolean proxy) {");
+		sc.add("for (" + E_OBJECT(sc) + " object : elements) {");
 		sc.add("if (proxy == object.eIsProxy()) {");
 		sc.add("return object;");
 		sc.add("}");
@@ -330,12 +329,12 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 			"@return the style sheet, or <code>null</code> if unable to load"
 		);
 		sc.add("private static String loadStyleSheet() {");
-		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + uiPluginActivatorClassName + ".PLUGIN_ID);");
-		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + UIConstants.DEFAULT_CSS_DIR + "/" + UIConstants.HOVER_STYLE_FILENAME + "\");");
+		sc.add(BUNDLE(sc) + " bundle = " + PLATFORM(sc) + ".getBundle(" + uiPluginActivatorClassName + ".PLUGIN_ID);");
+		sc.add(URL(sc) + " styleSheetURL = bundle.getEntry(\"/" + UIConstants.DEFAULT_CSS_DIR + "/" + UIConstants.HOVER_STYLE_FILENAME + "\");");
 		sc.add("if (styleSheetURL != null) {");
 		sc.add("try {");
 		sc.add("return " + streamUtilClassName + ".getContent(styleSheetURL.openStream());");
-		sc.add("} catch (" + IO_EXCEPTION + " ex) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " ex) {");
 		sc.add("ex.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
@@ -346,30 +345,30 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addPresenterControlCreatorClass(JavaComposite sc) {
 		sc.addJavadoc("Presenter control creator. Creates a hover control after focus.");
-		sc.add("public static final class PresenterControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR + " {");
+		sc.add("public static final class PresenterControlCreator extends " + ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR(sc) + " {");
 		sc.addLineBreak();
-		sc.add("public " + I_INFORMATION_CONTROL + " doCreateInformationControl(" + SHELL + " parent) {");
+		sc.add("public " + I_INFORMATION_CONTROL(sc) + " doCreateInformationControl(" + SHELL(sc) + " parent) {");
 		sc.add("if (" + browserInformationControlClassName + ".isAvailable(parent)) {");
-		sc.add(TOOL_BAR_MANAGER + " tbm = new " + TOOL_BAR_MANAGER + "(" + SWT + ".FLAT);");
+		sc.add(TOOL_BAR_MANAGER(sc) + " tbm = new " + TOOL_BAR_MANAGER(sc) + "(" + SWT(sc) + ".FLAT);");
 		sc.add(browserInformationControlClassName + " iControl = new " + browserInformationControlClassName + "(parent, FONT, tbm);");
 		sc.add("final OpenDeclarationAction openDeclarationAction = new OpenDeclarationAction(iControl);");
 		sc.add("tbm.add(openDeclarationAction);");
 		sc.add("final SimpleSelectionProvider selectionProvider = new SimpleSelectionProvider();");
 		sc.addLineBreak();
-		sc.add(I_INPUT_CHANGED_LISTENER + " inputChangeListener = new " + I_INPUT_CHANGED_LISTENER + "() {");
+		sc.add(I_INPUT_CHANGED_LISTENER(sc) + " inputChangeListener = new " + I_INPUT_CHANGED_LISTENER(sc) + "() {");
 		sc.add("public void inputChanged(Object newInput) {");
 		sc.add("if (newInput == null) {");
-		sc.add("selectionProvider.setSelection(new " + STRUCTURED_SELECTION + "());");
+		sc.add("selectionProvider.setSelection(new " + STRUCTURED_SELECTION(sc) + "());");
 		sc.add("} else if (newInput instanceof " + docBrowserInformationControlInputClassName + ") {");
 		sc.add(docBrowserInformationControlInputClassName + " input = (" + docBrowserInformationControlInputClassName + ") newInput;");
 		sc.add("Object inputElement = input.getInputElement();");
-		sc.add("selectionProvider.setSelection(new " + STRUCTURED_SELECTION + "(inputElement));");
+		sc.add("selectionProvider.setSelection(new " + STRUCTURED_SELECTION(sc) + "(inputElement));");
 		sc.addComment(
 			"If there is an element of type EObject in the " +
 			"input element, the button to open the declaration " +
 			"will be set enable"
 		);
-		sc.add("boolean isEObjectInput = inputElement instanceof " + E_OBJECT + ";");
+		sc.add("boolean isEObjectInput = inputElement instanceof " + E_OBJECT(sc) + ";");
 		sc.add("openDeclarationAction.setEnabled(isEObjectInput);");
 		sc.add("if (isEObjectInput) {");
 		sc.add("String simpleName = inputElement.getClass().getSimpleName();");
@@ -385,7 +384,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("tbm.update(true);");
 		sc.add("return iControl;");
 		sc.add("} else {");
-		sc.add("return new " + DEFAULT_INFORMATION_CONTROL + "(parent, true);");
+		sc.add("return new " + DEFAULT_INFORMATION_CONTROL(sc) + "(parent, true);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -397,7 +396,7 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 			"This action will be activated if the button in the hover window is pushed " +
 			"to jump to the declaration."
 		);
-		sc.add("public static class OpenDeclarationAction extends " + ACTION + " {");
+		sc.add("public static class OpenDeclarationAction extends " + ACTION(sc) + " {");
 		sc.addLineBreak();
 		sc.add("private final " + browserInformationControlClassName + " infoControl;");
 		sc.addLineBreak();
@@ -408,8 +407,8 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("public OpenDeclarationAction(" + browserInformationControlClassName + " infoControl) {");
 		sc.add("this.infoControl = infoControl;");
 		sc.add("setText(\"Open Declaration\");");
-		sc.add(I_SHARED_IMAGES + " images = " + PLATFORM_UI + ".getWorkbench().getSharedImages();");
-		sc.add("setImageDescriptor(images.getImageDescriptor(" + I_SHARED_IMAGES + ".IMG_ETOOL_HOME_NAV));");
+		sc.add(I_SHARED_IMAGES(sc) + " images = " + PLATFORM_UI(sc) + ".getWorkbench().getSharedImages();");
+		sc.add("setImageDescriptor(images.getImageDescriptor(" + I_SHARED_IMAGES(sc) + ".IMG_ETOOL_HOME_NAV));");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addJavadoc("Creates, sets, activates a hyperlink.");
@@ -418,8 +417,8 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("infoControl.notifyDelayedInputChange(null);");
 		// FIXME should have protocol to hide, rather than dispose
 		sc.add("infoControl.dispose();");
-		sc.add("if (infoInput.getInputElement() instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " decEO = (" + E_OBJECT + ") infoInput.getInputElement();");
+		sc.add("if (infoInput.getInputElement() instanceof " + E_OBJECT(sc) + ") {");
+		sc.add(E_OBJECT(sc) + " decEO = (" + E_OBJECT(sc) + ") infoInput.getInputElement();");
 		sc.add("if (decEO != null && decEO.eResource() != null) {");
 		sc.add(hyperlinkClassName + " hyperlink = new " + hyperlinkClassName + "(null, decEO, infoInput.getTokenText());");
 		sc.add("hyperlink.open();");
@@ -445,37 +444,37 @@ public class TextHoverGenerator extends UIJavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addSimpleSelectionProviderClass(JavaComposite sc) {
 		sc.addJavadoc(
-			"A simple default implementation of a {@link " + I_SELECTION_PROVIDER + "}. It stores " +
+			"A simple default implementation of a {@link " + I_SELECTION_PROVIDER(sc) + "}. It stores " +
 			"the selection and notifies all selection change listeners when the selection " +
 			"is set."
 		);
-		sc.add("public static class SimpleSelectionProvider implements " + I_SELECTION_PROVIDER + " {");
+		sc.add("public static class SimpleSelectionProvider implements " + I_SELECTION_PROVIDER(sc) + " {");
 		sc.addLineBreak();
-		sc.add("private final " + LISTENER_LIST + " selectionChangedListeners;");
-		sc.add("private " + I_SELECTION + " selection;");
+		sc.add("private final " + LISTENER_LIST(sc) + " selectionChangedListeners;");
+		sc.add("private " + I_SELECTION(sc) + " selection;");
 		sc.addLineBreak();
 		sc.add("public SimpleSelectionProvider() {");
-		sc.add("selectionChangedListeners = new " + LISTENER_LIST + "();");
+		sc.add("selectionChangedListeners = new " + LISTENER_LIST(sc) + "();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + I_SELECTION + " getSelection() {");
+		sc.add("public " + I_SELECTION(sc) + " getSelection() {");
 		sc.add("return selection;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
+		sc.add("public void setSelection(" + I_SELECTION(sc) + " selection) {");
 		sc.add("this.selection = selection;");
 		sc.addLineBreak();
 		sc.add("Object[] listeners = selectionChangedListeners.getListeners();");
 		sc.add("for (int i = 0; i < listeners.length; i++) {");
-		sc.add("((" + I_SELECTION_CHANGED_LISTENER + ") listeners[i]).selectionChanged(new " + SELECTION_CHANGED_EVENT + "(this, selection));");
+		sc.add("((" + I_SELECTION_CHANGED_LISTENER(sc) + ") listeners[i]).selectionChanged(new " + SELECTION_CHANGED_EVENT(sc) + "(this, selection));");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
+		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(sc) + " listener) {");
 		sc.add("selectionChangedListeners.remove(listener);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
+		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(sc) + " listener) {");
 		sc.add("selectionChangedListeners.add(listener);");
 		sc.add("}");
 		sc.addLineBreak();

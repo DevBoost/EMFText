@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Provides input for the <code>TextHover</code>. The most is copied from " +
@@ -101,7 +101,7 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 
 	private void addResourceMethod(JavaComposite sc) {
 		sc.addJavadoc("@return the resource");
-		sc.add("public " + RESOURCE + " getResource() {");
+		sc.add("public " + RESOURCE(sc) + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -136,7 +136,7 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 			"@param element the element, or <code>null</code> if none available",
 			"@param htmlContent HTML contents, must not be null"
 		);
-		sc.add("public " + getResourceClassName() + "(" + getResourceClassName() + " previous, " + E_OBJECT + " element, " + RESOURCE + " resource, String htmlContent, String tokenText) {");
+		sc.add("public " + getResourceClassName() + "(" + getResourceClassName() + " previous, " + E_OBJECT(sc) + " element, " + RESOURCE(sc) + " resource, String htmlContent, String tokenText) {");
 		sc.add("fPrevious= previous;");
 		sc.add("if (previous != null) {");
 		sc.add("previous.fNext= this;");
@@ -150,13 +150,13 @@ public class DocBrowserInformationControlInputGenerator extends UIJavaBaseGenera
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private final " + getResourceClassName() + " fPrevious;");
 		sc.add("private " + getResourceClassName() + " fNext;");
-		sc.add("private final " + E_OBJECT + " element;");
+		sc.add("private final " + E_OBJECT(sc) + " element;");
 		sc.add("private final String htmlContent;");
 		sc.add("private final String tokenText;");
-		sc.add("private final " + RESOURCE + " resource;");
+		sc.add("private final " + RESOURCE(sc) + " resource;");
 		sc.addLineBreak();
 	}
 

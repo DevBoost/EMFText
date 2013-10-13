@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,7 +31,7 @@ public class AdapterFactoryProviderGenerator extends UIJavaBaseGenerator<Artifac
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"The AdapterFactoryProvider is used by the editor and " +
@@ -50,11 +50,11 @@ public class AdapterFactoryProviderGenerator extends UIJavaBaseGenerator<Artifac
 	}
 
 	private void addGetAdapterFactory(JavaComposite sc) {
-		sc.add("public " + ADAPTER_FACTORY + " getAdapterFactory() {");
-		sc.add(COMPOSED_ADAPTER_FACTORY + " adapterFactory = new " + COMPOSED_ADAPTER_FACTORY + "(" + COMPOSED_ADAPTER_FACTORY + ".Descriptor.Registry.INSTANCE);");
-		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
+		sc.add("public " + ADAPTER_FACTORY(sc) + " getAdapterFactory() {");
+		sc.add(COMPOSED_ADAPTER_FACTORY(sc) + " adapterFactory = new " + COMPOSED_ADAPTER_FACTORY(sc) + "(" + COMPOSED_ADAPTER_FACTORY(sc) + ".Descriptor.Registry.INSTANCE);");
+		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY(sc) + "());");
+		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY(sc) + "());");
+		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY(sc) + "());");
 		sc.add("return adapterFactory;");
 		sc.add("}");
 		sc.addLineBreak();

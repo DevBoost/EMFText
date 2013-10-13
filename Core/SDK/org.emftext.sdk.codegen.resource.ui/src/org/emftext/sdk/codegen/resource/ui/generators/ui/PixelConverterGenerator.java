@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FONT_METRICS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GC;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.JFACE_DIALOG;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FONT_METRICS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GC;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.JFACE_DIALOG;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,16 +30,16 @@ public class PixelConverterGenerator extends UIJavaBaseGenerator<ArtifactParamet
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A utility class for pixel conversion.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("private " + FONT_METRICS + " fFontMetrics;");
+		sc.add("private " + FONT_METRICS(sc) + " fFontMetrics;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + CONTROL + " control) {");
-		sc.add(GC + " gc = new " + GC + "(control);");
+		sc.add("public " + getResourceClassName() + "(" + CONTROL(sc) + " control) {");
+		sc.add(GC(sc) + " gc = new " + GC(sc) + "(control);");
 		sc.add("gc.setFont(control.getFont());");
 		sc.add("fFontMetrics = gc.getFontMetrics();");
 		sc.add("gc.dispose();");
@@ -47,22 +47,22 @@ public class PixelConverterGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.add("public int convertHeightInCharsToPixels(int chars) {");
-		sc.add("return " + JFACE_DIALOG + ".convertHeightInCharsToPixels(fFontMetrics, chars);");
+		sc.add("return " + JFACE_DIALOG(sc) + ".convertHeightInCharsToPixels(fFontMetrics, chars);");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.add("public int convertHorizontalDLUsToPixels(int dlus) {");
-		sc.add("return " + JFACE_DIALOG + ".convertHorizontalDLUsToPixels(fFontMetrics, dlus);");
+		sc.add("return " + JFACE_DIALOG(sc) + ".convertHorizontalDLUsToPixels(fFontMetrics, dlus);");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.add("public int convertVerticalDLUsToPixels(int dlus) {");
-		sc.add("return " + JFACE_DIALOG + ".convertVerticalDLUsToPixels(fFontMetrics, dlus);");
+		sc.add("return " + JFACE_DIALOG(sc) + ".convertVerticalDLUsToPixels(fFontMetrics, dlus);");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.add("public int convertWidthInCharsToPixels(int chars) {");
-		sc.add("return " + JFACE_DIALOG + ".convertWidthInCharsToPixels(fFontMetrics, chars);");
+		sc.add("return " + JFACE_DIALOG(sc) + ".convertWidthInCharsToPixels(fFontMetrics, chars);");
 		sc.add("}");
 		sc.addLineBreak();
 		

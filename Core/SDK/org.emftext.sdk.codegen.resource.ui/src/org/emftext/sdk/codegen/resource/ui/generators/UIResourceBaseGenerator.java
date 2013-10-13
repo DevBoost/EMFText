@@ -20,7 +20,7 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 
-public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends ResourceBaseGenerator<ParameterType> {
+public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext,ParameterType>> extends ResourceBaseGenerator<ParameterType> {
 
 	protected String ignoredWordsFilterClassName;
 

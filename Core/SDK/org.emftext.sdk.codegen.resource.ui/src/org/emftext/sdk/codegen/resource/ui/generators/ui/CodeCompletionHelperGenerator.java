@@ -35,8 +35,8 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MA
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -60,7 +60,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -129,14 +129,14 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetImageMethod(StringComposite sc) {
+	private void addGetImageMethod(JavaComposite sc) {
 		// TODO attach images for keywords and attributes
-		sc.add("protected " + IMAGE + " getImage(" + E_OBJECT + " element) {");
+		sc.add("protected " + IMAGE(sc) + " getImage(" + E_OBJECT + " element) {");
 		sc.add("if (!" + PLATFORM + ".isRunning()) {");
 		sc.add("return null;");
 		sc.add("}");
 		generatorUtil.addCreateAdapterFactoryCode(sc);
-		sc.add(ADAPTER_FACTORY_LABEL_PROVIDER + " labelProvider = new " + ADAPTER_FACTORY_LABEL_PROVIDER + "(adapterFactory);");
+		sc.add(ADAPTER_FACTORY_LABEL_PROVIDER(sc) + " labelProvider = new " + ADAPTER_FACTORY_LABEL_PROVIDER(sc) + "(adapterFactory);");
 		sc.add("return labelProvider.getImage(element);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -311,7 +311,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (mappings != null) {");
 		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
-		sc.add(IMAGE + " image = null;");
+		sc.add(IMAGE(sc) + " image = null;");
 		sc.add("if (mapping instanceof " + elementMappingClassName + "<?>) {");
 		sc.add(elementMappingClassName + "<?> elementMapping = (" + elementMappingClassName + "<?>) mapping;");
 		sc.add("Object target = elementMapping.getTargetElement();");

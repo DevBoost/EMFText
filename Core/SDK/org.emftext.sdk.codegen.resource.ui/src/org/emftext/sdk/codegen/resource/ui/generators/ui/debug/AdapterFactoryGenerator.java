@@ -19,15 +19,15 @@ import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DE
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CHILDREN_COUNT_UPDATE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CHILDREN_UPDATE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ELEMENT_CONTENT_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ELEMENT_LABEL_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_HAS_CHILDREN_UPDATE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LABEL_UPDATE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_EDITOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOGGLE_BREAKPOINTS_TARGET;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CHILDREN_COUNT_UPDATE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CHILDREN_UPDATE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT_CONTENT_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT_LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HAS_CHILDREN_UPDATE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LABEL_UPDATE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_EDITOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOGGLE_BREAKPOINTS_TARGET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -43,7 +43,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("@SuppressWarnings(\"restriction\")");
 		sc.add("public class " + getResourceClassName() + " implements " + I_ADAPTER_FACTORY + " {");
@@ -60,9 +60,9 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	private void addGetAdapterMethod(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"rawtypes\")");
 		sc.add("public Object getAdapter(Object adaptableObject, Class adapterType) {");
-		sc.add("if (adaptableObject instanceof " + I_TEXT_EDITOR + ") {");
-		sc.add(I_TEXT_EDITOR + " editorPart = (" + I_TEXT_EDITOR + ") adaptableObject;");
-		sc.add(I_RESOURCE + " resource = (" + I_RESOURCE + ") editorPart.getEditorInput().getAdapter(" + I_RESOURCE + ".class);");
+		sc.add("if (adaptableObject instanceof " + I_TEXT_EDITOR(sc) + ") {");
+		sc.add(I_TEXT_EDITOR(sc) + " editorPart = (" + I_TEXT_EDITOR(sc) + ") adaptableObject;");
+		sc.add(I_RESOURCE(sc) + " resource = (" + I_RESOURCE(sc) + ") editorPart.getEditorInput().getAdapter(" + I_RESOURCE(sc) + ".class);");
 		sc.add("if (resource != null) {");
 		sc.add("String extension = resource.getFileExtension();");
 		sc.add("if (extension != null && extension.equals(new " + metaInformationClassName + "().getSyntaxName())) {");
@@ -70,12 +70,12 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("if (adapterType == " + I_ELEMENT_LABEL_PROVIDER + ".class && adaptableObject instanceof " + debugVariableClassName + ") {");
+		sc.add("if (adapterType == " + I_ELEMENT_LABEL_PROVIDER(sc) + ".class && adaptableObject instanceof " + debugVariableClassName + ") {");
 		sc.add("final " + debugVariableClassName + " variable = (" + debugVariableClassName + ") adaptableObject;");
-		sc.add("return new " + I_ELEMENT_LABEL_PROVIDER + "() {");
+		sc.add("return new " + I_ELEMENT_LABEL_PROVIDER(sc) + "() {");
 		sc.addLineBreak();
-		sc.add("public void update(" + I_LABEL_UPDATE + "[] updates) {");
-		sc.add("for (" + I_LABEL_UPDATE + " update : updates) {");
+		sc.add("public void update(" + I_LABEL_UPDATE(sc) + "[] updates) {");
+		sc.add("for (" + I_LABEL_UPDATE(sc) + " update : updates) {");
 		sc.add("try {");
 		sc.add("update.setLabel(variable.getName(), 0);");
 		sc.add("update.setLabel(variable.getValue().getValueString(), 1);");
@@ -87,13 +87,13 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add("};");
 		sc.add("}");
-		sc.add("if (adapterType == " + I_ELEMENT_CONTENT_PROVIDER + ".class && adaptableObject instanceof " + debugVariableClassName + ") {");
+		sc.add("if (adapterType == " + I_ELEMENT_CONTENT_PROVIDER(sc) + ".class && adaptableObject instanceof " + debugVariableClassName + ") {");
 		sc.add("final " + debugVariableClassName + " variable = (" + debugVariableClassName + ") adaptableObject;");
-		sc.add("return new " + I_ELEMENT_CONTENT_PROVIDER + "() {");
+		sc.add("return new " + I_ELEMENT_CONTENT_PROVIDER(sc) + "() {");
 		sc.addLineBreak();
-		sc.add("public void update(" + I_CHILDREN_COUNT_UPDATE + "[] updates) {");
+		sc.add("public void update(" + I_CHILDREN_COUNT_UPDATE(sc) + "[] updates) {");
 		sc.add("try {");
-		sc.add("for (" + I_CHILDREN_COUNT_UPDATE + " update : updates) {");
+		sc.add("for (" + I_CHILDREN_COUNT_UPDATE(sc) + " update : updates) {");
 		sc.add(I_VALUE + " value = variable.getValue();");
 		sc.add(debugValueClassName + " castedValue = (" + debugValueClassName + ") value;");
 		sc.add("update.setChildCount(castedValue.getVariableCount());");
@@ -105,11 +105,11 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public void update(" + I_CHILDREN_UPDATE + "[] updates) {");
+		sc.add("public void update(" + I_CHILDREN_UPDATE(sc) + "[] updates) {");
 		sc.add("try {");
 		sc.add(I_VALUE + " value = variable.getValue();");
 		sc.add(debugValueClassName + " castedValue = (" + debugValueClassName + ") value;");
-		sc.add("for (" + I_CHILDREN_UPDATE + " update : updates) {");
+		sc.add("for (" + I_CHILDREN_UPDATE(sc) + " update : updates) {");
 		sc.add("int offset = update.getOffset();");
 		sc.add("int length = update.getLength();");
 		sc.add("for (int i = offset; i < offset + length; i++) {");
@@ -125,8 +125,8 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public void update(" + I_HAS_CHILDREN_UPDATE + "[] updates) {");
-		sc.add("for (" + I_HAS_CHILDREN_UPDATE + " update : updates) {");
+		sc.add("public void update(" + I_HAS_CHILDREN_UPDATE(sc) + "[] updates) {");
+		sc.add("for (" + I_HAS_CHILDREN_UPDATE(sc) + " update : updates) {");
 		sc.add("try {");
 		sc.add("update.setHasChilren(variable.getValue().hasVariables());");
 		sc.add("update.done();");
@@ -146,7 +146,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	private void addGetAdapterListMethod(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"rawtypes\")");
 		sc.add("public Class[] getAdapterList() {");
-		sc.add("return new Class[] {" + I_TOGGLE_BREAKPOINTS_TARGET + ".class};");
+		sc.add("return new Class[] {" + I_TOGGLE_BREAKPOINTS_TARGET(sc) + ".class};");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -15,18 +15,20 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ACTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 import de.devboost.codecomposers.java.JavaComposite;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.*;
 
 public class OutlinePageActionProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -39,12 +41,12 @@ public class OutlinePageActionProviderGenerator extends UIJavaBaseGenerator<Arti
 	}
 
 	private void addGetActionsMethod(JavaComposite sc) {
-		sc.add("public " + LIST + "<" + I_ACTION + "> getActions(" + outlinePageTreeViewerClassName + " treeViewer) {");
+		sc.add("public " + LIST(sc) + "<" + I_ACTION(sc) + "> getActions(" + outlinePageTreeViewerClassName + " treeViewer) {");
 		sc.addComment(
 				"To add custom actions to the outline view, " + 
 				"set the '" + OptionTypes.OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER.getLiteral() + "' " +
 				"option to <code>false</code> and modify this method.");
-		sc.add(sc.declareArrayList("defaultActions", I_ACTION));
+		sc.add(sc.declareArrayList("defaultActions",I_ACTION(sc)));
 		sc.add("defaultActions.add(new " + outlinePageLinkWithEditorActionClassName + "(treeViewer));");
 		sc.add("defaultActions.add(new " + outlinePageCollapseAllActionClassName + "(treeViewer));");
 		sc.add("defaultActions.add(new " + outlinePageExpandAllActionClassName + "(treeViewer));");

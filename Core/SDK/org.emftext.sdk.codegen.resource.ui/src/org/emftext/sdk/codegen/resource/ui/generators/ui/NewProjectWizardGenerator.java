@@ -17,22 +17,22 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_LOCATOR;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXECUTABLE_EXTENSION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BASIC_NEW_PROJECT_RESOURCE_WIZARD;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BUNDLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE_DESCRIPTOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONFIGURATION_ELEMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_NEW_WIZARD;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RUNNABLE_WITH_PROGRESS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.URL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WIZARD_NEW_PROJECT_CREATION_PAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WORKSPACE_MODIFY_OPERATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BASIC_NEW_PROJECT_RESOURCE_WIZARD;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE_DESCRIPTOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONFIGURATION_ELEMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_NEW_WIZARD;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RUNNABLE_WITH_PROGRESS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WIZARD;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WIZARD_NEW_PROJECT_CREATION_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WORKSPACE_MODIFY_OPERATION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -44,7 +44,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		sc.addJavadoc(
@@ -52,7 +52,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 			"<i>org.eclipse.gef.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard</i>.",
 			"It is responsible for offering an example project via the new dialog of Eclipse."
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + WIZARD + " implements " + I_NEW_WIZARD + ", " + I_EXECUTABLE_EXTENSION + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + WIZARD(sc) + " implements " + I_NEW_WIZARD(sc) + ", " + I_EXECUTABLE_EXTENSION + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addMethods(sc);
@@ -69,7 +69,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 			"functionality required to capture the name and location of the target " +
 			"project."
 		);
-		sc.add("private " + WIZARD_NEW_PROJECT_CREATION_PAGE + " wizardNewProjectCreationPage;");
+		sc.add("private " + WIZARD_NEW_PROJECT_CREATION_PAGE(sc) + " wizardNewProjectCreationPage;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The name of the project creation page");
@@ -89,7 +89,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The configuration element associated with this new project wizard");		
-		sc.add("private " + I_CONFIGURATION_ELEMENT + " config;");
+		sc.add("private " + I_CONFIGURATION_ELEMENT(sc) + " config;");
 		sc.addLineBreak();
 	}
 
@@ -104,9 +104,9 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("public boolean performFinish() {");
 		sc.addLineBreak();
 		sc.add("try {");
-		sc.add(I_RUNNABLE_WITH_PROGRESS + " operation = new " + WORKSPACE_MODIFY_OPERATION + "() {");
+		sc.add(I_RUNNABLE_WITH_PROGRESS(sc) + " operation = new " + WORKSPACE_MODIFY_OPERATION(sc) + "() {");
 		sc.addLineBreak();
-		sc.add("public void execute(" + I_PROGRESS_MONITOR + " monitor) throws InterruptedException {");
+		sc.add("public void execute(" + I_PROGRESS_MONITOR(sc) + " monitor) throws InterruptedException {");
 		sc.add("try {");
 		sc.add("new " + newProjectWizardLogicClassName + "().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), " + uiPluginActivatorClassName + ".PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);");
 		sc.add("} catch (Exception e) {");
@@ -118,7 +118,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("getContainer().run(false, true, operation);");
 		sc.addLineBreak();
 		sc.addComment("Set perspective");
-		sc.add(BASIC_NEW_PROJECT_RESOURCE_WIZARD + ".updatePerspective(config);");
+		sc.add(BASIC_NEW_PROJECT_RESOURCE_WIZARD(sc) + ".updatePerspective(config);");
 		sc.add("} catch (InterruptedException e) {");
 		sc.add("return false;");
 		sc.add("} catch (Exception e) {");
@@ -133,17 +133,17 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addJavadoc(
 			"Creates the sole wizard page contributed by this base implementation; the " +
 			"standard Eclipse WizardNewProjectCreationPage.",
-			"@see " + WIZARD_NEW_PROJECT_CREATION_PAGE + "#" + WIZARD_NEW_PROJECT_CREATION_PAGE + "(String)"
+			"@see " + WIZARD_NEW_PROJECT_CREATION_PAGE(sc) + "#" + WIZARD_NEW_PROJECT_CREATION_PAGE(sc) + "(String)"
 		);
-		sc.add("public void init(" + I_WORKBENCH + " workbench, " + I_STRUCTURED_SELECTION + " selection) {");
+		sc.add("public void init(" + I_WORKBENCH(sc) + " workbench, " + I_STRUCTURED_SELECTION(sc) + " selection) {");
 		sc.addComment("Set default image for all wizard pages");
-		sc.add(I_PATH + " path = new " + PATH + "(\"icons/" + UIConstants.Icon.DEFAULT_NEW_PROJECT_WIZBAN.getFilename() + "\");");
-		sc.add(BUNDLE + " bundle = " + uiPluginActivatorClassName + ".getDefault().getBundle();");
-		sc.add(URL + " url = " + FILE_LOCATOR + ".find(bundle, path, null);");
-		sc.add(IMAGE_DESCRIPTOR + " descriptor = " + IMAGE_DESCRIPTOR + ".createFromURL(url);");
+		sc.add(I_PATH(sc) + " path = new " + PATH(sc) + "(\"icons/" + UIConstants.Icon.DEFAULT_NEW_PROJECT_WIZBAN.getFilename() + "\");");
+		sc.add(BUNDLE(sc) + " bundle = " + uiPluginActivatorClassName + ".getDefault().getBundle();");
+		sc.add(URL(sc) + " url = " + FILE_LOCATOR + ".find(bundle, path, null);");
+		sc.add(IMAGE_DESCRIPTOR(sc) + " descriptor = " + IMAGE_DESCRIPTOR(sc) + ".createFromURL(url);");
 		sc.add("setDefaultPageImageDescriptor(descriptor);");
 		sc.addLineBreak();
-		sc.add("wizardNewProjectCreationPage = new " + WIZARD_NEW_PROJECT_CREATION_PAGE + "(pageName);");
+		sc.add("wizardNewProjectCreationPage = new " + WIZARD_NEW_PROJECT_CREATION_PAGE(sc) + "(pageName);");
 		sc.add("wizardNewProjectCreationPage.setTitle(pageTitle);");
 		sc.add("wizardNewProjectCreationPage.setDescription(pageDescription);");
 		sc.add("wizardNewProjectCreationPage.setInitialProjectName(pageProjectName);");
@@ -154,7 +154,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addSetInitializationDataMethod(JavaComposite sc) {
-		sc.add("public void setInitializationData(" + I_CONFIGURATION_ELEMENT + " config, String propertyName, Object data) throws " + CORE_EXCEPTION + " {");
+		sc.add("public void setInitializationData(" + I_CONFIGURATION_ELEMENT(sc) + " config, String propertyName, Object data) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add("this.config = config;");
 		sc.add("}");
 		sc.addLineBreak();

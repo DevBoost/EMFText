@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.launch;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_CONFIGURATION_DIALOG;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_LAUNCH_CONFIGURATION_TAB;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION_DIALOG;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION_TAB;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class LaunchConfigurationTabGroupGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A class that provides the tabs for the launch configuration" +
@@ -37,7 +37,7 @@ public class LaunchConfigurationTabGroupGenerator extends UIJavaBaseGenerator<Ar
 		);
 		sc.add("public class " + getResourceClassName());
 		if (getContext().isLaunchSupportEnabled()) {
-			sc.add(" extends " + ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP);
+			sc.add(" extends " + ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP(sc));
 		}
 		sc.add(" {");
 		sc.addLineBreak();
@@ -48,9 +48,9 @@ public class LaunchConfigurationTabGroupGenerator extends UIJavaBaseGenerator<Ar
 	}
 
 	private void addCreateTabsMethod(JavaComposite sc) {
-		sc.add("public void createTabs(" + I_LAUNCH_CONFIGURATION_DIALOG + " dialog, String mode) {");
+		sc.add("public void createTabs(" + I_LAUNCH_CONFIGURATION_DIALOG(sc) + " dialog, String mode) {");
 		sc.addComment("Set the " + OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_TAB_GROUP.getLiteral() + " option to false to implement this method.");
-		sc.add("setTabs(new " + I_LAUNCH_CONFIGURATION_TAB + "[] {new " + launchConfigurationMainTabClassName + "()});");
+		sc.add("setTabs(new " + I_LAUNCH_CONFIGURATION_TAB(sc) + "[] {new " + launchConfigurationMainTabClassName + "()});");
 		sc.add("}");
 		sc.addLineBreak();
 	}

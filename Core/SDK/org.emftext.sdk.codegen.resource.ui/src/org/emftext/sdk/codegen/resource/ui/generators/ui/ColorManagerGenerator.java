@@ -15,25 +15,24 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RGB;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RGB;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class ColorManagerGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("A class for RGB-based color objects.");
 		sc.add("public class " + getResourceClassName() + " {");
@@ -53,13 +52,13 @@ public class ColorManagerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addGetColorMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Constructs and caches the given color.",
-			"@param rgb The color as " + RGB,
+			"@param rgb The color as " + RGB(sc),
 			"@return The color (from cache or newly constructed)"
 		);
-		sc.add("public " + COLOR + " getColor(" + RGB + " rgb) {");
-		sc.add(COLOR + " color = fColorTable.get(rgb);");
+		sc.add("public " + COLOR(sc) + " getColor(" + RGB(sc) + " rgb) {");
+		sc.add(COLOR(sc) + " color = fColorTable.get(rgb);");
 		sc.add("if (color == null) {");
-		sc.add("color = new " + COLOR + "(" + DISPLAY + ".getCurrent(), rgb);");
+		sc.add("color = new " + COLOR(sc) + "(" + DISPLAY(sc) + ".getCurrent(), rgb);");
 		sc.add("fColorTable.put(rgb, color);");
 		sc.add("}");
 		sc.add("return color;");
@@ -69,7 +68,7 @@ public class ColorManagerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	private void addDisposeMethod(JavaComposite sc) {
 		sc.addJavadoc("Disposes all colors in the cache.");
 		sc.add("public void dispose() {");
-		sc.add(ITERATOR + "<" + COLOR + "> e = fColorTable.values().iterator();");
+		sc.add(ITERATOR(sc) + "<" + COLOR(sc) + "> e = fColorTable.values().iterator();");
 		sc.add("while (e.hasNext()) {");
 		sc.add("e.next().dispose();");
 		sc.add("}");
@@ -77,8 +76,8 @@ public class ColorManagerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("protected " + MAP + "<" + RGB + ", " + COLOR + "> fColorTable = new " + LINKED_HASH_MAP + "<" + RGB + ", " + COLOR + ">(10);");
+	private void addFields(JavaComposite sc) {
+		sc.add("protected " + MAP(sc) + "<" + RGB(sc) + ", " + COLOR(sc) + "> fColorTable = new " + LINKED_HASH_MAP(sc) + "<" + RGB(sc) + ", " + COLOR(sc) + ">(10);");
 		sc.addLineBreak();
 	}
 

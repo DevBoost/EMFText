@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_MODEL;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IAnnotationModelProviderGenerator extends UIJavaBaseGenerator<Artif
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -38,7 +38,7 @@ public class IAnnotationModelProviderGenerator extends UIJavaBaseGenerator<Artif
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the annotation model.");
-		sc.add("public " + I_ANNOTATION_MODEL + " getAnnotationModel();");
+		sc.add("public " + I_ANNOTATION_MODEL(sc) + " getAnnotationModel();");
 		sc.addLineBreak();
 		sc.add("}");
 	}

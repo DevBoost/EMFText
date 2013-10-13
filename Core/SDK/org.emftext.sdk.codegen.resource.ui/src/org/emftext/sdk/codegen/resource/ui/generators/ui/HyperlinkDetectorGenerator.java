@@ -15,16 +15,16 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_HYPERLINK;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_HYPERLINK_DETECTOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HYPERLINK;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HYPERLINK_DETECTOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -37,14 +37,14 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator<ArtifactPara
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"A hyperlink detector returns hyperlink if the token, where the mouse cursor " +
 			"hovers, is a proxy."
 		);
-		sc.add("public class " + getResourceClassName() + " implements " + I_HYPERLINK_DETECTOR + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + I_HYPERLINK_DETECTOR(sc) + " {");
 		sc.addLineBreak();
 
 		addFields(sc);
@@ -60,13 +60,13 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator<ArtifactPara
 	}
 
 	private void addDetectHyperlinksMethod(JavaComposite sc) {
-		sc.add("public " + I_HYPERLINK + "[] detectHyperlinks(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " region, boolean canShowMultipleHyperlinks) {");
+		sc.add("public " + I_HYPERLINK(sc) + "[] detectHyperlinks(" + I_TEXT_VIEWER(sc) + " textViewer, " + I_REGION(sc) + " region, boolean canShowMultipleHyperlinks) {");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(region.getOffset());");
-		sc.add(E_OBJECT + " resolvedEObject = null;");
-		sc.add("for (" + E_OBJECT + " eObject : elementsAtOffset) {");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> elementsAtOffset = locationMap.getElementsAt(region.getOffset());");
+		sc.add(E_OBJECT(sc) + " resolvedEObject = null;");
+		sc.add("for (" + E_OBJECT(sc) + " eObject : elementsAtOffset) {");
 		sc.add("if (eObject.eIsProxy()) {");
-		sc.add("resolvedEObject = " + ECORE_UTIL + ".resolve(eObject, textResource);");
+		sc.add("resolvedEObject = " + ECORE_UTIL(sc) + ".resolve(eObject, textResource);");
 		sc.add("if (resolvedEObject == eObject) {");
 		sc.add("continue;");
 		sc.add("}");
@@ -75,12 +75,12 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("String text = null;");
 		sc.add("try {");
 		sc.add("text = textViewer.getDocument().get(offset, length);");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.addComment("we skip elements that are not contained in a resource, because we cannot jump to them anyway");
 		sc.add("if (resolvedEObject.eResource() != null) {");
-		sc.add(I_HYPERLINK + " hyperlink = new " + hyperlinkClassName + "(new " + REGION + "(offset, length), resolvedEObject, text);");
-		sc.add("return new " + I_HYPERLINK + "[] {hyperlink};");
+		sc.add(I_HYPERLINK(sc) + " hyperlink = new " + hyperlinkClassName + "(new " + REGION(sc) + "(offset, length), resolvedEObject, text);");
+		sc.add("return new " + I_HYPERLINK(sc) + "[] {hyperlink};");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -94,7 +94,7 @@ public class HyperlinkDetectorGenerator extends UIJavaBaseGenerator<ArtifactPara
 			"Creates a hyperlink detector.",
 			"@param resource the resource to use for calculating the locations."
 		);
-		sc.add("public " + getResourceClassName() + "(" + RESOURCE + " resource) {");
+		sc.add("public " + getResourceClassName() + "(" + RESOURCE(sc) + " resource) {");
 		sc.add("textResource = (" + iTextResourceClassName + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();

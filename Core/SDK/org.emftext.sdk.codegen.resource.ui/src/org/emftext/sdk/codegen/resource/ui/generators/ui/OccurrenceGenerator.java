@@ -16,25 +16,25 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SETTING;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ANNOTATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_MODEL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_VIEWER_EXTENSION5;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POSITION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REGION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLED_TEXT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ANNOTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_MODEL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER_EXTENSION5;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POSITION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROJECTION_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REGION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STYLED_TEXT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -47,7 +47,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("This class finds text positions to highlight and adds them to the document.");
@@ -69,7 +69,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.addLineBreak();
 		sc.addJavadoc("The viewer showing the document the we search occurrences for");
-		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
+		sc.add("private " + PROJECTION_VIEWER(sc) + " projectionViewer;");
 		sc.addLineBreak();
 		sc.addJavadoc("The resource we operate on");
 		sc.add("private " + iTextResourceClassName + " textResource;");
@@ -78,7 +78,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("private String tokenText = \"\";");
 		sc.addLineBreak();
 		sc.addJavadoc("The region of the token that was located at the caret position at the time occurrence were computed last");
-		sc.add("private " + REGION + " tokenRegion;");
+		sc.add("private " + REGION(sc) + " tokenRegion;");
 		sc.addLineBreak();
 	}
 
@@ -95,7 +95,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"@param textResource the text resource for location",
 			"@param projectionViewer the viewer for the text"
 		);
-		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER + " projectionViewer) {");
+		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER(sc) + " projectionViewer) {");
 		sc.add("super();");
 		sc.add("this.textResource = textResource;");
 		sc.add("this.projectionViewer = projectionViewer;");
@@ -134,7 +134,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"Accessor method for the field <code>projectionViewer</code>. " + 
 			"The accessor is also used for unit testing to inject a custom text viewer extension by overriding this method."
 		);
-		sc.add("protected " + I_TEXT_VIEWER_EXTENSION5 + " getTextViewerExtension5() {");
+		sc.add("protected " + I_TEXT_VIEWER_EXTENSION5(sc) + " getTextViewerExtension5() {");
 		sc.add("return projectionViewer;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -145,7 +145,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"Accessor method for the field <code>projectionViewer</code>. " + 
 			"The accessor is also used for unit testing to inject a custom source viewer by overriding this method."
 		);
-		sc.add("protected " + I_SOURCE_VIEWER + " getSourceViewer() {");
+		sc.add("protected " + I_SOURCE_VIEWER(sc) + " getSourceViewer() {");
 		sc.add("return projectionViewer;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -159,8 +159,8 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addScanMethod(JavaComposite sc) {
-		sc.add("protected " + iTokenScannerClassName + " scan(" + E_OBJECT + " object, ITokenScannerConstraint constraint) {");
-		sc.add(I_DOCUMENT + " document = getSourceViewer().getDocument();");
+		sc.add("protected " + iTokenScannerClassName + " scan(" + E_OBJECT(sc) + " object, ITokenScannerConstraint constraint) {");
+		sc.add(I_DOCUMENT(sc) + " document = getSourceViewer().getDocument();");
 		sc.addLineBreak();
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
 		sc.addLineBreak();
@@ -169,7 +169,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("int length = getLength(locationMap, object);");
 		sc.addLineBreak();
 		sc.add("tokenScanner.setRange(document, offset, length);");
-		sc.add(I_TOKEN + " token = tokenScanner.nextToken();");
+		sc.add(I_TOKEN(sc) + " token = tokenScanner.nextToken();");
 		sc.add("while (!token.isEOF()) {");
 		sc.add("if (constraint.mustStop(tokenScanner)) {");
 		sc.add("return tokenScanner;");
@@ -184,7 +184,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	private void addGetIndexOfMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the index of the given text within the text that corresponds to " +
 				" the EObject.");
-		sc.add("protected int getIndexOf(" + E_OBJECT + " eObject, final String text) {");
+		sc.add("protected int getIndexOf(" + E_OBJECT(sc) + " eObject, final String text) {");
 		sc.add(iTokenScannerClassName + " tokenScanner = scan(eObject, new ITokenScannerConstraint() {");
 		sc.addLineBreak();
 		sc.add("public boolean mustStop(" + iTokenScannerClassName + " tokenScanner) {");
@@ -203,15 +203,15 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addAddAnnotationsForDefinitionMethod(JavaComposite sc) {
-		sc.add("protected " + LIST + "<String> addAnnotationsForDefinition(" + E_OBJECT + " referencedElement, String definitionText, int definitionOffset, final int caretOffset) {");
+		sc.add("protected " + LIST(sc) + "<String> addAnnotationsForDefinition(" + E_OBJECT(sc) + " referencedElement, String definitionText, int definitionOffset, final int caretOffset) {");
 		sc.addLineBreak();
-		sc.add("final " + I_DOCUMENT + " document = getSourceViewer().getDocument();");
-		sc.add("final " + LIST + "<String> matchingNames = new " + ARRAY_LIST + "<String>();");
+		sc.add("final " + I_DOCUMENT(sc) + " document = getSourceViewer().getDocument();");
+		sc.add("final " + LIST(sc) + "<String> matchingNames = new " + ARRAY_LIST(sc) + "<String>();");
 		sc.add("if (definitionText == null) {");
 		sc.addComment("The object at the caret position is not referenced from within " +
 				"the resource. Thus, we cannot highlight occurrences or " +
 				"declarations.");
-		sc.add("final " + LIST + "<String> names = new " + defaultNameProviderClassName + "().getNames(referencedElement);");
+		sc.add("final " + LIST(sc) + "<String> names = new " + defaultNameProviderClassName + "().getNames(referencedElement);");
 		sc.add("scan(referencedElement, new ITokenScannerConstraint() {");
 		sc.addLineBreak();
 		sc.add("public boolean mustStop(" + iTokenScannerClassName + " tokenScanner) {");
@@ -236,13 +236,13 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addAddAnnotationsForReferencesMethod(JavaComposite sc) {
-		sc.add("protected void addAnnotationsForReferences(" + E_OBJECT + " referencedElement, " + LIST + "<String> matchingNames) {");
+		sc.add("protected void addAnnotationsForReferences(" + E_OBJECT(sc) + " referencedElement, " + LIST(sc) + "<String> matchingNames) {");
 		sc.addLineBreak();
-		sc.add(I_DOCUMENT + " document = getSourceViewer().getDocument();");
+		sc.add(I_DOCUMENT(sc) + " document = getSourceViewer().getDocument();");
 		sc.addLineBreak();
 		sc.addComment("Determine all references to the EObject");
-		sc.add(MAP + "<" + E_OBJECT + ", " + COLLECTION + "<" + SETTING + ">> map = " + ECORE_UTIL + ".UsageCrossReferencer.find(" + COLLECTIONS + ".singleton(textResource));");
-		sc.add(COLLECTION + "<" + SETTING + "> referencingObjects = map.get(referencedElement);");
+		sc.add(MAP(sc) + "<" + E_OBJECT(sc) + ", " + COLLECTION(sc) + "<" + SETTING + ">> map = " + ECORE_UTIL(sc) + ".UsageCrossReferencer.find(" + COLLECTIONS(sc) + ".singleton(textResource));");
+		sc.add(COLLECTION(sc) + "<" + SETTING + "> referencingObjects = map.get(referencedElement);");
 		sc.add("if (referencingObjects == null) {");
 		sc.addComment("No references found");
 		sc.add("return;");
@@ -250,7 +250,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 		sc.addComment("Highlight the token in the text for the referencing objects");
 		sc.add("for (" + SETTING + " setting : referencingObjects) {");
-		sc.add(E_OBJECT + " referencingElement = setting.getEObject();");
+		sc.add(E_OBJECT(sc) + " referencingElement = setting.getEObject();");
 		sc.addComment("Search through all tokens in the elements that reference the " +
 				"element at the caret position");
 		sc.add("for (String name : matchingNames) {");
@@ -265,8 +265,8 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addAddAnnotationsMethod(JavaComposite sc) {
-		sc.add("protected void addAnnotations(" + E_OBJECT + " referencedElement, String definitionText, int definitionOffset, int caretOffset) {");
-		sc.add(LIST + "<String> matchingNames = addAnnotationsForDefinition(referencedElement, definitionText, definitionOffset, caretOffset);");
+		sc.add("protected void addAnnotations(" + E_OBJECT(sc) + " referencedElement, String definitionText, int definitionOffset, int caretOffset) {");
+		sc.add(LIST(sc) + "<String> matchingNames = addAnnotationsForDefinition(referencedElement, definitionText, definitionOffset, caretOffset);");
 		sc.add("addAnnotationsForReferences(referencedElement, matchingNames);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -274,7 +274,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetCaretOffsetMethod(JavaComposite sc) {
 		sc.add("protected int getCaretOffset() {");
-		sc.add(STYLED_TEXT + " textWidget = getSourceViewer().getTextWidget();");
+		sc.add(STYLED_TEXT(sc) + " textWidget = getSourceViewer().getTextWidget();");
 		sc.add("int widgetOffset = textWidget.getCaretOffset();");
 		sc.add("return getTextViewerExtension5().widgetOffset2ModelOffset(widgetOffset);");
 		sc.add("}");
@@ -284,17 +284,17 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	private void addResetTokenRegionMethod(JavaComposite sc) {
 		sc.addJavadoc("Resets the token region to enable remove highlighting if the text is changing.");
 		sc.add("public void resetTokenRegion() {");
-		sc.add("tokenRegion = new " + REGION + "(-1, 0);");
+		sc.add("tokenRegion = new " + REGION(sc) + "(-1, 0);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addAddAnnotationMethod(JavaComposite sc) {
-		sc.add("protected void addAnnotation(" + I_DOCUMENT + " document, " + positionCategoryClassName + " type, String text, int offset, int length) {");
+		sc.add("protected void addAnnotation(" + I_DOCUMENT(sc) + " document, " + positionCategoryClassName + " type, String text, int offset, int length) {");
 		sc.addComment("for declarations and occurrences we do not need to add the position to the document ");
-		sc.add(POSITION + " position = positionHelper.createPosition(offset, length);");
+		sc.add(POSITION(sc) + " position = positionHelper.createPosition(offset, length);");
 		sc.addComment("instead, an annotation is created");
-		sc.add(ANNOTATION + " annotation = new " + ANNOTATION + "(false);");
+		sc.add(ANNOTATION(sc) + " annotation = new " + ANNOTATION(sc) + "(false);");
 		sc.add("if (type == " + positionCategoryClassName + ".DEFINITION) {");
 		sc.add("annotation.setText(\"Declaration of \" + text);");
 		sc.add("annotation.setType(DECLARATION_ANNOTATION_ID);");
@@ -317,7 +317,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("final int caretOffset = getCaretOffset();");
-		sc.add(I_DOCUMENT + " document = getSourceViewer().getDocument();");
+		sc.add(I_DOCUMENT(sc) + " document = getSourceViewer().getDocument();");
 		sc.add("if (caretOffset < 0 || caretOffset >= document.getLength()) {");
 		sc.addComment("The caret is outside of the document.");
 		sc.add("removeAnnotations();");
@@ -335,7 +335,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 		sc.add("resetTokenRegion();");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
 		sc.addLineBreak();
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() < 1) {");
 		sc.addComment("The document does not contain EObjects. Probably there is a syntax error.");
@@ -344,9 +344,9 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("removeAnnotations();");
-		sc.add(E_OBJECT + " resolvedEObject = tryToResolve(elementsAtOffset);");
-		sc.add(E_OBJECT + " referencedElement;");
-		sc.add(E_OBJECT + " firstElementAtOffset = elementsAtOffset.get(0);");
+		sc.add(E_OBJECT(sc) + " resolvedEObject = tryToResolve(elementsAtOffset);");
+		sc.add(E_OBJECT(sc) + " referencedElement;");
+		sc.add(E_OBJECT(sc) + " firstElementAtOffset = elementsAtOffset.get(0);");
 		sc.add("if (resolvedEObject != null) {");
 		sc.add("referencedElement = resolvedEObject;");
 		sc.add("} else {");
@@ -371,7 +371,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("int tokenOffset = tokenScanner.getTokenOffset();");
 		sc.add("int tokenLength = tokenScanner.getTokenLength();");
 		sc.add("tokenText = tokenScanner.getTokenText();");
-		sc.add("tokenRegion = new " + REGION + "(tokenOffset, tokenLength);");
+		sc.add("tokenRegion = new " + REGION(sc) + "(tokenOffset, tokenLength);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addComment(
@@ -395,7 +395,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (index >= 0) {");
 		sc.add("addAnnotations(referencedElement, proxyText, index, caretOffset);");
 		sc.add("}");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
 		sc.addComment("ignore");
 		sc.add("}");
 		sc.add("}");
@@ -412,7 +412,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addIsContainedInMethod1(JavaComposite sc) {
-		sc.add("protected boolean isContainedIn(" + REGION + " region, int offset) {");
+		sc.add("protected boolean isContainedIn(" + REGION(sc) + " region, int offset) {");
 		sc.add("int regionOffset = region.getOffset();");
 		sc.add("int regionEnd = regionOffset + region.getLength();");
 		sc.add("return offset >= regionOffset && offset <= regionEnd;");
@@ -420,8 +420,8 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addGetLengthMethod(StringComposite sc) {
-		sc.add("protected int getLength(" + iLocationMapClassName + " locationMap, " + E_OBJECT + " eObject) {");
+	private void addGetLengthMethod(JavaComposite sc) {
+		sc.add("protected int getLength(" + iLocationMapClassName + " locationMap, " + E_OBJECT(sc) + " eObject) {");
 		sc.add("return locationMap.getCharEnd(eObject) - locationMap.getCharStart(eObject) + 1;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -440,7 +440,7 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetEObjectAtCurrentPositionMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the EObject at the current caret position.");
-		sc.add("public " + E_OBJECT + " getEObjectAtCurrentPosition() {");
+		sc.add("public " + E_OBJECT(sc) + " getEObjectAtCurrentPosition() {");
 		sc.add("if (textResource == null) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -448,13 +448,13 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("int caretOffset = getCaretOffset();");
 		sc.addLineBreak();
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
 		sc.addLineBreak();
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.isEmpty()) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("for (" + E_OBJECT + " candidate : elementsAtOffset) {");
+		sc.add("for (" + E_OBJECT(sc) + " candidate : elementsAtOffset) {");
 		sc.add("if (candidate.eIsProxy()) {");
 		sc.add("candidate = getResolvedEObject(candidate);");
 		sc.add("}");
@@ -478,8 +478,8 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"@param objects the <code>EObject</code>s located at the caret position",
 			"@return the resolved <code>EObject</code> of the first proxy <code>EObject</code> in a list. If resolving fails, <code>null</code> is returned."
 		);
-		sc.add("public " + E_OBJECT + " tryToResolve(" + LIST + "<" + E_OBJECT + "> objects) {");
-		sc.add("for (" + E_OBJECT + " object : objects) {");
+		sc.add("public " + E_OBJECT(sc) + " tryToResolve(" + LIST(sc) + "<" + E_OBJECT(sc) + "> objects) {");
+		sc.add("for (" + E_OBJECT(sc) + " object : objects) {");
 		sc.add("if (object.eIsProxy()) {");
 		sc.add("return getResolvedEObject(object);");
 		sc.add("}");
@@ -489,9 +489,9 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addGetResolvedEObjectMethod(StringComposite sc) {
-		sc.add("protected " + E_OBJECT + " getResolvedEObject(" + E_OBJECT + " eObject) {");
-		sc.add("return eObject.eIsProxy() ? " + ECORE_UTIL + ".resolve(eObject, textResource) : eObject;");
+	private void addGetResolvedEObjectMethod(JavaComposite sc) {
+		sc.add("protected " + E_OBJECT(sc) + " getResolvedEObject(" + E_OBJECT(sc) + " eObject) {");
+		sc.add("return eObject.eIsProxy() ? " + ECORE_UTIL(sc) + ".resolve(eObject, textResource) : eObject;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -504,21 +504,21 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 
-	private void addRemoveAnnotationsMethod2(StringComposite sc) {
+	private void addRemoveAnnotationsMethod2(JavaComposite sc) {
 		sc.add("protected void removeAnnotations(String annotationTypeID) {");
-		sc.add(LIST + "<" + ANNOTATION + "> annotationsToRemove = new " + ARRAY_LIST + "<" + ANNOTATION + ">();");
-		sc.add(I_ANNOTATION_MODEL + " annotationModel = getSourceViewer().getAnnotationModel();");
-		sc.add(ITERATOR + "<?> annotationIterator = annotationModel.getAnnotationIterator();");
+		sc.add(LIST(sc) + "<" + ANNOTATION(sc) + "> annotationsToRemove = new " + ARRAY_LIST(sc) + "<" + ANNOTATION(sc) + ">();");
+		sc.add(I_ANNOTATION_MODEL(sc) + " annotationModel = getSourceViewer().getAnnotationModel();");
+		sc.add(ITERATOR(sc) + "<?> annotationIterator = annotationModel.getAnnotationIterator();");
 		sc.add("while (annotationIterator.hasNext()) {");
 		sc.add("Object object = (Object) annotationIterator.next();");
-		sc.add("if (object instanceof " + ANNOTATION + ") {");
-		sc.add(ANNOTATION + " annotation = (" + ANNOTATION + ") object;");
+		sc.add("if (object instanceof " + ANNOTATION(sc) + ") {");
+		sc.add(ANNOTATION(sc) + " annotation = (" + ANNOTATION(sc) + ") object;");
 		sc.add("if (annotationTypeID.equals(annotation.getType())) {");
 		sc.add("annotationsToRemove.add(annotation);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("for (" + ANNOTATION + " annotation : annotationsToRemove) {");
+		sc.add("for (" + ANNOTATION(sc) + " annotation : annotationsToRemove) {");
 		sc.add("annotationModel.removeAnnotation(annotation);");
 		sc.add("}");
 		sc.add("}");

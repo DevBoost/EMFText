@@ -15,41 +15,41 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_INFORMATION_CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ASSERT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BROWSER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COLOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.FONT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GC;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DELAYED_INPUT_CHANGE_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INFORMATION_CONTROL_EXTENSION2;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_INPUT_CHANGED_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.J_FACE_RESOURCES;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.KEY_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.KEY_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LISTENER_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LOCATION_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MENU;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.OPEN_WINDOW_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.POINT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROGRESS_ADAPTER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROGRESS_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RECTANGLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SHELL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SLIDER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STRING_READER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLE_RANGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT_ERROR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_LAYOUT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_PRESENTATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_STYLE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TOOL_BAR_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.WINDOW_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_INFORMATION_CONTROL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ASSERT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BROWSER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FONT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GC;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DELAYED_INPUT_CHANGE_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL_EXTENSION2;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INPUT_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.J_FACE_RESOURCES;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.KEY_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.KEY_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LOCATION_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.OPEN_WINDOW_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POINT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROGRESS_ADAPTER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROGRESS_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RECTANGLE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SLIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRING_READER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STYLE_RANGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT_ERROR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_LAYOUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_PRESENTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_STYLE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TOOL_BAR_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WINDOW_EVENT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -61,10 +61,10 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Displays HTML information in a {@link " + BROWSER + "} widget.",
+			"Displays HTML information in a {@link " + BROWSER(sc) + "} widget.",
 			"<p>",
 			"This IInformationControlExtension2 expects {@link #setInput(Object)} to be " +
 			"called with an argument of type BrowserInformationControlInput.",
@@ -80,30 +80,30 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@since 3.2"
 		);
 		
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_INFORMATION_CONTROL + " implements " + I_INFORMATION_CONTROL_EXTENSION2 + ", " + I_DELAYED_INPUT_CHANGE_PROVIDER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_INFORMATION_CONTROL(sc) + " implements " + I_INFORMATION_CONTROL_EXTENSION2(sc) + ", " + I_DELAYED_INPUT_CHANGE_PROVIDER(sc) + " {");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Tells whether the " + SWT + " " + BROWSER + " widget and hence this information " +
+			"Tells whether the " + SWT(sc) + " " + BROWSER(sc) + " widget and hence this information " +
 			"control is available.",
 			"@param parent the parent component used for checking or <code>null</code> if none",
 			"@return <code>true</code> if this control is available"
 		);
 		
-		sc.add("public static boolean isAvailable(" + COMPOSITE + " parent) {");
+		sc.add("public static boolean isAvailable(" + COMPOSITE(sc) + " parent) {");
 		sc.add("if (!fgAvailabilityChecked) {");
 		sc.add("try {");
-		sc.add(BROWSER + " browser= new " + BROWSER + "(parent, " + SWT + ".NONE);");
+		sc.add(BROWSER(sc) + " browser= new " + BROWSER(sc) + "(parent, " + SWT(sc) + ".NONE);");
 		sc.add("browser.dispose();");
 		sc.add("fgIsAvailable= true;");
 		sc.addLineBreak();
-		sc.add(SLIDER + " sliderV= new " + SLIDER + "(parent, " + SWT + ".VERTICAL);");
-		sc.add(SLIDER + " sliderH= new " + SLIDER + "(parent, " + SWT + ".HORIZONTAL);");
-		sc.add("int width= sliderV.computeSize(" + SWT + ".DEFAULT, " + SWT + ".DEFAULT).x;");
-		sc.add("int height= sliderH.computeSize(" + SWT + ".DEFAULT, " + SWT + ".DEFAULT).y;");
-		sc.add("fgScrollBarSize= new " + POINT + "(width, height);");
+		sc.add(SLIDER(sc) + " sliderV= new " + SLIDER(sc) + "(parent, " + SWT(sc) + ".VERTICAL);");
+		sc.add(SLIDER(sc) + " sliderH= new " + SLIDER(sc) + "(parent, " + SWT(sc) + ".HORIZONTAL);");
+		sc.add("int width= sliderV.computeSize(" + SWT(sc) + ".DEFAULT, " + SWT(sc) + ".DEFAULT).x;");
+		sc.add("int height= sliderH.computeSize(" + SWT(sc) + ".DEFAULT, " + SWT(sc) + ".DEFAULT).y;");
+		sc.add("fgScrollBarSize= new " + POINT(sc) + "(width, height);");
 		sc.add("sliderV.dispose();");
 		sc.add("sliderH.dispose();");
-		sc.add("} catch (" + SWT_ERROR + " er) {");
+		sc.add("} catch (" + SWT_ERROR(sc) + " er) {");
 		sc.add("fgIsAvailable= false;");
 		sc.add("} finally {");
 		sc.add("fgAvailabilityChecked= true;");
@@ -124,16 +124,16 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("private static boolean fgAvailabilityChecked = false;");
 		sc.addLineBreak();
 		sc.addJavadoc("Cached scroll bar width and height");
-		sc.add("private static " + POINT + " fgScrollBarSize;");
+		sc.add("private static " + POINT(sc) + " fgScrollBarSize;");
 		sc.addLineBreak();
 		sc.addJavadoc("The control's browser widget");
-		sc.add("private " + BROWSER + " fBrowser;");
+		sc.add("private " + BROWSER(sc) + " fBrowser;");
 		sc.addJavadoc("Tells whether the browser has content");
 		sc.add("private boolean fBrowserHasContent;");
 		sc.addJavadoc("Text layout used to approximate size of content when rendered in browser");
-		sc.add("private " + TEXT_LAYOUT + " fTextLayout;");
+		sc.add("private " + TEXT_LAYOUT(sc) + " fTextLayout;");
 		sc.addJavadoc("Bold text style");
-		sc.add("private " + TEXT_STYLE + " fBoldStyle;");
+		sc.add("private " + TEXT_STYLE(sc) + " fBoldStyle;");
 		sc.addLineBreak();
 		sc.add("private " + docBrowserInformationControlInputClassName + " fInput;");
 		sc.addLineBreak();
@@ -144,10 +144,10 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("private boolean fCompleted = false;");
 		sc.addLineBreak();
 		sc.addJavadoc("The listener to be notified when a delayed location changing event happened.");
-		sc.add("private " + I_INPUT_CHANGED_LISTENER + " fDelayedInputChangeListener;");
+		sc.add("private " + I_INPUT_CHANGED_LISTENER(sc) + " fDelayedInputChangeListener;");
 		sc.addLineBreak();
 		sc.addJavadoc("The listeners to be notified when the input changed.");
-		sc.add("private " + LISTENER_LIST + " fInputChangeListeners = new " + LISTENER_LIST + "(" + LISTENER_LIST + ".IDENTITY);");
+		sc.add("private " + LISTENER_LIST(sc) + " fInputChangeListeners = new " + LISTENER_LIST(sc) + "(" + LISTENER_LIST(sc) + ".IDENTITY);");
 		sc.addLineBreak();
 		sc.addJavadoc("The symbolic name of the font used for size computations, or <code>null</code> to use dialog font.");
 		sc.add("private final String fSymbolicFontName;");
@@ -159,7 +159,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@param symbolicFontName the symbolic name of the font used for size computations",
 			"@param resizable <code>true</code> if the control should be resizable"
 		);
-		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, boolean resizable) {");
+		sc.add("public " + getResourceClassName() + "(" + SHELL(sc) + " parent, String symbolicFontName, boolean resizable) {");
 		sc.add("super(parent, resizable);");
 		sc.add("fSymbolicFontName= symbolicFontName;");
 		sc.add("create();");
@@ -173,7 +173,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@param statusFieldText the text to be used in the optional status field " +
 			"or <code>null</code> if the status field should be hidden"
 		);
-		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, String statusFieldText) {");
+		sc.add("public " + getResourceClassName() + "(" + SHELL(sc) + " parent, String symbolicFontName, String statusFieldText) {");
 		sc.add("super(parent, statusFieldText);");
 		sc.add("fSymbolicFontName= symbolicFontName;");
 		sc.add("create();");
@@ -186,42 +186,42 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@param toolBarManager the manager or <code>null</code> if toolbar is not desired",
 			"@since 3.4"
 		);
-		sc.add("public " + getResourceClassName() + "(" + SHELL + " parent, String symbolicFontName, " + TOOL_BAR_MANAGER + " toolBarManager) {");
+		sc.add("public " + getResourceClassName() + "(" + SHELL(sc) + " parent, String symbolicFontName, " + TOOL_BAR_MANAGER(sc) + " toolBarManager) {");
 		sc.add("super(parent, toolBarManager);");
 		sc.add("fSymbolicFontName= symbolicFontName;");
 		sc.add("create();");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see org.eclipse.jface.text." + ABSTRACT_INFORMATION_CONTROL + "#createContent(" + COMPOSITE + ")");
-		sc.add("protected void createContent(" + COMPOSITE + " parent) {");
-		sc.add("fBrowser= new " + BROWSER + "(parent, " + SWT + ".NONE);");
-		sc.add(DISPLAY + " display= getShell().getDisplay();");
-		sc.add("fBrowser.setForeground(display.getSystemColor(" + SWT + ".COLOR_INFO_FOREGROUND));");
-		sc.add("fBrowser.setBackground(display.getSystemColor(" + SWT + ".COLOR_INFO_BACKGROUND));");
-		sc.add("fBrowser.addKeyListener(new " + KEY_LISTENER + "() {");
-		sc.add("public void keyPressed(" + KEY_EVENT + " e)  {");
+		sc.addJavadoc("@see org.eclipse.jface.text." + ABSTRACT_INFORMATION_CONTROL(sc) + "#createContent(" + COMPOSITE(sc) + ")");
+		sc.add("protected void createContent(" + COMPOSITE(sc) + " parent) {");
+		sc.add("fBrowser= new " + BROWSER(sc) + "(parent, " + SWT(sc) + ".NONE);");
+		sc.add(DISPLAY(sc) + " display= getShell().getDisplay();");
+		sc.add("fBrowser.setForeground(display.getSystemColor(" + SWT(sc) + ".COLOR_INFO_FOREGROUND));");
+		sc.add("fBrowser.setBackground(display.getSystemColor(" + SWT(sc) + ".COLOR_INFO_BACKGROUND));");
+		sc.add("fBrowser.addKeyListener(new " + KEY_LISTENER(sc) + "() {");
+		sc.add("public void keyPressed(" + KEY_EVENT(sc) + " e)  {");
 		sc.add("if (e.character == 0x1B) // ESC");
 		sc.add("dispose(); // XXX: Just hide? Would avoid constant recreations.");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void keyReleased(" + KEY_EVENT + " e) {}");
+		sc.add("public void keyReleased(" + KEY_EVENT(sc) + " e) {}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("fBrowser.addProgressListener(new " + PROGRESS_ADAPTER + "() {");
-		sc.add("public void completed(" + PROGRESS_EVENT + " event) {");
+		sc.add("fBrowser.addProgressListener(new " + PROGRESS_ADAPTER(sc) + "() {");
+		sc.add("public void completed(" + PROGRESS_EVENT(sc) + " event) {");
 		sc.add("fCompleted= true;");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
-		sc.add("fBrowser.addOpenWindowListener(new " + OPEN_WINDOW_LISTENER + "() {");
-		sc.add("public void open(" + WINDOW_EVENT + " event) {");
+		sc.add("fBrowser.addOpenWindowListener(new " + OPEN_WINDOW_LISTENER(sc) + "() {");
+		sc.add("public void open(" + WINDOW_EVENT(sc) + " event) {");
 		sc.add("event.required= true; // Cancel opening of new windows");
 		sc.add("}");
 		sc.add("});");
 		sc.addLineBreak();
 		sc.addComment("Replace browser's built-in context menu with none");
-		sc.add("fBrowser.setMenu(new " + MENU + "(getShell(), " + SWT + ".NONE));");
+		sc.add("fBrowser.setMenu(new " + MENU(sc) + "(getShell(), " + SWT(sc) + ".NONE));");
 		sc.addLineBreak();
 		sc.add("createTextLayout();");
 		sc.add("}");
@@ -229,7 +229,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		sc.addJavadoc("{@inheritDoc} This control can handle {@link String}(no handle) and");
 		sc.add("public void setInput(Object input) {");
-		sc.add(ASSERT + ".isLegal(input == null || input instanceof String || input instanceof " + docBrowserInformationControlInputClassName + ");");
+		sc.add(ASSERT(sc) + ".isLegal(input == null || input instanceof String || input instanceof " + docBrowserInformationControlInputClassName + ");");
 		sc.addLineBreak();
 		sc.add("if (input instanceof String) {");
 		sc.add("setInformation((String)input);");
@@ -247,7 +247,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("if (!fBrowserHasContent)");
 		sc.add("content= \"<html><body ></html>\";");
 		sc.addLineBreak();
-		sc.add("boolean RTL= (getShell().getStyle() & " + SWT + ".RIGHT_TO_LEFT) != 0;");
+		sc.add("boolean RTL= (getShell().getStyle() & " + SWT(sc) + ".RIGHT_TO_LEFT) != 0;");
 		sc.add("boolean resizable= isResizable();");
 		sc.addLineBreak();
 		sc.addComment(
@@ -286,13 +286,13 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		sc.add("Object[] listeners= fInputChangeListeners.getListeners();");
 		sc.add("for (int i= 0; i < listeners.length; i++) {");
-		sc.add("((" + I_INPUT_CHANGED_LISTENER + ")listeners[i]).inputChanged(fInput);");
+		sc.add("((" + I_INPUT_CHANGED_LISTENER(sc) + ")listeners[i]).inputChanged(fInput);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.add("public void setVisible(boolean visible) {");
-		sc.add(SHELL + " shell= getShell();");
+		sc.add(SHELL(sc) + " shell= getShell();");
 		sc.add("if (shell.isVisible() == visible) {");
 		sc.add("return;");
 		sc.add("}");
@@ -310,7 +310,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"(see ProgressListener in constructor), or a timeout has been reached."
 		);
 		
-		sc.add("final " + DISPLAY + " display = shell.getDisplay();");
+		sc.add("final " + DISPLAY(sc) + " display = shell.getDisplay();");
 		sc.addLineBreak();
 		sc.addComment("Make sure the display wakes from sleep after timeout:");
 		sc.add("display.timerExec(100, new Runnable() {");
@@ -337,7 +337,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"Causes flickering on GTK. Carbon does not care."
 		);
 		
-		sc.add("if (\"win32\".equals(" + SWT + ".getPlatform())) {");
+		sc.add("if (\"win32\".equals(" + SWT(sc) + ".getPlatform())) {");
 		sc.add("shell.moveAbove(null);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -345,7 +345,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see " + ABSTRACT_INFORMATION_CONTROL + "#setSize(int, int)");
+		sc.addJavadoc("@see " + ABSTRACT_INFORMATION_CONTROL(sc) + "#setSize(int, int)");
 		sc.add("public void setSize(int width, int height) {");
 		sc.add("fBrowser.setRedraw(false); // avoid flickering");
 		sc.add("try {");
@@ -361,15 +361,15 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@since 3.2"
 		);
 		sc.add("private void createTextLayout() {");
-		sc.add("fTextLayout= new " + TEXT_LAYOUT + "(fBrowser.getDisplay());");
+		sc.add("fTextLayout= new " + TEXT_LAYOUT(sc) + "(fBrowser.getDisplay());");
 		sc.addLineBreak();
 		sc.addComment("Initialize fonts");
-		sc.add("String symbolicFontName= fSymbolicFontName == null ? " + J_FACE_RESOURCES + ".DIALOG_FONT : fSymbolicFontName;");
-		sc.add(FONT + " font = " + J_FACE_RESOURCES + ".getFont(symbolicFontName);");
+		sc.add("String symbolicFontName= fSymbolicFontName == null ? " + J_FACE_RESOURCES(sc) + ".DIALOG_FONT : fSymbolicFontName;");
+		sc.add(FONT(sc) + " font = " + J_FACE_RESOURCES(sc) + ".getFont(symbolicFontName);");
 		sc.add("fTextLayout.setFont(font);");
 		sc.add("fTextLayout.setWidth(-1);");
-		sc.add("font = " + J_FACE_RESOURCES + ".getFontRegistry().getBold(symbolicFontName);");
-		sc.add("fBoldStyle = new " + TEXT_STYLE + "(font, null, null);");
+		sc.add("font = " + J_FACE_RESOURCES(sc) + ".getFontRegistry().getBold(symbolicFontName);");
+		sc.add("fBoldStyle = new " + TEXT_STYLE(sc) + "(font, null, null);");
 		sc.addLineBreak();
 		sc.addComment("Compute and set tab width");
 		sc.add("fTextLayout.setText(\"    \");");
@@ -391,36 +391,36 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public " + POINT + " computeSizeHint() {");
-		sc.add(POINT + " sizeConstraints = getSizeConstraints();");
-		sc.add(RECTANGLE + " trim = computeTrim();");
+		sc.add("public " + POINT(sc) + " computeSizeHint() {");
+		sc.add(POINT(sc) + " sizeConstraints = getSizeConstraints();");
+		sc.add(RECTANGLE(sc) + " trim = computeTrim();");
 		sc.add("int height = trim.height;");
 		sc.addLineBreak();
 		// FIXME: The html2text does not render <p> like a browser.
 		// Instead of inserting an empty line, it just adds a single line break.
 		// Furthermore, the indentation of <dl><dd> elements is too small (e.g with a long @see line)
-		sc.add(TEXT_PRESENTATION + " presentation= new " + TEXT_PRESENTATION + "();");
+		sc.add(TEXT_PRESENTATION(sc) + " presentation= new " + TEXT_PRESENTATION(sc) + "();");
 		sc.add("String text;");
 		sc.add("try {");
-		sc.add("text = " + htmlPrinterClassName + ".html2text(new " + STRING_READER + "(fInput.getHtml()), presentation);");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("text = " + htmlPrinterClassName + ".html2text(new " + STRING_READER(sc) + "(fInput.getHtml()), presentation);");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("text = \"\";");
 		sc.add("}");
 		sc.add("fTextLayout.setText(text);");
-		sc.add("fTextLayout.setWidth(sizeConstraints == null ? " + SWT + ".DEFAULT : sizeConstraints.x - trim.width);");
-		sc.add(ITERATOR + "<?> iter= presentation.getAllStyleRangeIterator();");
+		sc.add("fTextLayout.setWidth(sizeConstraints == null ? " + SWT(sc) + ".DEFAULT : sizeConstraints.x - trim.width);");
+		sc.add(ITERATOR(sc) + "<?> iter= presentation.getAllStyleRangeIterator();");
 		sc.add("while (iter.hasNext()) {");
-		sc.add(STYLE_RANGE + " sr= (" + STYLE_RANGE + ")iter.next();");
-		sc.add("if (sr.fontStyle == " + SWT + ".BOLD) {");
+		sc.add(STYLE_RANGE(sc) + " sr= (" + STYLE_RANGE(sc) + ")iter.next();");
+		sc.add("if (sr.fontStyle == " + SWT(sc) + ".BOLD) {");
 		sc.add("fTextLayout.setStyle(fBoldStyle, sr.start, sr.start + sr.length - 1);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(RECTANGLE + " bounds= fTextLayout.getBounds(); // does not return minimum width, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=217446");
+		sc.add(RECTANGLE(sc) + " bounds= fTextLayout.getBounds(); // does not return minimum width, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=217446");
 		sc.add("int lineCount= fTextLayout.getLineCount();");
 		sc.add("int textWidth= 0;");
 		sc.add("for (int i= 0; i < lineCount; i++) {");
-		sc.add(RECTANGLE + " rect= fTextLayout.getLineBounds(i);");
+		sc.add(RECTANGLE(sc) + " rect= fTextLayout.getLineBounds(i);");
 		sc.add("int lineWidth= rect.x + rect.width;");
 		sc.add("if (i == 0) {");
 		sc.add("lineWidth += fInput.getLeadingImageWidth();");
@@ -440,10 +440,10 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		sc.addComment("Apply max size constraints");
 		sc.add("if (sizeConstraints != null) {");
-		sc.add("if (sizeConstraints.x != " + SWT + ".DEFAULT) {");
+		sc.add("if (sizeConstraints.x != " + SWT(sc) + ".DEFAULT) {");
 		sc.add("minWidth= Math.min(sizeConstraints.x, minWidth + trim.width);");
 		sc.add("}");
-		sc.add("if (sizeConstraints.y != " + SWT + ".DEFAULT) {");
+		sc.add("if (sizeConstraints.y != " + SWT(sc) + ".DEFAULT) {");
 		sc.add("height= Math.min(sizeConstraints.y, height);");
 		sc.add("}");
 		sc.add("}");
@@ -451,16 +451,16 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.addComment("Ensure minimal size");
 		sc.add("int width= Math.max(MIN_WIDTH, minWidth);");
 		sc.add("height= Math.max(MIN_HEIGHT, height);");
-		sc.add(POINT + " windowSize = new " + POINT + "(width, height);");
+		sc.add(POINT(sc) + " windowSize = new " + POINT(sc) + "(width, height);");
 		sc.add("return windowSize;");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@see org.eclipse.jface.text.IInformationControlExtension3#computeTrim()");
-		sc.add("public " + RECTANGLE + " computeTrim() {");
-		sc.add(RECTANGLE + " trim = super.computeTrim();");
+		sc.add("public " + RECTANGLE(sc) + " computeTrim() {");
+		sc.add(RECTANGLE(sc) + " trim = super.computeTrim();");
 		sc.add("if (isResizable()) {");
-		sc.add("boolean RTL = (getShell().getStyle() & " + SWT + ".RIGHT_TO_LEFT) != 0;");
+		sc.add("boolean RTL = (getShell().getStyle() & " + SWT(sc) + ".RIGHT_TO_LEFT) != 0;");
 		sc.add("if (RTL) {");
 		sc.add("trim.x-= fgScrollBarSize.x;");
 		sc.add("}");
@@ -476,18 +476,18 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@param listener the location listener",
 			"@since 3.4"
 		);
-		sc.add("public void addLocationListener(" + LOCATION_LISTENER + " listener) {");
+		sc.add("public void addLocationListener(" + LOCATION_LISTENER(sc) + " listener) {");
 		sc.add("fBrowser.addLocationListener(listener);");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public void setForegroundColor(" + COLOR + " foreground) {");
+		sc.add("public void setForegroundColor(" + COLOR(sc) + " foreground) {");
 		sc.add("super.setForegroundColor(foreground);");
 		sc.add("fBrowser.setForeground(foreground);");
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public void setBackgroundColor(" + COLOR + " background) {");
+		sc.add("public void setBackgroundColor(" + COLOR(sc) + " background) {");
 		sc.add("super.setBackgroundColor(background);");
 		sc.add("fBrowser.setBackground(background);");
 		sc.add("}");
@@ -504,8 +504,8 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@param inputChangeListener the listener to add",
 			"@since 3.4"
 		);
-		sc.add("public void addInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
-		sc.add(ASSERT + ".isNotNull(inputChangeListener);");
+		sc.add("public void addInputChangeListener(" + I_INPUT_CHANGED_LISTENER(sc) + " inputChangeListener) {");
+		sc.add(ASSERT(sc) + ".isNotNull(inputChangeListener);");
 		sc.add("fInputChangeListeners.add(inputChangeListener);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -516,16 +516,16 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@param inputChangeListener the listener to remove",
 			"@since 3.4"
 		);
-		sc.add("public void removeInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
+		sc.add("public void removeInputChangeListener(" + I_INPUT_CHANGED_LISTENER(sc) + " inputChangeListener) {");
 		sc.add("fInputChangeListeners.remove(inputChangeListener);");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"@see " + I_DELAYED_INPUT_CHANGE_PROVIDER + "#setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER + ")",
+			"@see " + I_DELAYED_INPUT_CHANGE_PROVIDER(sc) + "#setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER(sc) + ")",
 			"@since 3.4"
 		);
-		sc.add("public void setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER + " inputChangeListener) {");
+		sc.add("public void setDelayedInputChangeListener(" + I_INPUT_CHANGED_LISTENER(sc) + " inputChangeListener) {");
 		sc.add("fDelayedInputChangeListener= inputChangeListener;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -556,7 +556,7 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 			"@since 3.4"
 		);
 		sc.add("public String toString() {");
-		sc.add("String style= (getShell().getStyle() & " + SWT + ".RESIZE) == 0 ? \"fixed\" : \"resizeable\";");
+		sc.add("String style= (getShell().getStyle() & " + SWT(sc) + ".RESIZE) == 0 ? \"fixed\" : \"resizeable\";");
 		sc.add("return super.toString() + \" -  style: \" + style;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -568,19 +568,19 @@ public class BrowserInformationControlGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@see org.eclipse.jface.text.IInformationControlExtension5#computeSizeConstraints(int, int)");
-		sc.add("public " + POINT + " computeSizeConstraints(int widthInChars, int heightInChars) {");
+		sc.add("public " + POINT(sc) + " computeSizeConstraints(int widthInChars, int heightInChars) {");
 		sc.add("if (fSymbolicFontName == null) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(GC + " gc= new " + GC + "(fBrowser);");
-		sc.add(FONT + " font= fSymbolicFontName == null ? " + J_FACE_RESOURCES + ".getDialogFont() : " + J_FACE_RESOURCES + ".getFont(fSymbolicFontName);");
+		sc.add(GC(sc) + " gc= new " + GC(sc) + "(fBrowser);");
+		sc.add(FONT(sc) + " font= fSymbolicFontName == null ? " + J_FACE_RESOURCES(sc) + ".getDialogFont() : " + J_FACE_RESOURCES(sc) + ".getFont(fSymbolicFontName);");
 		sc.add("gc.setFont(font);");
 		sc.add("int width= gc.getFontMetrics().getAverageCharWidth();");
 		sc.add("int height= gc.getFontMetrics().getHeight();");
 		sc.add("gc.dispose();");
 		sc.addLineBreak();
-		sc.add("return new " + POINT + "(widthInChars * width, heightInChars * height);");
+		sc.add("return new " + POINT(sc) + "(widthInChars * width, heightInChars * height);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");

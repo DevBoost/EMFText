@@ -18,7 +18,7 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARABLE;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,7 +32,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A proposal for completing an incomplete document.");
@@ -141,8 +141,8 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addImageMethod(StringComposite sc) {
-		sc.add("public " + IMAGE + " getImage() {");
+	private void addImageMethod(JavaComposite sc) {
+		sc.add("public " + IMAGE(sc) + " getImage() {");
 		sc.add("return image;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -168,16 +168,16 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addConstructor2(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image) {");
+	private void addConstructor2(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE(sc) + " image) {");
 		sc.add("this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container);");
 		sc.add("this.image = image;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
-	private void addConstructor3(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE + " image, String displayString) {");
+	private void addConstructor3(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE(sc) + " image, String displayString) {");
 		sc.add("this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container, image);");
 		sc.add("this.displayString = displayString;");
 		sc.add("}");
@@ -205,7 +205,6 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		);
 		sc.add("private String prefix;");
 		sc.addLineBreak();
-
 		String fieldDoc = 
 			"A flag that indicates whether this proposal is valid w.r.t. the prefix (i.e., " +
 			"the text that has already been typed). We do keep proposals that do not match " +
@@ -237,7 +236,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addJavadoc(
 				"The image that will be shown in the pop-up containing the completion proposals."
 			);
-		sc.add("private " + IMAGE + " image;");
+		sc.add("private " + IMAGE(sc) + " image;");
 		sc.addLineBreak();
 
 		sc.addFields();

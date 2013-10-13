@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,7 +31,7 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<Artif
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iHoverTextProviderClassName + " {");
 		sc.addLineBreak();
@@ -41,23 +41,23 @@ public class DefaultHoverTextProviderGenerator extends UIJavaBaseGenerator<Artif
 	}
 
 	private void addGetHoverTextMethod1(JavaComposite sc) {
-		sc.add("public String getHoverText(" + E_OBJECT + " container, " + E_OBJECT + " referencedObject) {");
+		sc.add("public String getHoverText(" + E_OBJECT(sc) + " container, " + E_OBJECT(sc) + " referencedObject) {");
 		sc.add("return getHoverText(referencedObject);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addGetHoverTextMethod2(JavaComposite sc) {
-		sc.add("public String getHoverText(" + E_OBJECT + " object) {");
+		sc.add("public String getHoverText(" + E_OBJECT(sc) + " object) {");
 		sc.add("if (object == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(E_CLASS + " eClass = object.eClass();");
+		sc.add(E_CLASS(sc) + " eClass = object.eClass();");
 		sc.add("String label = \"<strong>\" + eClass.getName() + \"</strong>\";");
-		sc.add("String documentation = " + ECORE_UTIL + ".getDocumentation(eClass);");
+		sc.add("String documentation = " + ECORE_UTIL(sc) + ".getDocumentation(eClass);");
 		sc.add("String documentationHTML = documentation == null ? \"\" : \" (\" + documentation +\")\";");
 		sc.add("label += documentationHTML;");
-		sc.add("for (" + E_ATTRIBUTE + " attribute : eClass.getEAllAttributes()) {");
+		sc.add("for (" + E_ATTRIBUTE(sc) + " attribute : eClass.getEAllAttributes()) {");
 		sc.add("Object value = null;");
 		sc.add("try {");
 		sc.add("value = object.eGet(attribute);");

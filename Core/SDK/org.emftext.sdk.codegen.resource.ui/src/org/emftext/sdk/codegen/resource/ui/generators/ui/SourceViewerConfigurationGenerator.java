@@ -15,33 +15,33 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ACTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.CONTENT_ASSISTANT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_ANNOTATION_HOVER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DEFAULT_DAMAGER_REPAIRER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.EDITORS_UI;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ANNOTATION_HOVER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_AUTO_EDIT_STRATEGY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_CONTENT_ASSISTANT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_HYPERLINK_DETECTOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PRESENTATION_RECONCILER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_QUICK_ASSIST_ASSISTANT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RECONCILER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RECONCILING_STRATEGY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SPELLING_PROBLEM_COLLECTOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TEXT_HOVER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_SCANNER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MONO_RECONCILER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PRESENTATION_RECONCILER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SPELLING_PROBLEM;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SPELLING_RECONCILE_STRATEGY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SPELLING_SERVICE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TEXT_SOURCE_VIEWER_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ACTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTENT_ASSISTANT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEFAULT_ANNOTATION_HOVER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEFAULT_DAMAGER_REPAIRER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EDITORS_UI;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_HOVER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_AUTO_EDIT_STRATEGY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTENT_ASSISTANT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HYPERLINK_DETECTOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PRESENTATION_RECONCILER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_ASSIST_ASSISTANT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RECONCILER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RECONCILING_STRATEGY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SPELLING_PROBLEM_COLLECTOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_HOVER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN_SCANNER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MONO_RECONCILER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PRESENTATION_RECONCILER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SPELLING_PROBLEM;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SPELLING_RECONCILE_STRATEGY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SPELLING_SERVICE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_SOURCE_VIEWER_CONFIGURATION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -54,13 +54,13 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"This class provides the configuration for the generated editor. " +
 			"It registers content assistance and syntax highlighting."
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + TEXT_SOURCE_VIEWER_CONFIGURATION + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + TEXT_SOURCE_VIEWER_CONFIGURATION(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -85,9 +85,9 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		);
 		sc.add("public " + getResourceClassName() + "(" + iResourceProviderClassName + " resourceProvider, " + iAnnotationModelProviderClassName + " annotationModelProvider, " + colorManagerClassName + " colorManager) {");
 		sc.add("super(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
-		sc.add("this.fPreferenceStore.setDefault(" + SPELLING_SERVICE + ".PREFERENCE_SPELLING_ENABLED, true);");
-		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS + ".EDITOR_TAB_WIDTH, 4);");
-		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS + ".EDITOR_HYPERLINK_KEY_MODIFIER, " + ACTION + ".findModifierString(" + SWT + ".MOD1));");
+		sc.add("this.fPreferenceStore.setDefault(" + SPELLING_SERVICE(sc) + ".PREFERENCE_SPELLING_ENABLED, true);");
+		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS(sc) + ".EDITOR_TAB_WIDTH, 4);");
+		sc.add("this.fPreferenceStore.setDefault(" + ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS(sc) + ".EDITOR_HYPERLINK_KEY_MODIFIER, " + ACTION(sc) + ".findModifierString(" + SWT(sc) + ".MOD1));");
 		sc.add("this.resourceProvider = resourceProvider;");
 		sc.add("this.annotationModelProvider = annotationModelProvider;");
 		sc.add("this.colorManager = colorManager;");
@@ -112,45 +112,45 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 	private void addGetAutoEditStrategies(JavaComposite sc) {
 		sc.addJavadoc("Returns an instance of class " + 
 			autoEditStrategyClassName + ".");
-		sc.add("public " + I_AUTO_EDIT_STRATEGY + "[] getAutoEditStrategies(" + I_SOURCE_VIEWER + " sourceViewer, String contentType) {");
-		sc.add("return new " + I_AUTO_EDIT_STRATEGY + "[] {new " + autoEditStrategyClassName +"()};");
+		sc.add("public " + I_AUTO_EDIT_STRATEGY(sc) + "[] getAutoEditStrategies(" + I_SOURCE_VIEWER(sc) + " sourceViewer, String contentType) {");
+		sc.add("return new " + I_AUTO_EDIT_STRATEGY(sc) + "[] {new " + autoEditStrategyClassName +"()};");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetReconcilerMethod(JavaComposite sc) {
-		sc.add("public " + I_RECONCILER + " getReconciler(final " + I_SOURCE_VIEWER + " sourceViewer) {");
-		sc.add("if (fPreferenceStore == null || !fPreferenceStore.getBoolean(" + SPELLING_SERVICE + ".PREFERENCE_SPELLING_ENABLED)) {");
+		sc.add("public " + I_RECONCILER(sc) + " getReconciler(final " + I_SOURCE_VIEWER(sc) + " sourceViewer) {");
+		sc.add("if (fPreferenceStore == null || !fPreferenceStore.getBoolean(" + SPELLING_SERVICE(sc) + ".PREFERENCE_SPELLING_ENABLED)) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(SPELLING_SERVICE + " spellingService = " + EDITORS_UI + ".getSpellingService();");
+		sc.add(SPELLING_SERVICE(sc) + " spellingService = " + EDITORS_UI(sc) + ".getSpellingService();");
 		sc.add("if (spellingService.getActiveSpellingEngineDescriptor(fPreferenceStore) == null) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(I_RECONCILING_STRATEGY + " strategy = new " + SPELLING_RECONCILE_STRATEGY + "(sourceViewer, spellingService) {");
+		sc.add(I_RECONCILING_STRATEGY(sc) + " strategy = new " + SPELLING_RECONCILE_STRATEGY(sc) + "(sourceViewer, spellingService) {");
 		sc.addLineBreak();
 		sc.add("@Override");
-		sc.add("protected " + I_SPELLING_PROBLEM_COLLECTOR + " createSpellingProblemCollector() {");
-		sc.add("final " + I_SPELLING_PROBLEM_COLLECTOR + " collector = super.createSpellingProblemCollector();");
+		sc.add("protected " + I_SPELLING_PROBLEM_COLLECTOR(sc) + " createSpellingProblemCollector() {");
+		sc.add("final " + I_SPELLING_PROBLEM_COLLECTOR(sc) + " collector = super.createSpellingProblemCollector();");
 		sc.addLineBreak();
-		sc.add("return new " + I_SPELLING_PROBLEM_COLLECTOR + "() {");
+		sc.add("return new " + I_SPELLING_PROBLEM_COLLECTOR(sc) + "() {");
 		sc.addLineBreak();
-		sc.add("public void accept(" + SPELLING_PROBLEM + " problem) {");
+		sc.add("public void accept(" + SPELLING_PROBLEM(sc) + " problem) {");
 		sc.add("int offset = problem.getOffset();");
 		sc.add("int length = problem.getLength();");
 		sc.add("if (sourceViewer == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(I_DOCUMENT + " document = sourceViewer.getDocument();");
+		sc.add(I_DOCUMENT(sc) + " document = sourceViewer.getDocument();");
 		sc.add("if (document == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("String text;");
 		sc.add("try {");
 		sc.add("text = document.get(offset, length);");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("if (new " + ignoredWordsFilterClassName + "().ignoreWord(text)) {");
@@ -170,7 +170,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.add("};");
 		sc.addLineBreak();
-		sc.add(MONO_RECONCILER + " reconciler = new " + MONO_RECONCILER + "(strategy, false);");
+		sc.add(MONO_RECONCILER(sc) + " reconciler = new " + MONO_RECONCILER(sc) + "(strategy, false);");
 		sc.add("reconciler.setDelay(500);");
 		sc.add("return reconciler;");
 		sc.add("}");
@@ -178,7 +178,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 	}
 
 	private void addGetQuickAssistAssistantMethod(JavaComposite sc) {
-		sc.add("public " + I_QUICK_ASSIST_ASSISTANT + " getQuickAssistAssistant(" + I_SOURCE_VIEWER + " sourceViewer) {");
+		sc.add("public " + I_QUICK_ASSIST_ASSISTANT(sc) + " getQuickAssistAssistant(" + I_SOURCE_VIEWER(sc) + " sourceViewer) {");
 		sc.add("if (quickAssistAssistant == null) {");
 		sc.add("quickAssistAssistant = new " + quickAssistAssistantClassName + "(resourceProvider, annotationModelProvider);");
 		sc.add("}");
@@ -187,37 +187,37 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 	}
 
-	private void addGetHyperlinkDetectorsMethod(StringComposite sc) {
-		sc.add("public " + I_HYPERLINK_DETECTOR + "[] getHyperlinkDetectors(" + I_SOURCE_VIEWER + " sourceViewer) {");
+	private void addGetHyperlinkDetectorsMethod(JavaComposite sc) {
+		sc.add("public " + I_HYPERLINK_DETECTOR(sc) + "[] getHyperlinkDetectors(" + I_SOURCE_VIEWER(sc) + " sourceViewer) {");
 		sc.add("if (sourceViewer == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("return new " + I_HYPERLINK_DETECTOR + "[] { new " + hyperlinkDetectorClassName + "(resourceProvider.getResource()) };");
+		sc.add("return new " + I_HYPERLINK_DETECTOR(sc) + "[] { new " + hyperlinkDetectorClassName + "(resourceProvider.getResource()) };");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetTextHoverMethod(StringComposite sc) {
-		sc.add("public " + I_TEXT_HOVER + " getTextHover(" + I_SOURCE_VIEWER + " sourceViewer, String contentType) {");
+	private void addGetTextHoverMethod(JavaComposite sc) {
+		sc.add("public " + I_TEXT_HOVER(sc) + " getTextHover(" + I_SOURCE_VIEWER(sc) + " sourceViewer, String contentType) {");
 		sc.add("return new " + textHoverClassName + "(resourceProvider);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetAnnotationHoverMethod(StringComposite sc) {
-		sc.add("public " + I_ANNOTATION_HOVER + " getAnnotationHover(" + I_SOURCE_VIEWER + " sourceViewer) {");
-		sc.add("return new " + DEFAULT_ANNOTATION_HOVER + "();");
+	private void addGetAnnotationHoverMethod(JavaComposite sc) {
+		sc.add("public " + I_ANNOTATION_HOVER(sc) + " getAnnotationHover(" + I_SOURCE_VIEWER(sc) + " sourceViewer) {");
+		sc.add("return new " + DEFAULT_ANNOTATION_HOVER(sc) + "();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetPresentationReconcilerMethod(StringComposite sc) {
-		sc.add("public " + I_PRESENTATION_RECONCILER + " getPresentationReconciler(" + I_SOURCE_VIEWER + " sourceViewer) {");
+	private void addGetPresentationReconcilerMethod(JavaComposite sc) {
+		sc.add("public " + I_PRESENTATION_RECONCILER(sc) + " getPresentationReconciler(" + I_SOURCE_VIEWER(sc) + " sourceViewer) {");
 		sc.addLineBreak();
-		sc.add(PRESENTATION_RECONCILER + " reconciler = new " + PRESENTATION_RECONCILER + "();");
-		sc.add(DEFAULT_DAMAGER_REPAIRER + " repairer = new " + DEFAULT_DAMAGER_REPAIRER + "(getScanner());");
-		sc.add("reconciler.setDamager(repairer, " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
-		sc.add("reconciler.setRepairer(repairer, " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
+		sc.add(PRESENTATION_RECONCILER(sc) + " reconciler = new " + PRESENTATION_RECONCILER(sc) + "();");
+		sc.add(DEFAULT_DAMAGER_REPAIRER(sc) + " repairer = new " + DEFAULT_DAMAGER_REPAIRER(sc) + "(getScanner());");
+		sc.add("reconciler.setDamager(repairer, " + I_DOCUMENT(sc) + ".DEFAULT_CONTENT_TYPE);");
+		sc.add("reconciler.setRepairer(repairer, " + I_DOCUMENT(sc) + ".DEFAULT_CONTENT_TYPE);");
 		sc.addLineBreak();
 		sc.add("return reconciler;");
 		sc.add("}");
@@ -225,30 +225,30 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 	}
 
 	private void addGetScannerMethod(JavaComposite sc) {
-		sc.add("protected " + I_TOKEN_SCANNER + " getScanner() {");
+		sc.add("protected " + I_TOKEN_SCANNER(sc) + " getScanner() {");
 		sc.add("return new " + uiMetaInformationClassName + "().createTokenScanner(resourceProvider.getResource(), colorManager);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetConfiguredContentTypesMethod(StringComposite sc) {
-		sc.add("public String[] getConfiguredContentTypes(" + I_SOURCE_VIEWER + " sourceViewer) {");
+	private void addGetConfiguredContentTypesMethod(JavaComposite sc) {
+		sc.add("public String[] getConfiguredContentTypes(" + I_SOURCE_VIEWER(sc) + " sourceViewer) {");
 		sc.add("return new String[] {");
-		sc.add(I_DOCUMENT + ".DEFAULT_CONTENT_TYPE,");
+		sc.add(I_DOCUMENT(sc) + ".DEFAULT_CONTENT_TYPE,");
 		sc.add("};");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetContentAssistantMethod(StringComposite sc) {
-		sc.add("public " + I_CONTENT_ASSISTANT + " getContentAssistant(" + I_SOURCE_VIEWER + " sourceViewer) {");
+	private void addGetContentAssistantMethod(JavaComposite sc) {
+		sc.add("public " + I_CONTENT_ASSISTANT(sc) + " getContentAssistant(" + I_SOURCE_VIEWER(sc) + " sourceViewer) {");
 		sc.addLineBreak();
-		sc.add(CONTENT_ASSISTANT + " assistant = new " + CONTENT_ASSISTANT + "();");
-		sc.add("assistant.setContentAssistProcessor(new " + completionProcessorClassName + "(resourceProvider), " + I_DOCUMENT + ".DEFAULT_CONTENT_TYPE);");
+		sc.add(CONTENT_ASSISTANT(sc) + " assistant = new " + CONTENT_ASSISTANT(sc) + "();");
+		sc.add("assistant.setContentAssistProcessor(new " + completionProcessorClassName + "(resourceProvider), " + I_DOCUMENT(sc) + ".DEFAULT_CONTENT_TYPE);");
 		sc.add("assistant.enableAutoActivation(true);");
 		sc.add("assistant.setAutoActivationDelay(500);");
-		sc.add("assistant.setProposalPopupOrientation(" + I_CONTENT_ASSISTANT + ".PROPOSAL_OVERLAY);");
-		sc.add("assistant.setContextInformationPopupOrientation(" + I_CONTENT_ASSISTANT + ".CONTEXT_INFO_ABOVE);");
+		sc.add("assistant.setProposalPopupOrientation(" + I_CONTENT_ASSISTANT(sc) + ".PROPOSAL_OVERLAY);");
+		sc.add("assistant.setContextInformationPopupOrientation(" + I_CONTENT_ASSISTANT(sc) + ".CONTEXT_INFO_ABOVE);");
 		sc.addLineBreak();
 		sc.add("return assistant;");
 		sc.add("}");
@@ -259,7 +259,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		// TODO Use tokens from CS
 		sc.add("@Override");
 		sc.addLineBreak();
-		sc.add("public String[] getDefaultPrefixes(" + I_SOURCE_VIEWER + " sourceViewer, String contentType) {");
+		sc.add("public String[] getDefaultPrefixes(" + I_SOURCE_VIEWER(sc) + " sourceViewer, String contentType) {");
 		sc.add("return new String[] { \"//\" };");
 		sc.add("}");
 		sc.addLineBreak();

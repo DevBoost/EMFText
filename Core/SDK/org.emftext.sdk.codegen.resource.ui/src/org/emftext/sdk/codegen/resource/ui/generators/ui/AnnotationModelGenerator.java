@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.MARKER_ANNOTATION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_MARKER_ANNOTATION_MODEL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MARKER_ANNOTATION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_MARKER_ANNOTATION_MODEL;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,9 +29,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class AnnotationModelGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + RESOURCE_MARKER_ANNOTATION_MODEL + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + RESOURCE_MARKER_ANNOTATION_MODEL(sc) + " {");
 		sc.addLineBreak();
 		addConstructor(sc);
 		addCreateMarkerAnnotationMethod(sc);
@@ -39,14 +39,14 @@ public class AnnotationModelGenerator extends UIJavaBaseGenerator<ArtifactParame
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + I_RESOURCE + " resource) {");
+		sc.add("public " + getResourceClassName() + "(" + I_RESOURCE(sc) + " resource) {");
 		sc.add("super(resource);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCreateMarkerAnnotationMethod(JavaComposite sc) {
-		sc.add("protected " + MARKER_ANNOTATION + " createMarkerAnnotation(" + I_MARKER + " marker) {");
+		sc.add("protected " + MARKER_ANNOTATION(sc) + " createMarkerAnnotation(" + I_MARKER(sc) + " marker) {");
 		sc.add("return new " + markerAnnotationClassName + "(marker);");
 		sc.add("}");
 		sc.addLineBreak();

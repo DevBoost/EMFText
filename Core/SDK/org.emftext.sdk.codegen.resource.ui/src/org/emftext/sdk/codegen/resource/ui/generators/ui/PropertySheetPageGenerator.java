@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,17 +15,17 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GEN_CLASS;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GEN_FEATURE;
 import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GEN_PACKAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_WORKBENCH_PART;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROPERTY_SHEET_PAGE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_PART;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROPERTY_SHEET_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -38,9 +38,9 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + PROPERTY_SHEET_PAGE + " implements " + I_SELECTION_CHANGED_LISTENER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + PROPERTY_SHEET_PAGE(sc) + " implements " + I_SELECTION_CHANGED_LISTENER(sc) + " {");
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
@@ -55,7 +55,7 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	}
 
 	private void addSelectionChangedMethod2(JavaComposite sc) {
-		sc.add("public void selectionChanged(" + I_WORKBENCH_PART + " part, " + I_SELECTION + " iSelection) {");
+		sc.add("public void selectionChanged(" + I_WORKBENCH_PART(sc) + " part, " + I_SELECTION(sc) + " iSelection) {");
 		sc.addComment(
 			"This is a workaround for a bug in EMF " +
 			"(see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301)." +
@@ -63,7 +63,7 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		);
 		sc.add("if (iSelection instanceof " + eObjectSelectionClassName + ") {");
 		sc.add("final " + eObjectSelectionClassName + " selection = (" + eObjectSelectionClassName + ") iSelection;");
-		sc.add("final " + E_OBJECT + " selectedObject = selection.getSelectedObject();");
+		sc.add("final " + E_OBJECT(sc) + " selectedObject = selection.getSelectedObject();");
 		sc.addComment(
 			"check whether the selected object or one of its children contains " +
 			"a proxy which is a GenXYZClass (e.g., GenFeature, GenClass, GenPackage)"
@@ -73,13 +73,13 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("}");
 		sc.add("}");
 		
-		sc.add("if (iSelection instanceof " + I_STRUCTURED_SELECTION + ") {");
-		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") iSelection;");
-		sc.add(ITERATOR + "<?> it = structuredSelection.iterator();");
+		sc.add("if (iSelection instanceof " + I_STRUCTURED_SELECTION(sc) + ") {");
+		sc.add(I_STRUCTURED_SELECTION(sc) + " structuredSelection = (" + I_STRUCTURED_SELECTION(sc) + ") iSelection;");
+		sc.add(ITERATOR(sc) + "<?> it = structuredSelection.iterator();");
 		sc.add("while (it.hasNext()) {");
 		sc.add("final Object next = it.next();");
-		sc.add("if (next instanceof " + E_OBJECT + ") {");
-		sc.add("if (containsGenProxy((" + E_OBJECT + ") next)) {");
+		sc.add("if (next instanceof " + E_OBJECT(sc) + ") {");
+		sc.add("if (containsGenProxy((" + E_OBJECT(sc) + ") next)) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
@@ -92,25 +92,25 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addSelectionChangedMethod1(StringComposite sc) {
-		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+	private void addSelectionChangedMethod1(JavaComposite sc) {
+		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT(sc) + " event) {");
 		sc.add("selectionChanged(null, event.getSelection());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addContainsGenProxyMethod(StringComposite sc) {
-		sc.add("private boolean containsGenProxy(" + E_OBJECT + " selectedObject) {");
+	private void addContainsGenProxyMethod(JavaComposite sc) {
+		sc.add("private boolean containsGenProxy(" + E_OBJECT(sc) + " selectedObject) {");
 		sc.add("boolean isGenProxy = isGenProxy(selectedObject);");
 		sc.add("if (isGenProxy) {");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("for (" + E_OBJECT + " child : selectedObject.eCrossReferences()) {");
+		sc.add("for (" + E_OBJECT(sc) + " child : selectedObject.eCrossReferences()) {");
 		sc.add("if (isGenProxy(child)) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("for (" + E_OBJECT + " child : selectedObject.eContents()) {");
+		sc.add("for (" + E_OBJECT(sc) + " child : selectedObject.eContents()) {");
 		sc.add("if (containsGenProxy(child)) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -120,8 +120,8 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addIsGenProxyMethod(StringComposite sc) {
-		sc.add("private boolean isGenProxy(" + E_OBJECT + " selectedObject) {");
+	private void addIsGenProxyMethod(JavaComposite sc) {
+		sc.add("private boolean isGenProxy(" + E_OBJECT(sc) + " selectedObject) {");
 		sc.add("boolean isGenMetaclass = isInstanceOf(\"" + GEN_CLASS + "\", selectedObject);");
 		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_FEATURE + "\", selectedObject);");
 		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_PACKAGE + "\", selectedObject);");

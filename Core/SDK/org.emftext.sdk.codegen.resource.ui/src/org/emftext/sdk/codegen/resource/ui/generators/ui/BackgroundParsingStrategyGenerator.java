@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.DOCUMENT_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.JOB;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DOCUMENT_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.JOB;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STATUS;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -37,7 +37,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A background parsing strategy that starts parsing after a amount of " +
@@ -76,7 +76,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 
 	private void addParseMethod1(JavaComposite sc) {
 		sc.addJavadoc(PARSE_METHOD_JAVADOC);
-		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor) {");
+		sc.add("public void parse(" + DOCUMENT_EVENT(sc) + " event, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor) {");
 		sc.add("parse(event.getDocument(), resource, editor, DELAY);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -84,7 +84,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 
 	private void addParseMethod2(JavaComposite sc) {
 		sc.addJavadoc(PARSE_METHOD_JAVADOC);
-		sc.add("public void parse(" + I_DOCUMENT + " document, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor, long delay) {");
+		sc.add("public void parse(" + I_DOCUMENT(sc) + " document, final " + iTextResourceClassName + " resource, final " + editorClassName + " editor, long delay) {");
 		sc.add("parse(document.get(), resource, editor, delay);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -109,7 +109,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 			"editor are created, which is not desired."
 		);
 		sc.add("synchronized (lock) {");
-		sc.add("if (job == null || job.getState() != " + JOB + ".RUNNING) {");
+		sc.add("if (job == null || job.getState() != " + JOB(sc) + ".RUNNING) {");
 		sc.addComment("schedule new task");
 		sc.add("job = new ParsingJob();");
 		sc.add("job.resource = resource;");
@@ -125,7 +125,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 	}
 	
 	private void addInnerClassParsingJob(JavaComposite sc) {
-		sc.add("private class ParsingJob extends " + JOB + " {");
+		sc.add("private class ParsingJob extends " + JOB(sc) + " {");
 		sc.add("private " + editorClassName + " editor;");
 		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.addLineBreak();
@@ -135,7 +135,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.addLineBreak();
 		sc.add("private String newContents = null;");
 		sc.addLineBreak();	
-		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("protected " + I_STATUS(sc) + " run(" + I_PROGRESS_MONITOR(sc) + " monitor) {");
 		sc.add("while (newContents != null ) {");
 		sc.add("while (newContents != null) {");
 		sc.add("try {");
@@ -153,7 +153,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("} else {");
 		sc.add("bytes = currentContent.getBytes();");
 		sc.add("}");
-		sc.add("resource.reload(new " + BYTE_ARRAY_INPUT_STREAM + "(bytes), null);");
+		sc.add("resource.reload(new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(bytes), null);");
 		sc.add("if (newContents != null) {");
 		sc.add("Thread.sleep(DELAY);");
 		sc.add("}");
@@ -163,7 +163,7 @@ public class BackgroundParsingStrategyGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("}");
 		sc.add("editor.notifyBackgroundParsingFinished();");
 		sc.add("}");
-		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("return " + STATUS(sc) + ".OK_STATUS;");
 		sc.add("}");
 		sc.add("};");
 		sc.addLineBreak();

@@ -17,19 +17,19 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL_EQUALITY_HELPER;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FEATURE_MAP;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSITE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_ELEMENT_COMPARER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_CHANGED_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SELECTION_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.TREE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.VIEWER_FILTER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT_COMPARER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_EVENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TREE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER_FILTER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -42,14 +42,14 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"This custom implementation of a TreeViewer expands the tree " +
 			"automatically up to a specified depth."
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + TREE_VIEWER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + TREE_VIEWER(sc) + " {");
 		sc.addLineBreak();
 		
 		addInnerClassTypeFilter(sc);
@@ -67,7 +67,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("private static final long serialVersionUID = 1L;");
 		sc.addLineBreak();
 		sc.add("@Override");
-		sc.add("protected boolean haveEqualReference(" + E_OBJECT + " eObject1, " + E_OBJECT + " eObject2, " + E_REFERENCE + " reference) {");
+		sc.add("protected boolean haveEqualReference(" + E_OBJECT(sc) + " eObject1, " + E_OBJECT(sc) + " eObject2, " + E_REFERENCE(sc) + " reference) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -81,29 +81,29 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addRemoveTypeToFilterMethod(JavaComposite sc) {
-		sc.add("public void removeTypeToFilter(" + E_CLASS + " typeToNotFilter) {");
+		sc.add("public void removeTypeToFilter(" + E_CLASS(sc) + " typeToNotFilter) {");
 		sc.add("typeFilter.getFilteredTypes().remove(typeToNotFilter);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addAddTypeToFilterMethod(JavaComposite sc) {
-		sc.add("public void addTypeToFilter(" + E_CLASS + " typeToFilter) {");
+		sc.add("public void addTypeToFilter(" + E_CLASS(sc) + " typeToFilter) {");
 		sc.add("typeFilter.getFilteredTypes().add(typeToFilter);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addInnerClassTypeFilter(JavaComposite sc) {
-		sc.add("public class TypeFilter extends " + VIEWER_FILTER + " {");
+		sc.add("public class TypeFilter extends " + VIEWER_FILTER(sc) + " {");
 		sc.addLineBreak();
-		sc.add("private " +  sc.declareLinkedHashSet("filteredTypes", E_CLASS));
+		sc.add("private " +  sc.declareLinkedHashSet("filteredTypes",E_CLASS(sc)));
 		sc.addLineBreak();
 		sc.add("@Override");
-		sc.add("public boolean select(" + VIEWER + " viewer, Object parentElement, Object element) {");
-		sc.add("if (element instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") element;");
-		sc.add("for (" + E_CLASS + " filteredType : filteredTypes) {");
+		sc.add("public boolean select(" + VIEWER(sc) + " viewer, Object parentElement, Object element) {");
+		sc.add("if (element instanceof " + E_OBJECT(sc) + ") {");
+		sc.add(E_OBJECT(sc) + " eObject = (" + E_OBJECT(sc) + ") element;");
+		sc.add("for (" + E_CLASS(sc) + " filteredType : filteredTypes) {");
 		sc.add("if (filteredType.isInstance(eObject)) {");
 		sc.add("return false;");
 		sc.add("}");
@@ -112,7 +112,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + SET + "<" + E_CLASS + "> getFilteredTypes() {");
+		sc.add("public " + SET(sc) + "<" + E_CLASS(sc) + "> getFilteredTypes() {");
 		sc.add("return filteredTypes;");
 		sc.add("}");
 		sc.add("}");
@@ -214,8 +214,8 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addSetSelectionMethod(StringComposite sc) {
-		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
+	private void addSetSelectionMethod(JavaComposite sc) {
+		sc.add("public void setSelection(" + I_SELECTION(sc) + " selection, boolean reveal) {");
 		sc.add("if (!linkWithEditor) {");
 		sc.add("return;");
 		sc.add("}");
@@ -232,7 +232,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	}
 	
 	private void addHandleSelectMethod(JavaComposite sc) {
-		sc.add("protected void handleSelect(" + SELECTION_EVENT + " event) {");
+		sc.add("protected void handleSelect(" + SELECTION_EVENT(sc) + " event) {");
 		sc.add("if (event.item == null) {");
 		sc.addComment(
 			"In the cases of an invalid document, the tree widget in the outline might fire an event " +
@@ -246,14 +246,14 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	}
 	
 	private void addHandleInvalidSelectionMethod(JavaComposite sc) {
-		sc.add("protected void handleInvalidSelection(" + I_SELECTION + " selection, " + I_SELECTION + " newSelection) {");
+		sc.add("protected void handleInvalidSelection(" + I_SELECTION(sc) + " selection, " + I_SELECTION(sc) + " newSelection) {");
 		sc.addComment("this may not fire a selection changed event to avoid cyclic events between editor and outline");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
-	private void addFireSelectionChangedMethod(StringComposite sc) {
-		sc.add("protected void fireSelectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+	private void addFireSelectionChangedMethod(JavaComposite sc) {
+		sc.add("protected void fireSelectionChanged(" + SELECTION_CHANGED_EVENT(sc) + " event) {");
 		sc.add("if (suppressNotifications == true) {");
 		sc.add("return;");
 		sc.add("}");
@@ -263,10 +263,10 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + COMPOSITE + " parent, int style) {");
+		sc.add("public " + getResourceClassName() + "(" + COMPOSITE(sc) + " parent, int style) {");
 		sc.add("super(parent, style);");
 		sc.add("addFilter(typeFilter);");
-		sc.add("setComparer(new " + I_ELEMENT_COMPARER + "() {");
+		sc.add("setComparer(new " + I_ELEMENT_COMPARER(sc) + "() {");
 		sc.addLineBreak();
 		sc.add("public int hashCode(Object element) {");
 		sc.add("String s = toString(element);");
@@ -277,8 +277,8 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean equals(Object o1, Object o2) {");
-		sc.add("if (o1 instanceof " + E_OBJECT + " && o2 instanceof " + E_OBJECT + ") {");
-		sc.add("return new FlatEObjectComparer().equals((" + E_OBJECT + ") o1, (" + E_OBJECT + ") o2);");
+		sc.add("if (o1 instanceof " + E_OBJECT(sc) + " && o2 instanceof " + E_OBJECT(sc) + ") {");
+		sc.add("return new FlatEObjectComparer().equals((" + E_OBJECT(sc) + ") o1, (" + E_OBJECT(sc) + ") o2);");
 		sc.add("}");
 		sc.add("String s1 = toString(o1);");
 		sc.add("String s2 = toString(o2);");
@@ -292,8 +292,8 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("if (o instanceof String) {");
 		sc.add("return (String) o;");
 		sc.add("}");
-		sc.add("if (o instanceof " + RESOURCE + ") {");
-		sc.add("return ((" + RESOURCE + ") o).getURI().toString();");
+		sc.add("if (o instanceof " + RESOURCE(sc) + ") {");
+		sc.add("return ((" + RESOURCE(sc) + ") o).getURI().toString();");
 		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");

@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_PREFERENCE_STORE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_SOURCE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.PROJECTION_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.STYLED_TEXT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROJECTION_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STYLED_TEXT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -36,7 +36,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("A container for all bracket pairs.");
 		sc.add("public class " + getResourceClassName() + " {");
@@ -64,7 +64,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + ARRAY_LIST + "<" + iBracketPairClassName + "> bracketPairs;");
+		sc.add("private " + ARRAY_LIST(sc) + "<" + iBracketPairClassName + "> bracketPairs;");
 		sc.add("private String languageID;");
 		sc.addLineBreak();
 	}
@@ -74,7 +74,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.add("this.languageID = new " + metaInformationClassName + "().getSyntaxName();");
-		sc.add("this.bracketPairs = new " + ARRAY_LIST + "<" + iBracketPairClassName + ">();");
+		sc.add("this.bracketPairs = new " + ARRAY_LIST(sc) + "<" + iBracketPairClassName + ">();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -100,11 +100,11 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	private void addMatchingBracketsMethod(JavaComposite sc) {
 		// TODO mseifert: MOVE THIS TO SOME OTHER CLASS
-		sc.add("public int getCaretOffset(" + I_SOURCE_VIEWER + " viewer, " + STYLED_TEXT + " textWidget) {");
-		sc.add(I_DOCUMENT + " document = viewer.getDocument();");
-		sc.add(PROJECTION_VIEWER + " projectionViewer = null;");
-		sc.add("if (viewer instanceof " + PROJECTION_VIEWER + ") {");
-		sc.add("projectionViewer = (" + PROJECTION_VIEWER + ") viewer;");
+		sc.add("public int getCaretOffset(" + I_SOURCE_VIEWER(sc) + " viewer, " + STYLED_TEXT(sc) + " textWidget) {");
+		sc.add(I_DOCUMENT(sc) + " document = viewer.getDocument();");
+		sc.add(PROJECTION_VIEWER(sc) + " projectionViewer = null;");
+		sc.add("if (viewer instanceof " + PROJECTION_VIEWER(sc) + ") {");
+		sc.add("projectionViewer = (" + PROJECTION_VIEWER(sc) + ") viewer;");
 		sc.add("}");
 		sc.add("if (document == null) {");
 		sc.add("return -1;");
@@ -119,11 +119,11 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 		sc.addJavadoc(
 			"Searches the matching bracket at the left side of the caret. The position " +
-			"information will be stored in the <code>" + I_DOCUMENT + "</code> in the category " +
+			"information will be stored in the <code>" + I_DOCUMENT(sc) + "</code> in the category " +
 			"<code>ExtensionConstants.PositionCategory.BRACKET</code>."
 			// TODO fix referenced class
 		);
-		sc.add("public void findAndHighlightMatchingBrackets(" + I_DOCUMENT + " document, int caretOffset) {");
+		sc.add("public void findAndHighlightMatchingBrackets(" + I_DOCUMENT(sc) + " document, int caretOffset) {");
 		sc.add("if (caretOffset <= 0) {");
 		sc.add("return;");
 		sc.add("}");
@@ -131,7 +131,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("final String prevStr;");
 		sc.add("try {");
 		sc.add("prevStr = \"\" + document.getChar(caretOffset - 1);");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("return;");
 		sc.add("}");
@@ -156,7 +156,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("position += isForward ? 1 : -1;");
 		sc.add("}");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("return;");
 		sc.add("}");
@@ -171,8 +171,8 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	private void addSerializeMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns this bracket set as <code>String</code>. This is useful to store the set in " +
-			"the <code>" + I_PREFERENCE_STORE + "</code>.",
-			"@see " + I_PREFERENCE_STORE
+			"the <code>" + I_PREFERENCE_STORE(sc) + "</code>.",
+			"@see " + I_PREFERENCE_STORE(sc)
 		);
 		sc.add("public String serialize() {");
 		sc.add("StringBuilder result = new StringBuilder();");
@@ -217,7 +217,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 			"contains of opening, closing and the flags 'closingEnabledInside' and 'closeAfterEnter'."
 		);
 		sc.add("public void deserialize(String bracketSet) {");
-		sc.add("bracketPairs = new " + ARRAY_LIST + "<" + iBracketPairClassName + ">();");
+		sc.add("bracketPairs = new " + ARRAY_LIST(sc) + "<" + iBracketPairClassName + ">();");
 		sc.add("String[] parts = bracketSet.split(SERIAL_SEPARATOR + SERIAL_SEPARATOR);");
 		sc.add("for (String part : parts) {");
 		sc.add("String[] fields = part.split(SERIAL_SEPARATOR);");
@@ -283,7 +283,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 
 	private void addResetBracketsMethod(JavaComposite sc) {
 		sc.addJavadoc("Removes all bracket pairs from this bracket set and reloads the bracket set from the preference store.");
-		sc.add("public boolean resetBrackets(" + I_PREFERENCE_STORE + " preferenceStore) {");
+		sc.add("public boolean resetBrackets(" + I_PREFERENCE_STORE(sc) + " preferenceStore) {");
 		sc.add("String bracketPairs = preferenceStore.getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX);");
 		sc.add("if (bracketPairs == null) {");
 		sc.add("return false;");

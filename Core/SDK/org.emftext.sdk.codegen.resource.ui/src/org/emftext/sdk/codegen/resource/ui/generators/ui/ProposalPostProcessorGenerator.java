@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class ProposalPostProcessorGenerator extends
 
 	public void generateJavaContents(JavaComposite sc) {
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		sc.addJavadoc("A class which can be overridden to customize code completion proposals.");
@@ -39,7 +39,7 @@ public class ProposalPostProcessorGenerator extends
 	}
 
 	private void addProcessProposalsMethod(JavaComposite sc) {
-		sc.add("public " + LIST + "<" + completionProposalClassName + "> process(" + LIST + "<" + completionProposalClassName + "> proposals) {");
+		sc.add("public " + LIST(sc) + "<" + completionProposalClassName + "> process(" + LIST(sc) + "<" + completionProposalClassName + "> proposals) {");
 		sc.addComment("the default implementation does returns the proposals as they are");
 		sc.add("return proposals;");
 		sc.add("}");
