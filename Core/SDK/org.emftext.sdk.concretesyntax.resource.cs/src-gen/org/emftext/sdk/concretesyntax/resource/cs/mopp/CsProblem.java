@@ -16,27 +16,31 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+
 public class CsProblem implements org.emftext.sdk.concretesyntax.resource.cs.ICsProblem {
 	
 	private String message;
 	private org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type;
 	private org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity severity;
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes;
+	private Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes;
 	
 	public CsProblem(String message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity severity) {
-		this(message, type, severity, java.util.Collections.<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>emptySet());
+		this(message, type, severity, Collections.<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>emptySet());
 	}
 	
 	public CsProblem(String message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity severity, org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix) {
-		this(message, type, severity, java.util.Collections.singleton(quickFix));
+		this(message, type, severity, Collections.singleton(quickFix));
 	}
 	
-	public CsProblem(String message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity severity, java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes) {
+	public CsProblem(String message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemSeverity severity, Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes) {
 		super();
 		this.message = message;
 		this.type = type;
 		this.severity = severity;
-		this.quickFixes = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+		this.quickFixes = new LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 		this.quickFixes.addAll(quickFixes);
 	}
 	
@@ -52,7 +56,7 @@ public class CsProblem implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		return message;
 	}
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
 		return quickFixes;
 	}
 	

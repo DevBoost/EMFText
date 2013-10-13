@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+
 public class CsTaskItem {
 	
 	private String keyword;

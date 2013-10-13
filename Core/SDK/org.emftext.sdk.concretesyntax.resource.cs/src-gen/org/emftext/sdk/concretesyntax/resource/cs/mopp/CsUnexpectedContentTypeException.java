@@ -16,12 +16,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.antlr.runtime3_4_0.RecognitionException;
+
 /**
  * An Excpetion to represent invalid content types for parser instances.
  * 
  * @see org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_CONTENT_TYPE
  */
-public class CsUnexpectedContentTypeException extends org.antlr.runtime3_4_0.RecognitionException {
+public class CsUnexpectedContentTypeException extends RecognitionException {
 	
 	private static final long serialVersionUID = 4791359811519433999L;
 	

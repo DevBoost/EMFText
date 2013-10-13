@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * This interface is extended by some other generated classes. It provides access
  * to the plug-in meta information.

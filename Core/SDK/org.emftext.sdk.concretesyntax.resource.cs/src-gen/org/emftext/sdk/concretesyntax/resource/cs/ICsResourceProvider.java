@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * Implementors of this interface provide an EMF resource.
  */

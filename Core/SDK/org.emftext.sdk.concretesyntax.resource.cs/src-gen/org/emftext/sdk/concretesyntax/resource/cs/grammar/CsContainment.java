@@ -16,24 +16,27 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 public class CsContainment extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal {
 	
-	private final org.eclipse.emf.ecore.EClass[] allowedTypes;
+	private final EClass[] allowedTypes;
 	
-	public CsContainment(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, org.eclipse.emf.ecore.EClass[] allowedTypes, int mandatoryOccurencesAfter) {
+	public CsContainment(EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, EClass[] allowedTypes, int mandatoryOccurencesAfter) {
 		super(feature, cardinality, mandatoryOccurencesAfter);
 		this.allowedTypes = allowedTypes;
 	}
 	
-	public org.eclipse.emf.ecore.EClass[] getAllowedTypes() {
+	public EClass[] getAllowedTypes() {
 		return allowedTypes;
 	}
 	
 	public String toString() {
 		String typeRestrictions = null;
 		if (allowedTypes != null && allowedTypes.length > 0) {
-			typeRestrictions = org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(allowedTypes, ", ", new org.emftext.sdk.concretesyntax.resource.cs.ICsFunction1<String, org.eclipse.emf.ecore.EClass>() {
-				public String execute(org.eclipse.emf.ecore.EClass eClass) {
+			typeRestrictions = org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(allowedTypes, ", ", new org.emftext.sdk.concretesyntax.resource.cs.ICsFunction1<String, EClass>() {
+				public String execute(EClass eClass) {
 					return eClass.getName();
 				}
 			});

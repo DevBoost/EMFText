@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * A mapping from an identifier to something else. The &quot;something else&quot;
  * is defined by subclasses of this interface. Implementors of such subclasses are

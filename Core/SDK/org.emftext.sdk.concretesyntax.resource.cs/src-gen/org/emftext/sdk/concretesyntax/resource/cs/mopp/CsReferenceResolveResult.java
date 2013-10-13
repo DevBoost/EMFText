@@ -16,6 +16,13 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import org.eclipse.emf.common.util.URI;
+
 /**
  * A basic implementation of the
  * org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult interface
@@ -26,10 +33,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
  */
 public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> {
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> mappings;
+	private Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> mappings;
 	private String errorMessage;
 	private boolean resolveFuzzy;
-	private java.util.Set<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes;
+	private Set<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> quickFixes;
 	
 	public CsReferenceResolveResult(boolean resolveFuzzy) {
 		super();
@@ -40,21 +47,21 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 		return errorMessage;
 	}
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
 		if (quickFixes == null) {
-			quickFixes = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+			quickFixes = new LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 		}
-		return java.util.Collections.unmodifiableSet(quickFixes);
+		return Collections.unmodifiableSet(quickFixes);
 	}
 	
 	public void addQuickFix(org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix quickFix) {
 		if (quickFixes == null) {
-			quickFixes = new java.util.LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
+			quickFixes = new LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix>();
 		}
 		quickFixes.add(quickFix);
 	}
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings() {
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings() {
 		return mappings;
 	}
 	
@@ -83,19 +90,19 @@ public class CsReferenceResolveResult<ReferenceType> implements org.emftext.sdk.
 	
 	public void addMapping(String identifier, ReferenceType target, String warning) {
 		if (mappings == null) {
-			mappings = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>(1);
+			mappings = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>(1);
 		}
 		mappings.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsElementMapping<ReferenceType>(identifier, target, warning));
 		errorMessage = null;
 	}
 	
-	public void addMapping(String identifier, org.eclipse.emf.common.util.URI uri) {
+	public void addMapping(String identifier, URI uri) {
 		addMapping(identifier, uri, null);
 	}
 	
-	public void addMapping(String identifier, org.eclipse.emf.common.util.URI uri, String warning) {
+	public void addMapping(String identifier, URI uri, String warning) {
 		if (mappings == null) {
-			mappings = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>(1);
+			mappings = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>>(1);
 		}
 		mappings.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsURIMapping<ReferenceType>(identifier, uri, warning));
 	}

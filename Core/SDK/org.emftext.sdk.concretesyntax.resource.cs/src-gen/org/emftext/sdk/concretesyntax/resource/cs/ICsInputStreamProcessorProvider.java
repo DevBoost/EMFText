@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import java.io.InputStream;
+
 /**
  * Implementors of this interface can provide InputStreamProcessors. These
  * processors can be used to pre-process input stream before a text resource is
@@ -31,5 +33,5 @@ public interface ICsInputStreamProcessorProvider {
 	 * 
 	 * @return a processor that pre-processes the input stream
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsInputStreamProcessor getInputStreamProcessor(java.io.InputStream inputStream);
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsInputStreamProcessor getInputStreamProcessor(InputStream inputStream);
 }

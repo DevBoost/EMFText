@@ -16,6 +16,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import java.util.Map;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 /**
  * A class to represent an enumeration terminal in the grammar.
  */
@@ -23,9 +27,9 @@ public class CsEnumerationTerminal extends org.emftext.sdk.concretesyntax.resour
 	
 	private java.util.Map<String, String> mapping = new java.util.LinkedHashMap<String, String>();
 	
-	public CsEnumerationTerminal(org.eclipse.emf.ecore.EStructuralFeature attribute, String[] literalMappings, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurrencesAfter) {
+	public CsEnumerationTerminal(EStructuralFeature attribute, String[] literalMappings, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurrencesAfter) {
 		super(attribute, cardinality, mandatoryOccurrencesAfter);
-		assert attribute instanceof org.eclipse.emf.ecore.EAttribute;
+		assert attribute instanceof EAttribute;
 		assert literalMappings.length % 2 == 0;
 		for (int i = 0; i < literalMappings.length; i += 2) {
 			String literalName = literalMappings[i];
@@ -34,12 +38,12 @@ public class CsEnumerationTerminal extends org.emftext.sdk.concretesyntax.resour
 		}
 	}
 	
-	public java.util.Map<String, String> getLiteralMapping() {
+	public Map<String, String> getLiteralMapping() {
 		return this.mapping;
 	}
 	
-	public org.eclipse.emf.ecore.EAttribute getAttribute() {
-		return (org.eclipse.emf.ecore.EAttribute) getFeature();
+	public EAttribute getAttribute() {
+		return (EAttribute) getFeature();
 	}
 	
 	public String getText(String literalName) {

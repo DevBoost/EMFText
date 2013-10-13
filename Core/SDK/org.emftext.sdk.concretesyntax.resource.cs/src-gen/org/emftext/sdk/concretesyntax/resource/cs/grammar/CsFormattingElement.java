@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+
 public abstract class CsFormattingElement extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
 	public CsFormattingElement(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {

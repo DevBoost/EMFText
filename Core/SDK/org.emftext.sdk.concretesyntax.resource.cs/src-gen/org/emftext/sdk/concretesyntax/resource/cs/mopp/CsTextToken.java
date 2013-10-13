@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+
 public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken {
 	
 	private String name;

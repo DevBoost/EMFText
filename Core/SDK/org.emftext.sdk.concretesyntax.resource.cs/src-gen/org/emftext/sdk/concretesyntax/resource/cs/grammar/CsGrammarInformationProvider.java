@@ -16,20 +16,27 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import java.lang.reflect.Field;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcoreFactory;
+
 public class CsGrammarInformationProvider {
 	
-	public final static org.eclipse.emf.ecore.EStructuralFeature ANONYMOUS_FEATURE = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAttribute();
+	public final static EStructuralFeature ANONYMOUS_FEATURE = EcoreFactory.eINSTANCE.createEAttribute();
 	static {
 		ANONYMOUS_FEATURE.setName("_");
 	}
 	
 	public final static CsGrammarInformationProvider INSTANCE = new CsGrammarInformationProvider();
 	
-	private java.util.Set<String> keywords;
+	private Set<String> keywords;
 	
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_0_0_0_0_0_0_0 = INSTANCE.getCS_0_0_0_0_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_0_0_0_0_0_0_0() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak CS_0_0_0_0_0_0_1 = INSTANCE.getCS_0_0_0_0_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak getCS_0_0_0_0_0_0_1() {
@@ -197,7 +204,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_0_0_0_12_0_0_5_0_0_1 = INSTANCE.getCS_0_0_0_12_0_0_5_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_0_0_0_12_0_0_5_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_0_0_0_12_0_0_5_0_0 = INSTANCE.getCS_0_0_0_12_0_0_5_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_0_0_0_12_0_0_5_0_0() {
@@ -257,7 +264,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_0_0_0_13_0_0_5_0_0_1 = INSTANCE.getCS_0_0_0_13_0_0_5_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_0_0_0_13_0_0_5_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword CS_0_0_0_13_0_0_5_0_0_2 = INSTANCE.getCS_0_0_0_13_0_0_5_0_0_2();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword getCS_0_0_0_13_0_0_5_0_0_2() {
@@ -321,7 +328,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_0_0_0_14_0_0_5_0_0_1 = INSTANCE.getCS_0_0_0_14_0_0_5_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_0_0_0_14_0_0_5_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenDirective(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenDirective(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword CS_0_0_0_14_0_0_5_0_0_2 = INSTANCE.getCS_0_0_0_14_0_0_5_0_0_2();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword getCS_0_0_0_14_0_0_5_0_0_2() {
@@ -385,7 +392,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_0_0_0_15_0_0_5_0_0_1 = INSTANCE.getCS_0_0_0_15_0_0_5_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_0_0_0_15_0_0_5_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_0_0_0_15_0_0_5_0_0 = INSTANCE.getCS_0_0_0_15_0_0_5_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_0_0_0_15_0_0_5_0_0() {
@@ -445,7 +452,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_0_0_0_21_0_0_1 = INSTANCE.getCS_0_0_0_21_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_0_0_0_21_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_0_0_0_21_0_0 = INSTANCE.getCS_0_0_0_21_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_0_0_0_21_0_0() {
@@ -481,7 +488,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_1_0_0_0_0_0_0 = INSTANCE.getCS_1_0_0_0_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_1_0_0_0_0_0_0() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak CS_1_0_0_0_0_0_1 = INSTANCE.getCS_1_0_0_0_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak getCS_1_0_0_0_0_0_1() {
@@ -633,7 +640,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_3_0_0_0_0_0_0 = INSTANCE.getCS_3_0_0_0_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_3_0_0_0_0_0_0() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak CS_3_0_0_0_0_0_1 = INSTANCE.getCS_3_0_0_0_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak getCS_3_0_0_0_0_0_1() {
@@ -669,7 +676,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_3_0_0_5 = INSTANCE.getCS_3_0_0_5();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_3_0_0_5() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword CS_3_0_0_6 = INSTANCE.getCS_3_0_0_6();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword getCS_3_0_0_6() {
@@ -689,7 +696,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_4_0_0_0 = INSTANCE.getCS_4_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_4_0_0_0() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getDefinition(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getDefinition(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace CS_4_0_0_1_0_0_0 = INSTANCE.getCS_4_0_0_1_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace getCS_4_0_0_1_0_0_0() {
@@ -697,7 +704,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_4_0_0_1_0_0_1 = INSTANCE.getCS_4_0_0_1_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_4_0_0_1_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getDefinition(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getDefinition(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_4_0_0_1_0_0 = INSTANCE.getCS_4_0_0_1_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_4_0_0_1_0_0() {
@@ -725,7 +732,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_5_0_0_0 = INSTANCE.getCS_5_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_5_0_0_0() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace CS_5_0_0_1_0_0_0 = INSTANCE.getCS_5_0_0_1_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace getCS_5_0_0_1_0_0_0() {
@@ -741,7 +748,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_5_0_0_1_0_0_3 = INSTANCE.getCS_5_0_0_1_0_0_3();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_5_0_0_1_0_0_3() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_5_0_0_1_0_0 = INSTANCE.getCS_5_0_0_1_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_5_0_0_1_0_0() {
@@ -961,7 +968,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_11_0_0_2 = INSTANCE.getCS_11_0_0_2();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_11_0_0_2() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__LITERALS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__LITERALS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword CS_11_0_0_3_0_0_0 = INSTANCE.getCS_11_0_0_3_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword getCS_11_0_0_3_0_0_0() {
@@ -973,7 +980,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_11_0_0_3_0_0_2 = INSTANCE.getCS_11_0_0_3_0_0_2();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_11_0_0_3_0_0_2() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__LITERALS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ENUM_TERMINAL__LITERALS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_11_0_0_3_0_0 = INSTANCE.getCS_11_0_0_3_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_11_0_0_3_0_0() {
@@ -1097,7 +1104,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_14_0_0_1 = INSTANCE.getCS_14_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_14_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CHILDREN), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword CS_14_0_0_2 = INSTANCE.getCS_14_0_0_2();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword getCS_14_0_0_2() {
@@ -1153,7 +1160,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_17_0_0_0_0_0_0 = INSTANCE.getCS_17_0_0_0_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_17_0_0_0_0_0_0() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak CS_17_0_0_0_0_0_1 = INSTANCE.getCS_17_0_0_0_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak getCS_17_0_0_0_0_0_1() {
@@ -1197,7 +1204,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_17_0_0_7 = INSTANCE.getCS_17_0_0_7();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_17_0_0_7() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace CS_17_0_0_8_0_0_0 = INSTANCE.getCS_17_0_0_8_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace getCS_17_0_0_8_0_0_0() {
@@ -1213,7 +1220,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_17_0_0_8_0_0_3 = INSTANCE.getCS_17_0_0_8_0_0_3();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_17_0_0_8_0_0_3() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_REDEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_17_0_0_8_0_0 = INSTANCE.getCS_17_0_0_8_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_17_0_0_8_0_0() {
@@ -1241,7 +1248,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_18_0_0_0_0_0_0 = INSTANCE.getCS_18_0_0_0_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_18_0_0_0_0_0_0() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__ANNOTATIONS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak CS_18_0_0_0_0_0_1 = INSTANCE.getCS_18_0_0_0_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsLineBreak getCS_18_0_0_0_0_0_1() {
@@ -1277,7 +1284,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_18_0_0_5 = INSTANCE.getCS_18_0_0_5();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_18_0_0_5() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace CS_18_0_0_6_0_0_0 = INSTANCE.getCS_18_0_0_6_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace getCS_18_0_0_6_0_0_0() {
@@ -1293,7 +1300,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_18_0_0_6_0_0_3 = INSTANCE.getCS_18_0_0_6_0_0_3();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_18_0_0_6_0_0_3() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_18_0_0_6_0_0 = INSTANCE.getCS_18_0_0_6_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_18_0_0_6_0_0() {
@@ -1381,7 +1388,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_19_0_0_6 = INSTANCE.getCS_19_0_0_6();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_19_0_0_6() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace CS_19_0_0_7_0_0_0 = INSTANCE.getCS_19_0_0_7_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsWhiteSpace getCS_19_0_0_7_0_0_0() {
@@ -1397,7 +1404,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_19_0_0_7_0_0_3 = INSTANCE.getCS_19_0_0_7_0_0_3();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_19_0_0_7_0_0_3() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PARTIAL_TOKEN_DEFINITION__REGEX_PARTS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexPart(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_19_0_0_7_0_0 = INSTANCE.getCS_19_0_0_7_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_19_0_0_7_0_0() {
@@ -1577,7 +1584,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_24_0_0_2_0_0_1 = INSTANCE.getCS_24_0_0_2_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_24_0_0_2_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword CS_24_0_0_2_0_0_2_0_0_0 = INSTANCE.getCS_24_0_0_2_0_0_2_0_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword getCS_24_0_0_2_0_0_2_0_0_0() {
@@ -1585,7 +1592,7 @@ public class CsGrammarInformationProvider {
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment CS_24_0_0_2_0_0_2_0_0_1 = INSTANCE.getCS_24_0_0_2_0_0_2_0_0_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment getCS_24_0_0_2_0_0_2_0_0_1() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new org.eclipse.emf.ecore.EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), }, 0);
+		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainment(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, new EClass[] {org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), }, 0);
 	}
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence CS_24_0_0_2_0_0_2_0_0 = INSTANCE.getCS_24_0_0_2_0_0_2_0_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSequence getCS_24_0_0_2_0_0_2_0_0() {
@@ -1669,7 +1676,7 @@ public class CsGrammarInformationProvider {
 			// null indicates EOF
 			return "<EOF>";
 		}
-		for (java.lang.reflect.Field field : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.class.getFields()) {
+		for (Field field : org.emftext.sdk.concretesyntax.resource.cs.grammar.CsGrammarInformationProvider.class.getFields()) {
 			Object fieldValue;
 			try {
 				fieldValue = field.get(null);
@@ -1723,9 +1730,9 @@ public class CsGrammarInformationProvider {
 	 * Returns all keywords of the grammar. This includes all literals for boolean and
 	 * enumeration terminals.
 	 */
-	public java.util.Set<String> getKeywords() {
+	public Set<String> getKeywords() {
 		if (this.keywords == null) {
-			this.keywords = new java.util.LinkedHashSet<String>();
+			this.keywords = new LinkedHashSet<String>();
 			for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule rule : RULES) {
 				findKeywords(rule, this.keywords);
 			}
@@ -1737,7 +1744,7 @@ public class CsGrammarInformationProvider {
 	 * Finds all keywords in the given element and its children and adds them to the
 	 * set. This includes all literals for boolean and enumeration terminals.
 	 */
-	private void findKeywords(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement element, java.util.Set<String> keywords) {
+	private void findKeywords(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement element, Set<String> keywords) {
 		if (element instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) {
 			keywords.add(((org.emftext.sdk.concretesyntax.resource.cs.grammar.CsKeyword) element).getValue());
 		} else if (element instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsBooleanTerminal) {

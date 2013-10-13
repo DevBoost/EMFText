@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+
 /**
  * An <code>IContextDependentURIFragment</code> points at an element referenced
  * from another element through an <code>identifier</code>. In contrast to a
@@ -34,7 +37,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
  * @param <ReferenceType> the type of the reference that can be resolved by this
  * fragment
  */
-public interface ICsContextDependentURIFragment<ReferenceType extends org.eclipse.emf.ecore.EObject> {
+public interface ICsContextDependentURIFragment<ReferenceType extends EObject> {
 	
 	/**
 	 * A prefix that can be used in a <code>URI.fragment</code> String of a proxy to
@@ -46,7 +49,7 @@ public interface ICsContextDependentURIFragment<ReferenceType extends org.eclips
 	 * 
 	 * @return The proxy object.
 	 */
-	public org.eclipse.emf.ecore.EObject getProxy();
+	public EObject getProxy();
 	
 	/**
 	 * 
@@ -59,14 +62,14 @@ public interface ICsContextDependentURIFragment<ReferenceType extends org.eclips
 	 * 
 	 * @return The element that references the proxy.
 	 */
-	public org.eclipse.emf.ecore.EObject getContainer();
+	public EObject getContainer();
 	
 	/**
 	 * 
 	 * @return The references of the container's <code>EClass</code> that holds the
 	 * proxy.
 	 */
-	public org.eclipse.emf.ecore.EReference getReference();
+	public EReference getReference();
 	
 	/**
 	 * 

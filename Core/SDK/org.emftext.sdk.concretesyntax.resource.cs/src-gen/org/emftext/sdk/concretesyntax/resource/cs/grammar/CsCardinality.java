@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+
 public enum CsCardinality {
 	
 	ONE, PLUS, QUESTIONMARK, STAR;

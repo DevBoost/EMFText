@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * A mapping from an identifier to an EObject.
  * 

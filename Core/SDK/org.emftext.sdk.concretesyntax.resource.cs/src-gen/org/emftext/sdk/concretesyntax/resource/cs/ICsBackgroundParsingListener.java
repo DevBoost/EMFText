@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.eclipse.emf.ecore.resource.Resource;
+
 /**
  * A listener interface for classes that need notification when a background
  * parsing pass has completed.
@@ -28,5 +30,5 @@ public interface ICsBackgroundParsingListener {
 	 * 
 	 * @param resource the resource that has changed
 	 */
-	public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource resource);
+	public void parsingCompleted(Resource resource);
 }

@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+
 /**
  * CsLayoutInformation objects are used to store layout information that is found
  * while parsing text files. Layout information does include all unused tokens.
@@ -85,19 +88,19 @@ public class CsLayoutInformation {
 	 * 'resolve' is set to true and the referenced object is a proxy, this method
 	 * tries to resolve the proxy.
 	 */
-	public Object getObject(org.eclipse.emf.ecore.EObject container, boolean resolve) {
+	public Object getObject(EObject container, boolean resolve) {
 		if (wasResolved || !resolve) {
 			return object;
 		}
 		// we need to try to resolve proxy objects again, because the proxy might have
 		// been resolved before this adapter existed, which means we missed the
 		// replaceProxy() notification
-		if (object instanceof org.eclipse.emf.ecore.InternalEObject) {
-			org.eclipse.emf.ecore.InternalEObject internalObject = (org.eclipse.emf.ecore.InternalEObject) object;
+		if (object instanceof InternalEObject) {
+			InternalEObject internalObject = (InternalEObject) object;
 			if (internalObject.eIsProxy()) {
-				if (container instanceof org.eclipse.emf.ecore.InternalEObject) {
-					org.eclipse.emf.ecore.InternalEObject internalContainer = (org.eclipse.emf.ecore.InternalEObject) container;
-					org.eclipse.emf.ecore.EObject resolvedObject = internalContainer.eResolveProxy(internalObject);
+				if (container instanceof InternalEObject) {
+					InternalEObject internalContainer = (InternalEObject) container;
+					EObject resolvedObject = internalContainer.eResolveProxy(internalObject);
 					if (resolvedObject != internalObject) {
 						object = resolvedObject;
 						wasResolved = true;
@@ -118,7 +121,7 @@ public class CsLayoutInformation {
 		return visibleTokenText;
 	}
 	
-	public void replaceProxy(org.eclipse.emf.ecore.EObject proxy, org.eclipse.emf.ecore.EObject target) {
+	public void replaceProxy(EObject proxy, EObject target) {
 		if (this.object == proxy) {
 			this.object = target;
 		}

@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.eclipse.emf.common.util.URI;
+
 /**
  * A basic implementation of the
  * org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping interface that can map
@@ -26,18 +28,18 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
  */
 public class CsURIMapping<ReferenceType> implements org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping<ReferenceType> {
 	
-	private org.eclipse.emf.common.util.URI uri;
+	private URI uri;
 	private String identifier;
 	private String warning;
 	
-	public CsURIMapping(String identifier, org.eclipse.emf.common.util.URI newIdentifier, String warning) {
+	public CsURIMapping(String identifier, URI newIdentifier, String warning) {
 		super();
 		this.uri = newIdentifier;
 		this.identifier = identifier;
 		this.warning = warning;
 	}
 	
-	public org.eclipse.emf.common.util.URI getTargetIdentifier() {
+	public URI getTargetIdentifier() {
 		return uri;
 	}
 	

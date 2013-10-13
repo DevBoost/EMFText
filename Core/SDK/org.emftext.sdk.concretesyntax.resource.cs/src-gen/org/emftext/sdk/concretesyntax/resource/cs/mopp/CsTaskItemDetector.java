@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.List;
+
 /**
  * The CsTaskItemDetector is used to find task items in text documents. The
  * current implementation searches for specific keywords to detect task items. The
@@ -25,7 +27,7 @@ public class CsTaskItemDetector {
 	
 	public static String[] TASK_ITEM_KEYWORDS = new String[] {"TODO", "FIXME", "XXX"};
 	
-	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> findTaskItems(String text, int line, int charStart) {
+	public List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> findTaskItems(String text, int line, int charStart) {
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> foundItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
 		String remainingText = text;
 		boolean continueSearch = true;

@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 /**
  * This class provides the follow sets for all terminals of the grammar. These
  * sets are used during code completion.
@@ -24,7 +26,7 @@ public class CsFollowSetProvider {
 	
 	public final static org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement TERMINALS[] = new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[122];
 	
-	public final static org.eclipse.emf.ecore.EStructuralFeature[] FEATURES = new org.eclipse.emf.ecore.EStructuralFeature[10];
+	public final static EStructuralFeature[] FEATURES = new EStructuralFeature[10];
 	
 	public final static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[] LINKS = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[307];
 	

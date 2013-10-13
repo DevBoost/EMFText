@@ -16,6 +16,11 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Collection;
+import org.eclipse.emf.ecore.EClass;
+
 /**
  * This interface provides information about a generated EMFText text resource
  * plug-in.
@@ -58,7 +63,7 @@ public interface ICsMetaInformation {
 	 * 
 	 * @return a new instance of the parser class
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser createParser(java.io.InputStream inputStream, String encoding);
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser createParser(InputStream inputStream, String encoding);
 	
 	/**
 	 * Returns a new instance of the printer.
@@ -68,13 +73,13 @@ public interface ICsMetaInformation {
 	 * 
 	 * @return a new instance of the printer class
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter createPrinter(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource);
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter createPrinter(OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource);
 	
 	/**
 	 * Returns all meta classes for which syntax was defined. This information is used
 	 * both by the NewFileWizard and the code completion.
 	 */
-	public org.eclipse.emf.ecore.EClass[] getClassesWithSyntax();
+	public EClass[] getClassesWithSyntax();
 	
 	/**
 	 * Returns an instance of the reference resolver switch class.
@@ -104,11 +109,11 @@ public interface ICsMetaInformation {
 	/**
 	 * Returns the default bracket pairs.
 	 */
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> getBracketPairs();
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> getBracketPairs();
 	
 	/**
 	 * Returns all classes for which folding must be enabled in the editor.
 	 */
-	public org.eclipse.emf.ecore.EClass[] getFoldableClasses();
+	public EClass[] getFoldableClasses();
 	
 }

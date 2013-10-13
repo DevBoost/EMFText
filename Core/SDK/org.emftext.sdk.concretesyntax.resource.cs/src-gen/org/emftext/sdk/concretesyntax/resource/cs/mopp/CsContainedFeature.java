@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 /**
  * A CsContainedFeature represents a path element of a
  * org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace
@@ -25,24 +28,24 @@ public class CsContainedFeature {
 	/**
 	 * The class to which the feature points.
 	 */
-	private org.eclipse.emf.ecore.EClass containerClass;
+	private EClass containerClass;
 	
 	/**
 	 * The feature that points to the container class.
 	 */
-	private org.eclipse.emf.ecore.EStructuralFeature feature;
+	private EStructuralFeature feature;
 	
-	public CsContainedFeature(org.eclipse.emf.ecore.EClass containerClass, org.eclipse.emf.ecore.EStructuralFeature feature) {
+	public CsContainedFeature(EClass containerClass, EStructuralFeature feature) {
 		super();
 		this.containerClass = containerClass;
 		this.feature = feature;
 	}
 	
-	public org.eclipse.emf.ecore.EClass getContainerClass() {
+	public EClass getContainerClass() {
 		return containerClass;
 	}
 	
-	public org.eclipse.emf.ecore.EStructuralFeature getFeature() {
+	public EStructuralFeature getFeature() {
 		return feature;
 	}
 	

@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 /**
  * A class to represent boolean terminals in a grammar.
  */
@@ -24,9 +27,9 @@ public class CsBooleanTerminal extends org.emftext.sdk.concretesyntax.resource.c
 	private String trueLiteral;
 	private String falseLiteral;
 	
-	public CsBooleanTerminal(org.eclipse.emf.ecore.EStructuralFeature attribute, String trueLiteral, String falseLiteral, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurrencesAfter) {
+	public CsBooleanTerminal(EStructuralFeature attribute, String trueLiteral, String falseLiteral, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurrencesAfter) {
 		super(attribute, cardinality, mandatoryOccurrencesAfter);
-		assert attribute instanceof org.eclipse.emf.ecore.EAttribute;
+		assert attribute instanceof EAttribute;
 		this.trueLiteral = trueLiteral;
 		this.falseLiteral = falseLiteral;
 	}
@@ -39,8 +42,8 @@ public class CsBooleanTerminal extends org.emftext.sdk.concretesyntax.resource.c
 		return falseLiteral;
 	}
 	
-	public org.eclipse.emf.ecore.EAttribute getAttribute() {
-		return (org.eclipse.emf.ecore.EAttribute) getFeature();
+	public EAttribute getAttribute() {
+		return (EAttribute) getFeature();
 	}
 	
 }

@@ -16,18 +16,20 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 public class CsTerminal extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
-	private final org.eclipse.emf.ecore.EStructuralFeature feature;
+	private final EStructuralFeature feature;
 	private final int mandatoryOccurencesAfter;
 	
-	public CsTerminal(org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
+	public CsTerminal(EStructuralFeature feature, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
 		super(cardinality, null);
 		this.feature = feature;
 		this.mandatoryOccurencesAfter = mandatoryOccurencesAfter;
 	}
 	
-	public org.eclipse.emf.ecore.EStructuralFeature getFeature() {
+	public EStructuralFeature getFeature() {
 		return feature;
 	}
 	

@@ -16,6 +16,14 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * A utility class that provides some common methods to work with Strings.
  */
@@ -96,7 +104,7 @@ public class CsStringUtil {
 	/**
 	 * Concatenates the given parts and puts 'glue' between them.
 	 */
-	public static String explode(java.util.Collection<? extends Object> parts, String glue) {
+	public static String explode(Collection<? extends Object> parts, String glue) {
 		return explode(parts.toArray(new Object[parts.size()]), glue);
 	}
 	
@@ -120,7 +128,7 @@ public class CsStringUtil {
 	 * Concatenates the given parts and puts 'glue' between them. The toStringFunction
 	 * is used to convert the parts to strings.
 	 */
-	public static <T> String explode(java.util.Collection<T> parts, String glue, org.emftext.sdk.concretesyntax.resource.cs.ICsFunction1<String, T> toStringFunction) {
+	public static <T> String explode(Collection<T> parts, String glue, org.emftext.sdk.concretesyntax.resource.cs.ICsFunction1<String, T> toStringFunction) {
 		String[] partsAsArray = new String[parts.size()];
 		int i = 0;
 		for (T part : parts) {
@@ -294,8 +302,8 @@ public class CsStringUtil {
 		tail = tail.replaceAll("\\*", ".*?");
 		re += head + tail.replaceAll("([A-Z][^A-Z]*)", "$1[^A-Z]*");
 		re +=  ".*?)\\b";
-		java.util.regex.Pattern regex = java.util.regex.Pattern.compile(re);
-		java.util.regex.Matcher m = regex.matcher(str);
+		Pattern regex = Pattern.compile(re);
+		Matcher m = regex.matcher(str);
 		if (m.find()) {
 			return m.group();
 		} else {
@@ -332,7 +340,7 @@ public class CsStringUtil {
 	}
 	
 	public static String encode(char delimiter, String[] parts) {
-		java.util.List<String> partList = new java.util.ArrayList<String>();
+		List<String> partList = new ArrayList<String>();
 		for (String part : parts) {
 			partList.add(part);
 		}
@@ -350,8 +358,8 @@ public class CsStringUtil {
 		return result.toString();
 	}
 	
-	public static java.util.List<String> decode(String text, char delimiter) {
-		java.util.List<String> parts = new java.util.ArrayList<String>();
+	public static List<String> decode(String text, char delimiter) {
+		List<String> parts = new ArrayList<String>();
 		
 		boolean escapeMode = false;
 		String part = "";
@@ -380,8 +388,8 @@ public class CsStringUtil {
 		return parts;
 	}
 	
-	public static String convertToString(java.util.Map<String, Object> properties) {
-		java.util.List<String> parts = new java.util.ArrayList<String>();
+	public static String convertToString(Map<String, Object> properties) {
+		List<String> parts = new ArrayList<String>();
 		for (String key : properties.keySet()) {
 			Object value = properties.get(key);
 			if (value instanceof String) {
@@ -393,11 +401,11 @@ public class CsStringUtil {
 		return encode(';', parts);
 	}
 	
-	public static java.util.Map<String, String> convertFromString(String text) {
-		java.util.Map<String, String> result = new java.util.LinkedHashMap<String, String>();
-		java.util.List<String> keyValuePairs = decode(text, ';');
+	public static Map<String, String> convertFromString(String text) {
+		Map<String, String> result = new LinkedHashMap<String, String>();
+		List<String> keyValuePairs = decode(text, ';');
 		for (String pair : keyValuePairs) {
-			java.util.List<String> keyAndValue = decode(pair, '=');
+			List<String> keyAndValue = decode(pair, '=');
 			String key = keyAndValue.get(0);
 			String value = keyAndValue.get(1);
 			result.put(key, value);

@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+
 public class CsLineBreak extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement {
 	
 	private final int tabs;

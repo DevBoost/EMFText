@@ -16,19 +16,23 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import org.eclipse.emf.ecore.EObject;
+
 public class CsParseResult implements org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult {
 	
-	private org.eclipse.emf.ecore.EObject root;
+	private EObject root;
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
 	
-	private java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> commands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>>();
+	private Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> commands = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>>();
 	
 	public CsParseResult() {
 		super();
 	}
 	
-	public org.eclipse.emf.ecore.EObject getRoot() {
+	public EObject getRoot() {
 		return root;
 	}
 	
@@ -36,7 +40,7 @@ public class CsParseResult implements org.emftext.sdk.concretesyntax.resource.cs
 		return locationMap;
 	}
 	
-	public void setRoot(org.eclipse.emf.ecore.EObject root) {
+	public void setRoot(EObject root) {
 		this.root = root;
 	}
 	
@@ -44,7 +48,7 @@ public class CsParseResult implements org.emftext.sdk.concretesyntax.resource.cs
 		this.locationMap = locationMap;
 	}
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> getPostParseCommands() {
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>> getPostParseCommands() {
 		return commands;
 	}
 	

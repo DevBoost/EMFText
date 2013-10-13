@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui.debug;
 
+
 public class CsAdapterFactory {
 	// The generator for this class is currently disabled by option
 	// 'disableDebugSupport' in the .cs file.

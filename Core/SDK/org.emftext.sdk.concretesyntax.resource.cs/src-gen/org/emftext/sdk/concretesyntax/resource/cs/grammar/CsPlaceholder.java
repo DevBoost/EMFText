@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 /**
  * A class to represent placeholders in a grammar.
  */
@@ -23,7 +25,7 @@ public class CsPlaceholder extends org.emftext.sdk.concretesyntax.resource.cs.gr
 	
 	private final String tokenName;
 	
-	public CsPlaceholder(org.eclipse.emf.ecore.EStructuralFeature feature, String tokenName, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
+	public CsPlaceholder(EStructuralFeature feature, String tokenName, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurencesAfter) {
 		super(feature, cardinality, mandatoryOccurencesAfter);
 		this.tokenName = tokenName;
 	}

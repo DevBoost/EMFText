@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.debug;
 
+
 /**
  * A DebuggableInterpreter is a facade for interpreters that adds debug support.
  */

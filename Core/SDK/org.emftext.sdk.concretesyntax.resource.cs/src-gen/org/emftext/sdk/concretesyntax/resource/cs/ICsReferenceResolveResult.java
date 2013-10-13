@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import java.util.Collection;
+import org.eclipse.emf.common.util.URI;
+
 /**
  * The result of a single attempt to resolve an identifier. The result can either
  * be successful (identifier was resolved to one or more objects) or failed
@@ -38,7 +41,7 @@ public interface ICsReferenceResolveResult<ReferenceType> {
 	 * Returns an unmodifiable collection of the quick fixes that can be used to
 	 * resolve the resolving error.
 	 */
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes();
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes();
 	
 	/**
 	 * Adds a quick fix to the set of quick fixes that can be used to resolve the
@@ -86,13 +89,13 @@ public interface ICsReferenceResolveResult<ReferenceType> {
 	 * @param identifier
 	 * @param newIdentifier
 	 */
-	public void addMapping(String identifier, org.eclipse.emf.common.util.URI newIdentifier, String warning);
+	public void addMapping(String identifier, URI newIdentifier, String warning);
 	
 	/**
 	 * 
-	 * @see addMapping(String, org.eclipse.emf.common.util.URI, String)
+	 * @see addMapping(String, URI, String)
 	 */
-	public void addMapping(String identifier, org.eclipse.emf.common.util.URI newIdentifier);
+	public void addMapping(String identifier, URI newIdentifier);
 	
 	/**
 	 * Indicates the type of the result. Depending on the type of the result different
@@ -124,6 +127,6 @@ public interface ICsReferenceResolveResult<ReferenceType> {
 	/**
 	 * Returns all mappings that were found while resolving an identifier.
 	 */
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings();
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings();
 	
 }

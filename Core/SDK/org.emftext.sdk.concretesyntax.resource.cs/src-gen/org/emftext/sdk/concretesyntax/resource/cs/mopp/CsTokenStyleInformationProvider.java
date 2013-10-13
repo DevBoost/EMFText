@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+
 public class CsTokenStyleInformationProvider {
 	
 	public static String TASK_ITEM_TOKEN_NAME = "TASK_ITEM";

@@ -16,14 +16,17 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * This class provides information about how brackets must be handled in the
  * editor (e.g., whether they must be closed automatically).
  */
 public class CsBracketInformationProvider {
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> getBracketPairs() {
-		java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> result = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair>();
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> getBracketPairs() {
+		Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair> result = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair>();
 		result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBracketPair("{", "}", true, true));
 		result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBracketPair("[", "]", true, false));
 		result.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBracketPair("(", ")", true, false));

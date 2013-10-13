@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
+
 /**
  * A typed pair of objects.
  * 

@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+
 public class CsTokenStyle implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle {
 	
 	private int[] colorAsRGB;

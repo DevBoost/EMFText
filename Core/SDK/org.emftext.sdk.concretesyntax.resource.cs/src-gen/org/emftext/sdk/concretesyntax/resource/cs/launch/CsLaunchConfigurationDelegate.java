@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.launch;
 
+
 /**
  * A class that handles launch configurations.
  */

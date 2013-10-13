@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+
 /**
  * This empty class was generated to overwrite exiting classes.
  */

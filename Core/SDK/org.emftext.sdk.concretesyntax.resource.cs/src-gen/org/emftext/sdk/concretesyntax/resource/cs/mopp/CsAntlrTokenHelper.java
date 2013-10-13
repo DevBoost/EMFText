@@ -16,13 +16,15 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.antlr.runtime3_4_0.Token;
+
 /**
  * A helper class that decides which tokens can be used for custom syntax
  * highlighting.
  */
 public class CsAntlrTokenHelper {
 	
-	public boolean canBeUsedForSyntaxColoring(org.antlr.runtime3_4_0.Token token) {
+	public boolean canBeUsedForSyntaxColoring(Token token) {
 		return canBeUsedForSyntaxHighlighting(token.getType());
 	}
 	

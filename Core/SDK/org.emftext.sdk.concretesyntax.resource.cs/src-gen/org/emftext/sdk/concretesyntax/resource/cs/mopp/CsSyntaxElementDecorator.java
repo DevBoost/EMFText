@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CsSyntaxElementDecorator {
 	
 	/**
@@ -32,7 +35,7 @@ public class CsSyntaxElementDecorator {
 	/**
 	 * a list of the indices that must be printed
 	 */
-	private java.util.List<Integer> indicesToPrint = new java.util.ArrayList<Integer>();
+	private List<Integer> indicesToPrint = new ArrayList<Integer>();
 	
 	public CsSyntaxElementDecorator(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement decoratedElement, CsSyntaxElementDecorator[] childDecorators) {
 		super();

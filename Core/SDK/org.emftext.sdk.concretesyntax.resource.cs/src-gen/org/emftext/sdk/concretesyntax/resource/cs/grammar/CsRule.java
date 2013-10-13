@@ -16,19 +16,21 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+import org.eclipse.emf.ecore.EClass;
+
 /**
  * A class to represent a rules in the grammar.
  */
 public class CsRule extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
-	private final org.eclipse.emf.ecore.EClass metaclass;
+	private final EClass metaclass;
 	
-	public CsRule(org.eclipse.emf.ecore.EClass metaclass, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice choice, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
+	public CsRule(EClass metaclass, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice choice, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {
 		super(cardinality, new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement[] {choice});
 		this.metaclass = metaclass;
 	}
 	
-	public org.eclipse.emf.ecore.EClass getMetaclass() {
+	public EClass getMetaclass() {
 		return metaclass;
 	}
 	

@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+
 public class CsWhiteSpace extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsFormattingElement {
 	
 	private final int amount;

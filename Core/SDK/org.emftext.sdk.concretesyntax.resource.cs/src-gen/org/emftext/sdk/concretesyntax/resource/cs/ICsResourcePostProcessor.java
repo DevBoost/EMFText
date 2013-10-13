@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * Implementors of this interface can be used to post-process parsed text
  * resources. This can be useful to validate or modify the model that was

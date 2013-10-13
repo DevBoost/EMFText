@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+
 /**
  * A basic implementation of the
  * org.emftext.sdk.concretesyntax.resource.cs.ICsElementMapping interface.

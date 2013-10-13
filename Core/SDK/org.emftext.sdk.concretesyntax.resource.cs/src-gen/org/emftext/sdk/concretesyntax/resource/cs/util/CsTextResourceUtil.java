@@ -16,6 +16,11 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
+import java.io.File;
+import java.util.Map;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.URI;
+
 /**
  * Class CsTextResourceUtil can be used to perform common tasks on text resources,
  * such as loading and saving resources, as well as, checking them for errors.
@@ -30,7 +35,7 @@ public class CsTextResourceUtil {
 	 * instead.
 	 */
 	@Deprecated
-	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.core.resources.IFile file) {
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(IFile file) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.util.CsEclipseProxy().getResource(file);
 	}
 	
@@ -40,7 +45,7 @@ public class CsTextResourceUtil {
 	 * instead.
 	 */
 	@Deprecated
-	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(java.io.File file, java.util.Map<?,?> options) {
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(File file, Map<?,?> options) {
 		return org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource(file, options);
 	}
 	
@@ -50,7 +55,7 @@ public class CsTextResourceUtil {
 	 * instead.
 	 */
 	@Deprecated
-	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.emf.common.util.URI uri) {
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(URI uri) {
 		return org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource(uri);
 	}
 	
@@ -60,7 +65,7 @@ public class CsTextResourceUtil {
 	 * instead.
 	 */
 	@Deprecated
-	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(org.eclipse.emf.common.util.URI uri, java.util.Map<?,?> options) {
+	public static org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource getResource(URI uri, Map<?,?> options) {
 		return org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil.getResource(uri, options);
 	}
 	

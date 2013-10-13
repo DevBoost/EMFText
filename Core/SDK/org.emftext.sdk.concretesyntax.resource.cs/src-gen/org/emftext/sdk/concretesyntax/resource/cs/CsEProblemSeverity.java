@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 public enum CsEProblemSeverity {
 	WARNING, ERROR;
 }

@@ -16,12 +16,15 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.antlr.runtime3_4_0.CommonToken;
+import org.antlr.runtime3_4_0.Token;
+
 public class CsANTLRTextToken extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTextToken {
 	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	
-	public CsANTLRTextToken(org.antlr.runtime3_4_0.Token antlrToken) {
-		super(getTokenName(metaInformation.getTokenNames(), antlrToken.getType()), antlrToken.getText(), ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStartIndex(), ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStopIndex() - ((org.antlr.runtime3_4_0.CommonToken) antlrToken).getStartIndex() + 1, antlrToken.getLine(), antlrToken.getCharPositionInLine(), canBeUsedForSyntaxHighlighting(antlrToken.getType()));
+	public CsANTLRTextToken(Token antlrToken) {
+		super(getTokenName(metaInformation.getTokenNames(), antlrToken.getType()), antlrToken.getText(), ((CommonToken) antlrToken).getStartIndex(), ((CommonToken) antlrToken).getStopIndex() - ((CommonToken) antlrToken).getStartIndex() + 1, antlrToken.getLine(), antlrToken.getCharPositionInLine(), canBeUsedForSyntaxHighlighting(antlrToken.getType()));
 	}
 	
 	public static String getTokenName(String[] tokenNames, int index) {

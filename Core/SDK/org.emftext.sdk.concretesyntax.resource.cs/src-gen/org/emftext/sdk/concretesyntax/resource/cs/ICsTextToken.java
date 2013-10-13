@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * A token that is returned by ITextLexer instances. Each token has a name, a
  * length and is found at a certain offset in a document.

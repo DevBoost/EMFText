@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * A UnicodeConverter can read an input stream and convert unicode escape
  * sequences (backslash + uXXXX) to actual unicode characters. Each escaped
@@ -32,14 +35,14 @@ public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.
 	/**
 	 * The original input stream.
 	 */
-	private java.io.InputStream inputStream;
+	private InputStream inputStream;
 	
 	/**
 	 * Creates a new UnicodeConverter that reads from the given stream.
 	 * 
 	 * @param inputStream the original stream to read from
 	 */
-	public CsUnicodeConverter(java.io.InputStream inputStream) {
+	public CsUnicodeConverter(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
 	
@@ -49,7 +52,7 @@ public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.
 	 */
 	@Override
 	
-	public int read() throws java.io.IOException {
+	public int read() throws IOException {
 		if (!stackIsEmpty()) {
 			int result = pop();
 			return result;

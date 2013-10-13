@@ -23,11 +23,14 @@
  */
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Collections;
+import java.util.Map;
+
 public class CsOptionProvider implements org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider {
 	
-	public java.util.Map<?,?> getOptions() {
+	public Map<?,?> getOptions() {
 		// create a map with static option providers here
-		return java.util.Collections.emptyMap();
+		return Collections.emptyMap();
 	}
 	
 }

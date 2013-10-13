@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * A common interface for token styles. Text resources must return style
  * information using classes that implement this interface.

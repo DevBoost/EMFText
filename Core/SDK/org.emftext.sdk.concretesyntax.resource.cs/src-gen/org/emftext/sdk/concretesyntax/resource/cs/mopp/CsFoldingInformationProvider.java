@@ -16,10 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.eclipse.emf.ecore.EClass;
+
 public class CsFoldingInformationProvider {
 	
-	public org.eclipse.emf.ecore.EClass[] getFoldableClasses() {
-		return new org.eclipse.emf.ecore.EClass[] {
+	public EClass[] getFoldableClasses() {
+		return new EClass[] {
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(),
 		};
 	}

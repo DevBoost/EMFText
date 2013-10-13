@@ -16,6 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Collections;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.change.ChangeDescription;
+import org.eclipse.emf.ecore.change.util.ChangeRecorder;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 /**
  * A representation for a range in a document where a terminal (i.e., a
  * placeholder or a keyword) is expected. The range is expressed using two
@@ -33,14 +39,14 @@ public class CsExpectedTerminal {
 	private Runnable attachmentCode;
 	
 	private int followSetID;
-	private org.eclipse.emf.ecore.EObject container;
+	private EObject container;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal;
 	private int startIncludingHiddenTokens;
 	private int startExcludingHiddenTokens;
 	private String prefix;
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace;
 	
-	public CsExpectedTerminal(org.eclipse.emf.ecore.EObject container, org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace) {
+	public CsExpectedTerminal(EObject container, org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal, int followSetID, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace) {
 		super();
 		this.container = container;
 		this.terminal = terminal;
@@ -116,7 +122,7 @@ public class CsExpectedTerminal {
 		return containmentTrace;
 	}
 	
-	public org.eclipse.emf.ecore.EObject getContainer() {
+	public EObject getContainer() {
 		return container;
 	}
 	
@@ -128,13 +134,13 @@ public class CsExpectedTerminal {
 	 * executing the given code, all changes are reverted.
 	 */
 	public void materialize(Runnable code) {
-		org.eclipse.emf.ecore.EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(getContainer());
+		EObject root = EcoreUtil.getRootContainer(getContainer());
 		if (root == null) {
 			code.run();
 			return;
 		}
-		org.eclipse.emf.ecore.change.util.ChangeRecorder recorder = new org.eclipse.emf.ecore.change.util.ChangeRecorder();
-		recorder.beginRecording(java.util.Collections.singleton(root));
+		ChangeRecorder recorder = new ChangeRecorder();
+		recorder.beginRecording(Collections.singleton(root));
 		
 		// attach proposal model fragment to main model
 		Runnable attachmentCode = getAttachmentCode();
@@ -143,7 +149,7 @@ public class CsExpectedTerminal {
 			attachmentCode.run();
 		}
 		
-		org.eclipse.emf.ecore.change.ChangeDescription changes = recorder.endRecording();
+		ChangeDescription changes = recorder.endRecording();
 		code.run();
 		// revert changes
 		changes.apply();

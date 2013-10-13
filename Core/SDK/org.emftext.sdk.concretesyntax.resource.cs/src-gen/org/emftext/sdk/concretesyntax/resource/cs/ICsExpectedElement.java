@@ -16,6 +16,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import java.util.Collection;
+import java.util.Set;
+import org.eclipse.emf.ecore.EClass;
+
 /**
  * An element that is expected at a given position in a resource stream.
  */
@@ -24,12 +28,12 @@ public interface ICsExpectedElement {
 	/**
 	 * Returns the names of all tokens that are expected at the given position.
 	 */
-	public java.util.Set<String> getTokenNames();
+	public Set<String> getTokenNames();
 	
 	/**
 	 * Returns the metaclass of the rule that contains the expected element.
 	 */
-	public org.eclipse.emf.ecore.EClass getRuleMetaclass();
+	public EClass getRuleMetaclass();
 	
 	/**
 	 * Returns the syntax element that is expected.
@@ -46,6 +50,6 @@ public interface ICsExpectedElement {
 	 * pair of an expected elements and the containment trace that leads from the
 	 * current element to the follower.
 	 */
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[]>> getFollowers();
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.util.CsPair<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature[]>> getFollowers();
 	
 }

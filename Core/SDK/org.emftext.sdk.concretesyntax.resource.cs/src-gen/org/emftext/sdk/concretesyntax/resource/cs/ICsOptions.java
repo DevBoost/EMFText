@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * A list of constants that contains the keys for some options that are built into
  * EMFText. Generated resource plug-ins do automatically recognize these options

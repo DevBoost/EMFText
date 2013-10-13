@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+
 public class CsLocalizedMessage {
 	
 	public CsLocalizedMessage(String message, int column, int line, int charStart, int charEnd) {

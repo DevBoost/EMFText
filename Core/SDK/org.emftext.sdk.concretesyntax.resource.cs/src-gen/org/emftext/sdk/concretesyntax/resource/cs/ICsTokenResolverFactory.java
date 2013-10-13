@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * A TokenResolverFactory creates TokenResolvers. The concrete resolver to be
  * created is determined by the given token name (i.e., the type of the token).

@@ -16,53 +16,56 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import java.util.List;
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * A LocationMap maps EObjects to the position of their textual representations.
- * For each org.eclipse.emf.ecore.EObject the map contains information about the
- * line, the column, the character position where the object begins and the
- * character position where the object ends.
+ * For each EObject the map contains information about the line, the column, the
+ * character position where the object begins and the character position where the
+ * object ends.
  */
 public interface ICsLocationMap {
 	
 	/**
 	 * Used by parsers to set location information.
 	 */
-	public void setLine(org.eclipse.emf.ecore.EObject element, int line);
+	public void setLine(EObject element, int line);
 	
 	/**
 	 * Returns the line where the given element starts.
 	 */
-	public int getLine(org.eclipse.emf.ecore.EObject element);
+	public int getLine(EObject element);
 	
 	/**
 	 * Used by parsers to set location information.
 	 */
-	public void setColumn(org.eclipse.emf.ecore.EObject element, int column);
+	public void setColumn(EObject element, int column);
 	
 	/**
 	 * Returns the column where the given element starts.
 	 */
-	public int getColumn(org.eclipse.emf.ecore.EObject element);
+	public int getColumn(EObject element);
 	
 	/**
 	 * Used by parsers to set location information.
 	 */
-	public void setCharStart(org.eclipse.emf.ecore.EObject element, int charStart);
+	public void setCharStart(EObject element, int charStart);
 	
 	/**
 	 * Returns the character position where the given element starts.
 	 */
-	public int getCharStart(org.eclipse.emf.ecore.EObject element);
+	public int getCharStart(EObject element);
 	
 	/**
 	 * Used by parsers to set location information.
 	 */
-	public void setCharEnd(org.eclipse.emf.ecore.EObject element, int charEnd);
+	public void setCharEnd(EObject element, int charEnd);
 	
 	/**
 	 * Returns the character position where the given element ends.
 	 */
-	public int getCharEnd(org.eclipse.emf.ecore.EObject element);
+	public int getCharEnd(EObject element);
 	
 	/**
 	 * Returns all EObjects that are located at the given offset in the text document.
@@ -75,7 +78,7 @@ public interface ICsLocationMap {
 	 * 
 	 * @return a list of elements located at the given offset
 	 */
-	public java.util.List<org.eclipse.emf.ecore.EObject> getElementsAt(int documentOffset);
+	public List<EObject> getElementsAt(int documentOffset);
 	
 	/**
 	 * Returns all EObjects that are located between the given offsets in the text
@@ -88,6 +91,6 @@ public interface ICsLocationMap {
 	 * 
 	 * @return a list of elements located between the given offsets
 	 */
-	public java.util.List<org.eclipse.emf.ecore.EObject> getElementsBetween(int startOffset, int endOffset);
+	public List<EObject> getElementsBetween(int startOffset, int endOffset);
 	
 }

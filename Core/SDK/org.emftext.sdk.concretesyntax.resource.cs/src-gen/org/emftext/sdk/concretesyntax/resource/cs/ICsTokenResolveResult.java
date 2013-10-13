@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * Implementations of this interface are used store the result of resolving a
  * token.

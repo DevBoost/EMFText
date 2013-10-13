@@ -16,6 +16,15 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.io.IOException;
+import java.io.InputStream;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+
 /**
  * The CsTaskItemBuilder is used to find task items in text documents. The current
  * implementation uses the generated lexer and the TaskItemDetector to detect task
@@ -24,15 +33,15 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
  */
 public class CsTaskItemBuilder {
 	
-	public void build(org.eclipse.core.resources.IFile resource, org.eclipse.emf.ecore.resource.ResourceSet resourceSet, org.eclipse.core.runtime.IProgressMonitor monitor) {
+	public void build(IFile resource, ResourceSet resourceSet, IProgressMonitor monitor) {
 		monitor.setTaskName("Searching for task items");
-		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, org.eclipse.core.resources.IMarker.TASK);
+		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, IMarker.TASK);
 		if (isInBinFolder(resource)) {
 			return;
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> taskItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector taskItemDetector = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector();
-		java.io.InputStream inputStream = null;
+		InputStream inputStream = null;
 		try {
 			inputStream = resource.getContents();
 			String charset = resource.getCharset();
@@ -46,9 +55,9 @@ public class CsTaskItemBuilder {
 				taskItems.addAll(taskItemDetector.findTaskItems(text, nextToken.getLine(), nextToken.getOffset()));
 				nextToken = lexer.getNextToken();
 			}
-		} catch (java.io.IOException e) {
+		} catch (IOException e) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while searching for task items", e);
-		} catch (org.eclipse.core.runtime.CoreException e) {
+		} catch (CoreException e) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while searching for task items", e);
 		}
 		
@@ -56,28 +65,28 @@ public class CsTaskItemBuilder {
 			if (inputStream != null) {
 				inputStream.close();
 			}
-		} catch (java.io.IOException e) {
+		} catch (IOException e) {
 			// Ignore this
 		}
 		
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem taskItem : taskItems) {
 			java.util.Map<String, Object> markerAttributes = new java.util.LinkedHashMap<String, Object>();
-			markerAttributes.put(org.eclipse.core.resources.IMarker.USER_EDITABLE, false);
-			markerAttributes.put(org.eclipse.core.resources.IMarker.DONE, false);
-			markerAttributes.put(org.eclipse.core.resources.IMarker.LINE_NUMBER, taskItem.getLine());
-			markerAttributes.put(org.eclipse.core.resources.IMarker.CHAR_START, taskItem.getCharStart());
-			markerAttributes.put(org.eclipse.core.resources.IMarker.CHAR_END, taskItem.getCharEnd());
-			markerAttributes.put(org.eclipse.core.resources.IMarker.MESSAGE, taskItem.getMessage());
-			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().createMarker(resource, org.eclipse.core.resources.IMarker.TASK, markerAttributes);
+			markerAttributes.put(IMarker.USER_EDITABLE, false);
+			markerAttributes.put(IMarker.DONE, false);
+			markerAttributes.put(IMarker.LINE_NUMBER, taskItem.getLine());
+			markerAttributes.put(IMarker.CHAR_START, taskItem.getCharStart());
+			markerAttributes.put(IMarker.CHAR_END, taskItem.getCharEnd());
+			markerAttributes.put(IMarker.MESSAGE, taskItem.getMessage());
+			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().createMarker(resource, IMarker.TASK, markerAttributes);
 		}
 	}
 	
 	public String getBuilderMarkerId() {
-		return org.eclipse.core.resources.IMarker.TASK;
+		return IMarker.TASK;
 	}
 	
-	public boolean isInBinFolder(org.eclipse.core.resources.IFile resource) {
-		org.eclipse.core.resources.IContainer parent = resource.getParent();
+	public boolean isInBinFolder(IFile resource) {
+		IContainer parent = resource.getParent();
 		while (parent != null) {
 			if ("bin".equals(parent.getName())) {
 				return true;

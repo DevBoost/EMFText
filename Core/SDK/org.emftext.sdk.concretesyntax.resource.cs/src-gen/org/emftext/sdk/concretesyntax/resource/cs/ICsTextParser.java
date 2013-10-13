@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import java.util.List;
+import org.eclipse.emf.ecore.EClass;
+
 /**
  * A text parser parses a text into a tree of <code>EObject</code>s. It is
  * associated with a <code>TextResource</code>.
@@ -42,7 +45,7 @@ public interface ICsTextParser extends org.emftext.sdk.concretesyntax.resource.c
 	 * The <code>cursorPosition</code> is used to discard expected elements, which
 	 * will not be needed.
 	 */
-	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> parseToExpectedElements(org.eclipse.emf.ecore.EClass type, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource dummyResource, int cursorOffset);
+	public List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> parseToExpectedElements(EClass type, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource dummyResource, int cursorOffset);
 	
 	/**
 	 * Signals the parse to terminate parsing as soon as possible. This method must be

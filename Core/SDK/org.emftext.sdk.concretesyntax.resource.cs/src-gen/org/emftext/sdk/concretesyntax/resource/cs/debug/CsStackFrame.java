@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.debug;
 
+
 public class CsStackFrame {
 	// The generator for this class is currently disabled by option
 	// 'disableDebugSupport' in the .cs file.

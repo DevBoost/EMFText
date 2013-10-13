@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+
 /**
  * A class to represent a keyword in the grammar.
  */

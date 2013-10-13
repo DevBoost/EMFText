@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * A representation for a range in a document where a keyword (i.e., a static
  * string) is expected.
@@ -40,8 +43,8 @@ public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.
 		return keyword;
 	}
 	
-	public java.util.Set<String> getTokenNames() {
-		return java.util.Collections.singleton("'" + getValue() + "'");
+	public Set<String> getTokenNames() {
+		return Collections.singleton("'" + getValue() + "'");
 	}
 	
 	public String toString() {

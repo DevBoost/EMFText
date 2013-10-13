@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
+import org.eclipse.core.runtime.Platform;
+
 /**
  * This utility class provides methods to obtain information about the current
  * runtime, for example whether Eclipse is available or not.
@@ -23,10 +25,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 public class CsRuntimeUtil {
 	
 	/**
-	 * Checks whether the class
-	 * <code>org.eclipse.emf.validation.internal.EMFModelValidationPlugin</code> is
-	 * available on the classpath. This can be used to determine if Eclipse is
-	 * available in the current runtime environment.
+	 * Checks whether the class <code>EMFModelValidationPlugin</code> is available on
+	 * the classpath. This can be used to determine if Eclipse is available in the
+	 * current runtime environment.
 	 */
 	public boolean isEMFValidationAvailable() {
 		try {
@@ -38,13 +39,13 @@ public class CsRuntimeUtil {
 	}
 	
 	/**
-	 * Checks whether the class <code>org.eclipse.core.runtime.Platform</code> is
-	 * available on the classpath. This can be used to determine if EMF Validation is
-	 * available in the current runtime environment.
+	 * Checks whether the class <code>Platform</code> is available on the classpath.
+	 * This can be used to determine if EMF Validation is available in the current
+	 * runtime environment.
 	 */
 	public boolean isEclipsePlatformAvailable() {
 		try {
-			Class.forName("org.eclipse.core.runtime.Platform");
+			Class.forName("Platform");
 			return true;
 		} catch (ClassNotFoundException cnfe) {
 		}
@@ -88,7 +89,7 @@ public class CsRuntimeUtil {
 		if (!isEclipsePlatformAvailable()) {
 			return false;
 		}
-		return org.eclipse.core.runtime.Platform.isRunning();
+		return Platform.isRunning();
 	}
 	
 }

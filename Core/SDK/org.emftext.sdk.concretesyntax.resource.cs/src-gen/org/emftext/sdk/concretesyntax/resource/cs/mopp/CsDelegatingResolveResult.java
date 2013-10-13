@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Collection;
+import org.eclipse.emf.common.util.URI;
+
 /**
  * An implementation of the ResolveResult interface that delegates all method
  * calls to another ResolveResult. Client may subclass this class to easily create
@@ -36,7 +39,7 @@ public class CsDelegatingResolveResult<ReferenceType> implements org.emftext.sdk
 		return delegate.getErrorMessage();
 	}
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings() {
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceMapping<ReferenceType>> getMappings() {
 		return delegate.getMappings();
 	}
 	
@@ -60,7 +63,7 @@ public class CsDelegatingResolveResult<ReferenceType> implements org.emftext.sdk
 		delegate.addMapping(identifier, target);
 	}
 	
-	public void addMapping(String identifier, org.eclipse.emf.common.util.URI uri) {
+	public void addMapping(String identifier, URI uri) {
 		delegate.addMapping(identifier, uri);
 	}
 	
@@ -68,11 +71,11 @@ public class CsDelegatingResolveResult<ReferenceType> implements org.emftext.sdk
 		delegate.addMapping(identifier, target, warning);
 	}
 	
-	public void addMapping(String identifier, org.eclipse.emf.common.util.URI uri, String warning) {
+	public void addMapping(String identifier, URI uri, String warning) {
 		delegate.addMapping(identifier, uri, warning);
 	}
 	
-	public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
+	public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
 		return delegate.getQuickFixes();
 	}
 	

@@ -16,6 +16,8 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * A delegating reference resolver is an extension of a normal reference resolver
  * that can be configured with another resolver that it may delegate method calls
@@ -24,7 +26,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
  * 
  * @see org.emftext.sdk.concretesyntax.resource.cs.ICsOptions
  */
-public interface ICsDelegatingReferenceResolver<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> extends org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<ContainerType, ReferenceType> {
+public interface ICsDelegatingReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> extends org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver<ContainerType, ReferenceType> {
 	
 	/**
 	 * Sets the delegate for this resolver.

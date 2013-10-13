@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+
 public class CsCompound extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
 	public CsCompound(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice choice, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality) {

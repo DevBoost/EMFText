@@ -16,6 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+
 public class CsNewFileContentProvider {
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation getMetaInformation() {
@@ -23,36 +29,36 @@ public class CsNewFileContentProvider {
 	}
 	
 	public String getNewFileContent(String newFileName) {
-		return getExampleContent(new org.eclipse.emf.ecore.EClass[] {
+		return getExampleContent(new EClass[] {
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
 		}, getMetaInformation().getClassesWithSyntax(), newFileName);
 	}
 	
-	protected String getExampleContent(org.eclipse.emf.ecore.EClass[] startClasses, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax, String newFileName) {
+	protected String getExampleContent(EClass[] startClasses, EClass[] allClassesWithSyntax, String newFileName) {
 		String content = "SYNTAXDEF myFileExtension\nFOR <http://www.some-domain.org/myLanguage> <optional/path/to/myLanguage.genmodel>\nSTART StartMetaClass\n\nOPTIONS {\n\treloadGeneratorModel = \"true\";\n}\n\nRULES {\n\t// syntax definition for class 'StartMetaClass'\n\tStartMetaClass   ::= \"myKeyword\" attributeOfStartMetaClass[] aContainmentReference* ;\n\t\n\t// syntax definition for class 'AnotherMetaClass'\n\tAnotherMetaClass ::= \"otherKeyword\" aNonContainmentReference[];\n}".replace("\n", System.getProperty("line.separator"));
 		return content;
 	}
 	
-	protected String getExampleContent(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax, String newFileName) {
+	protected String getExampleContent(EClass eClass, EClass[] allClassesWithSyntax, String newFileName) {
 		// create a minimal model
-		org.eclipse.emf.ecore.EObject root = new org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newFileName);
+		EObject root = new org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newFileName);
 		if (root == null) {
 			// could not create a minimal model. returning an empty document is the best we
 			// can do.
 			return "";
 		}
 		// use printer to get text for model
-		java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getPrinter(buffer);
 		try {
 			printer.print(root);
-		} catch (java.io.IOException e) {
+		} catch (IOException e) {
 			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while generating example content.", e);
 		}
 		return buffer.toString();
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(java.io.OutputStream outputStream) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(OutputStream outputStream) {
 		return getMetaInformation().createPrinter(outputStream, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource());
 	}
 	

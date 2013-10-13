@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
+
 public class CsSequence extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement {
 	
 	public CsSequence(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement... elements) {

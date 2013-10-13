@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+
 /**
  * An interface for factories to create instances of
  * org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.
@@ -24,7 +27,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
  * resolved
  * @param <ReferenceType> the type of the reference to be resolved
  */
-public interface ICsContextDependentURIFragmentFactory<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
+public interface ICsContextDependentURIFragmentFactory<ContainerType extends EObject, ReferenceType extends EObject> {
 	
 	/**
 	 * Create a new instance of the
@@ -41,5 +44,5 @@ public interface ICsContextDependentURIFragmentFactory<ContainerType extends org
 	 * @return the new instance of
 	 * org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<?> create(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int positionInReference, org.eclipse.emf.ecore.EObject proxy);
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment<?> create(String identifier, ContainerType container, EReference reference, int positionInReference, EObject proxy);
 }

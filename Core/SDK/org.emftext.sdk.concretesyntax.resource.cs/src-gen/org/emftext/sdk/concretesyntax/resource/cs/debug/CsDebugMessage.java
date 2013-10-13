@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.debug;
 
+
 /**
  * DebugMessages are exchanged between the debug server (the Eclipse debug
  * framework) and the debug client (a running process or interpreter). To exchange

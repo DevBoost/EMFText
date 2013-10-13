@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * Implementors of this interface can provide a post-processor for text resources.
  */

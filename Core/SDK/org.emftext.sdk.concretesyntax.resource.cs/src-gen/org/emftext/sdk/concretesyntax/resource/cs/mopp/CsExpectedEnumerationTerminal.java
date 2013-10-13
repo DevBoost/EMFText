@@ -16,6 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * A representation for a range in a document where an enumeration literal (i.e.,
  * a set of static strings) is expected.
@@ -29,11 +32,11 @@ public class CsExpectedEnumerationTerminal extends org.emftext.sdk.concretesynta
 		this.enumerationTerminal = enumerationTerminal;
 	}
 	
-	public java.util.Set<String> getTokenNames() {
+	public Set<String> getTokenNames() {
 		// EnumerationTerminals are associated with multiple tokens, one for each literal
 		// that was mapped to a string
 		java.util.Set<String> tokenNames = new java.util.LinkedHashSet<String>();
-		java.util.Map<String, String> mapping = enumerationTerminal.getLiteralMapping();
+		Map<String, String> mapping = enumerationTerminal.getLiteralMapping();
 		for (String literalName : mapping.keySet()) {
 			String text = mapping.get(literalName);
 			if (text != null && !"".equals(text)) {

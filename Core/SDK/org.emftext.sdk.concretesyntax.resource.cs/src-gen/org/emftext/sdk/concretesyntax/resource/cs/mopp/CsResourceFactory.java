@@ -16,13 +16,16 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-public class CsResourceFactory implements org.eclipse.emf.ecore.resource.Resource.Factory {
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+
+public class CsResourceFactory implements Resource.Factory {
 	
 	public CsResourceFactory() {
 		super();
 	}
 	
-	public org.eclipse.emf.ecore.resource.Resource createResource(org.eclipse.emf.common.util.URI uri) {
+	public Resource createResource(URI uri) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource(uri);
 	}
 	

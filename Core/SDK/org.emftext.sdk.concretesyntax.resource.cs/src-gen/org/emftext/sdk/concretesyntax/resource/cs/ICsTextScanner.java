@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+
 /**
  * A common interface for scanners to be used by EMFText. A scanner is initialized
  * with a text and delivers a sequence of tokens.

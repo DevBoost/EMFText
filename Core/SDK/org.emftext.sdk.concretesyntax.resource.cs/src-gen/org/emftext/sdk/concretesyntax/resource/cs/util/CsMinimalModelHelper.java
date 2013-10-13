@@ -16,6 +16,19 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
+
 /**
  * A helper class that is able to create minimal model instances for Ecore models.
  */
@@ -23,27 +36,27 @@ public class CsMinimalModelHelper {
 	
 	private final static org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil eClassUtil = new org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil();
 	
-	public org.eclipse.emf.ecore.EObject getMinimalModel(org.eclipse.emf.ecore.EClass eClass, java.util.Collection<org.eclipse.emf.ecore.EClass> allAvailableClasses) {
-		return getMinimalModel(eClass, allAvailableClasses.toArray(new org.eclipse.emf.ecore.EClass[allAvailableClasses.size()]), null);
+	public EObject getMinimalModel(EClass eClass, Collection<EClass> allAvailableClasses) {
+		return getMinimalModel(eClass, allAvailableClasses.toArray(new EClass[allAvailableClasses.size()]), null);
 	}
 	
-	public org.eclipse.emf.ecore.EObject getMinimalModel(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allAvailableClasses) {
+	public EObject getMinimalModel(EClass eClass, EClass[] allAvailableClasses) {
 		return getMinimalModel(eClass, allAvailableClasses, null);
 	}
 	
-	public org.eclipse.emf.ecore.EObject getMinimalModel(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allAvailableClasses, String name) {
+	public EObject getMinimalModel(EClass eClass, EClass[] allAvailableClasses, String name) {
 		if (!contains(allAvailableClasses, eClass)) {
 			return null;
 		}
-		org.eclipse.emf.ecore.EPackage ePackage = eClass.getEPackage();
+		EPackage ePackage = eClass.getEPackage();
 		if (ePackage == null) {
 			return null;
 		}
-		org.eclipse.emf.ecore.EObject root = ePackage.getEFactoryInstance().create(eClass);
-		java.util.List<org.eclipse.emf.ecore.EStructuralFeature> features = eClass.getEAllStructuralFeatures();
-		for (org.eclipse.emf.ecore.EStructuralFeature feature : features) {
-			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				org.eclipse.emf.ecore.EReference reference = (org.eclipse.emf.ecore.EReference) feature;
+		EObject root = ePackage.getEFactoryInstance().create(eClass);
+		List<EStructuralFeature> features = eClass.getEAllStructuralFeatures();
+		for (EStructuralFeature feature : features) {
+			if (feature instanceof EReference) {
+				EReference reference = (EReference) feature;
 				if (reference.isUnsettable()) {
 					continue;
 				}
@@ -51,12 +64,12 @@ public class CsMinimalModelHelper {
 					continue;
 				}
 				
-				org.eclipse.emf.ecore.EClassifier type = reference.getEType();
-				if (type instanceof org.eclipse.emf.ecore.EClass) {
-					org.eclipse.emf.ecore.EClass typeClass = (org.eclipse.emf.ecore.EClass) type;
+				EClassifier type = reference.getEType();
+				if (type instanceof EClass) {
+					EClass typeClass = (EClass) type;
 					if (eClassUtil.isNotConcrete(typeClass)) {
 						// find subclasses
-						java.util.List<org.eclipse.emf.ecore.EClass> subClasses = eClassUtil.getSubClasses(typeClass, allAvailableClasses);
+						List<EClass> subClasses = eClassUtil.getSubClasses(typeClass, allAvailableClasses);
 						if (subClasses.size() == 0) {
 							continue;
 						} else {
@@ -66,33 +79,33 @@ public class CsMinimalModelHelper {
 					}
 					int lowerBound = reference.getLowerBound();
 					for (int i = 0; i < lowerBound; i++) {
-						org.eclipse.emf.ecore.EObject subModel = null;
+						EObject subModel = null;
 						if (reference.isContainment()) {
-							org.eclipse.emf.ecore.EClass[] unusedClasses = getArraySubset(allAvailableClasses, eClass);
+							EClass[] unusedClasses = getArraySubset(allAvailableClasses, eClass);
 							subModel = getMinimalModel(typeClass, unusedClasses);
 						}
 						else {
 							subModel = typeClass.getEPackage().getEFactoryInstance().create(typeClass);
 							// set some proxy URI to make this object a proxy
 							String initialValue = "#some" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.capitalize(typeClass.getName());
-							org.eclipse.emf.common.util.URI proxyURI = org.eclipse.emf.common.util.URI.createURI(initialValue);
-							((org.eclipse.emf.ecore.InternalEObject) subModel).eSetProxyURI(proxyURI);
+							URI proxyURI = URI.createURI(initialValue);
+							((InternalEObject) subModel).eSetProxyURI(proxyURI);
 						}
 						if (subModel == null) {
 							continue;
 						}
 						
 						Object value = root.eGet(reference);
-						if (value instanceof java.util.List<?>) {
-							java.util.List<org.eclipse.emf.ecore.EObject> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.castListUnchecked(value);
+						if (value instanceof List<?>) {
+							List<EObject> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.castListUnchecked(value);
 							list.add(subModel);
 						} else {
 							root.eSet(reference, subModel);
 						}
 					}
 				}
-			} else if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
-				org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
+			} else if (feature instanceof EAttribute) {
+				EAttribute attribute = (EAttribute) feature;
 				if ("EString".equals(attribute.getEType().getName())) {
 					String initialValue;
 					if (attribute.getName().equals("name") && name != null) {
@@ -102,8 +115,8 @@ public class CsMinimalModelHelper {
 						initialValue = "some" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.capitalize(attribute.getName());
 					}
 					Object value = root.eGet(attribute);
-					if (value instanceof java.util.List<?>) {
-						java.util.List<String> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.castListUnchecked(value);
+					if (value instanceof List<?>) {
+						List<String> list = org.emftext.sdk.concretesyntax.resource.cs.util.CsListUtil.castListUnchecked(value);
 						list.add(initialValue);
 					} else {
 						root.eSet(attribute, initialValue);
@@ -114,8 +127,8 @@ public class CsMinimalModelHelper {
 		return root;
 	}
 	
-	private boolean contains(org.eclipse.emf.ecore.EClass[] allAvailableClasses, org.eclipse.emf.ecore.EClass eClass) {
-		for (org.eclipse.emf.ecore.EClass nextClass : allAvailableClasses) {
+	private boolean contains(EClass[] allAvailableClasses, EClass eClass) {
+		for (EClass nextClass : allAvailableClasses) {
 			if (eClass == nextClass) {
 				return true;
 			}
@@ -123,14 +136,14 @@ public class CsMinimalModelHelper {
 		return false;
 	}
 	
-	private org.eclipse.emf.ecore.EClass[] getArraySubset(org.eclipse.emf.ecore.EClass[] allClasses, org.eclipse.emf.ecore.EClass eClassToRemove) {
-		java.util.List<org.eclipse.emf.ecore.EClass> subset = new java.util.ArrayList<org.eclipse.emf.ecore.EClass>();
-		for (org.eclipse.emf.ecore.EClass eClass : allClasses) {
+	private EClass[] getArraySubset(EClass[] allClasses, EClass eClassToRemove) {
+		List<EClass> subset = new ArrayList<EClass>();
+		for (EClass eClass : allClasses) {
 			if (eClass != eClassToRemove) {
 				subset.add(eClass);
 			}
 		}
-		return subset.toArray(new org.eclipse.emf.ecore.EClass[subset.size()]);
+		return subset.toArray(new EClass[subset.size()]);
 	}
 	
 }

@@ -16,6 +16,10 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Collections;
+import java.util.List;
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * An inactive implementation of the ILocationMap interface. That is used if the
  * org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.DISABLE_LOCATION_MAP
@@ -23,40 +27,40 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
  */
 public class CsDevNullLocationMap implements org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap {
 	
-	public void setLine(org.eclipse.emf.ecore.EObject element, int line) {
+	public void setLine(EObject element, int line) {
 	}
 	
-	public int getLine(org.eclipse.emf.ecore.EObject element) {
+	public int getLine(EObject element) {
 		return -1;
 	}
 	
-	public void setColumn(org.eclipse.emf.ecore.EObject element, int column) {
+	public void setColumn(EObject element, int column) {
 	}
 	
-	public int getColumn(org.eclipse.emf.ecore.EObject element) {
+	public int getColumn(EObject element) {
 		return -1;
 	}
 	
-	public void setCharStart(org.eclipse.emf.ecore.EObject element, int charStart) {
+	public void setCharStart(EObject element, int charStart) {
 	}
 	
-	public int getCharStart(org.eclipse.emf.ecore.EObject element) {
+	public int getCharStart(EObject element) {
 		return -1;
 	}
 	
-	public void setCharEnd(org.eclipse.emf.ecore.EObject element, int charEnd) {
+	public void setCharEnd(EObject element, int charEnd) {
 	}
 	
-	public int getCharEnd(org.eclipse.emf.ecore.EObject element) {
+	public int getCharEnd(EObject element) {
 		return -1;
 	}
 	
-	public java.util.List<org.eclipse.emf.ecore.EObject> getElementsAt(final int documentOffset) {
-		return java.util.Collections.<org.eclipse.emf.ecore.EObject>emptyList();
+	public List<EObject> getElementsAt(final int documentOffset) {
+		return Collections.<EObject>emptyList();
 	}
 	
-	public java.util.List<org.eclipse.emf.ecore.EObject> getElementsBetween(final int startOffset, final int endOffset) {
-		return java.util.Collections.<org.eclipse.emf.ecore.EObject>emptyList();
+	public List<EObject> getElementsBetween(final int startOffset, final int endOffset) {
+		return Collections.<EObject>emptyList();
 	}
 	
 }

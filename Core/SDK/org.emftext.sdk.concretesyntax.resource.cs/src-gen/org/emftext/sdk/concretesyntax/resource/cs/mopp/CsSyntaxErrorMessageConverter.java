@@ -16,6 +16,19 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.List;
+import org.antlr.runtime3_4_0.CommonToken;
+import org.antlr.runtime3_4_0.EarlyExitException;
+import org.antlr.runtime3_4_0.FailedPredicateException;
+import org.antlr.runtime3_4_0.MismatchedNotSetException;
+import org.antlr.runtime3_4_0.MismatchedRangeException;
+import org.antlr.runtime3_4_0.MismatchedSetException;
+import org.antlr.runtime3_4_0.MismatchedTokenException;
+import org.antlr.runtime3_4_0.MismatchedTreeNodeException;
+import org.antlr.runtime3_4_0.NoViableAltException;
+import org.antlr.runtime3_4_0.RecognitionException;
+import org.antlr.runtime3_4_0.Token;
+
 public class CsSyntaxErrorMessageConverter {
 	
 	private String[] tokenNames;
@@ -27,7 +40,7 @@ public class CsSyntaxErrorMessageConverter {
 	/**
 	 * Translates errors thrown by the lexer into human readable messages.
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocalizedMessage translateLexicalError(org.antlr.runtime3_4_0.RecognitionException e, java.util.List<org.antlr.runtime3_4_0.RecognitionException> lexerExceptions, java.util.List<Integer> lexerExceptionPositions)  {
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocalizedMessage translateLexicalError(RecognitionException e, List<RecognitionException> lexerExceptions, List<Integer> lexerExceptionPositions)  {
 		String message = getMessage(e);
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocalizedMessage(message, e.charPositionInLine, e.line, lexerExceptionPositions.get(lexerExceptions.indexOf(e)), lexerExceptionPositions.get(lexerExceptions.indexOf(e)));
 	}
@@ -35,11 +48,11 @@ public class CsSyntaxErrorMessageConverter {
 	/**
 	 * Translates errors thrown by the parser into human readable messages.
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocalizedMessage translateParseError(org.antlr.runtime3_4_0.RecognitionException e)  {
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocalizedMessage translateParseError(RecognitionException e)  {
 		String message = getMessage(e);
 		
-		if (e.token instanceof org.antlr.runtime3_4_0.CommonToken) {
-			org.antlr.runtime3_4_0.CommonToken ct = (org.antlr.runtime3_4_0.CommonToken) e.token;
+		if (e.token instanceof CommonToken) {
+			CommonToken ct = (CommonToken) e.token;
 			return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsLocalizedMessage(message, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
 		} else {
 			int position = 1;
@@ -52,39 +65,39 @@ public class CsSyntaxErrorMessageConverter {
 		}
 	}
 	
-	protected String getMessage(org.antlr.runtime3_4_0.RecognitionException e)  {
+	protected String getMessage(RecognitionException e)  {
 		String message = e.getMessage();
-		if (e instanceof org.antlr.runtime3_4_0.MismatchedTokenException) {
-			org.antlr.runtime3_4_0.MismatchedTokenException mte = (org.antlr.runtime3_4_0.MismatchedTokenException) e;
+		if (e instanceof MismatchedTokenException) {
+			MismatchedTokenException mte = (MismatchedTokenException) e;
 			String expectedTokenName = getTokenName(mte.expecting);
 			message = "Syntax error on token \"" + toString(e.token) + "\" ";
 			message += "Expected: \"" + expectedTokenName + "\".";
-		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedTreeNodeException) {
-			org.antlr.runtime3_4_0.MismatchedTreeNodeException mtne = (org.antlr.runtime3_4_0.MismatchedTreeNodeException) e;
+		} else if (e instanceof MismatchedTreeNodeException) {
+			MismatchedTreeNodeException mtne = (MismatchedTreeNodeException) e;
 			String expectedTokenName = getTokenName(mtne.expecting);
 			String actualTokenName = getTokenName(mtne.getUnexpectedType());
 			message = "Mismatched tree node: \"" + actualTokenName + "\". Expected: \"" + expectedTokenName + "\"";
-		} else if (e instanceof org.antlr.runtime3_4_0.NoViableAltException) {
+		} else if (e instanceof NoViableAltException) {
 			message = "Syntax error on token \"" + toString(e.token) + "\". Check following tokens.";
-		} else if (e instanceof org.antlr.runtime3_4_0.EarlyExitException) {
+		} else if (e instanceof EarlyExitException) {
 			message = "Syntax error on token \"" + toString(e.token) + "\". Delete this token.";
-		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedSetException) {
-			org.antlr.runtime3_4_0.MismatchedSetException mse = (org.antlr.runtime3_4_0.MismatchedSetException) e;
+		} else if (e instanceof MismatchedSetException) {
+			MismatchedSetException mse = (MismatchedSetException) e;
 			message = "Mismatched token: " + toString(e.token) + "; expecting set " + mse.expecting;
-		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedNotSetException) {
-			org.antlr.runtime3_4_0.MismatchedNotSetException mse = (org.antlr.runtime3_4_0.MismatchedNotSetException) e;
+		} else if (e instanceof MismatchedNotSetException) {
+			MismatchedNotSetException mse = (MismatchedNotSetException) e;
 			message = "Mismatched token: " +  toString(e.token) + "; expecting set " + mse.expecting;
-		} else if (e instanceof org.antlr.runtime3_4_0.MismatchedRangeException) {
+		} else if (e instanceof MismatchedRangeException) {
 			message = "Mismatched token: " + toString(e.token) + "; expecting range";
-		} else if (e instanceof org.antlr.runtime3_4_0.FailedPredicateException) {
-			org.antlr.runtime3_4_0.FailedPredicateException fpe = (org.antlr.runtime3_4_0.FailedPredicateException) e;
+		} else if (e instanceof FailedPredicateException) {
+			FailedPredicateException fpe = (FailedPredicateException) e;
 			message = "Rule " + fpe.ruleName + " failed. Predicate: {" +  fpe.predicateText + "}?";
 		}
 		
 		return message;
 	}
 	
-	protected String toString(org.antlr.runtime3_4_0.Token token)  {
+	protected String toString(Token token)  {
 		if (token == null) {
 			return "<UNKNOWN>";
 		}

@@ -16,10 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import org.eclipse.emf.ecore.EClass;
+
 public class CsSyntaxCoverageInformationProvider {
 	
-	public org.eclipse.emf.ecore.EClass[] getClassesWithSyntax() {
-		return new org.eclipse.emf.ecore.EClass[] {
+	public EClass[] getClassesWithSyntax() {
+		return new EClass[] {
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(),
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption(),
@@ -49,8 +51,8 @@ public class CsSyntaxCoverageInformationProvider {
 		};
 	}
 	
-	public org.eclipse.emf.ecore.EClass[] getStartSymbols() {
-		return new org.eclipse.emf.ecore.EClass[] {
+	public EClass[] getStartSymbols() {
+		return new EClass[] {
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
 		};
 	}
