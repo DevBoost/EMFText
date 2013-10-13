@@ -30,7 +30,7 @@ public class LocalizedMessageGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addFieldGet("charStart", "int");
 		sc.addFieldGet("charEnd", "int");
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " {");

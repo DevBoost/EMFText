@@ -15,10 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CHANGE_DESCRIPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CHANGE_RECORDER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
-
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
-
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
@@ -38,7 +41,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -58,7 +61,6 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 			"This is required, because different completions can yield " +
 			"different models."
 		);
-		
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
@@ -68,7 +70,6 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addMethods(JavaComposite sc) {
 		sc.addGettersSetters();
-		
 		addGetFollowSetIDMethod(sc);
 		addGetTerminalMethod(sc);
 		addToStringMethod(sc);
@@ -177,15 +178,15 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addGetContainerMethod(StringComposite sc) {
-		sc.add("public " + E_OBJECT + " getContainer() {");
+	private void addGetContainerMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_OBJECT(sc) + " getContainer() {");
 		sc.add("return container;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_OBJECT + " container, " + iExpectedElementClassName + " terminal, int followSetID, " + containmentTraceClassName + " containmentTrace) {");
+	private void addConstructor(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + E_OBJECT(sc) + " container, " + iExpectedElementClassName + " terminal, int followSetID, " + containmentTraceClassName + " containmentTrace) {");
 		sc.add("super();");
 		sc.add("this.container = container;");
 		sc.add("this.terminal = terminal;");
@@ -199,7 +200,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addFields();
 		
 		sc.add("private int followSetID;");
-		sc.add("private " + E_OBJECT + " container;");
+		sc.add("private " + E_OBJECT(sc) + " container;");
 		sc.add("private " + iExpectedElementClassName + " terminal;");
 		sc.add("private int startIncludingHiddenTokens;");
 		sc.add("private int startExcludingHiddenTokens;");
@@ -211,13 +212,13 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addMaterializeMethod(JavaComposite sc) {
 		sc.addJavadoc(JAVADOC_MATERIALIZE_METHOD);
 		sc.add("public void materialize(Runnable code) {");
-		sc.add(E_OBJECT + " root = " + ECORE_UTIL + ".getRootContainer(getContainer());");
+		sc.add(E_OBJECT(sc) + " root = " + ECORE_UTIL(sc) + ".getRootContainer(getContainer());");
 		sc.add("if (root == null) {");
 		sc.add("code.run();");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(CHANGE_RECORDER + " recorder = new " + CHANGE_RECORDER + "();");
-		sc.add("recorder.beginRecording(" + COLLECTIONS + ".singleton(root));");
+		sc.add(CHANGE_RECORDER(sc) + " recorder = new " + CHANGE_RECORDER(sc) + "();");
+		sc.add("recorder.beginRecording(" + COLLECTIONS(sc) + ".singleton(root));");
 		sc.addLineBreak();
 		sc.addComment("attach proposal model fragment to main model");
 		sc.add("Runnable attachmentCode = getAttachmentCode();");
@@ -226,7 +227,7 @@ public class ExpectedTerminalGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("attachmentCode.run();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(CHANGE_DESCRIPTION + " changes = recorder.endRecording();");
+		sc.add(CHANGE_DESCRIPTION(sc) + " changes = recorder.endRecording();");
 		sc.add("code.run();");
 		sc.addComment("revert changes");
 		sc.add("changes.apply();");

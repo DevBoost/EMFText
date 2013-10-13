@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("An element that is expected at a given position in a resource stream.");
@@ -38,11 +38,11 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the names of all tokens that are expected at the given position.");
-		sc.add("public " + SET + "<String> getTokenNames();");
+		sc.add("public " + SET(sc) + "<String> getTokenNames();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the metaclass of the rule that contains the expected element.");
-		sc.add("public " + E_CLASS +" getRuleMetaclass();");
+		sc.add("public " + E_CLASS(sc) +" getRuleMetaclass();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the syntax element that is expected.");
@@ -58,7 +58,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator<ArtifactParamet
 			"Each follower is represented by a pair of an expected elements and the " +
 			"containment trace that leads from the current element to the follower."
 		);
-		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> getFollowers();");
+		sc.add("public " + COLLECTION(sc) + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> getFollowers();");
 		sc.addLineBreak();
 		
 		sc.add("}");

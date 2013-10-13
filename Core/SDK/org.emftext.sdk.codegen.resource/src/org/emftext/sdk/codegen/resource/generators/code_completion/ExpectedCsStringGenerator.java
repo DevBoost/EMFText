@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A representation for a range in a document where a keyword (i.e., a static string) is expected.");
@@ -104,10 +104,10 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenNameMethod(StringComposite sc) {
-		sc.add("public " + SET + "<String> getTokenNames() {");
+	private void addGetTokenNameMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + SET(sc) + "<String> getTokenNames() {");
 		// TODO using single quotes here is ANTLR specific
-		sc.add("return " + COLLECTIONS + ".singleton(\"'\" + getValue() + \"'\");");
+		sc.add("return " + COLLECTIONS(sc) + ".singleton(\"'\" + getValue() + \"'\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

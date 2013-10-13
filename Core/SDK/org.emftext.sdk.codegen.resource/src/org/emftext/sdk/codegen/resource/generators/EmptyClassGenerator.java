@@ -22,7 +22,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class EmptyClassGenerator extends JavaBaseGenerator<ClassParameters> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getContext().getPackageName(getParameters().getTargetPackage()) + ";");
+		sc.add("package " + getContext().getPackageName(getParameters().getTargetPackage()) + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		sc.addJavadoc("This empty class was generated to overwrite exiting classes.");

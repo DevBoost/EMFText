@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator<Artif
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -42,7 +42,7 @@ public class IBackgroundParsingListenerGenerator extends JavaBaseGenerator<Artif
 			"the background parsing is completed.",
 			"@param resource the resource that has changed"
 		);
-		sc.add("public void parsingCompleted(" + RESOURCE + " resource);");
+		sc.add("public void parsingCompleted(" + RESOURCE(sc) + " resource);");
 		sc.add("}");
 	}
 }

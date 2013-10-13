@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A utility class that provides methods to handle EClasses.");
@@ -53,8 +53,8 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addHasTypeMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns true if the given object is an instance of one of the EClasses.");
-		sc.add("public boolean isInstance(Object object, " + E_CLASS + "[] allowedTypes) {");
-		sc.add("for (" + E_CLASS + " allowedType : allowedTypes) {");
+		sc.add("public boolean isInstance(Object object, " + E_CLASS(sc) + "[] allowedTypes) {");
+		sc.add("for (" + E_CLASS(sc) + " allowedType : allowedTypes) {");
 		sc.add("if (allowedType.isInstance(object)) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -65,29 +65,29 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addIsNotConcreteMethod(JavaComposite sc) {
-		sc.add("public boolean isNotConcrete(" + E_CLASS + " eClass) {");
+		sc.add("public boolean isNotConcrete(" + E_CLASS(sc) + " eClass) {");
 		sc.add("return !isConcrete(eClass);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addIsConcreteMethod(JavaComposite sc) {
-		sc.add("public boolean isConcrete(" + E_CLASS + " eClass) {");
+		sc.add("public boolean isConcrete(" + E_CLASS(sc) + " eClass) {");
 		sc.add("return !eClass.isAbstract() && !eClass.isInterface();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addNamesAreEqualMethod(JavaComposite sc) {
-		sc.add("public boolean namesAreEqual(" + E_CLASS + " classA, " + E_CLASS + " classB) {");
+		sc.add("public boolean namesAreEqual(" + E_CLASS(sc) + " classA, " + E_CLASS(sc) + " classB) {");
 		sc.add("return classA.getName().equals(classB.getName());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addPackageURIsAreEqualMethod(JavaComposite sc) {
-		sc.add("public boolean packageURIsAreEqual(" + E_CLASS + " classA,");
-		sc.add(E_CLASS + " classB) {");
+		sc.add("public boolean packageURIsAreEqual(" + E_CLASS(sc) + " classA,");
+		sc.add(E_CLASS(sc) + " classB) {");
 		sc.add("String nsURI_A = classA.getEPackage().getNsURI();");
 		sc.add("String nsURI_B = classB.getEPackage().getNsURI();");
 		sc.add("if (nsURI_A == null && nsURI_B == null) {");
@@ -103,8 +103,8 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addNamesAndPackageURIsAreEqualMethod(JavaComposite sc) {
-		sc.add("public boolean namesAndPackageURIsAreEqual(" + E_CLASS + " classA,");
-		sc.add(E_CLASS + " classB) {");
+		sc.add("public boolean namesAndPackageURIsAreEqual(" + E_CLASS(sc) + " classA,");
+		sc.add(E_CLASS(sc) + " classB) {");
 		sc.add("return namesAreEqual(classA, classB) &&");
 		sc.add("packageURIsAreEqual(classA, classB);");
 		sc.add("}");
@@ -119,10 +119,10 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			"@param availableClasses the set of classes to search in",
 			"@return a list of all subclasses of 'superClass'"
 		);
-		sc.add("public " + LIST + "<" + E_CLASS + "> getSubClasses(" + E_CLASS + " superClass, " + E_CLASS + "[] availableClasses) {");
+		sc.add("public " + LIST(sc) + "<" + E_CLASS(sc) + "> getSubClasses(" + E_CLASS(sc) + " superClass, " + E_CLASS(sc) + "[] availableClasses) {");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + E_CLASS + "> result = new " + ARRAY_LIST + "<" + E_CLASS + ">();");
-		sc.add("for (" + E_CLASS + " next : availableClasses) {");
+		sc.add(LIST(sc) + "<" + E_CLASS(sc) + "> result = new " + ARRAY_LIST(sc) + "<" + E_CLASS(sc) + ">();");
+		sc.add("for (" + E_CLASS(sc) + " next : availableClasses) {");
 		sc.add("if (isSubClass(next, superClass) &&");
 		sc.add("isConcrete(next)) {");
 		sc.add("result.add(next);");
@@ -134,8 +134,8 @@ public class EClassUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addIsSubClassMethod(JavaComposite sc) {
-		sc.add("public boolean isSubClass(" + E_CLASS + " subClassCandidate, " + E_CLASS + " superClass) {");
-		sc.add("for (" + E_CLASS + " superClassCandidate : subClassCandidate.getEAllSuperTypes()) {");
+		sc.add("public boolean isSubClass(" + E_CLASS(sc) + " subClassCandidate, " + E_CLASS(sc) + " superClass) {");
+		sc.add("for (" + E_CLASS(sc) + " superClassCandidate : subClassCandidate.getEAllSuperTypes()) {");
 		sc.addComment(
 			"There seem to be multiple instances of meta classes when accessed " +
 			"through the generator model. Therefore, we compare by name."

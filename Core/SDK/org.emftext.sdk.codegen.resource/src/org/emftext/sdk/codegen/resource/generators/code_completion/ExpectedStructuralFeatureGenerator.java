@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A representation for a range in a document where a structural feature (e.g., a reference) is expected.");
@@ -89,9 +89,9 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenNamesMethod(StringComposite sc) {
-		sc.add("public " + SET + "<String> getTokenNames() {");
-		sc.add("return " + COLLECTIONS + ".singleton(getTokenName());");
+	private void addGetTokenNamesMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + SET(sc) + "<String> getTokenNames() {");
+		sc.add("return " + COLLECTIONS(sc) + ".singleton(getTokenName());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -103,8 +103,8 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 		sc.addLineBreak();
 	}
 
-	private void addGetFeatureMethod(StringComposite sc) {
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
+	private void addGetFeatureMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_STRUCTURAL_FEATURE(sc) + " getFeature() {");
 		sc.add("return placeholder.getFeature();");
 		sc.add("}");
 		sc.addLineBreak();

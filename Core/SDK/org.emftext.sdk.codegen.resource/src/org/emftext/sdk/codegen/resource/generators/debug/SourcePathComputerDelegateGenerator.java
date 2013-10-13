@@ -15,15 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SOURCE_CONTAINER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SOURCE_CONTAINER_TYPE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SOURCE_LOOKUP_DIRECTOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SOURCE_PATH_COMPUTER_DELEGATE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_CONTAINER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_CONTAINER_TYPE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_LOOKUP_DIRECTOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_PATH_COMPUTER_DELEGATE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -39,17 +39,17 @@ public class SourcePathComputerDelegateGenerator extends JavaBaseGenerator<Artif
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " implements " + I_SOURCE_PATH_COMPUTER_DELEGATE + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + I_SOURCE_PATH_COMPUTER_DELEGATE(sc) + " {");
 		sc.addLineBreak();
 		addComputeSourceContainersMethod(sc);
 		sc.add("}");
 	}
 
 	private void addComputeSourceContainersMethod(JavaComposite sc) {
-		sc.add("public " + I_SOURCE_CONTAINER + "[] computeSourceContainers(" + I_LAUNCH_CONFIGURATION + " configuration, " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
-		sc.add("return new " + I_SOURCE_CONTAINER + "[] {new " + I_SOURCE_CONTAINER + "() {");
+		sc.add("public " + I_SOURCE_CONTAINER(sc) + "[] computeSourceContainers(" + I_LAUNCH_CONFIGURATION(sc) + " configuration, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("return new " + I_SOURCE_CONTAINER(sc) + "[] {new " + I_SOURCE_CONTAINER(sc) + "() {");
 		sc.addLineBreak();
 		sc.add("@SuppressWarnings(\"rawtypes\")");
 		sc.add("public Object getAdapter(Class adapter) {");
@@ -60,27 +60,27 @@ public class SourcePathComputerDelegateGenerator extends JavaBaseGenerator<Artif
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void init(" + I_SOURCE_LOOKUP_DIRECTOR + " director) {");
+		sc.add("public void init(" + I_SOURCE_LOOKUP_DIRECTOR(sc) + " director) {");
 		sc.addComment("do nothing");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + I_SOURCE_CONTAINER_TYPE + " getType() {");
+		sc.add("public " + I_SOURCE_CONTAINER_TYPE(sc) + " getType() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + I_SOURCE_CONTAINER + "[] getSourceContainers() throws " + CORE_EXCEPTION + " {");
-		sc.add("return new " + I_SOURCE_CONTAINER + "[0];");
+		sc.add("public " + I_SOURCE_CONTAINER(sc) + "[] getSourceContainers() throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("return new " + I_SOURCE_CONTAINER(sc) + "[0];");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String getName() {");
-		sc.add("return \"Resource " + URI + "\";");
+		sc.add("return \"Resource " + URI(sc) + "\";");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public Object[] findSourceElements(String name) throws " + CORE_EXCEPTION + " {");
-		sc.add("" + URI + " eUri = " + URI + ".createURI(name);");
+		sc.add("public Object[] findSourceElements(String name) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("" + URI(sc) + " eUri = " + URI(sc) + ".createURI(name);");
 		sc.add("if (eUri.isPlatformResource()) {");
 		sc.add("String platformString = eUri.toPlatformString(true);");
-		sc.add("return new Object[] {" + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString)};");
+		sc.add("return new Object[] {" + RESOURCES_PLUGIN(sc) + ".getWorkspace().getRoot().findMember(platformString)};");
 		sc.add("}");
 		sc.add("return new Object[0];");
 		sc.add("}");

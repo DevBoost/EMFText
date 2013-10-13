@@ -15,26 +15,25 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_OBJECT_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_VALIDATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SCHEDULING_RULE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.JOB;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BASIC_E_OBJECT_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_VALIDATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SCHEDULING_RULE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.JOB;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -54,10 +53,10 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	public void generateJavaContents(JavaComposite sc) {
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Helper class to add markers to text files based on EMF's <code>" + RESOURCE_DIAGNOSTIC + "</code>. " +
+			"Helper class to add markers to text files based on EMF's <code>ResourceDiagnostic</code>. " +
 			"If a resource contains <code>" + iTextDiagnosticClassName + "</code>s it uses the more precise information of " +
 			"this extended diagnostic type."
 		);
@@ -66,10 +65,10 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		if (!removeEclipseDependentCode) {
-			addFields(sc);
-			addInnerClassMutexRule(sc);
-			addInnerClassMarkerCommandQueue(sc);
-			addMethods(sc);
+	addFields(sc);
+	addInnerClassMutexRule(sc);
+	addInnerClassMarkerCommandQueue(sc);
+	addMethods(sc);
 		} else {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
 		}
@@ -78,13 +77,13 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addInnerClassMutexRule(JavaComposite sc) {
-		sc.add("public static class MutexRule implements " + I_SCHEDULING_RULE + " {");
+		sc.add("public static class MutexRule implements " + I_SCHEDULING_RULE(sc) + " {");
 		sc.addLineBreak();
-		sc.add("public boolean isConflicting(" + I_SCHEDULING_RULE + " rule) {");
+		sc.add("public boolean isConflicting(" + I_SCHEDULING_RULE(sc) + " rule) {");
 		sc.add("return rule == this;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public boolean contains(" + I_SCHEDULING_RULE + " rule) {");
+		sc.add("public boolean contains(" + I_SCHEDULING_RULE(sc) + " rule) {");
 		sc.add("return rule == this;");
 		sc.add("}");
 		sc.add("}");
@@ -94,7 +93,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addInnerClassMarkerCommandQueue(JavaComposite sc) {
 		sc.add("private static class MarkerCommandQueue {");
 		sc.addLineBreak();
-		sc.add("private " + LIST + "<" + iCommandClassName + "<Object>> commands = new " + ARRAY_LIST + "<" + iCommandClassName + "<Object>>();");
+		sc.add("private " + LIST(sc) + "<" + iCommandClassName + "<Object>> commands = new " + ARRAY_LIST(sc) + "<" + iCommandClassName + "<Object>>();");
 		sc.addLineBreak();
 		sc.add("private MutexRule schedulingRule = new MutexRule();");
 		sc.addLineBreak();
@@ -109,11 +108,11 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void scheduleRunCommandsJob() {");
-		sc.add(JOB + " job = new " + JOB + "(\"updating markers\") {");
+		sc.add(JOB(sc) + " job = new " + JOB(sc) + "(\"updating markers\") {");
 		sc.add("@Override");	
-		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");	
+		sc.add("protected " + I_STATUS(sc) + " run(" + I_PROGRESS_MONITOR(sc) + " monitor) {");	
 		sc.add("runCommands();");
-		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("return " + STATUS(sc) + ".OK_STATUS;");
 		sc.add("}");
 		sc.add("};");
 		sc.add("job.setRule(schedulingRule);");
@@ -122,7 +121,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 		
 		sc.add("public void runCommands() {");
-		sc.add(LIST + "<" + iCommandClassName + "<Object>> commandsToProcess = new " + ARRAY_LIST + "<" + iCommandClassName + "<Object>>();");
+		sc.add(LIST(sc) + "<" + iCommandClassName + "<Object>> commandsToProcess = new " + ARRAY_LIST(sc) + "<" + iCommandClassName + "<Object>>();");
 		sc.add("synchronized(commands) {");
 		sc.add("commandsToProcess.addAll(commands);");
 		sc.add("commands.clear();");
@@ -148,7 +147,6 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addHandleExceptionMethod(sc);
 		addRemoveAllMarkersMethod1(sc);
 		addCreateMarkerMethod(sc);
-		
 		addBeginDeferMarkerUpdatesMethod(sc);
 		addEndDeferMarkerUpdatesMethod(sc);
 		addRunCommandsMethod(sc);
@@ -176,7 +174,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addCreateMarkerMethod(JavaComposite sc) {
-		sc.add("public void createMarker(final " + I_RESOURCE + " resource, final String markerId, final " + MAP + "<String, Object> markerAttributes) {");
+		sc.add("public void createMarker(final " + I_RESOURCE(sc) + " resource, final String markerId, final " + MAP(sc) + "<String, Object> markerAttributes) {");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -184,12 +182,12 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
 		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
-		sc.add(I_MARKER + " marker = resource.createMarker(markerId);");
+		sc.add(I_MARKER(sc) + " marker = resource.createMarker(markerId);");
 		sc.add("for (String key : markerAttributes.keySet()) {");
 		sc.add("marker.setAttribute(key, markerAttributes.get(key));");
 		sc.add("}");
 		sc.add("return true;");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add(pluginActivatorClassName + ".logError(\"Can't create marker.\", e);");
 		sc.add("return false;");
 		sc.add("}");
@@ -231,8 +229,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@param resource The resource where to delete markers from",
 			"@param problemType The type of problem to remove"
 		);
-		sc.add("public void unmark(" + RESOURCE + " resource, " + eProblemTypeClassName + " problemType) {");
-		sc.add("final " + I_FILE + " file = getFile(resource);");
+		sc.add("public void unmark(" + RESOURCE(sc) + " resource, " + eProblemTypeClassName + " problemType) {");
+		sc.add("final " + I_FILE(sc) + " file = getFile(resource);");
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -240,8 +238,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
 		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
-		sc.add("file.deleteMarkers(markerType, false, " + I_RESOURCE + ".DEPTH_ZERO);");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("file.deleteMarkers(markerType, false, " + I_RESOURCE(sc) + ".DEPTH_ZERO);");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " ce) {");
 		sc.add("handleException(ce);");
 		sc.add("}");
 		sc.add("return true;");
@@ -258,15 +256,15 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@param resource The resource where to delete markers from",
 			"@param markerId The id of the marker type to remove"
 		);
-		sc.add("public void removeAllMarkers(final " + I_RESOURCE + " resource, final String markerId) {");
+		sc.add("public void removeAllMarkers(final " + I_RESOURCE(sc) + " resource, final String markerId) {");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
 		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
-		sc.add("resource.deleteMarkers(markerId, false, " + I_RESOURCE + ".DEPTH_ZERO);");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("resource.deleteMarkers(markerId, false, " + I_RESOURCE(sc) + ".DEPTH_ZERO);");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " ce) {");
 		sc.add("handleException(ce);");
 		sc.add("}");
 		sc.add("return true;");
@@ -283,8 +281,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@param resource The resource where to delete markers from",
 			"@param causingObject The cause of the problems to remove"
 		);
-		sc.add("public void unmark(" + RESOURCE + " resource, final " + E_OBJECT + " causingObject) {");
-		sc.add("final " + I_FILE + " file = getFile(resource);");
+		sc.add("public void unmark(" + RESOURCE(sc) + " resource, final " + E_OBJECT(sc) + " causingObject) {");
+		sc.add("final " + I_FILE(sc) + " file = getFile(resource);");
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -296,13 +294,13 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("COMMAND_QUEUE.addCommand(new " + iCommandClassName + "<Object>() {");
 		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
-		sc.add(I_MARKER + "[] markers = file.findMarkers(markerID, true, " + I_RESOURCE + ".DEPTH_ZERO);");
-		sc.add("for (" + I_MARKER + " marker : markers) {");
-		sc.add("if (causingObjectURI.equals(marker.getAttribute(" + ECORE_VALIDATOR + ".URI_ATTRIBUTE))) {");
+		sc.add(I_MARKER(sc) + "[] markers = file.findMarkers(markerID, true, " + I_RESOURCE(sc) + ".DEPTH_ZERO);");
+		sc.add("for (" + I_MARKER(sc) + " marker : markers) {");
+		sc.add("if (causingObjectURI.equals(marker.getAttribute(" + ECORE_VALIDATOR(sc) + ".URI_ATTRIBUTE))) {");
 		sc.add("marker.delete();");
 		sc.add("}");
 		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " ce) {");
 		sc.add("handleException(ce);");
 		sc.add("}");
 		sc.add("return true;");
@@ -318,15 +316,15 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"the resource is not a platform resource, or the resource cannot be found in the " +
 			"workspace, this method returns <code>null</code>."
 		);
-		sc.add("protected " + I_FILE + " getFile(" + RESOURCE + " resource) {");
-		sc.add("if (resource == null || !" + PLATFORM + ".isRunning()) {");
+		sc.add("protected " + I_FILE(sc) + " getFile(" + RESOURCE(sc) + " resource) {");
+		sc.add("if (resource == null || !" + PLATFORM(sc) + ".isRunning()) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("String platformString = resource.getURI().toPlatformString(true);");
 		sc.add("if (platformString == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
+		sc.add(I_FILE(sc) + " file = (" + I_FILE(sc) + ") " + RESOURCES_PLUGIN(sc) + ".getWorkspace().getRoot().findMember(platformString);");
 		sc.add("return file;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -338,7 +336,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			COMMENT_ON_EXECUTION_ORDER,
 			"@param resource The resource where to delete markers from"
 		);
-		sc.add("public void unmark(" + RESOURCE + " resource) {");
+		sc.add("public void unmark(" + RESOURCE(sc) + " resource) {");
 		sc.add("for (" + eProblemTypeClassName + " nextType : " + eProblemTypeClassName + ".values()) {");
 		sc.add("unmark(resource, nextType);");
 		sc.add("}");
@@ -347,7 +345,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addCreateMarkersFromDiagnosticsMethod(JavaComposite sc) {
-		sc.add("protected void createMarkerFromDiagnostic(final " + I_FILE + " file, final " + iTextDiagnosticClassName + " diagnostic) {");
+		sc.add("protected void createMarkerFromDiagnostic(final " + I_FILE(sc) + " file, final " + iTextDiagnosticClassName + " diagnostic) {");
 		sc.add("final " + iProblemClassName + " problem = diagnostic.getProblem();");
 		sc.add(eProblemTypeClassName + " problemType = problem.getType();");
 		sc.add("final String markerID = getMarkerID(problemType);");
@@ -355,30 +353,30 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("public boolean execute(Object context) {");
 		sc.add("try {");
 		sc.addComment("if there are too many markers, we do not add new ones");
-		sc.add("if (file.findMarkers(markerID, false, " + I_RESOURCE + ".DEPTH_ZERO).length >= MAXIMUM_MARKERS) {");
+		sc.add("if (file.findMarkers(markerID, false, " + I_RESOURCE(sc) + ".DEPTH_ZERO).length >= MAXIMUM_MARKERS) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(I_MARKER + " marker = file.createMarker(markerID);");
+		sc.add(I_MARKER(sc) + " marker = file.createMarker(markerID);");
 		sc.add("if (problem.getSeverity() == " + eProblemSeverityClassName + ".ERROR) {");
-		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, " + I_MARKER + ".SEVERITY_ERROR);");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".SEVERITY, " + I_MARKER(sc) + ".SEVERITY_ERROR);");
 		sc.add("} else {");
-		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, " + I_MARKER + ".SEVERITY_WARNING);");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".SEVERITY, " + I_MARKER(sc) + ".SEVERITY_WARNING);");
 		sc.add("}");
-		sc.add("marker.setAttribute(" + I_MARKER + ".MESSAGE, diagnostic.getMessage());");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".MESSAGE, diagnostic.getMessage());");
 		sc.add(iTextDiagnosticClassName + " textDiagnostic = (" + iTextDiagnosticClassName + ") diagnostic;");
-		sc.add("marker.setAttribute(" + I_MARKER + ".LINE_NUMBER, textDiagnostic.getLine());");
-		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_START, textDiagnostic.getCharStart());");
-		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_END, textDiagnostic.getCharEnd() + 1);");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".LINE_NUMBER, textDiagnostic.getLine());");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".CHAR_START, textDiagnostic.getCharStart());");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".CHAR_END, textDiagnostic.getCharEnd() + 1);");
 		sc.add("if (diagnostic instanceof " + textResourceClassName + ".ElementBasedTextDiagnostic) {");
-		sc.add(E_OBJECT + " element = ((" + textResourceClassName + ".ElementBasedTextDiagnostic) diagnostic).getElement();");
+		sc.add(E_OBJECT(sc) + " element = ((" + textResourceClassName + ".ElementBasedTextDiagnostic) diagnostic).getElement();");
 		sc.add("String elementURI = getObjectURI(element);");
 		sc.add("if (elementURI != null) {");
-		sc.add("marker.setAttribute(" + ECORE_VALIDATOR + ".URI_ATTRIBUTE, elementURI);");
+		sc.add("marker.setAttribute(" + ECORE_VALIDATOR(sc) + ".URI_ATTRIBUTE, elementURI);");
 		sc.add("}");
 		sc.add("}");
-		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = textDiagnostic.getProblem().getQuickFixes();");
-		sc.add(COLLECTION + "<Object> sourceIDs = new " + ARRAY_LIST + "<Object>();");
+		sc.add(COLLECTION(sc) + "<" + iQuickFixClassName + "> quickFixes = textDiagnostic.getProblem().getQuickFixes();");
+		sc.add(COLLECTION(sc) + "<Object> sourceIDs = new " + ARRAY_LIST(sc) + "<Object>();");
 		sc.add("if (quickFixes != null) {");
 		sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
 		sc.add("if (quickFix != null) {");
@@ -387,9 +385,9 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (!sourceIDs.isEmpty()) {");
-		sc.add("marker.setAttribute(" + I_MARKER + ".SOURCE_ID, " + stringUtilClassName + ".explode(sourceIDs, \"|\"));");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".SOURCE_ID, " + stringUtilClassName + ".explode(sourceIDs, \"|\"));");
 		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " ce) {");
 		sc.add("handleException(ce);");
 		sc.add("}");
 		sc.add("return true;");
@@ -401,14 +399,14 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetObjectURIMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns an URI that identifies the given object.");
-		sc.add("protected String getObjectURI(" + E_OBJECT + " object) {");
+		sc.add("protected String getObjectURI(" + E_OBJECT(sc) + " object) {");
 		sc.add("if (object == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("if (object.eIsProxy() && object instanceof " + BASIC_E_OBJECT_IMPL + ") {");
-		sc.add("return ((" + BASIC_E_OBJECT_IMPL + ") object).eProxyURI().toString();");
+		sc.add("if (object.eIsProxy() && object instanceof " + BASIC_E_OBJECT_IMPL(sc) + ") {");
+		sc.add("return ((" + BASIC_E_OBJECT_IMPL(sc) + ") object).eProxyURI().toString();");
 		sc.add("}");
-		sc.add(RESOURCE + " eResource = object.eResource();");
+		sc.add(RESOURCE(sc) + " eResource = object.eResource();");
 		sc.add("if (eResource == null) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -437,8 +435,8 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@param resource The resource that is the file to mark.",
 			"@param diagnostic The diagnostic with information for the marker."
 		);
-		sc.add("public void mark(" + RESOURCE + " resource, " + iTextDiagnosticClassName +" diagnostic) {");
-		sc.add("final " + I_FILE + " file = getFile(resource);");
+		sc.add("public void mark(" + RESOURCE(sc) + " resource, " + iTextDiagnosticClassName +" diagnostic) {");
+		sc.add("final " + I_FILE(sc) + " file = getFile(resource);");
 		sc.add("if (file == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -448,7 +446,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 	
 	private void addHandleExceptionMethod(JavaComposite sc) {
-		sc.add("protected void handleException(" + CORE_EXCEPTION + " ce) {");
+		sc.add("protected void handleException(" + CORE_EXCEPTION(sc) + " ce) {");
 		sc.add("if (ce.getMessage().matches(\"Marker.*not found.\")) {");
 		sc.addComment("ignore");
 		sc.add("}else if (ce.getMessage().matches(\"Resource.*does not exist.\")) {");

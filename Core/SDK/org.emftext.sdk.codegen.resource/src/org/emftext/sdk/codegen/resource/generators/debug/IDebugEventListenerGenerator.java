@@ -29,7 +29,7 @@ public class IDebugEventListenerGenerator extends JavaBaseGenerator<ArtifactPara
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifac
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -46,7 +46,7 @@ public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator<Artifac
 			"@param reference The reference that points to the target of the reference.",
 			"@param result an object to store the result of the resolve operation."
 		);
-		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT + " container, " + E_REFERENCE + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> result);");
+		sc.add("public void resolveFuzzy(String identifier, " + E_OBJECT(sc) + " container, " + E_REFERENCE(sc) + " reference, int position, " + iReferenceResolveResultClassName + "<" + E_OBJECT(sc) + "> result);");
 		
 		sc.add("}");
 	}

@@ -15,29 +15,28 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_FACTORY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_PACKAGE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_PACKAGE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -45,7 +44,6 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-
 		addConstants(sc);
 		addMethods(sc);
 		
@@ -72,10 +70,8 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		addTransferAllLayoutInformationFromModel(sc);
 		addTransferLayoutInformationToModel(sc);
 		addTransferLayoutInformationFromModel(sc);
-		
 		addCreateLayoutInformationModelElement(sc);
 		addCreateLayoutInformation(sc);
-		
 		addGetLayoutInformationAdapterMethod(sc);
 		addRemoveLayoutInformationAdapterMethod(sc);
 		addRemoveLayoutInformationAdaptersMethod(sc);
@@ -83,9 +79,9 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 	
 	private void addTransferAllLayoutInformationToModel(JavaComposite sc) {
-		sc.add("public void transferAllLayoutInformationToModel(" + E_OBJECT + " root) {");
+		sc.add("public void transferAllLayoutInformationToModel(" + E_OBJECT(sc) + " root) {");
 		sc.add("transferLayoutInformationToModel(root);");
-		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> i = root.eAllContents(); i.hasNext(); ) {");
+		sc.add("for (" + ITERATOR(sc) + "<" + E_OBJECT(sc) + "> i = root.eAllContents(); i.hasNext(); ) {");
 		sc.add("transferLayoutInformationToModel(i.next());");
 		sc.add("}");
 		sc.add("}");
@@ -93,9 +89,9 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 	
 	private void addTransferAllLayoutInformationFromModel(JavaComposite sc) {
-		sc.add("public void transferAllLayoutInformationFromModel(" + E_OBJECT + " root) {");
+		sc.add("public void transferAllLayoutInformationFromModel(" + E_OBJECT(sc) + " root) {");
 		sc.add("transferLayoutInformationFromModel(root);");
-		sc.add("for (" + E_OBJECT + " next : new " + ARRAY_LIST + "<" + E_OBJECT + ">(root.eContents())) {");
+		sc.add("for (" + E_OBJECT(sc) + " next : new " + ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + ">(root.eContents())) {");
 		sc.add("transferAllLayoutInformationFromModel(next);");
 		sc.add("}");
 		sc.add("}");
@@ -103,17 +99,17 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 	
 	private void addTransferLayoutInformationToModel(JavaComposite sc) {
-		sc.add("public void transferLayoutInformationToModel(" + E_OBJECT + " element) {");
+		sc.add("public void transferLayoutInformationToModel(" + E_OBJECT(sc) + " element) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
 		sc.add("layoutInformationAdapter.getLayoutInformations();");
-		sc.add("for (" + ITERATOR + "<" + layoutInformationClassName + "> i = layoutInformationAdapter.getLayoutInformations().iterator(); i.hasNext(); ) {");
+		sc.add("for (" + ITERATOR(sc) + "<" + layoutInformationClassName + "> i = layoutInformationAdapter.getLayoutInformations().iterator(); i.hasNext(); ) {");
 		sc.add(layoutInformationClassName + " layoutInformation = i.next();");
-		sc.add(E_REFERENCE + " layoutReference = findLayoutReference(element.eClass());");
+		sc.add(E_REFERENCE(sc) + " layoutReference = findLayoutReference(element.eClass());");
 		sc.add("if (layoutReference != null) {");
-		sc.add(E_OBJECT + " layoutInformationModelElement = createLayoutInformationModelElement(layoutInformation, layoutReference.getEType().getEPackage());");
+		sc.add(E_OBJECT(sc) + " layoutInformationModelElement = createLayoutInformationModelElement(layoutInformation, layoutReference.getEType().getEPackage());");
 		sc.add("if (layoutInformationModelElement != null) {");
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add(LIST + "<" + E_OBJECT + "> list = (" + LIST + "<" + E_OBJECT + ">) element.eGet(layoutReference);");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> list = (" + LIST(sc) + "<" + E_OBJECT(sc) + ">) element.eGet(layoutReference);");
 		sc.add("list.add(layoutInformationModelElement);");
 		sc.add("i.remove();");
 		sc.add("}");
@@ -124,14 +120,14 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 	
 	private void addTransferLayoutInformationFromModel(JavaComposite sc) {
-		sc.add("public void transferLayoutInformationFromModel(" + E_OBJECT + " element) {");
-		sc.add(E_REFERENCE + " layoutReference = findLayoutReference(element.eClass());");
+		sc.add("public void transferLayoutInformationFromModel(" + E_OBJECT(sc) + " element) {");
+		sc.add(E_REFERENCE(sc) + " layoutReference = findLayoutReference(element.eClass());");
 		sc.add("if (layoutReference != null) {");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add(LIST + "<" + E_OBJECT + "> list = (" + LIST + "<" + E_OBJECT + ">) element.eGet(layoutReference);");
-		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> i = list.iterator(); i.hasNext(); ) {");
-		sc.add(E_OBJECT + " layoutModelElement = i.next();");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> list = (" + LIST(sc) + "<" + E_OBJECT(sc) + ">) element.eGet(layoutReference);");
+		sc.add("for (" + ITERATOR(sc) + "<" + E_OBJECT(sc) + "> i = list.iterator(); i.hasNext(); ) {");
+		sc.add(E_OBJECT(sc) + " layoutModelElement = i.next();");
 		sc.add(layoutInformationClassName + " layoutInformation = createLayoutInformation(layoutModelElement);");
 		sc.add("if (layoutInformation != null) {");
 		sc.add("layoutInformationAdapter.getLayoutInformations().add(layoutInformation);");
@@ -144,24 +140,24 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addCreateLayoutInformationModelElement(JavaComposite sc) {
-		sc.add("public " + E_OBJECT + " createLayoutInformationModelElement(" + layoutInformationClassName + " layoutInformation, " + E_PACKAGE + " layoutPackage) {");
-		sc.add(E_FACTORY + " factory = layoutPackage.getEFactoryInstance();");
+		sc.add("public " + E_OBJECT(sc) + " createLayoutInformationModelElement(" + layoutInformationClassName + " layoutInformation, " + E_PACKAGE(sc) + " layoutPackage) {");
+		sc.add(E_FACTORY(sc) + " factory = layoutPackage.getEFactoryInstance();");
 		sc.add("Object object = layoutInformation.getObject(null, false);");
 		sc.add(syntaxElementClassName + " syntaxElement = layoutInformation.getSyntaxElement();");
-		sc.add(E_CLASS + " layoutInformationEClass = null;");
-		sc.add(E_OBJECT + " layoutInformationModelElement = null;");
+		sc.add(E_CLASS(sc) + " layoutInformationEClass = null;");
+		sc.add(E_OBJECT(sc) + " layoutInformationModelElement = null;");
 		sc.add("if (object == null) {");
 		sc.addComment("keyword");
-		sc.add("layoutInformationEClass = (" + E_CLASS + ") layoutPackage.getEClassifier(KEYWORD_LAYOUT_INFORMATION_ECLASS_NAME);");
+		sc.add("layoutInformationEClass = (" + E_CLASS(sc) + ") layoutPackage.getEClassifier(KEYWORD_LAYOUT_INFORMATION_ECLASS_NAME);");
 		sc.add("layoutInformationModelElement = factory.create(layoutInformationEClass);");
-		sc.add("} else if (object instanceof " + E_OBJECT + ") {");
+		sc.add("} else if (object instanceof " + E_OBJECT(sc) + ") {");
 		sc.addComment("reference");
-		sc.add("layoutInformationEClass = (" + E_CLASS + ") layoutPackage.getEClassifier(REFERENCE_LAYOUT_INFORMATION_ECLASS_NAME);");
+		sc.add("layoutInformationEClass = (" + E_CLASS(sc) + ") layoutPackage.getEClassifier(REFERENCE_LAYOUT_INFORMATION_ECLASS_NAME);");
 		sc.add("layoutInformationModelElement = factory.create(layoutInformationEClass);");
 		sc.add("layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(OBJECT_EATTRIBUTE_NAME), object);");
 		sc.add("} else {");
 		sc.addComment("attribute");
-		sc.add("layoutInformationEClass = (" + E_CLASS + ") layoutPackage.getEClassifier(ATTRIBUTE_LAYOUT_INFORMATION_ECLASS_NAME);");
+		sc.add("layoutInformationEClass = (" + E_CLASS(sc) + ") layoutPackage.getEClassifier(ATTRIBUTE_LAYOUT_INFORMATION_ECLASS_NAME);");
 		sc.add("layoutInformationModelElement = factory.create(layoutInformationEClass);");
 		sc.add("}");
 		sc.add("layoutInformationModelElement.eSet(layoutInformationEClass.getEStructuralFeature(START_OFFSET_EATTRIBUTE_NAME), layoutInformation.getStartOffset());");
@@ -174,9 +170,9 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 	
 	private void addCreateLayoutInformation(JavaComposite sc) {
-		sc.add("public " + layoutInformationClassName + " createLayoutInformation(" + E_OBJECT + " layoutInformationModelElement) {");
+		sc.add("public " + layoutInformationClassName + " createLayoutInformation(" + E_OBJECT(sc) + " layoutInformationModelElement) {");
 		sc.add("Object object = null;");
-		sc.add(E_STRUCTURAL_FEATURE + " objectFeature = layoutInformationModelElement.eClass().getEStructuralFeature(OBJECT_EATTRIBUTE_NAME);");
+		sc.add(E_STRUCTURAL_FEATURE(sc) + " objectFeature = layoutInformationModelElement.eClass().getEStructuralFeature(OBJECT_EATTRIBUTE_NAME);");
 		sc.add("int startOffset = (Integer) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(START_OFFSET_EATTRIBUTE_NAME));");
 		sc.add("String hiddenTokenText = (String) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(HIDDEN_TOKEN_TEXT_EATTRIBUTE_NAME));");
 		sc.add("String visibleTokenText = (String) layoutInformationModelElement.eGet(layoutInformationModelElement.eClass().getEStructuralFeature(VISIBLE_TOKEN_TEXT_EATTRIBUTE_NAME));");
@@ -196,9 +192,9 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 	}
 
-	private void addGetLayoutInformationAdapterMethod(StringComposite sc) {
-		sc.add("public " + layoutInformationAdapterClassName + " getLayoutInformationAdapter(" + E_OBJECT + " element) {");
-		sc.add("for (" + ADAPTER + " adapter : element.eAdapters()) {");
+	private void addGetLayoutInformationAdapterMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + layoutInformationAdapterClassName + " getLayoutInformationAdapter(" + E_OBJECT(sc) + " element) {");
+		sc.add("for (" + ADAPTER(sc) + " adapter : element.eAdapters()) {");
 		sc.add("if (adapter instanceof " + layoutInformationAdapterClassName + ") {");
 		sc.add("return (" + layoutInformationAdapterClassName + ") adapter;");
 		sc.add("}");
@@ -210,8 +206,8 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 	}
 	
-	private void addRemoveLayoutInformationAdapterMethod(StringComposite sc) {
-		sc.add("public void removeLayoutInformationAdapter(" + E_OBJECT + " element) {");
+	private void addRemoveLayoutInformationAdapterMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void removeLayoutInformationAdapter(" + E_OBJECT(sc) + " element) {");
 		sc.add(layoutInformationAdapterClassName + " existingAdapter = getLayoutInformationAdapter(element);");
 		sc.add("if (existingAdapter != null) {");
 		sc.add("element.eAdapters().remove(existingAdapter);");
@@ -220,11 +216,11 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 	}
 	
-	private void addRemoveLayoutInformationAdaptersMethod(StringComposite sc) {
-		sc.add("public void removeLayoutInformationAdapters(" + RESOURCE + " resource) {");
-		sc.add(ITERATOR + "<" + E_OBJECT + "> it = resource.getAllContents();");
+	private void addRemoveLayoutInformationAdaptersMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void removeLayoutInformationAdapters(" + RESOURCE(sc) + " resource) {");
+		sc.add(ITERATOR(sc) + "<" + E_OBJECT(sc) + "> it = resource.getAllContents();");
 		sc.add("while (it.hasNext()) {");
-		sc.add(E_OBJECT + " next = it.next();");
+		sc.add(E_OBJECT(sc) + " next = it.next();");
 		sc.add("removeLayoutInformationAdapter(next);");
 		sc.add("}");
 		sc.add("}");
@@ -232,9 +228,9 @@ public class LayoutUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 	
 	private void addFindLayoutReference(JavaComposite sc) {
-		sc.add("public " + E_REFERENCE + " findLayoutReference(" + E_CLASS + " eClass) {");
-		sc.add("for (" + E_REFERENCE + " ref : eClass.getEAllReferences()) {");
-		sc.add(E_CLASS + " type = ref.getEReferenceType();");
+		sc.add("public " + E_REFERENCE(sc) + " findLayoutReference(" + E_CLASS(sc) + " eClass) {");
+		sc.add("for (" + E_REFERENCE(sc) + " ref : eClass.getEAllReferences()) {");
+		sc.add(E_CLASS(sc) + " type = ref.getEReferenceType();");
 		sc.add("if (LAYOUT_PACKAGE_NS_URI.equals(type.getEPackage().getNsURI()) && ref.isMany() && " +
 				"LAYOUT_INFORMATION_ECLASS_NAME.equals(type.getName())) {");
 		sc.add("return ref;");

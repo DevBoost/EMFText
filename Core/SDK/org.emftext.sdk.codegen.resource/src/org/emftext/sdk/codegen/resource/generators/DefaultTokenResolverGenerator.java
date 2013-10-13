@@ -15,20 +15,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_DATA_TYPE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ENUM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ENUM_LITERAL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASSIFIER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_DATA_TYPE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ENUM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ENUM_LITERAL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 /**
@@ -39,14 +38,14 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A default implementation for token resolvers. " +
 			"Generated token resolvers delegate calls to this class to convert text (i.e., tokens) to " +
 			"Java objects. " +
 			"This default implementation tries to perform this conversion using the EMF-based data type " +
-			"serialization mechanism using " + ECORE_UTIL + ".createFromString(). ", "",
+			"serialization mechanism using " + ECORE_UTIL(sc) + ".createFromString(). ", "",
 			"In addition, enumeration literals are converted to the respective literal object, if " +
 			"the text (i.e., the token) matches the literal. ", "",
 			"For boolean attributes the token is considered " +
@@ -99,29 +98,29 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		addGetOptionsMethod(sc);
 	}
 
-	private void addGetOptionsMethod(StringComposite sc) {
-		sc.add("public " + MAP + "<?, ?> getOptions() {");
+	private void addGetOptionsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + MAP(sc) + "<?, ?> getOptions() {");
 		sc.add("return options;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
+	private void addSetOptionsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void setOptions(" + MAP(sc) + "<?, ?> options) {");
 		sc.add("this.options = options;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addResolveMethod1(JavaComposite sc) {
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + iTokenResolveResultClassName + " result) {");
 		sc.add("resolve(lexem, feature, result, null, null, null);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 		
 	private void addResolveMethod2(JavaComposite sc) {
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result, String suffix, String prefix, String escapeCharacter) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + iTokenResolveResultClassName + " result, String suffix, String prefix, String escapeCharacter) {");
 		
 		sc.addComment("Step 1: unescape keywords if required");
 		sc.add("if (escapeKeywords && lexem.startsWith(\"_\")) {");
@@ -155,10 +154,10 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addComment("Step 3: convert text to Java object");
-		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
-		sc.add(E_CLASSIFIER + " featureType = feature.getEType();");
-		sc.add("if (featureType instanceof " + E_ENUM + ") {");
-		sc.add(E_ENUM_LITERAL + " literal = ((" + E_ENUM + ") featureType).getEEnumLiteralByLiteral(lexem);");
+		sc.add("if (feature instanceof " + E_ATTRIBUTE(sc) + ") {");
+		sc.add(E_CLASSIFIER(sc) + " featureType = feature.getEType();");
+		sc.add("if (featureType instanceof " + E_ENUM(sc) + ") {");
+		sc.add(E_ENUM_LITERAL(sc) + " literal = ((" + E_ENUM(sc) + ") featureType).getEEnumLiteralByLiteral(lexem);");
 		sc.add("if (literal != null) {");
 		sc.add("result.setResolvedToken(literal.getInstance());");
 		sc.add("return;");
@@ -166,9 +165,9 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.add("result.setErrorMessage(\"Could not map lexem '\" + lexem + \"' to enum '\" + featureType.getName() + \"'.\");");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("} else if (featureType instanceof " + E_DATA_TYPE + ") {");
+		sc.add("} else if (featureType instanceof " + E_DATA_TYPE(sc) + ") {");
 		sc.add("try {");
-		sc.add("result.setResolvedToken(" + ECORE_UTIL + ".createFromString((" + E_DATA_TYPE + ") featureType, lexem));");
+		sc.add("result.setResolvedToken(" + ECORE_UTIL(sc) + ".createFromString((" + E_DATA_TYPE(sc) + ") featureType, lexem));");
 		sc.add("} catch (Exception e) {");
 		sc.add("result.setErrorMessage(\"Could not convert '\" + lexem + \"' to '\" + featureType.getName() + \"'.\");");
 		sc.add("}");
@@ -203,14 +202,14 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 	}
 
 	private void addDeResolveMethod1(JavaComposite sc) {
-		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + E_OBJECT(sc) + " container) {");
 		sc.add("return deResolve(value, feature, container, null, null, null);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 		
 	private void addDeResolveMethod2(JavaComposite sc) {
-		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container, String prefix, String suffix, String escapeCharacter) {");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + E_OBJECT(sc) + " container, String prefix, String suffix, String escapeCharacter) {");
 		sc.addComment("Step 1: convert Java object to text");
 		sc.add("String result = \"\";");
 		sc.add("if (value != null) {");
@@ -253,8 +252,8 @@ public class DefaultTokenResolverGenerator extends JavaBaseGenerator<ArtifactPar
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("private " + MAP + "<?, ?> options;");
+	private void addFields(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private " + MAP(sc) + "<?, ?> options;");
 		sc.add("private boolean escapeKeywords;");
 		sc.addLineBreak();
 	}

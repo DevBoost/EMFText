@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMMON_TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,7 +32,7 @@ public class ANTLRTextTokenGenerator extends JavaBaseGenerator<ArtifactParameter
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " extends " + textTokenClassName + " {");
@@ -54,12 +54,12 @@ public class ANTLRTextTokenGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + TOKEN + " antlrToken) {");
+		sc.add("public " + getResourceClassName() + "(" + TOKEN(sc) + " antlrToken) {");
 		sc.add("super(" +
 				"getTokenName(metaInformation.getTokenNames(), antlrToken.getType()), " +
 				"antlrToken.getText(), " +
-				"((" + COMMON_TOKEN + ") antlrToken).getStartIndex(), " +
-				"((" + COMMON_TOKEN + ") antlrToken).getStopIndex() - ((" + COMMON_TOKEN + ") antlrToken).getStartIndex() + 1, " +
+				"((" + COMMON_TOKEN(sc) + ") antlrToken).getStartIndex(), " +
+				"((" + COMMON_TOKEN(sc) + ") antlrToken).getStopIndex() - ((" + COMMON_TOKEN(sc) + ") antlrToken).getStartIndex() + 1, " +
 				"antlrToken.getLine(), " +
 				"antlrToken.getCharPositionInLine(), " +
 				"canBeUsedForSyntaxHighlighting(antlrToken.getType()));");

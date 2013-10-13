@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_ELEMENT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BREAKPOINT_MANAGER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_DEBUG_TARGET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_ELEMENT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_BREAKPOINT_MANAGER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_DEBUG_TARGET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -34,9 +34,9 @@ public class DebugElementGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public abstract class " + getResourceClassName() + " extends " + DEBUG_ELEMENT + " {");
+		sc.add("public abstract class " + getResourceClassName() + " extends " + DEBUG_ELEMENT(sc) + " {");
 		sc.addLineBreak();
 		addConstructor(sc);
 		addMethods(sc);
@@ -45,7 +45,7 @@ public class DebugElementGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc("Constructs a new debug element in the given target.");
-		sc.add("public " + getResourceClassName() + "(" + I_DEBUG_TARGET + " target) {");
+		sc.add("public " + getResourceClassName() + "(" + I_DEBUG_TARGET(sc) + " target) {");
 		sc.add("super(target);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -68,8 +68,8 @@ public class DebugElementGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"Returns the breakpoint manager.",
 			"@return the breakpoint manager"
 		);
-		sc.add("protected " + I_BREAKPOINT_MANAGER + " getBreakpointManager() {");
-		sc.add("return " + DEBUG_PLUGIN + ".getDefault().getBreakpointManager();");
+		sc.add("protected " + I_BREAKPOINT_MANAGER(sc) + " getBreakpointManager() {");
+		sc.add("return " + DEBUG_PLUGIN(sc) + ".getDefault().getBreakpointManager();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

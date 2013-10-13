@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_COMMAND;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROJECT_DESCRIPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROJECT_NATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_COMMAND;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT_DESCRIPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT_NATURE;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -30,7 +30,6 @@ import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 @SyntaxDependent
@@ -42,15 +41,15 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 	public void generateJavaContents(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		String implementsClause = removeEclipseDependentCode ? "" : " implements " + I_PROJECT_NATURE;
+		String implementsClause = removeEclipseDependentCode ? "" : " implements " + I_PROJECT_NATURE(sc);
 		sc.add("public class " + getResourceClassName() + implementsClause + " {");
 		sc.addLineBreak();
 		
 		if (!removeEclipseDependentCode) {
-			addFields(sc);
-			addMethods(sc);
+	addFields(sc);
+	addMethods(sc);
 		}
 		sc.add("}");
 	}
@@ -59,7 +58,7 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		sc.add("public static final String NATURE_ID = \"" + nameUtil.getNatureID(syntax) + "\";");
 		sc.addLineBreak();
-		sc.add("private " + I_PROJECT + " project;");
+		sc.add("private " + I_PROJECT(sc) + " project;");
 		sc.addLineBreak();
 		sc.addJavadoc("the IDs of all builders, IDs of additional builders can be added here");
 		sc.add("public final static String[] BUILDER_IDS = {" + builderAdapterClassName + ".BUILDER_ID};");
@@ -76,29 +75,29 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		addSetProjectMethod(sc);
 	}
 
-	private void addSetProjectMethod(StringComposite sc) {
-		sc.add("public void setProject(" + I_PROJECT + " project) {");
+	private void addSetProjectMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void setProject(" + I_PROJECT(sc) + " project) {");
 		sc.add("this.project = project;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetProjectMethod(StringComposite sc) {
-		sc.add("public " + I_PROJECT + " getProject() {");
+	private void addGetProjectMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + I_PROJECT(sc) + " getProject() {");
 		sc.add("return project;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addDeconfigureMethod(StringComposite sc) {
-		sc.add("public void deconfigure() throws " + CORE_EXCEPTION + " {");
-		sc.add(I_PROJECT_DESCRIPTION + " description = getProject().getDescription();");
-		sc.add(I_COMMAND + "[] commands = description.getBuildSpec();");
-		sc.add(I_COMMAND + "[] newCommands = commands;");
+	private void addDeconfigureMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void deconfigure() throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add(I_PROJECT_DESCRIPTION(sc) + " description = getProject().getDescription();");
+		sc.add(I_COMMAND(sc) + "[] commands = description.getBuildSpec();");
+		sc.add(I_COMMAND(sc) + "[] newCommands = commands;");
 		sc.add("for (int j = 0; j < BUILDER_IDS.length; j++) {");
 		sc.add("for (int i = 0; i < newCommands.length; ++i) {");
 		sc.add("if (newCommands[i].getBuilderName().equals(BUILDER_IDS[j])) {");
-		sc.add(I_COMMAND + "[] tempCommands = new " + I_COMMAND + "[newCommands.length - 1];");
+		sc.add(I_COMMAND(sc) + "[] tempCommands = new " + I_COMMAND(sc) + "[newCommands.length - 1];");
 		sc.add("System.arraycopy(newCommands, 0, tempCommands, 0, i);");
 		sc.add("System.arraycopy(newCommands, i + 1, tempCommands, i, newCommands.length - i - 1);");
 		sc.add("newCommands = tempCommands;");
@@ -113,26 +112,26 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		sc.addLineBreak();
 	}
 
-	private void addConfigureMethod(StringComposite sc) {
-		sc.add("public void configure() throws " + CORE_EXCEPTION + " {");
-		sc.add(I_PROJECT_DESCRIPTION + " desc = project.getDescription();");
-		sc.add(I_COMMAND + "[] commands = desc.getBuildSpec();");
+	private void addConfigureMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void configure() throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add(I_PROJECT_DESCRIPTION(sc) + " desc = project.getDescription();");
+		sc.add(I_COMMAND(sc) + "[] commands = desc.getBuildSpec();");
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < commands.length; ++i) {");
 		sc.add("if (commands[i].getBuilderName().equals(" + builderAdapterClassName + ".BUILDER_ID)) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
-		sc.add(I_COMMAND + "[] newCommands = commands;");
+		sc.add(I_COMMAND(sc) + "[] newCommands = commands;");
 		sc.add("outer: for (int j = 0; j < BUILDER_IDS.length; j++) {");
 		sc.add("for (int i = 0; i < commands.length; ++i) {");
 		sc.add("if (commands[i].getBuilderName().equals(BUILDER_IDS[j])) {");
 		sc.add("continue outer;");
 		sc.add("}");
 		sc.add("}");
-		sc.add(I_COMMAND + "[] tempCommands = new " + I_COMMAND + "[newCommands.length + 1];");
+		sc.add(I_COMMAND(sc) + "[] tempCommands = new " + I_COMMAND(sc) + "[newCommands.length + 1];");
 		sc.add("System.arraycopy(newCommands, 0, tempCommands, 0, newCommands.length);");
-		sc.add(I_COMMAND + " command = desc.newCommand();");
+		sc.add(I_COMMAND(sc) + " command = desc.newCommand();");
 		sc.add("command.setBuilderName(BUILDER_IDS[j]);");
 		sc.add("tempCommands[tempCommands.length - 1] = command;");
 		sc.add("newCommands = tempCommands;");
@@ -145,17 +144,17 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		sc.addLineBreak();
 	}
 
-	private void addHasNatureMethod(StringComposite sc) {
-		sc.add("public static boolean hasNature(" + I_PROJECT + " project) {");
+	private void addHasNatureMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public static boolean hasNature(" + I_PROJECT(sc) + " project) {");
 		sc.add("try {");
-		sc.add(I_PROJECT_DESCRIPTION + " description = project.getDescription();");
+		sc.add(I_PROJECT_DESCRIPTION(sc) + " description = project.getDescription();");
 		sc.add("String[] natures = description.getNatureIds();");
 		sc.add("for (int i = 0; i < natures.length; ++i) {");
 		sc.add("if (NATURE_ID.equals(natures[i])) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("return false;");
 		sc.add("}");
@@ -163,9 +162,9 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 	}
 
 	private void addDeactivateMethod(JavaComposite sc) {
-		sc.add("public static void deactivate(" + I_PROJECT + " project) {");
+		sc.add("public static void deactivate(" + I_PROJECT(sc) + " project) {");
 		sc.add("try {");
-		sc.add(I_PROJECT_DESCRIPTION + " description = project.getDescription();");
+		sc.add(I_PROJECT_DESCRIPTION(sc) + " description = project.getDescription();");
 		sc.add("String[] natures = description.getNatureIds();");
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < natures.length; ++i) {");
@@ -179,16 +178,16 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addActivateMethod(JavaComposite sc) {
-		sc.add("public static void activate(" + I_PROJECT + " project) {");
+		sc.add("public static void activate(" + I_PROJECT(sc) + " project) {");
 		sc.add("try {");
-		sc.add(I_PROJECT_DESCRIPTION + " description = project.getDescription();");
+		sc.add(I_PROJECT_DESCRIPTION(sc) + " description = project.getDescription();");
 		sc.add("String[] natures = description.getNatureIds();");
 		sc.addLineBreak();
 		sc.add("for (int i = 0; i < natures.length; ++i) {");
@@ -203,7 +202,7 @@ public class NatureGenerator extends JavaBaseGenerator<ArtifactParameter<Generat
 		sc.add("newNatures[natures.length] = NATURE_ID;");
 		sc.add("description.setNatureIds(newNatures);");
 		sc.add("project.setDescription(description, null);");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

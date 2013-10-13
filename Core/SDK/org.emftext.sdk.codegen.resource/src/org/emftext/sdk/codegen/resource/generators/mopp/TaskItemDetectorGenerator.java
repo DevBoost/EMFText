@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ public class TaskItemDetectorGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"The " + getResourceClassName() + " is used to find task items in " +
@@ -38,7 +38,7 @@ public class TaskItemDetectorGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		addConstants(sc);
-        addMethods(sc);
+		addMethods(sc);
 		sc.add("}");
 	}
 
@@ -52,7 +52,7 @@ public class TaskItemDetectorGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addFindTaskInTextMethods(JavaComposite sc) {
-		sc.add("public " + LIST + "<" + taskItemClassName + "> findTaskItems(String text, int line, int charStart) {");
+		sc.add("public " + LIST(sc) + "<" + taskItemClassName + "> findTaskItems(String text, int line, int charStart) {");
 		sc.add(sc.declareArrayList("foundItems", taskItemClassName));
 		sc.add("String remainingText = text;");
 		sc.add("boolean continueSearch = true;");

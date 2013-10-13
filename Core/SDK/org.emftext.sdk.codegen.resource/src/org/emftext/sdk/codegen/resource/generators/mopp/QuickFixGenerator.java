@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,7 +33,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public abstract class " + getResourceClassName() + " implements " + iQuickFixClassName + " {");
 		sc.addLineBreak();
@@ -63,27 +63,27 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	private void addFields(JavaComposite sc) {
 		sc.add("private String displayString;");
 		sc.add("private String imageKey;");
-		sc.add("private " + RESOURCE + " resource;");
-		sc.add("private " + COLLECTION + "<" + E_OBJECT + "> contextObjects;");
+		sc.add("private " + RESOURCE(sc) + " resource;");
+		sc.add("private " + COLLECTION(sc) + "<" + E_OBJECT(sc) + "> contextObjects;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor1(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + E_OBJECT + " contextObject) {");
-		sc.add("this(displayString, imageKey, " + COLLECTIONS + ".singleton(contextObject), contextObject.eResource());");
+		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + E_OBJECT(sc) + " contextObject) {");
+		sc.add("this(displayString, imageKey, " + COLLECTIONS(sc) + ".singleton(contextObject), contextObject.eResource());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor2(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + COLLECTION + "<" + E_OBJECT + "> contextObjects) {");
+		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + COLLECTION(sc) + "<" + E_OBJECT(sc) + "> contextObjects) {");
 		sc.add("this(displayString, imageKey, contextObjects, contextObjects.iterator().next().eResource());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor3(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + COLLECTION + "<" + E_OBJECT + "> contextObjects, " + RESOURCE + " resource) {");
+		sc.add("public " + getResourceClassName() + "(String displayString, String imageKey, " + COLLECTION(sc) + "<" + E_OBJECT(sc) + "> contextObjects, " + RESOURCE(sc) + " resource) {");
 		sc.add("super();");
 		sc.add("if (displayString == null) {");
 		sc.add("throw new IllegalArgumentException(\"displayString must not be null.\");");
@@ -106,10 +106,10 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("public String apply(String currentText) {");
 		sc.add("applyChanges();");
 		sc.add("try {");
-		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " output = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
+		sc.add(BYTE_ARRAY_OUTPUT_STREAM(sc) + " output = new " + BYTE_ARRAY_OUTPUT_STREAM(sc) + "();");
 		sc.add("getResource().save(output, null);");
 		sc.add("return output.toString();");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while applying quick fix\", e);");
 		sc.add("}");
 		sc.add("return null;");
@@ -123,7 +123,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addGetResourceMethod(JavaComposite sc) {
-		sc.add("public " + RESOURCE + " getResource() {");
+		sc.add("public " + RESOURCE(sc) + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -144,7 +144,7 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addGetContextObjectsMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + E_OBJECT + "> getContextObjects() {");
+		sc.add("public " + COLLECTION(sc) + "<" + E_OBJECT(sc) + "> getContextObjects() {");
 		sc.add("return contextObjects;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -155,8 +155,8 @@ public class QuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("StringBuilder result = new StringBuilder();");
 		sc.add("result.append(getType());");
 		sc.add("result.append(\",\");");
-		sc.add("for (" + E_OBJECT + " contextObject : contextObjects) {");
-		sc.add("result.append(" + ECORE_UTIL + ".getURI(contextObject));");
+		sc.add("for (" + E_OBJECT(sc) + " contextObject : contextObjects) {");
+		sc.add("result.append(" + ECORE_UTIL(sc) + ".getURI(contextObject));");
 		sc.add("result.append(\",\");");
 		sc.add("}");
 		sc.add("return result.toString();");

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -26,7 +26,7 @@ public class URIMappingGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A basic implementation of the " + iUriMappingClassName  + " interface that can " +
@@ -48,14 +48,14 @@ public class URIMappingGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + URI + " uri;");
+		sc.add("private " + URI(sc) + " uri;");
 		sc.add("private String identifier;");
 		sc.add("private String warning;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String identifier, " + URI + " newIdentifier, String warning) {");
+		sc.add("public " + getResourceClassName() + "(String identifier, " + URI(sc) + " newIdentifier, String warning) {");
 		sc.add("super();");
 		sc.add("this.uri = newIdentifier;");
 		sc.add("this.identifier = identifier;");
@@ -65,7 +65,7 @@ public class URIMappingGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetTargetIdentifierMethod(JavaComposite sc) {
-		sc.add("public " + URI + " getTargetIdentifier() {");
+		sc.add("public " + URI(sc) + " getTargetIdentifier() {");
 		sc.add("return uri;");
 		sc.add("}");
 		sc.addLineBreak();

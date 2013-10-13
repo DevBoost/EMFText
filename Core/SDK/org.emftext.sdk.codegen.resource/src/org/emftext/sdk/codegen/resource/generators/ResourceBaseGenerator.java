@@ -26,7 +26,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 import de.devboost.codecomposers.java.JavaComposite;
 
-public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends BaseGenerator<GenerationContext, ParameterType> {
+public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext,ParameterType>> extends BaseGenerator<GenerationContext, ParameterType> {
 
 	private String resourceClassName;
 	private String resourcePackageName;
@@ -416,7 +416,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
     }
 
 	protected void generateEmptyClass(JavaComposite sc, String classComment, OptionTypes disablingOption) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		if (classComment != null) {
 			sc.addJavadoc(classComment);

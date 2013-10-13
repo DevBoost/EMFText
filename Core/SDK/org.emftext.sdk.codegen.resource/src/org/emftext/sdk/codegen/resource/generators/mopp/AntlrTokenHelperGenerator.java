@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,7 +31,7 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -39,7 +39,6 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator<ArtifactParamet
 		);
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		
 		addMethods(sc);
 		
 		sc.add("}");
@@ -52,7 +51,7 @@ public class AntlrTokenHelperGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addCanBeUsedForSyntaxColoringMethod(JavaComposite sc) {
-		sc.add("public boolean canBeUsedForSyntaxColoring(" + TOKEN + " token) {");
+		sc.add("public boolean canBeUsedForSyntaxColoring(" + TOKEN(sc) + " token) {");
 		sc.add("return canBeUsedForSyntaxHighlighting(token.getType());");
 		sc.add("}");
 		sc.addLineBreak();

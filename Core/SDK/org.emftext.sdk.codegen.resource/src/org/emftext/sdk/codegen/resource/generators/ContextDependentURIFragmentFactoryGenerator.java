@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A factory for ContextDependentURIFragments. Given a feasible reference resolver, " +
@@ -37,7 +37,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 			"@param <ContainerType> the type of the class containing the reference to be resolved",
 			"@param <ReferenceType> the type of the reference to be resolved"
 		);
-		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + ">  implements " + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + ">  implements " + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -58,7 +58,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends JavaBaseGenerat
 	}
 
 	private void addCreateMethod(JavaComposite sc) {
-		sc.add("public " + iContextDependentUriFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy) {");
+		sc.add("public " + iContextDependentUriFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE(sc) + " reference, int positionInReference, " + E_OBJECT(sc) + " proxy) {");
 		sc.addLineBreak();
 		sc.add("return new " + contextDependentUriFragmentClassName + "<ContainerType, ReferenceType>(identifier, container, reference, positionInReference, proxy) {");
 		sc.add("public " + iReferenceResolverClassName + "<ContainerType, ReferenceType> getResolver() {");

@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class ListUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -39,13 +39,13 @@ public class ListUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add("public static <T> " + LIST + "<T> castListUnchecked(Object list) {");
-		sc.add("return (" + LIST + "<T>) list;");
+		sc.add("public static <T> " + LIST(sc) + "<T> castListUnchecked(Object list) {");
+		sc.add("return (" + LIST(sc) + "<T>) list;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public static " + LIST + "<Object> copySafelyToObjectList(" + LIST + "<?> list) {");
-		sc.add(ITERATOR + "<?> it = list.iterator();");
-		sc.add(LIST + "<Object> castedCopy = new " + ARRAY_LIST + "<Object>();");
+		sc.add("public static " + LIST(sc) + "<Object> copySafelyToObjectList(" + LIST(sc) + "<?> list) {");
+		sc.add(ITERATOR(sc) + "<?> it = list.iterator();");
+		sc.add(LIST(sc) + "<Object> castedCopy = new " + ARRAY_LIST(sc) + "<Object>();");
 		sc.add("while (it.hasNext()) {");
 		sc.add("castedCopy.add(it.next());");
 		sc.add("}");

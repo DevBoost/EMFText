@@ -15,23 +15,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FIELD;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODIFIER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SERVER_SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ARRAY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIELD;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MODIFIER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SERVER_SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SOCKET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -50,7 +50,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(classComment);
@@ -121,11 +121,11 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addAddFieldsMethod(JavaComposite sc) {
-		sc.add("private void addFields(Object object, " + MAP + "<String, Object> properties, Class<?> javaClass) {");
-		sc.add(FIELD + "[] fields = javaClass.getDeclaredFields();");
-		sc.add("for (" + FIELD + " field : fields) {");
+		sc.add("private void addFields(Object object, " + MAP(sc) + "<String, Object> properties, Class<?> javaClass) {");
+		sc.add(FIELD(sc) + "[] fields = javaClass.getDeclaredFields();");
+		sc.add("for (" + FIELD(sc) + " field : fields) {");
 		sc.addComment("here we should check the settings of the debug view");
-		sc.add("if (" + MODIFIER + ".isStatic(field.getModifiers())) {");
+		sc.add("if (" + MODIFIER(sc) + ".isStatic(field.getModifiers())) {");
 		sc.add("continue;");
 		sc.add("}");
 		sc.add("try {");
@@ -168,7 +168,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addJavadoc("The last object id that was used.");
 		sc.add("private long id = 0;");
 		sc.addJavadoc("This map maps object ids to pairs of object names and object values.");
-		sc.add("private " + MAP + "<Long, " + pairClassName + "<String, Object>> objectMap = new " + LINKED_HASH_MAP + "<Long, " + pairClassName + "<String, Object>>();");
+		sc.add("private " + MAP(sc) + "<Long, " + pairClassName + "<String, Object>> objectMap = new " + LINKED_HASH_MAP(sc) + "<Long, " + pairClassName + "<String, Object>>();");
 		sc.addLineBreak();
 		sc.add("private " + debugCommunicationHelperClassName + " communicationHelper = new " + debugCommunicationHelperClassName + "();");
 		sc.addLineBreak();
@@ -180,7 +180,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("public void run() {");
 		sc.add("try {");
 		sc.add("runDebugger();");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
@@ -189,12 +189,12 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addRunDebuggerMethod(JavaComposite sc) {
-		sc.add("private void runDebugger() throws " + IO_EXCEPTION + " {");
-		sc.add(SERVER_SOCKET + " server = new " + SERVER_SOCKET + "(requestPort);");
-		sc.add(SOCKET + " accept = server.accept();");
-		sc.add(INPUT_STREAM + " inputStream = accept.getInputStream();");
-		sc.add(BUFFERED_READER + " reader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(inputStream));");
-		sc.add(PRINT_STREAM + " output = new " + PRINT_STREAM + "(accept.getOutputStream());");
+		sc.add("private void runDebugger() throws " + IO_EXCEPTION(sc) + " {");
+		sc.add(SERVER_SOCKET(sc) + " server = new " + SERVER_SOCKET(sc) + "(requestPort);");
+		sc.add(SOCKET(sc) + " accept = server.accept();");
+		sc.add(INPUT_STREAM(sc) + " inputStream = accept.getInputStream();");
+		sc.add(BUFFERED_READER(sc) + " reader = new " + BUFFERED_READER(sc) + "(new " + INPUT_STREAM_READER(sc) + "(inputStream));");
+		sc.add(PRINT_STREAM(sc) + " output = new " + PRINT_STREAM(sc) + "(accept.getOutputStream());");
 		sc.addLineBreak();
 		sc.add(debugMessageClassName + " command;");
 		sc.add("while (!stop) {");
@@ -228,9 +228,9 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("communicationHelper.sendEvent(message, output);");
 		sc.add("} else if (command.hasType(" + eDebugMessageTypesClassName + ".GET_FRAME_VARIABLES)) {");
 		sc.add("String stackFrame = command.getArgument(0);");
-		sc.add(MAP + "<String, Object> frameVariables = debuggable.getFrameVariables(stackFrame);");
+		sc.add(MAP(sc) + "<String, Object> frameVariables = debuggable.getFrameVariables(stackFrame);");
 		sc.addLineBreak();
-		sc.add(LIST + "<String> topVariableIDs = new " + ARRAY_LIST + "<String>();");
+		sc.add(LIST(sc) + "<String> topVariableIDs = new " + ARRAY_LIST(sc) + "<String>();");
 		sc.add("for (String name : frameVariables.keySet()) {");
 		sc.add("Object value = frameVariables.get(name);");
 		sc.add("long id = getObjectID(name, value);");
@@ -270,20 +270,20 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("private String convertToString(long id, Object object) {");
 		sc.add("String name = objectMap.get(id).getLeft();");
 		sc.addLineBreak();
-		sc.add(MAP + "<String, Object> properties = new " + LINKED_HASH_MAP + "<String, Object>();");
+		sc.add(MAP(sc) + "<String, Object> properties = new " + LINKED_HASH_MAP(sc) + "<String, Object>();");
 		sc.add("properties.put(\"!name\", name);");
 		sc.add("properties.put(\"!id\", Long.toString(id));");
 		sc.add("String valueString = object == null ? \"null\" : object.toString();");
 		sc.add("if (object != null) {");
-		sc.add("if (object instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") object;");
-		sc.add(E_CLASS + " eClass = eObject.eClass();");
+		sc.add("if (object instanceof " + E_OBJECT(sc) + ") {");
+		sc.add(E_OBJECT(sc) + " eObject = (" + E_OBJECT(sc) + ") object;");
+		sc.add(E_CLASS(sc) + " eClass = eObject.eClass();");
 		sc.add("String eClassName = eClass.getName();");
 		sc.add("valueString = eClassName + \" (id=\" + id + \")\";");
 		sc.add("properties.put(\"!type\", eClassName);");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = eClass.getEAllStructuralFeatures();");
-		sc.add("for (" + E_STRUCTURAL_FEATURE + " feature : features) {");
+		sc.add(LIST(sc) + "<" + E_STRUCTURAL_FEATURE(sc) + "> features = eClass.getEAllStructuralFeatures();");
+		sc.add("for (" + E_STRUCTURAL_FEATURE(sc) + " feature : features) {");
 		sc.add("Object value = eObject.eGet(feature);");
 		sc.add("String featureName = feature.getName();");
 		sc.add("long valueID = getObjectID(featureName, value);");
@@ -312,7 +312,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.add("valueString = object.toString();");
 		sc.add("}");
 		sc.add("if (javaClass.isArray()) {");
-		sc.add("int length = " + ARRAY + ".getLength(object);");
+		sc.add("int length = " + ARRAY(sc) + ".getLength(object);");
 		sc.add("int partitions = getPartitionCount(length);");
 		sc.add("Class<?> componentType = javaClass.getComponentType();");
 		sc.add("valueString = componentType.getName() + \"[\" + length + \"] (id=\" + id + \")\";");
@@ -321,7 +321,7 @@ public class DebuggerListenerGenerator extends JavaBaseGenerator<ArtifactParamet
 			"if there is only a single partition, the elements of the array " +
 			"are directly used a children");
 		sc.add("for (int i = 0; i < length; i++) {");
-		sc.add("Object objectAtIndex = " + ARRAY + ".get(object, i);");
+		sc.add("Object objectAtIndex = " + ARRAY(sc) + ".get(object, i);");
 		sc.add("String fieldName = \"[\" + i + \"]\";");
 		sc.add("long valueID = getObjectID(fieldName, objectAtIndex);");
 		sc.add("properties.put(fieldName, Long.toString(valueID));");

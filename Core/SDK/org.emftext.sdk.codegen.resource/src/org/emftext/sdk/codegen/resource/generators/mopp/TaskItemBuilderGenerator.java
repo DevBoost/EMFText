@@ -15,14 +15,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_CONTAINER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_CONTAINER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -42,7 +42,7 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		if (removeEclipseDependentCode) {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
@@ -58,7 +58,7 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		if (!removeEclipseDependentCode) {
-			addMethods(sc);
+	addMethods(sc);
 		}
 		sc.add("}");
 	}
@@ -70,15 +70,15 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addBuildMethod(JavaComposite sc) {
-		sc.add("public void build(" + I_FILE + " resource, " + RESOURCE_SET + " resourceSet, " + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("public void build(" + I_FILE(sc) + " resource, " + RESOURCE_SET(sc) + " resourceSet, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
 		sc.add("monitor.setTaskName(\"Searching for task items\");");
-		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, " + I_MARKER + ".TASK);");
+		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, " + I_MARKER(sc) + ".TASK);");
 		sc.add("if (isInBinFolder(resource)) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add(sc.declareArrayList("taskItems", taskItemClassName));
 		sc.add(taskItemDetectorClassName + " taskItemDetector = new " + taskItemDetectorClassName + "();");
-		sc.add(INPUT_STREAM + " inputStream = null;");
+		sc.add(INPUT_STREAM(sc) + " inputStream = null;");
 		sc.add("try {");
 		sc.add("inputStream = resource.getContents();");
 		sc.add("String charset = resource.getCharset();");
@@ -92,9 +92,9 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("taskItems.addAll(taskItemDetector.findTaskItems(text, nextToken.getLine(), nextToken.getOffset()));");
 		sc.add("nextToken = lexer.getNextToken();");
 		sc.add("}");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add(pluginActivatorClassName + ".logError(\"Exception while searching for task items\", e);");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add(pluginActivatorClassName + ".logError(\"Exception while searching for task items\", e);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -102,19 +102,19 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("if (inputStream != null) {");
 		sc.add("inputStream.close();");
 		sc.add("}");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.addComment("Ignore this");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("for (" + taskItemClassName + " taskItem : taskItems) {");
 		sc.add(sc.declareLinkedHashMap("markerAttributes", "String", "Object"));
-		sc.add("markerAttributes.put(" + I_MARKER + ".USER_EDITABLE, false);");
-		sc.add("markerAttributes.put(" + I_MARKER + ".DONE, false);");
-		sc.add("markerAttributes.put(" + I_MARKER + ".LINE_NUMBER, taskItem.getLine());");
-		sc.add("markerAttributes.put(" + I_MARKER + ".CHAR_START, taskItem.getCharStart());");
-		sc.add("markerAttributes.put(" + I_MARKER + ".CHAR_END, taskItem.getCharEnd());");
-		sc.add("markerAttributes.put(" + I_MARKER + ".MESSAGE, taskItem.getMessage());");
-		sc.add("new " + markerHelperClassName + "().createMarker(resource, " + I_MARKER + ".TASK, markerAttributes);");
+		sc.add("markerAttributes.put(" + I_MARKER(sc) + ".USER_EDITABLE, false);");
+		sc.add("markerAttributes.put(" + I_MARKER(sc) + ".DONE, false);");
+		sc.add("markerAttributes.put(" + I_MARKER(sc) + ".LINE_NUMBER, taskItem.getLine());");
+		sc.add("markerAttributes.put(" + I_MARKER(sc) + ".CHAR_START, taskItem.getCharStart());");
+		sc.add("markerAttributes.put(" + I_MARKER(sc) + ".CHAR_END, taskItem.getCharEnd());");
+		sc.add("markerAttributes.put(" + I_MARKER(sc) + ".MESSAGE, taskItem.getMessage());");
+		sc.add("new " + markerHelperClassName + "().createMarker(resource, " + I_MARKER(sc) + ".TASK, markerAttributes);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -122,14 +122,14 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addGetBuilderMarkerIdMethod(JavaComposite sc) {
 		sc.add("public String getBuilderMarkerId() {");
-		sc.add("return " + I_MARKER + ".TASK;");
+		sc.add("return " + I_MARKER(sc) + ".TASK;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addIsInBinFolderMethod(JavaComposite sc) {
-		sc.add("public boolean isInBinFolder(" + I_FILE + " resource) {");
-		sc.add(I_CONTAINER + " parent = resource.getParent();");
+		sc.add("public boolean isInBinFolder(" + I_FILE(sc) + " resource) {");
+		sc.add(I_CONTAINER(sc) + " parent = resource.getParent();");
 		sc.add("while (parent != null) {");
 		sc.add("if (\"bin\".equals(parent.getName())) {");
 		sc.add("return true;");

@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -33,7 +33,7 @@ public class IBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"An interface for builders that can be used to perform operations " +
@@ -52,18 +52,18 @@ public class IBuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 				"these are actually loaded. If this method returns false, the build() " +
 				"method will not be invoked for the resource located at the given URI."
 			);
-			sc.add("public boolean isBuildingNeeded(" + URI + " uri);");
+			sc.add("public boolean isBuildingNeeded(" + URI(sc) + " uri);");
 			sc.addLineBreak();
 			sc.addJavadoc(
 					"Builds the given resource."
 				);
-			sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor);");
+			sc.add("public " + I_STATUS(sc) + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR(sc) + " monitor);");
 			sc.addLineBreak();
 			
 			sc.addJavadoc(
 				"Handles the deletion of the given resource."
 			);
-			sc.add("public " + I_STATUS + " handleDeletion(" + URI + " uri, " + I_PROGRESS_MONITOR + " monitor);");
+			sc.add("public " + I_STATUS(sc) + " handleDeletion(" + URI(sc) + " uri, " + I_PROGRESS_MONITOR(sc) + " monitor);");
 			sc.addLineBreak();
 		} else {
 			sc.addComment("This interface is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");

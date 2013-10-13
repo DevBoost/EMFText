@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_DEBUG_TARGET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_DEBUG_TARGET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -36,9 +36,9 @@ public class DebugVariableGenerator extends JavaBaseGenerator<ArtifactParameter<
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_VARIABLE + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_VARIABLE(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -60,13 +60,13 @@ public class DebugVariableGenerator extends JavaBaseGenerator<ArtifactParameter<
 
 	private void addFields(JavaComposite sc) {
 		sc.add("private String name;");
-		sc.add("private " + I_VALUE + " value;");
+		sc.add("private " + I_VALUE(sc) + " value;");
 		sc.add("private String referenceTypeName;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + I_DEBUG_TARGET + " debugTarget, String name, " + I_VALUE + " value, String referenceTypeName) {");
+		sc.add("public " + getResourceClassName() + "(" + I_DEBUG_TARGET(sc) + " debugTarget, String name, " + I_VALUE(sc) + " value, String referenceTypeName) {");
 		sc.add("super(debugTarget);");
 		sc.add("this.name = name;");
 		sc.add("this.value = value;");
@@ -83,56 +83,56 @@ public class DebugVariableGenerator extends JavaBaseGenerator<ArtifactParameter<
 	}
 
 	private void addSetValueMethod2(JavaComposite sc) {
-		sc.add("public void setValue(String expression) throws " + DEBUG_EXCEPTION + " {");
-		sc.add("throw new " + DEBUG_EXCEPTION + "(new " + STATUS + "(" + I_STATUS + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
+		sc.add("public void setValue(String expression) throws " + DEBUG_EXCEPTION(sc) + " {");
+		sc.add("throw new " + DEBUG_EXCEPTION(sc) + "(new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetValueMethod1(JavaComposite sc) {
-		sc.add("public void setValue(" + I_VALUE + " value) throws " + DEBUG_EXCEPTION + " {");
-		sc.add("throw new " + DEBUG_EXCEPTION + "(new " + STATUS + "(" + I_STATUS + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
+		sc.add("public void setValue(" + I_VALUE(sc) + " value) throws " + DEBUG_EXCEPTION(sc) + " {");
+		sc.add("throw new " + DEBUG_EXCEPTION(sc) + "(new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addVerifyValueMethod2(JavaComposite sc) {
-		sc.add("public boolean verifyValue(String expression) throws " + DEBUG_EXCEPTION + " {");
-		sc.add("throw new " + DEBUG_EXCEPTION + "(new " + STATUS + "(" + I_STATUS + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
+		sc.add("public boolean verifyValue(String expression) throws " + DEBUG_EXCEPTION(sc) + " {");
+		sc.add("throw new " + DEBUG_EXCEPTION(sc) + "(new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addVerifyValueMethod1(JavaComposite sc) {
-		sc.add("public boolean verifyValue(" + I_VALUE + " value) throws " + DEBUG_EXCEPTION + " {");
-		sc.add("throw new " + DEBUG_EXCEPTION + "(new " + STATUS + "(" + I_STATUS + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
+		sc.add("public boolean verifyValue(" + I_VALUE(sc) + " value) throws " + DEBUG_EXCEPTION(sc) + " {");
+		sc.add("throw new " + DEBUG_EXCEPTION(sc) + "(new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + pluginActivatorClassName + ".PLUGIN_ID, \"Can't set variable.\"));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetValueMethod(JavaComposite sc) {
-		sc.add("public " + I_VALUE + " getValue() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public " + I_VALUE(sc) + " getValue() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return value;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetNameMethod(JavaComposite sc) {
-		sc.add("public String getName() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public String getName() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return name;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetReferenceTypeNameMethod(JavaComposite sc) {
-		sc.add("public String getReferenceTypeName() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public String getReferenceTypeName() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return referenceTypeName;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addHasValueChangedMethod(JavaComposite sc) {
-		sc.add("public boolean hasValueChanged() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public boolean hasValueChanged() throws " + DEBUG_EXCEPTION(sc) + " {");
 		// it may be more efficient to signal changes only if there were actually changes,
 		// but for the time being, we assume all variables have changed since the last
 		// request

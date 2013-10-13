@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,14 +28,14 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"An extended diagnostic that gives access to the exact position of the problem " +
 			"in a character stream."
 		);
-		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE + ".Diagnostic {");
+		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE(sc) + ".Diagnostic {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the position of the first character of the problem area.");
@@ -62,7 +62,7 @@ public class ITextDiagnosticGenerator extends JavaBaseGenerator<ArtifactParamete
 			"Checks whether the problem was caused by the given element.",
 			"@return true if the problem was caused by <code>element</code>"
 		);
-		sc.add("public boolean wasCausedBy(" + E_OBJECT + " element);");
+		sc.add("public boolean wasCausedBy(" + E_OBJECT(sc) + " element);");
 		sc.addLineBreak();
 		
 		sc.add("}");

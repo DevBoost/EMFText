@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class SyntaxElementGenerator extends JavaBaseGenerator<ArtifactParameter<
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -101,8 +101,8 @@ public class SyntaxElementGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addGetMetaClassMethod(StringComposite sc) {
-		sc.add("public " + E_CLASS + " getMetaclass() {");
+	private void addGetMetaClassMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_CLASS(sc) + " getMetaclass() {");
 		sc.add("return parent.getMetaclass();");
 		sc.add("}");
 		sc.addLineBreak();

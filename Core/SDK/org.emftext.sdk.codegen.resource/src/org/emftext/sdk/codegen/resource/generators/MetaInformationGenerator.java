@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_FACTORY;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -41,12 +41,12 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 	public void generateJavaContents(JavaComposite sc) {
 		useScalesParser = OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax());
 
-        sc.add("package " + getResourcePackageName() + ";");
+        sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
         sc.add("public class " + getResourceClassName() + " implements " + iMetaInformationClassName + " {");
         sc.addLineBreak();
-    	addMethods(sc);
+		addMethods(sc);
         sc.add("}");
 	}
 
@@ -57,8 +57,8 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         sc.addLineBreak();
 	}
 
-	private void addCreateResourceFactoryMethod(StringComposite sc) {
-		sc.add("public " + RESOURCE_FACTORY + " createResourceFactory() {");
+	private void addCreateResourceFactoryMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + RESOURCE_FACTORY(sc) + " createResourceFactory() {");
 		sc.add("return new " + resourceFactoryClassName + "();");
         sc.add("}");
         sc.addLineBreak();
@@ -73,27 +73,27 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addMethods(JavaComposite sc) {
 		addGetConcreteSyntaxNameMethod(sc);
-    	addGetURIMethod(sc);
-    	addCreateLexerMethod(sc);
+		addGetURIMethod(sc);
+		addCreateLexerMethod(sc);
 		addCreateParserMethod(sc);
 		addCreatePrinterMethod(sc);
 		addGetClassesWithSyntaxMethod(sc);
 		addGetStartSymbolsMethod(sc);
-        addGetReferenceResolverSwitchMethod(sc);
-        addGetTokenResolverFactoryMethod(sc);
-        addGetPathTOCSDefinitionMethod(sc);
-        addGetTokenNamesMethod(sc);
-        addGetDefaultStyleMethod(sc);
-        addGetBracketPairsMethod(sc);
-        addGetFoldableClassesMethod(sc);
-        addCreateResourceFactoryMethod(sc);
-        addGetNewFileContentProviderMethod(sc);
-        addRegisterResourceFactoryMethod(sc);
-        addGetInputStreamPreprocessorProviderOptionKeyMethod(sc);
-        addGetResourcePostProcessorProviderOptionKeyMethod(sc);
-        addGetLaunchConfigurationTypeMethod(sc);
-        addCreateNameProviderMethod(sc);
-        addGetSyntaxHighlightableTokenNamesMethod(sc);
+		addGetReferenceResolverSwitchMethod(sc);
+		addGetTokenResolverFactoryMethod(sc);
+		addGetPathTOCSDefinitionMethod(sc);
+		addGetTokenNamesMethod(sc);
+		addGetDefaultStyleMethod(sc);
+		addGetBracketPairsMethod(sc);
+		addGetFoldableClassesMethod(sc);
+		addCreateResourceFactoryMethod(sc);
+		addGetNewFileContentProviderMethod(sc);
+		addRegisterResourceFactoryMethod(sc);
+		addGetInputStreamPreprocessorProviderOptionKeyMethod(sc);
+		addGetResourcePostProcessorProviderOptionKeyMethod(sc);
+		addGetLaunchConfigurationTypeMethod(sc);
+		addCreateNameProviderMethod(sc);
+		addGetSyntaxHighlightableTokenNamesMethod(sc);
 	}
 
 	private void addGetLaunchConfigurationTypeMethod(JavaComposite sc) {
@@ -109,8 +109,8 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("public void registerResourceFactory() {");
 		if (secondaryConcreteSyntaxName == null) {
 			sc.add("// if no resource factory registered, register delegator");
-			sc.add("if (" + RESOURCE_FACTORY + ".Registry.INSTANCE.getExtensionToFactoryMap().get(getSyntaxName()) == null) {");
-			sc.add(RESOURCE_FACTORY + ".Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new " + resourceFactoryDelegatorClassName + "());");
+			sc.add("if (" + RESOURCE_FACTORY(sc) + ".Registry.INSTANCE.getExtensionToFactoryMap().get(getSyntaxName()) == null) {");
+			sc.add(RESOURCE_FACTORY(sc) + ".Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new " + resourceFactoryDelegatorClassName + "());");
 			sc.add("}");
 		} else {
 			// if this is a secondary syntax, the ResourceFactory is registered 
@@ -127,22 +127,22 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addGetStartSymbolsMethod(StringComposite sc) {
-		sc.add("public " + E_CLASS + "[] getStartSymbols() {");
+	private void addGetStartSymbolsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_CLASS(sc) + "[] getStartSymbols() {");
 		sc.add("return new " + syntaxCoverageInformationProviderClassName + "().getStartSymbols();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetFoldableClassesMethod(StringComposite sc) {
-		sc.add("public " + E_CLASS + "[] getFoldableClasses() {");
+	private void addGetFoldableClassesMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_CLASS(sc) + "[] getFoldableClasses() {");
 		sc.add("return new " + foldingInformationProviderClassName + "().getFoldableClasses();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetBracketPairsMethod(StringComposite sc) {
-		sc.add("public " + COLLECTION + "<" + iBracketPairClassName + "> getBracketPairs() {");
+	private void addGetBracketPairsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + COLLECTION(sc) + "<" + iBracketPairClassName + "> getBracketPairs() {");
 		sc.add("return new " + bracketInformationProviderClassName + "().getBracketPairs();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -155,8 +155,8 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addGetClassesWithSyntaxMethod(StringComposite sc) {
-		sc.add("public " + E_CLASS + "[] getClassesWithSyntax() {");
+	private void addGetClassesWithSyntaxMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_CLASS(sc) + "[] getClassesWithSyntax() {");
 		sc.add("return new " + syntaxCoverageInformationProviderClassName + "().getClassesWithSyntax();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -232,23 +232,23 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
         sc.addLineBreak();
 	}
 
-	private void addCreateParserMethod(StringComposite sc) {
+	private void addCreateParserMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		String parserClassName = antlrParserClassName;
 	    if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
 	    	parserClassName = scannerlessParserClassName;
 	    }
 		
-		sc.add("public " + iTextParserClassName + " createParser(" + INPUT_STREAM + " inputStream, String encoding) {");
+		sc.add("public " + iTextParserClassName + " createParser(" + INPUT_STREAM(sc) + " inputStream, String encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");
 		sc.add("}");
         sc.addLineBreak();
 	}
 
-	private void addCreatePrinterMethod(StringComposite sc) {
+	private void addCreatePrinterMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		String usedPrinterClassName;
 		boolean useClassicPrinter = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.USE_CLASSIC_PRINTER);
 
-		sc.add("public " + iTextPrinterClassName + " createPrinter(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource) {");
+		sc.add("public " + iTextPrinterClassName + " createPrinter(" + OUTPUT_STREAM(sc) + " outputStream, " + iTextResourceClassName + " resource) {");
 		if (useClassicPrinter) {
 			usedPrinterClassName = printerClassName;
 		} else {

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ABSTRACT_SOURCE_LOOKUP_DIRECTOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_SOURCE_LOOKUP_PARTICIPANT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ABSTRACT_SOURCE_LOOKUP_DIRECTOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_LOOKUP_PARTICIPANT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,9 +32,9 @@ public class SourceLocatorGenerator extends JavaBaseGenerator<ArtifactParameter<
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_SOURCE_LOOKUP_DIRECTOR + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_SOURCE_LOOKUP_DIRECTOR(sc) + " {");
 		sc.addLineBreak();
 		addInitializeParticipantsMethod(sc);
 		sc.add("}");
@@ -42,7 +42,7 @@ public class SourceLocatorGenerator extends JavaBaseGenerator<ArtifactParameter<
 
 	private void addInitializeParticipantsMethod(JavaComposite sc) {
 		sc.add("public void initializeParticipants() {");
-		sc.add("addParticipants(new " + I_SOURCE_LOOKUP_PARTICIPANT + "[]{new " + sourceLookupParticipantClassName + "()});");
+		sc.add("addParticipants(new " + I_SOURCE_LOOKUP_PARTICIPANT(sc) + "[]{new " + sourceLookupParticipantClassName + "()});");
 		sc.add("}");
 		sc.addLineBreak();
 	}

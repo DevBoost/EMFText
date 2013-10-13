@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IConfigurableGenerator extends JavaBaseGenerator<ArtifactParameter<
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Implementors of this interface can be configured by a map of options (or parameters).");
@@ -36,7 +36,7 @@ public class IConfigurableGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Passes the options given by the map to the configurable object.");
-		sc.add("public void setOptions(" + MAP + "<?,?> options);");
+		sc.add("public void setOptions(" + MAP(sc) + "<?,?> options);");
 		sc.add("}");
 	}
 }

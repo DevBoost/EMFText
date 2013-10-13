@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -122,7 +122,7 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 			"If the parameter 'resolve' is set to true and the referenced object " +
 			"is a proxy, this method tries to resolve the proxy."
 		);
-		sc.add("public Object getObject(" + E_OBJECT + " container, boolean resolve) {");
+		sc.add("public Object getObject(" + E_OBJECT(sc) + " container, boolean resolve) {");
 		sc.add("if (wasResolved || !resolve) {");
 		sc.add("return object;");
 		sc.add("}");
@@ -131,12 +131,12 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 			"might have been resolved before this adapter existed, which means " +
 			"we missed the replaceProxy() notification"
 		);
-		sc.add("if (object instanceof " + INTERNAL_E_OBJECT + ") {");
-		sc.add(INTERNAL_E_OBJECT + " internalObject = (" + INTERNAL_E_OBJECT + ") object;");
+		sc.add("if (object instanceof " + INTERNAL_E_OBJECT(sc) + ") {");
+		sc.add(INTERNAL_E_OBJECT(sc) + " internalObject = (" + INTERNAL_E_OBJECT(sc) + ") object;");
 		sc.add("if (internalObject.eIsProxy()) {");
-		sc.add("if (container instanceof " + INTERNAL_E_OBJECT + ") {");
-		sc.add(INTERNAL_E_OBJECT + " internalContainer = (" + INTERNAL_E_OBJECT + ") container;");
-		sc.add(E_OBJECT + " resolvedObject = internalContainer.eResolveProxy(internalObject);");
+		sc.add("if (container instanceof " + INTERNAL_E_OBJECT(sc) + ") {");
+		sc.add(INTERNAL_E_OBJECT(sc) + " internalContainer = (" + INTERNAL_E_OBJECT(sc) + ") container;");
+		sc.add(E_OBJECT(sc) + " resolvedObject = internalContainer.eResolveProxy(internalObject);");
 		sc.add("if (resolvedObject != internalObject) {");
 		sc.add("object = resolvedObject;");
 		sc.add("wasResolved = true;");
@@ -165,8 +165,8 @@ public class LayoutInformationGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.addLineBreak();
 	}
 
-	private void addReplaceProxyMethod(StringComposite sc) {
-		sc.add("public void replaceProxy(" + E_OBJECT + " proxy, " + E_OBJECT + " target) {");
+	private void addReplaceProxyMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void replaceProxy(" + E_OBJECT(sc) + " proxy, " + E_OBJECT(sc) + " target) {");
 		sc.add("if (this.object == proxy) {");
 		sc.add("this.object = target;");
 		sc.add("}");

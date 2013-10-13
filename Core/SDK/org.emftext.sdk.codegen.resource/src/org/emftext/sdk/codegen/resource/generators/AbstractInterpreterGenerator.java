@@ -15,15 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static de.devboost.codecomposers.java.IClassNameConstants.MAP_ENTRY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMPTY_STACK_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STACK;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EMPTY_STACK_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STACK;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +39,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenClassCache;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 import de.devboost.codecomposers.util.StringUtil;
 
@@ -56,7 +55,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		genClassCache = concreteSyntax.getGenClassCache();
 		allGenClasses = new ConcreteSyntaxUtil().getAllGenClasses(concreteSyntax);
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 				"This class provides basic infrastructure to interpret models. " +
@@ -99,12 +98,12 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addJavadoc(
 			"Adds the given object and all its children to the interpretation stack such that they are interpret in top down order."
 		);
-		sc.add("public void addObjectTreeToInterpreteTopDown(" + E_OBJECT + " root) {");
-		sc.add(LIST + "<" + E_OBJECT + "> objects = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
+		sc.add("public void addObjectTreeToInterpreteTopDown(" + E_OBJECT(sc) + " root) {");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> objects = new " + ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + ">();");
 		sc.add("objects.add(root);");
-		sc.add(ITERATOR + "<" + E_OBJECT + "> it = root.eAllContents();");
+		sc.add(ITERATOR(sc) + "<" + E_OBJECT(sc) + "> it = root.eAllContents();");
 		sc.add("while (it.hasNext()) {");
-		sc.add(E_OBJECT + " eObject = (" + E_OBJECT + ") it.next();");
+		sc.add(E_OBJECT(sc) + " eObject = (" + E_OBJECT(sc) + ") it.next();");
 		sc.add("objects.add(eObject);");
 		sc.add("}");
 		sc.add("addObjectsToInterpreteInReverseOrder(objects);");
@@ -113,14 +112,14 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 	}
 
 	private void addGetNextObjectToInterpreteMethod(JavaComposite sc) {
-		sc.add("public " + E_OBJECT + " getNextObjectToInterprete() {");
+		sc.add("public " + E_OBJECT(sc) + " getNextObjectToInterprete() {");
 		sc.add("return nextObjectToInterprete;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetInterpretationStackMethod(JavaComposite sc) {
-		sc.add("public " + STACK + "<" + E_OBJECT + "> getInterpretationStack() {");
+		sc.add("public " + STACK(sc) + "<" + E_OBJECT(sc) + "> getInterpretationStack() {");
 		sc.add("return interpretationStack;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -165,8 +164,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addDoSwitchMethod(StringComposite sc) {
-		sc.add("public ResultType interprete(" + E_OBJECT + " object, ContextType context) {");
+	private void addDoSwitchMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public ResultType interprete(" + E_OBJECT(sc) + " object, ContextType context) {");
 		sc.add("ResultType result = null;");
 		// sort genClasses by inheritance
 		List<GenClass> sortedClasses = new ArrayList<GenClass>();
@@ -198,14 +197,14 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		return typeName;
 	}
 
-	private void addInterpreteTypeMethods(StringComposite sc) {
+	private void addInterpreteTypeMethods(JavaComposite sc) {
 		for (GenClass genClass : allGenClasses) {
 			addInterpreteTypeMethod(sc, genClass);
 		}
 	}
 
-	private void addInterpreteTypeMethod(StringComposite sc, GenClass genClass) {
-		String typeName = getTypeName(genClass);
+	private void addInterpreteTypeMethod(JavaComposite sc, GenClass genClass) {
+		String typeName = sc.getClassName(getTypeName(genClass));
 		String methodName = getMethodName(genClass);
 		String objectName = StringUtil.firstToLower(genClass.getName());
 		if ("context".equals(objectName) || StringUtil.isReserveredWord(objectName)) {
@@ -223,10 +222,10 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		return methodName;
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("private " + STACK + "<" + E_OBJECT + "> interpretationStack = new " + STACK + "<" + E_OBJECT + ">();");
-		sc.add("private " + LIST + "<" + iInterpreterListenerClassName + "> listeners = new " + ARRAY_LIST + "<" + iInterpreterListenerClassName + ">();");
-		sc.add("private " + E_OBJECT + " nextObjectToInterprete;");
+	private void addFields(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private " + STACK(sc) + "<" + E_OBJECT(sc) + "> interpretationStack = new " + STACK(sc) + "<" + E_OBJECT(sc) + ">();");
+		sc.add("private " + LIST(sc) + "<" + iInterpreterListenerClassName + "> listeners = new " + ARRAY_LIST(sc) + "<" + iInterpreterListenerClassName + ">();");
+		sc.add("private " + E_OBJECT(sc) + " nextObjectToInterprete;");
 		sc.add("private Object currentContext;");
 		sc.addLineBreak();
 	}
@@ -234,12 +233,12 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 	private void addInterpreteMethod(JavaComposite sc) {
 		sc.add("public ResultType interprete(ContextType context) {");
 		sc.add("ResultType result = null;");
-		sc.add(E_OBJECT + " next = null;");
+		sc.add(E_OBJECT(sc) + " next = null;");
 		sc.add("currentContext = context;");
 		sc.add("while (!interpretationStack.empty()) {");
 		sc.add("try {");
 		sc.add("next = interpretationStack.pop();");
-		sc.add("} catch (" + EMPTY_STACK_EXCEPTION + " ese) {");
+		sc.add("} catch (" + EMPTY_STACK_EXCEPTION(sc) + " ese) {");
 		sc.addComment(
 			"this can happen when the interpreter was terminated between " +
 			"the call to empty() and pop()"
@@ -259,8 +258,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addNotifyListenersMethod(StringComposite sc) {
-		sc.add("private void notifyListeners(" + E_OBJECT + " element) {");
+	private void addNotifyListenersMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private void notifyListeners(" + E_OBJECT(sc) + " element) {");
 		sc.add("for (" + iInterpreterListenerClassName + " listener : listeners) {");
 		sc.add("listener.handleInterpreteObject(element);");
 		sc.add("}");
@@ -273,7 +272,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 			"Adds the given object to the interpretation stack. Attention: " +
 			"Objects that are added first, are interpret last."
 		);
-		sc.add("public void addObjectToInterprete(" + E_OBJECT + " object) {");
+		sc.add("public void addObjectToInterprete(" + E_OBJECT(sc) + " object) {");
 		sc.add("interpretationStack.push(object);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -284,8 +283,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 			"Adds the given collection of objects to the interpretation stack. Attention: " +
 			"Collections that are added first, are interpret last."
 		);
-		sc.add("public void addObjectsToInterprete(" + COLLECTION + "<? extends " + E_OBJECT + "> objects) {");
-		sc.add("for (" + E_OBJECT + " object : objects) {");
+		sc.add("public void addObjectsToInterprete(" + COLLECTION(sc) + "<? extends " + E_OBJECT(sc) + "> objects) {");
+		sc.add("for (" + E_OBJECT(sc) + " object : objects) {");
 		sc.add("addObjectToInterprete(object);");
 		sc.add("}");
 		sc.add("}");
@@ -296,10 +295,10 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addJavadoc(
 			"Adds the given collection of objects in reverse order to the interpretation stack."
 		);
-		sc.add("public void addObjectsToInterpreteInReverseOrder(" + COLLECTION + "<? extends " + E_OBJECT + "> objects) {");
-		sc.add(LIST + "<" + E_OBJECT + "> reverse = new " + ARRAY_LIST + "<" + E_OBJECT + ">(objects.size());");
+		sc.add("public void addObjectsToInterpreteInReverseOrder(" + COLLECTION(sc) + "<? extends " + E_OBJECT(sc) + "> objects) {");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> reverse = new " + ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + ">(objects.size());");
 		sc.add("reverse.addAll(objects);");
-		sc.add(COLLECTIONS + ".reverse(reverse);");
+		sc.add(COLLECTIONS(sc) + ".reverse(reverse);");
 		sc.add("addObjectsToInterprete(reverse);");
 		sc.add("}");
 		sc.addLineBreak();

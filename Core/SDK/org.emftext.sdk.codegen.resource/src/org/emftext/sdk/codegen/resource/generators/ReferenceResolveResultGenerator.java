@@ -15,23 +15,24 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
 import de.devboost.codecomposers.java.JavaComposite;
-import static de.devboost.codecomposers.java.IClassNameConstants.*;
 
 public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A basic implementation of the " + iReferenceResolveResultClassName + " interface that collects mappings in a list.",
@@ -61,10 +62,10 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> mappings;");
+		sc.add("private " + COLLECTION(sc) + "<" + iReferenceMappingClassName + "<ReferenceType>> mappings;");
 		sc.add("private String errorMessage;");
 		sc.add("private boolean resolveFuzzy;");
-		sc.add("private " + SET + "<" + iQuickFixClassName + "> quickFixes;");
+		sc.add("private " + SET(sc) + "<" + iQuickFixClassName + "> quickFixes;");
 		sc.addLineBreak();
 	}
 
@@ -84,11 +85,11 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetQuickFixesMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+		sc.add("public " + COLLECTION(sc) + "<" + iQuickFixClassName + "> getQuickFixes() {");
 		sc.add("if (quickFixes == null) {");
-		sc.add("quickFixes = new " + LINKED_HASH_SET + "<" + iQuickFixClassName + ">();");
+		sc.add("quickFixes = new " + LINKED_HASH_SET(sc) + "<" + iQuickFixClassName + ">();");
 		sc.add("}");
-		sc.add("return " + COLLECTIONS + ".unmodifiableSet(quickFixes);");
+		sc.add("return " + COLLECTIONS(sc) + ".unmodifiableSet(quickFixes);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -96,7 +97,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	private void addAddQuickFixMethod(JavaComposite sc) {
 		sc.add("public void addQuickFix(" + iQuickFixClassName + " quickFix) {");
 		sc.add("if (quickFixes == null) {");
-		sc.add("quickFixes = new " + LINKED_HASH_SET + "<" + iQuickFixClassName + ">();");
+		sc.add("quickFixes = new " + LINKED_HASH_SET(sc) + "<" + iQuickFixClassName + ">();");
 		sc.add("}");
 		sc.add("quickFixes.add(quickFix);");
 		sc.add("}");
@@ -104,7 +105,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetMappingsMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION(sc) + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
 		sc.add("return mappings;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -151,7 +152,7 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	private void addAddMappingMethod2(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>(1);");
+		sc.add("mappings = new " + ARRAY_LIST(sc) + "<" + iReferenceMappingClassName + "<ReferenceType>>(1);");
 		sc.add("}");
 		sc.add("mappings.add(new " + elementMappingClassName + "<ReferenceType>(identifier, target, warning));");
 		sc.add("errorMessage = null;");
@@ -160,16 +161,16 @@ public class ReferenceResolveResultGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addAddMappingMethod3(JavaComposite sc) {
-		sc.add("public void addMapping(String identifier, " + URI + " uri) {");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " uri) {");
 		sc.add("addMapping(identifier, uri, null);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addAddMappingMethod4(JavaComposite sc) {
-		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " uri, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + iReferenceMappingClassName + "<ReferenceType>>(1);");
+		sc.add("mappings = new " + ARRAY_LIST(sc) + "<" + iReferenceMappingClassName + "<ReferenceType>>(1);");
 		sc.add("}");
 		sc.add("mappings.add(new " + uriMappingClassName + "<ReferenceType>(identifier, uri, warning));");
 		sc.add("}");

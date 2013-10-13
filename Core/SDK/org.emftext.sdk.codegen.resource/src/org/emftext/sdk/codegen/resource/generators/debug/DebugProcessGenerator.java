@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROCESS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STREAMS_PROXY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROCESS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STREAMS_PROXY;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -34,9 +34,9 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_PROCESS + ", " + iDebugEventListenerClassName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_PROCESS(sc) + ", " + iDebugEventListenerClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -58,14 +58,14 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + I_LAUNCH + " launch;");
+		sc.add("private " + I_LAUNCH(sc) + " launch;");
 		sc.addLineBreak();
 		sc.add("private boolean terminated = false;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + I_LAUNCH + " launch) {");
+		sc.add("public " + getResourceClassName() + "(" + I_LAUNCH(sc) + " launch) {");
 		sc.add("super(launch.getDebugTarget());");
 		sc.add("this.launch = launch;");
 		sc.add("}");
@@ -87,7 +87,7 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addTerminateMethod(JavaComposite sc) {
-		sc.add("public void terminate() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void terminate() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("terminated = true;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -101,14 +101,14 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetLaunchMethod(JavaComposite sc) {
-		sc.add("public " + I_LAUNCH + " getLaunch() {");
+		sc.add("public " + I_LAUNCH(sc) + " getLaunch() {");
 		sc.add("return launch;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetStreamsProxyMethod(JavaComposite sc) {
-		sc.add("public " + I_STREAMS_PROXY + " getStreamsProxy() {");
+		sc.add("public " + I_STREAMS_PROXY(sc) + " getStreamsProxy() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -128,7 +128,7 @@ public class DebugProcessGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetExitValueMethod(JavaComposite sc) {
-		sc.add("public int getExitValue() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public int getExitValue() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return 0;");
 		sc.add("}");
 		sc.addLineBreak();

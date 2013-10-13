@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class ITokenResolverGenerator extends JavaBaseGenerator<ArtifactParameter
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -47,7 +47,7 @@ public class ITokenResolverGenerator extends JavaBaseGenerator<ArtifactParameter
 			"@param feature the corresponding feature in the meta model",
 			"@param result the result of resolving the lexem, can be used to add processing errors"
 		);
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result);");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + iTokenResolveResultClassName + " result);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -57,7 +57,7 @@ public class ITokenResolverGenerator extends JavaBaseGenerator<ArtifactParameter
 			"@param feature the corresponding feature (EAttribute)",
 			"@param container the container of the object",
 			"@return the String representation or null if a problem occurred");
-		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container);");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + E_OBJECT(sc) + " container);");
 		sc.addLineBreak();
 		
 		sc.add("}");

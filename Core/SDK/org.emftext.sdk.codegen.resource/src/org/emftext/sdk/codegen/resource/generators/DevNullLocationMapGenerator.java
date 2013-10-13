@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class DevNullLocationMapGenerator extends JavaBaseGenerator<ArtifactParam
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"An inactive implementation of the ILocationMap interface. That is used if the " + 
@@ -56,67 +56,67 @@ public class DevNullLocationMapGenerator extends JavaBaseGenerator<ArtifactParam
 
 
 	private void addGetElementsBetween(JavaComposite sc) {
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(final int startOffset, final int endOffset) {");
-		sc.add("return " + COLLECTIONS + ".<" + E_OBJECT + ">emptyList();");
+		sc.add("public " + LIST(sc) + "<" + E_OBJECT(sc) + "> getElementsBetween(final int startOffset, final int endOffset) {");
+		sc.add("return " + COLLECTIONS(sc) + ".<" + E_OBJECT(sc) + ">emptyList();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetElementsAtMethod(JavaComposite sc) {
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsAt(final int documentOffset) {");
-		sc.add("return " + COLLECTIONS + ".<" + E_OBJECT + ">emptyList();");
+		sc.add("public " + LIST(sc) + "<" + E_OBJECT(sc) + "> getElementsAt(final int documentOffset) {");
+		sc.add("return " + COLLECTIONS(sc) + ".<" + E_OBJECT(sc) + ">emptyList();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetCharEndMethod(JavaComposite sc) {
-		sc.add("public int getCharEnd(" + E_OBJECT + " element) {");
+		sc.add("public int getCharEnd(" + E_OBJECT(sc) + " element) {");
 		sc.add("return -1;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetCharEndMethod(JavaComposite sc) {
-		sc.add("public void setCharEnd(" + E_OBJECT + " element, int charEnd) {");
+		sc.add("public void setCharEnd(" + E_OBJECT(sc) + " element, int charEnd) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetCharStartMethod(JavaComposite sc) {
-		sc.add("public int getCharStart(" + E_OBJECT + " element) {");
+		sc.add("public int getCharStart(" + E_OBJECT(sc) + " element) {");
 		sc.add("return -1;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetCharStartMethod(JavaComposite sc) {
-		sc.add("public void setCharStart(" + E_OBJECT + " element, int charStart) {");
+		sc.add("public void setCharStart(" + E_OBJECT(sc) + " element, int charStart) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetColumnMethod(JavaComposite sc) {
-		sc.add("public int getColumn(" + E_OBJECT + " element) {");
+		sc.add("public int getColumn(" + E_OBJECT(sc) + " element) {");
 		sc.add("return -1;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetColumnMethod(JavaComposite sc) {
-		sc.add("public void setColumn(" + E_OBJECT + " element, int column) {");
+		sc.add("public void setColumn(" + E_OBJECT(sc) + " element, int column) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetLineMethod(JavaComposite sc) {
-		sc.add("public int getLine(" + E_OBJECT + " element) {");
+		sc.add("public int getLine(" + E_OBJECT(sc) + " element) {");
 		sc.add("return -1;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetLineMethod(JavaComposite sc) {
-		sc.add("public void setLine(" + E_OBJECT + " element, int line) {");
+		sc.add("public void setLine(" + E_OBJECT(sc) + " element, int line) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}

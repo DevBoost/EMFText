@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ABSTRACT_SOURCE_LOOKUP_PARTICIPANT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ABSTRACT_SOURCE_LOOKUP_PARTICIPANT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,16 +32,16 @@ public class SourceLookupParticipantGenerator extends JavaBaseGenerator<Artifact
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_SOURCE_LOOKUP_PARTICIPANT + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_SOURCE_LOOKUP_PARTICIPANT(sc) + " {");
 		sc.addLineBreak();
 		addGetSourceNameMethod(sc);
 		sc.add("}");
 	}
 
 	private void addGetSourceNameMethod(JavaComposite sc) {
-		sc.add("public String getSourceName(Object object) throws " + CORE_EXCEPTION + " {");
+		sc.add("public String getSourceName(Object object) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add("if (object instanceof " + stackFrameClassName + ") {");
 		sc.add(stackFrameClassName + " frame = (" + stackFrameClassName + ") object;");
 		sc.add("return frame.getResourceURI();");

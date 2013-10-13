@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,7 +33,7 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -41,14 +41,14 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 			"of each element of its content in a text file. This can be used to give " +
 			"more detailed error feedback."
 		);
-		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE + ", " + iTextResourcePluginPartClassName + " {");
+		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE(sc) + ", " + iTextResourcePluginPartClassName + " {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"Returns the raw contents of this resource. This method must be used by " +
 			"generated classes only. It is not intended to be used by clients."
 		);
-		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContentsInternal();");
+		sc.add("public " + E_LIST(sc) + "<" + E_OBJECT(sc) + "> getContentsInternal();");
 		sc.addLineBreak();
 
 		sc.addJavadoc(
@@ -60,9 +60,9 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 			"needed during background parsing in the editor.",
 			"@param stream the stream to read from",
 			"@param options the load options to use",
-			"@throws " + IO_EXCEPTION + " thrown if the stream can not be read"
+			"@throws " + IO_EXCEPTION(sc) + " thrown if the stream can not be read"
 		);
-		sc.add("public void reload(" + INPUT_STREAM + " stream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + ";");
+		sc.add("public void reload(" + INPUT_STREAM(sc) + " stream, " + MAP(sc) + "<?,?> options) throws " + IO_EXCEPTION(sc) + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -73,7 +73,7 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Adds an error that should be displayed at the position of the given element.");
-		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT + " element);");
+		sc.add("public void addProblem(" + iProblemClassName + " problem, " + E_OBJECT(sc) + " element);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Adds an error to be displayed at the indicated position.");
@@ -88,21 +88,21 @@ public class ITextResourceGenerator extends JavaBaseGenerator<ArtifactParameter<
 			"@param id",
 			"@param proxyElement"
 		);
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE +" reference, String id, " + E_OBJECT + " proxyElement, int position);");
+		sc.add("public <ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + "> void registerContextDependentProxy(" + iContextDependentUriFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE(sc) +" reference, String id, " + E_OBJECT(sc) + " proxyElement, int position);");
 		sc.addLineBreak();
 		
 		sc.add("@Deprecated");
-		sc.add("public void addWarning(String message, " + E_OBJECT + " cause);");
+		sc.add("public void addWarning(String message, " + E_OBJECT(sc) + " cause);");
 		sc.addLineBreak();
 		sc.addJavadoc("Attaches a warning with the given message to object 'cause'.");
-		sc.add("public void addWarning(String message, " + eProblemTypeClassName + " type, " + E_OBJECT + " cause);");
+		sc.add("public void addWarning(String message, " + eProblemTypeClassName + " type, " + E_OBJECT(sc) + " cause);");
 		sc.addLineBreak();
 		
 		sc.add("@Deprecated");
-		sc.add("public void addError(String message, " + E_OBJECT + " cause);");
+		sc.add("public void addError(String message, " + E_OBJECT(sc) + " cause);");
 		sc.addLineBreak();
 		sc.addJavadoc("Attaches an error with the given message to object 'cause'.");
-		sc.add("public void addError(String message, " + eProblemTypeClassName + " type, " + E_OBJECT + " cause);");
+		sc.add("public void addError(String message, " + eProblemTypeClassName + " type, " + E_OBJECT(sc) + " cause);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

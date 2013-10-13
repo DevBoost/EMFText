@@ -15,13 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class AttributeValueProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -29,7 +28,7 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator<ArtifactP
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("This class provides sets of values for attributes. It is used by the code completion processor.");
@@ -39,8 +38,8 @@ public class AttributeValueProviderGenerator extends JavaBaseGenerator<ArtifactP
 		sc.add("}");
 	}
 
-	private void addGetDefaultValuesMethod(StringComposite sc) {
-		sc.add("public Object[] getDefaultValues(" + E_ATTRIBUTE + " attribute) {");
+	private void addGetDefaultValuesMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public Object[] getDefaultValues(" + E_ATTRIBUTE(sc) + " attribute) {");
 		sc.add("String typeName = attribute.getEType().getName();");
 		sc.add("if (\"EString\".equals(typeName)) {");
 		sc.add("return new Object[] {\"some\" + " + stringUtilClassName + ".capitalize(attribute.getName())};");

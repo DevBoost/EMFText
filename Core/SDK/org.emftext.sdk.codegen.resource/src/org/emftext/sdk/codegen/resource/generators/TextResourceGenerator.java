@@ -15,34 +15,30 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTIC;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DIAGNOSTICIAN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MANY_INVERSE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_DIAGNOSTIC;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BASIC_E_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DIAGNOSTIC;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DIAGNOSTICIAN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MANY_INVERSE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -64,6 +60,8 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class TextResourceGenerator extends
 		JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
+	private static final String RESOLVER_SWITCH_FIELD_NAME = "resolverSwitch";
+
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private ConcreteSyntax concreteSyntax;
@@ -80,14 +78,13 @@ public class TextResourceGenerator extends
 						OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
 		removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		sc.add("public class " + getResourceClassName() + " extends "
-				+ RESOURCE_IMPL + " implements " + iTextResourceClassName
+				+ RESOURCE_IMPL(sc) + " implements " + iTextResourceClassName
 				+ " {");
 		sc.addLineBreak();
-
 		addInnerClasses(sc);
 		addFields(sc);
 		addMethods(sc);
@@ -95,14 +92,13 @@ public class TextResourceGenerator extends
 		sc.add("}");
 	}
 
-	private void addInnerClasses(StringComposite sc) {
+	private void addInnerClasses(JavaComposite sc) {
 		addElementBasedTextDiagnosticClass(sc);
 		addPositionBasedTextDiagnosticClass(sc);
 	}
 
 	private void addMethods(JavaComposite sc) {
 		GenerationContext context = getContext();
-
 		addConstructors(sc);
 		addDoLoadMethod(sc);
 		addUnloadAndClearContentsMethod(sc);
@@ -114,15 +110,13 @@ public class TextResourceGenerator extends
 		addDoSaveMethod(sc);
 
 		if (saveChangedResourcesOnly) {
-			addSaveOnlyIfChangedWithMemoryBuffer(sc);
-			addGetPrint(sc);
+	addSaveOnlyIfChangedWithMemoryBuffer(sc);
+	addGetPrint(sc);
 		}
-
 		addGetSyntaxNameMethod(sc);
 		addGetEncoding(sc);
 		addGetReferenceResolverSwitchMethod(sc);
 		generatorUtil.addGetMetaInformationMethod(sc, context);
-
 		addResetLocationMapMethod(sc);
 		addAddURIFragmentMethod(sc);
 		addRegisterContextDependentProxyMethod(sc);
@@ -139,7 +133,6 @@ public class TextResourceGenerator extends
 		addResolveAfterParsingMethod(sc);
 		addSetURIMethod(sc);
 		addGetLocationMapMethod(sc);
-
 		addAddProblemMethod1(sc);
 		addAddProblemMethod2(sc);
 		addAddQuickFixesToQuickFixMap(sc);
@@ -157,7 +150,6 @@ public class TextResourceGenerator extends
 		addHasErrorsMethod(sc);
 		addRunValidatorsMethods(sc);
 		addGetQuickFixMethod(sc);
-
 		addMarkMethod(sc);
 		addUnmarkMethod1(sc);
 		addUnmarkMethod2(sc);
@@ -170,11 +162,11 @@ public class TextResourceGenerator extends
 
 	private void addUnloadAndClearContentsMethod(JavaComposite sc) {
 		sc.add("protected void unloadAndClearContents() {");
-		sc.add(LIST + "<" + E_OBJECT + "> contentsInternal = getContentsInternal();");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> contentsInternal = getContentsInternal();");
 		sc.addComment("unload the root objects");
-		sc.add("for (" + E_OBJECT + " eObject : contentsInternal) {");
-		sc.add("if (eObject instanceof " + INTERNAL_E_OBJECT + ") {");
-		sc.add("unloaded((" + INTERNAL_E_OBJECT + ") eObject);");
+		sc.add("for (" + E_OBJECT(sc) + " eObject : contentsInternal) {");
+		sc.add("if (eObject instanceof " + INTERNAL_E_OBJECT(sc) + ") {");
+		sc.add("unloaded((" + INTERNAL_E_OBJECT(sc) + ") eObject);");
 		sc.add("}");
 		sc.add("}");
 		sc.addComment("unload all children using the super class method");
@@ -193,10 +185,10 @@ public class TextResourceGenerator extends
 				.getBooleanOptionValue(concreteSyntax,
 						OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS)  && !removeEclipseDependentCode;
 
-		sc.add("protected void runValidators(" + E_OBJECT + " root) {");
+		sc.add("protected void runValidators(" + E_OBJECT(sc) + " root) {");
 		if (!disableEValidators) {
 			sc.addComment("check constraints provided by EMF Validator classes");
-			sc.add(DIAGNOSTIC + " diagnostics = " + DIAGNOSTICIAN
+			sc.add(DIAGNOSTIC(sc) + " diagnostics = " + DIAGNOSTICIAN(sc)
 					+ ".INSTANCE.validate(root);");
 			sc.add("addDiagnostics(diagnostics, root);");
 		} else {
@@ -224,38 +216,37 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAddDiagnosticsMethod(JavaComposite sc) {
-		sc.add("protected void addDiagnostics(" + DIAGNOSTIC + " diagnostics, "
-				+ E_OBJECT + " root) {");
-		sc.add(E_OBJECT + " cause = root;");
-		sc.add(LIST + "<?> data = diagnostics.getData();");
+		sc.add("protected void addDiagnostics(" + DIAGNOSTIC(sc) + " diagnostics, "
+				+ E_OBJECT(sc) + " root) {");
+		sc.add(E_OBJECT(sc) + " cause = root;");
+		sc.add(LIST(sc) + "<?> data = diagnostics.getData();");
 		sc.add("if (data != null && data.size() > 0) {");
 		sc.add("Object causeObject = data.get(0);");
-		sc.add("if (causeObject instanceof " + E_OBJECT + ") {");
-		sc.add("cause = (" + E_OBJECT + ") causeObject;");
+		sc.add("if (causeObject instanceof " + E_OBJECT(sc) + ") {");
+		sc.add("cause = (" + E_OBJECT(sc) + ") causeObject;");
 		sc.add("}");
 		sc.add("}");
-		sc.add(LIST + "<" + DIAGNOSTIC
+		sc.add(LIST(sc) + "<" + DIAGNOSTIC(sc)
 				+ "> children = diagnostics.getChildren();");
 		sc.add("if (children.size() == 0) {");
-		sc.add("if (diagnostics.getSeverity() == " + I_STATUS + ".ERROR) {");
+		sc.add("if (diagnostics.getSeverity() == " + I_STATUS(sc) + ".ERROR) {");
 		sc.add("addError(diagnostics.getMessage(), cause);");
 		sc.add("}");
-		sc.add("if (diagnostics.getSeverity() == " + I_STATUS + ".WARNING) {");
+		sc.add("if (diagnostics.getSeverity() == " + I_STATUS(sc) + ".WARNING) {");
 		sc.add("addWarning(diagnostics.getMessage(), cause);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("for (" + DIAGNOSTIC + " diagnostic : children) {");
+		sc.add("for (" + DIAGNOSTIC(sc) + " diagnostic : children) {");
 		sc.add("addDiagnostics(diagnostic, root);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addPositionBasedTextDiagnosticClass(StringComposite sc) {
-		sc.add("public class " + POSITION_BASED_TEXT_DIAGNOSTIC
-				+ " implements " + iTextDiagnosticClassName + " {");
+	private void addPositionBasedTextDiagnosticClass(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public class PositionBasedTextDiagnostic implements " + iTextDiagnosticClassName + " {");
 		sc.addLineBreak();
-		sc.add("private final " + URI + " uri;");
+		sc.add("private final " + URI(sc) + " uri;");
 		sc.addLineBreak();
 		sc.add("private int column;");
 		sc.add("private int line;");
@@ -263,10 +254,8 @@ public class TextResourceGenerator extends
 		sc.add("private int charEnd;");
 		sc.add("private " + iProblemClassName + " problem;");
 		sc.addLineBreak();
-		sc.add("public "
-				+ POSITION_BASED_TEXT_DIAGNOSTIC
-				+ "("
-				+ URI
+		sc.add("public PositionBasedTextDiagnostic("
+				+ URI(sc)
 				+ " uri, "
 				+ iProblemClassName
 				+ " problem, int column, int line, int charStart, int charEnd) {");
@@ -307,7 +296,7 @@ public class TextResourceGenerator extends
 		sc.add("return problem.getMessage();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
+		sc.add("public boolean wasCausedBy(" + E_OBJECT(sc) + " element) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -318,18 +307,18 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addElementBasedTextDiagnosticClass(StringComposite sc) {
-		sc.add("public class " + ELEMENT_BASED_TEXT_DIAGNOSTIC + " implements "
+	private void addElementBasedTextDiagnosticClass(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public class ElementBasedTextDiagnostic implements "
 				+ iTextDiagnosticClassName + " {");
 		sc.addLineBreak();
 		sc.add("private final " + iLocationMapClassName + " locationMap;");
-		sc.add("private final " + URI + " uri;");
-		sc.add("private final " + E_OBJECT + " element;");
+		sc.add("private final " + URI(sc) + " uri;");
+		sc.add("private final " + E_OBJECT(sc) + " element;");
 		sc.add("private final " + iProblemClassName + " problem;");
 		sc.addLineBreak();
-		sc.add("public " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "("
-				+ iLocationMapClassName + " locationMap, " + URI + " uri, "
-				+ iProblemClassName + " problem, " + E_OBJECT + " element) {");
+		sc.add("public ElementBasedTextDiagnostic("
+				+ iLocationMapClassName + " locationMap, " + URI(sc) + " uri, "
+				+ iProblemClassName + " problem, " + E_OBJECT(sc) + " element) {");
 		sc.add("super();");
 		sc.add("this.uri = uri;");
 		sc.add("this.locationMap = locationMap;");
@@ -365,11 +354,11 @@ public class TextResourceGenerator extends
 		sc.add("return Math.max(0, locationMap.getLine(element));");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + E_OBJECT + " getElement() {");
+		sc.add("public " + E_OBJECT(sc) + " getElement() {");
 		sc.add("return element;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
+		sc.add("public boolean wasCausedBy(" + E_OBJECT(sc) + " element) {");
 		sc.add("if (this.element == null) {");
 		sc.add("return false;");
 		sc.add("}");
@@ -384,9 +373,9 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAddDefaultLoadOptionsMethod(JavaComposite sc) {
-		sc.add("protected " + MAP + "<Object, Object> addDefaultLoadOptions("
-				+ MAP + "<?, ?> loadOptions) {");
-		sc.add(MAP + "<Object, Object> loadOptionsCopy = " + mapUtilClassName
+		sc.add("protected " + MAP(sc) + "<Object, Object> addDefaultLoadOptions("
+				+ MAP(sc) + "<?, ?> loadOptions) {");
+		sc.add(MAP(sc) + "<Object, Object> loadOptionsCopy = " + mapUtilClassName
 				+ ".copySafelyToObjectToObjectMap(loadOptions);");
 		sc.addComment("first add static option provider");
 		sc.add("loadOptionsCopy.putAll(new " + optionProviderClassName + "().getOptions());");
@@ -403,12 +392,10 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addAddProblemMethod1(StringComposite sc) {
+	private void addAddProblemMethod1(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public void addProblem(" + iProblemClassName + " problem, "
-				+ E_OBJECT + " element) {");
-		sc.add(ELEMENT_BASED_TEXT_DIAGNOSTIC + " diagnostic = new "
-				+ ELEMENT_BASED_TEXT_DIAGNOSTIC
-				+ "(locationMap, getURI(), problem, element);");
+				+ E_OBJECT(sc) + " element) {");
+		sc.add("ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
 		sc.add("mark(diagnostic);");
 		sc.add("addQuickFixesToQuickFixMap(problem);");
@@ -424,9 +411,9 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addAddQuickFixesToQuickFixMap(StringComposite sc) {
+	private void addAddQuickFixesToQuickFixMap(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("protected void addQuickFixesToQuickFixMap(" + iProblemClassName + " problem) {");
-		sc.add(COLLECTION + "<" + iQuickFixClassName + "> quickFixes = problem.getQuickFixes();");
+		sc.add(COLLECTION(sc) + "<" + iQuickFixClassName + "> quickFixes = problem.getQuickFixes();");
 		sc.add("if (quickFixes != null) {");
 		sc.add("for (" + iQuickFixClassName + " quickFix : quickFixes) {");
 		sc.add("if (quickFix != null) {");
@@ -438,13 +425,11 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addAddProblemMethod2(StringComposite sc) {
+	private void addAddProblemMethod2(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public void addProblem("
 				+ iProblemClassName
 				+ " problem, int column, int line, int charStart, int charEnd) {");
-		sc.add(POSITION_BASED_TEXT_DIAGNOSTIC + " diagnostic = new "
-				+ POSITION_BASED_TEXT_DIAGNOSTIC
-				+ "(getURI(), problem, column, line, charStart, charEnd);");
+		sc.add("PositionBasedTextDiagnostic diagnostic = new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd);");
 		sc.add("getDiagnostics(problem.getSeverity()).add(diagnostic);");
 		sc.add("mark(diagnostic);");
 		sc.add("addQuickFixesToQuickFixMap(problem);");
@@ -452,27 +437,27 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addAddErrorMethod1(StringComposite sc) {
+	private void addAddErrorMethod1(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("@Deprecated");
-		sc.add("public void addError(String message, " + E_OBJECT + " cause) {");
+		sc.add("public void addError(String message, " + E_OBJECT(sc) + " cause) {");
 		sc.add("addError(message, " + eProblemTypeClassName
 				+ ".UNKNOWN, cause);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addAddErrorMethod2(StringComposite sc) {
+	private void addAddErrorMethod2(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public void addError(String message, " + eProblemTypeClassName
-				+ " type, " + E_OBJECT + " cause) {");
+				+ " type, " + E_OBJECT(sc) + " cause) {");
 		sc.add("addProblem(new " + problemClassName + "(message, type, "
 				+ eProblemSeverityClassName + ".ERROR), cause);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addAddWarningMethod1(StringComposite sc) {
+	private void addAddWarningMethod1(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("@Deprecated");
-		sc.add("public void addWarning(String message, " + E_OBJECT
+		sc.add("public void addWarning(String message, " + E_OBJECT(sc)
 				+ " cause) {");
 		sc.add("addWarning(message, " + eProblemTypeClassName
 				+ ".UNKNOWN, cause);");
@@ -480,18 +465,19 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addAddWarningMethod2(StringComposite sc) {
+	private void addAddWarningMethod2(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public void addWarning(String message, "
-				+ eProblemTypeClassName + " type, " + E_OBJECT + " cause) {");
+				+ eProblemTypeClassName + " type, " + E_OBJECT(sc) + " cause) {");
 		sc.add("addProblem(new " + problemClassName + "(message, type, "
 				+ eProblemSeverityClassName + ".WARNING), cause);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetDiagnosticsMethod(StringComposite sc) {
-		sc.add("protected " + LIST + "<" + RESOURCE_DIAGNOSTIC
-				+ "> getDiagnostics(" + eProblemSeverityClassName
+	private void addGetDiagnosticsMethod(JavaComposite sc) {
+		// We do not need the get the class name for 'Diagnostic' because no
+		// import is needed as Diagnostic is an inner class of the super class.
+		sc.add("protected " + LIST(sc) + "<Diagnostic> getDiagnostics(" + eProblemSeverityClassName
 				+ " severity) {");
 		sc.add("if (severity == " + eProblemSeverityClassName + ".ERROR) {");
 		sc.add("return getErrors();");
@@ -515,20 +501,20 @@ public class TextResourceGenerator extends
 	}
 
 	private void addSetURIMethod(JavaComposite sc) {
-		sc.add("public void setURI(" + URI + " uri) {");
+		sc.add("public void setURI(" + URI(sc) + " uri) {");
 		sc.addComment("because of the context dependent proxy resolving it is "
 				+ "essential to resolve all proxies before the URI is changed "
 				+ "which can cause loss of object identities");
-		sc.add(ECORE_UTIL + ".resolveAll(this);");
+		sc.add(ECORE_UTIL(sc) + ".resolveAll(this);");
 		sc.add("super.setURI(uri);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addLoadMethod(StringComposite sc) {
-		sc.add("public void load(" + MAP + "<?, ?> options) throws "
-				+ IO_EXCEPTION + " {");
-		sc.add(MAP
+	private void addLoadMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void load(" + MAP(sc) + "<?, ?> options) throws "
+				+ IO_EXCEPTION(sc) + " {");
+		sc.add(MAP(sc)
 				+ "<Object, Object> loadOptions = addDefaultLoadOptions(options);");
 		sc.add("super.load(loadOptions);");
 		sc.add("resolveAfterParsing();");
@@ -560,7 +546,7 @@ public class TextResourceGenerator extends
 
 	private void addRunPostProcessorsMethod(JavaComposite sc) {
 		sc.addJavadoc("Runs all post processors to process this resource.");
-		sc.add("protected boolean runPostProcessors(" + MAP
+		sc.add("protected boolean runPostProcessors(" + MAP(sc)
 				+ "<?, ?> loadOptions) {");
 		sc.add("unmark(" + eProblemTypeClassName + ".ANALYSIS_PROBLEM);");
 		sc.add("if (processTerminationRequested()) {");
@@ -582,7 +568,7 @@ public class TextResourceGenerator extends
 				+ iResourcePostProcessorProviderClassName
 				+ ") resourcePostProcessorProvider).getResourcePostProcessor());");
 		sc.add("} else if (resourcePostProcessorProvider instanceof "
-				+ COLLECTION + "<?>) {");
+				+ COLLECTION(sc) + "<?>) {");
 		sc.add("java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;");
 		sc.add("for (Object processorProvider : resourcePostProcessorProviderCollection) {");
 		sc.add("if (processTerminationRequested()) {");
@@ -659,14 +645,14 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addAttachResolveWarningsMethod(StringComposite sc) {
+	private void addAttachResolveWarningsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("protected void attachResolveWarnings("
-				+ iReferenceResolveResultClassName + "<? extends " + E_OBJECT
-				+ "> result, " + E_OBJECT + " proxy) {");
+				+ iReferenceResolveResultClassName + "<? extends " + E_OBJECT(sc)
+				+ "> result, " + E_OBJECT(sc) + " proxy) {");
 		sc.add("assert result != null;");
 		sc.add("assert result.wasResolved();");
 		sc.add("if (result.wasResolved()) {");
-		sc.add("for (" + iReferenceMappingClassName + "<? extends " + E_OBJECT
+		sc.add("for (" + iReferenceMappingClassName + "<? extends " + E_OBJECT(sc)
 				+ "> mapping : result.getMappings()) {");
 		sc.add("final String warningMessage = mapping.getWarning();");
 		sc.add("if (warningMessage == null) {");
@@ -683,7 +669,7 @@ public class TextResourceGenerator extends
 
 	private void addAttachResolveErrorMethod(JavaComposite sc) {
 		sc.add("protected void attachResolveError("
-				+ iReferenceResolveResultClassName + "<?> result, " + E_OBJECT
+				+ iReferenceResolveResultClassName + "<?> result, " + E_OBJECT(sc)
 				+ " proxy) {");
 		sc.addComment("attach errors to this resource");
 		sc.add("assert result != null;");
@@ -701,12 +687,11 @@ public class TextResourceGenerator extends
 	}
 
 	private void addRemoveDiagnosticsMethod(JavaComposite sc) {
-		sc.add("protected void removeDiagnostics(" + E_OBJECT + " cause, " + LIST
-				+ "<" + RESOURCE_DIAGNOSTIC + "> diagnostics) {");
+		sc.add("protected void removeDiagnostics(" + E_OBJECT(sc) + " cause, " + LIST(sc)
+				+ "<Diagnostic> diagnostics) {");
 		sc.addComment("remove all errors/warnings from this resource");
-		sc.add("for (" + RESOURCE_DIAGNOSTIC + " errorCand : new "
-				+ BASIC_E_LIST + "<" + RESOURCE_DIAGNOSTIC
-				+ ">(diagnostics)) {");
+		sc.add("for (Diagnostic errorCand : new "
+				+ BASIC_E_LIST(sc) + "<Diagnostic>(diagnostics)) {");
 		sc.add("if (errorCand instanceof " + iTextDiagnosticClassName + ") {");
 		sc.add("if (((" + iTextDiagnosticClassName
 				+ ") errorCand).wasCausedBy(cause)) {");
@@ -720,16 +705,16 @@ public class TextResourceGenerator extends
 	}
 
 	private void addGetResultElementMethod(JavaComposite sc) {
-		sc.add("protected " + E_OBJECT + " getResultElement("
+		sc.add("protected " + E_OBJECT(sc) + " getResultElement("
 				+ iContextDependentUriFragmentClassName + "<? extends "
-				+ E_OBJECT + "> uriFragment, " + iReferenceMappingClassName
-				+ "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT
+				+ E_OBJECT(sc) + "> uriFragment, " + iReferenceMappingClassName
+				+ "<? extends " + E_OBJECT(sc) + "> mapping, " + E_OBJECT(sc)
 				+ " proxy, final String errorMessage) {");
 		sc.add("if (mapping instanceof " + iUriMappingClassName + "<?>) {");
-		sc.add(URI + " uri = ((" + iUriMappingClassName + "<? extends "
-				+ E_OBJECT + ">)mapping).getTargetIdentifier();");
+		sc.add(URI(sc) + " uri = ((" + iUriMappingClassName + "<? extends "
+				+ E_OBJECT(sc) + ">)mapping).getTargetIdentifier();");
 		sc.add("if (uri != null) {");
-		sc.add(E_OBJECT + " result = null;");
+		sc.add(E_OBJECT(sc) + " result = null;");
 		sc.add("try {");
 		sc.add("result = this.getResourceSet().getEObject(uri, true);");
 		sc.add("} catch (Exception e) {");
@@ -750,14 +735,14 @@ public class TextResourceGenerator extends
 		sc.add("return null;");
 		sc.add("} else if (mapping instanceof " + iElementMappingClassName
 				+ "<?>) {");
-		sc.add(E_OBJECT + " element = ((" + iElementMappingClassName
-				+ "<? extends " + E_OBJECT + ">)mapping).getTargetElement();");
-		sc.add(E_REFERENCE + " reference = uriFragment.getReference();");
-		sc.add(E_REFERENCE
+		sc.add(E_OBJECT(sc) + " element = ((" + iElementMappingClassName
+				+ "<? extends " + E_OBJECT(sc) + ">)mapping).getTargetElement();");
+		sc.add(E_REFERENCE(sc) + " reference = uriFragment.getReference();");
+		sc.add(E_REFERENCE(sc)
 				+ " oppositeReference = uriFragment.getReference().getEOpposite();");
 		sc.add("if (!uriFragment.getReference().isContainment() && oppositeReference != null) {");
 		sc.add("if (reference.isMany()) {");
-		sc.add(MANY_INVERSE + "<" + E_OBJECT + "> list = " + castUtilClassName
+		sc.add(MANY_INVERSE(sc) + "<" + E_OBJECT(sc) + "> list = " + castUtilClassName
 				+ ".cast(element.eGet(oppositeReference, false));					");
 		sc.addComment("avoids duplicate entries in the reference caused by adding to the oppositeReference");
 		sc.add("list.basicAdd(uriFragment.getContainer(),null);");
@@ -775,12 +760,12 @@ public class TextResourceGenerator extends
 	}
 
 	private void addGetEObjectMethod(JavaComposite sc) {
-		sc.add("public " + E_OBJECT + " getEObject(String id) {");
+		sc.add("public " + E_OBJECT(sc) + " getEObject(String id) {");
 		sc.add("if (internalURIFragmentMap.containsKey(id)) {");
-		sc.add(iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT
+		sc.add(iContextDependentUriFragmentClassName + "<? extends " + E_OBJECT(sc)
 				+ "> uriFragment = internalURIFragmentMap.get(id);");
 		sc.add("boolean wasResolvedBefore = uriFragment.isResolved();");
-		sc.add(iReferenceResolveResultClassName + "<? extends " + E_OBJECT
+		sc.add(iReferenceResolveResultClassName + "<? extends " + E_OBJECT(sc)
 				+ "> result = null;");
 		sc.addComment("catch and report all Exceptions that occur during proxy resolving");
 		sc.add("try {");
@@ -806,17 +791,17 @@ public class TextResourceGenerator extends
 		sc.add("} else if (!result.wasResolved()) {");
 		sc.add("return null;");
 		sc.add("} else {");
-		sc.add(E_OBJECT + " proxy = uriFragment.getProxy();");
+		sc.add(E_OBJECT(sc) + " proxy = uriFragment.getProxy();");
 		sc.addComment("remove an error that might have been added by an earlier attempt");
 		sc.add("removeDiagnostics(proxy, getErrors());");
 		sc.addComment("remove old warnings and attach new");
 		sc.add("removeDiagnostics(proxy, getWarnings());");
 		sc.add("attachResolveWarnings(result, proxy);");
-		sc.add(iReferenceMappingClassName + "<? extends " + E_OBJECT
+		sc.add(iReferenceMappingClassName + "<? extends " + E_OBJECT(sc)
 				+ "> mapping = result.getMappings().iterator().next();");
-		sc.add(E_OBJECT
+		sc.add(E_OBJECT(sc)
 				+ " resultElement = getResultElement(uriFragment, mapping, proxy, result.getErrorMessage());");
-		sc.add(E_OBJECT + " container = uriFragment.getContainer();");
+		sc.add(E_OBJECT(sc) + " container = uriFragment.getContainer();");
 		sc.add("replaceProxyInLayoutAdapters(container, proxy, resultElement);");
 		sc.add("return resultElement;");
 		sc.add("}");
@@ -827,11 +812,11 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addReplaceProxyInLayoutAdaptersMethod(StringComposite sc) {
-		sc.add("protected void replaceProxyInLayoutAdapters(" + E_OBJECT
-				+ " container, " + E_OBJECT + " proxy, " + E_OBJECT
+	private void addReplaceProxyInLayoutAdaptersMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("protected void replaceProxyInLayoutAdapters(" + E_OBJECT(sc)
+				+ " container, " + E_OBJECT(sc) + " proxy, " + E_OBJECT(sc)
 				+ " target) {");
-		sc.add("for (" + ADAPTER + " adapter : container.eAdapters()) {");
+		sc.add("for (" + ADAPTER(sc) + " adapter : container.eAdapters()) {");
 		sc.add("if (adapter instanceof " + layoutInformationAdapterClassName
 				+ ") {");
 		sc.add(layoutInformationAdapterClassName
@@ -844,17 +829,17 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
+	private void addRegisterContextDependentProxyMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public <ContainerType extends "
-				+ E_OBJECT
+				+ E_OBJECT(sc)
 				+ ", ReferenceType extends "
-				+ E_OBJECT
+				+ E_OBJECT(sc)
 				+ "> void registerContextDependentProxy("
 				+ iContextDependentUriFragmentFactoryClassName
 				+ "<ContainerType, ReferenceType> factory, ContainerType container, "
-				+ E_REFERENCE + " reference, String id, " + E_OBJECT
+				+ E_REFERENCE(sc) + " reference, String id, " + E_OBJECT(sc)
 				+ " proxyElement, int position) {");
-		sc.add(INTERNAL_E_OBJECT + " proxy = (" + INTERNAL_E_OBJECT
+		sc.add(INTERNAL_E_OBJECT(sc) + " proxy = (" + INTERNAL_E_OBJECT(sc)
 				+ ") proxyElement;");
 		sc.add("String internalURIFragment = "
 				+ iContextDependentUriFragmentClassName
@@ -867,10 +852,10 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addAddURIFragmentMethod(StringComposite sc) {
+	private void addAddURIFragmentMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public void addURIFragment(String internalURIFragment, "
 				+ iContextDependentUriFragmentClassName + "<? extends "
-				+ E_OBJECT + "> uriFragment) {");
+				+ E_OBJECT(sc) + "> uriFragment) {");
 		sc.add("internalURIFragmentMap.put(internalURIFragment, uriFragment);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -896,19 +881,19 @@ public class TextResourceGenerator extends
 		sc.add("private " + iTextParserClassName + " parser;");
 		sc.add("private " + layoutUtilClassName + " layoutUtil = new " + layoutUtilClassName + "();");
 		sc.add("private " + markerHelperClassName + " markerHelper;");
-		sc.add("private " + MAP + "<String, "
+		sc.add("private " + MAP(sc) + "<String, "
 				+ iContextDependentUriFragmentClassName + "<? extends "
-				+ E_OBJECT + ">> internalURIFragmentMap = new "
-				+ LINKED_HASH_MAP + "<String, "
+				+ E_OBJECT(sc) + ">> internalURIFragmentMap = new "
+				+ LINKED_HASH_MAP(sc) + "<String, "
 				+ iContextDependentUriFragmentClassName + "<? extends "
-				+ E_OBJECT + ">>();");
-		sc.add("private " + MAP + "<String, " + iQuickFixClassName
-				+ "> quickFixMap = new " + LINKED_HASH_MAP + "<String, "
+				+ E_OBJECT(sc) + ">>();");
+		sc.add("private " + MAP(sc) + "<String, " + iQuickFixClassName
+				+ "> quickFixMap = new " + LINKED_HASH_MAP(sc) + "<String, "
 				+ iQuickFixClassName + ">();");
 		if (saveChangedResourcesOnly) {
 			sc.add("private String textPrintAfterLoading = null;");
 		}
-		sc.add("private " + MAP + "<?, ?> loadOptions;");
+		sc.add("private " + MAP(sc) + "<?, ?> loadOptions;");
 		sc.addLineBreak();
 
 		sc.addJavadoc("If a post-processor is currently running, this field holds a reference to it. "
@@ -922,9 +907,9 @@ public class TextResourceGenerator extends
 		sc.add("private Object terminateReloadLock = new Object();");
 		sc.add("private Object loadingLock = new Object();");
 		sc.add("private boolean delayNotifications = false;");
-		sc.add("private " + LIST + "<" + NOTIFICATION + "> delayedNotifications = new " + ARRAY_LIST + "<" + NOTIFICATION + ">();");
-		sc.add("private " + INPUT_STREAM + " latestReloadInputStream = null;");
-		sc.add("private " + MAP + "<?, ?> latestReloadOptions = null;");
+		sc.add("private " + LIST(sc) + "<" + NOTIFICATION(sc) + "> delayedNotifications = new " + ARRAY_LIST(sc) + "<" + NOTIFICATION(sc) + ">();");
+		sc.add("private " + INPUT_STREAM(sc) + " latestReloadInputStream = null;");
+		sc.add("private " + MAP(sc) + "<?, ?> latestReloadOptions = null;");
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"This flag indicates whether this resource is currently reloaded. " +
@@ -947,7 +932,7 @@ public class TextResourceGenerator extends
 	}
 	
 	private void addGetEncoding(JavaComposite sc) {
-		sc.add("public String getEncoding(" + MAP + "<?, ?> options) {");
+		sc.add("public String getEncoding(" + MAP(sc) + "<?, ?> options) {");
 		sc.add("String encoding = null;");
 		if (!removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
@@ -965,7 +950,7 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
+	private void addGetReferenceResolverSwitchMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public " + iReferenceResolverSwitchClassName
 				+ " getReferenceResolverSwitch() {");
 		sc.add("if (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
@@ -977,8 +962,8 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addDoSaveMethod(StringComposite sc) {
-		sc.add("protected void doSave(" + OUTPUT_STREAM + " outputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
+	private void addDoSaveMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("protected void doSave(" + OUTPUT_STREAM(sc) + " outputStream, " + MAP(sc) + "<?,?> options) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add(iTextPrinterClassName
 				+ " printer = getMetaInformation().createPrinter(outputStream, this);");
 		sc.add(iReferenceResolverSwitchClassName
@@ -986,7 +971,7 @@ public class TextResourceGenerator extends
 		sc.add("printer.setEncoding(getEncoding(options));");
 		sc.add("printer.setOptions(options);");
 		sc.add("referenceResolverSwitch.setOptions(options);");
-		sc.add("for (" + E_OBJECT + " root : getContentsInternal()) {");
+		sc.add("for (" + E_OBJECT(sc) + " root : getContentsInternal()) {");
 		sc.add("if (isLayoutInformationRecordingEnabled()) {");
 		sc.add("layoutUtil.transferAllLayoutInformationFromModel(root);");
 		sc.add("}");
@@ -999,9 +984,9 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addSaveOnlyIfChangedWithMemoryBuffer(StringComposite sc) {
-		sc.add("protected void saveOnlyIfChangedWithMemoryBuffer(" + MAP
-				+ "<?, ?> options) throws " + IO_EXCEPTION + " {");
+	private void addSaveOnlyIfChangedWithMemoryBuffer(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("protected void saveOnlyIfChangedWithMemoryBuffer(" + MAP(sc)
+				+ "<?, ?> options) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("String currentPrint = getPrint(options);");
 		sc.add("if (textPrintAfterLoading != null && textPrintAfterLoading.equals(currentPrint)) {");
 		sc.add("return;");
@@ -1012,25 +997,25 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addGetPrint(StringComposite sc) {
-		sc.add("protected String getPrint(" + MAP + "<?, ?> options) throws "
-				+ IO_EXCEPTION + " {");
-		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " outputStream = new "
-				+ BYTE_ARRAY_OUTPUT_STREAM + "();");
+	private void addGetPrint(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("protected String getPrint(" + MAP(sc) + "<?, ?> options) throws "
+				+ IO_EXCEPTION(sc) + " {");
+		sc.add(BYTE_ARRAY_OUTPUT_STREAM(sc) + " outputStream = new "
+				+ BYTE_ARRAY_OUTPUT_STREAM(sc) + "();");
 		sc.add("doSave(outputStream, options);");
 		sc.add("return outputStream.toString();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructors(StringComposite sc) {
+	private void addConstructors(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.add("resetLocationMap();");
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public " + getResourceClassName() + "(" + URI + " uri) {");
+		sc.add("public " + getResourceClassName() + "(" + URI(sc) + " uri) {");
 		sc.add("super(uri);");
 		sc.add("resetLocationMap();");
 		sc.add("}");
@@ -1038,8 +1023,8 @@ public class TextResourceGenerator extends
 	}
 
 	private void addDoLoadMethod(JavaComposite sc) {
-		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP
-				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
+		sc.add("protected void doLoad(" + INPUT_STREAM(sc) + " inputStream, " + MAP(sc)
+				+ "<?,?> options) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("synchronized (loadingLock) {");
 		sc.add("if (processTerminationRequested()) {");
 		sc.add("return;");
@@ -1048,7 +1033,7 @@ public class TextResourceGenerator extends
 		sc.add("delayNotifications = true;");
 		sc.add("resetLocationMap();");
 		sc.add("String encoding = getEncoding(options);");
-		sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
+		sc.add(INPUT_STREAM(sc) + " actualInputStream = inputStream;");
 		sc.add("Object inputStreamPreProcessorProvider = null;");
 		sc.add("if (options != null) {");
 		sc.add("inputStreamPreProcessorProvider = options.get("
@@ -1091,7 +1076,7 @@ public class TextResourceGenerator extends
 		sc.add("unloadAndClearContents();");
 		sc.addComment("We must set the load options again since they are deleted by the unload() method.");
 		sc.add("this.loadOptions = options;");
-		sc.add(E_OBJECT + " root = null;");
+		sc.add(E_OBJECT(sc) + " root = null;");
 		sc.add("if (result != null) {");
 		sc.add("root = result.getRoot();");
 		sc.add("if (root != null) {");
@@ -1108,7 +1093,7 @@ public class TextResourceGenerator extends
 		sc.add("}");
 		sc.add("getContentsInternal().add(root);");
 		sc.add("}");
-		sc.add(COLLECTION + "<" + iCommandClassName + "<"
+		sc.add(COLLECTION(sc) + "<" + iCommandClassName + "<"
 				+ iTextResourceClassName
 				+ ">> commands = result.getPostParseCommands();");
 		sc.add("if (commands != null) {");
@@ -1151,7 +1136,7 @@ public class TextResourceGenerator extends
 	private void addNotifyDelayedMethod(JavaComposite sc) {
 		sc.add("protected void notifyDelayed() {");
 		sc.add("delayNotifications = false;");
-		sc.add("for (" + NOTIFICATION + " delayedNotification : delayedNotifications) {");
+		sc.add("for (" + NOTIFICATION(sc) + " delayedNotification : delayedNotifications) {");
 		sc.add("super.eNotify(delayedNotification);");
 		sc.add("}");
 		sc.add("delayedNotifications.clear();");
@@ -1160,7 +1145,7 @@ public class TextResourceGenerator extends
 	}
 	
 	private void addENotifyMethod(JavaComposite sc) {
-		sc.add("public void eNotify(" + NOTIFICATION + " notification) {");
+		sc.add("public void eNotify(" + NOTIFICATION(sc) + " notification) {");
 		sc.add("if (delayNotifications) {");
 		sc.add("delayedNotifications.add(notification);");
 		sc.add("} else {");
@@ -1172,8 +1157,8 @@ public class TextResourceGenerator extends
 
 	private void addReloadMethod(JavaComposite sc) {
 		sc.addJavadoc("Reloads the contents of this resource from the given stream.");
-		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP
-				+ "<?,?> options) throws " + IO_EXCEPTION + " {");
+		sc.add("public void reload(" + INPUT_STREAM(sc) + " inputStream, " + MAP(sc)
+				+ "<?,?> options) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("synchronized (terminateReloadLock) {");
 		sc.add("latestReloadInputStream = inputStream;");
 		sc.add("latestReloadOptions = options;");
@@ -1190,7 +1175,7 @@ public class TextResourceGenerator extends
 		sc.add("terminateReload = false;");
 		sc.add("}");
 		sc.add("isLoaded = false;");
-		sc.add(MAP + "<Object, Object> loadOptions = addDefaultLoadOptions(latestReloadOptions);");
+		sc.add(MAP(sc) + "<Object, Object> loadOptions = addDefaultLoadOptions(latestReloadOptions);");
 		sc.add("try {");
 		sc.addComment("Set isReloading flag to allow other method to differentiate between loading and reloading.");
 		sc.add("this.isReloading = true;");
@@ -1234,13 +1219,13 @@ public class TextResourceGenerator extends
 				+ "propagates changes to the original resource list. Wrapping is required "
 				+ "to make sure that clients which obtain a reference to the list of contents "
 				+ "do not interfere when changing the list.");
-		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
+		sc.add("public " + E_LIST(sc) + "<" + E_OBJECT(sc) + "> getContents() {");
 		sc.add("if (terminateReload) {");
 		sc.addComment("the contents' state is currently unclear");
-		sc.add("return new " + BASIC_E_LIST + "<"+  E_OBJECT + ">();");
+		sc.add("return new " + BASIC_E_LIST(sc) + "<"+ E_OBJECT(sc) + ">();");
 		sc.add("}");
 		sc.add("return new " + copiedEObjectInternalEListClassName + "(("
-				+ INTERNAL_E_LIST + "<" + E_OBJECT + ">) super.getContents());");
+				+ INTERNAL_E_LIST(sc) + "<" + E_OBJECT(sc) + ">) super.getContents());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -1248,11 +1233,11 @@ public class TextResourceGenerator extends
 	private void addGetContentsInternalMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the raw contents of this resource. In contrast to getContents(), " +
 				"this methods does not return a copy of the content list, but the original list.");
-		sc.add("public " + E_LIST + "<" + E_OBJECT
+		sc.add("public " + E_LIST(sc) + "<" + E_OBJECT(sc)
 				+ "> getContentsInternal() {");
 		sc.add("if (terminateReload) {");
 		sc.addComment("the contents' state is currently unclear");
-		sc.add("return new " + BASIC_E_LIST + "<"+  E_OBJECT + ">();");
+		sc.add("return new " + BASIC_E_LIST(sc) + "<"+ E_OBJECT(sc) + ">();");
 		sc.add("}");
 		sc.add("return super.getContents();");
 		sc.add("}");
@@ -1261,28 +1246,24 @@ public class TextResourceGenerator extends
 
 	private void addGetWarningsMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns all warnings that are associated with this resource.");
-		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC
-				+ "> getWarnings() {");
+		sc.add("public " + E_LIST(sc) + "<Diagnostic> getWarnings() {");
 		sc.add("if (terminateReload) {");
 		sc.addComment("the contents' state is currently unclear");
-		sc.add("return new " + BASIC_E_LIST + "<"+  RESOURCE_DIAGNOSTIC + ">();");
+		sc.add("return new " + BASIC_E_LIST(sc) + "<Diagnostic>();");
 		sc.add("}");
-		sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC
-				+ ">(super.getWarnings());");
+		sc.add("return new " + copiedEListClassName + "<Diagnostic>(super.getWarnings());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetErrorsMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns all errors that are associated with this resource.");
-		sc.add("public " + E_LIST + "<" + RESOURCE_DIAGNOSTIC
-				+ "> getErrors() {");
+		sc.add("public " + E_LIST(sc) + "<Diagnostic> getErrors() {");
 		sc.add("if (terminateReload) {");
 		sc.addComment("the contents' state is currently unclear");
-		sc.add("return new " + BASIC_E_LIST + "<"+  RESOURCE_DIAGNOSTIC + ">();");
+		sc.add("return new " + BASIC_E_LIST(sc) + "<Diagnostic>();");
 		sc.add("}");
-		sc.add("return new " + copiedEListClassName + "<" + RESOURCE_DIAGNOSTIC
-				+ ">(super.getErrors());");
+		sc.add("return new " + copiedEListClassName + "<Diagnostic>(super.getErrors());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -1334,7 +1315,7 @@ public class TextResourceGenerator extends
 	}
 	
 	private void addUnmarkMethod1(JavaComposite sc) {
-		sc.add("protected void unmark(" + E_OBJECT + " cause) {");
+		sc.add("protected void unmark(" + E_OBJECT(sc) + " cause) {");
 		if (removeEclipseDependentCode) {
 			sc.addComment("This method does nothing in an Eclipse-independent implementation.");
 		} else {

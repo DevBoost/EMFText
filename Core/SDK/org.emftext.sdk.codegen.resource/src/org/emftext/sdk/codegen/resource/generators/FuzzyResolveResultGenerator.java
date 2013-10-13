@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 	public void generateJavaContents(JavaComposite sc) {
 		String iReferenceResolveResultSimpleClassName = getContext().getClassName(TextResourceArtifacts.I_REFERENCE_RESOLVE_RESULT);
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A FuzzyResolveResult is an implementation of the " + iReferenceResolveResultSimpleClassName + " " +
@@ -39,7 +39,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 			"collect results from different reference resolvers in a type safe manner.",
 			"@param <ReferenceType> the type of the reference that is resolved"
 		);
-		sc.add("public class " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT + "> implements " + iReferenceResolveResultClassName + "<ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT(sc) + "> implements " + iReferenceResolveResultClassName + "<ReferenceType> {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -48,12 +48,12 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + iReferenceResolveResultClassName + "<" + E_OBJECT + "> delegate;");
+		sc.add("private " + iReferenceResolveResultClassName + "<" + E_OBJECT(sc) + "> delegate;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + iReferenceResolveResultClassName + "<" + E_OBJECT + "> delegate) {");
+		sc.add("public " + getResourceClassName() + "(" + iReferenceResolveResultClassName + "<" + E_OBJECT(sc) + "> delegate) {");
 		sc.add("this.delegate = delegate;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -75,7 +75,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addAddMappingMethod4(JavaComposite sc) {
-		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " uri, String warning) {");
 		sc.add("delegate.addMapping(identifier, uri, warning);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -83,13 +83,13 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 
 	private void addAddMappingMethod3(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target, String warning) {");
-		sc.add("delegate.addMapping(identifier, (" + E_OBJECT + ") target, warning);");
+		sc.add("delegate.addMapping(identifier, (" + E_OBJECT(sc) + ") target, warning);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addAddMappingMethod2(JavaComposite sc) {
-		sc.add("public void addMapping(String identifier, " + URI + " uri) {");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " uri) {");
 		sc.add("delegate.addMapping(identifier, uri);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -97,7 +97,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 
 	private void addAddMappingMethod1(JavaComposite sc) {
 		sc.add("public void addMapping(String identifier, ReferenceType target) {");
-		sc.add("delegate.addMapping(identifier, (" + E_OBJECT + ") target);");
+		sc.add("delegate.addMapping(identifier, (" + E_OBJECT(sc) + ") target);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -131,7 +131,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addGetMappingsMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION(sc) + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -145,7 +145,7 @@ public class FuzzyResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addGetQuickFixesMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+		sc.add("public " + COLLECTION(sc) + "<" + iQuickFixClassName + "> getQuickFixes() {");
 		sc.add("return delegate.getQuickFixes();");
 		sc.add("}");
 		sc.addLineBreak();

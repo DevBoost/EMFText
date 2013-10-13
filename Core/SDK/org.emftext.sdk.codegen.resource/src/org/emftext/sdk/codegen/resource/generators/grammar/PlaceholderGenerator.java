@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class PlaceholderGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A class to represent placeholders in a grammar.");
@@ -45,8 +45,8 @@ public class PlaceholderGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, String tokenName, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
+	private void addConstructor(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE(sc) + " feature, String tokenName, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
 		sc.add("super(feature, cardinality, mandatoryOccurencesAfter);"); 
 		sc.add("this.tokenName = tokenName;"); 
 		sc.add("}"); 

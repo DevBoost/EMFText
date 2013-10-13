@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
 
 import java.util.Collection;
 
@@ -26,7 +26,6 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.GenClassUtil;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 // TODO maybe we should merge this with the GrammarInformationProvider
@@ -38,7 +37,7 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-        sc.add("package " + getResourcePackageName() + ";");
+        sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
         sc.add("public class " + getResourceClassName()+ " {");
@@ -48,12 +47,12 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
 		sc.add("}");
 	}
 
-	private void addGetClassesWithSyntaxMethod(StringComposite sc) {
+	private void addGetClassesWithSyntaxMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		
 		Collection<GenClass> classesWithSyntax = syntax.getClassesWithSyntax(false);
-		sc.add("public " + E_CLASS + "[] getClassesWithSyntax() {");
-		sc.add("return new " + E_CLASS + "[] {");
+		sc.add("public " + E_CLASS(sc) + "[] getClassesWithSyntax() {");
+		sc.add("return new " + E_CLASS(sc) + "[] {");
 		for (GenClass classWithSyntax : classesWithSyntax) {
 			sc.add(genClassUtil.getAccessor(classWithSyntax) + ",");
 		}
@@ -62,12 +61,12 @@ public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerato
         sc.addLineBreak();
 	}
 
-	private void addGetStartSymbolsMethod(StringComposite sc) {
+	private void addGetStartSymbolsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		
 		Collection<GenClass> startSymbols = syntax.getActiveStartSymbols();
-		sc.add("public " + E_CLASS + "[] getStartSymbols() {");
-		sc.add("return new " + E_CLASS + "[] {");
+		sc.add("public " + E_CLASS(sc) + "[] getStartSymbols() {");
+		sc.add("return new " + E_CLASS(sc) + "[] {");
 		for (GenClass startSymbol : startSymbols) {
 			sc.add(genClassUtil.getAccessor(startSymbol) + ",");
 		}

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RECOGNITION_EXCEPTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -26,14 +26,14 @@ public class UnexpectedContentTypeExceptionGenerator extends JavaBaseGenerator<A
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"An Excpetion to represent invalid content types for parser instances.",
 			"@see " + iOptionsClassName + ".RESOURCE_CONTENT_TYPE"
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + RECOGNITION_EXCEPTION + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + RECOGNITION_EXCEPTION(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);

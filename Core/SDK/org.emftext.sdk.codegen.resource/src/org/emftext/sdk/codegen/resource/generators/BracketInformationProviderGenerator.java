@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +33,6 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.EObjectUtil;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 import de.devboost.codecomposers.util.StringUtil;
 
@@ -47,7 +46,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 		private final boolean closingInsideEnabled;
 		private final boolean closeAfterEnter;
 		
-		public BracketPair(String openingBracket, String closingBracket,
+		public BracketPair(String openingBracket,String closingBracket,
 				boolean closingInsideEnabled, boolean closeAfterEnter) {
 			super();
 			this.openingBracket = openingBracket;
@@ -78,10 +77,10 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 			int result = 1;
 			result = prime
 					* result
-					+ ((closingBracket == null) ? 0 : closingBracket.hashCode());
+					+ ((closingBracket == null) ?0 : closingBracket.hashCode());
 			result = prime
 					* result
-					+ ((openingBracket == null) ? 0 : openingBracket.hashCode());
+					+ ((openingBracket == null) ?0 : openingBracket.hashCode());
 			return result;
 		}
 
@@ -111,7 +110,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-        sc.add("package " + getResourcePackageName() + ";");
+        sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
 		sc.addJavadoc(
@@ -121,7 +120,7 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 		);
         sc.add("public class " + getResourceClassName()+ " {");
         sc.addLineBreak();
-        addMethods(sc);
+		addMethods(sc);
 		sc.add("}");
 	}
 
@@ -129,15 +128,15 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 		addGetBracketPairsMethod(sc);
 	}
 
-	private void addGetBracketPairsMethod(StringComposite sc) {
+	private void addGetBracketPairsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		
 		Collection<BracketPair> defaultPairs = getDefaultBracketPairs();
 		Collection<BracketPair> foundPairs = new LinkedHashSet<BracketPair>();
 		findBracketPairsInCsStrings(defaultPairs, foundPairs);
 		findBracketPairsInQuotedPlaceholders(defaultPairs, foundPairs);
 
-		sc.add("public " + COLLECTION + "<" + iBracketPairClassName + "> getBracketPairs() {");
-		sc.add(COLLECTION + "<" + iBracketPairClassName + "> result = new " + ARRAY_LIST + "<" + iBracketPairClassName + ">();");
+		sc.add("public " + COLLECTION(sc) + "<" + iBracketPairClassName + "> getBracketPairs() {");
+		sc.add(COLLECTION(sc) + "<" + iBracketPairClassName + "> result = new " + ARRAY_LIST(sc) + "<" + iBracketPairClassName + ">();");
 		for (BracketPair foundPair : foundPairs) {
 			String left = StringUtil.escapeToJavaString(foundPair.getOpeningBracket());
 			String right = StringUtil.escapeToJavaString(foundPair.getClosingBracket());
@@ -186,7 +185,6 @@ public class BracketInformationProviderGenerator extends JavaBaseGenerator<Artif
 			Collection<BracketPair> foundPairs) {
 		
 		EClass placeholderInQuotesType = ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes();
-
 		List<Rule> rules = getContext().getConcreteSyntax().getAllRules();
 		for (Rule rule : rules) {
 			Collection<PlaceholderInQuotes> placeholdersInQuotes = EObjectUtil.getObjectsByType(rule.eAllContents(), placeholderInQuotesType);

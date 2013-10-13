@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,20 +28,20 @@ public class ITextPrinterGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
-		sc.addJavadoc("Converts a tree of <code>" + E_OBJECT + "</code>s into a plain text.");
+		sc.addJavadoc("Converts a tree of <code>" + E_OBJECT(sc) + "</code>s into a plain text.");
 		sc.add("public interface " + getResourceClassName() + " extends " + iConfigurableClassName + " {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"Prints the given <code>" + E_OBJECT + "</code> and its content to the " +
+			"Prints the given <code>" + E_OBJECT(sc) + "</code> and its content to the " +
 			"underlying output stream that was passed to this printer upon creation.",
 			"@param element The element to print.",
-			"@throws " + IO_EXCEPTION + " if printing to the underlying stream or device fails."
+			"@throws " + IO_EXCEPTION(sc) + " if printing to the underlying stream or device fails."
 		);
-		sc.add("public void print(" + E_OBJECT + " element) throws " + IO_EXCEPTION + ";");
+		sc.add("public void print(" + E_OBJECT(sc) + " element) throws " + IO_EXCEPTION(sc) + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,13 +28,13 @@ public class IProblemGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.add("public String getMessage();");
 		sc.add("public " + eProblemSeverityClassName + " getSeverity();");
 		sc.add("public " + eProblemTypeClassName + " getType();");
-		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes();");
+		sc.add("public " + COLLECTION(sc) + "<" + iQuickFixClassName + "> getQuickFixes();");
 		sc.add("}");
 	}
 }

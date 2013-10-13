@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUNDLE_CONTEXT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE_CONTEXT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
@@ -37,17 +37,17 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 	public void generateJavaContents(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("A singleton class for the text resource plug-in.");
-		String extendsClause = removeEclipseDependentCode ? "" : " extends " + PLUGIN;
+		String extendsClause = removeEclipseDependentCode ? "" : " extends " + PLUGIN(sc);
 		sc.add("public class " + getResourceClassName() + extendsClause + " {");
 		sc.addLineBreak();
 
 		if (!removeEclipseDependentCode) {
-			addFields(sc);
-			addConstructor(sc);
-			addMethods(sc);
+	addFields(sc);
+	addConstructor(sc);
+	addMethods(sc);
 		} else {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
 		}
@@ -72,8 +72,8 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 			"@param throwable the exception that describes the error in detail (can be null)",
 			"@return the status object describing the error"
 		);
-		sc.add("public static " + I_STATUS + " logError(String message, Throwable throwable) {");
-		sc.add("return log(" + I_STATUS + ".ERROR, message, throwable);");
+		sc.add("public static " + I_STATUS(sc) + " logError(String message, Throwable throwable) {");
+		sc.add("return log(" + I_STATUS(sc) + ".ERROR, message, throwable);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -85,8 +85,8 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 			"@param throwable the exception that describes the warning in detail (can be null)",
 			"@return the status object describing the warning"
 		);
-		sc.add("public static " + I_STATUS + " logWarning(String message, Throwable throwable) {");
-		sc.add("return log(" + I_STATUS + ".WARNING, message, throwable);");
+		sc.add("public static " + I_STATUS(sc) + " logWarning(String message, Throwable throwable) {");
+		sc.add("return log(" + I_STATUS(sc) + ".WARNING, message, throwable);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -98,8 +98,8 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 			"@param throwable the exception that describes the info in detail (can be null)",
 			"@return the status object describing the info"
 		);
-		sc.add("public static " + I_STATUS + " logInfo(String message, Throwable throwable) {");
-		sc.add("return log(" + I_STATUS + ".INFO, message, throwable);");
+		sc.add("public static " + I_STATUS(sc) + " logInfo(String message, Throwable throwable) {");
+		sc.add("return log(" + I_STATUS(sc) + ".INFO, message, throwable);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -112,12 +112,12 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 			"@param throwable the exception that describes the error in detail (can be null)",
 			"@return the status object describing the error"
 		);
-		sc.add("protected static " + I_STATUS + " log(int type, String message, Throwable throwable) {");
-		sc.add(I_STATUS + " status;");
+		sc.add("protected static " + I_STATUS(sc) + " log(int type, String message, Throwable throwable) {");
+		sc.add(I_STATUS(sc) + " status;");
 		sc.add("if (throwable != null) {");
-		sc.add("status = new " + STATUS + "(type, " + getResourceClassName() + ".PLUGIN_ID, 0, message, throwable);");
+		sc.add("status = new " + STATUS(sc) + "(type, " + getResourceClassName() + ".PLUGIN_ID, 0, message, throwable);");
 		sc.add("} else {");
-		sc.add("status = new " + STATUS + "(type, " + getResourceClassName() + ".PLUGIN_ID, message);");
+		sc.add("status = new " + STATUS(sc) + "(type, " + getResourceClassName() + ".PLUGIN_ID, message);");
 		sc.add("}");
 			
 		sc.add("final " + getResourceClassName() + " pluginInstance = " + getResourceClassName() + ".getDefault();");
@@ -141,16 +141,16 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addStopMethod(StringComposite sc) {
-		sc.add("public void stop(" + BUNDLE_CONTEXT + " context) throws Exception {");
+	private void addStopMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void stop(" + BUNDLE_CONTEXT(sc) + " context) throws Exception {");
 		sc.add("plugin = null;");
 		sc.add("super.stop(context);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addStartMethod(StringComposite sc) {
-		sc.add("public void start(" + BUNDLE_CONTEXT + " context) throws Exception {");
+	private void addStartMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void start(" + BUNDLE_CONTEXT(sc) + " context) throws Exception {");
 		sc.add("super.start(context);");
 		sc.add("plugin = this;");
 		sc.add("}");

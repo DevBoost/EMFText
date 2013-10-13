@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -26,11 +26,11 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class IInterpreterListenerGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("public void handleInterpreteObject(" + E_OBJECT + " element);");
+		sc.add("public void handleInterpreteObject(" + E_OBJECT(sc) + " element);");
 		sc.add("}");
 	}
 }

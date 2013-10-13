@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class ExpectedEnumerationTerminalGenerator extends JavaBaseGenerator<Arti
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A representation for a range in a document where an enumeration literal (i.e., a set of static strings) is expected.");
@@ -78,13 +78,13 @@ public class ExpectedEnumerationTerminalGenerator extends JavaBaseGenerator<Arti
 	}
 
 	private void addGetTokenNamesMethod(JavaComposite sc) {
-		sc.add("public " + SET + "<String> getTokenNames() {");
+		sc.add("public " + SET(sc) + "<String> getTokenNames() {");
 		sc.addComment(
 			"EnumerationTerminals are associated with multiple tokens, " +
 			"one for each literal that was mapped to a string"
 		);
 		sc.add(sc.declareLinkedHashSet("tokenNames", "String"));
-		sc.add(MAP + "<String, String> mapping = enumerationTerminal.getLiteralMapping();");
+		sc.add(MAP(sc) + "<String, String> mapping = enumerationTerminal.getLiteralMapping();");
 		sc.add("for (String literalName : mapping.keySet()) {");
 		sc.add("String text = mapping.get(literalName);");
 		sc.add("if (text != null && !\"\".equals(text)) {");

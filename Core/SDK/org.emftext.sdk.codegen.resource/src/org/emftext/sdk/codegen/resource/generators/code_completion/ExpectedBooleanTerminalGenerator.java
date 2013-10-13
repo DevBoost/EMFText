@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A representation for a range in a document where a boolean attribute is expected.");
@@ -90,8 +90,8 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addGetFeatureMethod(StringComposite sc) {
-		sc.add("private " + E_STRUCTURAL_FEATURE + " getFeature() {");
+	private void addGetFeatureMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private " + E_STRUCTURAL_FEATURE(sc) + " getFeature() {");
 		sc.add("return booleanTerminal.getFeature();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -113,9 +113,9 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addGetTokenNamesMethod(JavaComposite sc) {
-		sc.add("public " + SET + "<String> getTokenNames() {");
+		sc.add("public " + SET(sc) + "<String> getTokenNames() {");
 		sc.addComment("BooleanTerminals are associated with two or one token(s)");
-		sc.add(SET + "<String> tokenNames = new " + LINKED_HASH_SET + "<String>(2);");
+		sc.add(SET(sc) + "<String> tokenNames = new " + LINKED_HASH_SET(sc) + "<String>(2);");
 		sc.add("String trueLiteral = booleanTerminal.getTrueLiteral();");
 		sc.add("if (!\"\".equals(trueLiteral)) {");
 		// TODO using single quotes here is ANTLR specific

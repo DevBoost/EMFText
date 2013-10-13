@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,11 +46,10 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		
 		addMethods(sc);
 
 		sc.add("}");
@@ -64,8 +63,8 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 		addGetPrinterMethod(sc);
 	}
 
-	private void addGetPrinterMethod(StringComposite sc) {
-		sc.add("public " + iTextPrinterClassName + " getPrinter(" + OUTPUT_STREAM + " outputStream) {");
+	private void addGetPrinterMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + iTextPrinterClassName + " getPrinter(" + OUTPUT_STREAM(sc) + " outputStream) {");
 		sc.add("return getMetaInformation().createPrinter(outputStream, new " + textResourceClassName + "());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -78,11 +77,11 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetNewFileContentMethod(StringComposite sc) {
+	private void addGetNewFileContentMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
 		sc.add("public String getNewFileContent(String newFileName) {");
-		sc.add("return getExampleContent(new " + E_CLASS + "[] {");
+		sc.add("return getExampleContent(new " + E_CLASS(sc) + "[] {");
 		for (GenClass startSymbol : startSymbols) {
 			sc.add(genClassUtil.getAccessor(startSymbol) + ",");
 		}
@@ -92,19 +91,19 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 	}
 
 	private void addGetExampleContentMethod2(JavaComposite sc) {
-		sc.add("protected String getExampleContent(" + E_CLASS + " eClass, " + E_CLASS + "[] allClassesWithSyntax, String newFileName) {");
+		sc.add("protected String getExampleContent(" + E_CLASS(sc) + " eClass, " + E_CLASS(sc) + "[] allClassesWithSyntax, String newFileName) {");
 		sc.addComment("create a minimal model");
-		sc.add(E_OBJECT + " root = new " + minimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
+		sc.add(E_OBJECT(sc) + " root = new " + minimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newFileName);");
 		sc.add("if (root == null) {");
 		sc.addComment("could not create a minimal model. returning an empty document is the best we can do.");
 		sc.add("return \"\";");
 		sc.add("}");
 		sc.addComment("use printer to get text for model");
-		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " buffer = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
+		sc.add(BYTE_ARRAY_OUTPUT_STREAM(sc) + " buffer = new " + BYTE_ARRAY_OUTPUT_STREAM(sc) + "();");
 		sc.add(iTextPrinterClassName + " printer = getPrinter(buffer);");
 		sc.add("try {");
 		sc.add("printer.print(root);");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while generating example content.\", e);");
 		sc.add("}");
 		sc.add("return buffer.toString();");
@@ -112,8 +111,8 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetExampleContentMethod1(StringComposite sc) {
-		sc.add("protected String getExampleContent(" + E_CLASS + "[] startClasses, " + E_CLASS + "[] allClassesWithSyntax, String newFileName) {");
+	private void addGetExampleContentMethod1(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("protected String getExampleContent(" + E_CLASS(sc) + "[] startClasses, " + E_CLASS(sc) + "[] allClassesWithSyntax, String newFileName) {");
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		Resource resource = syntax.eResource();
 		URI newFileURI = resource.getURI().trimFileExtension().appendFileExtension("newfile").appendFileExtension(syntax.getName());
@@ -134,7 +133,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 			sc.add("String content = \"" + StringUtil.escapeToJavaString(newFileContent) + "\".replace(\"\\n\", System.getProperty(\"line.separator\"));");
 		} else {
 			sc.add("String content = \"\";");
-			sc.add("for (" + E_CLASS + " next : startClasses) {");
+			sc.add("for (" + E_CLASS(sc) + " next : startClasses) {");
 			sc.add("content = getExampleContent(next, allClassesWithSyntax, newFileName);");
 			sc.add("if (content.trim().length() > 0) {");
 			sc.add("break;");

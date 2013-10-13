@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class IParseResultGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("An interface used to access the result of parsing a document.");
@@ -37,11 +37,11 @@ public class IParseResultGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the root object of the document.");
-		sc.add("public " + E_OBJECT + " getRoot();");
+		sc.add("public " + E_OBJECT(sc) + " getRoot();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns a list of commands that must be executed after parsing the document.");
-		sc.add("public " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands();");
+		sc.add("public " + COLLECTION(sc) + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> getPostParseCommands();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns a map that can be used to retrieve the position of objects in the parsed text.");

@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINT_STREAM;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,7 +33,7 @@ public class DebugCommunicationHelperGenerator extends JavaBaseGenerator<Artifac
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -48,7 +48,7 @@ public class DebugCommunicationHelperGenerator extends JavaBaseGenerator<Artifac
 	}
 
 	private void addSendEventMethod(JavaComposite sc) {
-		sc.add("public void sendEvent(" + debugMessageClassName + " message, " + PRINT_STREAM + " stream) {");
+		sc.add("public void sendEvent(" + debugMessageClassName + " message, " + PRINT_STREAM(sc) + " stream) {");
 		sc.add("synchronized (stream) {");
 		//sc.add("System.out.println(\"send: \" + message);");
 		sc.add("stream.println(message.serialize());");
@@ -66,7 +66,7 @@ public class DebugCommunicationHelperGenerator extends JavaBaseGenerator<Artifac
 			"@param parameters additional parameter to send",
 			"@return the answer that is received"
 		);
-		sc.add("public " + debugMessageClassName + " sendAndReceive(" + debugMessageClassName + " message, " + PRINT_STREAM + " stream, " + BUFFERED_READER + " reader) {");
+		sc.add("public " + debugMessageClassName + " sendAndReceive(" + debugMessageClassName + " message, " + PRINT_STREAM(sc) + " stream, " + BUFFERED_READER(sc) + " reader) {");
 		sc.add("synchronized (stream) {");
 		sc.add("sendEvent(message, stream);");
 		sc.add(debugMessageClassName + " response = receive(reader);");
@@ -82,7 +82,7 @@ public class DebugCommunicationHelperGenerator extends JavaBaseGenerator<Artifac
 			"@param reader the read to obtain the message from",
 			"@return the received message"
 		);
-		sc.add("public " + debugMessageClassName + " receive(" + BUFFERED_READER + " reader) {");
+		sc.add("public " + debugMessageClassName + " receive(" + BUFFERED_READER(sc) + " reader) {");
 		sc.add("try {");
 		sc.add("String response = reader.readLine();");
 		sc.add("if (response == null) {");
@@ -91,7 +91,7 @@ public class DebugCommunicationHelperGenerator extends JavaBaseGenerator<Artifac
 		sc.add(debugMessageClassName + " receivedMessage = " + debugMessageClassName + ".deserialize(response);");
 		//sc.add("System.out.println(\"receive: \" + receivedMessage);");
 		sc.add("return receivedMessage;");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");

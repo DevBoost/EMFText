@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_STRING_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LEXER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ANTLR_STRING_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LEXER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,16 +30,16 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " implements " + iTextScannerClassName + " {");
 		sc.addLineBreak();
 
-		sc.add("private " + LEXER + " antlrLexer;");
+		sc.add("private " + LEXER(sc) + " antlrLexer;");
 		sc.addLineBreak();
 
-		sc.add("public " + getResourceClassName() + "(" + LEXER + " antlrLexer) {");
+		sc.add("public " + getResourceClassName() + "(" + LEXER(sc) + " antlrLexer) {");
 		sc.add("this.antlrLexer = antlrLexer;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -48,7 +48,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (antlrLexer.getCharStream() == null) {");
 		sc.add("return null;");
 		sc.add("}");
-        sc.add("final " + TOKEN + " current = antlrLexer.nextToken();");
+        sc.add("final " + TOKEN(sc) + " current = antlrLexer.nextToken();");
 		sc.add("if (current == null || current.getType() < 0) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -57,7 +57,7 @@ public class ANTLRScannerGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void setText(String text) {");
-		sc.add("antlrLexer.setCharStream(new " + ANTLR_STRING_STREAM + "(text));");
+		sc.add("antlrLexer.setCharStream(new " + ANTLR_STRING_STREAM(sc) + "(text));");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("}");

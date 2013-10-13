@@ -15,14 +15,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IDENTITY_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IDENTITY_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -36,7 +36,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A basic implementation of the ILocationMap interface. Instances " +
@@ -78,16 +78,16 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetElementsMethod(JavaComposite sc) {
-		sc.add("private " + LIST + "<" + E_OBJECT + "> getElements(ISelector s) {");
+		sc.add("private " + LIST(sc) + "<" + E_OBJECT(sc) + "> getElements(ISelector s) {");
 		sc.addComment(
 			"There might be more than one element at the given offset. " +
 			"Thus, we collect all of them and sort them afterwards."
 		);
-		sc.add(LIST + "<" + E_OBJECT + "> result = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> result = new " + ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + ">();");
 		sc.addLineBreak();
 		sc.addComment(SYNCHRONISATION_COMMENT);
 		sc.add("synchronized (this) {");
-		sc.add("for (" + E_OBJECT + " next : charStartMap.keySet()) {");
+		sc.add("for (" + E_OBJECT(sc) + " next : charStartMap.keySet()) {");
 		sc.add("Integer start = charStartMap.get(next);");
 		sc.add("Integer end = charEndMap.get(next);");
 		sc.add("if (start == null || end == null) {");
@@ -98,8 +98,8 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add(COLLECTIONS + ".sort(result, new " + COMPARATOR + "<" + E_OBJECT + ">() {");
-		sc.add("public int compare(" + E_OBJECT + " objectA, " + E_OBJECT + " objectB) {");
+		sc.add(COLLECTIONS(sc) + ".sort(result, new " + COMPARATOR(sc) + "<" + E_OBJECT(sc) + ">() {");
+		sc.add("public int compare(" + E_OBJECT(sc) + " objectA, " + E_OBJECT(sc) + " objectB) {");
 		sc.add("int lengthA = getCharEnd(objectA) - getCharStart(objectA);");
 		sc.add("int lengthB = getCharEnd(objectB) - getCharStart(objectB);");
 		sc.add("return lengthA - lengthB;");
@@ -110,8 +110,8 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetElementsBetween(JavaComposite sc) {
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(final int startOffset, final int endOffset) {");
-		sc.add("" + LIST + "<" + E_OBJECT + "> result = getElements(new ISelector() {");
+		sc.add("public " + LIST(sc) + "<" + E_OBJECT(sc) + "> getElementsBetween(final int startOffset, final int endOffset) {");
+		sc.add("" + LIST(sc) + "<" + E_OBJECT(sc) + "> result = getElements(new ISelector() {");
 		sc.add("public boolean accept(int start, int end) {");
 		sc.add("return start >= startOffset && end <= endOffset;");
 		sc.add("}");
@@ -122,19 +122,19 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetElementsAtMethod(JavaComposite sc) {
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsAt(final int documentOffset) {");
-		sc.add(LIST + "<" + E_OBJECT + "> result = getElements(new ISelector() {");
+		sc.add("public " + LIST(sc) + "<" + E_OBJECT(sc) + "> getElementsAt(final int documentOffset) {");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> result = getElements(new ISelector() {");
 		sc.add("public boolean accept(int start, int end) {");
 		sc.add("return start <= documentOffset && end >= documentOffset;");
 		sc.add("}");
 		sc.add("});");
 		sc.addComment("sort elements according to containment hierarchy");
-		sc.add(COLLECTIONS + ".sort(result, new " + COMPARATOR + "<" + E_OBJECT + ">() {");
-		sc.add("public int compare(" + E_OBJECT + " objectA, " + E_OBJECT + " objectB) {");
-		sc.add("if (" + ECORE_UTIL + ".isAncestor(objectA, objectB)) {");
+		sc.add(COLLECTIONS(sc) + ".sort(result, new " + COMPARATOR(sc) + "<" + E_OBJECT(sc) + ">() {");
+		sc.add("public int compare(" + E_OBJECT(sc) + " objectA, " + E_OBJECT(sc) + " objectB) {");
+		sc.add("if (" + ECORE_UTIL(sc) + ".isAncestor(objectA, objectB)) {");
 		sc.add("return 1;");
 		sc.add("} else {");
-		sc.add("if (" + ECORE_UTIL + ".isAncestor(objectB, objectA)) {");
+		sc.add("if (" + ECORE_UTIL(sc) + ".isAncestor(objectB, objectA)) {");
 		sc.add("return -1;");
 		sc.add("} else {");
 		sc.add("return 0;");
@@ -148,7 +148,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addSetMapValueToMaxMethod(JavaComposite sc) {
-		sc.add("private void setMapValueToMax(" + MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
+		sc.add("private void setMapValueToMax(" + MAP(sc) + "<" + E_OBJECT(sc) + ", Integer> map, " + E_OBJECT(sc) + " element, int value) {");
 		sc.addComment(SYNCHRONISATION_COMMENT);
 		sc.add("synchronized (this) {");
 		sc.add("if (element == null || value < 0) return;");
@@ -160,7 +160,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addSetMapValueToMinMethod(JavaComposite sc) {
-		sc.add("private void setMapValueToMin(" + MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
+		sc.add("private void setMapValueToMin(" + MAP(sc) + "<" + E_OBJECT(sc) + ", Integer> map, " + E_OBJECT(sc) + " element, int value) {");
 		sc.addComment(SYNCHRONISATION_COMMENT);
 		sc.add("synchronized (this) {");
 		sc.add("if (element == null || value < 0) return;");
@@ -172,7 +172,7 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetMapValueMethod(JavaComposite sc) {
-		sc.add("private int getMapValue(" + MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element) {");
+		sc.add("private int getMapValue(" + MAP(sc) + "<" + E_OBJECT(sc) + ", Integer> map, " + E_OBJECT(sc) + " element) {");
 		sc.add("if (!map.containsKey(element)) return -1;");
 		sc.add("Integer value = map.get(element);");
 		sc.add("return value == null ? -1 : value.intValue();");
@@ -181,66 +181,66 @@ public class LocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetCharEndMethod(JavaComposite sc) {
-		sc.add("public int getCharEnd(" + E_OBJECT + " element) {");
+		sc.add("public int getCharEnd(" + E_OBJECT(sc) + " element) {");
 		sc.add("return getMapValue(charEndMap, element);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetCharEndMethod(JavaComposite sc) {
-		sc.add("public void setCharEnd(" + E_OBJECT + " element, int charEnd) {");
+		sc.add("public void setCharEnd(" + E_OBJECT(sc) + " element, int charEnd) {");
 		sc.add("setMapValueToMax(charEndMap, element, charEnd);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetCharStartMethod(JavaComposite sc) {
-		sc.add("public int getCharStart(" + E_OBJECT + " element) {");
+		sc.add("public int getCharStart(" + E_OBJECT(sc) + " element) {");
 		sc.add("return getMapValue(charStartMap, element);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetCharStartMethod(JavaComposite sc) {
-		sc.add("public void setCharStart(" + E_OBJECT + " element, int charStart) {");
+		sc.add("public void setCharStart(" + E_OBJECT(sc) + " element, int charStart) {");
 		sc.add("setMapValueToMin(charStartMap, element, charStart);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetColumnMethod(JavaComposite sc) {
-		sc.add("public int getColumn(" + E_OBJECT + " element) {");
+		sc.add("public int getColumn(" + E_OBJECT(sc) + " element) {");
 		sc.add("return getMapValue(columnMap, element);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetColumnMethod(JavaComposite sc) {
-		sc.add("public void setColumn(" + E_OBJECT + " element, int column) {");
+		sc.add("public void setColumn(" + E_OBJECT(sc) + " element, int column) {");
 		sc.add("setMapValueToMin(columnMap, element, column);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetLineMethod(JavaComposite sc) {
-		sc.add("public int getLine(" + E_OBJECT + " element) {");
+		sc.add("public int getLine(" + E_OBJECT(sc) + " element) {");
 		sc.add("return getMapValue(lineMap, element);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetLineMethod(JavaComposite sc) {
-		sc.add("public void setLine(" + E_OBJECT + " element, int line) {");
+		sc.add("public void setLine(" + E_OBJECT(sc) + " element, int line) {");
 		sc.add("setMapValueToMin(lineMap, element, line);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> columnMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> lineMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> charStartMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
-		sc.add("protected " + MAP + "<" + E_OBJECT + ", Integer> charEndMap = new " + IDENTITY_HASH_MAP + "<" + E_OBJECT + ", Integer>();");
+		sc.add("protected " + MAP(sc) + "<" + E_OBJECT(sc) + ", Integer> columnMap = new " + IDENTITY_HASH_MAP(sc) + "<" + E_OBJECT(sc) + ", Integer>();");
+		sc.add("protected " + MAP(sc) + "<" + E_OBJECT(sc) + ", Integer> lineMap = new " + IDENTITY_HASH_MAP(sc) + "<" + E_OBJECT(sc) + ", Integer>();");
+		sc.add("protected " + MAP(sc) + "<" + E_OBJECT(sc) + ", Integer> charStartMap = new " + IDENTITY_HASH_MAP(sc) + "<" + E_OBJECT(sc) + ", Integer>();");
+		sc.add("protected " + MAP(sc) + "<" + E_OBJECT(sc) + ", Integer> charEndMap = new " + IDENTITY_HASH_MAP(sc) + "<" + E_OBJECT(sc) + ", Integer>();");
 		sc.addLineBreak();
 	}
 

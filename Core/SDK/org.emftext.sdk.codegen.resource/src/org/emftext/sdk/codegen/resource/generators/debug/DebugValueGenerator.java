@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -37,9 +37,9 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_VALUE + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_VALUE(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -59,15 +59,15 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addFields(JavaComposite sc) {
 		sc.add("private " + debugTargetClassName + " debugTarget;");
-		sc.add("private " + I_VARIABLE + "[] variables;");
+		sc.add("private " + I_VARIABLE(sc) + "[] variables;");
 		sc.add("private String referenceTypeName;");
 		sc.add("private String valueString;");
-		sc.add("private " + MAP + "<String, Long> children;");
+		sc.add("private " + MAP(sc) + "<String, Long> children;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + debugTargetClassName + " target, String id, String valueString, String referenceTypeName, " + MAP + "<String, Long> children) {");
+		sc.add("public " + getResourceClassName() + "(" + debugTargetClassName + " target, String id, String valueString, String referenceTypeName, " + MAP(sc) + "<String, Long> children) {");
 		sc.add("super(target);");
 		sc.add("this.debugTarget = target;");
 		sc.add("this.valueString = valueString;");
@@ -78,21 +78,21 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetReferenceTypeNameMethod(JavaComposite sc) {
-		sc.add("public String getReferenceTypeName() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public String getReferenceTypeName() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return referenceTypeName;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetValueStringMethod(JavaComposite sc) {
-		sc.add("public String getValueString() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public String getValueString() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return valueString;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addIsAllocatedMethod(JavaComposite sc) {
-		sc.add("public boolean isAllocated() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public boolean isAllocated() throws " + DEBUG_EXCEPTION(sc) + " {");
 		// TODO do we need to implement this method differently?
 		sc.add("return true;");
 		sc.add("}");
@@ -100,16 +100,16 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetVariablesMethod(JavaComposite sc) {
-		sc.add("public " + I_VARIABLE + "[] getVariables() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public " + I_VARIABLE(sc) + "[] getVariables() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("if (variables == null) {");
 		sc.addComment("request variables from debug client");
-		sc.add(COLLECTION + "<Long> childIDs = children.values();");
+		sc.add(COLLECTION(sc) + "<Long> childIDs = children.values();");
 		sc.add("String[] childIDStrings = new String[childIDs.size()];");
 		sc.add("int i = 0;");
 		sc.add("for (Long childID : childIDs) {");
 		sc.add("childIDStrings[i++] = childID.toString();");
 		sc.add("}");
-		sc.add(I_VARIABLE + "[] response = debugTarget.getDebugProxy().getVariables(childIDStrings);");
+		sc.add(I_VARIABLE(sc) + "[] response = debugTarget.getDebugProxy().getVariables(childIDStrings);");
 		sc.add("variables = response;");
 		sc.add("}");
 		sc.add("return variables;");
@@ -118,7 +118,7 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addHasVariablesMethod(JavaComposite sc) {
-		sc.add("public boolean hasVariables() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public boolean hasVariables() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return this.children.keySet().size() > 0;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -132,15 +132,15 @@ public class DebugValueGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetChildMethod(JavaComposite sc) {
-		sc.add("public " + I_VARIABLE + " getChild(int index) {");
-		sc.add(SET + "<String> keySet = this.children.keySet();");
-		sc.add(ITERATOR + "<String> iterator = keySet.iterator();");
+		sc.add("public " + I_VARIABLE(sc) + " getChild(int index) {");
+		sc.add(SET(sc) + "<String> keySet = this.children.keySet();");
+		sc.add(ITERATOR(sc) + "<String> iterator = keySet.iterator();");
 		sc.add("String keyAtIndex = iterator.next();");
 		sc.add("for (int i = 0; i < index; i++) {");
 		sc.add("keyAtIndex = iterator.next();");
 		sc.add("}");
 		sc.add("Long childID = this.children.get(keyAtIndex);");
-		sc.add(I_VARIABLE + "[] response = debugTarget.getDebugProxy().getVariables(childID.toString());");
+		sc.add(I_VARIABLE(sc) + "[] response = debugTarget.getDebugProxy().getVariables(childID.toString());");
 		sc.add("return response[0];");
 		sc.add("}");
 		sc.addLineBreak();

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Artifact
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"An implementation of the ResolveResult interface that delegates " +
@@ -79,7 +79,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addGetMappingsMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION(sc) + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings() {");
 		sc.add("return delegate.getMappings();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -121,7 +121,7 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addAddMappingMethod2(JavaComposite sc) {
-		sc.add("public void addMapping(String identifier, " + URI + " uri) {");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " uri) {");
 		sc.add("delegate.addMapping(identifier, uri);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -135,14 +135,14 @@ public class DelegatingResolveResultGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addAddMappingMethod4(JavaComposite sc) {
-		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " uri, String warning) {");
 		sc.add("delegate.addMapping(identifier, uri, warning);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetQuickFixesMethod(JavaComposite sc) {
-		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+		sc.add("public " + COLLECTION(sc) + "<" + iQuickFixClassName + "> getQuickFixes() {");
 		sc.add("return delegate.getQuickFixes();");
 		sc.add("}");
 		sc.addLineBreak();

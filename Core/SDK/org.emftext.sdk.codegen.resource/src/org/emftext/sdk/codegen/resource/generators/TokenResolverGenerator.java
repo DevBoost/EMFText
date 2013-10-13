@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -27,7 +27,6 @@ import org.emftext.sdk.concretesyntax.CompleteTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedTokenDefinition;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 import de.devboost.codecomposers.util.StringUtil;
 
@@ -53,7 +52,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 	public void generateJavaContents(JavaComposite sc) {
 		setTokenDefinition(getParameters().getDefinition());
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
@@ -66,14 +65,14 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 			String importedTokenResolverClassName = nameUtil.getQualifiedTokenResolverClassName(syntax, definition, true);
 			sc.add("private " + importedTokenResolverClassName + " importedResolver = new " + importedTokenResolverClassName + "();");
 			sc.addLineBreak();
-			generateDeResolveMethod2(sc);
-			generateResolveMethod2(sc);
+	generateDeResolveMethod2(sc);
+	generateResolveMethod2(sc);
 		    generatorUtil.addSetOptionsMethod(sc, "importedResolver.setOptions(options);", null);
 		} else {
 			sc.add("private " + defaultTokenResolverClassName + " defaultTokenResolver = new " + defaultTokenResolverClassName + "(true);");
 			sc.addLineBreak();
-			generateDeResolveMethod1(sc);
-			generateResolveMethod1(sc);
+	generateDeResolveMethod1(sc);
+	generateResolveMethod1(sc);
 		    generatorUtil.addSetOptionsMethod(sc, "defaultTokenResolver.setOptions(options);", null);
 		}
 		sc.add("}");
@@ -88,7 +87,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		String javaSourceSuffix = escape(suffix);
 		String javaSourceEscapeCharacter = escape(escapeCharacter);
 
-		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + E_OBJECT(sc) + " container) {");
 		sc.addComment("By default token de-resolving is delegated to the DefaultTokenResolver.");
 		sc.add("String result = defaultTokenResolver.deResolve(value, feature, container, " + javaSourcePrefix + ", " + javaSourceSuffix + ", " + javaSourceEscapeCharacter + ");");
 		sc.add("return result;");
@@ -96,8 +95,8 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		sc.addLineBreak();
 	}
 
-	private void generateDeResolveMethod2(StringComposite sc) {
-		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+	private void generateDeResolveMethod2(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public String deResolve(Object value, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + E_OBJECT(sc) + " container) {");
 		sc.add("String result = importedResolver.deResolve(value, feature, container);");
 		sc.add("return result;");
 		sc.add("}");
@@ -113,7 +112,7 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		String javaSourceSuffix = escape(suffix);
 		String javaSourceEscapeCharacter = escape(escapeCharacter);
 
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + iTokenResolveResultClassName + " result) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE(sc) + " feature, " + iTokenResolveResultClassName + " result) {");
 		sc.addComment("By default token resolving is delegated to the DefaultTokenResolver.");
 		sc.add("defaultTokenResolver.resolve(lexem, feature, result, " + javaSourcePrefix + ", " + javaSourceSuffix + ", " + javaSourceEscapeCharacter + ");");
 		sc.add("}");
@@ -128,11 +127,11 @@ public class TokenResolverGenerator extends JavaBaseGenerator<TokenResolverParam
 		return javaSourcePrefix;
 	}
 	
-	private void generateResolveMethod2(StringComposite sc) {
+	private void generateResolveMethod2(de.devboost.codecomposers.java.JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		ConcreteSyntax containingSyntax = definition.getContainingSyntax(syntax);
 		String importedTokenResolveResultClassName = getContext().getQualifiedClassName(TextResourceArtifacts.I_TOKEN_RESOLVE_RESULT, containingSyntax);
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, final " + iTokenResolveResultClassName + " result) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE(sc) + " feature, final " + iTokenResolveResultClassName + " result) {");
 		sc.add("importedResolver.resolve(lexem, feature, new " + importedTokenResolveResultClassName + "() {");
 		sc.add("public String getErrorMessage() {");
 		sc.add("return result.getErrorMessage();");

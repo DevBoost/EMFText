@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ public class URIUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -36,7 +36,7 @@ public class URIUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 	}
 
 	private void addIsInBinFolderMethod(JavaComposite sc) {
-		sc.add("public boolean isInBinFolder(" + URI + " uri) {");
+		sc.add("public boolean isInBinFolder(" + URI(sc) + " uri) {");
 		sc.add("String[] segments = uri.segments();");
 		sc.add("for (String segment : segments) {");
 		sc.add("if (\"bin\".equals(segment)) {");

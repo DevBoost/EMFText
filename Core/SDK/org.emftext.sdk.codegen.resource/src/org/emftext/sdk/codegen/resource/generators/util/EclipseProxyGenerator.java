@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,38 +15,38 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CONSTRAINT_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CONSTRAINT_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EVALUATION_MODE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_NOTIFICATION_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_BATCH_VALIDATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_CONFIGURATION_ELEMENT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_EXTENSION_REGISTRY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LIVE_VALIDATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_WORKSPACE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_WORKSPACE_ROOT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MODEL_VALIDATION_SERVICE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EVALUATION_MODE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_NOTIFICATION_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BATCH_VALIDATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LIVE_VALIDATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_WORKSPACE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_WORKSPACE_ROOT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MODEL_VALIDATION_SERVICE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_FACTORY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -64,7 +64,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -101,7 +101,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetFileForResourceMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the file that contains the given resource.");
-		sc.add("public " + I_FILE + " getFileForResource(" + RESOURCE + " resource) {");
+		sc.add("public " + I_FILE(sc) + " getFileForResource(" + RESOURCE(sc) + " resource) {");
 		sc.add("return getFileForURI(resource.getURI());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -114,28 +114,28 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"URI or because it is <code>null</code>), <code>null</code> is " +
 			"returned."
 		);
-		sc.add("public " + I_FILE + " getFileForURI(" + URI + " uri) {");
+		sc.add("public " + I_FILE(sc) + " getFileForURI(" + URI(sc) + " uri) {");
 		sc.add("if (uri == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(I_WORKSPACE + " workspace = " + RESOURCES_PLUGIN + ".getWorkspace();");
-		sc.add(I_WORKSPACE_ROOT + " workspaceRoot = workspace.getRoot();");
+		sc.add(I_WORKSPACE(sc) + " workspace = " + RESOURCES_PLUGIN(sc) + ".getWorkspace();");
+		sc.add(I_WORKSPACE_ROOT(sc) + " workspaceRoot = workspace.getRoot();");
 		sc.add("String platformString = uri.toPlatformString(true);");
 		sc.addComment("If the URI is not a platform URI, we cannot determine the file.");
 		sc.add("if (platformString == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(PATH + " path = new " + PATH + "(platformString);");
+		sc.add(PATH(sc) + " path = new " + PATH(sc) + "(platformString);");
 		sc.add("return workspaceRoot.getFile(path);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCreateNotificationMethod(JavaComposite sc) {
-		sc.add("private void createNotification(" + E_OBJECT + " eObject, " + LIST + "<" + NOTIFICATION + "> notifications) {");
-		sc.add("if (eObject instanceof " + INTERNAL_E_OBJECT + ") {");
-		sc.add(INTERNAL_E_OBJECT + " internalEObject = (" + INTERNAL_E_OBJECT + ") eObject;");
-		sc.add(NOTIFICATION + " notification = new " + E_NOTIFICATION_IMPL + "(internalEObject, 0, " + E_NOTIFICATION_IMPL + ".NO_FEATURE_ID, null, null);");
+		sc.add("private void createNotification(" + E_OBJECT(sc) + " eObject, " + LIST(sc) + "<" + NOTIFICATION(sc) + "> notifications) {");
+		sc.add("if (eObject instanceof " + INTERNAL_E_OBJECT(sc) + ") {");
+		sc.add(INTERNAL_E_OBJECT(sc) + " internalEObject = (" + INTERNAL_E_OBJECT(sc) + ") eObject;");
+		sc.add(NOTIFICATION(sc) + " notification = new " + E_NOTIFICATION_IMPL(sc) + "(internalEObject, 0, " + E_NOTIFICATION_IMPL(sc) + ".NO_FEATURE_ID, null, null);");
 		sc.add("notifications.add(notification);");
 		sc.add("}");
 		sc.add("}");
@@ -143,12 +143,12 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addCreateNotificationsMethod(JavaComposite sc) {
-		sc.add("private " + COLLECTION + "<" + NOTIFICATION + "> createNotifications(" + E_OBJECT + " eObject) {");
-		sc.add(LIST + "<" + NOTIFICATION + "> notifications = new " + ARRAY_LIST + "<" + NOTIFICATION + ">();");
+		sc.add("private " + COLLECTION(sc) + "<" + NOTIFICATION(sc) + "> createNotifications(" + E_OBJECT(sc) + " eObject) {");
+		sc.add(LIST(sc) + "<" + NOTIFICATION(sc) + "> notifications = new " + ARRAY_LIST(sc) + "<" + NOTIFICATION(sc) + ">();");
 		sc.add("createNotification(eObject, notifications);");
-		sc.add(ITERATOR + "<" + E_OBJECT + "> allContents = eObject.eAllContents();");
+		sc.add(ITERATOR(sc) + "<" + E_OBJECT(sc) + "> allContents = eObject.eAllContents();");
 		sc.add("while (allContents.hasNext()) {");
-		sc.add(E_OBJECT + " next = (" + E_OBJECT + ") allContents.next();");
+		sc.add(E_OBJECT(sc) + " next = (" + E_OBJECT(sc) + ") allContents.next();");
 		sc.add("createNotification(next, notifications);");
 		sc.add("}");
 		sc.add("return notifications;");
@@ -162,18 +162,18 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"Such extensions can be used to register multiple resource factories " +
 			"for the same file extension."
 		);
-    	sc.add("public void getResourceFactoryExtensions(" + MAP + "<String, " + RESOURCE_FACTORY + "> factories) {");
-     	sc.add("if (" + PLATFORM + ".isRunning()) {");
-    	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
-    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + pluginActivatorClassName + ".EP_ADDITIONAL_EXTENSION_PARSER_ID);");
-    	sc.add("for (" + I_CONFIGURATION_ELEMENT + " element : configurationElements) {");
+    	sc.add("public void getResourceFactoryExtensions(" + MAP(sc) + "<String, " + RESOURCE_FACTORY(sc) + "> factories) {");
+     	sc.add("if (" + PLATFORM(sc) + ".isRunning()) {");
+    	sc.add(I_EXTENSION_REGISTRY(sc) + " extensionRegistry = " + PLATFORM(sc) + ".getExtensionRegistry();");
+    	sc.add(I_CONFIGURATION_ELEMENT(sc) + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + pluginActivatorClassName + ".EP_ADDITIONAL_EXTENSION_PARSER_ID);");
+    	sc.add("for (" + I_CONFIGURATION_ELEMENT(sc) + " element : configurationElements) {");
     	sc.add("try {");
     	sc.add("String type = element.getAttribute(\"type\");");
-    	sc.add(RESOURCE +".Factory factory = (" + RESOURCE + ".Factory) element.createExecutableExtension(\"class\");");
+    	sc.add(RESOURCE(sc) +".Factory factory = (" + RESOURCE(sc) + ".Factory) element.createExecutableExtension(\"class\");");
     	sc.add("if (type == null) {");
     	sc.add("type = \"\";");
     	sc.add("}");
-    	sc.add(RESOURCE + ".Factory otherFactory = factories.get(type);");
+    	sc.add(RESOURCE(sc) + ".Factory otherFactory = factories.get(type);");
 		sc.add("if (otherFactory != null) {");
 		sc.add("Class<?> superClass = factory.getClass().getSuperclass();");
 		sc.add("while(superClass != Object.class) {");
@@ -187,7 +187,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("else {");
 		sc.add("factories.put(type, factory);");
 		sc.add("}");
-    	sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+    	sc.add("} catch (" + CORE_EXCEPTION(sc) + " ce) {");
     	sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while getting default options.\", ce);");
     	sc.add("}");
     	sc.add("}");
@@ -202,26 +202,26 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"Load option providers can be used to set default options for loading resources " +
 			"(e.g. input stream pre-processors)."
 		);
-		sc.add("public void getDefaultLoadOptionProviderExtensions(" + MAP + "<Object, Object> optionsMap) {");
-		sc.add("if (" + PLATFORM + ".isRunning()) {");
+		sc.add("public void getDefaultLoadOptionProviderExtensions(" + MAP(sc) + "<Object, Object> optionsMap) {");
+		sc.add("if (" + PLATFORM(sc) + ".isRunning()) {");
 		sc.addComment("find default load option providers");
-		sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM
+		sc.add(I_EXTENSION_REGISTRY(sc) + " extensionRegistry = " + PLATFORM(sc)
 				+ ".getExtensionRegistry();");
-		sc.add(I_CONFIGURATION_ELEMENT
+		sc.add(I_CONFIGURATION_ELEMENT(sc)
 				+ " configurationElements[] = extensionRegistry.getConfigurationElementsFor("
 				+ pluginActivatorClassName + ".EP_DEFAULT_LOAD_OPTIONS_ID);");
-		sc.add("for (" + I_CONFIGURATION_ELEMENT
+		sc.add("for (" + I_CONFIGURATION_ELEMENT(sc)
 				+ " element : configurationElements) {");
 		sc.add("try {");
 		sc.add(iOptionProviderClassName + " provider = ("
 				+ iOptionProviderClassName
 				+ ") element.createExecutableExtension(\"class\");");
-		sc.add("final " + MAP + "<?, ?> options = provider.getOptions();");
-		sc.add("final " + COLLECTION + "<?> keys = options.keySet();");
+		sc.add("final " + MAP(sc) + "<?, ?> options = provider.getOptions();");
+		sc.add("final " + COLLECTION(sc) + "<?> keys = options.keySet();");
 		sc.add("for (Object key : keys) {");
 		sc.add(mapUtilClassName +  ".putAndMergeKeys(optionsMap, key, options.get(key));");
 		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " ce) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while getting default options.\", ce);");
 		sc.add("}");
 		sc.add("}");
@@ -232,9 +232,9 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addGetResourceMethod(JavaComposite sc) {
 		sc.addJavadoc("Gets the resource that is contained in the give file.");
-		sc.add("public " + textResourceClassName + " getResource(" + I_FILE + " file) {");
-		sc.add(RESOURCE_SET + " rs = new " + RESOURCE_SET_IMPL + "();");
-		sc.add(RESOURCE + " resource = rs.getResource(" + URI + ".createPlatformResourceURI(file.getFullPath().toString(), true), true);");
+		sc.add("public " + textResourceClassName + " getResource(" + I_FILE(sc) + " file) {");
+		sc.add(RESOURCE_SET(sc) + " rs = new " + RESOURCE_SET_IMPL(sc) + "();");
+		sc.add(RESOURCE(sc) + " resource = rs.getResource(" + URI(sc) + ".createPlatformResourceURI(file.getFullPath().toString(), true), true);");
 		sc.add("return (" + textResourceClassName + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -245,8 +245,7 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"Checks all registered EMF validation constraints. " +
 			"Note: EMF validation does not work if OSGi is not running.");
 		sc.add("@SuppressWarnings(\"restriction\")");
-		sc.addLineBreak();
-		sc.add("public void checkEMFValidationConstraints(" + iTextResourceClassName + " resource, " + E_OBJECT + " root, boolean includeBatchConstraints) {");
+		sc.add("public void checkEMFValidationConstraints(" + iTextResourceClassName + " resource, " + E_OBJECT(sc) + " root, boolean includeBatchConstraints) {");
 		sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 				+ "This is a bug, which is fixed in the Helios release. Nonetheless, we need to catch the "
 				+ "exception here.");
@@ -254,20 +253,22 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (runtimeUtil.isEclipsePlatformRunning() && runtimeUtil.isEMFValidationAvailable()) {");
 		sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 				+ "This is a workaround for bug 322079.");
+		// We use the fully qualified name for the EMFModelValidationPlugin,
+		// because an import would cause a warning
 		sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN + ".getPlugin() != null) {");
 		sc.add("try {");
-		sc.add(MODEL_VALIDATION_SERVICE + " service = " + MODEL_VALIDATION_SERVICE + ".getInstance();");
-		sc.add(I_STATUS + " status;");
+		sc.add(MODEL_VALIDATION_SERVICE(sc) + " service = " + MODEL_VALIDATION_SERVICE(sc) + ".getInstance();");
+		sc.add(I_STATUS(sc) + " status;");
 		sc.addComment("Batch constraints are only evaluated if requested (e.g., when a resource is loaded for the first time).");
 		sc.add("if (includeBatchConstraints) {");
-		sc.add(I_BATCH_VALIDATOR + " validator = service.<" + E_OBJECT + ", " + I_BATCH_VALIDATOR + ">newValidator(" + EVALUATION_MODE + ".BATCH);");
+		sc.add(I_BATCH_VALIDATOR(sc) + " validator = service.<" + E_OBJECT(sc) + ", " + I_BATCH_VALIDATOR(sc) + ">newValidator(" + EVALUATION_MODE(sc) + ".BATCH);");
 		sc.add("validator.setIncludeLiveConstraints(false);");
 		sc.add("status = validator.validate(root);");
 		sc.add("addStatus(status, resource, root, " + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.BATCH_CONSTRAINT_PROBLEM.name() + ");");
 		sc.add("}");
 		sc.addComment("Live constraints are always evaluated");
-		sc.add(I_LIVE_VALIDATOR + " validator = service.<" + NOTIFICATION + ", " + I_LIVE_VALIDATOR + ">newValidator(" + EVALUATION_MODE + ".LIVE);");
-		sc.add(COLLECTION + "<" + NOTIFICATION + "> notifications = createNotifications(root);");
+		sc.add(I_LIVE_VALIDATOR(sc) + " validator = service.<" + NOTIFICATION(sc) + ", " + I_LIVE_VALIDATOR(sc) + ">newValidator(" + EVALUATION_MODE(sc) + ".LIVE);");
+		sc.add(COLLECTION(sc) + "<" + NOTIFICATION(sc) + "> notifications = createNotifications(root);");
 		sc.add("status = validator.validate(notifications);");
 		sc.add("addStatus(status, resource, root, " + eProblemTypeClassName + "." + EProblemTypeGenerator.PROBLEM_TYPES.LIVE_CONSTRAINT_PROBLEM.name() + ");");
 		sc.add("} catch (Throwable t) {");
@@ -280,41 +281,39 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 	
 	private void addAddStatusMethod(JavaComposite sc) {
-		sc.add("public void addStatus(" + 
-				I_STATUS + " status, " + 
-				iTextResourceClassName + " resource, " + 
-				E_OBJECT + " root, " +
+		sc.add("public void addStatus(" + I_STATUS(sc) + " status, " + 
+				iTextResourceClassName + " resource, " + E_OBJECT(sc) + " root, " +
 				eProblemTypeClassName + " problemType) {");
-		sc.add(LIST + "<" + E_OBJECT + "> causes = new " + ARRAY_LIST + "<"
-				+ E_OBJECT + ">();");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> causes = new " + ARRAY_LIST(sc) + "<"
+				+ E_OBJECT(sc) + ">();");
 		sc.add("causes.add(root);");
-		sc.add("if (status instanceof " + CONSTRAINT_STATUS + ") {");
-		sc.add(CONSTRAINT_STATUS + " constraintStatus = (" + CONSTRAINT_STATUS
+		sc.add("if (status instanceof " + CONSTRAINT_STATUS(sc) + ") {");
+		sc.add(CONSTRAINT_STATUS(sc) + " constraintStatus = (" + CONSTRAINT_STATUS(sc)
 				+ ") status;");
-		sc.add(SET + "<" + E_OBJECT
+		sc.add(SET(sc) + "<" + E_OBJECT(sc)
 				+ "> resultLocus = constraintStatus.getResultLocus();");
 		sc.add("causes.clear();");
 		sc.add("causes.addAll(resultLocus);");
 		sc.add("}");
-		sc.add(I_STATUS + "[] children = status.getChildren();");
+		sc.add(I_STATUS(sc) + "[] children = status.getChildren();");
 		sc.add("boolean hasChildren = children != null && children.length > 0;");
 		sc.addComment("Ignore composite status objects that have children. "
 				+ "The actual status information is then contained in the child objects.");
 		sc.add("if (!status.isMultiStatus() || !hasChildren) {");
 		sc.add("int severity = status.getSeverity();");
-		sc.add("if (severity == " + I_STATUS + ".ERROR) {");
-		sc.add("for (" + E_OBJECT + " cause : causes) {");
+		sc.add("if (severity == " + I_STATUS(sc) + ".ERROR) {");
+		sc.add("for (" + E_OBJECT(sc) + " cause : causes) {");
 		sc.add("resource.addError(status.getMessage(), problemType, cause);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("if (severity == " + I_STATUS + ".WARNING) {");
-		sc.add("for (" + E_OBJECT + " cause : causes) {");
+		sc.add("if (severity == " + I_STATUS(sc) + ".WARNING) {");
+		sc.add("for (" + E_OBJECT(sc) + " cause : causes) {");
 		sc.add("resource.addWarning(status.getMessage(), problemType, cause);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.add("if (children != null) {");
-		sc.add("for (" + I_STATUS + " child : children) {");
+		sc.add("for (" + I_STATUS(sc) + " child : children) {");
 		sc.add("addStatus(child, resource, root, problemType);");
 		sc.add("}");
 		sc.add("}");
@@ -328,19 +327,19 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"workspace file properties or determined by the default workspace " +
 			"encoding in Eclipse."
 		);
-		sc.add("public String getPlatformResourceEncoding(" + URI +" uri) {");
+		sc.add("public String getPlatformResourceEncoding(" + URI(sc) +" uri) {");
 		sc.addComment("We can't determine the encoding if the platform is not running.");
 		sc.add("if (!new " + runtimeUtilClassName + "().isEclipsePlatformRunning()) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("if (uri != null && uri.isPlatform()) {");
 		sc.add("String platformString = uri.toPlatformString(true);");
-		sc.add(I_RESOURCE + " platformResource = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
-		sc.add("if (platformResource instanceof " + I_FILE + ") {");
-		sc.add(I_FILE + " file = (" + I_FILE + ") platformResource;");
+		sc.add(I_RESOURCE(sc) + " platformResource = " + RESOURCES_PLUGIN(sc) + ".getWorkspace().getRoot().findMember(platformString);");
+		sc.add("if (platformResource instanceof " + I_FILE(sc) + ") {");
+		sc.add(I_FILE(sc) + " file = (" + I_FILE(sc) + ") platformResource;");
 		sc.add("try {");
 		sc.add("return file.getCharset();");
-		sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " ce) {");
 		sc.add("new " + runtimeUtilClassName + "().logWarning(\"Could not determine encoding of platform resource: \" + uri.toString(), ce);");
 		sc.add("}");
 		sc.add("}");

@@ -15,20 +15,20 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_PARSER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INVOCATION_HANDLER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.METHOD;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PROXY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNIZER_SHARED_STATE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN_STREAM;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ANTLR_PARSER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMMON_TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INVOCATION_HANDLER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.METHOD;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PROXY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RECOGNIZER_SHARED_STATE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN_STREAM;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -45,9 +45,9 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public abstract class " + getResourceClassName() + " extends " + ANTLR_PARSER + " implements " + iTextParserClassName + " {");
+		sc.add("public abstract class " + getResourceClassName() + " extends " + ANTLR_PARSER(sc) + " implements " + iTextParserClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructors(sc);
@@ -61,7 +61,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A collection to store all anonymous tokens.");
-		sc.add("protected " + sc.declareArrayList("anonymousTokens", COMMON_TOKEN));
+		sc.add("protected " + sc.declareArrayList("anonymousTokens",COMMON_TOKEN(sc)));
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -69,14 +69,14 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 			"This collection is cleared before parsing starts and returned as part of " +
 			"the parse result object."
 		);
-		sc.add("protected " + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
+		sc.add("protected " + COLLECTION(sc) + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"A copy of the options that were used to load the text resource. " +
 			"This map is filled when the parser is created."
 		);
-		sc.add("private " + MAP + "<?, ?> options;");
+		sc.add("private " + MAP(sc) + "<?, ?> options;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -128,7 +128,6 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addMethods(JavaComposite sc) {
 		GenerationContext context = getContext();
-
 		addRetrieveLayoutInformationMethod(sc);
 		generatorUtil.addGetLayoutInformationAdapterMethod(sc, layoutInformationAdapterClassName);
 		generatorUtil.addRegisterContextDependentProxyMethod(sc, true, context);
@@ -147,21 +146,21 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addConstructor1(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + TOKEN_STREAM +" input) {");
+		sc.add("public " + getResourceClassName() + "(" + TOKEN_STREAM(sc) +" input) {");
 		sc.add("super(input);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor2(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + TOKEN_STREAM +" input, " + RECOGNIZER_SHARED_STATE + " state) {");
+		sc.add("public " + getResourceClassName() + "(" + TOKEN_STREAM(sc) +" input, " + RECOGNIZER_SHARED_STATE(sc) + " state) {");
 		sc.add("super(input, state);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addRetrieveLayoutInformationMethod(JavaComposite sc) {
-		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT + " element, " + syntaxElementClassName + " syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {");
+		sc.add("protected void retrieveLayoutInformation(" + E_OBJECT(sc) + " element, " + syntaxElementClassName + " syntaxElement, Object object, boolean ignoreTokensAfterLastVisibleToken) {");
 		sc.add("if (disableLayoutRecording || element == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -179,7 +178,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("}");
 		sc.add(layoutInformationAdapterClassName + " layoutInformationAdapter = getLayoutInformationAdapter(element);");
 		sc.add("StringBuilder anonymousText = new StringBuilder();");
-		sc.add("for (" + COMMON_TOKEN + " anonymousToken : anonymousTokens) {");
+		sc.add("for (" + COMMON_TOKEN(sc) + " anonymousToken : anonymousTokens) {");
 		sc.add("anonymousText.append(anonymousToken.getText());");
 		sc.add("}");
 		sc.add("int currentPos = getTokenStream().index();");
@@ -189,7 +188,7 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("int endPos = currentPos - 1;");
 		sc.add("if (ignoreTokensAfterLastVisibleToken) {");
 		sc.add("for (; endPos >= this.lastPosition2; endPos--) {");
-		sc.add(TOKEN + " token = getTokenStream().get(endPos);");
+		sc.add(TOKEN(sc) + " token = getTokenStream().get(endPos);");
 		sc.add("int _channel = token.getChannel();");
 		sc.add("if (_channel != 99) {");
 		sc.add("break;");
@@ -199,11 +198,11 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("StringBuilder hiddenTokenText = new StringBuilder();");
 		sc.add("hiddenTokenText.append(anonymousText);");
 		sc.add("StringBuilder visibleTokenText = new StringBuilder();");
-		sc.add(COMMON_TOKEN + " firstToken = null;");
+		sc.add(COMMON_TOKEN(sc) + " firstToken = null;");
 		sc.add("for (int pos = this.lastPosition2; pos <= endPos; pos++) {");
-		sc.add(TOKEN + " token = getTokenStream().get(pos);");
+		sc.add(TOKEN(sc) + " token = getTokenStream().get(pos);");
 		sc.add("if (firstToken == null) {");
-		sc.add("firstToken = (" + COMMON_TOKEN + ") token;");
+		sc.add("firstToken = (" + COMMON_TOKEN(sc) + ") token;");
 		sc.add("}");
 		sc.add("if (anonymousTokens.contains(token)) {");
 		sc.add("continue;");
@@ -226,15 +225,15 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addGetOptionsMethod(StringComposite sc) {
-		sc.add("protected " + MAP + "<?,?> getOptions() {");
+	private void addGetOptionsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("protected " + MAP(sc) + "<?,?> getOptions() {");
 		sc.add("return options;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
+	private void addSetOptionsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void setOptions(" + MAP(sc) + "<?,?> options) {");
 		sc.add("this.options = options;");
 		sc.add("this.disableLocationMap = !isLocationMapEnabled();");
 		sc.add("this.disableLayoutRecording = !isLayoutInformationRecordingEnabled();");
@@ -246,14 +245,14 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addJavadoc("Creates a dynamic Java proxy that mimics the interface of the given class.");
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.add("public <T> T createDynamicProxy(Class<T> clazz) {");
-		sc.add("Object proxy = " + PROXY + ".newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{clazz, " + E_OBJECT + ".class, " + INTERNAL_E_OBJECT + ".class}, new " + INVOCATION_HANDLER + "() {");
+		sc.add("Object proxy = " + PROXY(sc) + ".newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{clazz, " + E_OBJECT(sc) + ".class, " + INTERNAL_E_OBJECT(sc) + ".class}, new " + INVOCATION_HANDLER(sc) + "() {");
 		sc.addLineBreak();
-		sc.add("private " + E_OBJECT + " dummyObject = new " + E_OBJECT_IMPL + "() {};");
+		sc.add("private " + E_OBJECT(sc) + " dummyObject = new " + E_OBJECT_IMPL(sc) + "() {};");
 		sc.addLineBreak();
-		sc.add("public Object invoke(Object object, " + METHOD + " method, Object[] args) throws Throwable {");
+		sc.add("public Object invoke(Object object, " + METHOD(sc) + " method, Object[] args) throws Throwable {");
 		sc.addComment("search in dummyObject for the requested method");
-		sc.add(METHOD + "[] methodsInDummy = dummyObject.getClass().getMethods();");
-		sc.add("for (" + METHOD + " methodInDummy : methodsInDummy) {");
+		sc.add(METHOD(sc) + "[] methodsInDummy = dummyObject.getClass().getMethods();");
+		sc.add("for (" + METHOD(sc) + " methodInDummy : methodsInDummy) {");
 		sc.add("boolean matches = true;");
 		sc.add("if (methodInDummy.getName().equals(method.getName())) {");
 		sc.add("Class<?>[] parameterTypes = method.getParameterTypes();");
@@ -291,14 +290,14 @@ public class ANTLRParserBaseGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addApplyMethod(StringComposite sc) {
+	private void addApplyMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		// TODO cwende: document this method
-		sc.add("protected " + E_OBJECT + " apply(" + E_OBJECT + " target, " + LIST + "<" + E_OBJECT + "> dummyEObjects) {");
-		sc.add(E_OBJECT + " currentTarget = target;");
-		sc.add("for (" + E_OBJECT + " object : dummyEObjects) {");
+		sc.add("protected " + E_OBJECT(sc) + " apply(" + E_OBJECT(sc) + " target, " + LIST(sc) + "<" + E_OBJECT(sc) + "> dummyEObjects) {");
+		sc.add(E_OBJECT(sc) + " currentTarget = target;");
+		sc.add("for (" + E_OBJECT(sc) + " object : dummyEObjects) {");
 		sc.add("assert(object instanceof " + dummyEObjectClassName + ");");
 		sc.add(dummyEObjectClassName + " dummy = (" + dummyEObjectClassName + ") object;");
-		sc.add(E_OBJECT + " newEObject = dummy.applyTo(currentTarget);");
+		sc.add(E_OBJECT(sc) + " newEObject = dummy.applyTo(currentTarget);");
 		sc.add("currentTarget = newEObject;");
 		sc.add("}");
 		sc.add("return currentTarget;");

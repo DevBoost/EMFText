@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ public class RuleGenerator extends JavaBaseGenerator<ArtifactParameter<Generatio
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A class to represent a rules in the grammar.");
@@ -41,7 +41,7 @@ public class RuleGenerator extends JavaBaseGenerator<ArtifactParameter<Generatio
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private final " + E_CLASS + " metaclass;"); 
+		sc.add("private final " + E_CLASS(sc) + " metaclass;"); 
 		sc.addLineBreak();
 	}
 
@@ -51,7 +51,7 @@ public class RuleGenerator extends JavaBaseGenerator<ArtifactParameter<Generatio
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " metaclass, " + choiceClassName + " choice, " + cardinalityClassName + " cardinality) {");
+		sc.add("public " + getResourceClassName() + "(" + E_CLASS(sc) + " metaclass, " + choiceClassName + " choice, " + cardinalityClassName + " cardinality) {");
 		sc.add("super(cardinality, new " + syntaxElementClassName + "[] {choice});"); 
 		sc.add("this.metaclass = metaclass;");
 		sc.add("}"); 
@@ -59,7 +59,7 @@ public class RuleGenerator extends JavaBaseGenerator<ArtifactParameter<Generatio
 	}
 
 	private void addGetMetaclassMethod(JavaComposite sc) {
-		sc.add("public " + E_CLASS + " getMetaclass() {"); 
+		sc.add("public " + E_CLASS(sc) + " getMetaclass() {"); 
 		sc.add("return metaclass;"); 
 		sc.add("}"); 
 		sc.addLineBreak();

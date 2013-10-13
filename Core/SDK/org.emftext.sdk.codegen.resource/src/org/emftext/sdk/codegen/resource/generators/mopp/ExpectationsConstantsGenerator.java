@@ -29,7 +29,7 @@ public class ExpectationsConstantsGenerator extends JavaBaseGenerator<ArtifactPa
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"This class contains some constants that are used during code completion."
@@ -41,18 +41,16 @@ public class ExpectationsConstantsGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("public final static int EXPECTATIONS[][] = new int[" + expectationCalls.size() + "][];");
 		sc.addLineBreak();
 		
-		List<Pair<String, Integer>> statements = new ArrayList<Pair<String,Integer>>();
+		List<Pair<String,Integer>> statements = new ArrayList<Pair<String,Integer>>();
 		int index = 0;
 		for (Integer[] expectationCall : expectationCalls) {
-			statements.add(new Pair<String, Integer>(
-				"EXPECTATIONS[" + index +  "] = new int[" + expectationCall.length + "];", 
-				20 // this is just a rough estimation
+			statements.add(new Pair<String,Integer>(
+				"EXPECTATIONS[" + index +  "] = new int[" + expectationCall.length + "];",20 // this is just a rough estimation
 			));
 			int index2 = 0;
 			for (Integer integer : expectationCall) {
-				statements.add(new Pair<String, Integer>(
-					"EXPECTATIONS[" + index +  "][" + index2 +  "] = " + integer.toString() + ";",
-					20 // this is just a rough estimation
+				statements.add(new Pair<String,Integer>(
+					"EXPECTATIONS[" + index +  "][" + index2 +  "] = " + integer.toString() + ";",20 // this is just a rough estimation
 				));
 				index2++;
 			}

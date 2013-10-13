@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class INameProviderGenerator extends JavaBaseGenerator<ArtifactParameter<
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
         sc.addLineBreak();
         
 		sc.add("public interface " + getResourceClassName() + " {");
@@ -39,7 +39,7 @@ public class INameProviderGenerator extends JavaBaseGenerator<ArtifactParameter<
 			"given element. This method can be used to customize the identification " +
 			"of elements."
 		);
-		sc.add("public " + LIST + "<String> getNames(" + E_OBJECT + " element);");
+		sc.add("public " + LIST(sc) + "<String> getNames(" + E_OBJECT(sc) + " element);");
 		sc.addLineBreak();
 		sc.add("}");
 	}

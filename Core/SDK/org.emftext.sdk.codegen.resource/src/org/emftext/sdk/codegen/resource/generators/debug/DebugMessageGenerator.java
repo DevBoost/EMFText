@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -37,7 +37,7 @@ public class DebugMessageGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(classComment);
@@ -85,7 +85,7 @@ public class DebugMessageGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addConstructor2(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + eDebugMessageTypesClassName + " messageType, " + LIST + "<String> arguments) {");
+		sc.add("public " + getResourceClassName() + "(" + eDebugMessageTypesClassName + " messageType, " + LIST(sc) + "<String> arguments) {");
 		sc.add("super();");
 		sc.add("this.messageType = messageType;");
 		sc.add("this.arguments = new String[arguments.size()];");
@@ -112,7 +112,7 @@ public class DebugMessageGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addSerializeMethod(JavaComposite sc) {
 		sc.add("public String serialize() {");
-		sc.add("" + LIST + "<String> parts = new " + ARRAY_LIST + "<String>();");
+		sc.add("" + LIST(sc) + "<String> parts = new " + ARRAY_LIST(sc) + "<String>();");
 		sc.add("parts.add(messageType.name());");
 		sc.add("for (String argument : arguments) {");
 		sc.add("parts.add(argument);");
@@ -124,7 +124,7 @@ public class DebugMessageGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	private void addDeserializeMethod(JavaComposite sc) {
 		sc.add("public static " + getResourceClassName() + " deserialize(String response) {");
-		sc.add("" + LIST + "<String> parts = " + stringUtilClassName + ".decode(response, DELIMITER);");
+		sc.add("" + LIST(sc) + "<String> parts = " + stringUtilClassName + ".decode(response, DELIMITER);");
 		sc.add("String messageType = parts.get(0);");
 		sc.add("String[] arguments = new String[parts.size() - 1];");
 		sc.add("for (int i = 1; i < parts.size(); i++) {");

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -37,7 +37,7 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 			"@param <ContainerType> the type of the class containing the reference to be resolved",
 			"@param <ReferenceType> the type of the reference to be resolved"
 		);
-		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> {");
+		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + "> {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -49,7 +49,7 @@ public class IContextDependentURIFragmentFactoryGenerator extends JavaBaseGenera
 			"@param proxy the proxy that will be resolved later to the actual EObject",
 			"@return the new instance of " + iContextDependentUriFragmentClassName
 		);
-		sc.add("public " + iContextDependentUriFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy);");
+		sc.add("public " + iContextDependentUriFragmentClassName + "<?> create(String identifier, ContainerType container, " + E_REFERENCE(sc) + " reference, int positionInReference, " + E_OBJECT(sc) + " proxy);");
 		sc.add("}");
 	}
 }

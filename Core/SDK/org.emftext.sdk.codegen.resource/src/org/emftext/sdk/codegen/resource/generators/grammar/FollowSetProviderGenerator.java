@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -72,10 +72,9 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		
 		sc.add("public final static " + containedFeatureClassName + "[] EMPTY_LINK_ARRAY = new " + containedFeatureClassName + "[0];");
 		sc.addLineBreak();
-		
-		addLargeMethod(sc, "initializeTerminals", initializeTerminalConstantsCode, 22);
-		addLargeMethod(sc, "initializeFeatures", initializeFeatureConstantsCode, 31);
-		addLargeMethod(sc, "initializeLinks", initializeLinkConstantsCode, 37);
+		addLargeMethod(sc, "initializeTerminals", initializeTerminalConstantsCode,22);
+		addLargeMethod(sc, "initializeFeatures", initializeFeatureConstantsCode,31);
+		addLargeMethod(sc, "initializeLinks", initializeLinkConstantsCode,37);
 		addWireTerminalsCode(sc);
 
 		sc.add("static {");
@@ -89,10 +88,10 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	}
 
 	private void addLargeMethod(JavaComposite sc, String name, List<String> plainStatements, int bytesPerStatement) {
-		List<Pair<String, Integer>> statements = new ArrayList<Pair<String,Integer>>(plainStatements.size());
+		List<Pair<String,Integer>> statements = new ArrayList<Pair<String,Integer>>(plainStatements.size());
 		int tempCount = 0;
 		for (String plainStatement : plainStatements) {
-			statements.add(new Pair<String, Integer>(plainStatement, bytesPerStatement));
+			statements.add(new Pair<String,Integer>(plainStatement, bytesPerStatement));
 			tempCount++;
 			if (tempCount > 200) {
 				//break;
@@ -107,7 +106,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	private void touchAllFieldsAndLinks() {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
-		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+		Map<String,Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
 		
 		for (String firstID : followSetMap.keySet()) {
 			for (Expectation expectation : followSetMap.get(firstID)) {
@@ -117,7 +116,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 				}
 			}
 		}
-		Map<ContainmentLink, Integer> containmentLinkToConstantNameMap = constantsPool.getContainmentLinkToConstantIdMap();
+		Map<ContainmentLink,Integer> containmentLinkToConstantNameMap = constantsPool.getContainmentLinkToConstantIdMap();
 		for (ContainmentLink link : containmentLinkToConstantNameMap.keySet()) {
 			constantsPool.getFeatureConstantFieldName(link.getFeature());
 		}
@@ -128,7 +127,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
-		Map<ContainmentLink, Integer> containmentLinkToIdMap = constantsPool.getContainmentLinkToConstantIdMap();
+		Map<ContainmentLink,Integer> containmentLinkToIdMap = constantsPool.getContainmentLinkToConstantIdMap();
 
 		int linkCount = containmentLinkToIdMap.keySet().size();
 		sc.add("public final static " + containedFeatureClassName + "[] LINKS = new " + containedFeatureClassName + "[" + linkCount + "];");
@@ -151,10 +150,10 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
 
-		Map<GenFeature, String> eFeatureToConstantNameMap = constantsPool.getFeatureToConstantNameMap();
+		Map<GenFeature,String> eFeatureToConstantNameMap = constantsPool.getFeatureToConstantNameMap();
 
 		int featureCount = eFeatureToConstantNameMap.keySet().size();
-		sc.add("public final static " + E_STRUCTURAL_FEATURE + "[] FEATURES = new " + E_STRUCTURAL_FEATURE + "[" + featureCount + "];");
+		sc.add("public final static " + E_STRUCTURAL_FEATURE(sc) + "[] FEATURES = new " + E_STRUCTURAL_FEATURE(sc) + "[" + featureCount + "];");
 		
 		// generate fields for all used features
 		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
@@ -172,7 +171,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		ConstantsPool constantsPool = context.getConstantsPool();
 
 		List<String> createTerminalObjectsCode = new ArrayList<String>();
-		Map<EObject, Integer> idMap = constantsPool.getTerminalIdMap();
+		Map<EObject,Integer> idMap = constantsPool.getTerminalIdMap();
 		
 		int terminalCount = idMap.keySet().size();
 		sc.add("public final static " + iExpectedElementClassName + " TERMINALS[] = new " + iExpectedElementClassName + "[" + terminalCount + "];");
@@ -206,12 +205,12 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	private void addWireTerminalsCode(JavaComposite sc) {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
-		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+		Map<String,Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
 
 		// TODO figure out whether 'tempCount' is actually required here
 		int tempCount = 0;
 		// create multiple wireX() methods
-		List<Pair<String, Integer>> statements = new ArrayList<Pair<String, Integer>>();
+		List<Pair<String,Integer>> statements = new ArrayList<Pair<String,Integer>>();
 		for (String firstID : followSetMap.keySet()) {
 			for (Expectation expectation : followSetMap.get(firstID)) {
 				EObject follower = expectation.getExpectedElement();
@@ -271,7 +270,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 				// invokeinterface addFollower
 				bytesUsed += 5;
 				String methodCall = firstID + ".addFollower(" + terminalFieldAccessor + trace + ");";
-				statements.add(new Pair<String, Integer>(methodCall, bytesUsed));
+				statements.add(new Pair<String,Integer>(methodCall, bytesUsed));
 			}
 			if (tempCount > 200) {
 				break;

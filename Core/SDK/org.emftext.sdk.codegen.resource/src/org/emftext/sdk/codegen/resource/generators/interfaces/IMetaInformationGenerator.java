@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -31,7 +31,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("This interface provides information about a generated EMFText text resource plug-in.");
@@ -73,7 +73,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<ArtifactParamet
 			"@param encoding the encoding of the input stream, pass null to use platform default encoding",
 			"@return a new instance of the parser class"
 		);
-		sc.add("public " + iTextParserClassName  + " createParser(" + INPUT_STREAM + " inputStream, String encoding);");
+		sc.add("public " + iTextParserClassName  + " createParser(" + INPUT_STREAM(sc) + " inputStream, String encoding);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -82,7 +82,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<ArtifactParamet
 			"@param resource that contains the elements that will be printed",
 			"@return a new instance of the printer class"
 		);
-		sc.add("public " + iTextPrinterClassName  + " createPrinter(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource);");
+		sc.add("public " + iTextPrinterClassName  + " createPrinter(" + OUTPUT_STREAM(sc) + " outputStream, " + iTextResourceClassName + " resource);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -90,7 +90,7 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<ArtifactParamet
 			"information is used both by the NewFileWizard and the code " +
 			"completion."
 		);
-		sc.add("public " + E_CLASS + "[] getClassesWithSyntax();");
+		sc.add("public " + E_CLASS(sc) + "[] getClassesWithSyntax();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns an instance of the reference resolver switch class.");
@@ -115,11 +115,11 @@ public class IMetaInformationGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the default bracket pairs.");
-		sc.add("public " + COLLECTION + "<" + iBracketPairClassName + "> getBracketPairs();");
+		sc.add("public " + COLLECTION(sc) + "<" + iBracketPairClassName + "> getBracketPairs();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns all classes for which folding must be enabled in the editor.");
-		sc.add("public " + E_CLASS + "[] getFoldableClasses();");
+		sc.add("public " + E_CLASS(sc) + "[] getFoldableClasses();");
 		sc.addLineBreak();
 
 		sc.add("}");

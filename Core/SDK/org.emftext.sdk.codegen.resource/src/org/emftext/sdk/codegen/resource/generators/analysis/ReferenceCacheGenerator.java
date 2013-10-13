@@ -15,15 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.analysis;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -37,7 +37,7 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
         sc.addLineBreak();
         
 		sc.addJavadoc(
@@ -47,7 +47,7 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 			"can be used to retrieve all objects of a given type. The other one (the nameToObjects map) " +
 			"can be used to retrieve all objects for a given name."
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + ADAPTER_IMPL + " implements " + iReferenceCacheClassName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ADAPTER_IMPL(sc) + " implements " + iReferenceCacheClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -81,11 +81,11 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 	}
 
-	private void addPutMethod1(StringComposite sc) {
-		sc.add("private void put(" + E_OBJECT + " object) {");
-		sc.add(E_CLASS + " eClass = object.eClass();");
+	private void addPutMethod1(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private void put(" + E_OBJECT(sc) + " object) {");
+		sc.add(E_CLASS(sc) + " eClass = object.eClass();");
 		sc.add("put(classToObjectsMap, eClass, object);");
-		sc.add(LIST + "<String> names = nameProvider.getNames(object);");
+		sc.add(LIST(sc) + "<String> names = nameProvider.getNames(object);");
 		sc.add("for (String name : names) {");
 		sc.add("put(nameToObjectsMap, name, object);");
 		sc.add("}");
@@ -93,30 +93,30 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 	}
 
-	private void addPutMethod2(StringComposite sc) {
-		sc.add("private <T> void put(" + MAP + "<T, " + SET + "<" + E_OBJECT + ">> map, T key, " + E_OBJECT + " object) {");
+	private void addPutMethod2(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private <T> void put(" + MAP(sc) + "<T, " + SET(sc) + "<" + E_OBJECT(sc) + ">> map, T key, " + E_OBJECT(sc) + " object) {");
 		sc.add("if (!map.containsKey(key)) {");
-		sc.add("map.put(key, new " + LINKED_HASH_SET + "<" + E_OBJECT + ">());");
+		sc.add("map.put(key, new " + LINKED_HASH_SET(sc) + "<" + E_OBJECT(sc) + ">());");
 		sc.add("}");
 		sc.add("map.get(key).add(object);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetNameToObjectMap(StringComposite sc) {
-		sc.add("public " + MAP + "<String, " + SET + "<" + E_OBJECT + ">> getNameToObjectsMap() {");
+	private void addGetNameToObjectMap(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + MAP(sc) + "<String, " + SET(sc) + "<" + E_OBJECT(sc) + ">> getNameToObjectsMap() {");
 		sc.add("return nameToObjectsMap;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addInitializeMethod(StringComposite sc) {
-		sc.add("public void initialize(" + E_OBJECT + " root) {");
+	private void addInitializeMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void initialize(" + E_OBJECT(sc) + " root) {");
 		sc.add("if (isInitialized) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("put(root);");
-		sc.add(ITERATOR + "<" + E_OBJECT + "> it = root.eAllContents();");
+		sc.add(ITERATOR(sc) + "<" + E_OBJECT(sc) + "> it = root.eAllContents();");
 		sc.add("while (it.hasNext()) {");
 		sc.add("put(it.next());");
 		sc.add("}");
@@ -125,16 +125,16 @@ public class ReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 	}
 
-	private void addGetObjectsMethod(StringComposite sc) {
-		sc.add("public " + SET + "<" + E_OBJECT + "> getObjects(" + E_CLASS + " type) {");
+	private void addGetObjectsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + SET(sc) + "<" + E_OBJECT(sc) + "> getObjects(" + E_CLASS(sc) + " type) {");
 		sc.add("return classToObjectsMap.get(type);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("private " + MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">> classToObjectsMap = new " + LINKED_HASH_MAP + "<" + E_CLASS + ", " + SET + "<" + E_OBJECT +">>();");
-		sc.add("private " + MAP + "<String, " + SET + "<" + E_OBJECT +">> nameToObjectsMap  = new " + LINKED_HASH_MAP + "<String, " + SET + "<" + E_OBJECT +">>();");
+	private void addFields(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private " + MAP(sc) + "<" + E_CLASS(sc) + ", " + SET(sc) + "<" + E_OBJECT(sc) +">> classToObjectsMap = new " + LINKED_HASH_MAP(sc) + "<" + E_CLASS(sc) + ", " + SET(sc) + "<" + E_OBJECT(sc) +">>();");
+		sc.add("private " + MAP(sc) + "<String, " + SET(sc) + "<" + E_OBJECT(sc) +">> nameToObjectsMap  = new " + LINKED_HASH_MAP(sc) + "<String, " + SET(sc) + "<" + E_OBJECT(sc) +">>();");
 		sc.add("private boolean isInitialized;");
 		sc.add("private " + iNameProviderClassName + " nameProvider;");
 		sc.addLineBreak();

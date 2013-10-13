@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.GenClassUtil;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 @SyntaxDependent
@@ -41,17 +40,17 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator<Artif
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-        sc.add("package " + getResourcePackageName() + ";");
+        sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
         sc.add("public class " + getResourceClassName()+ " {");
         sc.addLineBreak();
-        addGetFoldableClassesMethod(sc);
+		addGetFoldableClassesMethod(sc);
 		sc.add("}");
 	}
 
-	private void addGetFoldableClassesMethod(StringComposite sc) {
-		sc.add("public " + E_CLASS + "[] getFoldableClasses() {");
+	private void addGetFoldableClassesMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_CLASS(sc) + "[] getFoldableClasses() {");
 		
 		List<GenClass> foldableClasses = new ArrayList<GenClass>();
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
@@ -63,7 +62,7 @@ public class FoldingInformationProviderGenerator extends JavaBaseGenerator<Artif
 				}
 			}
 		}
-		sc.add("return new " + E_CLASS + "[] {");
+		sc.add("return new " + E_CLASS(sc) + "[] {");
 		for (GenClass foldableClass : foldableClasses) {
 			sc.add(genClassUtil.getAccessor(foldableClass) + ",");
 		}

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -34,7 +34,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactP
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " {");
@@ -59,7 +59,7 @@ public class SyntaxElementDecoratorGenerator extends JavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		
 		sc.addJavadoc("a list of the indices that must be printed");
-		sc.add("private " + LIST + "<Integer> indicesToPrint = new " + ARRAY_LIST + "<Integer>();");
+		sc.add("private " + LIST(sc) + "<Integer> indicesToPrint = new " + ARRAY_LIST(sc) + "<Integer>();");
 		sc.addLineBreak();
 	}
 

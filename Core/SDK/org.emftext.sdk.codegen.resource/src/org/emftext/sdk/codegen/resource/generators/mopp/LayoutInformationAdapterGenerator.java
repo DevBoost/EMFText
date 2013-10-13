@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFICATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NOTIFIER;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFIER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,15 +33,14 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Artifac
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"A " + getResourceClassName() + " is used to store layout information that is " +
 			"found while parsing text files. Layout information does include all unused " +
 			"tokens. Usually, these are whitespace characters, line breaks and comments, " +
-			"but depending on the concrete syntax definition it can also include other tokens. " +
-			getResourceClassName() + "s are attached to EObjects and aggregate multiple " +
+			"but depending on the concrete syntax definition it can also include other tokens. " + getResourceClassName() + "s are attached to EObjects and aggregate multiple " +
 			"LayoutInformation objects. Each of these objects contains the layout that was " +
 			"found before a keyword, attribute or reference.",
 			"",
@@ -49,7 +48,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Artifac
 			"modified, while still keeping the formatting of the original text document from " +
 			"which the model was originally created."
 		);
-		sc.add("public class " + getResourceClassName() + " implements " + ADAPTER + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + ADAPTER(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addMethods(sc);
@@ -68,17 +67,17 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Artifac
 
 	private void addFields(JavaComposite sc) {
 		sc.addJavadoc("The EObject that this adapter is attached to.");
-		sc.add("private " + NOTIFIER + " target;");
+		sc.add("private " + NOTIFIER(sc) + " target;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A list of LayoutInformation objects. one for each keyword, attribute and reference.");
-		sc.add("private " + LIST + "<" + layoutInformationClassName + "> layoutInformations = new " + ARRAY_LIST + "<" + layoutInformationClassName + ">();");
+		sc.add("private " + LIST(sc) + "<" + layoutInformationClassName + "> layoutInformations = new " + ARRAY_LIST(sc) + "<" + layoutInformationClassName + ">();");
 		sc.addLineBreak();
 	}
 
 	private void addGetTargetMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the EObject that this adapter is attached to.");
-		sc.add("public " + NOTIFIER + " getTarget() {");
+		sc.add("public " + NOTIFIER(sc) + " getTarget() {");
 		sc.add("return target;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -91,22 +90,22 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Artifac
 		sc.addLineBreak();
 	}
 
-	private void addNotifyChangedMethod(StringComposite sc) {
-		sc.add("public void notifyChanged(" + NOTIFICATION + " notification) {");
+	private void addNotifyChangedMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void notifyChanged(" + NOTIFICATION(sc) + " notification) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSetTargetMethod(JavaComposite sc) {
 		sc.addJavadoc("Sets the EObject that this adapter is attached to.");
-		sc.add("public void setTarget(" + NOTIFIER + " newTarget) {");
+		sc.add("public void setTarget(" + NOTIFIER(sc) + " newTarget) {");
 		sc.add("this.target = newTarget;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetLayoutInformationsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + layoutInformationClassName + "> getLayoutInformations() {");
+	private void addGetLayoutInformationsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + LIST(sc) + "<" + layoutInformationClassName + "> getLayoutInformations() {");
 		sc.add("return layoutInformations;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -129,7 +128,7 @@ public class LayoutInformationAdapterGenerator extends JavaBaseGenerator<Artifac
 			"proxy objects are replaced by the objects that are referenced. To " +
 			"keep the layout information up to date, this replacement must be " +
 			"propagated to all attached layout information objects.");
-		sc.add("public void replaceProxy(" + E_OBJECT + " proxy, " + E_OBJECT + " target) {");
+		sc.add("public void replaceProxy(" + E_OBJECT(sc) + " proxy, " + E_OBJECT(sc) + " target) {");
 		sc.add("for (" + layoutInformationClassName + " layoutInformation : layoutInformations) {");
 		sc.add("layoutInformation.replaceProxy(proxy, target);");
 		sc.add("}");

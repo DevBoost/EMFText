@@ -15,7 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIELD;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +55,6 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 import de.devboost.codecomposers.util.StringUtil;
 
@@ -73,7 +77,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 	public void generateJavaContents(JavaComposite sc) {
 		concreteSyntax = getContext().getConcreteSyntax();
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -96,7 +100,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		addFindKeywordsMethod(sc);
 	}
 
-	private void addConstantsForSyntaxElements(StringComposite sc) {
+	private void addConstantsForSyntaxElements(JavaComposite sc) {
 		List<Rule> allRules = concreteSyntax.getAllRules();
 		for (Rule rule : allRules) {
 			addConstants(sc, rule);
@@ -110,7 +114,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.addComment("null indicates EOF");
 		sc.add("return \"<EOF>\";");
 		sc.add("}");
-		sc.add("for (" + FIELD + " field : " + grammarInformationProviderClassName + ".class.getFields()) {");
+		sc.add("for (" + FIELD(sc) + " field : " + grammarInformationProviderClassName + ".class.getFields()) {");
 		sc.add("Object fieldValue;");
 		sc.add("try {");
 		sc.add("fieldValue = field.get(null);");
@@ -137,8 +141,8 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 	}
 
 
-	private void addStaticConstants(StringComposite sc) {
-		sc.add("public final static " + E_STRUCTURAL_FEATURE + " " + ANONYMOUS_FEATURE + " = " + ECORE_FACTORY + ".eINSTANCE.createEAttribute();");
+	private void addStaticConstants(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public final static " + E_STRUCTURAL_FEATURE(sc) + " " + ANONYMOUS_FEATURE + " = " + ECORE_FACTORY(sc) + ".eINSTANCE.createEAttribute();");
 		sc.add("static {");
 		sc.add("ANONYMOUS_FEATURE.setName(\"_\");");
 		sc.add("}");
@@ -147,17 +151,17 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("private " + SET + "<String> keywords;");
+	private void addFields(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private " + SET(sc) + "<String> keywords;");
 		sc.addLineBreak();
 	}
 
-	private void addConstants(StringComposite sc, Rule rule) {
+	private void addConstants(JavaComposite sc, Rule rule) {
 		addConstant(sc, rule, rule.getDefinition());
 		addConstant(sc, rule, rule);
 	}
 
-	private void addConstant(StringComposite sc, Rule rule, EObject next) {
+	private void addConstant(de.devboost.codecomposers.java.JavaComposite sc, Rule rule, EObject next) {
 		if (next instanceof CsString) {
 			CsString csString = (CsString) next;
 			String value = csString.getValue();
@@ -231,7 +235,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 			if (allowedSubTypes.isEmpty()) {
 				allowedSubTypeString.append("null");
 			} else {
-				allowedSubTypeString.append("new " + E_CLASS + "[] {");
+				allowedSubTypeString.append("new " + E_CLASS(sc) + "[] {");
 				for (GenClass genClass : allowedSubTypes) {
 					String metaClassAccessor = generatorUtil.getClassifierAccessor(genClass);
 					allowedSubTypeString.append(metaClassAccessor + ", ");
@@ -338,9 +342,9 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.addJavadoc(
 			"Returns all keywords of the grammar. This includes all literals for boolean and enumeration terminals."
 		);
-		sc.add("public " + SET + "<String> getKeywords() {");
+		sc.add("public " + SET(sc) + "<String> getKeywords() {");
 		sc.add("if (this.keywords == null) {");
-		sc.add("this.keywords = new " + LINKED_HASH_SET + "<String>();");
+		sc.add("this.keywords = new " + LINKED_HASH_SET(sc) + "<String>();");
 		
 		sc.add("for (" + ruleClassName + " rule : RULES) {");
 		sc.add("findKeywords(rule, this.keywords);");
@@ -356,7 +360,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.addJavadoc(
 			"Finds all keywords in the given element and its children and adds them to the set. This includes all literals for boolean and enumeration terminals."
 		);
-		sc.add("private void findKeywords(" + syntaxElementClassName + " element, " + SET + "<String> keywords) {");
+		sc.add("private void findKeywords(" + syntaxElementClassName + " element, " + SET(sc) + "<String> keywords) {");
 		sc.add("if (element instanceof " + keywordClassName + ") {");
 		sc.add("keywords.add(((" + keywordClassName + ") element).getValue());");
 		sc.add("} else if (element instanceof " + booleanTerminalClassName + ") {");

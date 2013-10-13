@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_REGISTER_GROUP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STACK_FRAME;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_THREAD;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_REGISTER_GROUP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STACK_FRAME;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_THREAD;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -36,9 +36,9 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_STACK_FRAME + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName + " implements " + I_STACK_FRAME(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -93,7 +93,7 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("super(target);");
 		sc.add("this.target = target;");
 		sc.addLineBreak();
-		sc.add(LIST + "<String> dataParts = " + stringUtilClassName + ".decode(data, ',');");
+		sc.add(LIST(sc) + "<String> dataParts = " + stringUtilClassName + ".decode(data, ',');");
 		sc.add("this.name = dataParts.get(0);");
 		sc.add("this.id = Integer.parseInt(dataParts.get(1));");
 		sc.add("this.resourceURI = dataParts.get(2);");
@@ -112,65 +112,65 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetLineNumberMethod(JavaComposite sc) {
-		sc.add("public int getLineNumber() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public int getLineNumber() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return this.line;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetCharStartMethod(JavaComposite sc) {
-		sc.add("public int getCharStart() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public int getCharStart() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return charStart;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetCharEndMethod(JavaComposite sc) {
-		sc.add("public int getCharEnd() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public int getCharEnd() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return charEnd;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetNameMethod(JavaComposite sc) {
-		sc.add("public String getName() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public String getName() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return this.name;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetRegisterGroupsMethod(JavaComposite sc) {
-		sc.add("public " + I_REGISTER_GROUP + "[] getRegisterGroups() throws " + DEBUG_EXCEPTION + " {");
-		sc.add("return new " + I_REGISTER_GROUP + "[0];");
+		sc.add("public " + I_REGISTER_GROUP(sc) + "[] getRegisterGroups() throws " + DEBUG_EXCEPTION(sc) + " {");
+		sc.add("return new " + I_REGISTER_GROUP(sc) + "[0];");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetThreadMethod(JavaComposite sc) {
-		sc.add("public " + I_THREAD + " getThread() {");
+		sc.add("public " + I_THREAD(sc) + " getThread() {");
 		sc.add("return target.getThread();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetVariablesMethod(JavaComposite sc) {
-		sc.add("public " + I_VARIABLE + "[] getVariables() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public " + I_VARIABLE(sc) + "[] getVariables() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.addComment("get root (top level) variables");
-		sc.add(I_VARIABLE + "[] variables = getTarget().getDebugProxy().getStackVariables(Integer.toString(id));");
+		sc.add(I_VARIABLE(sc) + "[] variables = getTarget().getDebugProxy().getStackVariables(Integer.toString(id));");
 		sc.add("return variables;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addHasRegisterGroupsMethod(JavaComposite sc) {
-		sc.add("public boolean hasRegisterGroups() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public boolean hasRegisterGroups() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addHasVariablesMethod(JavaComposite sc) {
-		sc.add("public boolean hasVariables() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public boolean hasVariables() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -205,21 +205,21 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addStepIntoMethod(JavaComposite sc) {
-		sc.add("public void stepInto() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void stepInto() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().stepInto();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addStepOverMethod(JavaComposite sc) {
-		sc.add("public void stepOver() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void stepOver() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().stepOver();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addStepReturnMethod(JavaComposite sc) {
-		sc.add("public void stepReturn() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void stepReturn() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().stepReturn();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -247,14 +247,14 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addResumeMethod(JavaComposite sc) {
-		sc.add("public void resume() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void resume() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().resume();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSuspendMethod(JavaComposite sc) {
-		sc.add("public void suspend() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void suspend() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().suspend();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -275,7 +275,7 @@ public class StackFrameGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addTerminateMethod(JavaComposite sc) {
-		sc.add("public void terminate() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void terminate() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().terminate();");
 		sc.add("}");
 		sc.addLineBreak();

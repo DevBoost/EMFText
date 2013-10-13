@@ -15,26 +15,25 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LINKED_HASH_MAP;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MATCHER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PATTERN;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MATCHER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATTERN;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -78,7 +77,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addEncodeMethod1(JavaComposite sc) {
 		sc.add("public static String encode(char delimiter, String[] parts) {");
-		sc.add(LIST + "<String> partList = new " + ARRAY_LIST + "<String>();");
+		sc.add(LIST(sc) + "<String> partList = new " + ARRAY_LIST(sc) + "<String>();");
 		sc.add("for (String part : parts) {");
 		sc.add("partList.add(part);");
 		sc.add("}");
@@ -102,8 +101,8 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addDecodeMethod(JavaComposite sc) {
-		sc.add("public static " + LIST + "<String> decode(String text, char delimiter) {");
-		sc.add(LIST + "<String> parts = new " + ARRAY_LIST + "<String>();");
+		sc.add("public static " + LIST(sc) + "<String> decode(String text, char delimiter) {");
+		sc.add(LIST(sc) + "<String> parts = new " + ARRAY_LIST(sc) + "<String>();");
 		sc.addLineBreak();
 		sc.add("boolean escapeMode = false;");
 		sc.add("String part = \"\";");
@@ -135,8 +134,8 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addConvertToStringMethod(JavaComposite sc) {
-		sc.add("public static String convertToString(" + MAP + "<String, Object> properties) {");
-		sc.add(LIST + "<String> parts = new " + ARRAY_LIST + "<String>();");
+		sc.add("public static String convertToString(" + MAP(sc) + "<String, Object> properties) {");
+		sc.add(LIST(sc) + "<String> parts = new " + ARRAY_LIST(sc) + "<String>();");
 		sc.add("for (String key : properties.keySet()) {");
 		sc.add("Object value = properties.get(key);");
 		sc.add("if (value instanceof String) {");
@@ -151,11 +150,11 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addConvertFromStringMethod(JavaComposite sc) {
-		sc.add("public static " + MAP + "<String, String> convertFromString(String text) {");
-		sc.add(MAP + "<String, String> result = new " + LINKED_HASH_MAP + "<String, String>();");
-		sc.add(LIST + "<String> keyValuePairs = decode(text, ';');");
+		sc.add("public static " + MAP(sc) + "<String, String> convertFromString(String text) {");
+		sc.add(MAP(sc) + "<String, String> result = new " + LINKED_HASH_MAP(sc) + "<String, String>();");
+		sc.add(LIST(sc) + "<String> keyValuePairs = decode(text, ';');");
 		sc.add("for (String pair : keyValuePairs) {");
-		sc.add(LIST + "<String> keyAndValue = decode(pair, '=');");
+		sc.add(LIST(sc) + "<String> keyAndValue = decode(pair, '=');");
 		sc.add("String key = keyAndValue.get(0);");
 		sc.add("String value = keyAndValue.get(1);");
 		sc.add("result.put(key, value);");
@@ -287,7 +286,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	private void addExplodeMethod1(JavaComposite sc) {
 		sc.addJavadoc("Concatenates the given parts and puts 'glue' between them.");
-		sc.add("public static String explode(" + COLLECTION + "<? extends Object> parts, String glue) {");
+		sc.add("public static String explode(" + COLLECTION(sc) + "<? extends Object> parts, String glue) {");
 		sc.add("return explode(parts.toArray(new Object[parts.size()]), glue);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -315,7 +314,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			"Concatenates the given parts and puts 'glue' between them. " +
 			"The toStringFunction is used to convert the parts to strings."
 		);
-		sc.add("public static <T> String explode(" + COLLECTION + "<T> parts, String glue, " + iFunction1ClassName + "<String, T> toStringFunction) {");
+		sc.add("public static <T> String explode(" + COLLECTION(sc) + "<T> parts, String glue, " + iFunction1ClassName + "<String, T> toStringFunction) {");
 		sc.add("String[] partsAsArray = new String[parts.size()];");
 		sc.add("int i = 0;");
 		sc.add("for (T part : parts) {");
@@ -502,7 +501,7 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.addLineBreak();
 	}
 
-	private void addMatchCamelCaseMethod(StringComposite sc) {
+	private void addMatchCamelCaseMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public static String matchCamelCase(String query, String str) {");
 		sc.add("if (!query.matches(\"[A-Za-z\\\\*]+\")) {");
 		sc.add("return null;");
@@ -525,8 +524,8 @@ public class StringUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("tail = tail.replaceAll(\"\\\\*\", \".*?\");");
 		sc.add("re += head + tail.replaceAll(\"([A-Z][^A-Z]*)\", \"$1[^A-Z]*\");");
 		sc.add("re +=  \".*?)\\\\b\";");
-		sc.add(PATTERN + " regex = " + PATTERN + ".compile(re);");
-		sc.add(MATCHER + " m = regex.matcher(str);");
+		sc.add(PATTERN(sc) + " regex = " + PATTERN(sc) + ".compile(re);");
+		sc.add(MATCHER(sc) + " m = regex.matcher(str);");
 		sc.add("if (m.find()) {");
 		sc.add("return m.group();");
 		sc.add("} else {");

@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,14 +32,14 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Standard implementation of <code>IContextDependentURIFragment</code>.",
 			"@param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.",
 			"@param <ReferenceType> the type of the reference which shall be resolved by this fragment."
 		);
-		sc.add("public abstract class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements " + iContextDependentUriFragmentClassName + "<ReferenceType> {");
+		sc.add("public abstract class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + "> implements " + iContextDependentUriFragmentClassName + "<ReferenceType> {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -64,9 +64,9 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	private void addFields(JavaComposite sc) {
 		sc.add("protected String identifier;");
 		sc.add("protected ContainerType container;");
-		sc.add("protected " + E_REFERENCE + " reference;");
+		sc.add("protected " + E_REFERENCE(sc) + " reference;");
 		sc.add("protected int positionInReference;");
-		sc.add("protected " + E_OBJECT + " proxy;");
+		sc.add("protected " + E_OBJECT(sc) + " proxy;");
 		sc.add("protected " + iReferenceResolveResultClassName + "<ReferenceType> result;");
 		sc.addLineBreak();
 		sc.add("private boolean resolving;");
@@ -74,7 +74,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy) {");
+		sc.add("public " + getResourceClassName() + "(String identifier, ContainerType container, " + E_REFERENCE(sc) + " reference, int positionInReference, " + E_OBJECT(sc) + " proxy) {");
 		sc.add("this.identifier = identifier;");
 		sc.add("this.container = container;");
 		sc.add("this.reference = reference;");
@@ -127,9 +127,9 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 
 	private void addHandleMultipleResultsMethod(JavaComposite sc) {
 		sc.add("private void handleMultipleResults() {");
-		sc.add(E_LIST + "<" + E_OBJECT + "> list = null;");
+		sc.add(E_LIST(sc) + "<" + E_OBJECT(sc) + "> list = null;");
 		sc.add("Object temp = container.eGet(reference);");
-		sc.add("if (temp instanceof " + E_LIST + "<?>) {");
+		sc.add("if (temp instanceof " + E_LIST(sc) + "<?>) {");
 		sc.add("list = " + castUtilClassName + ".cast(temp);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -148,16 +148,16 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	}
 
 	private void addAddResultToListMethod(JavaComposite sc) {
-		sc.add("private void addResultToList(" + iReferenceMappingClassName + "<ReferenceType> mapping, " + E_OBJECT + " proxy, " + E_LIST + "<" + E_OBJECT + "> list) {");
-		sc.add("" + E_OBJECT + " target = null;");
+		sc.add("private void addResultToList(" + iReferenceMappingClassName + "<ReferenceType> mapping, " + E_OBJECT(sc) + " proxy, " + E_LIST(sc) + "<" + E_OBJECT(sc) + "> list) {");
+		sc.add("" + E_OBJECT(sc) + " target = null;");
 		sc.add("int proxyPosition = list.indexOf(proxy);");
 		sc.addLineBreak();
 		sc.add("if (mapping instanceof " + iElementMappingClassName + "<?>) {");
 		sc.add("target = ((" + iElementMappingClassName + "<ReferenceType>) mapping).getTargetElement();");
 		sc.add("} else if (mapping instanceof " + iUriMappingClassName + "<?>) {");
-		sc.add("target = " + ECORE_UTIL + ".copy(proxy);");
-		sc.add(URI + " uri = ((" + iUriMappingClassName + "<ReferenceType>) mapping).getTargetIdentifier();");
-		sc.add("((" + INTERNAL_E_OBJECT + ") target).eSetProxyURI(uri);");
+		sc.add("target = " + ECORE_UTIL(sc) + ".copy(proxy);");
+		sc.add(URI(sc) + " uri = ((" + iUriMappingClassName + "<ReferenceType>) mapping).getTargetIdentifier();");
+		sc.add("((" + INTERNAL_E_OBJECT(sc) + ") target).eSetProxyURI(uri);");
 		sc.add("} else {");
 		sc.add("assert false;");
 		sc.add("}");
@@ -204,7 +204,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	}
 
 	private void addGetReferenceMethod(JavaComposite sc) {
-		sc.add("public " + E_REFERENCE + " getReference() {");
+		sc.add("public " + E_REFERENCE(sc) + " getReference() {");
 		sc.add("return reference;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -218,7 +218,7 @@ public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator<Arti
 	}
 
 	private void addGetProxyMethod(JavaComposite sc) {
-		sc.add("public " + E_OBJECT + " getProxy() {");
+		sc.add("public " + E_OBJECT(sc) + " getProxy() {");
 		sc.add("return proxy;");
 		sc.add("}");
 		sc.addLineBreak();

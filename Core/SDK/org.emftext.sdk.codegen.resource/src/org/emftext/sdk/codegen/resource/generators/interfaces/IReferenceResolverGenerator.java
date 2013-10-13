@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IReferenceResolverGenerator extends JavaBaseGenerator<ArtifactParam
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -37,7 +37,7 @@ public class IReferenceResolverGenerator extends JavaBaseGenerator<ArtifactParam
 			"@param <ContainerType> the type of the container that contains the reference that is resolved by this resolver",
 			"@param <ReferenceType> the type of the reference that is resolved by this resolver"
 		);
-		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> extends " + iConfigurableClassName + " {");
+		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + "> extends " + iConfigurableClassName + " {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -49,7 +49,7 @@ public class IReferenceResolverGenerator extends JavaBaseGenerator<ArtifactParam
 			"@param resolveFuzzy If true, the resolver must return all objects, even the ones that do not match the identifier",
 			"@param result an object that can be used to store the result of the resolve operation."
 		);
-		sc.add("public void resolve(String identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result);");
+		sc.add("public void resolve(String identifier, ContainerType container, " + E_REFERENCE(sc) + " reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -59,7 +59,7 @@ public class IReferenceResolverGenerator extends JavaBaseGenerator<ArtifactParam
 			"@param reference The reference that holds the element.",
 			"@return The identification string for the reference"
 		);
-		sc.add("public String deResolve(ReferenceType element, ContainerType container, " + E_REFERENCE + " reference);");
+		sc.add("public String deResolve(ReferenceType element, ContainerType container, " + E_REFERENCE(sc) + " reference);");
 		sc.addLineBreak();
 		
 		sc.add("}");

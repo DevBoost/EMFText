@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BASIC_E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST_ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BASIC_E_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LIST_ITERATOR;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,10 +33,10 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		// TODO override remove() method of iterators
-		sc.add("public class " + getResourceClassName() + "<E> implements " + E_LIST + "<E> {");
+		sc.add("public class " + getResourceClassName() + "<E> implements " + E_LIST(sc) + "<E> {");
 		sc.addLineBreak();
 		addFields(sc);
 		addConstructor(sc);
@@ -74,17 +74,17 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + E_LIST + "<E> original;");
-		sc.add("private " + E_LIST + "<E> copy;");
+		sc.add("private " + E_LIST(sc) + "<E> original;");
+		sc.add("private " + E_LIST(sc) + "<E> copy;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add("public " + getResourceClassName() + "(" + E_LIST + "<E> original) {");
+		sc.add("public " + getResourceClassName() + "(" + E_LIST(sc) + "<E> original) {");
 		sc.add("super();");
 		sc.add("this.original = original;");
-		sc.add("this.copy = new " + BASIC_E_LIST + "<E>();");
+		sc.add("this.copy = new " + BASIC_E_LIST(sc) + "<E>();");
 		sc.add("Object[] originalContent = this.original.toArray();");
 		sc.add("for (Object next : originalContent) {");
 		sc.add("this.copy.add((E) next);");
@@ -126,7 +126,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addAddAllMethod1(JavaComposite sc) {
-		sc.add("public boolean addAll(" + COLLECTION + "<? extends E> c) {");
+		sc.add("public boolean addAll(" + COLLECTION(sc) + "<? extends E> c) {");
 		sc.add("copy.addAll(c);");
 		sc.add("return original.addAll(c);");
 		sc.add("}");
@@ -134,7 +134,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addAddAllMethod2(JavaComposite sc) {
-		sc.add("public boolean addAll(int index, " + COLLECTION + "<? extends E> c) {");
+		sc.add("public boolean addAll(int index, " + COLLECTION(sc) + "<? extends E> c) {");
 		sc.add("copy.addAll(index, c);");
 		sc.add("return original.addAll(index, c);");
 		sc.add("}");
@@ -157,7 +157,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addContainsAllMethod(JavaComposite sc) {
-		sc.add("public boolean containsAll(" + COLLECTION + "<?> c) {");
+		sc.add("public boolean containsAll(" + COLLECTION(sc) + "<?> c) {");
 		sc.add("return copy.containsAll(c);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -185,7 +185,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addIteratorMethod(JavaComposite sc) {
-		sc.add("public " + ITERATOR + "<E> iterator() {");
+		sc.add("public " + ITERATOR(sc) + "<E> iterator() {");
 		sc.add("return copy.iterator();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -199,14 +199,14 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addListIteratorMethod1(JavaComposite sc) {
-		sc.add("public " + LIST_ITERATOR + "<E> listIterator() {");
+		sc.add("public " + LIST_ITERATOR(sc) + "<E> listIterator() {");
 		sc.add("return copy.listIterator();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addListIteratorMethod2(JavaComposite sc) {
-		sc.add("public " + LIST_ITERATOR + "<E> listIterator(int index) {");
+		sc.add("public " + LIST_ITERATOR(sc) + "<E> listIterator(int index) {");
 		sc.add("return copy.listIterator(index);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -229,7 +229,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addRemoveAllMethod(JavaComposite sc) {
-		sc.add("public boolean removeAll(" + COLLECTION + "<?> c) {");
+		sc.add("public boolean removeAll(" + COLLECTION(sc) + "<?> c) {");
 		sc.add("copy.removeAll(c);");
 		sc.add("return original.removeAll(c);");
 		sc.add("}");
@@ -237,7 +237,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addRetainAllMethod(JavaComposite sc) {
-		sc.add("public boolean retainAll(" + COLLECTION + "<?> c) {");
+		sc.add("public boolean retainAll(" + COLLECTION(sc) + "<?> c) {");
 		sc.add("copy.retainAll(c);");
 		sc.add("return original.retainAll(c);");
 		sc.add("}");
@@ -260,7 +260,7 @@ public class CopiedEListGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addSubListMethod(JavaComposite sc) {
-		sc.add("public " + LIST + "<E> subList(int fromIndex, int toIndex) {");
+		sc.add("public " + LIST(sc) + "<E> subList(int fromIndex, int toIndex) {");
 		sc.add("return copy.subList(fromIndex, toIndex);");
 		sc.add("}");
 		sc.addLineBreak();

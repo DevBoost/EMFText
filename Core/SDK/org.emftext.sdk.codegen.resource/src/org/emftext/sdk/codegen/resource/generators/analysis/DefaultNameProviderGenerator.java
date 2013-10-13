@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.analysis;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OPERATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OPERATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,7 +33,7 @@ public class DefaultNameProviderGenerator extends JavaBaseGenerator<ArtifactPara
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
         sc.addLineBreak();
         
 		sc.add("public class " + getResourceClassName() + " implements " + iNameProviderClassName + " {");
@@ -56,13 +56,13 @@ public class DefaultNameProviderGenerator extends JavaBaseGenerator<ArtifactPara
 		// TODO it would be better if this method returned an iterator instead of a
 		//      list to avoid the creation of names that will never used, because one
 		//      of the previous names matched the identifier we are searching for
-		sc.add("public " + LIST + "<String> getNames(" + E_OBJECT + " element) {");
-		sc.add(LIST + "<String> names = new " + ARRAY_LIST + "<String>();");
+		sc.add("public " + LIST(sc) + "<String> getNames(" + E_OBJECT(sc) + " element) {");
+		sc.add(LIST(sc) + "<String> names = new " + ARRAY_LIST(sc) + "<String>();");
 		sc.addLineBreak();
 		
 		sc.addComment("first check for attributes that have set the ID flag to true");
-		sc.add(LIST + "<" + E_ATTRIBUTE + "> attributes = element.eClass().getEAllAttributes();");
-		sc.add("for (" + E_ATTRIBUTE + " attribute : attributes) {");
+		sc.add(LIST(sc) + "<" + E_ATTRIBUTE(sc) + "> attributes = element.eClass().getEAllAttributes();");
+		sc.add("for (" + E_ATTRIBUTE(sc) + " attribute : attributes) {");
 		sc.add("if (attribute.isID()) {");
 		sc.add("Object attributeValue = element.eGet(attribute);");
 		sc.add("if (attributeValue != null) {");
@@ -73,8 +73,8 @@ public class DefaultNameProviderGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 		
 		sc.addComment("then check for an attribute that is called 'name'");
-		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
-		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
+		sc.add(E_STRUCTURAL_FEATURE(sc) + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
+		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE(sc) + ") {");
 		sc.add("Object attributeValue = element.eGet(nameAttr);");
 		sc.add("if (attributeValue != null) {");
 		sc.add("names.add(attributeValue.toString());");
@@ -82,7 +82,7 @@ public class DefaultNameProviderGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.add("} else {");
 
 		sc.addComment("try any other string attribute found");
-		sc.add("for (" + E_ATTRIBUTE + " attribute : attributes) {");
+		sc.add("for (" + E_ATTRIBUTE(sc) + " attribute : attributes) {");
 		sc.add("if (\"java.lang.String\".equals(attribute.getEType().getInstanceClassName())) {");
 		sc.add("Object attributeValue = element.eGet(attribute);");
 		sc.add("if (attributeValue != null) {");
@@ -93,7 +93,7 @@ public class DefaultNameProviderGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 
 		sc.addComment("try operations without arguments that return strings and which have a name that ends with 'name'");
-		sc.add("for (" + E_OPERATION + " operation : element.eClass().getEAllOperations()) {");
+		sc.add("for (" + E_OPERATION(sc) + " operation : element.eClass().getEAllOperations()) {");
 		sc.add("if (operation.getName().toLowerCase().endsWith(NAME_FEATURE) && operation.getEParameters().size() == 0) {");
 		sc.add("Object result = " + eObjectUtilClassName + ".invokeOperation(element, operation);");
 		sc.add("if (result != null) {");

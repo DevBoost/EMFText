@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class BooleanTerminalGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A class to represent boolean terminals in a grammar.");
@@ -47,10 +47,10 @@ public class BooleanTerminalGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " attribute, String trueLiteral, String falseLiteral, " + cardinalityClassName + " cardinality, int mandatoryOccurrencesAfter) {"); 
+	private void addConstructor(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE(sc) + " attribute, String trueLiteral, String falseLiteral, " + cardinalityClassName + " cardinality, int mandatoryOccurrencesAfter) {"); 
 		sc.add("super(attribute, cardinality, mandatoryOccurrencesAfter);");
-		sc.add("assert attribute instanceof " + E_ATTRIBUTE + ";");
+		sc.add("assert attribute instanceof " + E_ATTRIBUTE(sc) + ";");
 		sc.add("this.trueLiteral = trueLiteral;");
 		sc.add("this.falseLiteral = falseLiteral;");
 		sc.add("}"); 
@@ -77,9 +77,9 @@ public class BooleanTerminalGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 	}
 
-	private void addGetAttribute(StringComposite sc) {
-		sc.add("public " + E_ATTRIBUTE + " getAttribute() {"); 
-		sc.add("return (" + E_ATTRIBUTE + ") getFeature();");
+	private void addGetAttribute(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_ATTRIBUTE(sc) + " getAttribute() {"); 
+		sc.add("return (" + E_ATTRIBUTE(sc) + ") getFeature();");
 		sc.add("}"); 
 		sc.addLineBreak();
 	}

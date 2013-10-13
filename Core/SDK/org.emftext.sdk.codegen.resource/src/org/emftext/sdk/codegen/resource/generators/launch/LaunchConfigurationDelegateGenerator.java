@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.launch;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LAUNCH_CONFIGURATION_DELEGATE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LAUNCH_CONFIGURATION_DELEGATE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -37,10 +37,10 @@ public class LaunchConfigurationDelegateGenerator extends JavaBaseGenerator<Arti
 			return;
 		}
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(classComment);
-		sc.add("public class " + getResourceClassName() + " extends " + LAUNCH_CONFIGURATION_DELEGATE + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + LAUNCH_CONFIGURATION_DELEGATE(sc) + " {");
 		sc.addLineBreak();
 		addConstants(sc);
 		addLaunchMethod(sc);
@@ -54,7 +54,7 @@ public class LaunchConfigurationDelegateGenerator extends JavaBaseGenerator<Arti
 	}
 
 	private void addLaunchMethod(JavaComposite sc) {
-		sc.add("public void launch(" + I_LAUNCH_CONFIGURATION + " configuration, String mode, " + I_LAUNCH + " launch, " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
+		sc.add("public void launch(" + I_LAUNCH_CONFIGURATION(sc) + " configuration, String mode, " + I_LAUNCH(sc) + " launch, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.addComment(
 				"Set the " + OptionTypes.OVERRIDE_LAUNCH_CONFIGURATION_DELEGATE.getLiteral() + " option to <code>false</code> to implement this method or " +
 				"disable launching support by setting " + OptionTypes.DISABLE_LAUNCH_SUPPORT.getLiteral() + " to <code>true</code>.");

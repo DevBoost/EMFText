@@ -26,7 +26,7 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " implements " + iTextTokenClassName + " {");
@@ -42,7 +42,6 @@ public class TextTokenGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 		sc.addFields();
 		sc.add("private boolean canBeUsedForSyntaxHighlighting;");
 		sc.addLineBreak();
-		
 		addConstructor(sc);
 		sc.addGettersSetters();
 		addCanBeUsedForSyntaxHighlightingMethod(sc);

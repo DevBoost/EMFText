@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -34,13 +34,13 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iBuilderClassName + " {");
 		sc.addLineBreak();
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		if (!removeEclipseDependentCode) {
-			addMethods(sc);
+	addMethods(sc);
 		} else {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
 		}
@@ -54,7 +54,7 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 	}
 
 	private void addIsBuildingNeededMethod(JavaComposite sc) {
-		sc.add("public boolean isBuildingNeeded(" + URI + " uri) {");
+		sc.add("public boolean isBuildingNeeded(" + URI(sc) + " uri) {");
 		sc.addComment("change this to return true to enable building of all resources");
 		sc.add("return false;");
 		sc.add("}");
@@ -62,9 +62,9 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 	}
 
 	private void addBuildMethod(JavaComposite sc) {
-		sc.add("public " + I_STATUS + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("public " + I_STATUS(sc) + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
 		sc.addComment("set option " + OptionTypes.OVERRIDE_BUILDER + " to 'false' and then perform build here");
-		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("return " + STATUS(sc) + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -73,9 +73,9 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addJavadoc(
 			"Handles the deletion of the given resource."
 		);
-		sc.add("public " + I_STATUS + " handleDeletion(" + URI + " uri, " + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("public " + I_STATUS(sc) + " handleDeletion(" + URI(sc) + " uri, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
 		sc.addComment("by default nothing is done when a resource is deleted");
-		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("return " + STATUS(sc) + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

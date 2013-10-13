@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator<Art
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -49,7 +49,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator<Art
 			"<code>IContextDependentURIFragment.resolve()</code> is available.",
 			"@param <ReferenceType> the type of the reference that can be resolved by this fragment"
 		);
-		sc.add("public interface " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT + "> {");
+		sc.add("public interface " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT(sc) + "> {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -60,7 +60,7 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator<Art
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@return The proxy object.");
-		sc.add("public " + E_OBJECT + " getProxy();");
+		sc.add("public " + E_OBJECT(sc) + " getProxy();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@return An identifier that identifies the element(s) at which the proxy points in context.");
@@ -68,11 +68,11 @@ public class IContextDependentURIFragmentGenerator extends JavaBaseGenerator<Art
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@return The element that references the proxy.");
-		sc.add("public " + E_OBJECT + " getContainer();");
+		sc.add("public " + E_OBJECT(sc) + " getContainer();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@return The references of the container's <code>EClass</code> that holds the proxy.");
-		sc.add("public " + E_REFERENCE + " getReference();");
+		sc.add("public " + E_REFERENCE(sc) + " getReference();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("@return The position if reference is multiple; -1 otherwise.");

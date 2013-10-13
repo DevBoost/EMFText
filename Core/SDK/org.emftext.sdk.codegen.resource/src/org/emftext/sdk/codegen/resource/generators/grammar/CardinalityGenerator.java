@@ -26,7 +26,7 @@ public class CardinalityGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public enum " + getResourceClassName() + " {");

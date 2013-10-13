@@ -15,29 +15,29 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ANTLR_STRING_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BIT_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMMON_TOKEN_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LEXER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ANTLR_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ANTLR_STRING_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BIT_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMMON_TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMMON_TOKEN_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LEXER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RECOGNITION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -109,6 +109,7 @@ import org.emftext.sdk.util.GenClassUtil;
 import de.devboost.codecomposers.StringComponent;
 import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.antlr.ANTLRGrammarComposite;
+import de.devboost.codecomposers.java.JavaComposite;
 import de.devboost.codecomposers.util.StringUtil;
 
 /**
@@ -155,7 +156,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	 * A map that projects the fully qualified name of generator classes to the
 	 * set of fully qualified names of all their super classes.
 	 */
-	private Map<String, Collection<String>> genClassNames2superClassNames;
+	private Map<String,Collection<String>> genClassNames2superClassNames;
 	private Collection<GenClass> allGenClasses;
 	private Set<String> keywords;
 
@@ -205,7 +206,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		followSetID = 0;
 		initOptions();
 		initCaches();
-
 		String csName = getContext().getCapitalizedConcreteSyntaxName();
 		String lexerName = getLexerName();
 		String parserName = getParserName();
@@ -229,26 +229,33 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// the lexer: package definition and error handling
 		sc.add("@lexer::header {");
 		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.add("}");
 		sc.addLineBreak();
 
 		sc.add("@lexer::members {");
-		sc.add("public " + LIST + "<" + RECOGNITION_EXCEPTION + "> lexerExceptions  = new " + ARRAY_LIST + "<" + RECOGNITION_EXCEPTION + ">();");
-		sc.add("public " + LIST + "<Integer> lexerExceptionPositions = new " + ARRAY_LIST + "<Integer>();");
+		sc.add("public " + LIST(sc) + "<" + RECOGNITION_EXCEPTION(sc) + "> lexerExceptions  = new " + ARRAY_LIST(sc) + "<" + RECOGNITION_EXCEPTION(sc) + ">();");
+		sc.add("public " + LIST(sc) + "<Integer> lexerExceptionPositions = new " + ARRAY_LIST(sc) + "<Integer>();");
 		sc.addLineBreak();
-		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " e) {");
+		sc.add("public void reportError(" + RECOGNITION_EXCEPTION(sc) + " e) {");
 		sc.add("lexerExceptions.add(e);");
-		sc.add("lexerExceptionPositions.add(((" + ANTLR_STRING_STREAM + ") input).index());");
+		sc.add("lexerExceptionPositions.add(((" + ANTLR_STRING_STREAM(sc) + ") input).index());");
 		sc.add("}");
 		sc.add("}");
-
+		ANTLRGrammarComposite lexerComposite = sc;
+		
+		sc = new ANTLRGrammarComposite();
 		// the parser: package definition and entry (doParse) method
 		sc.add("@header{");
 		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.add("}");
 		sc.addLineBreak();
 
 		ANTLRGrammarComposite grammarCore = new ANTLRGrammarComposite();
+		grammarCore.setImportsPlaceholder(sc.getImportsPlaceholder());
 		addRules(grammarCore);
 		addTokenDefinitions(grammarCore);
 
@@ -260,6 +267,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		sc.add(grammarCore.toString());
 
+		writer.print(lexerComposite.toString());
 		writer.print(sc.toString());
 	}
 
@@ -267,7 +275,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		printStartRule(sc);
 
 		EList<GenClass> eClassesWithSyntax = new BasicEList<GenClass>();
-		Map<GenClass, Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass, Collection<Terminal>>();
+		Map<GenClass,Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass,Collection<Terminal>>();
 		
 		printGrammarRules(sc, eClassesWithSyntax, eClassesReferenced);		
 		printImplicitChoiceRules(sc, eClassesWithSyntax, eClassesReferenced);
@@ -276,7 +284,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void addMethods(String lexerName, String parserName,
 			ANTLRGrammarComposite sc) {
 		GenerationContext context = getContext();
-		
 		addReportErrorMethod(sc);
 		generatorUtil.addAddErrorToResourceMethod(sc, context);
 		addAddErrorToResourceMethod(sc);
@@ -303,7 +310,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void addReportErrorMethod(ANTLRGrammarComposite sc) {
 		sc.add("@Override");
-		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " re) {");
+		sc.add("public void reportError(" + RECOGNITION_EXCEPTION(sc) + " re) {");
 		sc.add("addErrorToResource(syntaxErrorMessageConverter.translateParseError(re));");
 		sc.add("}");
 		sc.addLineBreak();
@@ -319,10 +326,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addGetMissingSymbolMethod(StringComposite sc) {
-		sc.add("public Object getMissingSymbol(" + INT_STREAM
-				+ " arg0, " + RECOGNITION_EXCEPTION + " arg1, int arg2, "
-				+ BIT_SET + " arg3) {");
+	private void addGetMissingSymbolMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public Object getMissingSymbol(" + INT_STREAM(sc)
+				+ " arg0, " + RECOGNITION_EXCEPTION(sc) + " arg1, int arg2, "
+				+ BIT_SET(sc) + " arg3) {");
 		sc.add("mismatchedTokenRecoveryTries++;");
 		sc.add("return super.getMissingSymbol(arg0, arg1, arg2, arg3);");
 		sc.add("}");
@@ -341,7 +348,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("public " + iParseResultClassName + " parse() {");
 		sc.addComment("Reset parser state");
 		sc.add("terminateParsing = false;");
-		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + iCommandClassName + "<" + iTextResourceClassName + ">>();");
+		sc.add("postParseCommands = new " + ARRAY_LIST(sc) + "<" + iCommandClassName + "<" + iTextResourceClassName + ">>();");
 		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
 		sc.add("if (disableLocationMap) {");
 		sc.add("locationMap = new " + devNullLocationMapClassName + "();");
@@ -350,14 +357,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.addComment("Run parser");
 		sc.add("try {");
-		sc.add(E_OBJECT + " result =  doParse();");
+		sc.add(E_OBJECT(sc) + " result =  doParse();");
 		sc.add("if (lexerExceptions.isEmpty()) {");
 		sc.add("parseResult.setRoot(result);");
 		sc.add("parseResult.setLocationMap(locationMap);");
 		sc.add("}");
-		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
+		sc.add("} catch (" + RECOGNITION_EXCEPTION(sc) + " re) {");
 		sc.add("addErrorToResource(syntaxErrorMessageConverter.translateParseError(re));");
-		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
+		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION(sc) + " iae) {");
 		sc.add("if (\"The 'no null' constraint is violated\".equals(iae.getMessage())) {");
 		sc.addComment(
 			"can be caused if a null is set on EMF models where not allowed. " +
@@ -367,7 +374,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("iae.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
-		sc.add("for (" + RECOGNITION_EXCEPTION + " re : lexerExceptions) {");
+		sc.add("for (" + RECOGNITION_EXCEPTION(sc) + " re : lexerExceptions) {");
 		sc.add("addErrorToResource(syntaxErrorMessageConverter.translateLexicalError(re, lexerExceptions, lexerExceptionPositions));");
 		sc.add("}");
 		sc.add("parseResult.getPostParseCommands().addAll(postParseCommands);");
@@ -376,7 +383,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addCompletedElementMethod(StringComposite sc) {
+	private void addCompletedElementMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		// TODO mseifert: instead of passing isContainment, we can call this method only
 		// for contained objects
 		sc.add("private void completedElement(Object object, boolean isContainment) {");
@@ -387,7 +394,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		//sc.add("System.out.println(\"ERROR: Inconsistent set of objects (Can't find \" + object + \")\");");
 		sc.add("}");
 		sc.add("}");
-		sc.add("if (object instanceof " + E_OBJECT + ") {");
+		sc.add("if (object instanceof " + E_OBJECT(sc) + ") {");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
 		sc.add("}");
@@ -395,13 +402,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addStartIncompleteElementMethod(StringComposite sc) {
+	private void addStartIncompleteElementMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		// TODO mseifert: instead of passing isContainment, we can call this method only
 		// for contained objects
 		sc.add("private void startIncompleteElement(Object object) {");
-		sc.add("if (object instanceof " + E_OBJECT + ") {");
+		sc.add("if (object instanceof " + E_OBJECT(sc) + ") {");
 		//sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"startIncompleteElement(\" + object + \")\");");
-		sc.add("this.incompleteObjects.add((" + E_OBJECT + ") object);");
+		sc.add("this.incompleteObjects.add((" + E_OBJECT(sc) + ") object);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -415,13 +422,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addGetTypeObjectMethod(StringComposite sc) {
+	private void addGetTypeObjectMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("protected Object getTypeObject() {");
 		sc.add("Object typeObject = getParseToIndexTypeObject();");
 		sc.add("if (typeObject != null) {");
 		sc.add("return typeObject;");
 		sc.add("}");
-		sc.add(MAP + "<?,?> options = getOptions();");
+		sc.add(MAP(sc) + "<?,?> options = getOptions();");
 		sc.add("if (options != null) {");
 		sc.add("typeObject = options.get(" + iOptionsClassName + ".RESOURCE_CONTENT_TYPE);");
 		sc.add("}");
@@ -431,7 +438,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addDoParseMethod(String lexerName, ANTLRGrammarComposite sc) {
-		sc.add("protected " + E_OBJECT + " doParse() throws " + RECOGNITION_EXCEPTION + " {");
+		sc.add("protected " + E_OBJECT(sc) + " doParse() throws " + RECOGNITION_EXCEPTION(sc) + " {");
 		sc.add("this.lastPosition = 0;");
 		sc.addComment("required because the lexer class can not be subclassed");
 		sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;");
@@ -439,7 +446,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("Object typeObject = getTypeObject();");
 		sc.add("if (typeObject == null) {");
 		sc.add("return start();");
-		sc.add("} else if (typeObject instanceof " + E_CLASS + ") {");
+		sc.add("} else if (typeObject instanceof " + E_CLASS(sc) + ") {");
 		boolean isFirst = true;
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			// operator rules cannot be used as start symbol
@@ -447,7 +454,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			if (rule.getOperatorAnnotation() == null) {
 				if (isFirst) {
 					// this code is only needed if non-operator rules are found
-					sc.add(E_CLASS + " type = (" + E_CLASS + ") typeObject;");
+					sc.add(E_CLASS(sc) + " type = (" + E_CLASS(sc) + ") typeObject;");
 					isFirst = false;
 				}
 				String qualifiedClassName = genClassCache.getQualifiedInterfaceName(rule.getMetaclass());
@@ -465,7 +472,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void addCollectHiddenTokensMethod(String lexerName, ANTLRGrammarComposite sc) {
 		List<CompleteTokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax.getActiveTokens());
-		sc.add("protected void collectHiddenTokens(" + E_OBJECT + " element) {");
+		sc.add("protected void collectHiddenTokens(" + E_OBJECT(sc) + " element) {");
 		if (!collectTokenDefinitions.isEmpty()) {
 			// sc.add("System.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
 			sc.add("int currentPos = getTokenStream().index();");
@@ -474,14 +481,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			sc.add("}");
 			sc.add("int endPos = currentPos - 1;");
 			sc.add("for (; endPos >= this.lastPosition; endPos--) {");
-			sc.add(TOKEN + " token = getTokenStream().get(endPos);");
+			sc.add(TOKEN(sc) + " token = getTokenStream().get(endPos);");
 			sc.add("int _channel = token.getChannel();");
 			sc.add("if (_channel != 99) {");
 			sc.add("break;");
 			sc.add("}");
 			sc.add("}");
 			sc.add("for (int pos = this.lastPosition; pos < endPos; pos++) {");
-			sc.add(TOKEN + " token = getTokenStream().get(pos);");
+			sc.add(TOKEN(sc) + " token = getTokenStream().get(pos);");
 			sc.add("int _channel = token.getChannel();");
 			sc.add("if (_channel == 99) {");
 			// sc.add("System.out.println(\"\t\" + token);");
@@ -496,11 +503,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				// because collect-in tokens can be stored in arbitrary classes.
 				// Therefore,
 				// we do not know the EClass of the element at generation time.
-				sc.add(E_STRUCTURAL_FEATURE + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
+				sc.add(E_STRUCTURAL_FEATURE(sc) + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
 				sc.add("if (feature != null) {");
 				sc.addComment("call token resolver");
-
-				String identifierPrefix = "resolved";
+	String identifierPrefix = "resolved";
 				String resolverIdentifier = identifierPrefix + "Resolver";
 				String resolvedObjectIdentifier = identifierPrefix + "Object";
 				String resolveResultIdentifier = identifierPrefix + "Result";
@@ -522,10 +528,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 						+ resolveResultIdentifier + ".getResolvedToken();");
 				sc.add("if (" + resolvedObjectIdentifier + " == null) {");
 				sc.add("addErrorToResource(" + resolveResultIdentifier
-						+ ".getErrorMessage(), ((" + COMMON_TOKEN
-						+ ") token).getLine(), ((" + COMMON_TOKEN
-						+ ") token).getCharPositionInLine(), ((" + COMMON_TOKEN
-						+ ") token).getStartIndex(), ((" + COMMON_TOKEN
+						+ ".getErrorMessage(), ((" + COMMON_TOKEN(sc)
+						+ ") token).getLine(), ((" + COMMON_TOKEN(sc)
+						+ ") token).getCharPositionInLine(), ((" + COMMON_TOKEN(sc)
+						+ ") token).getStartIndex(), ((" + COMMON_TOKEN(sc)
 						+ ") token).getStopIndex());");
 				sc.add("}");
 				sc.add("if (java.lang.String.class.isInstance("
@@ -554,24 +560,23 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addCreateInstanceMethod(String lexerName, String parserName,
-			StringComposite sc) {
+	private void addCreateInstanceMethod(String lexerName, String parserName,de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public " + iTextParserClassName + " createInstance("
-				+ INPUT_STREAM + " actualInputStream, "
+				+ INPUT_STREAM(sc) + " actualInputStream, "
 				+ "String encoding) {");
 		sc.add("try {");
 		sc.add("if (encoding == null) {");
 		sc.add("return new " + parserName + "(new "
-				+ COMMON_TOKEN_STREAM + "(new " + lexerName
-				+ "(new " + ANTLR_INPUT_STREAM
+				+ COMMON_TOKEN_STREAM(sc) + "(new " + lexerName
+				+ "(new " + ANTLR_INPUT_STREAM(sc)
 				+ "(actualInputStream))));");
 		sc.add("} else {");
 		sc.add("return new " + parserName + "(new "
-				+ COMMON_TOKEN_STREAM + "(new " + lexerName
-				+ "(new " + ANTLR_INPUT_STREAM
+				+ COMMON_TOKEN_STREAM(sc) + "(new " + lexerName
+				+ "(new " + ANTLR_INPUT_STREAM(sc)
 				+ "(actualInputStream, encoding))));");
 		sc.add("}");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Error while creating parser.\", e);");
 		sc.add("return null;");
 		sc.add("}");
@@ -605,23 +610,23 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			"A list of expected elements the were collected while parsing the input stream. " +
 			"This list is only filled if <code>rememberExpectedElements</code> is set to true."
 		);
-		sc.add("private " + LIST + "<" + expectedTerminalClassName
-				+ "> expectedElements = new " + ARRAY_LIST + "<"
+		sc.add("private " + LIST(sc) + "<" + expectedTerminalClassName
+				+ "> expectedElements = new " + ARRAY_LIST(sc) + "<"
 				+ expectedTerminalClassName + ">();");
 		sc.addLineBreak();
 
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
 		
 		sc.addJavadoc("A helper list to allow a lexer to pass errors to its parser");
-		sc.add("protected " + LIST + "<" + RECOGNITION_EXCEPTION
-				+ "> lexerExceptions = " + COLLECTIONS
-				+ ".synchronizedList(new " + ARRAY_LIST + "<"
-				+ RECOGNITION_EXCEPTION + ">());");
+		sc.add("protected " + LIST(sc) + "<" + RECOGNITION_EXCEPTION(sc)
+				+ "> lexerExceptions = " + COLLECTIONS(sc)
+				+ ".synchronizedList(new " + ARRAY_LIST(sc) + "<"
+				+ RECOGNITION_EXCEPTION(sc) + ">());");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Another helper list to allow a lexer to pass positions of errors to its parser");
-		sc.add("protected " + LIST + "<Integer> lexerExceptionPositions = " + COLLECTIONS
-				+ ".synchronizedList(new " + ARRAY_LIST + "<Integer>());");
+		sc.add("protected " + LIST(sc) + "<Integer> lexerExceptionPositions = " + COLLECTIONS(sc)
+				+ ".synchronizedList(new " + ARRAY_LIST(sc) + "<Integer>());");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -632,7 +637,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		/*sc.add("protected " + STACK + "<" + E_OBJECT
 				+ "> incompleteObjects = new " + STACK + "<" + E_OBJECT
 				+ ">();");*/
-		sc.add(sc.declareArrayList("incompleteObjects", E_OBJECT));
+		sc.add(sc.declareArrayList("incompleteObjects",E_OBJECT(sc)));
 		sc.addLineBreak();
 
 		sc.add("private int stopIncludingHiddenTokens;");
@@ -665,22 +670,22 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addParseToExpectedElementsMethod(ANTLRGrammarComposite sc) {
-		sc.add("public " + LIST + "<" + expectedTerminalClassName
-				+ "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource, int cursorOffset) {");
+		sc.add("public " + LIST(sc) + "<" + expectedTerminalClassName
+				+ "> parseToExpectedElements(" + E_CLASS(sc) + " type, " + iTextResourceClassName + " dummyResource, int cursorOffset) {");
 		sc.add("this.rememberExpectedElements = true;");
 		sc.add("this.parseToIndexTypeObject = type;");
 		sc.add("this.cursorOffset = cursorOffset;");
 		sc.add("this.lastStartIncludingHidden = -1;");
-		sc.add("final " + COMMON_TOKEN_STREAM + " tokenStream = (" + COMMON_TOKEN_STREAM + ") getTokenStream();");
+		sc.add("final " + COMMON_TOKEN_STREAM(sc) + " tokenStream = (" + COMMON_TOKEN_STREAM(sc) + ") getTokenStream();");
 		sc.add(iParseResultClassName + " result = parse();");
-		sc.add("for (" + E_OBJECT + " incompleteObject : incompleteObjects) {");
-		sc.add(LEXER + " lexer = (" + LEXER + ") tokenStream.getTokenSource();");
+		sc.add("for (" + E_OBJECT(sc) + " incompleteObject : incompleteObjects) {");
+		sc.add(LEXER(sc) + " lexer = (" + LEXER(sc) + ") tokenStream.getTokenSource();");
 		sc.add("int endChar = lexer.getCharIndex();");
 		sc.add("int endLine = lexer.getLine();");
 		sc.add("setLocalizationEnd(result.getPostParseCommands(), incompleteObject, endChar, endLine);");
 		sc.add("}");
 		sc.add("if (result != null) {");
-		sc.add(E_OBJECT + " root = result.getRoot();");
+		sc.add(E_OBJECT(sc) + " root = result.getRoot();");
 		sc.add("if (root != null) {");
 		sc.add("dummyResource.getContentsInternal().add(root);");
 		sc.add("}");
@@ -691,8 +696,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addComment("remove all expected elements that were added after the last complete element");
 		sc.add("expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);");
 		sc.add("int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();");
-		sc.add(SET + "<" + expectedTerminalClassName + "> currentFollowSet = new " + LINKED_HASH_SET +"<" + expectedTerminalClassName + ">();");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> newFollowSet = new " + ARRAY_LIST +"<" + expectedTerminalClassName + ">();");
+		sc.add(SET(sc) + "<" + expectedTerminalClassName + "> currentFollowSet = new " + LINKED_HASH_SET(sc) +"<" + expectedTerminalClassName + ">();");
+		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> newFollowSet = new " + ARRAY_LIST(sc) +"<" + expectedTerminalClassName + ">();");
 		sc.add("for (int i = expectedElementsIndexOfLastCompleteElement; i >= 0; i--) {");
 		sc.add(expectedTerminalClassName + " expectedElementI = expectedElements.get(i);");
 		sc.add("if (expectedElementI.getFollowSetID() == lastFollowSetID) {");
@@ -706,7 +711,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("int followSetID = " + followSetID + ";");
 		sc.add("int i;");
 		sc.add("for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {");
-		sc.add(COMMON_TOKEN + " nextToken = (" + COMMON_TOKEN + ") tokenStream.get(i);");
+		sc.add(COMMON_TOKEN(sc) + " nextToken = (" + COMMON_TOKEN(sc) + ") tokenStream.get(i);");
 		//sc.add("System.out.println(\"REMAINING TOKEN: \" + nextToken);");
 		sc.add("if (nextToken.getType() < 0) {");
 		sc.add("break;");
@@ -731,10 +736,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (nextFollow.getTerminal().getTokenNames().contains(getTokenNames()[nextToken.getType()])) {");
 		sc.addComment("keep this one - it matches");
 		//sc.add("System.out.println(\"MATCH! \" + nextFollow);");
-		sc.add(COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> newFollowers = nextFollow.getTerminal().getFollowers();");
+		sc.add(COLLECTION(sc) + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> newFollowers = nextFollow.getTerminal().getFollowers();");
 		sc.add("for (" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]> newFollowerPair : newFollowers) {");
 		sc.add(iExpectedElementClassName + " newFollower = newFollowerPair.getLeft();");
-		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
+		sc.add(E_OBJECT(sc) + " container = getLastIncompleteElement();");
 		// TODO mseifert: null is not the correct metaclass for the trace, but what is?
 		sc.add(containmentTraceClassName + " containmentTrace = new " + containmentTraceClassName + "(null, newFollowerPair.getRight());");
 		sc.add(expectedTerminalClassName + " newFollowTerminal = new " + expectedTerminalClassName + "(container, newFollower, followSetID, containmentTrace);");
@@ -764,8 +769,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addCopyLocalizationInfosMethod1(ANTLRGrammarComposite sc) {
-		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT + " source, final "
-				+ E_OBJECT + " target) {");
+		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT(sc) + " source, final "
+				+ E_OBJECT(sc) + " target) {");
 		sc.add("if (disableLocationMap) {");
 		sc.add("return;");
 		sc.add("}");
@@ -789,7 +794,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void addSetLocalizationEndMethod(ANTLRGrammarComposite sc) {
 		sc.addJavadoc("Sets the end character index and the last line for the given object in the location map.");
-		sc.add("protected void setLocalizationEnd(" + COLLECTION + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands , final " + E_OBJECT + " object, final int endChar, final int endLine) {");
+		sc.add("protected void setLocalizationEnd(" + COLLECTION(sc) + "<" + iCommandClassName + "<" + iTextResourceClassName + ">> postParseCommands , final " + E_OBJECT(sc) + " object, final int endChar, final int endLine) {");
 		sc.add("if (disableLocationMap) {");
 		sc.add("return;");
 		sc.add("}");
@@ -810,8 +815,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addCopyLocalizationInfosMethod2(ANTLRGrammarComposite sc) {
-		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN
-				+ " source, final " + E_OBJECT + " target) {");
+		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN(sc)
+				+ " source, final " + E_OBJECT(sc) + " target) {");
 		sc.add("if (disableLocationMap) {");
 		sc.add("return;");
 		sc.add("}");
@@ -847,7 +852,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		// however, unless there is no serious performance problems I'd
 		// stick with keeping all the expected elements. they will be 
 		// garbage collected right afterwards anyway
-		sc.add("public void addExpectedElement(" + E_CLASS + " eClass, int[] ids) {");
+		sc.add("public void addExpectedElement(" + E_CLASS(sc) + " eClass, int[] ids) {");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
@@ -860,7 +865,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("}");
 		sc.add(containmentTraceClassName + " containmentTrace = new " + containmentTraceClassName + "(eClass, containmentFeatures);");
 		
-		sc.add(E_OBJECT + " container = getLastIncompleteElement();");
+		sc.add(E_OBJECT(sc) + " container = getLastIncompleteElement();");
 		sc.add(expectedTerminalClassName + " expectedElement = new " + expectedTerminalClassName + "(container, terminal, followSetID, containmentTrace);"); 
 		sc.add("setPosition(expectedElement, input.index());");
 		
@@ -880,7 +885,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetLastIncompleteElementMethod(ANTLRGrammarComposite sc) {
-		sc.add("private " + E_OBJECT + " getLastIncompleteElement() {"); 
+		sc.add("private " + E_OBJECT(sc) + " getLastIncompleteElement() {"); 
 		sc.add("if (incompleteObjects.isEmpty()) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -889,7 +894,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addSetPositionMethod(StringComposite sc) {
+	private void addSetPositionMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public void setPosition(" + expectedTerminalClassName
 				+ " expectedElement, int tokenIndex) {");
 		sc.add("int currentIndex = Math.max(0, tokenIndex);");
@@ -897,7 +902,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("if (index >= input.size()) {");
 		sc.add("break;");
 		sc.add("}");
-		sc.add(COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN + ") input.get(index);");
+		sc.add(COMMON_TOKEN(sc) + " tokenAtIndex = (" + COMMON_TOKEN(sc) + ") input.get(index);");
 		sc.add("stopIncludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
 		sc.add("if (tokenAtIndex.getChannel() != 99 && !anonymousTokens.contains(tokenAtIndex)) {");
 		sc.add("stopExcludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
@@ -916,10 +921,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addRecoverFromMismatchedTokenMethod(StringComposite sc) {
-		sc.add("public Object recoverFromMismatchedToken(" + INT_STREAM
-				+ " input, int ttype, " + BIT_SET + " follow) throws "
-				+ RECOGNITION_EXCEPTION + " {");
+	private void addRecoverFromMismatchedTokenMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public Object recoverFromMismatchedToken(" + INT_STREAM(sc)
+				+ " input, int ttype, " + BIT_SET(sc) + " follow) throws "
+				+ RECOGNITION_EXCEPTION(sc) + " {");
 		sc.add("if (!rememberExpectedElements) {");
 		sc.add("return super.recoverFromMismatchedToken(input, ttype, follow);");
 		sc.add("} else {");
@@ -945,7 +950,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		// do the start symbol rule
 		sc.add("start ");
-		sc.add("returns [ " + E_OBJECT + " element = null]");
+		sc.add("returns [ " + E_OBJECT(sc) + " element = null]");
 		sc.add(":");
 		sc.add("{");
 		Set<Expectation> expectations = new LinkedHashSet<Expectation>();
@@ -1003,7 +1008,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void printRightRecursion(ANTLRGrammarComposite sc, Rule rule,
 			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, Collection<Terminal>> classesReferenced) {
+			Map<GenClass,Collection<Terminal>> classesReferenced) {
 
 		String ruleName = getRuleName(rule.getMetaclass());
 		GenClass recursiveType = rule.getMetaclass();
@@ -1023,8 +1028,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 							dummyEObjectClassName) + ";");
 			sc.add("collectHiddenTokens(element);");
 			sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(rule) + ", null, true);");
-			sc.add(LIST + "<" + E_OBJECT + "> dummyEObjects  = new "
-					+ ARRAY_LIST + "<" + E_OBJECT + ">();");
+			sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> dummyEObjects  = new "
+					+ ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + ">();");
 			sc.add("}");
 			sc.add(":");
 
@@ -1152,7 +1157,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void printGrammarRules(ANTLRGrammarComposite sc,
 			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+			Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 
 		boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(
 				concreteSyntax,
@@ -1178,7 +1183,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 										true);
 						if (!subClasses.isEmpty()) {
 							sc.add("|//derived choice rules for sub-classes: ");
-							printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
+	printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 							sc.addLineBreak();
 						}
 
@@ -1189,7 +1194,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 								+ "\".";
 						GenerationProblem generationWarning = new GenerationProblem(
 								message, rule, Severity.WARNING);
-						addProblem(generationWarning);
+	addProblem(generationWarning);
 						continue;
 					} else {
 						String message = "Warning: Rule \""
@@ -1199,7 +1204,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 								+ "\".";
 						GenerationProblem generationWarning = new GenerationProblem(
 								message, rule, Severity.WARNING);
-						addProblem(generationWarning);
+	addProblem(generationWarning);
 						printGrammarRule(rule, sc, eClassesWithSyntax,
 								eClassesReferenced);
 					}
@@ -1210,7 +1215,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 							+ "\"! Please restructure the grammar.";
 					GenerationProblem generationWarning = new GenerationProblem(
 							message, rule, Severity.WARNING);
-					addProblem(generationWarning);
+	addProblem(generationWarning);
 					printGrammarRule(rule, sc, eClassesWithSyntax,
 							eClassesReferenced);
 				}
@@ -1256,7 +1261,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	
 	private void printGrammarRule(Rule rule, ANTLRGrammarComposite sc,
 			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+			Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		GenClass genClass = rule.getMetaclass();
 		String ruleName = getRuleName(genClass);
 
@@ -1269,10 +1274,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		if (!subClasses.isEmpty()) {
 			sc.add("|//derived choice rules for sub-classes: ");
 			sc.addLineBreak();
-			printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
+	printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 			sc.addLineBreak();
 		}
-		
 		printGrammarRuleSuffix(sc);
 
 		eClassesWithSyntax.add(genClass);
@@ -1283,8 +1287,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			ANTLRGrammarComposite sc,
 			List<Rule> slice, 
 			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, 
-			Collection<Terminal>> eClassesReferenced) {
+			Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		
 		ListIterator<Rule> sliceIterator = slice.listIterator();
 		
@@ -1339,12 +1342,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				}
 				// now we do binary infix operators
 				else if (operatorType == OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE) {
-					//1st case left associative operators, e.g., -,+,*,/ etc.
-					printBinaryLeftAssociativeRule(sc, eClassesReferenced,
+	printBinaryLeftAssociativeRule(sc, eClassesReferenced,
 							rulesWithEqualWeight, nextRuleName);
 				} else if (operatorType == OperatorAnnotationType.BINARY_RIGHT_ASSOCIATIVE) {
-					//2nd case right associative operators , e.g., ^
-					printBinaryRightAssociativeRule(sc, eClassesReferenced,
+	printBinaryRightAssociativeRule(sc, eClassesReferenced,
 							rulesWithEqualWeight, ruleName, nextRuleName);
 				}
 			}
@@ -1360,14 +1361,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			// primitive operator rules add the suffix on their own,
 			// because they need to add more rules
 			if (!isLast && !wasPrimitiveOperatorRule) {
-				printGrammarRuleSuffix(sc);
+	printGrammarRuleSuffix(sc);
 			}
 		}
 	}
 
 	private void printPrimitiveOperatorRule(ANTLRGrammarComposite sc,
 			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			Map<GenClass,Collection<Terminal>> eClassesReferenced,
 			List<Rule> rulesWithEqualWeight) {
 		List<GenClass> choiceClasses = new LinkedList<GenClass>();
 		for (Rule rule : rulesWithEqualWeight) {
@@ -1383,7 +1384,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	
 	private void printUnaryPrefixOperatorRule(
 			ANTLRGrammarComposite sc,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			Map<GenClass,Collection<Terminal>> eClassesReferenced,
 			Rule firstRule, 
 			List<Rule> equalWeightOPs, 
 			String nextRuleName) {
@@ -1413,7 +1414,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void printUnaryPostfixOperatorRule(
 			ANTLRGrammarComposite sc,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			Map<GenClass,Collection<Terminal>> eClassesReferenced,
 			List<Rule> equalWeightOPs, 
 			Sequence firstSequence,
 			String nextRuleName) {
@@ -1443,7 +1444,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void printBinaryLeftAssociativeRule(
 			ANTLRGrammarComposite sc,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			Map<GenClass,Collection<Terminal>> eClassesReferenced,
 			List<Rule> equalWeightOPs, 
 			String nextRuleName) {
 		
@@ -1457,8 +1458,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			Definition left = definitions.get(0);
 			definitions.remove(0);
-			Definition right = definitions.get(definitions.size()-1);
-			definitions.remove(definitions.size()-1);
+			Definition right = definitions.get(definitions.size()- 1);
+			definitions.remove(definitions.size()- 1);
 		
 			assert left instanceof Containment;
 			assert right instanceof Containment;
@@ -1487,7 +1488,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void printBinaryRightAssociativeRule(
 			ANTLRGrammarComposite sc,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			Map<GenClass,Collection<Terminal>> eClassesReferenced,
 			List<Rule> equalWeightOPs, 
 			String ruleName,
 			String nextRuleName) {
@@ -1503,8 +1504,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			Definition left = definitions.get(0);
 			definitions.remove(0);
-			Definition right = definitions.get(definitions.size()-1);
-			definitions.remove(definitions.size()-1);
+			Definition right = definitions.get(definitions.size()- 1);
+			definitions.remove(definitions.size()- 1);
 			
 			assert left instanceof Containment;
 			assert right instanceof Containment;
@@ -1541,7 +1542,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void printChoice(Choice choice, Rule rule, ANTLRGrammarComposite sc,
-			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
+			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced, String scopeID) {
 		Iterator<Sequence> it = choice.getOptions().iterator();
 		while (it.hasNext()) {
 			Sequence seq = it.next();
@@ -1554,12 +1555,12 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void printSequence(Sequence sequence, Rule rule, ANTLRGrammarComposite sc,
-			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
+			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced, String scopeID) {
 		printDefinitions(sequence.getParts(), rule, sc, counter, eClassesReferenced, scopeID);
 	}
 	
 	private void printDefinitions(List<Definition> definitions, Rule rule, ANTLRGrammarComposite sc,
-			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID){
+			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced, String scopeID){
 		int i = 0;
 		for (Definition definition : definitions) {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
@@ -1597,7 +1598,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			}
 			sc.add("{");
 			sc.addComment("expected elements (follow set)");
-			addExpectationsCode(sc, expectations);
+	addExpectationsCode(sc, expectations);
 			sc.add("}");
 
 			sc.addLineBreak();
@@ -1642,15 +1643,15 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		followSetID++;
 	}
 	
-	private void printCsString(CsString csString, Rule rule, StringComposite sc,
-			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+	private void printCsString(CsString csString, Rule rule,de.devboost.codecomposers.java.JavaComposite sc,
+			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		String identifier = "a" + counter.getValue();
 		String escapedCsString = StringUtil.escapeToANTLRKeyword(csString.getValue());
 		sc.add(identifier + " = '" + escapedCsString + "' {");
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(csString) + ", null, true);");
-		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier
+		sc.add("copyLocalizationInfos((" + COMMON_TOKEN(sc) + ")" + identifier
 				+ ", element);");
 		sc.add("}");
 		counter.inc();
@@ -1715,7 +1716,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 	}
 
-	private void printTerminal(Terminal terminal, Rule rule, StringComposite sc,
+	private void printTerminal(Terminal terminal, Rule rule,de.devboost.codecomposers.java.JavaComposite sc,
 			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 		final GenClass genClass = rule.getMetaclass();
 		final GenFeature genFeature = terminal.getFeature();
@@ -1776,7 +1777,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			// ignore the anonymous features
 			if (!isAnonymousFeature) {
 				String targetTypeName = null;
-				String resolvedIdent = "resolved";
+	String resolvedIdent = "resolved";
 				String preResolved = resolvedIdent + "Object";
 				String resolverIdent = "tokenResolver";
 				resolvements.add(iTokenResolverClassName + " "
@@ -1794,10 +1795,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 						+ " = result.getResolvedToken();");
 				resolvements.add("if (" + preResolved + " == null) {");
 				resolvements.add("addErrorToResource(result.getErrorMessage(), (("
-						+ COMMON_TOKEN + ") " + ident + ").getLine(), (("
-						+ COMMON_TOKEN + ") " + ident
-						+ ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") "
-						+ ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") "
+						+ COMMON_TOKEN(sc) + ") " + ident + ").getLine(), (("
+						+ COMMON_TOKEN(sc) + ") " + ident
+						+ ").getCharPositionInLine(), ((" + COMMON_TOKEN(sc) + ") "
+						+ ident + ").getStartIndex(), ((" + COMMON_TOKEN(sc) + ") "
 						+ ident + ").getStopIndex());");
 				resolvements.add("}");
 	
@@ -1866,7 +1867,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 									+ ">("
 									+ getContext()
 											.getReferenceResolverAccessor(genFeature)
-									+ "), element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
+									+ "), element, (" + E_REFERENCE(sc) + ") element.eClass().getEStructuralFeature("
 									+ generatorUtil.getFeatureConstant(genClass,
 											genFeature) + "), " + resolvedIdent
 									+ ", " + proxyIdent + ");");
@@ -1887,13 +1888,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add(")");
 		if (isAnonymousFeature) {
 			sc.add("{");
-			sc.add("anonymousTokens.add((" + COMMON_TOKEN + ") " + ident+ ");");
+			sc.add("anonymousTokens.add((" + COMMON_TOKEN(sc) + ") " + ident+ ");");
 			sc.add("}");
 		}
 		counter.inc();
 	}
 
-	private void addCodeForBooleanTerminal(StringComposite sc, Counter counter,
+	private void addCodeForBooleanTerminal(JavaComposite sc, Counter counter,
 			BooleanTerminal booleanTerminal) {
 
 		Rule rule = booleanTerminal.getContainingRule();
@@ -1941,7 +1942,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 
 	private void addCodeForEnumTerminal(
-			StringComposite sc, 
+			JavaComposite sc, 
 			Counter counter,
 			EnumTerminal enumTerminal) {
 
@@ -1994,7 +1995,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		counter.inc();
 	}
 
-	private void addCodeForBooleanLiteral(StringComposite sc,
+	private void addCodeForBooleanLiteral(de.devboost.codecomposers.java.JavaComposite sc,
 			BooleanTerminal booleanTerminal, 
 			EStructuralFeature eFeature, String featureConstant,
 			String identifier, String literal, String value) {
@@ -2004,14 +2005,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(booleanTerminal) + ", " + value + ", true);");
-		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
+		sc.add("copyLocalizationInfos((" + COMMON_TOKEN(sc) + ")" + identifier + ", element);");
 		sc.add("// set value of boolean attribute");
 		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, value, false, true);
 		sc.add("}");
 	}
 
-	private void addCodeForEnumLiteralTerminal(
-			StringComposite sc,
+	private void addCodeForEnumLiteralTerminal(de.devboost.codecomposers.java.JavaComposite sc,
 			EnumTerminal enumTerminal, 
 			EnumLiteralTerminal enumLiteralTerminal, 
 			EStructuralFeature eFeature, 
@@ -2024,14 +2024,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(enumTerminal) + ", null, true);");
-		sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ")" + identifier + ", element);");
+		sc.add("copyLocalizationInfos((" + COMMON_TOKEN(sc) + ")" + identifier + ", element);");
 		sc.add("// set value of enumeration attribute");
 		generatorUtil.addCodeToSetFeature(sc, rule.getMetaclass(), featureConstant, eFeature, accessorName, false, true);
 		sc.add("}");
 	}
 
-	private void printTerminalAction(Terminal terminal, Rule rule,
-			StringComposite sc,
+	private void printTerminalAction(Terminal terminal, Rule rule,de.devboost.codecomposers.java.JavaComposite sc,
 			String ident, 
 			String proxyIdent,
 			String expressionToBeSet, 
@@ -2062,10 +2061,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		if (terminal instanceof Containment) {
 			sc.add("copyLocalizationInfos(" + ident + ", element);");
 		} else {
-			sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ") " + ident + ", element);");
+			sc.add("copyLocalizationInfos((" + COMMON_TOKEN(sc) + ") " + ident + ", element);");
 			if (eFeature instanceof EReference) {
 				// additionally set position information for the proxy instance
-				sc.add("copyLocalizationInfos((" + COMMON_TOKEN + ") " + ident + ", " + proxyIdent + ");");
+				sc.add("copyLocalizationInfos((" + COMMON_TOKEN(sc) + ") " + ident + ", " + proxyIdent + ");");
 			}
 		}
 
@@ -2075,7 +2074,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 	private void printImplicitChoiceRules(StringComposite sc,
 			EList<GenClass> eClassesWithSyntax,
-			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+			Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		
 		for (GenClass referencedClass : eClassesReferenced.keySet()) {
 			if (!genClassCache.containsEqualByName(eClassesWithSyntax, referencedClass)) {
@@ -2115,7 +2114,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			sc.add(" returns [" + metaclassName + " element = null]");
 			sc.add(":");
 			if (!isCommonExpressionMetaClass) {
-				printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
+	printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 			} else {
 				List<Rule> slice = concreteSyntax.getOperatorRuleSubset(referencedClass.getName());
 				sc.add("c = " + getExpressionSliceRuleName(slice.get(0)) + "{ element = c; /* this rule is an expression root */ }");

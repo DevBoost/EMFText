@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,12 +29,12 @@ public class ILocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"A LocationMap maps EObjects to the position of their textual " +
-			"representations. For each " + E_OBJECT + " the map contains information " +
+			"representations. For each " + E_OBJECT(sc) + " the map contains information " +
 			"about the line, the column, the character position where the " +
 			"object begins and the character position where the object ends."
 		);
@@ -42,35 +42,35 @@ public class ILocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Used by parsers to set location information.");
-		sc.add("public void setLine(" + E_OBJECT + " element, int line);");
+		sc.add("public void setLine(" + E_OBJECT(sc) + " element, int line);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the line where the given element starts.");
-		sc.add("public int getLine(" + E_OBJECT + " element);");
+		sc.add("public int getLine(" + E_OBJECT(sc) + " element);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Used by parsers to set location information.");
-		sc.add("public void setColumn(" + E_OBJECT + " element, int column);");
+		sc.add("public void setColumn(" + E_OBJECT(sc) + " element, int column);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the column where the given element starts.");
-		sc.add("public int getColumn(" + E_OBJECT + " element);");
+		sc.add("public int getColumn(" + E_OBJECT(sc) + " element);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Used by parsers to set location information.");
-		sc.add("public void setCharStart(" + E_OBJECT + " element, int charStart);");
+		sc.add("public void setCharStart(" + E_OBJECT(sc) + " element, int charStart);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the character position where the given element starts.");
-		sc.add("public int getCharStart(" + E_OBJECT + " element);");
+		sc.add("public int getCharStart(" + E_OBJECT(sc) + " element);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Used by parsers to set location information.");
-		sc.add("public void setCharEnd(" + E_OBJECT + " element, int charEnd);");
+		sc.add("public void setCharEnd(" + E_OBJECT(sc) + " element, int charEnd);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns the character position where the given element ends.");
-		sc.add("public int getCharEnd(" + E_OBJECT + " element);");
+		sc.add("public int getCharEnd(" + E_OBJECT(sc) + " element);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -82,7 +82,7 @@ public class ILocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@param documentOffset\n the offset where to search for elements",
 			"@return a list of elements located at the given offset"
 		);
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsAt(int documentOffset);");
+		sc.add("public " + LIST(sc) + "<" + E_OBJECT(sc) + "> getElementsAt(int documentOffset);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -95,7 +95,7 @@ public class ILocationMapGenerator extends JavaBaseGenerator<ArtifactParameter<G
 			"@param endOffset",
 			"@return a list of elements located between the given offsets"
 		);
-		sc.add("public " + LIST + "<" + E_OBJECT + "> getElementsBetween(int startOffset, int endOffset);");
+		sc.add("public " + LIST(sc) + "<" + E_OBJECT(sc) + "> getElementsBetween(int startOffset, int endOffset);");
 		sc.addLineBreak();
 		
 		sc.add("}");

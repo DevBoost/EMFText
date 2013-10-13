@@ -36,7 +36,7 @@ public class EProblemTypeGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public enum " + getResourceClassName() + " {");
 		addEnumConstants(sc);

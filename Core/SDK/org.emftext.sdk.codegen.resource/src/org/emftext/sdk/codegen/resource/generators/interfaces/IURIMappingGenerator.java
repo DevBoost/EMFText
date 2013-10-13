@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ public class IURIMappingGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -44,7 +44,7 @@ public class IURIMappingGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"such that it can be resolved by the default resolution mechanism that will be called " +
 			"on this URI (see <code>Resource.getEObject()</code>)."
 		);
-		sc.add("public " + URI + " getTargetIdentifier();");
+		sc.add("public " + URI(sc) + " getTargetIdentifier();");
 		sc.addLineBreak();
 		
 		sc.add("}");

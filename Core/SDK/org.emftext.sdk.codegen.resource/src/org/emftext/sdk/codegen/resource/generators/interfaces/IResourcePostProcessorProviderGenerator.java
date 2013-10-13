@@ -25,7 +25,7 @@ public class IResourcePostProcessorProviderGenerator extends JavaBaseGenerator<A
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Implementors of this interface can provide a post-processor for text resources.");

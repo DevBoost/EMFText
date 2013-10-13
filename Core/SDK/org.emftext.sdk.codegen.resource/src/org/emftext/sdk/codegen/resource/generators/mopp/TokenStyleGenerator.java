@@ -25,13 +25,13 @@ public class TokenStyleGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iTokenStyleClassName + " {");
 		sc.addLineBreak();
-        addFields(sc);
-        addConstructor1(sc);
-        addConstructor2(sc);
+		addFields(sc);
+		addConstructor1(sc);
+		addConstructor2(sc);
         sc.addGettersSetters();
 		sc.add("}");
 	}

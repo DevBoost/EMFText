@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator<ArtifactParam
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -36,14 +36,14 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator<ArtifactParam
 			"Returns the hoves text that is shown when the mouse pointer rests over the given object. " +
 			"The hover text can contain HTML."
 		);
-		sc.add("public String getHoverText(" + E_OBJECT + " object);");
+		sc.add("public String getHoverText(" + E_OBJECT(sc) + " object);");
 		sc.addLineBreak();
 
 		sc.addJavadoc(
 			"Returns the hoves text that is shown when the mouse pointer rests over a reference to the given object. " +
 			"The hover text can contain HTML."
 		);
-		sc.add("public String getHoverText(" + E_OBJECT + " container, " + E_OBJECT + " referencedObject);");
+		sc.add("public String getHoverText(" + E_OBJECT(sc) + " container, " + E_OBJECT(sc) + " referencedObject);");
 		sc.addLineBreak();
 		sc.add("}");
 	}

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IOptionProviderGenerator extends JavaBaseGenerator<ArtifactParamete
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -43,7 +43,7 @@ public class IOptionProviderGenerator extends JavaBaseGenerator<ArtifactParamete
 			"options, the values are arbitrary objects that provide " +
 			"additional information or logic for the option."
 		);
-		sc.add("public " + MAP + "<?,?> getOptions();");
+		sc.add("public " + MAP(sc) + "<?,?> getOptions();");
 		sc.addLineBreak();
 		
 		sc.add("}");

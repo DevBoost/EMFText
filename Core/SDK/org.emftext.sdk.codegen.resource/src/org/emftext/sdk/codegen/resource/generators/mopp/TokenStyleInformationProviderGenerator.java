@@ -38,7 +38,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-        sc.add("package " + getResourcePackageName() + ";");
+        sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
         sc.add("public class " + getResourceClassName()+ " {");
@@ -57,7 +57,7 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 			for (String name : nextStyle.getTokenNames()) {
 				sc.add("if (\"" + StringUtil.escapeToJavaString(StringUtil.escapeToANTLRKeyword(name)) + "\".equals(tokenName)) {");
 				String rgb = nextStyle.getRgb();
-				String color = "new int[] {0x" + rgb.substring(0, 2)+ ", 0x" + rgb.substring(2, 4) + ", 0x" + rgb.substring(4, 6) + "}";
+				String color = "new int[] {0x" + rgb.substring(0,2)+ ", 0x" + rgb.substring(2,4) + ", 0x" + rgb.substring(4,6) + "}";
 				String bold = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.BOLD));
 				String italic = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.ITALIC));
 				String strikethrough = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.STRIKETHROUGH));

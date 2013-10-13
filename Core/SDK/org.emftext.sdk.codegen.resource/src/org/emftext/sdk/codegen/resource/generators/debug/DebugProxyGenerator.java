@@ -15,18 +15,18 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TREE_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.UNKNOWN_HOST_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TREE_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.UNKNOWN_HOST_EXCEPTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -46,7 +46,7 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(classComment);
@@ -81,9 +81,9 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private " + PRINT_STREAM + " output;");
+		sc.add("private " + PRINT_STREAM(sc) + " output;");
 		sc.addLineBreak();
-		sc.add("private " + BUFFERED_READER + " reader;");
+		sc.add("private " + BUFFERED_READER(sc) + " reader;");
 		sc.addLineBreak();
 		sc.add("private " + debugTargetClassName + " debugTarget;");
 		sc.addLineBreak();
@@ -92,7 +92,7 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + debugTargetClassName + " debugTarget, int requestPort) throws " + UNKNOWN_HOST_EXCEPTION + ", " + IO_EXCEPTION + " {");
+		sc.add("public " + getResourceClassName() + "(" + debugTargetClassName + " debugTarget, int requestPort) throws " + UNKNOWN_HOST_EXCEPTION(sc) + ", " + IO_EXCEPTION(sc) + " {");
 		sc.add("this.debugTarget = debugTarget;");
 		sc.add("// give interpreter a chance to start");
 		sc.add("try {");
@@ -105,20 +105,20 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addStartSocketMethod(JavaComposite sc) {
-		sc.add("private void startSocket(int requestPort) throws " + UNKNOWN_HOST_EXCEPTION + ", " + IO_EXCEPTION + " {");
+		sc.add("private void startSocket(int requestPort) throws " + UNKNOWN_HOST_EXCEPTION(sc) + ", " + IO_EXCEPTION(sc) + " {");
 		sc.addComment("creating client proxy socket (trying to connect)...");
-		sc.add(SOCKET + " client = new " + SOCKET + "(\"localhost\", requestPort);");
+		sc.add(SOCKET(sc) + " client = new " + SOCKET(sc) + "(\"localhost\", requestPort);");
 		sc.addComment("creating client proxy socket - done. (connected)");
 		sc.add("try {");
-		sc.add(BUFFERED_INPUT_STREAM + " input = new " + BUFFERED_INPUT_STREAM + "(client.getInputStream());");
-		sc.add("reader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(input));");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add(BUFFERED_INPUT_STREAM(sc) + " input = new " + BUFFERED_INPUT_STREAM(sc) + "(client.getInputStream());");
+		sc.add("reader = new " + BUFFERED_READER(sc) + "(new " + INPUT_STREAM_READER(sc) + "(input));");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("System.out.println(e);");
 		sc.add("}");
 		sc.add("try {");
-		sc.add("output = new " + PRINT_STREAM + "(client.getOutputStream());");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("output = new " + PRINT_STREAM(sc) + "(client.getOutputStream());");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("System.out.println(e);");
 		sc.add("}");
@@ -185,29 +185,29 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetStackVariablesMethod(JavaComposite sc) {
-		sc.add("public " + I_VARIABLE + "[] getStackVariables(String stackFrame) {");
+		sc.add("public " + I_VARIABLE(sc) + "[] getStackVariables(String stackFrame) {");
 		sc.add(debugMessageClassName + " response = sendCommandAndRead(" + eDebugMessageTypesClassName + ".GET_FRAME_VARIABLES, new String[] {stackFrame});");
 		sc.add("String[] ids = response.getArguments();");
 		sc.addComment("fetch all variables");
-		sc.add(I_VARIABLE + "[] variables = getVariables(ids);");
+		sc.add(I_VARIABLE(sc) + "[] variables = getVariables(ids);");
 		sc.add("return variables;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetVariableMethod(JavaComposite sc) {
-		sc.add("public " + I_VARIABLE + "[] getVariables(String... requestedIDs) {");
+		sc.add("public " + I_VARIABLE(sc) + "[] getVariables(String... requestedIDs) {");
 		sc.add(debugMessageClassName + " response = sendCommandAndRead(" + eDebugMessageTypesClassName + ".GET_VARIABLES, requestedIDs);");
 		sc.add("String[] varStrings = response.getArguments();");
 		sc.add(debugVariableClassName + "[] variables  = new " + debugVariableClassName + "[varStrings.length];");
 		sc.add("int i = 0;");
 		sc.add("for (String varString : varStrings) {");
-		sc.add(MAP + "<String, String> properties = " + stringUtilClassName + ".convertFromString(varString);");
+		sc.add(MAP(sc) + "<String, String> properties = " + stringUtilClassName + ".convertFromString(varString);");
 		sc.addLineBreak();
 		sc.addComment("convert varString to variables and values");
 		sc.add("String valueString = properties.get(\"!valueString\");");
 		sc.add("String valueRefType = \"valueRefType\";");
-		sc.add(MAP + "<String, Long> childVariables = new " + TREE_MAP + "<String, Long>(new " + COMPARATOR + "<String>() {");
+		sc.add(MAP(sc) + "<String, Long> childVariables = new " + TREE_MAP(sc) + "<String, Long>(new " + COMPARATOR(sc) + "<String>() {");
 		sc.add("public int compare(String s1, String s2) {");
 		sc.add("return s1.compareToIgnoreCase(s2);");
 		sc.add("}");
@@ -220,7 +220,7 @@ public class DebugProxyGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 		sc.add("childVariables.put(property, Long.parseLong(properties.get(property)));");
 		sc.add("}");
 		sc.add("String id = properties.get(\"!id\");");
-		sc.add(I_VALUE + " value = new " + debugValueClassName + "(debugTarget, id, valueString, valueRefType, childVariables);");
+		sc.add(I_VALUE(sc) + " value = new " + debugValueClassName + "(debugTarget, id, valueString, valueRefType, childVariables);");
 		sc.addLineBreak();
 		sc.add("String variableName = properties.get(\"!name\");");
 		sc.add("String variableRefType = properties.get(\"!type\");");

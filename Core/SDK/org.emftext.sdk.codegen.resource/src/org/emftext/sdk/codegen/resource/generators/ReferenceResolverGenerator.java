@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -61,7 +61,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 		this.defaultResolverDelegateName = context.getQualifiedDefaultResolverDelegateName();
 		setProxyReference(getParameters().getReference());
 
-		sc.add("package " + context.getResolverPackageName() + ";");
+		sc.add("package " + context.getResolverPackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		String containerClassName = genClassCache.getQualifiedInterfaceName(proxyReference
@@ -78,7 +78,6 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 				+ ", "
 				+ referenceTypeClassName + "> {");
 		sc.addLineBreak();
-
 		addFields(sc);
 		addMethods(sc);
 		sc.add("}");
@@ -122,26 +121,26 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 		sc.addLineBreak();
 	}
 
-	private void addDeResolveMethod(StringComposite sc) {
+	private void addDeResolveMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public String deResolve("
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getTypeGenClass())
 				+ " element, "
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass()) + " container, "
-				+ E_REFERENCE + " reference) {");
+				+ E_REFERENCE(sc) + " reference) {");
 		sc.add("return delegate.deResolve(element, container, reference);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addResolveMethod(StringComposite sc) {
+	private void addResolveMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		String typeClassName = genClassCache
 				.getQualifiedInterfaceName(proxyReference.getTypeGenClass());
 		sc.add("public void resolve(String identifier, "
 				+ genClassCache.getQualifiedInterfaceName(proxyReference
 						.getGenClass()) + " container, "
-				+ E_REFERENCE
+				+ E_REFERENCE(sc)
 				+ " reference, int position, boolean resolveFuzzy, final "
 				+ iReferenceResolveResultClassName + "<"
 				+ typeClassName + "> result) {");
@@ -181,7 +180,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 			sc.add("result.setErrorMessage(message);");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName
+			sc.add("public " + COLLECTION(sc) + "<" + iReferenceMappingClassName
 					+ "<" + typeClassName + ">> getMappings() {");
 			sc.add("throw new UnsupportedOperationException();");
 			sc.add("}");
@@ -190,12 +189,12 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 			sc.add("return result.getErrorMessage();");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public void addMapping(String identifier, " + URI
+			sc.add("public void addMapping(String identifier, " + URI(sc)
 					+ " newIdentifier) {");
 			sc.add("result.addMapping(identifier, newIdentifier);");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public void addMapping(String identifier, " + URI
+			sc.add("public void addMapping(String identifier, " + URI(sc)
 					+ " newIdentifier, String warning) {");
 			sc.add("result.addMapping(identifier, newIdentifier, warning);");
 			sc.add("}");
@@ -210,9 +209,9 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 			sc.add("result.addMapping(identifier, target, warning);");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes() {");
+			sc.add("public " + COLLECTION(sc) + "<" + iQuickFixClassName + "> getQuickFixes() {");
 			// TODO all quick fixes that are added by the delegate resolver will be lost
-			sc.add("return " + COLLECTIONS + ".emptySet();");
+			sc.add("return " + COLLECTIONS(sc) + ".emptySet();");
 			sc.add("}");
 			sc.addLineBreak();
 			
@@ -227,7 +226,7 @@ public class ReferenceResolverGenerator extends JavaBaseGenerator<ReferenceResol
 			sc.add("return quickFix.getDisplayString();");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public " + COLLECTION + "<" + E_OBJECT + "> getContextObjects() {");
+			sc.add("public " + COLLECTION(sc) + "<" + E_OBJECT(sc) + "> getContextObjects() {");
 			sc.add("return quickFix.getContextObjects();");
 			sc.add("}");
 			sc.addLineBreak();

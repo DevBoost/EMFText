@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -47,7 +47,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns an unmodifiable collection of the quick fixes that can be used to resolve the resolving error.");
-		sc.add("public " + COLLECTION + "<" + iQuickFixClassName + "> getQuickFixes();");
+		sc.add("public " + COLLECTION(sc) + "<" + iQuickFixClassName + "> getQuickFixes();");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Adds a quick fix to the set of quick fixes that can be used to resolve the resolving error.");
@@ -94,11 +94,11 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 			"reference was successful, but not accurate.",
 			"@param identifier",
 			"@param newIdentifier");
-		sc.add("public void addMapping(String identifier, " + URI + " newIdentifier, String warning);");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " newIdentifier, String warning);");
 		sc.addLineBreak();
 		
-		sc.addJavadoc("@see addMapping(String, " + URI + ", String)");
-		sc.add("public void addMapping(String identifier, " + URI + " newIdentifier);");
+		sc.addJavadoc("@see addMapping(String, " + URI(sc) + ", String)");
+		sc.add("public void addMapping(String identifier, " + URI(sc) + " newIdentifier);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -129,7 +129,7 @@ public class IReferenceResolveResultGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Returns all mappings that were found while resolving an identifier.");
-		sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings();");
+		sc.add("public " + COLLECTION(sc) + "<" + iReferenceMappingClassName + "<ReferenceType>> getMappings();");
 		sc.addLineBreak();
 		
 		sc.add("}");

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,15 +28,15 @@ public class InputStreamProcessorGenerator extends JavaBaseGenerator<ArtifactPar
 	public void generateJavaContents(JavaComposite sc) {
 		
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
-			"A InputStreamProcessor can be used like a normal " + INPUT_STREAM + ", " +
+			"A InputStreamProcessor can be used like a normal " + INPUT_STREAM(sc) + ", " +
 			"but provides information about the encoding that is used to " +
 			"represent characters as bytes."
 		);
-		sc.add("public abstract class " + getResourceClassName() + " extends " + INPUT_STREAM + " {");
+		sc.add("public abstract class " + getResourceClassName() + " extends " + INPUT_STREAM(sc) + " {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

@@ -15,25 +15,24 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OPERATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INVOCATION_TARGET_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.METHOD;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASSIFIER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OPERATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INVOCATION_TARGET_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.METHOD;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -41,7 +40,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -75,8 +74,8 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"Checks whether the root container of the given object has an EAdapter that is an instance of " +
 			"the given class. If one is found, it is returned, otherwise the result is null."
 		);
-		sc.add("public static <T> T getEAdapterFromRoot(" + E_OBJECT + " object, Class<T> clazz) {");
-		sc.add(E_OBJECT + " root = " + ECORE_UTIL + ".getRootContainer(object);");
+		sc.add("public static <T> T getEAdapterFromRoot(" + E_OBJECT(sc) + " object, Class<T> clazz) {");
+		sc.add(E_OBJECT(sc) + " root = " + ECORE_UTIL(sc) + ".getRootContainer(object);");
 		sc.add("return getEAdapter(root, clazz);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -88,9 +87,9 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"the given class. If one is found, it is returned, otherwise the result is null."
 		);
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add("public static <T> T getEAdapter(" + E_OBJECT + " object, Class<T> clazz) {");
-		sc.add(LIST + "<" + ADAPTER + "> eAdapters = object.eAdapters();");
-		sc.add("for (" + ADAPTER + " adapter : eAdapters) {");
+		sc.add("public static <T> T getEAdapter(" + E_OBJECT(sc) + " object, Class<T> clazz) {");
+		sc.add(LIST(sc) + "<" + ADAPTER(sc) + "> eAdapters = object.eAdapters();");
+		sc.add("for (" + ADAPTER(sc) + " adapter : eAdapters) {");
 		sc.add("if (clazz.isInstance(adapter)) {");
 		sc.add("return (T) adapter;");
 		sc.add("}");
@@ -106,7 +105,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"If the feature is a list, the list item at the given index is returned. " +
 			"Proxy objects are resolved."
 		);
-		sc.add("public static Object getFeatureValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int index) {");
+		sc.add("public static Object getFeatureValue(" + E_OBJECT(sc) + " eObject, " + E_STRUCTURAL_FEATURE(sc) + " feature, int index) {");
 		sc.add("return getFeatureValue(eObject, feature, index, true);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -117,11 +116,11 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"Returns the value of the given feature. " +
 			"If the feature is a list, the list item at the given index is returned."
 		);
-		sc.add("public static Object getFeatureValue(" + E_OBJECT + " eObject, " + E_STRUCTURAL_FEATURE + " feature, int index, boolean resolve) {");
+		sc.add("public static Object getFeatureValue(" + E_OBJECT(sc) + " eObject, " + E_STRUCTURAL_FEATURE(sc) + " feature, int index, boolean resolve) {");
 		sc.addComment("get value of feature");
 		sc.add("Object o = eObject.eGet(feature, resolve);");
-		sc.add("if (o instanceof " + LIST + "<?>) {");
-		sc.add(LIST + "<?> list = (" + LIST + "<?>) o;");
+		sc.add("if (o instanceof " + LIST(sc) + "<?>) {");
+		sc.add(LIST(sc) + "<?> list = (" + LIST(sc) + "<?>) o;");
 		sc.add("o = list.get(index);");
 		sc.add("}");
 		sc.add("return o;");
@@ -131,8 +130,8 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addGetDepthMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the depth of the given element in the containment tree.");
-		sc.add("public static int getDepth(" + E_OBJECT + " element) {");
-		sc.add(E_OBJECT + " parent = element.eContainer();");
+		sc.add("public static int getDepth(" + E_OBJECT(sc) + " element) {");
+		sc.add(E_OBJECT(sc) + " parent = element.eContainer();");
 		sc.add("if (parent == null) {");
 		sc.add("return 0;");
 		sc.add("} else {");
@@ -142,9 +141,9 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addGetObjectsByTypeMethod(StringComposite sc) {
-		sc.add("public static <T> " + COLLECTION + "<T> getObjectsByType(" + ITERATOR + "<?> iterator, " + E_CLASSIFIER + " type) {");
-		sc.add(COLLECTION + "<T> result = new " + ARRAY_LIST + "<T>();");
+	private void addGetObjectsByTypeMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public static <T> " + COLLECTION(sc) + "<T> getObjectsByType(" + ITERATOR(sc) + "<?> iterator, " + E_CLASSIFIER(sc) + " type) {");
+		sc.add(COLLECTION(sc) + "<T> result = new " + ARRAY_LIST(sc) + "<T>();");
 		sc.add("while (iterator.hasNext()) {");
 		sc.add("Object object = iterator.next();");
 		sc.add("if (type.isInstance(object)) {");
@@ -158,14 +157,14 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addSetFeatureMethod(StringComposite sc) {
+	private void addSetFeatureMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add("public static void setFeature(" + E_OBJECT + " object, " + E_STRUCTURAL_FEATURE + " eFeature, Object value, boolean clearIfList) {");
+		sc.add("public static void setFeature(" + E_OBJECT(sc) + " object, " + E_STRUCTURAL_FEATURE(sc) + " eFeature, Object value, boolean clearIfList) {");
 		sc.add("int upperBound = eFeature.getUpperBound();");
 		sc.add("if (upperBound > 1 || upperBound < 0) {");
 		sc.add("Object oldValue = object.eGet(eFeature);");
-		sc.add("if (oldValue instanceof " + LIST + "<?>) {");
-		sc.add(LIST + "<Object> list = (" + LIST + "<Object>) oldValue;");
+		sc.add("if (oldValue instanceof " + LIST(sc) + "<?>) {");
+		sc.add(LIST(sc) + "<Object> list = (" + LIST(sc) + "<Object>) oldValue;");
 		sc.add("if (clearIfList) {");
 		sc.add("list.clear();");
 		sc.add("}");
@@ -183,8 +182,8 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addFindRootContainerMethod(JavaComposite sc) {
 		sc.addJavadoc("Use EcoreUtil.getRootContainer() instead.");
 		sc.add("@Deprecated");
-		sc.add("public static " + E_OBJECT + " findRootContainer(" + E_OBJECT + " object) {");
-		sc.add(E_OBJECT + " container = object.eContainer();");
+		sc.add("public static " + E_OBJECT(sc) + " findRootContainer(" + E_OBJECT(sc) + " object) {");
+		sc.add(E_OBJECT(sc) + " container = object.eContainer();");
 		sc.add("if (container != null) {");
 		sc.add("return findRootContainer(container);");
 		sc.add("} else {");
@@ -196,9 +195,9 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addFindAncestorByTypeMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the ancestor with the given type.");
-		sc.add("public static " + E_OBJECT + " findAncestorByType(" + E_OBJECT + " object, " + E_CLASS + " type) {");
-		sc.add(E_OBJECT + " ancestor = null;");
-		sc.add(E_OBJECT + " container = object.eContainer();");
+		sc.add("public static " + E_OBJECT(sc) + " findAncestorByType(" + E_OBJECT(sc) + " object, " + E_CLASS(sc) + " type) {");
+		sc.add(E_OBJECT(sc) + " ancestor = null;");
+		sc.add(E_OBJECT(sc) + " container = object.eContainer();");
 		sc.add("while (container != null) {");
 		sc.add("if (type.isInstance(container)) {");
 		sc.add("ancestor = container;");
@@ -212,8 +211,8 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addFindClosestsAncestorByTypeMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the closest ancestor with the given type.");
-		sc.add("public static " + E_OBJECT + " findClosestAncestorByType(" + E_OBJECT + " object, " + E_CLASS + " type) {");
-		sc.add(E_OBJECT + " container = object.eContainer();");
+		sc.add("public static " + E_OBJECT(sc) + " findClosestAncestorByType(" + E_OBJECT(sc) + " object, " + E_CLASS(sc) + " type) {");
+		sc.add(E_OBJECT(sc) + " container = object.eContainer();");
 		sc.add("while (container != null) {");
 		sc.add("if (type.isInstance(container)) {");
 		sc.add("return container;");
@@ -225,9 +224,9 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 
-	private void addInvokeOperationMethod(StringComposite sc) {
-		sc.add("public static Object invokeOperation(" + E_OBJECT + " element, " + E_OPERATION + " o) {");
-		sc.add(METHOD + " method;");
+	private void addInvokeOperationMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public static Object invokeOperation(" + E_OBJECT(sc) + " element, " + E_OPERATION(sc) + " o) {");
+		sc.add(METHOD(sc) + " method;");
 		sc.add("try {");
 		sc.add("method = element.getClass().getMethod(o.getName(), new Class[]{});");
 		sc.add("if (method != null) {");
@@ -242,7 +241,7 @@ public class EObjectUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while matching proxy URI.\", e);");
 		sc.add("} catch (IllegalAccessException e) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while matching proxy URI.\", e);");
-		sc.add("} catch (" + INVOCATION_TARGET_EXCEPTION + " e) {");
+		sc.add("} catch (" + INVOCATION_TARGET_EXCEPTION(sc) + " e) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while matching proxy URI.\", e);");
 		sc.add("}");
 		sc.add("return null;");

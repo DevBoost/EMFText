@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -33,7 +33,7 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -45,25 +45,24 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	private void addCastToEMapMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"This method encapsulate an unchecked cast from Object to " +
-			E_MAP + "<Object, Object>. This case can not be performed type " +
+			"This method encapsulate an unchecked cast from Object to " + E_MAP(sc) + "<Object, Object>. This case can not be performed type " +
 			"safe, because type parameters are not available for " +
 			"reflective access to Ecore models.",
 			"@return the same object casted to a map"
 		);
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add("public static " + E_MAP + "<Object, Object> castToEMap(Object value) {");
-		sc.add("return (" + E_MAP + "<Object,Object>) value;");
+		sc.add("public static " + E_MAP(sc) + "<Object, Object> castToEMap(Object value) {");
+		sc.add("return (" + E_MAP(sc) + "<Object,Object>) value;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public static " + MAP + "<Object, Object> copySafelyToObjectToObjectMap(" + MAP + "<?, ?> map) {");
-		sc.add(MAP + "<Object, Object> castedCopy = new " + LINKED_HASH_MAP + "<Object, Object>();");
+		sc.add("public static " + MAP(sc) + "<Object, Object> copySafelyToObjectToObjectMap(" + MAP(sc) + "<?, ?> map) {");
+		sc.add(MAP(sc) + "<Object, Object> castedCopy = new " + LINKED_HASH_MAP(sc) + "<Object, Object>();");
 		sc.addLineBreak();
 		sc.add("if (map == null) {");
 		sc.add("return castedCopy;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(ITERATOR + "<?> it = map.keySet().iterator();");
+		sc.add(ITERATOR(sc) + "<?> it = map.keySet().iterator();");
 		sc.add("while (it.hasNext()) {");
 		sc.add("Object nextKey = it.next();");
 		sc.add("castedCopy.put(nextKey, map.get(nextKey));");
@@ -75,16 +74,15 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	private void addCastToMapMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"This method encapsulate an unchecked cast from Object to " +
-			MAP + "<Object, Object>. This case can not be performed type " +
+			"This method encapsulate an unchecked cast from Object to " + MAP(sc) + "<Object, Object>. This case can not be performed type " +
 			"safe, because type parameters are not available for " +
 			"reflective access to Ecore models.",
 			"@param value the object to cast",
 			"@return the same object casted to a map"
 		);
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.add("public static " + MAP + "<Object, Object> castToMap(Object value) {");
-		sc.add("return (" + MAP + "<Object,Object>) value;");
+		sc.add("public static " + MAP(sc) + "<Object, Object> castToMap(Object value) {");
+		sc.add("return (" + MAP(sc) + "<Object,Object>) value;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -93,20 +91,20 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.addJavadoc("Adds a new key,value pair to the given map. If there "
 				+ "is already an entry with the same key, the two values are "
 				+ "collected in a list.");
-		sc.add("public static <K> void putAndMergeKeys(" + MAP
+		sc.add("public static <K> void putAndMergeKeys(" + MAP(sc)
 				+ "<K, Object> map, K key, Object value) {");
 		sc.addComment("check if there is already an option set");
 		sc.add("if (map.containsKey(key)) {");
 		sc.add("Object currentValue = map.get(key);");
-		sc.add("if (currentValue instanceof " + LIST + "<?>) {");
+		sc.add("if (currentValue instanceof " + LIST(sc) + "<?>) {");
 		sc.addComment("if the current value is a list, we add the new value to this list");
-		sc.add(LIST + "<?> currentValueAsList = (" + LIST
+		sc.add(LIST(sc) + "<?> currentValueAsList = (" + LIST(sc)
 				+ "<?>) currentValue;");
-		sc.add(LIST + "<Object> currentValueAsObjectList = "
+		sc.add(LIST(sc) + "<Object> currentValueAsObjectList = "
 				+ listUtilClassName
 				+ ".copySafelyToObjectList(currentValueAsList);");
-		sc.add("if (value instanceof " + COLLECTION + "<?>) {");
-		sc.add("currentValueAsObjectList.addAll((" + COLLECTION
+		sc.add("if (value instanceof " + COLLECTION(sc) + "<?>) {");
+		sc.add("currentValueAsObjectList.addAll((" + COLLECTION(sc)
 				+ "<?>) value);");
 		sc.add("} else {");
 		sc.add("currentValueAsObjectList.add(value);");
@@ -115,11 +113,11 @@ public class MapUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 		sc.add("} else {");
 		sc.addComment("if the current value is not a list, we create a fresh list "
 				+ "and add both the old (current) and the new value to this list");
-		sc.add(LIST + "<Object> newValueList = new " + ARRAY_LIST
+		sc.add(LIST(sc) + "<Object> newValueList = new " + ARRAY_LIST(sc)
 				+ "<Object>();");
 		sc.add("newValueList.add(currentValue);");
-		sc.add("if (value instanceof " + COLLECTION + "<?>) {");
-		sc.add("newValueList.addAll((" + COLLECTION + "<?>) value);");
+		sc.add("if (value instanceof " + COLLECTION(sc) + "<?>) {");
+		sc.add("newValueList.addAll((" + COLLECTION(sc) + "<?>) value);");
 		sc.add("} else {");
 		sc.add("newValueList.add(value);");
 		sc.add("}");

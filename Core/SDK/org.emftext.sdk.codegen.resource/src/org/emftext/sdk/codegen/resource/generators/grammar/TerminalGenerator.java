@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ public class TerminalGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");
@@ -45,13 +45,13 @@ public class TerminalGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private final " + E_STRUCTURAL_FEATURE + " feature;");
+		sc.add("private final " + E_STRUCTURAL_FEATURE(sc) + " feature;");
 		sc.add("private final int mandatoryOccurencesAfter;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE + " feature, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
+		sc.add("public " + getResourceClassName() + "(" + E_STRUCTURAL_FEATURE(sc) + " feature, " + cardinalityClassName + " cardinality, int mandatoryOccurencesAfter) {"); 
 		sc.add("super(cardinality, null);");
 		sc.add("this.feature = feature;");
 		sc.add("this.mandatoryOccurencesAfter = mandatoryOccurencesAfter;");
@@ -60,7 +60,7 @@ public class TerminalGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 	}
 
 	private void addGetFeatureMethod(JavaComposite sc) {
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {"); 
+		sc.add("public " + E_STRUCTURAL_FEATURE(sc) + " getFeature() {"); 
 		sc.add("return feature;"); 
 		sc.add("}"); 
 		sc.addLineBreak();

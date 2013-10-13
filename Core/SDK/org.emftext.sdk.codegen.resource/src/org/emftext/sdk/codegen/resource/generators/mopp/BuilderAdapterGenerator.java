@@ -15,19 +15,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INCREMENTAL_PROJECT_BUILDER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_DELTA;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_DELTA_VISITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE_VISITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INCREMENTAL_PROJECT_BUILDER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_DELTA;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_DELTA_VISITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_VISITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -52,15 +52,15 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		boolean removeEclipseDependentCode = optionManager.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		boolean disableBuilder = optionManager.getBooleanOptionValue(syntax, OptionTypes.DISABLE_BUILDER);
 
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		String extendsClause = removeEclipseDependentCode ? "" : " extends " + INCREMENTAL_PROJECT_BUILDER + " implements " + I_RESOURCE_DELTA_VISITOR + ", " + I_RESOURCE_VISITOR;
+		String extendsClause = removeEclipseDependentCode ? "" : " extends " + INCREMENTAL_PROJECT_BUILDER(sc) + " implements " + I_RESOURCE_DELTA_VISITOR(sc) + ", " + I_RESOURCE_VISITOR(sc);
 		sc.add("public class " + getResourceClassName() + extendsClause + " {");
 		sc.addLineBreak();
 
 		if (!removeEclipseDependentCode) {
-			addFields(sc);
-			addMethods(sc, disableBuilder);
+	addFields(sc);
+	addMethods(sc, disableBuilder);
 		} else {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
 		}
@@ -88,20 +88,20 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("private " + iBuilderClassName + " defaultBuilder = new " + builderClassName + "();");
 		sc.addLineBreak();
 		sc.addJavadoc("This resource set is used during the whole build.");
-		sc.add("private " + RESOURCE_SET + " resourceSet;");
+		sc.add("private " + RESOURCE_SET(sc) + " resourceSet;");
 		sc.addLineBreak();
 		sc.addJavadoc("This monitor is used during the build.");
-		sc.add("private " + I_PROGRESS_MONITOR + " monitor;");
+		sc.add("private " + I_PROGRESS_MONITOR(sc) + " monitor;");
 		sc.addLineBreak();
 	}
 
 	private void addBuildMethod1(JavaComposite sc) {
-		sc.add("public " + I_PROJECT + "[] build(int kind, " + MAP + "<String, String> args, final " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
+		sc.add("public " + I_PROJECT(sc) + "[] build(int kind, " + MAP(sc) + "<String, String> args, final " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.addComment("Set context for build");
 		sc.add("this.monitor = monitor;");
-		sc.add("this.resourceSet = new " + RESOURCE_SET_IMPL + "();");
+		sc.add("this.resourceSet = new " + RESOURCE_SET_IMPL(sc) + "();");
 		sc.addComment("Perform build by calling the resource visitors");
-		sc.add(I_RESOURCE_DELTA + " delta = getDelta(getProject());");
+		sc.add(I_RESOURCE_DELTA(sc) + " delta = getDelta(getProject());");
 		sc.add("if (delta != null) {");
 		sc.addComment("This is an incremental build");
 		sc.add("delta.accept(this);");
@@ -118,24 +118,24 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 	
 	private void addVisitMethod1(JavaComposite sc) {
-		sc.add("public boolean visit(" + I_RESOURCE_DELTA + " delta) throws " + CORE_EXCEPTION + " {");
-		sc.add(I_RESOURCE + " resource = delta.getResource();");
-		sc.add("return doVisit(resource, delta.getKind() == " + I_RESOURCE_DELTA + ".REMOVED);");
+		sc.add("public boolean visit(" + I_RESOURCE_DELTA(sc) + " delta) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add(I_RESOURCE(sc) + " resource = delta.getResource();");
+		sc.add("return doVisit(resource, delta.getKind() == " + I_RESOURCE_DELTA(sc) + ".REMOVED);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addVisitMethod2(JavaComposite sc) {
-		sc.add("public boolean visit(" + I_RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
+		sc.add("public boolean visit(" + I_RESOURCE(sc) + " resource) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add("return doVisit(resource, false);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addDoVisitMethod(JavaComposite sc, boolean disableBuilder) {
-		sc.add("protected boolean doVisit(" + I_RESOURCE + " resource, boolean removed) throws " + CORE_EXCEPTION + " {");
+		sc.add("protected boolean doVisit(" + I_RESOURCE(sc) + " resource, boolean removed) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add("if (removed) {");
-		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
+		sc.add(URI(sc) + " uri = " + URI(sc) + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
 		sc.add(iBuilderClassName + " builder = getBuilder();");
 		sc.add("if (builder.isBuildingNeeded(uri)) {");
 		sc.add("builder.handleDeletion(uri, monitor);");
@@ -143,7 +143,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
     	sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, getBuilderMarkerId());");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("if (resource instanceof " + I_FILE + " && resource.getName().endsWith(\".\" + new " + metaInformationClassName + "().getSyntaxName())) {");
+		sc.add("if (resource instanceof " + I_FILE(sc) + " && resource.getName().endsWith(\".\" + new " + metaInformationClassName + "().getSyntaxName())) {");
 		if (disableBuilder) {
 			sc.addComment(
 					"Calling the default generated builder is disabled because of " +
@@ -152,12 +152,12 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 			sc.addComment(
 					"First, call the default generated builder that is usually " +
 					"customized to add compilation-like behavior.");
-			sc.add("build((" + I_FILE + ") resource, resourceSet, monitor);");
+			sc.add("build((" + I_FILE(sc) + ") resource, resourceSet, monitor);");
 		}
 		sc.addComment(
 				"Second, call the task item builder that searches " +
 				"for task items in DSL documents and creates task markers.");
-		sc.add("runTaskItemBuilder((" + I_FILE + ") resource, resourceSet, monitor);");
+		sc.add("runTaskItemBuilder((" + I_FILE(sc) + ") resource, resourceSet, monitor);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");
@@ -166,8 +166,8 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 	
 	private void addBuildMethod2(JavaComposite sc) {
-		sc.add("public void build(" + I_FILE + " resource, " + RESOURCE_SET + " resourceSet, " + I_PROGRESS_MONITOR + " monitor) {");
-		sc.add(URI + " uri = " + URI + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
+		sc.add("public void build(" + I_FILE(sc) + " resource, " + RESOURCE_SET(sc) + " resourceSet, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
+		sc.add(URI(sc) + " uri = " + URI(sc) + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
 		sc.add(iBuilderClassName + " builder = getBuilder();");
 		sc.add("if (builder.isBuildingNeeded(uri)) {");
 		sc.add(textResourceClassName + " customResource = (" + textResourceClassName + ") resourceSet.getResource(uri, true);");
@@ -180,7 +180,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 
 	private void addRunTaskItemBuilderMethod(JavaComposite sc) {
 		sc.addJavadoc("Runs the task item builder to search for new task items in changed resources.");
-		sc.add("public void runTaskItemBuilder(" + I_FILE + " resource, " + RESOURCE_SET + " resourceSet, " + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("public void runTaskItemBuilder(" + I_FILE(sc) + " resource, " + RESOURCE_SET(sc) + " resourceSet, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
 		sc.add(taskItemBuilderClassName + " taskItemBuilder = new " + taskItemBuilderClassName + "();");
 		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, taskItemBuilder.getBuilderMarkerId());");
 		sc.add("taskItemBuilder.build(resource, resourceSet, monitor);");

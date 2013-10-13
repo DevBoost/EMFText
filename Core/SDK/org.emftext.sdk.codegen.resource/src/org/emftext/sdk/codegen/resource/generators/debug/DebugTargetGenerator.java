@@ -15,28 +15,28 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CONNECT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BREAKPOINT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_DEBUG_TARGET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MARKER_DELTA;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_MEMORY_BLOCK;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROCESS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_THREAD;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.JOB;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.UNKNOWN_HOST_EXCEPTION;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CONNECT_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_BREAKPOINT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_DEBUG_TARGET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER_DELTA;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MEMORY_BLOCK;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROCESS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_THREAD;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.JOB;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.UNKNOWN_HOST_EXCEPTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -54,9 +54,9 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName +" implements " + I_DEBUG_TARGET + ", " + iDebugEventListenerClassName + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + debugElementClassName +" implements " + I_DEBUG_TARGET(sc) + ", " + iDebugEventListenerClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addDebugEventDispatcherClass(sc);
@@ -103,14 +103,14 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addJavadoc("associated system process");
 		sc.add("private " + debugProcessClassName + " process;");
 		sc.addLineBreak();
-		sc.add("private " + SOCKET + " eventSocket;");
+		sc.add("private " + SOCKET(sc) + " eventSocket;");
 		sc.addLineBreak();
-		sc.add("private " + BUFFERED_READER + " eventReader;");
+		sc.add("private " + BUFFERED_READER(sc) + " eventReader;");
 		sc.addLineBreak();
 		sc.addJavadoc("containing launch object");
-		sc.add("private " + I_LAUNCH + " launch;");
+		sc.add("private " + I_LAUNCH(sc) + " launch;");
 		sc.addLineBreak();
-		sc.add("private " + I_THREAD + "[] threads;");
+		sc.add("private " + I_THREAD(sc) + "[] threads;");
 		sc.addLineBreak();
 		sc.add("private " + debugThreadClassName + " thread;");
 		sc.addLineBreak();
@@ -119,14 +119,14 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addJavadoc("event dispatch job");
 		sc.add("private DebugEventDispatcher eventDispatch;");
 		sc.addJavadoc("event listeners");
-		sc.add("private " + LIST + "<" + iDebugEventListenerClassName + "> eventListeners = new " + ARRAY_LIST + "<" + iDebugEventListenerClassName + ">();");
+		sc.add("private " + LIST(sc) + "<" + iDebugEventListenerClassName + "> eventListeners = new " + ARRAY_LIST(sc) + "<" + iDebugEventListenerClassName + ">();");
 		sc.addLineBreak();
 		sc.add("private " + debugProxyClassName + " debugProxy;");
 		sc.addLineBreak();
 	}
 
 	private void addDebugEventDispatcherClass(JavaComposite sc) {
-		sc.add("private class DebugEventDispatcher extends " + JOB + " {");
+		sc.add("private class DebugEventDispatcher extends " + JOB(sc) + " {");
 		sc.addLineBreak();
 		sc.add("private " + debugCommunicationHelperClassName + " communicationHelper = new " + debugCommunicationHelperClassName + "();");
 		sc.addLineBreak();
@@ -135,7 +135,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("setSystem(true);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("protected " + I_STATUS(sc) + " run(" + I_PROGRESS_MONITOR(sc) + " monitor) {");
 		sc.add("while (!isTerminated()) {");
 		sc.add(debugMessageClassName + " message = communicationHelper.receive(eventReader);");
 		sc.add("if (message != null) {");
@@ -145,7 +145,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("break;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("return " + STATUS(sc) + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -160,20 +160,20 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + debugProcessClassName + " process, " + I_LAUNCH + " launch, int requestPort, int eventPort) {");
+		sc.add("public " + getResourceClassName() + "(" + debugProcessClassName + " process, " + I_LAUNCH(sc) + " launch, int requestPort, int eventPort) {");
 		sc.add("super(launch.getDebugTarget());");
 		sc.add("this.process = process;");
 		sc.add("this.launch = launch;");
 		sc.add("this.thread = new " + debugThreadClassName + "(this);");
-		sc.add("this.threads = new " + I_THREAD + "[] {this.thread};");
+		sc.add("this.threads = new " + I_THREAD(sc) + "[] {this.thread};");
 		sc.addLineBreak();
 		sc.addComment("initialize debug proxy");
 		sc.add("try {");
 		sc.add("this.debugProxy = new " + debugProxyClassName + "(this, requestPort);");
-		sc.add("} catch (" + UNKNOWN_HOST_EXCEPTION + " e) {");
+		sc.add("} catch (" + UNKNOWN_HOST_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("e.printStackTrace();");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
@@ -181,14 +181,14 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addComment("initialize asynchronous event dispatcher");
 		sc.add("try {");
 		sc.addComment("creating event client socket (trying to connect)...");
-		sc.add("this.eventSocket = new " + SOCKET + "(\"localhost\", eventPort);");
+		sc.add("this.eventSocket = new " + SOCKET(sc) + "(\"localhost\", eventPort);");
 		sc.addComment("creating event client socket - done (connected).");
-		sc.add("this.eventReader = new " + BUFFERED_READER + "(new " + INPUT_STREAM_READER + "(this.eventSocket.getInputStream()));");
-		sc.add("} catch (" + CONNECT_EXCEPTION + " e) {");
+		sc.add("this.eventReader = new " + BUFFERED_READER(sc) + "(new " + INPUT_STREAM_READER(sc) + "(this.eventSocket.getInputStream()));");
+		sc.add("} catch (" + CONNECT_EXCEPTION(sc) + " e) {");
 		sc.add("throw new RuntimeException(\"Can't create socket: \" + e.getMessage());");
-		sc.add("} catch (" + UNKNOWN_HOST_EXCEPTION + " e) {");
+		sc.add("} catch (" + UNKNOWN_HOST_EXCEPTION(sc) + " e) {");
 		sc.add("throw new RuntimeException(\"Can't create socket: \" + e.getMessage());");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("throw new RuntimeException(\"Can't create socket: \" + e.getMessage());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -199,7 +199,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("addEventListener(this.thread);");
 		sc.add("addEventListener(this.process);");
 		sc.addLineBreak();
-		sc.add(DEBUG_PLUGIN + ".getDefault().getBreakpointManager().addBreakpointListener(this);");
+		sc.add(DEBUG_PLUGIN(sc) + ".getDefault().getBreakpointManager().addBreakpointListener(this);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -232,49 +232,49 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetNameMethod(JavaComposite sc) {
-		sc.add("public String getName() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public String getName() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return new " + metaInformationClassName + "().getSyntaxName() + \" model\";");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetDebugTarget(JavaComposite sc) {
-		sc.add("public " + I_DEBUG_TARGET + " getDebugTarget() {");
+		sc.add("public " + I_DEBUG_TARGET(sc) + " getDebugTarget() {");
 		sc.add("return this;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetProcessMethod(JavaComposite sc) {
-		sc.add("public " + I_PROCESS + " getProcess() {");
+		sc.add("public " + I_PROCESS(sc) + " getProcess() {");
 		sc.add("return process;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetThreadsMethod(JavaComposite sc) {
-		sc.add("public " + I_THREAD + "[] getThreads() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public " + I_THREAD(sc) + "[] getThreads() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return threads;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addHasThreadsMethod(JavaComposite sc) {
-		sc.add("public boolean hasThreads() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public boolean hasThreads() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSupportsBreakpointMethod(JavaComposite sc) {
-		sc.add("public boolean supportsBreakpoint(" + I_BREAKPOINT + " breakpoint) {");
+		sc.add("public boolean supportsBreakpoint(" + I_BREAKPOINT(sc) + " breakpoint) {");
 		sc.add("return breakpoint.getModelIdentifier().equals(getModelIdentifier());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetLaunchMethod(JavaComposite sc) {
-		sc.add("public " + I_LAUNCH + " getLaunch() {");
+		sc.add("public " + I_LAUNCH(sc) + " getLaunch() {");
 		sc.add("return launch;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -295,7 +295,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addTerminateMethod(JavaComposite sc) {
-		sc.add("public void terminate() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void terminate() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().terminate();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -304,12 +304,12 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addTerminatedMethod(JavaComposite sc) {
 		sc.add("private synchronized void terminated() {");
 		sc.add("terminated = true;");
-		sc.add("threads = new " + I_THREAD + "[0];");
+		sc.add("threads = new " + I_THREAD(sc) + "[0];");
 		sc.add("fireTerminateEvent();");
 		sc.add("removeEventListener(this);");
 		sc.add("removeEventListener(this.thread);");
 		sc.add("removeEventListener(this.process);");
-		sc.add(DEBUG_PLUGIN + " debugPlugin = " + DEBUG_PLUGIN + ".getDefault();");
+		sc.add(DEBUG_PLUGIN(sc) + " debugPlugin = " + DEBUG_PLUGIN(sc) + ".getDefault();");
 		sc.add("try {");
 		sc.add("debugPlugin.getBreakpointManager().removeBreakpointListener(this);");
 		sc.add("} catch (NullPointerException npe) {");
@@ -343,35 +343,35 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addResumeMethod(JavaComposite sc) {
-		sc.add("public void resume() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void resume() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().resume();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetThreadMethod(JavaComposite sc) {
-		sc.add("public " + I_THREAD + " getThread() {");
+		sc.add("public " + I_THREAD(sc) + " getThread() {");
 		sc.add("return thread;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSuspendMethod(JavaComposite sc) {
-		sc.add("public void suspend() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void suspend() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("getThread().suspend();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addBreakpointAddedMethod(JavaComposite sc) {
-		sc.add("public void breakpointAdded(" + I_BREAKPOINT + " breakpoint) {");
+		sc.add("public void breakpointAdded(" + I_BREAKPOINT(sc) + " breakpoint) {");
 		sc.add("if (supportsBreakpoint(breakpoint)) {");
 		sc.add("try {");
 		sc.add("if ((breakpoint.isEnabled() && getBreakpointManager().isEnabled()) || !breakpoint.isRegistered()) {");
 		sc.add(lineBreakpointClassName + " lineBreakpoint = (" + lineBreakpointClassName + ") breakpoint;");
 		sc.add("lineBreakpoint.install(this);");
 		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -379,14 +379,14 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addBreakpointRemovedMethod(JavaComposite sc) {
-		sc.add("public void breakpointRemoved(" + I_BREAKPOINT + " breakpoint, " + I_MARKER_DELTA + " delta) {");
+		sc.add("public void breakpointRemoved(" + I_BREAKPOINT(sc) + " breakpoint, " + I_MARKER_DELTA(sc) + " delta) {");
 		sc.add("if (supportsBreakpoint(breakpoint)) {");
 		sc.add("try {");
 		sc.add("if ((breakpoint.isEnabled() && getBreakpointManager().isEnabled()) || !breakpoint.isRegistered()) {");
 		sc.add(lineBreakpointClassName + " lineBreakpoint = (" + lineBreakpointClassName + ") breakpoint;");
 		sc.add("lineBreakpoint.remove(this);");
 		sc.add("}");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -394,7 +394,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addBreakpointChangedMethod(JavaComposite sc) {
-		sc.add("public void breakpointChanged(" + I_BREAKPOINT + " breakpoint, " + I_MARKER_DELTA + " delta) {");
+		sc.add("public void breakpointChanged(" + I_BREAKPOINT(sc) + " breakpoint, " + I_MARKER_DELTA(sc) + " delta) {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -408,7 +408,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addDisconnectMethod(JavaComposite sc) {
-		sc.add("public void disconnect() throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public void disconnect() throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -421,7 +421,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	}
 
 	private void addGetMemoryBlockMethod(JavaComposite sc) {
-		sc.add("public " + I_MEMORY_BLOCK + " getMemoryBlock(long startAddress, long length) throws " + DEBUG_EXCEPTION + " {");
+		sc.add("public " + I_MEMORY_BLOCK(sc) + " getMemoryBlock(long startAddress, long length) throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -441,7 +441,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("installDeferredBreakpoints();");
 		sc.add("try {");
 		sc.add("resume();");
-		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
+		sc.add("} catch (" + DEBUG_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("}");
 		sc.add("}");
@@ -451,7 +451,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	private void addInstallDeferredBreakpointsMethod(JavaComposite sc) {
 		sc.addJavadoc("Install breakpoints that are already registered with the breakpoint manager.");
 		sc.add("private void installDeferredBreakpoints() {");
-		sc.add(I_BREAKPOINT + "[] breakpoints = getBreakpointManager().getBreakpoints(getModelIdentifier());");
+		sc.add(I_BREAKPOINT(sc) + "[] breakpoints = getBreakpointManager().getBreakpoints(getModelIdentifier());");
 		sc.add("for (int i = 0; i < breakpoints.length; i++) {");
 		sc.add("breakpointAdded(breakpoints[i]);");
 		sc.add("}");
@@ -473,7 +473,7 @@ public class DebugTargetGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("} else {");
 		sc.add("System.out.println(\"ERROR in \" + this.getClass().getName() + \".handleMessage(): unknown event \" + message);");
 		sc.add("}");
-		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
+		sc.add("} catch (" + DEBUG_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");

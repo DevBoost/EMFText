@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class ITextParserGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -59,7 +59,7 @@ public class ITextParserGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 			"The <code>cursorPosition</code> is used to discard expected elements, " + 
 			"which will not be needed."
 		);
-		sc.add("public " + LIST + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS + " type, " + iTextResourceClassName + " dummyResource, int cursorOffset);");
+		sc.add("public " + LIST(sc) + "<" + expectedTerminalClassName + "> parseToExpectedElements(" + E_CLASS(sc) + " type, " + iTextResourceClassName + " dummyResource, int cursorOffset);");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

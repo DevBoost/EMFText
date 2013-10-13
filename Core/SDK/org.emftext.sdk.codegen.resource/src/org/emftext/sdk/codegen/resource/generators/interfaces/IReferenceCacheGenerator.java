@@ -15,7 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,12 +30,12 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.addJavadoc("Returns all EObjects of the given type.");
-		sc.add("public " + SET + "<" + E_OBJECT + "> getObjects(" + E_CLASS + " type);");
+		sc.add("public " + SET(sc) + "<" + E_OBJECT(sc) + "> getObjects(" + E_CLASS(sc) + " type);");
 		sc.addLineBreak();
 
 		sc.addJavadoc(
@@ -40,13 +43,13 @@ public class IReferenceCacheGenerator extends JavaBaseGenerator<ArtifactParamete
 				"The cache allows to retrieve of objects of a given type or a given name. " +
 				"If the cache was already initialized, no action is performed."
 			);
-			sc.add("public void initialize(" + E_OBJECT + " root);");
+			sc.add("public void initialize(" + E_OBJECT(sc) + " root);");
 			sc.addLineBreak();
 
 		sc.addJavadoc(
 			"Returns the map from object names to objects that was created when the cache was initialized."
 		);
-		sc.add("public " + MAP + "<String, " + SET + "<" + E_OBJECT + ">> getNameToObjectsMap();");
+		sc.add("public " + MAP(sc) + "<String, " + SET(sc) + "<" + E_OBJECT(sc) + ">> getNameToObjectsMap();");
 		sc.addLineBreak();
 
 		sc.addJavadoc("Clears the cache.");

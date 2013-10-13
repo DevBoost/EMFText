@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -42,7 +42,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 			generateEmptyClass(sc, classComment, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -52,7 +52,6 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		);
 		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> extends " + abstractDebuggableClassName + " {");
 		sc.addLineBreak();
-		
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
@@ -81,13 +80,13 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("private " + abstractInterpreterClassName + "<ResultType, ContextType> interpreterDelegate;");
 		sc.addLineBreak();
 		sc.addJavadoc("To check whether we must stop the execution after step over/into/return, we use a closure");
-		sc.add("private " + iCommandClassName + "<" + E_OBJECT + "> stopCondition;");
+		sc.add("private " + iCommandClassName + "<" + E_OBJECT(sc) + "> stopCondition;");
 		sc.addLineBreak();
 		sc.addJavadoc("The port of the socket that is used to send debug events to the Eclipse debugging framework");
 		sc.add("private int eventPort;");
 		sc.addLineBreak();
 		sc.addJavadoc("This map is used to remember the IDs of stack frame elements");
-		sc.add(MAP + "<Integer, " + E_OBJECT + "> stackFrameMap = new " + LINKED_HASH_MAP + "<Integer, " + E_OBJECT + ">();");
+		sc.add(MAP(sc) + "<Integer, " + E_OBJECT(sc) + "> stackFrameMap = new " + LINKED_HASH_MAP(sc) + "<Integer, " + E_OBJECT(sc) + ">();");
 		sc.addLineBreak();
 		sc.addJavadoc("The ID of the last stack frame element");
 		sc.add("int stackFrameID = 0;");
@@ -100,7 +99,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("this.interpreterDelegate = interpreterDelegate;");
 		sc.add("this.interpreterDelegate.addListener(new " + iInterpreterListenerClassName + "() {");
 		sc.addLineBreak();
-		sc.add("public void handleInterpreteObject(" + E_OBJECT + " element) {");
+		sc.add("public void handleInterpreteObject(" + E_OBJECT(sc) + " element) {");
 		sc.addComment("check whether we have hit an element after a step over/into/return");
 		sc.add("evaluateStep(element);");
 		sc.addComment("if we are stepping we do ignore breakpoints");
@@ -109,7 +108,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 		sc.add("}");
 		sc.addComment("check whether we have hit a line breakpoint");
 		sc.add("int line = getLine(element);");
-		sc.add(E_OBJECT + " parent = element.eContainer();");
+		sc.add(E_OBJECT(sc) + " parent = element.eContainer();");
 		sc.add("if (parent != null) {");
 		sc.add("int parentLine = getLine(parent);");
 		sc.add("if (line == parentLine) {");
@@ -149,16 +148,16 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 
 	private void addGetStackMethod(JavaComposite sc) {
 		sc.add("public String[] getStack() {");
-		sc.add(E_OBJECT + " next = interpreterDelegate.getNextObjectToInterprete();");
-		sc.add(LIST + "<" + E_OBJECT + "> parents = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
-		sc.add(E_OBJECT + " current = next;");
+		sc.add(E_OBJECT(sc) + " next = interpreterDelegate.getNextObjectToInterprete();");
+		sc.add(LIST(sc) + "<" + E_OBJECT(sc) + "> parents = new " + ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + ">();");
+		sc.add(E_OBJECT(sc) + " current = next;");
 		sc.add("while (current != null) {");
 		sc.add("parents.add(current);");
 		sc.add("current = current.eContainer();");
 		sc.add("}");
 		sc.add("String[] stack = new String[parents.size()];");
 		sc.add("int i = parents.size();");
-		sc.add("for (" + E_OBJECT + " parent : parents) {");
+		sc.add("for (" + E_OBJECT(sc) + " parent : parents) {");
 		sc.add("String serializedStackElement = " + stringUtilClassName + ".encode(',', new String[] {parent.eClass().getName(), Integer.toString(stackFrameID), parent.eResource().getURI().toString(), Integer.toString(getLine(parent)), Integer.toString(getCharStart(parent)), Integer.toString(getCharEnd(parent))});");
 		sc.add("stack[--i] = serializedStackElement;");
 		sc.add("stackFrameMap.put(stackFrameID++, parent);");
@@ -176,7 +175,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	}
 
 	private void addGetLineMethod(JavaComposite sc) {
-		sc.add("private int getLine(" + E_OBJECT + " element) {");
+		sc.add("private int getLine(" + E_OBJECT(sc) + " element) {");
 		sc.add("int line = -1;");
 		sc.add(iLocationMapClassName + " locationMap = getLocationMap(element);");
 		sc.add("if (locationMap != null) {");
@@ -188,7 +187,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	}
 
 	private void addGetCharStartMethod(JavaComposite sc) {
-		sc.add("private int getCharStart(" + E_OBJECT + " element) {");
+		sc.add("private int getCharStart(" + E_OBJECT(sc) + " element) {");
 		sc.add(iLocationMapClassName + " locationMap = getLocationMap(element);");
 		sc.add("if (locationMap != null) {");
 		sc.add("return locationMap.getCharStart(element);");
@@ -199,7 +198,7 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	}
 
 	private void addGetCharEndMethod(JavaComposite sc) {
-		sc.add("private int getCharEnd(" + E_OBJECT + " element) {");
+		sc.add("private int getCharEnd(" + E_OBJECT(sc) + " element) {");
 		sc.add(iLocationMapClassName + " locationMap = getLocationMap(element);");
 		sc.add("if (locationMap != null) {");
 		sc.add("return locationMap.getCharEnd(element) + 1;");
@@ -210,8 +209,8 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	}
 
 	private void addGetLocationMapMethod(JavaComposite sc) {
-		sc.add("private " + iLocationMapClassName + " getLocationMap(" + E_OBJECT + " element) {");
-		sc.add(RESOURCE + " resource = element.eResource();");
+		sc.add("private " + iLocationMapClassName + " getLocationMap(" + E_OBJECT(sc) + " element) {");
+		sc.add(RESOURCE(sc) + " resource = element.eResource();");
 		sc.add("if (resource instanceof " + iTextResourceClassName + ") {");
 		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
 		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
@@ -223,9 +222,9 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	}
 
 	private void addEvaluateStepMethod(JavaComposite sc) {
-		sc.add("private void evaluateStep(" + E_OBJECT + " element) {");
+		sc.add("private void evaluateStep(" + E_OBJECT(sc) + " element) {");
 		sc.addComment("create local copy to avoid race conditions");
-		sc.add(iCommandClassName + "<" + E_OBJECT + "> stopCheck = stopCondition;");
+		sc.add(iCommandClassName + "<" + E_OBJECT(sc) + "> stopCheck = stopCondition;");
 		sc.add("if (stopCheck != null && stopCheck.execute(element)) {");
 		sc.add("stopCondition = null;");
 		sc.addComment("suspending after step...");
@@ -248,11 +247,11 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 
 	private void addStepOverMethod(JavaComposite sc) {
 		sc.add("public void stepOver() {");
-		sc.add("final " + E_OBJECT + " current = interpreterDelegate.getNextObjectToInterprete();");
+		sc.add("final " + E_OBJECT(sc) + " current = interpreterDelegate.getNextObjectToInterprete();");
 		sc.add("final int currentLevel = " + eObjectUtilClassName + ".getDepth(current);");
 		
-		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
-		sc.add("public boolean execute(" + E_OBJECT + " element) {");
+		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT(sc) + ">() {");
+		sc.add("public boolean execute(" + E_OBJECT(sc) + " element) {");
 		sc.addComment("For step over, we stop at the next object that is at the same level or higher");
 		sc.add("int depth = " + eObjectUtilClassName + ".getDepth(element);");
 		sc.add("boolean sameOrHigher = depth <= currentLevel;");
@@ -267,8 +266,8 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 
 	private void addStepIntoMethod(JavaComposite sc) {
 		sc.add("public void stepInto() {");
-		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
-		sc.add("public boolean execute(" + E_OBJECT + " element) {");
+		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT(sc) + ">() {");
+		sc.add("public boolean execute(" + E_OBJECT(sc) + " element) {");
 		sc.addComment("For step into, we stop at the next object");
 		sc.add("return true;");
 		sc.add("}");
@@ -280,11 +279,11 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 
 	private void addStepReturnMethod(JavaComposite sc) {
 		sc.add("public void stepReturn() {");
-		sc.add(E_OBJECT + " current = interpreterDelegate.getNextObjectToInterprete();");
+		sc.add(E_OBJECT(sc) + " current = interpreterDelegate.getNextObjectToInterprete();");
 		sc.add("final int parentLevel = " + eObjectUtilClassName + ".getDepth(current) - 1;");
 		
-		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT + ">() {");
-		sc.add("public boolean execute(" + E_OBJECT + " element) {");
+		sc.add("stopCondition = new " + iCommandClassName + "<" + E_OBJECT(sc) + ">() {");
+		sc.add("public boolean execute(" + E_OBJECT(sc) + " element) {");
 		sc.addComment("For step return, we stop at the next object that is at least one level higher");
 		sc.add("int depth = " + eObjectUtilClassName + ".getDepth(element);");
 		sc.add("return depth <= parentLevel;");
@@ -296,9 +295,9 @@ public class DebuggableInterpreterGenerator extends JavaBaseGenerator<ArtifactPa
 	}
 
 	private void addGetFrameVariablesMethod(JavaComposite sc) {
-		sc.add("public " + MAP + "<String, Object> getFrameVariables(String stackFrame) {");
+		sc.add("public " + MAP(sc) + "<String, Object> getFrameVariables(String stackFrame) {");
 		sc.add("int stackFrameID = Integer.parseInt(stackFrame);");
-		sc.add(MAP + "<String, Object> frameVariables = new " + LINKED_HASH_MAP + "<String, Object>();");
+		sc.add(MAP(sc) + "<String, Object> frameVariables = new " + LINKED_HASH_MAP(sc) + "<String, Object>();");
 		sc.add("frameVariables.put(\"this\", stackFrameMap.get(stackFrameID));");
 		sc.add("frameVariables.put(\"context\", getInterpreterDelegate().getCurrentContext());");
 		sc.add("return frameVariables;");

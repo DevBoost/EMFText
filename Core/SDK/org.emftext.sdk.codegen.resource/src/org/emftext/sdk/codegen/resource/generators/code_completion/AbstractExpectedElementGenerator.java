@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,13 +32,12 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator<Artifact
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("Abstract super class for all expected elements. Provides methods to add followers.");
 		sc.add("public abstract class " + getResourceClassName() + " implements " + iExpectedElementClassName + " {");
 		sc.addLineBreak();
-
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc);
@@ -46,14 +45,14 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator<Artifact
 		sc.add("}");
 	}
 
-	private void addMethods(StringComposite sc) {
+	private void addMethods(JavaComposite sc) {
 		addGetRuleMetaclassMethod(sc);
 		addAddFollowerMethod(sc);
 		addGetFollowersMethod(sc);
 	}
 
-	private void addGetFollowersMethod(StringComposite sc) {
-		sc.add("public " + COLLECTION + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> getFollowers() {");
+	private void addGetFollowersMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + COLLECTION(sc) + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> getFollowers() {");
 		sc.add("return followers;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -66,25 +65,25 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator<Artifact
 		sc.addLineBreak();
 	}
 
-	private void addGetRuleMetaclassMethod(StringComposite sc) {
-		sc.add("public " + E_CLASS + " getRuleMetaclass() {");
+	private void addGetRuleMetaclassMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + E_CLASS(sc) + " getRuleMetaclass() {");
 		sc.add("return ruleMetaclass;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " ruleMetaclass) {");
+	private void addConstructor(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + E_CLASS(sc) + " ruleMetaclass) {");
 		sc.add("super();");
 		sc.add("this.ruleMetaclass = ruleMetaclass;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addFields(StringComposite sc) {
-		sc.add("private " + E_CLASS + " ruleMetaclass;");
+	private void addFields(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("private " + E_CLASS(sc) + " ruleMetaclass;");
 		sc.addLineBreak();
-		sc.add("private " + SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> followers = new " + LINKED_HASH_SET + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>>();");
+		sc.add("private " + SET(sc) + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>> followers = new " + LINKED_HASH_SET(sc) + "<" + pairClassName + "<" + iExpectedElementClassName + ", " + containedFeatureClassName + "[]>>();");
 		sc.addLineBreak();
 	}
 }

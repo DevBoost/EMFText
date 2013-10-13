@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -29,7 +29,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -51,14 +51,14 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The original input stream.");
-		sc.add("private " + INPUT_STREAM + " inputStream;");
+		sc.add("private " + INPUT_STREAM(sc) + " inputStream;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
 			"Creates a new UnicodeConverter that reads from the given stream.",
 			"@param inputStream the original stream to read from"
 		);
-		sc.add("public " + getResourceClassName() + "(" + INPUT_STREAM + " inputStream) {");
+		sc.add("public " + getResourceClassName() + "(" + INPUT_STREAM(sc) + " inputStream) {");
 		sc.add("this.inputStream = inputStream;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -69,7 +69,7 @@ public class UnicodeConverterGenerator extends JavaBaseGenerator<ArtifactParamet
 		);
 		sc.add("@Override");
 		sc.addLineBreak();
-		sc.add("public int read() throws " + IO_EXCEPTION + " {");
+		sc.add("public int read() throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("if (!stackIsEmpty()) {");
 		sc.add("int result = pop();");
 		sc.add("return result;");

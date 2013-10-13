@@ -25,7 +25,7 @@ public class LineBreakGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public class " + getResourceClassName() + " extends " + formattingElementClassName + " {");

@@ -15,15 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LINKED_HASH_SET;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -34,7 +34,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -74,8 +74,8 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 			"Visits all proxies in the resource set and tries to resolve them.",
 			"@param resourceSet the objects to visit."
 		);
-		sc.add("public void resolveAll(" + RESOURCE_SET + " resourceSet) {");
-		sc.add(LIST + "<" + RESOURCE + "> resources = resourceSet.getResources();");
+		sc.add("public void resolveAll(" + RESOURCE_SET(sc) + " resourceSet) {");
+		sc.add(LIST(sc) + "<" + RESOURCE(sc) + "> resources = resourceSet.getResources();");
 		sc.add("for (int i = 0; i < resources.size() && !terminate; i++) {");
 		sc.add("resolveAll(resources.get(i));");
 		sc.add("}");
@@ -88,8 +88,8 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 			"Visits all proxies in the resource and tries to resolve them.",
 			"@param resource the objects to visit."
 		);
-		sc.add("public void resolveAll(" + RESOURCE + " resource) {");
-		sc.add("for (" + E_OBJECT + " eObject : resource.getContents()) {");
+		sc.add("public void resolveAll(" + RESOURCE(sc) + " resource) {");
+		sc.add("for (" + E_OBJECT(sc) + " eObject : resource.getContents()) {");
 		sc.add("if (terminate) {");
 		sc.add("return;");
 		sc.add("}");
@@ -104,14 +104,14 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 			"Visits all proxies referenced by the object and recursively any of its contained objects.",
 			"@param eObject the object to visit."
 		);
-		sc.add("public void resolveAll(" + E_OBJECT + " eObject) {");
+		sc.add("public void resolveAll(" + E_OBJECT(sc) + " eObject) {");
 		sc.add("eObject.eContainer();");
 		sc.add("resolveCrossReferences(eObject);");
-		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> i = eObject.eAllContents(); i.hasNext();) {");
+		sc.add("for (" + ITERATOR(sc) + "<" + E_OBJECT(sc) + "> i = eObject.eAllContents(); i.hasNext();) {");
 		sc.add("if (terminate) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add(E_OBJECT + " childEObject = i.next();");
+		sc.add(E_OBJECT(sc) + " childEObject = i.next();");
 		sc.add("resolveCrossReferences(childEObject);");
 		sc.add("}");
 		sc.add("}");
@@ -119,8 +119,8 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 	}
 
 	private void addResolveCrossReferencesMethod(JavaComposite sc) {
-		sc.add("protected void resolveCrossReferences(" + E_OBJECT + " eObject) {");
-		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> i = eObject.eCrossReferences().iterator(); i.hasNext(); i.next()) {");
+		sc.add("protected void resolveCrossReferences(" + E_OBJECT(sc) + " eObject) {");
+		sc.add("for (" + ITERATOR(sc) + "<" + E_OBJECT(sc) + "> i = eObject.eCrossReferences().iterator(); i.hasNext(); i.next()) {");
 		sc.addComment("The loop resolves the cross references by visiting them.");
 		sc.add("if (terminate) {");
 		sc.add("return;");
@@ -136,22 +136,22 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 			"@param resource",
 			"@return all proxy objects that are not resolvable"
 		);
-		sc.add("public " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE + " resource) {");
-		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
+		sc.add("public " + SET(sc) + "<" + E_OBJECT(sc) + "> findUnresolvedProxies(" + RESOURCE(sc) + " resource) {");
+		sc.add(SET(sc) + "<" + E_OBJECT(sc) + "> unresolvedProxies = new " + LINKED_HASH_SET(sc) + "<" + E_OBJECT(sc) + ">();");
 		sc.addLineBreak();
-		sc.add("for (" + ITERATOR + "<" + E_OBJECT + "> elementIt = " + ECORE_UTIL + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
-		sc.add(INTERNAL_E_OBJECT + " nextElement = (" + INTERNAL_E_OBJECT + ") elementIt.next();");
+		sc.add("for (" + ITERATOR(sc) + "<" + E_OBJECT(sc) + "> elementIt = " + ECORE_UTIL(sc) + ".getAllContents(resource, true); elementIt.hasNext(); ) {");
+		sc.add(INTERNAL_E_OBJECT(sc) + " nextElement = (" + INTERNAL_E_OBJECT(sc) + ") elementIt.next();");
 		sc.add("if (terminate) {");
 		sc.add("return unresolvedProxies;");
 		sc.add("}");
 		sc.add("if (nextElement.eIsProxy()) {");
 		sc.add("unresolvedProxies.add(nextElement);");
 		sc.add("}");
-		sc.add("for (" + E_OBJECT + " crElement : nextElement.eCrossReferences()) {");
+		sc.add("for (" + E_OBJECT(sc) + " crElement : nextElement.eCrossReferences()) {");
 		sc.add("if (terminate) {");
 		sc.add("return unresolvedProxies;");
 		sc.add("}");
-		sc.add("crElement = " + ECORE_UTIL + ".resolve(crElement, resource);");
+		sc.add("crElement = " + ECORE_UTIL(sc) + ".resolve(crElement, resource);");
 		sc.add("if (crElement.eIsProxy()) {");
 		sc.add("unresolvedProxies.add(crElement);");
 		sc.add("}");
@@ -168,10 +168,10 @@ public class InterruptibleEcoreResolverGenerator extends JavaBaseGenerator<Artif
 			"@param resourceSet",
 			"@return all proxy objects that are not resolvable"
 		);
-		sc.add("public " + SET + "<" + E_OBJECT + "> findUnresolvedProxies(" + RESOURCE_SET + " resourceSet) {");
-		sc.add(SET + "<" + E_OBJECT + "> unresolvedProxies = new " + LINKED_HASH_SET + "<" + E_OBJECT + ">();");
+		sc.add("public " + SET(sc) + "<" + E_OBJECT(sc) + "> findUnresolvedProxies(" + RESOURCE_SET(sc) + " resourceSet) {");
+		sc.add(SET(sc) + "<" + E_OBJECT(sc) + "> unresolvedProxies = new " + LINKED_HASH_SET(sc) + "<" + E_OBJECT(sc) + ">();");
 		sc.addLineBreak();
-		sc.add("for (" + RESOURCE + " resource : resourceSet.getResources()) {");
+		sc.add("for (" + RESOURCE(sc) + " resource : resourceSet.getResources()) {");
 		sc.add("if (terminate) {");
 		sc.add("return unresolvedProxies;");
 		sc.add("}");

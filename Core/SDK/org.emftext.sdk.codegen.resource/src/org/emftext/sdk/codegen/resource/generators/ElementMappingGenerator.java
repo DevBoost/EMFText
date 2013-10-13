@@ -24,7 +24,7 @@ public class ElementMappingGenerator extends JavaBaseGenerator<ArtifactParameter
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A basic implementation of the " + iElementMappingClassName + " interface.",

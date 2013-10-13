@@ -26,7 +26,7 @@ public class FormattingElementGenerator extends JavaBaseGenerator<ArtifactParame
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.add("public abstract class " + getResourceClassName() + " extends " + syntaxElementClassName + " {");

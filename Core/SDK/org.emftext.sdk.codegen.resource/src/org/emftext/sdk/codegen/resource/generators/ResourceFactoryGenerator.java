@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -34,10 +34,10 @@ public class ResourceFactoryGenerator extends JavaBaseGenerator<ArtifactParamete
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-        sc.add("package " + getResourcePackageName() + ";");
+        sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " implements " + RESOURCE + ".Factory {");
+        sc.add("public class " + getResourceClassName()+ " implements " + RESOURCE(sc) + ".Factory {");
         sc.addLineBreak();
 		addConstructor(sc);
 		addCreateResourceMethod(sc);
@@ -52,7 +52,7 @@ public class ResourceFactoryGenerator extends JavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addCreateResourceMethod(JavaComposite sc) {
-		sc.add("public " + RESOURCE + " createResource(" + URI + " uri) {");
+		sc.add("public " + RESOURCE(sc) + " createResource(" + URI(sc) + " uri) {");
 		sc.add("return new " + textResourceClassName + "(uri);");
 		sc.add("}");
 		sc.addLineBreak();

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -36,7 +36,7 @@ public class OptionProviderGenerator extends JavaBaseGenerator<ArtifactParameter
 			resourcePluginName + "." + DefaultLoadOptionsExtensionPointSchemaGenerator.EXTENSION_ID_SUFFIX +
 			"' with the difference that the options defined in this class are used even if no Eclipse platform is running."
 		);
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iOptionProviderClassName + " {");
 		sc.addLineBreak();
@@ -49,9 +49,9 @@ public class OptionProviderGenerator extends JavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addGetOptionsMethods(JavaComposite sc) {
-		sc.add("public " + MAP + "<?,?> getOptions() {");
+		sc.add("public " + MAP(sc) + "<?,?> getOptions() {");
 		sc.addComment("create a map with static option providers here");
-		sc.add("return " + COLLECTIONS + ".emptyMap();");
+		sc.add("return " + COLLECTIONS(sc) + ".emptyMap();");
 		sc.add("}");
 		sc.addLineBreak();
 

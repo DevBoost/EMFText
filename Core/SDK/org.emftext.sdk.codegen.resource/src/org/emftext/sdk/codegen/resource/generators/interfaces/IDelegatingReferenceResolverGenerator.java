@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -27,7 +27,7 @@ public class IDelegatingReferenceResolverGenerator extends JavaBaseGenerator<Art
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -37,7 +37,7 @@ public class IDelegatingReferenceResolverGenerator extends JavaBaseGenerator<Art
 			IOptionsGenerator.ADDITIONAL_REFERENCE_RESOLVERS + ".",
 			"@see " + iOptionsClassName
 		);
-		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> extends " + iReferenceResolverClassName + "<ContainerType, ReferenceType> {");
+		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + "> extends " + iReferenceResolverClassName + "<ContainerType, ReferenceType> {");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(

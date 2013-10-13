@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class ContainedFeatureGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"A " + getResourceClassName() + " represents a path element of a " +
@@ -44,15 +44,15 @@ public class ContainedFeatureGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addFields(JavaComposite sc) {
 		sc.addJavadoc("The class to which the feature points.");
-		sc.add("private " + E_CLASS + " containerClass;");
+		sc.add("private " + E_CLASS(sc) + " containerClass;");
 		sc.addLineBreak();
 		sc.addJavadoc("The feature that points to the container class.");
-		sc.add("private " + E_STRUCTURAL_FEATURE + " feature;");
+		sc.add("private " + E_STRUCTURAL_FEATURE(sc) + " feature;");
 		sc.addLineBreak();
 	}
 
 	private void addConstructors(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_CLASS + " containerClass, " + E_STRUCTURAL_FEATURE + " feature) {");
+		sc.add("public " + getResourceClassName() + "(" + E_CLASS(sc) + " containerClass, " + E_STRUCTURAL_FEATURE(sc) + " feature) {");
 		sc.add("super();");
 		sc.add("this.containerClass = containerClass;");
 		sc.add("this.feature = feature;");
@@ -66,14 +66,14 @@ public class ContainedFeatureGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addGetContainerClassMethod(JavaComposite sc) {
-		sc.add("public " + E_CLASS + " getContainerClass() {");
+		sc.add("public " + E_CLASS(sc) + " getContainerClass() {");
 		sc.add("return containerClass;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetFeatureMethod(JavaComposite sc) {
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getFeature() {");
+		sc.add("public " + E_STRUCTURAL_FEATURE(sc) + " getFeature() {");
 		sc.add("return feature;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -28,7 +28,7 @@ public class IQuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -60,7 +60,7 @@ public class IQuickFixGenerator extends JavaBaseGenerator<ArtifactParameter<Gene
 			"collection is used to check whether the fix is can still " + 
 			"be applied even after a workbench restart."
 		);
-		sc.add("public " + COLLECTION + "<" + E_OBJECT + "> getContextObjects();");
+		sc.add("public " + COLLECTION(sc) + "<" + E_OBJECT(sc) + "> getContextObjects();");
 		sc.addLineBreak();
 
 		sc.addJavadoc(

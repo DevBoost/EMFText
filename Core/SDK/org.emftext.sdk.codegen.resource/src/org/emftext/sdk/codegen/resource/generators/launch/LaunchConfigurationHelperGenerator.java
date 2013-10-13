@@ -15,17 +15,17 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.launch;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_MANAGER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SERVER_SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STATUS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_MANAGER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SERVER_SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -43,7 +43,7 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 			return;
 		}
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(classComment);
 		sc.add("public class " + getResourceClassName() + " {");
@@ -70,24 +70,24 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 			"@param e underlying exception",
 			"@throws CoreException"
 		);
-		sc.add("protected void abort(String message, Throwable e) throws " + CORE_EXCEPTION + " {");
-		sc.add("throw new " + CORE_EXCEPTION + "(new " + STATUS + "(" + I_STATUS + ".ERROR, " + pluginActivatorClassName + ".DEBUG_MODEL_ID, 0, message, e));");
+		sc.add("protected void abort(String message, Throwable e) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("throw new " + CORE_EXCEPTION(sc) + "(new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + pluginActivatorClassName + ".DEBUG_MODEL_ID, 0, message, e));");
 		sc.add("}");
 	}
 
 	private void addFindFreePortMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns a free port number on localhost, or -1 if unable to find a free port.");
 		sc.add("protected int findFreePort() {");
-		sc.add(SERVER_SOCKET + " socket = null;");
+		sc.add(SERVER_SOCKET(sc) + " socket = null;");
 		sc.add("try {");
-		sc.add("socket = new " + SERVER_SOCKET + "(0);");
+		sc.add("socket = new " + SERVER_SOCKET(sc) + "(0);");
 		sc.add("return socket.getLocalPort();");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("} finally {");
 		sc.add("if (socket != null) {");
 		sc.add("try {");
 		sc.add("socket.close();");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -97,8 +97,8 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 
 	private void addLaunchMethod(JavaComposite sc) {
 		sc.addJavadoc("Launch an example interpreter that prints object to System.out.");
-		sc.add("public void launch(" + I_LAUNCH_CONFIGURATION + " configuration, String mode, " + I_LAUNCH + " launch, " + I_PROGRESS_MONITOR + " monitor) throws " + CORE_EXCEPTION + " {");
-		sc.add(E_OBJECT + " root = getModelRoot(configuration);");
+		sc.add("public void launch(" + I_LAUNCH_CONFIGURATION(sc) + " configuration, String mode, " + I_LAUNCH(sc) + " launch, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add(E_OBJECT(sc) + " root = getModelRoot(configuration);");
 		sc.addComment("replace this delegate with your actual interpreter");
 		sc.add("SystemOutInterpreter delegate = new SystemOutInterpreter();");
 		sc.add("delegate.addObjectTreeToInterpreteTopDown(root);");
@@ -108,10 +108,10 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 	}
 
 	private void addLaunchInterpreterMethod(JavaComposite sc) {
-		sc.add("public <ResultType, ContextType> void launchInterpreter(" + I_LAUNCH_CONFIGURATION + " configuration, String mode, " + I_LAUNCH + " launch, " + I_PROGRESS_MONITOR + " monitor, " + abstractInterpreterClassName + "<ResultType, ContextType> delegate, final ContextType context) throws " + CORE_EXCEPTION + " {");
+		sc.add("public <ResultType, ContextType> void launchInterpreter(" + I_LAUNCH_CONFIGURATION(sc) + " configuration, String mode, " + I_LAUNCH(sc) + " launch, " + I_PROGRESS_MONITOR(sc) + " monitor, " + abstractInterpreterClassName + "<ResultType, ContextType> delegate, final ContextType context) throws " + CORE_EXCEPTION(sc) + " {");
 		
 		if (getContext().isDebugSupportEnabled()) {
-			sc.add("final boolean enableDebugger = mode.equals(" + I_LAUNCH_MANAGER + ".DEBUG_MODE);");
+			sc.add("final boolean enableDebugger = mode.equals(" + I_LAUNCH_MANAGER(sc) + ".DEBUG_MODE);");
 			sc.addComment("step 1: find two free ports we can use to communicate between the Eclipse and the interpreter");
 			sc.add("int requestPort = findFreePort();");
 			sc.add("int eventPort = findFreePort();");
@@ -153,7 +153,7 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 		sc.add("public static class SystemOutInterpreter extends " + abstractInterpreterClassName + "<Void,Void> {");
 		sc.addLineBreak();
 		sc.add("@Override");
-		sc.add("public Void interprete(" + E_OBJECT + " object, Void context) {");
+		sc.add("public Void interprete(" + E_OBJECT(sc) + " object, Void context) {");
 		sc.add("System.out.println(\"Found \" + object + \", but don't know what to do with it.\");");
 		sc.add("return null;");
 		sc.add("}");
@@ -162,15 +162,15 @@ public class LaunchConfigurationHelperGenerator extends JavaBaseGenerator<Artifa
 	}
 
 	private void addGetModelRootMethod(JavaComposite sc) {
-		sc.add("public " + E_OBJECT + " getModelRoot(" + I_LAUNCH_CONFIGURATION + " configuration) throws " + CORE_EXCEPTION + " {");
+		sc.add("public " + E_OBJECT(sc) + " getModelRoot(" + I_LAUNCH_CONFIGURATION(sc) + " configuration) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add("return " + resourceUtilClassName + ".getResourceContent(getURI(configuration));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetURIMethod(JavaComposite sc) {
-		sc.add("public " + URI + " getURI(" + I_LAUNCH_CONFIGURATION + " configuration) throws " + CORE_EXCEPTION + " {");
-		sc.add("return " + URI + ".createURI(configuration.getAttribute(" + launchConfigurationDelegateClassName + ".ATTR_RESOURCE_URI, (String) null));");
+		sc.add("public " + URI(sc) + " getURI(" + I_LAUNCH_CONFIGURATION(sc) + " configuration) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("return " + URI(sc) + ".createURI(configuration.getAttribute(" + launchConfigurationDelegateClassName + ".ATTR_RESOURCE_URI, (String) null));");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -24,7 +24,7 @@ public class TokenResolveResultGenerator extends JavaBaseGenerator<ArtifactParam
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("A basic implementation of the ITokenResolveResult interface.");
 		sc.add("public class " + getResourceClassName() + " implements " + iTokenResolveResultClassName + " {");

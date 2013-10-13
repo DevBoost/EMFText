@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -39,7 +39,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -57,7 +57,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
 		if (!removeEclipseDependentCode) {
-			addGetResourceMethod1(sc);
+	addGetResourceMethod1(sc);
 		}
 		addGetResourceMethod2(sc);
 		addGetResourceMethod3(sc);
@@ -67,7 +67,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addGetResourceMethod4(JavaComposite sc) {
 		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated");
-		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri, " + MAP + "<?,?> options) {");
+		sc.add("public static " + textResourceClassName + " getResource(" + URI(sc) + " uri, " + MAP(sc) + "<?,?> options) {");
 		sc.add("return " + resourceUtilClassName + ".getResource(uri, options);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -76,7 +76,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addGetResourceMethod3(JavaComposite sc) {
 		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated");
-		sc.add("public static " + textResourceClassName + " getResource(" + URI + " uri) {");
+		sc.add("public static " + textResourceClassName + " getResource(" + URI(sc) + " uri) {");
 		sc.add("return " + resourceUtilClassName + ".getResource(uri);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -85,7 +85,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addGetResourceMethod2(JavaComposite sc) {
 		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated");
-		sc.add("public static " + textResourceClassName + " getResource(" + FILE + " file, " + MAP + "<?,?> options) {");
+		sc.add("public static " + textResourceClassName + " getResource(" + FILE(sc) + " file, " + MAP(sc) + "<?,?> options) {");
 		sc.add("return " + resourceUtilClassName + ".getResource(file, options);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -94,7 +94,7 @@ public class TextResourceUtilGenerator extends JavaBaseGenerator<ArtifactParamet
 	private void addGetResourceMethod1(JavaComposite sc) {
 		sc.addJavadoc("Use " + resourceUtilClassName + ".getResource() instead.");
 		sc.add("@Deprecated");
-		sc.add("public static " + textResourceClassName + " getResource(" + I_FILE + " file) {");
+		sc.add("public static " + textResourceClassName + " getResource(" + I_FILE(sc) + " file) {");
 		sc.add("return new " + eclipseProxyClassName + "().getResource(file);");
 		sc.add("}");
 		sc.addLineBreak();

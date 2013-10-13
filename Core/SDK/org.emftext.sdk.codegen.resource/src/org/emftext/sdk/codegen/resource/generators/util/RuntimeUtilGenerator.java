@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -33,7 +33,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 
-        sc.add("package " + getResourcePackageName() + ";");
+        sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
 		sc.addJavadoc(
@@ -42,7 +42,7 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		);
         sc.add("public class " + getResourceClassName() + " {");
         sc.addLineBreak();
-   		addMethods(sc);
+		addMethods(sc);
 		sc.add("}");
     }
 
@@ -53,14 +53,14 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		addLogMethods(sc);
         
 		if (!removeEclipseDependentCode) {
-        	addIsEclipsePlatformRunningMethod(sc);
+	addIsEclipsePlatformRunningMethod(sc);
 		}
 	}
 
 	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the class <code>" + EMF_MODEL_VALIDATION_PLUGIN +
-			"</code> is available on the classpath. This can be used to " +
+			"Checks whether the class <code>EMFModelValidationPlugin</code> " +
+			"is available on the classpath. This can be used to " +
 			"determine if Eclipse is available in the current runtime " +
 			"environment."
 		);
@@ -77,14 +77,14 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	
 	private void addIsEMFValidationAvailableMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the class <code>" + PLATFORM +
+			"Checks whether the class <code>" + PLATFORM(sc) +
 			"</code> is available on the classpath. This can be used to " +
 			"determine if EMF Validation is available in the current runtime " +
 			"environment."
 		);
 		sc.add("public boolean isEclipsePlatformAvailable() {");
 		sc.add("try {");
-		sc.add("Class.forName(\"" + PLATFORM + "\");");
+		sc.add("Class.forName(\"" + PLATFORM(sc) + "\");");
 		sc.add("return true;");
 		sc.add("} catch (ClassNotFoundException cnfe) {");
 		sc.add("}");
@@ -101,14 +101,13 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.add("if (!isEclipsePlatformAvailable()) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("return " + PLATFORM + ".isRunning();");
+		sc.add("return " + PLATFORM(sc) + ".isRunning();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addLogMethods(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
-
 		addLogMethod(sc, "Error", removeEclipseDependentCode);
 		addLogMethod(sc, "Warning", removeEclipseDependentCode);
 	}

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -57,7 +57,7 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Artifac
 	}
 
 	protected void addAddWarningToResourceMethod(JavaComposite sc) {
-		sc.add("protected void addWarningToResource(final String errorMessage, " + E_OBJECT + " cause) {");
+		sc.add("protected void addWarningToResource(final String errorMessage, " + E_OBJECT(sc) + " cause) {");
 		sc.add(iTextResourceClassName + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.addComment("the resource can be null if the printer is used stand alone");
@@ -68,15 +68,15 @@ public abstract class AbstractPrinterGenerator extends JavaBaseGenerator<Artifac
 		sc.addLineBreak();
 	}
 
-	protected void addGetOptionsMethod(StringComposite sc) {
-		sc.add("public " + MAP + "<?,?> getOptions() {");
+	protected void addGetOptionsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public " + MAP(sc) + "<?,?> getOptions() {");
 		sc.add("return options;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	protected void addSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
+	protected void addSetOptionsMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("public void setOptions(" + MAP(sc) + "<?,?> options) {");
 		sc.add("this.options = options;");
 		sc.add("}");
 		sc.addLineBreak();

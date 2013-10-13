@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INPUT_STREAM_READER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -30,7 +30,7 @@ public class StreamUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
@@ -49,7 +49,7 @@ public class StreamUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addCopyMethod(JavaComposite sc) {
-		sc.add("public static void copy(" + INPUT_STREAM + " in, " + OUTPUT_STREAM + " out) throws " + IO_EXCEPTION + " {");
+		sc.add("public static void copy(" + INPUT_STREAM(sc) + " in, " + OUTPUT_STREAM(sc) + " out) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("byte[] b = new byte[IO_BUFFER_SIZE];");
 		sc.add("int read;");
 		sc.add("while ((read = in.read(b)) != -1) {");
@@ -61,23 +61,23 @@ public class StreamUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Gen
 	}
 
 	private void addGetContentMethod1(JavaComposite sc) {
-		sc.add("public static String getContent(" + INPUT_STREAM + " inputStream) throws " + IO_EXCEPTION + " {");
-		sc.add(INPUT_STREAM_READER + " reader = new " + INPUT_STREAM_READER + "(inputStream);");
+		sc.add("public static String getContent(" + INPUT_STREAM(sc) + " inputStream) throws " + IO_EXCEPTION(sc) + " {");
+		sc.add(INPUT_STREAM_READER(sc) + " reader = new " + INPUT_STREAM_READER(sc) + "(inputStream);");
 		sc.add("return getContent(reader);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetContentMethod2(JavaComposite sc) {
-		sc.add("public static String getContent(" + INPUT_STREAM + " inputStream, String charset) throws " + IO_EXCEPTION + " {");
-		sc.add(INPUT_STREAM_READER + " reader = new " + INPUT_STREAM_READER + "(inputStream, charset);");
+		sc.add("public static String getContent(" + INPUT_STREAM(sc) + " inputStream, String charset) throws " + IO_EXCEPTION(sc) + " {");
+		sc.add(INPUT_STREAM_READER(sc) + " reader = new " + INPUT_STREAM_READER(sc) + "(inputStream, charset);");
 		sc.add("return getContent(reader);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetContentMethod3(JavaComposite sc) {
-		sc.add("public static String getContent(" + INPUT_STREAM_READER + " reader) throws " + IO_EXCEPTION + " {");
+		sc.add("public static String getContent(" + INPUT_STREAM_READER(sc) + " reader) throws " + IO_EXCEPTION(sc) + " {");
 		sc.add("StringBuffer content = new StringBuffer();");
 		sc.add("int next = -1;");
 		sc.add("while ((next = reader.read()) >= 0) {");

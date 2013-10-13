@@ -15,16 +15,16 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SERVER_SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.URI;
+import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SERVER_SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SOCKET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -40,7 +40,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 			generateEmptyClass(sc, null, OptionTypes.DISABLE_DEBUG_SUPPORT);
 			return;
 		}
-		sc.add("package " + getResourcePackageName() + ";");
+		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public abstract class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -52,9 +52,9 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 
 	private void addFields(JavaComposite sc) {
 		sc.addJavadoc("The list of breakpoints, where each breakpoint is represented by its location (a string) and the line number");
-		sc.add("private " + LIST + "<" + pairClassName + "<String, Integer>> lineBreakpoints = new " + ARRAY_LIST + "<" + pairClassName + "<String, Integer>>();");
-		sc.add("private " + PRINT_STREAM + " outputStream;");
-		sc.add("private " + SERVER_SOCKET + " server;");
+		sc.add("private " + LIST(sc) + "<" + pairClassName + "<String, Integer>> lineBreakpoints = new " + ARRAY_LIST(sc) + "<" + pairClassName + "<String, Integer>>();");
+		sc.add("private " + PRINT_STREAM(sc) + " outputStream;");
+		sc.add("private " + SERVER_SOCKET(sc) + " server;");
 		sc.add("private boolean debugMode;");
 		sc.add("private boolean suspend;");
 		sc.addLineBreak();
@@ -83,10 +83,10 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("public void startEventSocket(int eventPort) {");
 		sc.add("try {");
 		sc.addComment("starting event server socket (waiting for connection)...");
-		sc.add("server = new " + SERVER_SOCKET + "(eventPort);");
-		sc.add(SOCKET + " accept = server.accept();");
+		sc.add("server = new " + SERVER_SOCKET(sc) + "(eventPort);");
+		sc.add(SOCKET(sc) + " accept = server.accept();");
 		sc.addComment("starting event server socket done (connection established).");
-		sc.add("outputStream = new " + PRINT_STREAM + "(accept.getOutputStream());");
+		sc.add("outputStream = new " + PRINT_STREAM(sc) + "(accept.getOutputStream());");
 		sc.add("} catch (Exception e) {");
 		// TODO this should probably be signaled to the user
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Can't create socket connection while launching.\", e);");
@@ -99,7 +99,7 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("public void stopEventSocket() {");
 		sc.add("try {");
 		sc.add("server.close();");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.add("new " + runtimeUtilClassName + "().logError(\"Exception while closing socket.\", e);");
 		sc.add("}");
 		sc.add("}");
@@ -117,10 +117,10 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addEvaluateLineBreakpointMethod(JavaComposite sc) {
-		sc.add("public void evaluateLineBreakpoint(" + URI + " uri, int currentLine) {");
+		sc.add("public void evaluateLineBreakpoint(" + URI(sc) + " uri, int currentLine) {");
 		sc.add("if (isDebugMode()) {");
 		sc.add("String platformString = uri.toPlatformString(true);");
-		sc.add(I_RESOURCE + " member = " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(platformString);");
+		sc.add(I_RESOURCE(sc) + " member = " + RESOURCES_PLUGIN(sc) + ".getWorkspace().getRoot().findMember(platformString);");
 		sc.add("if (member == null) {");
 		sc.add("return;");
 		sc.add("}");
@@ -244,6 +244,6 @@ public class AbstractDebuggableGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.add("public abstract void stepInto();");
 		sc.add("public abstract void stepReturn();");
 		sc.add("public abstract String[] getStack();");
-		sc.add("public abstract " + MAP + "<String, Object> getFrameVariables(String stackFrame);");
+		sc.add("public abstract " + MAP(sc) + "<String, Object> getFrameVariables(String stackFrame);");
 	}
 }

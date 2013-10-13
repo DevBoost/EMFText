@@ -25,7 +25,7 @@ import org.emftext.sdk.util.LicenceHeaderUtil;
 import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
-public abstract class JavaBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext, ParameterType>> extends ResourceBaseGenerator<ParameterType> {
+public abstract class JavaBaseGenerator<ParameterType extends IArtifactParameter<GenerationContext,ParameterType>> extends ResourceBaseGenerator<ParameterType> {
 
 	public static final String DEFAULT_LICENCE_HEADER_TEXT = "/**\n" + " * <copyright>\n" + " * </copyright>\n"
 	+ " *\n" + " * \n" + " */";

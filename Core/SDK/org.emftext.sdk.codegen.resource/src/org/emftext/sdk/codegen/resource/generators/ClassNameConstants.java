@@ -363,10 +363,6 @@ public class ClassNameConstants extends
 		return jc.getClassName(Editor.class);
 	}
 
-	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC(JavaComposite jc) {
-		return jc.getClassName("ElementBasedTextDiagnostic");
-	}
-
 	public static String EMF_MODEL_VALIDATION_PLUGIN(JavaComposite jc) {
 		return jc
 				.getClassName(org.eclipse.emf.validation.internal.EMFModelValidationPlugin.class);
@@ -790,10 +786,6 @@ public class ClassNameConstants extends
 		return jc.getClassName(Plugin.class);
 	}
 
-	public static String POSITION_BASED_TEXT_DIAGNOSTIC(JavaComposite jc) {
-		return jc.getClassName("PositionBasedTextDiagnostic");
-	}
-
 	public static String PRINTER_WRITER(JavaComposite jc) {
 		return jc.getClassName(PrintWriter.class);
 	}
@@ -825,10 +817,6 @@ public class ClassNameConstants extends
 	public static String RECOGNIZER_SHARED_STATE(JavaComposite jc) {
 		return jc
 				.getClassName(org.antlr.runtime3_4_0.RecognizerSharedState.class);
-	}
-
-	public static String RESOLVER_SWITCH_FIELD_NAME(JavaComposite jc) {
-		return jc.getClassName("resolverSwitch");
 	}
 
 	public static String RESOURCE(JavaComposite jc) {

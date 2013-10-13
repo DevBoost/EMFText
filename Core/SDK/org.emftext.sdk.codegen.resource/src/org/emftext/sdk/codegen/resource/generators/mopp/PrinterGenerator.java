@@ -15,21 +15,21 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAYS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LIST_ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.OUTPUT_STREAM_WRITER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PRINTER_WRITER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING_WRITER;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ARRAYS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LIST_ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM_WRITER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINTER_WRITER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STRING_WRITER;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -95,27 +95,27 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	private ConcreteSyntax concretSyntax;
 	
 	/** maps all choices to a method name */
-	private Map<Choice, String> choice2Name;
+	private Map<Choice,String> choice2Name;
 	/** maps all rules to choices nested somewhere, but not to the root choice! */
-	private Map<Rule, Set<Choice>> rule2SubChoice;
+	private Map<Rule,Set<Choice>> rule2SubChoice;
 	/** 
 	 * maps all sequences in all choices to all features which HAVE to be printed in the sequence
 	 */
-	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
-	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
+	private Map<Sequence,Set<String>> sequence2NecessaryFeatures;
+	private Map<Sequence,Set<String>> sequence2ReachableFeatures;
 
 	private GenClassCache genClassCache;
 
 	private void extractChoices(List<Rule> rules,
 			Map<Rule, Set<Choice>> ruleMap, Map<Choice, String> choiceMap,
-			Map<Sequence, Set<String>> necessaryMap,
-			Map<Sequence, Set<String>> reachableMap) {
+			Map<Sequence,Set<String>> necessaryMap,
+			Map<Sequence,Set<String>> reachableMap) {
 		for (Rule rule : rules) {
 			choiceMap.put(rule.getDefinition(), getMethodName(rule));
 			Set<Choice> choices = new LinkedHashSet<Choice>();
 			ruleMap.put(rule, choices);
 			extractChoices(rule.getDefinition(), choices, choiceMap,
-					necessaryMap, reachableMap, null, getMethodName(rule) + "_", 0);
+					necessaryMap, reachableMap, null, getMethodName(rule) + "_",0);
 		}
 	}
 
@@ -140,7 +140,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 					extractChoices(currentChoice, choiceSet, choiceMap,
 							necessaryMap, reachableMap,
 							hasMinimalCardinalityOneOrHigher ? seq
-									: null, subChoiceName + "_", 0);
+									: null, subChoiceName + "_",0);
 				} else if (def instanceof Terminal) {
 					Terminal terminal = (Terminal) def;
 					GenFeature feature = terminal.getFeature();
@@ -164,10 +164,10 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	private List<Rule> prepare() {
 		List<Rule> rules = concretSyntax.getAllRules();
 		int ruleCount = rules.size();
-		choice2Name = new LinkedHashMap<Choice, String>(ruleCount);
-		sequence2NecessaryFeatures = new LinkedHashMap<Sequence, Set<String>>(ruleCount);
-		sequence2ReachableFeatures = new LinkedHashMap<Sequence, Set<String>>(ruleCount);
-		rule2SubChoice = new LinkedHashMap<Rule, Set<Choice>>(ruleCount);
+		choice2Name = new LinkedHashMap<Choice,String>(ruleCount);
+		sequence2NecessaryFeatures = new LinkedHashMap<Sequence,Set<String>>(ruleCount);
+		sequence2ReachableFeatures = new LinkedHashMap<Sequence,Set<String>>(ruleCount);
+		rule2SubChoice = new LinkedHashMap<Rule,Set<Choice>>(ruleCount);
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		
@@ -185,9 +185,10 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
+		sc.addImportsPlaceholder();
+		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + iTextPrinterClassName + " {");
 		sc.addLineBreak();
-		
 		addFields(sc);
 		addConstructor(sc);
 		addMethods(sc, rules);
@@ -198,7 +199,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	private void addMethods(JavaComposite sc, List<Rule> rules) {
 		addMatchCountMethod(sc);
 		addDoPrintMethod(sc, rules);
-        addGetReferenceResolverSwitchMethod(sc);
+		addGetReferenceResolverSwitchMethod(sc);
 		addAddWarningToResourceMethod(sc);
 		addSetOptionsMethod(sc);
 		addGetOptionsMethod(sc);
@@ -215,21 +216,21 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addJavadoc(
 			"Calls {@link #doPrint(EObject, PrintWriter, String)} and writes the result to the underlying output stream."
 		);
-		sc.add("public void print(" + E_OBJECT + " element) throws java.io.IOException {");
-		sc.add(PRINTER_WRITER + " out = new " + PRINTER_WRITER + "(new " + OUTPUT_STREAM_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream), encoding));");	
+		sc.add("public void print(" + E_OBJECT(sc) + " element) throws java.io.IOException {");
+		sc.add(PRINTER_WRITER(sc) + " out = new " + PRINTER_WRITER(sc) + "(new " + OUTPUT_STREAM_WRITER(sc) + "(new " + BUFFERED_OUTPUT_STREAM(sc) + "(outputStream), encoding));");	
 		sc.add("doPrint(element, out, \"\");");
 		sc.add("out.flush();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	protected void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
-		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, String globaltab) {");
+	protected void addDoPrintMethod(de.devboost.codecomposers.java.JavaComposite sc, List<Rule> rules) {
+		sc.add("protected void doPrint(" + E_OBJECT(sc) + " element, " + PRINTER_WRITER(sc) + " out, String globaltab) {");
 		sc.add("if (element == null) {");
-		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION(sc) + "(\"Nothing to write.\");");
 		sc.add("}");
 		sc.add("if (out == null) {");
-		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION(sc) + "(\"Nothing to write on.\");");
 		sc.add("}");
 		sc.addLineBreak();
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
@@ -253,9 +254,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(StringComposite sc) {
+	private void addConstructor(de.devboost.codecomposers.java.JavaComposite sc) {
 		sc.add("public " + super.getResourceClassName()
-				+ "(" + OUTPUT_STREAM + " outputStream, " + iTextResourceClassName + " resource) {");
+				+ "(" + OUTPUT_STREAM(sc) + " outputStream, " + iTextResourceClassName + " resource) {");
 		sc.add("super();");
 		sc.add("this.outputStream = outputStream;");
 		sc.add("this.resource = resource;");
@@ -268,7 +269,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 						+ tokenResolverFactoryClassName + "();");
 		sc.addLineBreak();
 		
-		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
+		sc.add("protected " + OUTPUT_STREAM(sc) + " outputStream;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -277,7 +278,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.add("private " + iTextResourceClassName + " resource;");
 		sc.addLineBreak();
 
-		sc.add("private " + MAP + "<?, ?> options;");
+		sc.add("private " + MAP(sc) + "<?, ?> options;");
 		sc.add("private String encoding = System.getProperty(\"file.encoding\");");
 		sc.addLineBreak();
 	}
@@ -288,8 +289,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 
 		sc.add("public void " + getMethodName(rule) + "(" +
 				getMetaClassName(rule) + " element, " + 
-				"String outertab, " + 
-				PRINTER_WRITER + " out) {");
+				"String outertab, " + PRINTER_WRITER(sc) + " out) {");
 
 		sc.add(new StringComponent("String " + localtabName + " = outertab;", localtabName));
 
@@ -310,9 +310,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 					choice2Name.get(choice) +
 					"(" +
 						getMetaClassName(rule) + " element, " + 
-						"String outertab, " + 
-						PRINTER_WRITER + " out, " + 
-						MAP + "<String, Integer> printCountingMap) {"
+						"String outertab, " + PRINTER_WRITER(sc) + " out, " + MAP(sc) + "<String, Integer> printCountingMap) {"
 			);
 
 			sc.add(new StringComponent("String " + localtabName + " = outertab;", localtabName));
@@ -332,10 +330,10 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
 			if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), feature)) {
 				sc.add("{");
-				sc.add(E_STRUCTURAL_FEATURE + " feature = element.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
+				sc.add(E_STRUCTURAL_FEATURE(sc) + " feature = element.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 				sc.add("Object value = element.eGet(feature);");
-				sc.add("if (value instanceof " + LIST + ") {");
-				sc.add("for (Object next : (" + LIST + "<?>) value) {");
+				sc.add("if (value instanceof " + LIST(sc) + ") {");
+				sc.add("for (Object next : (" + LIST(sc) + "<?>) value) {");
 				sc.add("out.print(tokenResolverFactory.createCollectInTokenResolver(\"" + feature.getName() + "\").deResolve(next, feature, element));");
 				sc.add("}");
 				sc.add("}");
@@ -354,7 +352,10 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			if (seqIt.hasNext()) {
 				Sequence firstSeq = seqIt.next();
 				int count = 0;
+				
 				JavaComposite sc1 = new JavaComposite();
+				sc1.setImportsPlaceholder(sc.getImportsPlaceholder());
+				
 				sc1.add("switch(alt) {");
 				sc.add("alt = " + (count++) + ";");
 				sc.add("int matches = ");
@@ -402,18 +403,16 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		Set<String> neededFeatures = new LinkedHashSet<String>(
 				sequence2NecessaryFeatures.get(sequence));
 
-		//EClass metaClass = genClass.getEcoreClass();
 		ListIterator<Definition> definitionIterator = sequence.getParts()
 				.listIterator();
-		
 		String iterateName = "iterate";
 		sc.add(new StringComponent("boolean " + iterateName + " = true;", iterateName));
 		String sWriteName = "sWriter";
-		sc.add(new StringComponent(STRING_WRITER + " " + sWriteName + " = null;", sWriteName));
+		sc.add(new StringComponent(STRING_WRITER(sc) + " " + sWriteName + " = null;", sWriteName));
 		String out1Name = "out1";
-		sc.add(new StringComponent(PRINTER_WRITER + " " + out1Name + " = null;", out1Name));
+		sc.add(new StringComponent(PRINTER_WRITER(sc) + " " + out1Name + " = null;", out1Name));
 		String printCountingMap1Name = "printCountingMap1";
-		sc.add(new StringComponent(MAP + "<String, Integer> " + printCountingMap1Name + " = null;", printCountingMap1Name));
+		sc.add(new StringComponent(MAP(sc) + "<String, Integer> " + printCountingMap1Name + " = null;", printCountingMap1Name));
 		
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
@@ -466,7 +465,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix + "resolver.deResolve(" 
 										+ getContext().getReferenceResolverAccessor(genFeature)
-										+ ".deResolve((" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ") o, element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
+										+ ".deResolve((" + genClassCache.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ") o, element, (" + E_REFERENCE(sc) + ") element.eClass().getEStructuralFeature("
 										+ featureConstant
 										+ ")), element.eClass().getEStructuralFeature("
 										+ featureConstant
@@ -494,7 +493,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 									
 								if (lookahead == null
 										|| !(lookahead instanceof WhiteSpaces)) {
-									String printSuffix = getWhiteSpaceString(getTokenSpace());
+	String printSuffix = getWhiteSpaceString(getTokenSpace());
 									printStatements.add("out.print(\"" + printSuffix + "\");");
 								}
 							}
@@ -504,7 +503,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 							// TODO implement printing of EnumTerminal
 						} else {
 							assert terminal instanceof Containment;
-							printStatements.add("doPrint((" + E_OBJECT + ") o, out, localtab);");
+							printStatements.add("doPrint((" + E_OBJECT(sc) + ") o, out, localtab);");
 						}
 
 						sc.add("if (count > 0) {");
@@ -514,7 +513,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 							sc.add("Object o = element."
 									+ getAccessMethod(genClassCache, genClass, genFeature) + ";");
 							if (feature.getUpperBound() != 1) {
-								sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
+								sc.add(LIST(sc) +"<?> list = (" + LIST(sc) + "<?>) o;");
 								sc.add("int index = list.size() - count;");
 								// we must check the index, because the list in the model
 								// may contain less elements than expected.
@@ -539,14 +538,14 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 						} else if (cardinality == Cardinality.PLUS
 								|| cardinality == Cardinality.STAR) {
 							if (feature.getUpperBound() != 1) {
-								sc.add(LIST + "<?> list = (" + LIST +"<?>)element."
+								sc.add(LIST(sc) + "<?> list = (" + LIST(sc) +"<?>)element."
 										+ getAccessMethod(genClassCache, genClass, genFeature)
 										+ ";");
 								sc.add("int index  = list.size() - count;");
 								sc.add("if (index < 0) {");
 								sc.add("index = 0;");
 								sc.add("}");
-								sc.add(LIST_ITERATOR + "<?> it  = list.listIterator(index);");
+								sc.add(LIST_ITERATOR(sc) + "<?> it  = list.listIterator(index);");
 								sc.add("while (it.hasNext()) {");
 								sc.add("Object o = it.next();");
 								if (cardinality == Cardinality.STAR
@@ -585,7 +584,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		return cardinality;
 	}
 
-	private void printCompound(StringComposite sc, Set<String> neededFeatures,
+	private void printCompound(de.devboost.codecomposers.java.JavaComposite sc, Set<String> neededFeatures,
 			Cardinality cardinality, CompoundDefinition compound) {
 		String printStatement = 
 				choice2Name.get(compound.getDefinition())
@@ -616,9 +615,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 				sc.add("iterate = true;");
 				sc.add("while (iterate) {");
 			}
-			sc.add("sWriter = new " + STRING_WRITER + "();");
-			sc.add("out1 = new " + PRINTER_WRITER + "(sWriter);");
-			sc.add("printCountingMap1 = new " + LINKED_HASH_MAP + "<String, Integer>(printCountingMap);");
+			sc.add("sWriter = new " + STRING_WRITER(sc) + "();");
+			sc.add("out1 = new " + PRINTER_WRITER(sc) + "(sWriter);");
+			sc.add("printCountingMap1 = new " + LINKED_HASH_MAP(sc) + "<String, Integer>(printCountingMap);");
 			
 			sc.add(choice2Name.get(compound.getDefinition()) + "(element, localtab, out1, printCountingMap1);");
 			sc.add("if (printCountingMap.equals(printCountingMap1)) {");
@@ -687,7 +686,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 				
 			if (lookahead == null
 					|| !(lookahead instanceof WhiteSpaces)) {
-				String printSuffix = getWhiteSpaceString(getTokenSpace());
+	String printSuffix = getWhiteSpaceString(getTokenSpace());
 				
 				sc.add(printPrefix + "\"" + printSuffix + "\");");
 			}
@@ -713,12 +712,12 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.add("out.print(localtab);");
 	}
 
-	private void printMatchCall(Sequence seq, StringComposite sc) {
+	private void printMatchCall(Sequence seq,de.devboost.codecomposers.java.JavaComposite sc) {
 		if (sequence2NecessaryFeatures.get(seq).isEmpty()) {
 			sc.add("0;");
 			return;
 		}
-		sc.add("matchCount(printCountingMap, " + ARRAYS + ".asList(");
+		sc.add("matchCount(printCountingMap, " + ARRAYS(sc) + ".asList(");
 		boolean notFirst = false;
 		for (String featureName : sequence2NecessaryFeatures.get(seq)) {
 			if (notFirst) {
@@ -732,8 +731,8 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 	}
 
 
-	private void addMatchCountMethod(StringComposite sc) {
-		sc.add("protected int matchCount(" + MAP + "<String, Integer> featureCounter, " + COLLECTION + "<String> needed) {");
+	private void addMatchCountMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+		sc.add("protected int matchCount(" + MAP(sc) + "<String, Integer> featureCounter, " + COLLECTION(sc) + "<String> needed) {");
 		sc.add("int pos = 0;");
 		sc.add("int neg = 0;");
 		sc.addLineBreak();
@@ -768,7 +767,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			"feature. For lists this is the list size. For non-multiple features it is either " +
 			"1 (if the feature is set) or 0 (if the feature is null)."
 		);
-		sc.add(new StringComponent(MAP + "<String, Integer> " + printCountingMapName + " = new " + LINKED_HASH_MAP + "<String, Integer>("
+		sc.add(new StringComponent(MAP(sc) + "<String, Integer> " + printCountingMapName + " = new " + LINKED_HASH_MAP(sc) + "<String, Integer>("
 				+ featureList.size() + ");", printCountingMapName));
 		
 		if (featureList.size() > 0) {
@@ -783,7 +782,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 			sc.add("temp = element." + getAccessMethod(genClassCache, genClass, genFeature) + ";");
 
 			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
-			String featureSize = isMultiple ? "((" + COLLECTION + "<?>) temp).size()" : "1";
+			String featureSize = isMultiple ? "((" + COLLECTION(sc) + "<?>) temp).size()" : "1";
 			sc.add("printCountingMap.put(\"" + feature.getName() + "\", temp == null ? 0 : " + featureSize + ");");
 		}
 	}
