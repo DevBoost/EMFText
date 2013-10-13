@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -30,6 +30,7 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUT
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINTER_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STRING_WRITER;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.STRING_WRITER;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -398,7 +399,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		return result;
 	}
 
-	private void printSequence(Sequence sequence, JavaComposite sc,
+	private void printSequence(Sequence sequence, final JavaComposite sc,
 			GenClass genClass) {
 		Set<String> neededFeatures = new LinkedHashSet<String>(
 				sequence2NecessaryFeatures.get(sequence));
@@ -407,8 +408,12 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 				.listIterator();
 		String iterateName = "iterate";
 		sc.add(new StringComponent("boolean " + iterateName + " = true;", iterateName));
-		String sWriteName = "sWriter";
-		sc.add(new StringComponent(STRING_WRITER(sc) + " " + sWriteName + " = null;", sWriteName));
+		final String sWriteName = "sWriter";
+		// Here we do not get the class name because the string components is
+		// enabled on demand, which yields unused import if the component is not
+		// enabled.
+		sc.add(new StringComponent(STRING_WRITER + " " + sWriteName + " = null;", sWriteName));
+		
 		String out1Name = "out1";
 		sc.add(new StringComponent(PRINTER_WRITER(sc) + " " + out1Name + " = null;", out1Name));
 		String printCountingMap1Name = "printCountingMap1";
@@ -493,7 +498,7 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 									
 								if (lookahead == null
 										|| !(lookahead instanceof WhiteSpaces)) {
-	String printSuffix = getWhiteSpaceString(getTokenSpace());
+									String printSuffix = getWhiteSpaceString(getTokenSpace());
 									printStatements.add("out.print(\"" + printSuffix + "\");");
 								}
 							}
@@ -584,8 +589,9 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		return cardinality;
 	}
 
-	private void printCompound(de.devboost.codecomposers.java.JavaComposite sc, Set<String> neededFeatures,
+	private void printCompound(JavaComposite sc, Set<String> neededFeatures,
 			Cardinality cardinality, CompoundDefinition compound) {
+		
 		String printStatement = 
 				choice2Name.get(compound.getDefinition())
 				+ "(element, localtab, out, printCountingMap);";
