@@ -89,7 +89,7 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 	private Stack<EObject> interpretationStack = new Stack<EObject>();
 	private List<org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener> listeners = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsInterpreterListener>();
 	private EObject nextObjectToInterprete;
-	private Object currentContext;
+	private ContextType currentContext;
 	
 	public ResultType interprete(ContextType context) {
 		ResultType result = null;
@@ -667,7 +667,7 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		interpretationStack.clear();
 	}
 	
-	public Object getCurrentContext() {
+	public ContextType getCurrentContext() {
 		return currentContext;
 	}
 	

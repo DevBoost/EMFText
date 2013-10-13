@@ -273,7 +273,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -495,7 +495,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
@@ -578,7 +578,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
@@ -645,7 +645,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
@@ -714,7 +714,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_5(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
@@ -783,7 +783,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_6(org.emftext.sdk.concretesyntax.ConcreteSyntax element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (LineBreak)
@@ -897,7 +897,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -1013,7 +1013,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	public void print_org_emftext_sdk_concretesyntax_Import_2(org.emftext.sdk.concretesyntax.Import element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		String localtab = outertab;
 		int count;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (WhiteSpaces)
@@ -1135,7 +1135,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -1231,7 +1231,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (Containment)
@@ -1307,7 +1307,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (Containment)
@@ -1525,7 +1525,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("escapeCharacter", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
@@ -1702,7 +1702,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
@@ -1851,7 +1851,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("types", temp == null ? 0 : ((Collection<?>) temp).size());
 		// print collected hidden tokens
 		int count;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
@@ -1892,7 +1892,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		String localtab = outertab;
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
@@ -2085,7 +2085,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -2244,7 +2244,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CompoundDefinition)
@@ -2422,7 +2422,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
@@ -2609,7 +2609,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		// print collected hidden tokens
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingSpecifiedToken)
@@ -2753,7 +2753,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("parameters", temp == null ? 0 : ((Collection<?>) temp).size());
 		// print collected hidden tokens
 		int count;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
@@ -2788,7 +2788,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		String localtab = outertab;
 		int count;
 		boolean iterate = true;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (CsString)
@@ -2869,7 +2869,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 		printCountingMap.put("value", temp == null ? 0 : 1);
 		// print collected hidden tokens
 		int count;
-		StringWriter sWriter = null;
+		java.io.StringWriter sWriter = null;
 		PrintWriter out1 = null;
 		Map<String, Integer> printCountingMap1 = null;
 		// DEFINITION PART BEGINS (PlaceholderUsingDefaultToken)
