@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -77,14 +78,14 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 	
 	private void addIsEMFValidationAvailableMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the class <code>" + PLATFORM(sc) +
+			"Checks whether the class <code>" + PLATFORM +
 			"</code> is available on the classpath. This can be used to " +
 			"determine if EMF Validation is available in the current runtime " +
 			"environment."
 		);
 		sc.add("public boolean isEclipsePlatformAvailable() {");
 		sc.add("try {");
-		sc.add("Class.forName(\"" + PLATFORM(sc) + "\");");
+		sc.add("Class.forName(\"" + PLATFORM + "\");");
 		sc.add("return true;");
 		sc.add("} catch (ClassNotFoundException cnfe) {");
 		sc.add("}");
