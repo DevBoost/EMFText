@@ -204,7 +204,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 			int itemColumn = 0;
 			
 			itemBeginRelative = itemBegin - charStart;
-			// create token before task item (TODO if required)
+			// create token before task item
 			String textBefore = text.substring(offset - charStart, itemBeginRelative);
 			int textBeforeLength = textBefore.length();
 			newItems.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTextToken(name, textBefore, offset, textBeforeLength, line, column, true));
@@ -219,7 +219,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		}
 		
 		if (!taskItems.isEmpty()) {
-			// create token after last task item (TODO if required)
+			// create token after last task item
 			String textAfter = text.substring(offset - charStart);
 			newItems.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTextToken(name, textAfter, offset, textAfter.length(), line, column, true));
 		}

@@ -39,13 +39,13 @@ public class CsRuntimeUtil {
 	}
 	
 	/**
-	 * Checks whether the class <code>Platform</code> is available on the classpath.
-	 * This can be used to determine if EMF Validation is available in the current
-	 * runtime environment.
+	 * Checks whether the class <code>org.eclipse.core.runtime.Platform</code> is
+	 * available on the classpath. This can be used to determine if EMF Validation is
+	 * available in the current runtime environment.
 	 */
 	public boolean isEclipsePlatformAvailable() {
 		try {
-			Class.forName("Platform");
+			Class.forName("org.eclipse.core.runtime.Platform");
 			return true;
 		} catch (ClassNotFoundException cnfe) {
 		}
