@@ -108,7 +108,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("prefixesMap = new " + LINKED_HASH_MAP + "<String, String[]>();");
 		sc.add("prefixesMap.put(" + I_DOCUMENT(sc) + ".DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);");
 		sc.addLineBreak();
-		sc.add(I_SELECTION(sc) + " currentSelection = " + HANDLER_UTIL(sc) + ".getCurrentSelection(event);");
+		sc.add(I_SELECTION(sc) + " currentSelection = editor.getSelectionProvider().getSelection();");
 		sc.add("final int operationCode;");
 		sc.add("if (isSelectionCommented(currentSelection)) {");
 		sc.add("operationCode = " + I_TEXT_OPERATION_TARGET(sc) + ".STRIP_PREFIX;");
