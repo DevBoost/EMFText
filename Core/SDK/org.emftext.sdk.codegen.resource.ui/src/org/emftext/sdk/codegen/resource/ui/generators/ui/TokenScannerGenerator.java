@@ -187,9 +187,9 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("int itemColumn = 0;");
 		sc.addLineBreak();
 		sc.add("itemBeginRelative = itemBegin - charStart;");
-		sc.addComment("create token before task item (TODO if required)");
+		// TODO Create token only if it is required
+		sc.addComment("create token before task item");
 		sc.add("String textBefore = text.substring(offset - charStart, itemBeginRelative);");
-		//sc.add("System.out.println("textBefore = '" + textBefore + "'");");
 		sc.add("int textBeforeLength = textBefore.length();");
 		sc.add("newItems.add(new " + textTokenClassName + "(name, textBefore, offset, textBeforeLength, line, column, true));");
 		sc.addLineBreak();
@@ -203,7 +203,8 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("if (!taskItems.isEmpty()) {");
-		sc.addComment("create token after last task item (TODO if required)");
+		// TODO Create token only if it is required
+		sc.addComment("create token after last task item");
 		sc.add("String textAfter = text.substring(offset - charStart);");
 		sc.add("newItems.add(new " + textTokenClassName + "(name, textAfter, offset, textAfter.length(), line, column, true));");
 		sc.add("}");
