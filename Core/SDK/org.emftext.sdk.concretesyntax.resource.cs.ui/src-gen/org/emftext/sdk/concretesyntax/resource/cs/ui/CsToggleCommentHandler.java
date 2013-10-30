@@ -71,7 +71,7 @@ public class CsToggleCommentHandler extends AbstractHandler {
 		prefixesMap = new java.util.LinkedHashMap<String, String[]>();
 		prefixesMap.put(IDocument.DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);
 		
-		ISelection currentSelection = HandlerUtil.getCurrentSelection(event);
+		ISelection currentSelection = editor.getSelectionProvider().getSelection();
 		final int operationCode;
 		if (isSelectionCommented(currentSelection)) {
 			operationCode = ITextOperationTarget.STRIP_PREFIX;

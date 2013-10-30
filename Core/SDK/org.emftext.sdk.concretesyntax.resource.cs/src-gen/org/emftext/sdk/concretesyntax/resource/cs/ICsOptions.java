@@ -80,6 +80,13 @@ public interface ICsOptions {
 	public final String DISABLE_LAYOUT_INFORMATION_RECORDING = "DISABLE_LAYOUT_INFORMATION_RECORDING";
 	
 	/**
+	 * The key for the option to disable EMF validation when loading resources. If
+	 * this option is set to <code>true</code>, the EMF validation framework is not
+	 * invoked.
+	 */
+	public final String DISABLE_EMF_VALIDATION = "DISABLE_EMF_VALIDATION";
+	
+	/**
 	 * The key for the option to set the encoding to use when loading or saving
 	 * resources. This is equivalent to the same option specified in class
 	 * <code>org.eclipse.emf.ecore.xmi.XMLResource</code>.
