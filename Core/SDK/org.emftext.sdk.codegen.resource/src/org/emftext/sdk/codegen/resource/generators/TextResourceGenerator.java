@@ -197,12 +197,14 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 		if (!disableEMFValidationConstraints && !removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
+			sc.add("if (loadOptions != null && !Boolean.TRUE.equals(loadOptions.get(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_EMF_VALIDATION + "))) {");
 			sc.addComment(
 				"We do only evaluate batch constraints when the resource is loaded for the first time. " +
 				"If the resource is reloaded, only live constraints are evaluated."
 			);
 			sc.add("boolean includeBatchConstraints = !this.isReloading;");
 			sc.add("new " + eclipseProxyClassName + "().checkEMFValidationConstraints(this, root, includeBatchConstraints);");
+			sc.add("}");
 			sc.add("}");
 		} else {
 			sc.addComment("checking EMF validation constraints was disabled either by option '" + OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS.getLiteral() + "' or '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "'.");

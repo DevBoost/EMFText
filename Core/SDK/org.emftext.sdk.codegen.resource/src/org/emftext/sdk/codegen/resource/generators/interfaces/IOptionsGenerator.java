@@ -24,9 +24,10 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public static final String DISABLE_CREATING_MARKERS_FOR_PROBLEMS = "DISABLE_CREATING_MARKERS_FOR_PROBLEMS";
-	public static final String DISABLE_LOCATION_MAP                  = "DISABLE_LOCATION_MAP";
-	public static final String DISABLE_LAYOUT_INFORMATION_RECORDING  = "DISABLE_LAYOUT_INFORMATION_RECORDING";
-	public static final String ADDITIONAL_REFERENCE_RESOLVERS  = "ADDITIONAL_REFERENCE_RESOLVERS";
+	public static final String DISABLE_LOCATION_MAP = "DISABLE_LOCATION_MAP";
+	public static final String DISABLE_LAYOUT_INFORMATION_RECORDING = "DISABLE_LAYOUT_INFORMATION_RECORDING";
+	public static final String DISABLE_EMF_VALIDATION = "DISABLE_EMF_VALIDATION";
+	public static final String ADDITIONAL_REFERENCE_RESOLVERS = "ADDITIONAL_REFERENCE_RESOLVERS";
 	public static final String OPTION_ENCODING = "OPTION_ENCODING";
 	public static final String LINE_DELIMITER_FOR_PRINTING = "LINE_DELIMITER_FOR_PRINTING";
 	
@@ -101,6 +102,14 @@ public class IOptionsGenerator extends JavaBaseGenerator<ArtifactParameter<Gener
 				"computed during printing and the original layout is not preserved."
 			);
 		sc.add("public final String " + DISABLE_LAYOUT_INFORMATION_RECORDING + " = \"" + DISABLE_LAYOUT_INFORMATION_RECORDING + "\";");
+		sc.addLineBreak();
+		
+		sc.addJavadoc(
+				"The key for the option to disable EMF validation when loading resources. " +
+				"If this option is set to <code>true</code>, the " +
+				"EMF validation framework is not invoked."
+			);
+		sc.add("public final String " + DISABLE_EMF_VALIDATION + " = \"" + DISABLE_EMF_VALIDATION + "\";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
