@@ -187,7 +187,7 @@ public class TextResourceGenerator extends
 
 		sc.add("protected void runValidators(" + E_OBJECT(sc) + " root) {");
 		if (!disableEValidators) {
-			sc.addComment("check constraints provided by EMF Validator classes");
+			sc.addComment("Check constraints provided by EMF Validator classes");
 			sc.add(DIAGNOSTIC(sc) + " diagnostics = " + DIAGNOSTICIAN(sc)
 					+ ".INSTANCE.validate(root);");
 			sc.add("addDiagnostics(diagnostics, root);");
@@ -197,7 +197,7 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 		if (!disableEMFValidationConstraints && !removeEclipseDependentCode) {
 			sc.add("if (new " + runtimeUtilClassName + "().isEclipsePlatformAvailable()) {");
-			sc.add("if (loadOptions != null && !Boolean.TRUE.equals(loadOptions.get(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_EMF_VALIDATION + "))) {");
+			sc.add("if (loadOptions == null || !Boolean.TRUE.equals(loadOptions.get(" + iOptionsClassName + "." + IOptionsGenerator.DISABLE_EMF_VALIDATION + "))) {");
 			sc.addComment(
 				"We do only evaluate batch constraints when the resource is loaded for the first time. " +
 				"If the resource is reloaded, only live constraints are evaluated."
