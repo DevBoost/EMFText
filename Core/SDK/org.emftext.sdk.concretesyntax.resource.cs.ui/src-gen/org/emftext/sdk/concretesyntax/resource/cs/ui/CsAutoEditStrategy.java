@@ -59,8 +59,7 @@ public class CsAutoEditStrategy extends DefaultIndentLineAutoEditStrategy {
 		if (textAfter.length() < textBefore.length()) {
 			return;
 		}
-		addClosingBracketAfterEnterIfRequired(document, command, text,
-		textBefore, textAfter);
+		addClosingBracketAfterEnterIfRequired(document, command, text, textBefore, textAfter);
 		addClosingBracket(command);
 	}
 	
@@ -81,24 +80,42 @@ public class CsAutoEditStrategy extends DefaultIndentLineAutoEditStrategy {
 		if (!isLineBreak) {
 			return;
 		}
-		String openingBracketBefore = getCloseAfterBracketBefore(document.get(), command.offset);
+		
+		String documentText = document.get();
+		String openingBracketBefore = getCloseAfterBracketBefore(documentText, command.offset);
 		if (openingBracketBefore == null) {
 			return;
 		}
-		String indentation = textAfter.substring(0, textBefore.length());
 		// add additional indentation (because a line break was entered after an opening
 		// bracket)
 		command.text = command.text + "\t";
-		command.text = command.text + indentation;
-		// add closing bracket
 		String closingBracket = bracketSet.getCounterpart(openingBracketBefore);
-		command.text = command.text + closingBracket;
+		boolean closingBracketIsMissing = count(documentText, openingBracketBefore) != count(documentText, closingBracket);
+		// add closing bracket (if required)
+		if (closingBracketIsMissing) {
+			command.text = command.text + textAfter;
+			command.text = command.text + closingBracket;
+		}
 		command.shiftsCaret = false;
-		command.caretOffset = command.offset + indentation.length() + 1;
+		command.caretOffset = command.offset + textAfter.length() + 1;
 	}
 	
 	/**
-	 * Searches for a bracket the must be closed when line breaks are entered and
+	 * Returns the number of occurrences of 'searchString' in 'text'.
+	 */
+	protected int count(String text, String searchString) {
+		int index = text.indexOf(searchString);
+		int count = 0;
+		while (index >= 0) {
+			count++;
+			index = text.indexOf(searchString, index + 1);
+		}
+		
+		return count;
+	}
+	
+	/**
+	 * Searches for a bracket that must be closed when line breaks are entered and
 	 * which is located right before the cursor (ignoring whitespace).
 	 */
 	protected String getCloseAfterBracketBefore(String text, int offset) {
