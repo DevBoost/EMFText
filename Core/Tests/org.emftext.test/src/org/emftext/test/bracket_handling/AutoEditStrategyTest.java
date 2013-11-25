@@ -66,6 +66,7 @@ public class AutoEditStrategyTest {
 	
 	@Parameters
 	public static Collection<Object[]> getTestData() {
+		
 		Collection<Object[]> testData = new ArrayList<Object[]>();
 		// simulate entering of line breaks
 		testData.add(new Object[] {"abc <CURSOR>", "\n", "abc \n<CURSOR>"});
@@ -73,6 +74,12 @@ public class AutoEditStrategyTest {
 		testData.add(new Object[] {"abc {  <CURSOR>", "\n", "abc {  \n\t<CURSOR>\n}"});
 
 		testData.add(new Object[] {"abc (<CURSOR>", "\n", "abc (\n<CURSOR>"});
+
+		// here we do not expect the closing bracket to be inserted
+		// automatically, because there is already a closing one.
+		testData.add(new Object[] {"abc {<CURSOR>\n}", "\n", "abc {\n\t<CURSOR>\n}"});
+
+		testData.add(new Object[] {"\tabc {<CURSOR>", "\n", "\tabc {\n\t\t<CURSOR>\n\t}"});
 
 		// simulate entering of brackets
 		testData.add(new Object[] {"abc <CURSOR>", "{", "abc {<CURSOR>"});

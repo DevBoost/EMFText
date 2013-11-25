@@ -75,8 +75,7 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("if (textAfter.length() < textBefore.length()) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("addClosingBracketAfterEnterIfRequired(document, command, text,");
-		sc.add("textBefore, textAfter);");
+		sc.add("addClosingBracketAfterEnterIfRequired(document, command, text, textBefore, textAfter);");
 		sc.add("addClosingBracket(command);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -99,25 +98,42 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("if (!isLineBreak) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("String openingBracketBefore = getCloseAfterBracketBefore(document.get(), command.offset);");
+		sc.addLineBreak();
+		sc.add("String documentText = document.get();");
+		sc.add("String openingBracketBefore = getCloseAfterBracketBefore(documentText, command.offset);");
 		sc.add("if (openingBracketBefore == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("String indentation = textAfter.substring(0, textBefore.length());");
 		sc.addComment("add additional indentation (because a line break was entered after an opening bracket)");
 		// TODO Figure out when to use spaces instead of tabs
 		sc.add("command.text = command.text + \"\\t\";");
-		sc.add("command.text = command.text + indentation;");
-		sc.addComment("add closing bracket");
 		sc.add("String closingBracket = bracketSet.getCounterpart(openingBracketBefore);");
+		sc.add("boolean closingBracketIsMissing = count(documentText, openingBracketBefore) != count(documentText, closingBracket);");
+		sc.addComment("add closing bracket (if required)");
+		sc.add("if (closingBracketIsMissing) {");
+		sc.add("command.text = command.text + textAfter;");
 		sc.add("command.text = command.text + closingBracket;");
+		sc.add("}");
 		sc.add("command.shiftsCaret = false;");
-		sc.add("command.caretOffset = command.offset + indentation.length() + 1;");
+		sc.add("command.caretOffset = command.offset + textAfter.length() + 1;");
 		sc.add("}");
 		sc.addLineBreak();
 		
+		sc.addJavadoc("Returns the number of occurrences of 'searchString' in 'text'.");
+		sc.add("protected int count(String text, String searchString) {");
+		sc.add("int index = text.indexOf(searchString);");
+		sc.add("int count = 0;");
+		sc.add("while (index >= 0) {");
+		sc.add("count++;");
+		sc.add("index = text.indexOf(searchString, index + 1);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("return count;");
+		sc.add("}");
+		sc.addLineBreak();
+
 		sc.addJavadoc(
-			"Searches for a bracket the must be closed when line breaks are entered " +
+			"Searches for a bracket that must be closed when line breaks are entered " +
 			"and which is located right before the cursor (ignoring whitespace)."
 		);
 		sc.add("protected String getCloseAfterBracketBefore(String text, int offset) {");
