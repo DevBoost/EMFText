@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -36,34 +36,28 @@ import org.emftext.access.resource.IScanner;
 import org.emftext.access.resource.IToken;
 
 /**
- * The EMFTextAccessProxy class can be used to access generated
- * text resource plug-ins via a set of interfaces. This is 
- * particularly useful for tools that need to perform the same
- * operations over a set of languages.
+ * The EMFTextAccessProxy class can be used to access generated text resource
+ * plug-ins via a set of interfaces. This is particularly useful for tools that
+ * need to perform the same operations over a set of languages.
  * 
- * The access to generated classes using interfaces that are not
- * declared to be implemented by those classes is established by
- * Java's reflection mechanisms. However, the EMFTextAccessProxy
- * class allows to make transparent use of this mechanisms. The
- * basic idea is to provide an object together with an interface
- * the shall be used to access the methods in the object. The 
- * objects class must therefore contain the methods declared in 
- * the interface (i.e., the methods must have the same signature),
- * but the class does not need to declare that it implements the
- * interface.
+ * The access to generated classes using interfaces that are not declared to be
+ * implemented by those classes is established by Java's reflection mechanisms.
+ * However, the EMFTextAccessProxy class allows to make transparent use of this
+ * mechanisms. The basic idea is to provide an object together with an interface
+ * that shall be used to access the methods in the object. The object's class
+ * must therefore contain the methods declared in the interface (i.e., the
+ * methods must have the same signature), but the class does not need to declare
+ * that it implements the interface.
  * 
- * The central starting point to gather reflective access are the
- * get() methods.
+ * The central starting point to gather reflective access are the get() methods.
  * 
  * Note that not all kinds of interfaces can be handled by the
- * EMFTextAccessProxy! Methods that use generic types as return
- * type or parameter can not be handled. This is due to Java's
- * type erasure which removes type arguments during compilation.
- * Thus, the type arguments of generic types are not known at
- * run-time, which makes wrapping and unwrapping of objects
- * impossible.
- * Furthermore, the current implementation of the EMFTextAccessProxy
- * can not handle multidimensional arrays.  
+ * EMFTextAccessProxy! Methods that use generic types as return type or
+ * parameter can not be handled. This is due to Java's type erasure which
+ * removes type arguments during compilation. Thus, the type arguments of
+ * generic types are not known at run-time, which makes wrapping and unwrapping
+ * of objects impossible. Furthermore, the current implementation of the
+ * EMFTextAccessProxy can not handle multidimensional arrays.
  */
 public class EMFTextAccessProxy implements InvocationHandler {
 
@@ -204,7 +198,8 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	private static boolean isDeprecated(Method method) {
 		Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
 		for (Annotation annotation : declaredAnnotations) {
-			if (annotation.annotationType().equals(Deprecated.class)) {
+			Class<?> annotationType = annotation.annotationType();
+			if (annotationType.equals(Deprecated.class)) {
 				return true;
 			}
 		}
@@ -212,10 +207,10 @@ public class EMFTextAccessProxy implements InvocationHandler {
 	}
 
 	/**
-	 * Returns an instance of the given access interface that can be
-	 * used to call the methods of 'impl'. In addition to the default
-	 * set of interfaces that are declared to be used to access the 
-	 * object 'impl', more interfaces can be passed to this method.  
+	 * Returns an instance of the given access interface that can be used to
+	 * call the methods of 'impl'. In addition to the default set of interfaces
+	 * that are declared to be used to access the object 'impl', more interfaces
+	 * can be passed to this method.
 	 * 
 	 * @param impl
 	 * @param accessInterface
@@ -305,7 +300,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 
 	private Object unwrapArrayIfNeeded(Method implMethod, Object arg, Class<?> parameterType) {
 		Object unwrappedArray = arg;
-		// handle args that are arrays
+		// handle arguments that are arrays
 		if (arg != null && arg.getClass().isArray()) {
 			Class<?> componentType = parameterType.getComponentType();
 			unwrappedArray = Array.newInstance(componentType, Array.getLength(arg));
