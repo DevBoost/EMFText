@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -25,8 +25,11 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.emftext.commons.jdt.JDTJavaClassifier;
 
-public class JDTJavaClassifierUtil {
+public abstract class JDTJavaClassifierUtil {
 
+	/**
+	 * Returns the {@link IType} that corresponds to the given classifier.
+	 */
 	public IType getIType(JDTJavaClassifier classifier) {
 		
 		String projectName = classifier.getProjectName();
@@ -37,17 +40,25 @@ public class JDTJavaClassifierUtil {
 		if (javaProject == null) {
 			return null;
 		}
+		
 		if (!javaProject.exists()) {
 			return null;
 		}
+		
 		String qualifiedName = classifier.getQualifiedName();
 		try {
 			IType type = javaProject.findType(qualifiedName);
 			return type;
 		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			handleException(e);
 			return null;
 		}
 	}
+
+	/**
+	 * This is a template method that must be implemented by concrete subclasses
+	 * to handle exceptions that are thrown while executing
+	 * {@link #getIType(JDTJavaClassifier)}.
+	 */
+	public abstract void handleException(Exception e);
 }
