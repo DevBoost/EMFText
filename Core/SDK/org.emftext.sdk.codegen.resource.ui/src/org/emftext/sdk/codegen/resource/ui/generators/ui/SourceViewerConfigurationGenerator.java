@@ -74,6 +74,7 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 		sc.add("private " + iResourceProviderClassName + " resourceProvider;");
 		sc.add("private " + iAnnotationModelProviderClassName + " annotationModelProvider;");
 		sc.add("private " + quickAssistAssistantClassName + " quickAssistAssistant;");
+		sc.add("private " + iTokenScannerClassName + " tokenScanner;");
 		sc.addLineBreak();
 	}
 
@@ -226,7 +227,10 @@ public class SourceViewerConfigurationGenerator extends UIJavaBaseGenerator<Arti
 
 	private void addGetScannerMethod(JavaComposite sc) {
 		sc.add("protected " + I_TOKEN_SCANNER(sc) + " getScanner() {");
-		sc.add("return new " + uiMetaInformationClassName + "().createTokenScanner(resourceProvider.getResource(), colorManager);");
+		sc.add("if (tokenScanner == null) {");
+		sc.add("tokenScanner = new " + uiMetaInformationClassName + "().createTokenScanner(resourceProvider.getResource(), colorManager);");
+		sc.add("}");
+		sc.add("return tokenScanner;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
