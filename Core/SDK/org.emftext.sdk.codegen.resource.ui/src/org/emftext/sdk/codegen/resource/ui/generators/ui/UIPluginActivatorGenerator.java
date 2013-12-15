@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -19,13 +19,12 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE_CONTEXT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DIALOG_CONSTANTS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MESSAGE_DIALOG;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
+import org.emftext.sdk.codegen.resource.ActivatorGeneratorUtil;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
@@ -55,36 +54,7 @@ public class UIPluginActivatorGenerator extends JavaBaseGenerator<ArtifactParame
 		addStopMethod(sc);
 		addGetDefaultMethod(sc);
 		addShowErrorMethod(sc);
-		addLogErrorMethod(sc);
-	}
-
-	private void addLogErrorMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Helper method for error logging.",
-			"@param message the error message to log",
-			"@param exception the exception that describes the error in detail",
-			"@return the status object describing the error"
-		);
-		sc.add("public static " + I_STATUS(sc) + " logError(String message, Throwable exception) {");
-		sc.add(I_STATUS(sc) + " status;");
-		sc.add("if (exception != null) {");
-		sc.add("status = new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, 0, message, exception);");
-		sc.add("} else {");
-		sc.add("status = new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, message);");
-		sc.add("}");
-			
-		sc.add("final " + getResourceClassName() + " pluginInstance = " + getResourceClassName() + ".getDefault();");
-		sc.add("if (pluginInstance == null) {");
-		sc.add("System.err.println(message);");
-		sc.add("if (exception != null) {");
-		sc.add("exception.printStackTrace();");
-		sc.add("}");
-		sc.add("} else {");
-		sc.add("pluginInstance.getLog().log(status);");
-		sc.add("}");
-		sc.add("return status;");
-		sc.add("}");
-		sc.addLineBreak();
+		new ActivatorGeneratorUtil().addLogMethods(sc, getResourceClassName());
 	}
 
 	private void addShowErrorMethod(JavaComposite sc) {

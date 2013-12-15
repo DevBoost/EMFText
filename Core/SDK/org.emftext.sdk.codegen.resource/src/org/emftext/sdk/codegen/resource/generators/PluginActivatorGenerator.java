@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2013
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -16,15 +16,14 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE_CONTEXT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
+import org.emftext.sdk.codegen.resource.ActivatorGeneratorUtil;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -59,79 +58,7 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		addStartMethod(sc);
 		addStopMethod(sc);
 		addGetDefaultMethod(sc);
-		addLogErrorMethod(sc);
-		addLogWarningMethod(sc);
-		addLogInfoMethod(sc);
-		addLogMethod(sc);
-	}
-
-	private void addLogErrorMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Helper method for error logging.",
-			"@param message the error message to log",
-			"@param throwable the exception that describes the error in detail (can be null)",
-			"@return the status object describing the error"
-		);
-		sc.add("public static " + I_STATUS(sc) + " logError(String message, Throwable throwable) {");
-		sc.add("return log(" + I_STATUS(sc) + ".ERROR, message, throwable);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addLogWarningMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Helper method for logging warnings.",
-			"@param message the warning message to log",
-			"@param throwable the exception that describes the warning in detail (can be null)",
-			"@return the status object describing the warning"
-		);
-		sc.add("public static " + I_STATUS(sc) + " logWarning(String message, Throwable throwable) {");
-		sc.add("return log(" + I_STATUS(sc) + ".WARNING, message, throwable);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addLogInfoMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Helper method for logging infos.",
-			"@param message the info message to log",
-			"@param throwable the exception that describes the info in detail (can be null)",
-			"@return the status object describing the info"
-		);
-		sc.add("public static " + I_STATUS(sc) + " logInfo(String message, Throwable throwable) {");
-		sc.add("return log(" + I_STATUS(sc) + ".INFO, message, throwable);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addLogMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Helper method for logging.",
-			"@param type the type of the message to log",
-			"@param message the message to log",
-			"@param throwable the exception that describes the error in detail (can be null)",
-			"@return the status object describing the error"
-		);
-		sc.add("protected static " + I_STATUS(sc) + " log(int type, String message, Throwable throwable) {");
-		sc.add(I_STATUS(sc) + " status;");
-		sc.add("if (throwable != null) {");
-		sc.add("status = new " + STATUS(sc) + "(type, " + getResourceClassName() + ".PLUGIN_ID, 0, message, throwable);");
-		sc.add("} else {");
-		sc.add("status = new " + STATUS(sc) + "(type, " + getResourceClassName() + ".PLUGIN_ID, message);");
-		sc.add("}");
-			
-		sc.add("final " + getResourceClassName() + " pluginInstance = " + getResourceClassName() + ".getDefault();");
-		sc.add("if (pluginInstance == null) {");
-		sc.add("System.err.println(message);");
-		sc.add("if (throwable != null) {");
-		sc.add("throwable.printStackTrace();");
-		sc.add("}");
-		sc.add("} else {");
-		sc.add("pluginInstance.getLog().log(status);");
-		sc.add("}");
-		sc.add("return status;");
-		sc.add("}");
-		sc.addLineBreak();
+		new ActivatorGeneratorUtil().addLogMethods(sc, getResourceClassName());
 	}
 
 	private void addGetDefaultMethod(StringComposite sc) {
