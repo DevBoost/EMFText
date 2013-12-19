@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenTypeParameter;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenClassInheritanceComparator;
@@ -164,7 +165,7 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.addLineBreak();
 	}
 
-	private void addDoSwitchMethod(de.devboost.codecomposers.java.JavaComposite sc) {
+	private void addDoSwitchMethod(JavaComposite sc) {
 		sc.add("public ResultType interprete(" + E_OBJECT(sc) + " object, ContextType context) {");
 		sc.add("ResultType result = null;");
 		// sort genClasses by inheritance
@@ -176,8 +177,9 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		for (GenClass genClass : sortedClasses) {
 			String methodName = getMethodName(genClass);
 			String typeName = getTypeName(genClass);
+			String typeArgumentString = getTypeArguments(genClass);
 			sc.add("if (object instanceof " + typeName + ") {");
-			sc.add("result = " + methodName + "((" + typeName + ") object, context);");
+			sc.add("result = " + methodName + "((" + typeName + typeArgumentString + ") object, context);");
 			sc.add("}");
 			sc.add("if (result != null) {");
 			sc.add("return result;");
@@ -186,6 +188,24 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private String getTypeArguments(GenClass genClass) {
+		// for generic types we must add type arguments to avoid compiler
+		// warnings
+		List<GenTypeParameter> genTypeParameters = genClass.getGenTypeParameters();
+		int getTypeParameterCount = genTypeParameters.size();
+		String typeArgumentString;
+		if (getTypeParameterCount <= 0) {
+			typeArgumentString = "";
+		} else {
+			List<String> typeArguments = new ArrayList<String>(getTypeParameterCount);
+			for (int i = 0; i < getTypeParameterCount; i++) {
+				typeArguments.add("?");
+			}
+			typeArgumentString = "<" + StringUtil.explode(typeArguments, ", ") + ">";
+		}
+		return typeArgumentString;
 	}
 
 	private String getTypeName(GenClass genClass) {
@@ -210,7 +230,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		if ("context".equals(objectName) || StringUtil.isReserveredWord(objectName)) {
 			objectName = "_" + objectName;
 		}
-		sc.add("public ResultType " + methodName + "(" + typeName + " " + objectName + ", ContextType context) {");
+		String typeArgumentString = getTypeArguments(genClass);
+		sc.add("public ResultType " + methodName + "(" + typeName + typeArgumentString + " " + objectName + ", ContextType context) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
