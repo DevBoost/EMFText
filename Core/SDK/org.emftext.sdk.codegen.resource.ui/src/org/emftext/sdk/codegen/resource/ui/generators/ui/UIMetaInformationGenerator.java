@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
+
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
@@ -43,6 +45,15 @@ public class UIMetaInformationGenerator extends UIJavaBaseGenerator<ArtifactPara
         addCreateTokenScannerMethod1(sc);
         addCreateTokenScannerMethod2(sc);
         addCreateCodeCompletionHelperMethod(sc);
+        addCreateAdapterMethod(sc);
+	}
+
+	private void addCreateAdapterMethod(JavaComposite sc) {
+		sc.add("@SuppressWarnings(\"rawtypes\")");
+		sc.add("public Object createResourceAdapter(Object adaptableObject, Class adapterType, " + I_RESOURCE(sc) + " resource) {");
+		sc.add("return new " + lineBreakpointAdapterClassName + "();");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addCreateTokenScannerMethod1(JavaComposite sc) {

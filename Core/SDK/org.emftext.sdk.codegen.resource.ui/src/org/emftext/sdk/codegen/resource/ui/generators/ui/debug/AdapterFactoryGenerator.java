@@ -66,7 +66,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("if (resource != null) {");
 		sc.add("String extension = resource.getFileExtension();");
 		sc.add("if (extension != null && extension.equals(new " + metaInformationClassName + "().getSyntaxName())) {");
-		sc.add("return new " + lineBreakpointAdapterClassName + "();");
+		sc.add("return new " + uiMetaInformationClassName + "().createResourceAdapter(adaptableObject, adapterType, resource);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
