@@ -57,6 +57,7 @@ public class LineBreakpointGenerator extends JavaBaseGenerator<ArtifactParameter
 	private void addConstructors(JavaComposite sc) {
 		addConstructor1(sc);
 		addConstructor2(sc);
+		addConstructor3(sc);
 	}
 
 	private void addConstants(JavaComposite sc) {
@@ -73,12 +74,21 @@ public class LineBreakpointGenerator extends JavaBaseGenerator<ArtifactParameter
 
 	private void addConstructor2(JavaComposite sc) {
 		sc.add("public " + getResourceClassName() + "(final " + I_RESOURCE(sc) + " resource, final int lineNumber) throws " + DEBUG_EXCEPTION(sc) + " {");
+		sc.add("this(resource, lineNumber, -1, -1);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addConstructor3(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(final " + I_RESOURCE(sc) + " resource, final int lineNumber, final int charStart, final int charEnd) throws " + DEBUG_EXCEPTION(sc) + " {");
 		sc.add(I_WORKSPACE_RUNNABLE(sc) + " runnable = new " + I_WORKSPACE_RUNNABLE(sc) + "() {");
 		sc.add("public void run(" + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add(I_MARKER(sc) + " marker = resource.createMarker(LINE_BREAKPOINT_MARKER_ID);");
 		sc.add("setMarker(marker);");
 		sc.add("marker.setAttribute(" + I_BREAKPOINT(sc) + ".ENABLED, Boolean.TRUE);");
 		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".LINE_NUMBER, lineNumber);");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".CHAR_START, charStart);");
+		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".CHAR_END, charEnd);");
 		sc.add("marker.setAttribute(" + I_BREAKPOINT(sc) + ".ID, getModelIdentifier());");
 		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".MESSAGE, \"Line Breakpoint: \" + resource.getName() + \" [line: \" + lineNumber + \"]\");");
 		sc.add("marker.setAttribute(" + I_MARKER(sc) + ".LOCATION, resource.getRawLocation().toPortableString());");		
