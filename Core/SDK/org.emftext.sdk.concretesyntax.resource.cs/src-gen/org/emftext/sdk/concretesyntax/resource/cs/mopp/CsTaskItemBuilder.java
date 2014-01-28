@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 public class CsTaskItemBuilder {
 	
 	public void build(IFile resource, ResourceSet resourceSet, IProgressMonitor monitor) {
-		monitor.setTaskName("Searching for task items");
+		monitor.setTaskName("Searching for task items in " + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName() + " files");
 		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, IMarker.TASK);
 		if (isInBinFolder(resource)) {
 			return;

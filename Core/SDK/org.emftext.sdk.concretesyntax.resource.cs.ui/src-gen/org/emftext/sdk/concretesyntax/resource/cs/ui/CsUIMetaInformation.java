@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import org.eclipse.core.resources.IResource;
 
 public class CsUIMetaInformation extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation {
 	
@@ -46,6 +47,11 @@ public class CsUIMetaInformation extends org.emftext.sdk.concretesyntax.resource
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper createCodeCompletionHelper() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Object createResourceAdapter(Object adaptableObject, Class adapterType, IResource resource) {
+		return new org.emftext.sdk.concretesyntax.resource.cs.ui.debug.CsLineBreakpointAdapter();
 	}
 	
 }

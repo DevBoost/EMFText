@@ -54,6 +54,7 @@ public class CsSourceViewerConfiguration extends TextSourceViewerConfiguration {
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider resourceProvider;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider annotationModelProvider;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsQuickAssistAssistant quickAssistAssistant;
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner;
 	
 	/**
 	 * Creates a new editor configuration.
@@ -99,7 +100,10 @@ public class CsSourceViewerConfiguration extends TextSourceViewerConfiguration {
 	}
 	
 	protected ITokenScanner getScanner() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().createTokenScanner(resourceProvider.getResource(), colorManager);
+		if (tokenScanner == null) {
+			tokenScanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIMetaInformation().createTokenScanner(resourceProvider.getResource(), colorManager);
+		}
+		return tokenScanner;
 	}
 	
 	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
