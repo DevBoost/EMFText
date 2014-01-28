@@ -71,7 +71,7 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addBuildMethod(JavaComposite sc) {
 		sc.add("public void build(" + I_FILE(sc) + " resource, " + RESOURCE_SET(sc) + " resourceSet, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
-		sc.add("monitor.setTaskName(\"Searching for task items\");");
+		sc.add("monitor.setTaskName(\"Searching for task items in \" + new " + metaInformationClassName + "().getSyntaxName() + \" files\");");
 		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, " + I_MARKER(sc) + ".TASK);");
 		sc.add("if (isInBinFolder(resource)) {");
 		sc.add("return;");
