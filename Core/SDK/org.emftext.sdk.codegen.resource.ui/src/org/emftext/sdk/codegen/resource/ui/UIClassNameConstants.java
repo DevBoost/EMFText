@@ -363,6 +363,7 @@ import org.eclipse.ui.IMarkerResolutionGenerator;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchActionConstants;
@@ -370,6 +371,8 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.IWorkingSet;
+import org.eclipse.ui.IWorkingSetManager;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.XMLMemento;
@@ -1350,6 +1353,10 @@ public class UIClassNameConstants extends ClassNameConstants {
 		return jc.getClassName(ISelectionProvider.class);
 	}
 
+	public static String I_SELECTION_SERVICE(JavaComposite jc) {
+		return jc.getClassName(ISelectionService.class);
+	}
+	
 	public static String I_SELECTION_STATUS_VALIDATOR(JavaComposite jc) {
 		return jc.getClassName(ISelectionStatusValidator.class);
 	}
@@ -1480,6 +1487,14 @@ public class UIClassNameConstants extends ClassNameConstants {
 
 	public static String I_WORKBENCH_PREFERENCE_PAGE(JavaComposite jc) {
 		return jc.getClassName(IWorkbenchPreferencePage.class);
+	}
+	
+	public static String I_WORKING_SET(JavaComposite jc) {
+		return jc.getClassName(IWorkingSet.class);
+	}
+	
+	public static String I_WORKING_SET_MANAGER(JavaComposite jc) {
+		return jc.getClassName(IWorkingSetManager.class);
 	}
 
 	public static String I_WORKSPACE(JavaComposite jc) {
