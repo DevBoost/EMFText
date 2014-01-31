@@ -2,7 +2,7 @@
 <feature
       id="org.emftext.commons.jdt"
       label="EMFText JDT Integration"
-      version="1.4.6"
+      version="1.4.7"
       provider-name="DevBoost GmbH">
 
    <description url="http://www.emftext.org">
@@ -10,7 +10,7 @@
    </description>
 
    <copyright>
-      Copyright (c) 2006-2013 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.
+      Copyright (c) 2006-2014 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.
    </copyright>
 
    <license>
