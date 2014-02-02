@@ -35,11 +35,19 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkingSet;
+import org.eclipse.ui.IWorkingSetManager;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
 /**
@@ -98,6 +106,7 @@ public class CsNewProjectWizardLogic {
 				
 				desc.setNatureIds(new String[] {natureID});
 				desc.setBuildSpec(buildCommands.toArray(new ICommand[buildCommands.size()]));
+				addProjectToSelectedWorkingSet(project);
 				project.create(desc, monitor);
 				// Now, we ensure that the project is open.
 				project.open(monitor);
@@ -127,6 +136,30 @@ public class CsNewProjectWizardLogic {
 			throw new RuntimeException(e);
 		} finally {
 			monitor.done();
+		}
+	}
+	
+	/**
+	 * Adds the newly created project to the currently selected working set.
+	 * 
+	 * @param project the project to be added to the selected working set
+	 */
+	private void addProjectToSelectedWorkingSet(IProject project) {
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		ISelectionService selectionService = workbench.getActiveWorkbenchWindow().getSelectionService();
+		ISelection selection = selectionService.getSelection();
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			Object firstElement = structuredSelection.getFirstElement();
+			if (firstElement instanceof IAdaptable) {
+				IAdaptable adaptable = (IAdaptable) firstElement;
+				IWorkingSet workingSet = (IWorkingSet) adaptable.getAdapter(IWorkingSet.class);
+				if (workingSet != null) {
+					// new project wizard was invoked by right-clicking a working set
+					IWorkingSetManager workingSetManager = workbench.getWorkingSetManager();
+					workingSetManager.addToWorkingSets(project, new IWorkingSet[]{workingSet});
+				}
+			}
 		}
 	}
 	

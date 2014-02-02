@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.Arrays;
 
 public class CsTokenStyle implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle {
 	
@@ -91,6 +92,34 @@ public class CsTokenStyle implements org.emftext.sdk.concretesyntax.resource.cs.
 	
 	public void setUnderline(boolean underline) {
 		this.underline = underline;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(backgroundColorAsRGB);
+		result = prime * result + (bold ? 1231 : 1237);
+		result = prime * result + Arrays.hashCode(colorAsRGB);
+		result = prime * result + (italic ? 1231 : 1237);
+		result = prime * result + (strikethrough ? 1231 : 1237);
+		result = prime * result + (underline ? 1231 : 1237);
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)		return true;
+		if (obj == null)		return false;
+		if (getClass() != obj.getClass())		return false;
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle other = (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle) obj;
+		if (!Arrays.equals(backgroundColorAsRGB, other.backgroundColorAsRGB))		return false;
+		if (bold != other.bold)		return false;
+		if (!Arrays.equals(colorAsRGB, other.colorAsRGB))		return false;
+		if (italic != other.italic)		return false;
+		if (strikethrough != other.strikethrough)		return false;
+		if (underline != other.underline)		return false;
+		return true;
 	}
 	
 }
