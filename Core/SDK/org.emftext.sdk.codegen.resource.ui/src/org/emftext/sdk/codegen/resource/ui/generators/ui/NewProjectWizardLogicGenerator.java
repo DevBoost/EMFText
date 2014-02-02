@@ -180,13 +180,13 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add(I_WORKBENCH(sc) + " workbench = " + PLATFORM_UI(sc) + ".getWorkbench();");
 		sc.add(I_SELECTION_SERVICE(sc) + " selectionService = workbench.getActiveWorkbenchWindow().getSelectionService();");
 		sc.add(I_SELECTION(sc) + " selection = selectionService.getSelection();");
-		sc.add("if(selection instanceof " + I_STRUCTURED_SELECTION(sc) + "){");
+		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION(sc) + ") {");
 		sc.add(I_STRUCTURED_SELECTION(sc) + " structuredSelection = (" + I_STRUCTURED_SELECTION(sc) + ") selection;");
 		sc.add("Object firstElement = structuredSelection.getFirstElement();");
-		sc.add("if(firstElement instanceof " + I_ADAPTABLE(sc) + "){");
+		sc.add("if (firstElement instanceof " + I_ADAPTABLE(sc) + ") {");
 		sc.add(I_ADAPTABLE(sc) + " adaptable = (" + I_ADAPTABLE(sc) + ") firstElement;");
 		sc.add(I_WORKING_SET(sc) + " workingSet = (" + I_WORKING_SET(sc) + ") adaptable.getAdapter(" + I_WORKING_SET(sc) + ".class);");
-		sc.add("if(workingSet != null){");
+		sc.add("if (workingSet != null) {");
 		sc.addComment("new project wizard was invoked by right-clicking a working set");
 		sc.add(I_WORKING_SET_MANAGER(sc) + " workingSetManager = workbench.getWorkingSetManager();");
 		sc.add("workingSetManager.addToWorkingSets(project, new " + I_WORKING_SET(sc) + "[]{workingSet});");
@@ -194,6 +194,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addExtractProjectMethod(JavaComposite sc) {
