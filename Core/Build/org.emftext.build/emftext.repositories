@@ -4,17 +4,18 @@ git:https://github.com/DevBoost/BuildBoost.git!Extensions/UpdateSite/
 git:https://github.com/DevBoost/BuildBoost.git!Extensions/Maven/
 
 // Eclipse Platform
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops4/R-4.3-201306052000/eclipse-platform-4.3-win32-x86_64.zip
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops4/R-4.3-201306052000/eclipse-4.3-delta-pack.zip
+get:http://devboost.de/eclipse-mirror/downloads/drops4/R-4.3.1-201309111000/eclipse-platform-4.3.1-win32-x86_64.zip
+get:http://devboost.de/eclipse-mirror/downloads/drops4/R-4.3.1-201309111000/eclipse-4.3.1-delta-pack.zip
 // JDT
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops4/R-4.3-201306052000/org.eclipse.jdt-4.3.zip
+get:http://devboost.de/eclipse-mirror/downloads/drops4/R-4.3.1-201309111000/org.eclipse.jdt-4.3.1.zip
 // EMF
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/emf/downloads/drops/2.9.0/R201306100406/emf-xsd-SDK-2.9.0.zip
+get:http://devboost.de/eclipse-mirror/modeling/emf/emf/downloads/drops/2.9.1/S201309020605/emf-xsd-SDK-2.9.1RC2.zip
+
 // EMF Validation (core plugin and feature)
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/plugins/org.eclipse.emf.validation_1.7.0.201306111341.jar
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/plugins/org.eclipse.emf.validation.ui_1.7.0.201306111341.jar
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/plugins/org.eclipse.emf.validation.ui.ide_1.3.0.201306111341.jar
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/features/org.eclipse.emf.validation_1.7.0.201306111341/feature.xml
+get:http://devboost.de/eclipse-mirror/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/plugins/org.eclipse.emf.validation_1.7.0.201306111341.jar
+get:http://devboost.de/eclipse-mirror/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/plugins/org.eclipse.emf.validation.ui_1.7.0.201306111341.jar
+get:http://devboost.de/eclipse-mirror/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/plugins/org.eclipse.emf.validation.ui.ide_1.3.0.201306111341.jar
+get:http://devboost.de/eclipse-mirror/modeling/emf/validation/downloads/drops/1.7.0/R201306111341/emf-validation-runtime-1.7.0.zip!eclipse/features/org.eclipse.emf.validation_1.7.0.201306111341/feature.xml
  
 // Testing (JUnit Stage)
 git:https://github.com/DevBoost/BuildBoost.git!Extensions/JUnit/
@@ -23,9 +24,9 @@ git:https://github.com/DevBoost/BuildBoost.git!Extensions/JUnit/
 git:https://github.com/DevBoost/BuildBoost.git!Extensions/EMFText/
 
 // EMF Compare (required for tests)
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/modeling/emf/compare/downloads/drops/2.1.0/R201306250935/emf-compare-update-2.1.0a.zip!plugins/org.eclipse.emf.compare_3.0.0.201306250935.jar
+get:http://devboost.de/eclipse-mirror/modeling/emf/compare/downloads/drops/2.1.0/R201306250935/emf-compare-update-2.1.0a.zip!plugins/org.eclipse.emf.compare_3.0.0.201306250935.jar
 // Google Guava (required by EMF Compare)
-get:http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/tools/orbit/downloads/drops/R20130517111416/repository/plugins/com.google.guava_11.0.2.v201303041551.jar
+get:http://devboost.de/eclipse-mirror/tools/orbit/downloads/drops/R20130517111416/repository/plugins/com.google.guava_11.0.2.v201303041551.jar
 
 // CodeComposers
 git:https://github.com/DevBoost/CodeComposers.git
