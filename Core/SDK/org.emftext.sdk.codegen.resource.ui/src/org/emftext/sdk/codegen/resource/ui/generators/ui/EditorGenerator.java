@@ -323,6 +323,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
+	// FIXME This method seems not to be used. Remove it?
 	private void addSetCaretMethod(JavaComposite sc) {
 
 		sc.addJavadoc(
