@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -254,7 +254,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	
 	private void addFireSelectionChangedMethod(JavaComposite sc) {
 		sc.add("protected void fireSelectionChanged(" + SELECTION_CHANGED_EVENT(sc) + " event) {");
-		sc.add("if (suppressNotifications == true) {");
+		sc.add("if (suppressNotifications) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("super.fireSelectionChanged(event);");

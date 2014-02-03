@@ -412,10 +412,15 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.addLineBreak();
 	}
 
-	private void addGetOutlinePageMethod(StringComposite sc) {
-		sc.add("private Object getOutlinePage() {");
+	private void addGetOutlinePageMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Return the outline page this is associated with this editor. If " +
+			"no outline page exists, a new one is created."
+		);
+		sc.add("private " + outlinePageClassName + " getOutlinePage() {");
 		sc.add("if (outlinePage == null) {");
 		sc.add("outlinePage = new " + outlinePageClassName + "(this);");
+		sc.addComment("Connect highlighting class and outline page for event notification");
 		sc.add("outlinePage.addSelectionChangedListener(highlighting);");
 		sc.add("highlighting.addSelectionChangedListener(outlinePage);");
 		sc.add("}");
