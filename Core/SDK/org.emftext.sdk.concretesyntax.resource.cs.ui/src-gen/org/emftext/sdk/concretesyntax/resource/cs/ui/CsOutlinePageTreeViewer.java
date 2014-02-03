@@ -211,4 +211,8 @@ public class CsOutlinePageTreeViewer extends TreeViewer {
 		typeFilter.getFilteredTypes().remove(typeToNotFilter);
 	}
 	
+	public void setSuppressNotifications(boolean suppressNotifications) {
+		this.suppressNotifications = suppressNotifications;
+	}
+	
 }

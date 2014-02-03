@@ -18,7 +18,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.List;
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.provider.IViewerNotification;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.action.GroupMarker;
@@ -81,7 +83,29 @@ public class CsOutlinePage extends Page implements ISelectionProvider, ISelectio
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
-		AdapterFactoryContentProvider contentProvider = new AdapterFactoryContentProvider(adapterFactory);
+		AdapterFactoryContentProvider contentProvider = new AdapterFactoryContentProvider(adapterFactory) {
+			
+			@Override
+			public void notifyChanged(Notification notification) {
+				if (viewer != null && viewer.getControl() != null && !viewer.getControl().isDisposed()) {
+					viewerRefresh = new ViewerRefresh(viewer) {
+						
+						protected void refresh(IViewerNotification notification) {
+							if (viewer instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer) {
+								org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer pageTreeViewer = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePageTreeViewer) viewer;
+								pageTreeViewer.setSuppressNotifications(true);
+								super.refresh(notification);
+								pageTreeViewer.setSuppressNotifications(false);
+							} else {
+								super.refresh(notification);
+							}
+						}
+					};
+				}
+				super.notifyChanged(notification);
+			}
+		};
+		
 		treeViewer.setAutoExpandLevel(AUTO_EXPAND_LEVEL);
 		treeViewer.setContentProvider(contentProvider);
 		treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
