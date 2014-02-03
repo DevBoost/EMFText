@@ -178,12 +178,14 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IViewerNotification;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider.ViewerRefresh;
 import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.IBatchValidator;
@@ -2162,5 +2164,13 @@ public class UIClassNameConstants extends ClassNameConstants {
 
 	public static String MONO_RECONCILER(JavaComposite jc) {
 		return jc.getClassName(MonoReconciler.class);
+	}
+	
+	public static String VIEWER_REFRESH(JavaComposite jc) {
+		return jc.getClassName(ViewerRefresh.class);
+	}
+	
+	public static String I_VIEWER_NOTIFICATION(JavaComposite jc) {
+		return jc.getClassName(IViewerNotification.class);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -30,11 +30,13 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTI
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOOL_BAR_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_VIEWER_NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_ACTION_CONSTANTS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LISTENER_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU_MANAGER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
@@ -78,7 +80,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		addAddSelectionChangedListenerMethod(sc);
 		addGetControlMethod(sc);
 		addGetSelectionMethod(sc);
-		addGetTreeViewer(sc);
+		addGetTreeViewerMethod(sc);
 		addInitMethod(sc);
 		addRemoveSelectionChangedListenerMethod(sc);
 		addSelectionChangedMethod(sc);
@@ -130,7 +132,7 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.addLineBreak();
 	}
 
-	private void addGetTreeViewer(JavaComposite sc) {
+	private void addGetTreeViewerMethod(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns this page's tree viewer.",
 			"@return this page's tree viewer, or <code>null</code> if <code>createControl</code> has not been called yet"
@@ -182,7 +184,29 @@ public class OutlinePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<
 		sc.add("}");
 		sc.add("selectionChangedListeners.clear();");
 		generatorUtil.addCreateAdapterFactoryCode(sc);
-		sc.add(ADAPTER_FACTORY_CONTENT_PROVIDER(sc) + " contentProvider = new " + ADAPTER_FACTORY_CONTENT_PROVIDER(sc) + "(adapterFactory);");
+		sc.add(ADAPTER_FACTORY_CONTENT_PROVIDER(sc) + " contentProvider = new " + ADAPTER_FACTORY_CONTENT_PROVIDER(sc) + "(adapterFactory) {");
+		sc.addLineBreak();
+		sc.add("@Override");
+		sc.add("public void notifyChanged(" + NOTIFICATION(sc) + " notification) {");
+		sc.add("if (viewer != null && viewer.getControl() != null && !viewer.getControl().isDisposed()) {");
+		sc.add("viewerRefresh = new ViewerRefresh(viewer) {");
+		sc.addLineBreak();						
+		sc.add("protected void refresh(" + I_VIEWER_NOTIFICATION(sc) + " notification) {");
+		sc.add("if (viewer instanceof " + outlinePageTreeViewerClassName + ") {");
+		sc.add(outlinePageTreeViewerClassName + " pageTreeViewer = (" + outlinePageTreeViewerClassName + ") viewer;");
+		sc.add("pageTreeViewer.setSuppressNotifications(true);");
+		sc.add("super.refresh(notification);");
+		sc.add("pageTreeViewer.setSuppressNotifications(false);");
+		sc.add("} else {");
+		sc.add("super.refresh(notification);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("};");
+		sc.add("}");
+		sc.add("super.notifyChanged(notification);");
+		sc.add("}");
+		sc.add("};");
+		sc.addLineBreak();
 		sc.add("treeViewer.setAutoExpandLevel(AUTO_EXPAND_LEVEL);");
 		sc.add("treeViewer.setContentProvider(contentProvider);");
 		sc.add("treeViewer.setLabelProvider(new " + ADAPTER_FACTORY_LABEL_PROVIDER(sc) + "(adapterFactory));");

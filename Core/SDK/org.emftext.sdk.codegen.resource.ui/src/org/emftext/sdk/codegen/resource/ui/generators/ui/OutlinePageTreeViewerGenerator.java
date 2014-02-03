@@ -145,6 +145,14 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		addDoAutoExpandMethod(sc);
 		addAddTypeToFilterMethod(sc);
 		addRemoveTypeToFilterMethod(sc);
+		addSetSuppressNotificationsMethod(sc);
+	}
+
+	private void addSetSuppressNotificationsMethod(JavaComposite sc) {
+		sc.add("public void setSuppressNotifications(boolean suppressNotifications) {");
+		sc.add("this.suppressNotifications = suppressNotifications;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addSetAutoExpandMethod(JavaComposite sc) {
