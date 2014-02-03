@@ -348,9 +348,14 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 		}
 	}
 	
-	private Object getOutlinePage() {
+	/**
+	 * Return the outline page this is associated with this editor. If no outline page
+	 * exists, a new one is created.
+	 */
+	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePage getOutlinePage() {
 		if (outlinePage == null) {
 			outlinePage = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePage(this);
+			// Connect highlighting class and outline page for event notification
 			outlinePage.addSelectionChangedListener(highlighting);
 			highlighting.addSelectionChangedListener(outlinePage);
 		}

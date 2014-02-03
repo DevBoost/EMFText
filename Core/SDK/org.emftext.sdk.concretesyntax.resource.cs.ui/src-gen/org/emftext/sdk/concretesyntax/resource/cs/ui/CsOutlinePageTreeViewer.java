@@ -186,7 +186,7 @@ public class CsOutlinePageTreeViewer extends TreeViewer {
 	}
 	
 	protected void fireSelectionChanged(SelectionChangedEvent event) {
-		if (suppressNotifications == true) {
+		if (suppressNotifications) {
 			return;
 		}
 		super.fireSelectionChanged(event);
