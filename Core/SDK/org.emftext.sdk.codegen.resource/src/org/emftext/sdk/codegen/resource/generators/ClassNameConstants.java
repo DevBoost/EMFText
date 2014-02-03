@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -351,8 +351,7 @@ public class ClassNameConstants extends
 	}
 
 	public static String ECORE_UTIL_EQUALITY_HELPER(JavaComposite jc) {
-		return jc.getClassName(EcoreUtil.EqualityHelper.class
-				.getCanonicalName());
+		return jc.getClassName(EcoreUtil.EqualityHelper.class);
 	}
 
 	public static String ECORE_VALIDATOR(JavaComposite jc) {
@@ -682,8 +681,7 @@ public class ClassNameConstants extends
 
 	public static String MANY_INVERSE(JavaComposite jc) {
 		return jc
-				.getClassName(EObjectWithInverseResolvingEList.ManyInverse.class
-						.getCanonicalName());
+				.getClassName(EObjectWithInverseResolvingEList.ManyInverse.class);
 	}
 
 	public static String MAP(JavaComposite jc) {
@@ -691,7 +689,7 @@ public class ClassNameConstants extends
 	}
 
 	public static String MAP_ENTRY(JavaComposite jc) {
-		return jc.getClassName(Map.Entry.class.getCanonicalName());
+		return jc.getClassName(Map.Entry.class);
 	}
 
 	public static String MATCHER(JavaComposite jc) {
@@ -832,11 +830,11 @@ public class ClassNameConstants extends
 	}
 
 	public static String RESOURCE_DIAGNOSTIC(JavaComposite jc) {
-		return jc.getClassName(Diagnostic.class.getCanonicalName());
+		return jc.getClassName(Diagnostic.class);
 	}
 
 	public static String RESOURCE_FACTORY(JavaComposite jc) {
-		return jc.getClassName(Resource.Factory.class.getCanonicalName());
+		return jc.getClassName(Resource.Factory.class);
 	}
 
 	public static String RESOURCE_IMPL(JavaComposite jc) {
@@ -872,7 +870,7 @@ public class ClassNameConstants extends
 	}
 
 	public static String SETTING(JavaComposite jc) {
-		return jc.getClassName(Setting.class.getCanonicalName());
+		return jc.getClassName(Setting.class);
 	}
 
 	public static String SOCKET(JavaComposite jc) {
