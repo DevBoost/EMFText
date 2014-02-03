@@ -166,7 +166,7 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 								}
 								// reset the selected element in outline and properties by text position
 								if (highlighting != null) {
-									highlighting.setEObjectSelection();
+									highlighting.updateEObjectSelection();
 								}
 							}
 						}

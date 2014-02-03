@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -66,34 +66,66 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 	}
 
-	private void addMethods(JavaComposite sc) {
-		addListenersMethod(sc);
-		addSetHighlightingMethod(sc);
-		addSetBracketHighlightingMethod(sc);
-		addRemoveHighlightingMethod(sc);
-		addRemoveHighlightingCategoryMethod(sc);
-		addSetEObjectSelectionMethod(sc);
-		addResetValuesMethod(sc);
-		addConvertToWidgetPositionMethod(sc);
-		addGetStyleRangeAtPositionMethod(sc);
-		addAddSelectionChangedListenerMethod(sc);
-		addRemoveSelectionChangedListenerMethod(sc);
-		addSetSelectionMethod(sc);
-		addGetSelectionMethod(sc);
-		addSelectionChangedMethod(sc);
-		addHandleContentOutlineSelectionMethod(sc);
+	private void addFields(JavaComposite jc) {
+		jc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
+		jc.addLineBreak();
+		jc.add("private " + LIST(jc) + "<" + I_SELECTION_CHANGED_LISTENER(jc) + "> selectionChangedListeners = new " + ARRAY_LIST(jc) + "<" + I_SELECTION_CHANGED_LISTENER(jc) + ">();");
+		jc.add("private " + I_SELECTION(jc) + " selection = null;");
+		jc.add("private boolean isHighlightBrackets = true;");
+		jc.add("private " + colorManagerClassName + " colorManager;");
+		jc.add("private " + COLOR(jc) + " bracketColor;");
+		jc.add("private " + COLOR(jc) + " black;");
+		jc.add("private " + STYLED_TEXT(jc) + " textWidget;");
+		jc.add("private " + I_PREFERENCE_STORE(jc) + " preferenceStore;");
+		jc.add("private " + editorClassName + " editor;");
+		jc.add("private " + PROJECTION_VIEWER(jc) + " projectionViewer;");
+		jc.add("private " + occurrenceClassName + " occurrence;");
+		jc.add("private " + bracketSetClassName + " bracketSet;");
+		jc.add("private " + DISPLAY(jc) + " display;");
+		jc.addLineBreak();
+	}
+
+	private void addMethods(JavaComposite jc) {
+		addListenersMethod(jc);
+		addSetHighlightingMethod(jc);
+		addSetBracketHighlightingMethod(jc);
+		addRemoveHighlightingMethod(jc);
+		addRemoveHighlightingCategoryMethod(jc);
+		addUpdateEObjectSelectionMethod(jc);
+		addResetValuesMethod(jc);
+		addConvertToWidgetPositionMethod(jc);
+		addGetStyleRangeAtPositionMethod(jc);
+		addAddSelectionChangedListenerMethod(jc);
+		addRemoveSelectionChangedListenerMethod(jc);
+		addSetSelectionMethod(jc);
+		addGetSelectionMethod(jc);
+		addSelectionChangedMethod(jc);
+		addHandleContentOutlineSelectionMethod(jc);
 	}
 
 	private void addHandleContentOutlineSelectionMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Notifies the editor that the selection in the outline page has " +
+			"changed. This method assumes that the origin of the selection " +
+			"is the outline page or its tree viewer."
+		);
 		sc.add("private void handleContentOutlineSelection(" + I_SELECTION(sc) + " selection) {");
-		sc.add("if (!selection.isEmpty()) {");
-		sc.add("editor.setSelection(selection);");
+		sc.add("if (selection.isEmpty()) {");
+		sc.addComment("Ignore empty selections");
+		sc.add("return;");
 		sc.add("}");
+		sc.add("editor.setSelection(selection);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addSelectionChangedMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"This method is called by the outline page if its selection was " +
+			"changed. This is accomplished by adding this class as selection " +
+			"change listener to the outline page, which is performed by the " +
+			"editor."
+		);
 		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT(sc) + " event) {");
 		sc.add("if (event.getSelection() instanceof " + TREE_SELECTION(sc) + ") {");
 		sc.add("handleContentOutlineSelection(event.getSelection());");
@@ -110,10 +142,15 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	}
 
 	private void addSetSelectionMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Updates the current selection and notifies registered selection " +
+			"listeners (e.g., the outline page) about this."
+		);
 		sc.add("public void setSelection(" + I_SELECTION(sc) + " selection) {");
 		sc.add("this.selection = selection;");
+		sc.add(SELECTION_CHANGED_EVENT(sc) + " event = new " + SELECTION_CHANGED_EVENT(sc) + "(this, selection);");
 		sc.add("for (" + I_SELECTION_CHANGED_LISTENER(sc) + " listener : selectionChangedListeners) {");
-		sc.add("listener.selectionChanged(new " + SELECTION_CHANGED_EVENT(sc) + "(this, selection));");
+		sc.add("listener.selectionChanged(event);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -130,25 +167,6 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(sc) + " listener) {");
 		sc.add("selectionChangedListeners.add(listener);");
 		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addFields(JavaComposite sc) {
-		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
-		sc.addLineBreak();
-		sc.add("private " + LIST(sc) + "<" + I_SELECTION_CHANGED_LISTENER(sc) + "> selectionChangedListeners = new " + ARRAY_LIST(sc) + "<" + I_SELECTION_CHANGED_LISTENER(sc) + ">();");
-		sc.add("private " + I_SELECTION(sc) + " selection = null;");
-		sc.add("private boolean isHighlightBrackets = true;");
-		sc.add("private " + colorManagerClassName + " colorManager;");
-		sc.add("private " + COLOR(sc) + " bracketColor;");
-		sc.add("private " + COLOR(sc) + " black;");
-		sc.add("private " + STYLED_TEXT(sc) + " textWidget;");
-		sc.add("private " + I_PREFERENCE_STORE(sc) + " preferenceStore;");
-		sc.add("private " + editorClassName + " editor;");
-		sc.add("private " + PROJECTION_VIEWER(sc) + " projectionViewer;");
-		sc.add("private " + occurrenceClassName + " occurrence;");
-		sc.add("private " + bracketSetClassName + " bracketSet;");
-		sc.add("private " + DISPLAY(sc) + " display;");
 		sc.addLineBreak();
 	}
 
@@ -195,13 +213,18 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 	}
 
-	private void addSetEObjectSelectionMethod(JavaComposite sc) {
-		sc.add("public void setEObjectSelection() {");
+	private void addUpdateEObjectSelectionMethod(JavaComposite sc) {
+		sc.addJavadoc(
+			"Updates the currently selected EObject and notifies registered " +
+			"selection listeners (e.g., the outline page) about this " +
+			"asynchronously."
+		);
+		sc.add("public void updateEObjectSelection() {");
 		sc.add("display.asyncExec(new Runnable() {");
 		sc.add("public void run() {");
 		sc.add(E_OBJECT(sc) + " selectedEObject = occurrence.getEObjectAtCurrentPosition();");
 		sc.add("if (selectedEObject != null) {");
-		sc.add("setSelection(new " + eObjectSelectionClassName + "(selectedEObject, false));");
+		sc.add("setSelection(new " + eObjectSelectionClassName + "(selectedEObject));");
 		sc.add("}");
 		sc.add("}");
 		sc.add("});");
@@ -293,7 +316,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 			"@param textResource the text resource to be provided to other classes",
 			"@param sourceviewer the source viewer converts offset between master and slave documents",
 			"@param colorManager the color manager provides highlighting colors",
-			"@param editor"
+			"@param editor the editor that uses this highlighting object"
 		);
 		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " textResource, " + PROJECTION_VIEWER(sc) + " projectionViewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
 		sc.add("this.display = " + DISPLAY(sc) + ".getCurrent();");
@@ -349,7 +372,7 @@ public class HighlightingGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("caret = textCaret;");
 		sc.add("removeHighlighting();");
 		sc.add("setHighlighting();");
-		sc.add("setEObjectSelection();");
+		sc.add("updateEObjectSelection();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -89,7 +89,6 @@ import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
-
 
 public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
@@ -727,7 +726,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("}");
 		sc.addComment("reset the selected element in outline and properties by text position");
 		sc.add("if (highlighting != null) {");
-		sc.add("highlighting.setEObjectSelection();");
+		sc.add("highlighting.updateEObjectSelection();");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");

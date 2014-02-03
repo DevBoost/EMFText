@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,11 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+
+import java.util.Collections;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -32,7 +33,9 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator<ArtifactParam
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_STRUCTURED_SELECTION(sc) + " {");
 		sc.addLineBreak();
@@ -46,7 +49,6 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator<ArtifactParam
 
 	private void addMethods(JavaComposite sc) {
 		addGetSelectedObjectMethod(sc);
-		addDoHighlightingMethod(sc);
 		addIsEmptyMethod(sc);
 		addGetFirstElementMethod(sc);
 		addIteratorMethod(sc);
@@ -55,11 +57,22 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator<ArtifactParam
 		addToListMethod(sc);
 	}
 
+	private void addFields(JavaComposite sc) {
+		sc.add("private final " + E_OBJECT(sc) + " selectedObject;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + E_OBJECT(sc) + " selectedObject) {");
+		sc.add("super();");
+		sc.add("this.selectedObject = selectedObject;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addToListMethod(JavaComposite sc) {
 		sc.add("public " + LIST(sc) + "<?> toList() {");
-		sc.add(ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + "> list = new " + ARRAY_LIST(sc) + "<" + E_OBJECT(sc) + ">();");
-		sc.add("list.add(selectedObject);");
-		sc.add("return list;");
+		sc.add("return " + sc.getClassName(Collections.class) + ".singletonList(selectedObject);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -114,34 +127,10 @@ public class EObjectSelectionGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addDoHighlightingMethod(StringComposite sc) {
-		sc.add("public boolean doHighlighting() {");
-		sc.add("return highlighting;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addGetSelectedObjectMethod(JavaComposite sc) {
 		sc.add("public " + E_OBJECT(sc) + " getSelectedObject() {");
 		sc.add("return selectedObject;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + E_OBJECT(sc) + " selectedObject, boolean highlighting) {");
-		sc.add("super();");
-		sc.add("this.selectedObject = selectedObject;");
-		sc.add("this.highlighting = highlighting;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addFields(JavaComposite sc) {
-		sc.add("private final " + E_OBJECT(sc) + " selectedObject;");
-		sc.add("private final boolean highlighting;");
-		sc.addLineBreak();
-	}
-
-	
 }
