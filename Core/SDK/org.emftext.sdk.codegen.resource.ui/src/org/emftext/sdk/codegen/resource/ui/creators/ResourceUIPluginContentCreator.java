@@ -249,9 +249,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	}
 
 	private XMLParameters<GenerationContext> getPluginXmlParameters(GenerationContext context) {
-		final String newFileWizardCategoryID = "org.emftext.runtime.ui.EMFTextFileCategory";
-		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		String specifiedNewFileWizardCategoryID = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.NEW_FILE_WIZARD_CATEGORY);
+		final boolean newFileWizardCategorySet = specifiedNewFileWizardCategoryID != null;
+		final String newFileWizardCategoryID = newFileWizardCategorySet ? specifiedNewFileWizardCategoryID : "org.emftext.runtime.ui.EMFTextFileCategory";
+		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
 		final IPluginDescriptor resourcePlugin = context.getResourcePlugin();
 		final IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
@@ -329,9 +331,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		XMLElement newWizardExtension = root.createChild("extension");
 		newWizardExtension.setAttribute("point", "org.eclipse.ui.newWizards");
 		
-		XMLElement newFilesCategory = newWizardExtension.createChild("category");
-		newFilesCategory.setAttribute("id", newFileWizardCategoryID);
-		newFilesCategory.setAttribute("name", "EMFText File");
+		if(!newFileWizardCategorySet){
+			XMLElement newFilesCategory = newWizardExtension.createChild("category");
+			newFilesCategory.setAttribute("id", newFileWizardCategoryID);
+			newFilesCategory.setAttribute("name", "EMFText File");
+		}
 		XMLElement wizardFile = newWizardExtension.createChild("wizard");
 		wizardFile.setAttribute("category", newFileWizardCategoryID);
 		wizardFile.setAttribute("icon", getProjectRelativeNewIconPath());

@@ -3048,7 +3048,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_PROJECT_WIZARD_LOGIC(306, "OVERRIDE_NEW_PROJECT_WIZARD_LOGIC", "overrideNewProjectWizardLogic");
+	OVERRIDE_NEW_PROJECT_WIZARD_LOGIC(306, "OVERRIDE_NEW_PROJECT_WIZARD_LOGIC", "overrideNewProjectWizardLogic"), /**
+	 * The '<em><b>NEW FILE WIZARD CATEGORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NEW_FILE_WIZARD_CATEGORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NEW_FILE_WIZARD_CATEGORY(307, "NEW_FILE_WIZARD_CATEGORY", "newFileWizardCategory");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7331,6 +7339,20 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_NEW_PROJECT_WIZARD_LOGIC_VALUE = 306;
 
 	/**
+	 * The '<em><b>NEW FILE WIZARD CATEGORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specify the category for the generated new file wizard. Default category ID is <code>org.emftext.runtime.ui.EMFTextFileCategory</code>.
+	 * <!-- end-model-doc -->
+	 * @see #NEW_FILE_WIZARD_CATEGORY
+	 * @model literal="newFileWizardCategory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NEW_FILE_WIZARD_CATEGORY_VALUE = 307;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7642,6 +7664,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_EDITING_DOMAIN_PROVIDER,
 			OVERRIDE_ADAPTER_FACTORY_PROVIDER,
 			OVERRIDE_NEW_PROJECT_WIZARD_LOGIC,
+			NEW_FILE_WIZARD_CATEGORY,
 		};
 
 	/**
@@ -7994,6 +8017,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_EDITING_DOMAIN_PROVIDER_VALUE: return OVERRIDE_EDITING_DOMAIN_PROVIDER;
 			case OVERRIDE_ADAPTER_FACTORY_PROVIDER_VALUE: return OVERRIDE_ADAPTER_FACTORY_PROVIDER;
 			case OVERRIDE_NEW_PROJECT_WIZARD_LOGIC_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD_LOGIC;
+			case NEW_FILE_WIZARD_CATEGORY_VALUE: return NEW_FILE_WIZARD_CATEGORY;
 		}
 		return null;
 	}

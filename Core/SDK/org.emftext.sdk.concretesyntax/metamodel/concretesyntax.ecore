@@ -2092,6 +2092,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the NewProjectWizardLogic class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="NEW_FILE_WIZARD_CATEGORY" value="307" literal="newFileWizardCategory">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specify the category for the generated new file wizard. Default category ID is &lt;code>org.emftext.runtime.ui.EMFTextFileCategory&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
