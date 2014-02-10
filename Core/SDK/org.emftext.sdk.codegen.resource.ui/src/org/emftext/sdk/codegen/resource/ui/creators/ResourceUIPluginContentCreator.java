@@ -287,10 +287,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		editor.setAttribute("extensions", primaryConcreteSyntaxName);
 		editor.setAttribute("icon", "icons/" + UIConstants.Icon.DEFAULT_EDITOR_ICON.getFilename());
 		editor.setAttribute("id", editorClassName);
-		String editorName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.EDITOR_NAME);
-		if(editorName == null) {
-			editorName = "EMFText " + concreteSyntax.getName() + " Editor";
-		}
+		
+		String specifiedEditorName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.EDITOR_NAME);
+		boolean editorNameSpecified = specifiedEditorName != null;
+		final String editorName = editorNameSpecified ? specifiedEditorName : "EMFText " + concreteSyntax.getName() + " Editor";
 		editor.setAttribute("name", editorName);
 		
 		XMLElement contentTypeBinding = editor.createChild("contentTypeBinding");
@@ -305,7 +305,8 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		preferencePageExtension.setAttribute("point", "org.eclipse.ui.preferencePages");
 		//main page
 		XMLElement mainPage = preferencePageExtension.createChild("page");
-		mainPage.setAttribute("name", context.getCapitalizedConcreteSyntaxName() + " Text Editor");
+		String editorPreferencePageName = editorNameSpecified ? editorName : context.getCapitalizedConcreteSyntaxName() + " Text Editor";
+		mainPage.setAttribute("name", editorPreferencePageName);
 		mainPage.setAttribute("id", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
 		mainPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
 		String preferencePagesCategory = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.PREFERENCE_PAGES_CATEGORY);
