@@ -249,9 +249,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	}
 
 	private XMLParameters<GenerationContext> getPluginXmlParameters(GenerationContext context) {
-		final String newFileWizardCategoryID = "org.emftext.runtime.ui.EMFTextFileCategory";
-		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		String specifiedNewFileWizardCategoryID = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.NEW_FILE_WIZARD_CATEGORY);
+		final boolean newFileWizardCategorySet = specifiedNewFileWizardCategoryID != null;
+		final String newFileWizardCategoryID = newFileWizardCategorySet ? specifiedNewFileWizardCategoryID : "org.emftext.runtime.ui.EMFTextFileCategory";
+		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
 		final IPluginDescriptor resourcePlugin = context.getResourcePlugin();
 		final IPluginDescriptor resourceUIPlugin = context.getResourceUIPlugin();
@@ -285,10 +287,10 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		editor.setAttribute("extensions", primaryConcreteSyntaxName);
 		editor.setAttribute("icon", "icons/" + UIConstants.Icon.DEFAULT_EDITOR_ICON.getFilename());
 		editor.setAttribute("id", editorClassName);
-		String editorName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.EDITOR_NAME);
-		if(editorName == null) {
-			editorName = "EMFText " + concreteSyntax.getName() + " Editor";
-		}
+		
+		String specifiedEditorName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.EDITOR_NAME);
+		boolean editorNameSpecified = specifiedEditorName != null;
+		final String editorName = editorNameSpecified ? specifiedEditorName : "EMFText " + concreteSyntax.getName() + " Editor";
 		editor.setAttribute("name", editorName);
 		
 		XMLElement contentTypeBinding = editor.createChild("contentTypeBinding");
@@ -303,7 +305,8 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		preferencePageExtension.setAttribute("point", "org.eclipse.ui.preferencePages");
 		//main page
 		XMLElement mainPage = preferencePageExtension.createChild("page");
-		mainPage.setAttribute("name", context.getCapitalizedConcreteSyntaxName() + " Text Editor");
+		String editorPreferencePageName = editorNameSpecified ? editorName : context.getCapitalizedConcreteSyntaxName() + " Text Editor";
+		mainPage.setAttribute("name", editorPreferencePageName);
 		mainPage.setAttribute("id", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
 		mainPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
 		String preferencePagesCategory = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.PREFERENCE_PAGES_CATEGORY);
@@ -329,9 +332,11 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		XMLElement newWizardExtension = root.createChild("extension");
 		newWizardExtension.setAttribute("point", "org.eclipse.ui.newWizards");
 		
-		XMLElement newFilesCategory = newWizardExtension.createChild("category");
-		newFilesCategory.setAttribute("id", newFileWizardCategoryID);
-		newFilesCategory.setAttribute("name", "EMFText File");
+		if(!newFileWizardCategorySet){
+			XMLElement newFilesCategory = newWizardExtension.createChild("category");
+			newFilesCategory.setAttribute("id", newFileWizardCategoryID);
+			newFilesCategory.setAttribute("name", "EMFText File");
+		}
 		XMLElement wizardFile = newWizardExtension.createChild("wizard");
 		wizardFile.setAttribute("category", newFileWizardCategoryID);
 		wizardFile.setAttribute("icon", getProjectRelativeNewIconPath());
