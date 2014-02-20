@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  *
@@ -252,6 +252,11 @@ public class CsCodeFoldingManager {
 	 * Saves the code folding state into the given memento.
 	 */
 	public void saveCodeFolding(IMemento memento) {
+		// The annotation model might be null if the editor opened an storage input
+		// instead of a file input.
+		if (projectionAnnotationModel == null) {
+			return;
+		}
 		Iterator<?> annotationIt = projectionAnnotationModel.getAnnotationIterator();
 		while (annotationIt.hasNext()) {
 			ProjectionAnnotation annotation = (ProjectionAnnotation) annotationIt.next();
