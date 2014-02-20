@@ -91,6 +91,7 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -182,10 +183,10 @@ import org.eclipse.emf.edit.provider.IViewerNotification;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider.ViewerRefresh;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider.ViewerRefresh;
 import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.IBatchValidator;
@@ -367,6 +368,7 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
@@ -1373,6 +1375,14 @@ public class UIClassNameConstants extends ClassNameConstants {
 
 	public static String I_STATUS(JavaComposite jc) {
 		return jc.getClassName(IStatus.class);
+	}
+
+	public static String I_STORAGE(JavaComposite jc) {
+		return jc.getClassName(IStorage.class);
+	}
+
+	public static String I_STORAGE_EDITOR_INPUT(JavaComposite jc) {
+		return jc.getClassName(IStorageEditorInput.class);
 	}
 
 	public static String I_STRUCTURED_SELECTION(JavaComposite jc) {

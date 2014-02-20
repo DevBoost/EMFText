@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -348,6 +348,10 @@ public class CodeFoldingManagerGenerator extends UIJavaBaseGenerator<ArtifactPar
 	private void addSaveCodeFoldingMethod(JavaComposite sc) {
 		sc.addJavadoc("Saves the code folding state into the given memento.");
 		sc.add("public void saveCodeFolding(" + I_MEMENTO(sc) + " memento) {");
+		sc.addComment("The annotation model might be null if the editor opened an storage input instead of a file input.");
+		sc.add("if (projectionAnnotationModel == null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add(ITERATOR(sc) + "<?> annotationIt = projectionAnnotationModel.getAnnotationIterator();");
 		sc.add("while (annotationIt.hasNext()) {");
 		sc.add(PROJECTION_ANNOTATION(sc) + " annotation = (" + PROJECTION_ANNOTATION(sc) + ") annotationIt.next();");

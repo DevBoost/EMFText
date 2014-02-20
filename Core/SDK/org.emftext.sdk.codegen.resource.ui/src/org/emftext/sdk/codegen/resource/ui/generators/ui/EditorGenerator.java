@@ -33,6 +33,8 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ENUMERATI
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_ACCESS_EXTENSION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_MODEL;
@@ -58,6 +60,8 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTI
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STORAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STORAGE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_EDITOR_ACTION_CONSTANTS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_OPERATION_TARGET;
@@ -150,6 +154,8 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addGetAdapterMethod(sc);
 		addCreatePartControlMethod(sc);
 		addInitializeResourceObjectMethod(sc);
+		addInitializeResourceObjectFromFileMethod(sc);
+		addInitializeResourceObjectFromStorageMethod(sc);
 		addDisposeMethod(sc);
 		addPerformSaveMethod(sc);
 		addInvalidateTextRepresentationMethod(sc);
@@ -538,10 +544,40 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
+	
 	private void addInitializeResourceObjectMethod(JavaComposite sc) {
 		sc.add("private void initializeResourceObject(" + I_EDITOR_INPUT(sc) + " editorInput) {");
-		sc.add(FILE_EDITOR_INPUT(sc) + " input = (" + FILE_EDITOR_INPUT(sc) + ") editorInput;");
+		sc.add("if (editorInput instanceof " + FILE_EDITOR_INPUT(sc) + ") {");
+		sc.add("initializeResourceObjectFromFile((" + FILE_EDITOR_INPUT(sc) + ") editorInput);");
+		sc.add("} else if (editorInput instanceof " + I_STORAGE_EDITOR_INPUT(sc) + ") {");
+		sc.add("initializeResourceObjectFromStorage((" + I_STORAGE_EDITOR_INPUT(sc) + ") editorInput);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addInitializeResourceObjectFromStorageMethod(JavaComposite sc) {
+		sc.add("private void initializeResourceObjectFromStorage(" + I_STORAGE_EDITOR_INPUT(sc) + " input) {");
+		sc.add(URI(sc) + " uri = null;");
+		sc.add("try {");
+		sc.add(I_STORAGE(sc) + " storage = input.getStorage();");
+		sc.add(INPUT_STREAM(sc) + " inputStream = storage.getContents();");
+		sc.add("uri = URI.createURI(storage.getName(), true);");
+		sc.add(RESOURCE_SET(sc) + " resourceSet = getResourceSet();");
+		sc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") resourceSet.createResource(uri);");
+		sc.add("resource.load(inputStream, null);");
+		sc.add("setResource(resource);");
+		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
+		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource (\" + uri + \") in \" + getClass().getSimpleName() + \".\", e);");
+		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
+		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource (\" + uri + \") in \" + getClass().getSimpleName() + \".\", e);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addInitializeResourceObjectFromFileMethod(JavaComposite sc) {
+		sc.add("private void initializeResourceObjectFromFile(" + FILE_EDITOR_INPUT(sc) + " input) {");
 		sc.add(I_FILE(sc) + " inputFile = input.getFile();");
 		
 		// TODO activating the DSL nature here is ugly
