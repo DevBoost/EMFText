@@ -32,16 +32,16 @@ public class CsAntlrTokenHelper {
 		if (tokenType < 0) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.UP) {
+		if (tokenType == Token.UP) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.DOWN) {
+		if (tokenType == Token.DOWN) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.EOR_TOKEN_TYPE) {
+		if (tokenType == Token.EOR_TOKEN_TYPE) {
 			return false;
 		}
-		if (tokenType == org.antlr.runtime3_4_0.Token.INVALID_TOKEN_TYPE) {
+		if (tokenType == Token.INVALID_TOKEN_TYPE) {
 			return false;
 		}
 		return true;

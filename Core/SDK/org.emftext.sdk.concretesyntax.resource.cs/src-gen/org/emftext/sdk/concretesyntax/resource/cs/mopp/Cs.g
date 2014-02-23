@@ -136,7 +136,7 @@ import org.eclipse.emf.ecore.EReference;
 					public String getMessage() {
 						return errorMessage;
 					}
-					public java.util.Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
+					public Collection<org.emftext.sdk.concretesyntax.resource.cs.ICsQuickFix> getQuickFixes() {
 						return null;
 					}
 				}, column, line, startIndex, stopIndex);

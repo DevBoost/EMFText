@@ -16,6 +16,11 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.lang.reflect.Field;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * A class to hold all resources (e.g., text constants) for the resource UI
@@ -48,5 +53,36 @@ public class CsUIResourceBundle {
 	 * The path of the icon to be used for the pages of the NewProjectWizard.
 	 */
 	public static String NEW_PROJECT_WIZARD_PAGE_ICON = "icons/new_project_wizban.gif";
+	
+	/**
+	 * The static initializer tries to load resources from properties files or
+	 * resource bundle classes. If no properties files or resource bundle classes are
+	 * available, the default values are kept.
+	 */
+	static {
+		try {
+			ResourceBundle bundle = ResourceBundle.getBundle(CsUIResourceBundle.class.getName(), Locale.getDefault());
+			if (bundle != null) {
+				Set<String> keys = bundle.keySet();
+				for (String key : keys) {
+					String value = bundle.getString(key);
+					try {
+						Field field = CsUIResourceBundle.class.getDeclaredField(key.toUpperCase());
+						field.set(null, value);
+					} catch (SecurityException e) {
+						// Ignore
+					} catch (NoSuchFieldException e) {
+						// Ignore?
+					} catch (IllegalArgumentException e) {
+						// Ignore
+					} catch (IllegalAccessException e) {
+						// Ignore
+					}
+				}
+			}
+		} catch (MissingResourceException mre) {
+			// Ignore
+		}
+	}
 	
 }
