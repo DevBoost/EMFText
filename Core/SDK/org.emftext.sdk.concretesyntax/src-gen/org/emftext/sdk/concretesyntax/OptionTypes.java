@@ -7376,6 +7376,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specify the target version of EMF to generate code for (e.g., 2.7).
+	 * <!-- end-model-doc -->
 	 * @see #EMF_TARGET_VERSION
 	 * @model literal="EMFTargetVersion"
 	 * @generated
@@ -7391,6 +7394,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the UIResourceBundle class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_UI_RESOURCE_BUNDLE
 	 * @model literal="overrideUIResourceBundle"
 	 * @generated

@@ -694,6 +694,10 @@ OptionTypes.OVERRIDE_NEW_PROJECT_WIZARD_LOGIC : "If set to <code>false</code>, t
 
 OptionTypes.NEW_FILE_WIZARD_CATEGORY : "Specify the category for the generated new file wizard. Default category ID is <code>org.emftext.runtime.ui.EMFTextFileCategory</code>."
 
+OptionTypes.OVERRIDE_UI_RESOURCE_BUNDLE : "If set to <code>false</code>, the UIResourceBundle class will not be overridden. The default value for this option is <code>true</code>."
+
+OptionTypes.EMF_TARGET_VERSION : "Specify the target version of EMF to generate code for (e.g., 2.7)."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

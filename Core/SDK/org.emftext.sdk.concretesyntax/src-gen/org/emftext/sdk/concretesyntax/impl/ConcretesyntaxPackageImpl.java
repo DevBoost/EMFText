@@ -4874,6 +4874,18 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "Specify the category for the generated new file wizard. Default category ID is <code>org.emftext.runtime.ui.EMFTextFileCategory</code>."
 		   });		
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(305), 
+		   source, 
+		   new String[] {
+			 "documentation", "Specify the target version of EMF to generate code for (e.g., 2.7)."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(306), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the UIResourceBundle class will not be overridden. The default value for this option is <code>true</code>."
+		   });		
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {
