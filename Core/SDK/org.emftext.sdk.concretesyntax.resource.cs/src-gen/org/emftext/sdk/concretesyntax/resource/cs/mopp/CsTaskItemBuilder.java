@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 /**
@@ -34,9 +35,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 public class CsTaskItemBuilder {
 	
 	public void build(IFile resource, ResourceSet resourceSet, IProgressMonitor monitor) {
-		monitor.setTaskName("Searching for task items in " + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName() + " files");
+		SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 3);
+		subMonitor.setTaskName("Searching for task items in " + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName() + " files");
 		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, IMarker.TASK);
+		subMonitor.worked(1);
 		if (isInBinFolder(resource)) {
+			subMonitor.done();
 			return;
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> taskItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
@@ -68,6 +72,7 @@ public class CsTaskItemBuilder {
 		} catch (IOException e) {
 			// Ignore this
 		}
+		subMonitor.worked(1);
 		
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem taskItem : taskItems) {
 			java.util.Map<String, Object> markerAttributes = new java.util.LinkedHashMap<String, Object>();
@@ -79,6 +84,8 @@ public class CsTaskItemBuilder {
 			markerAttributes.put(IMarker.MESSAGE, taskItem.getMessage());
 			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().createMarker(resource, IMarker.TASK, markerAttributes);
 		}
+		subMonitor.worked(1);
+		subMonitor.done();
 	}
 	
 	public String getBuilderMarkerId() {

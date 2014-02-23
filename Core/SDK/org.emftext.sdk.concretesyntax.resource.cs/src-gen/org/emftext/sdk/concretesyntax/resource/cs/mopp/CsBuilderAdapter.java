@@ -123,11 +123,15 @@ public class CsBuilderAdapter extends IncrementalProjectBuilder implements IReso
 			return false;
 		}
 		if (resource instanceof IFile && resource.getName().endsWith("." + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName())) {
+			monitor.beginTask("Building " + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName() + " file", 2);
 			// Calling the default generated builder is disabled because of syntax option
 			// 'disableBuilder'.
+			monitor.worked(1);
 			// Second, call the task item builder that searches for task items in DSL
 			// documents and creates task markers.
 			runTaskItemBuilder((IFile) resource, resourceSet, monitor);
+			monitor.worked(1);
+			monitor.done();
 			return false;
 		}
 		return true;
