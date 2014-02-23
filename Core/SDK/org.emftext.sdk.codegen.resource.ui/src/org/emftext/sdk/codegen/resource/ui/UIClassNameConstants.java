@@ -50,7 +50,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Stack;
 import java.util.Timer;
@@ -1858,10 +1857,6 @@ public class UIClassNameConstants extends ClassNameConstants {
 
 	public static String RESOURCES_PLUGIN(JavaComposite jc) {
 		return jc.getClassName(ResourcesPlugin.class);
-	}
-
-	public static String RESOURCE_BUNDLE(JavaComposite jc) {
-		return jc.getClassName(ResourceBundle.class);
 	}
 
 	public static String RESOURCE_DIAGNOSTIC(JavaComposite jc) {

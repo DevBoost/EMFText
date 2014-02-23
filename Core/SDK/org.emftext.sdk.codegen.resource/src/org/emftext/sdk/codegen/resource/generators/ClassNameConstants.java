@@ -57,7 +57,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Stack;
@@ -725,6 +727,10 @@ public class ClassNameConstants extends
 		return jc.getClassName(MismatchedTreeNodeException.class);
 	}
 
+	public static String MISSING_RESOURCE_EXCEPTION(JavaComposite jc) {
+		return jc.getClassName(MissingResourceException.class);
+	}
+
 	public static String MODEL_VALIDATION_SERVICE(JavaComposite jc) {
 		return jc.getClassName(ModelValidationService.class);
 	}
@@ -1066,5 +1072,9 @@ public class ClassNameConstants extends
 
 	public static String LINE_BREAKPOINT(JavaComposite jc) {
 		return jc.getClassName("org.eclipse.debug.core.model.LineBreakpoint");
+	}
+
+	public static String LOCALE(JavaComposite jc) {
+		return jc.getClassName(Locale.class);
 	}
 }

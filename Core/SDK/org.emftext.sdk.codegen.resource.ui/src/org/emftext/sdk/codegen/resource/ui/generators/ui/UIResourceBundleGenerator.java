@@ -17,6 +17,7 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
@@ -42,6 +43,7 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 		jc.add("public class " + getResourceClassName() + " {");
 		jc.addLineBreak();
 		addConstants(jc);
+		addStaticInitializer(jc);
 		jc.add("}");
 	}
 
@@ -65,5 +67,10 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 		jc.addJavadoc("The path of the icon to be used for the pages of the NewProjectWizard.");
 		jc.add("public static String " + NEW_PROJECT_WIZARD_PAGE_ICON + " = \"icons/" + UIConstants.Icon.DEFAULT_NEW_PROJECT_WIZBAN.getFilename() + "\";");
 		jc.addLineBreak();
+	}
+
+	private void addStaticInitializer(JavaComposite jc) {
+		String resourceClassName = getResourceClassName();
+		new GeneratorUtil().addStaticResourceInitializer(jc, resourceClassName);
 	}
 }

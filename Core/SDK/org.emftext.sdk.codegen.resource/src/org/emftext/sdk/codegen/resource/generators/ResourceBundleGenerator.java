@@ -17,6 +17,7 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.codegen.resource.GeneratorUtil;
 
 import de.devboost.codecomposers.java.JavaComposite;
 
@@ -33,11 +34,18 @@ public class ResourceBundleGenerator extends JavaBaseGenerator<ArtifactParameter
 		jc.add("public class " + getResourceClassName() + " {");
 		jc.addLineBreak();
 		addConstants(jc);
+		addStaticInitializer(jc);
 		jc.add("}");
 	}
 
 	private void addConstants(JavaComposite jc) {
 		jc.addJavadoc("The name of the main task that is shown in the progress view when the builders are running.");
 		jc.add("public static String BUILDER_ADAPTER_TASK_NAME = \"Building " + getContext().getConcreteSyntax().getName() + " file\";");
+		jc.addLineBreak();
+	}
+
+	private void addStaticInitializer(JavaComposite jc) {
+		String resourceClassName = getResourceClassName();
+		new GeneratorUtil().addStaticResourceInitializer(jc, resourceClassName);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -17,15 +17,20 @@ package org.emftext.sdk.codegen.resource;
 
 import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.antlr.Constants.DEFAULT_ANTLR_PLUGIN_NAME;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ADAPTER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIELD;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LOCALE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MISSING_RESOURCE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_BUNDLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
 
 import java.io.File;
 import java.util.Collection;
@@ -134,16 +139,16 @@ public class GeneratorUtil {
 		}
 	}
 
-	public void addAddMapEntryMethod(StringComposite sc, GenerationContext context) {
+	public void addAddMapEntryMethod(JavaComposite sc, GenerationContext context) {
 		String dummyEObjectClassName = context.getQualifiedClassName(TextResourceArtifacts.DUMMY_E_OBJECT);
 		String mapUtilClassName = context.getQualifiedClassName(TextResourceArtifacts.MAP_UTIL);
 
-		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + dummyEObjectClassName + " dummy) {");
+		sc.add("protected void addMapEntry(" + E_OBJECT(sc) + " element, " + E_STRUCTURAL_FEATURE(sc) + " structuralFeature, " + dummyEObjectClassName + " dummy) {");
 		sc.add("Object value = element.eGet(structuralFeature);");
 		sc.add("Object mapKey = dummy.getValueByName(\"key\");");
 		sc.add("Object mapValue = dummy.getValueByName(\"value\");");
-		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
-		sc.add(E_MAP + "<Object, Object> valueMap = " + mapUtilClassName  + ".castToEMap(value);");
+		sc.add("if (value instanceof " + E_MAP(sc) + "<?, ?>) {");
+		sc.add(E_MAP(sc) + "<Object, Object> valueMap = " + mapUtilClassName  + ".castToEMap(value);");
 		sc.add("if (mapKey != null && mapValue != null) {");
 		sc.add("valueMap.put(mapKey, mapValue);");
 		sc.add("}");
@@ -152,19 +157,19 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addAddObjectToListMethod1(StringComposite sc) {
+	public void addAddObjectToListMethod1(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.addLineBreak();
-        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, int featureID, Object object) {");
+        sc.add("public boolean addObjectToList(" + E_OBJECT(sc) + " container, int featureID, Object object) {");
         sc.add("return ((" + LIST + "<Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);");
         sc.add("}");
         sc.addLineBreak();
 	}
 
-	public void addAddObjectToListMethod2(StringComposite sc) {
+	public void addAddObjectToListMethod2(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
 		sc.addLineBreak();
-        sc.add("public boolean addObjectToList(" + E_OBJECT + " container, " + E_STRUCTURAL_FEATURE + " feature, Object object) {");
+        sc.add("public boolean addObjectToList(" + E_OBJECT(sc) + " container, " + E_STRUCTURAL_FEATURE(sc) + " feature, Object object) {");
         sc.add("return ((" + LIST + "<Object>) container.eGet(feature)).add(object);");
         sc.add("}");
         sc.addLineBreak();
@@ -185,9 +190,9 @@ public class GeneratorUtil {
 
 		String typeParameters = "";
 		if (addTypeParameters) {
-			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
+			typeParameters = "<ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + "> ";
 		}
-		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + contextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final ContainerType container, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT + " proxy) {");
+		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + contextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final ContainerType container, final " + E_REFERENCE(sc) + " reference, final String id, final " + E_OBJECT(sc) + " proxy) {");
 
     	sc.add("final int position;");
     	sc.add("if (reference.isMany()) {");
@@ -246,7 +251,7 @@ public class GeneratorUtil {
 		sc.add("public String getMessage() {");
 		sc.add("return errorMessage;");
 		sc.add("}");
-		sc.add("public " + COLLECTION + "<" + iQuickFix + "> getQuickFixes() {");
+		sc.add("public " + COLLECTION(sc) + "<" + iQuickFix + "> getQuickFixes() {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}, column, line, startIndex, stopIndex);");
@@ -258,7 +263,7 @@ public class GeneratorUtil {
 	}
 
 	public void addSetOptionsMethod(JavaComposite sc, String body, String comment) {
-		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
+		sc.add("public void setOptions(" + MAP(sc) + "<?,?> options) {");
 		if (comment != null) {
 			sc.addComment(comment);
 		}
@@ -269,9 +274,9 @@ public class GeneratorUtil {
 	    sc.addLineBreak();
 	}
 
-	public void addGetLayoutInformationAdapterMethod(StringComposite sc, String layoutInformationAdapterClassName) {
-		sc.add("protected " + layoutInformationAdapterClassName + " getLayoutInformationAdapter(" + E_OBJECT + " element) {");
-		sc.add("for (" + ADAPTER + " adapter : element.eAdapters()) {");
+	public void addGetLayoutInformationAdapterMethod(JavaComposite sc, String layoutInformationAdapterClassName) {
+		sc.add("protected " + layoutInformationAdapterClassName + " getLayoutInformationAdapter(" + E_OBJECT(sc) + " element) {");
+		sc.add("for (" + ADAPTER(sc) + " adapter : element.eAdapters()) {");
 		sc.add("if (adapter instanceof " + layoutInformationAdapterClassName + ") {");
 		sc.add("return (" + layoutInformationAdapterClassName + ") adapter;");
 		sc.add("}");
@@ -285,10 +290,10 @@ public class GeneratorUtil {
 	
 	public void addCodeToDeresolveProxyObject(JavaComposite sc, String iContextDependentUriFragmentClassName, String proxyVariable) {
 		sc.add("String deresolvedReference = null;");
-		sc.add("if (" + proxyVariable + " instanceof " + E_OBJECT + ") {");
-		sc.add(E_OBJECT + " eObjectToDeResolve = (" + E_OBJECT + ") " + proxyVariable + ";");
+		sc.add("if (" + proxyVariable + " instanceof " + E_OBJECT(sc) + ") {");
+		sc.add(E_OBJECT(sc) + " eObjectToDeResolve = (" + E_OBJECT(sc) + ") " + proxyVariable + ";");
 		sc.add("if (eObjectToDeResolve.eIsProxy()) {");
-		sc.add("deresolvedReference = ((" + INTERNAL_E_OBJECT + ") eObjectToDeResolve).eProxyURI().fragment();");
+		sc.add("deresolvedReference = ((" + INTERNAL_E_OBJECT(sc) + ") eObjectToDeResolve).eProxyURI().fragment();");
 		sc.addComment("If the proxy was created by EMFText, we can try to recover the identifier from the proxy URI");
 		sc.add("if (deresolvedReference != null && deresolvedReference.startsWith(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
 		sc.add("deresolvedReference = deresolvedReference.substring(" + iContextDependentUriFragmentClassName + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
@@ -387,16 +392,16 @@ public class GeneratorUtil {
 		sc.add("if (tokenType < 0) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".UP) {");
+		sc.add("if (tokenType == " + TOKEN(sc) + ".UP) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".DOWN) {");
+		sc.add("if (tokenType == " + TOKEN(sc) + ".DOWN) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".EOR_TOKEN_TYPE) {");
+		sc.add("if (tokenType == " + TOKEN(sc) + ".EOR_TOKEN_TYPE) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("if (tokenType == " + TOKEN + ".INVALID_TOKEN_TYPE) {");
+		sc.add("if (tokenType == " + TOKEN(sc) + ".INVALID_TOKEN_TYPE) {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");
@@ -449,5 +454,40 @@ public class GeneratorUtil {
 		sc.add("return value == null || Boolean.FALSE.equals(value);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public void addStaticResourceInitializer(JavaComposite jc,
+			String resourceClassName) {
+		
+		jc.addJavadoc(
+			"The static initializer tries to load resources from properties files or resource bundle classes. " +
+			"If no properties files or resource bundle classes are available, the default values are kept."
+		);
+		jc.add("static {");
+		jc.add("try {");
+		jc.add(RESOURCE_BUNDLE(jc) + " bundle = " + RESOURCE_BUNDLE(jc) + ".getBundle(" + resourceClassName + ".class.getName(), " + LOCALE(jc) + ".getDefault());");
+		jc.add("if (bundle != null) {");
+		jc.add(SET(jc) + "<String> keys = bundle.keySet();");
+		jc.add("for (String key : keys) {");
+		jc.add("String value = bundle.getString(key);");
+		jc.add("try {");
+		jc.add(FIELD(jc) + " field = " + resourceClassName + ".class.getDeclaredField(key.toUpperCase());");
+		jc.add("field.set(null, value);");
+		jc.add("} catch (SecurityException e) {");
+		jc.addComment("Ignore");
+		jc.add("} catch (NoSuchFieldException e) {");
+		jc.addComment("Ignore?");
+		jc.add("} catch (IllegalArgumentException e) {");
+		jc.addComment("Ignore");
+		jc.add("} catch (IllegalAccessException e) {");
+		jc.addComment("Ignore");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.add("} catch (" + MISSING_RESOURCE_EXCEPTION(jc) + " mre) {");
+		jc.addComment("Ignore");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 }
