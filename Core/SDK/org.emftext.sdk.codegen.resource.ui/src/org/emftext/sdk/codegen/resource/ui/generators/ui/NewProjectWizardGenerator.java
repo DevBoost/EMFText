@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_LOCATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_EXECUTABLE_EXTENSION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE_LOCATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_EXECUTABLE_EXTENSION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BASIC_NEW_PROJECT_RESOURCE_WIZARD;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
@@ -44,7 +44,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		sc.addJavadoc(
@@ -52,7 +54,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 			"<i>org.eclipse.gef.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard</i>.",
 			"It is responsible for offering an example project via the new dialog of Eclipse."
 		);
-		sc.add("public class " + getResourceClassName() + " extends " + WIZARD(sc) + " implements " + I_NEW_WIZARD(sc) + ", " + I_EXECUTABLE_EXTENSION + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + WIZARD(sc) + " implements " + I_NEW_WIZARD(sc) + ", " + I_EXECUTABLE_EXTENSION(sc) + " {");
 		sc.addLineBreak();
 		addFields(sc);
 		addMethods(sc);
@@ -60,8 +62,8 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.addJavadoc("The name of the ZIP file that is used as content for the new project (relative to the resource UI plugin's root).");
-		sc.add("public final static String NEW_PROJECT_ZIP_FILE_NAME = \"newProject.zip\";");
+		sc.addJavadoc("The name of the ZIP file that is used as content for the new project (relative to the root of the resource UI plug-in).");
+		sc.add("public final static String NEW_PROJECT_ZIP_FILE_NAME = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_ZIP_FILE_NAME + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -73,7 +75,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The name of the project creation page");
-		sc.add("private String pageName = \"New \" + new " + metaInformationClassName + "().getSyntaxName() + \" Project\";");
+		sc.add("private String pageName = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PAGE_NAME + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The title of the project creation page");
@@ -81,11 +83,11 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The description of the project creation page");
-		sc.add("private String pageDescription = \"Enter a name and select a location where the new project shall be created.\";");
+		sc.add("private String pageDescription = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PAGE_DESCRIPTION + ";");
 		sc.addLineBreak();
 		
-		sc.addJavadoc(" The name of the project in the project creation page");
-		sc.add("private String  pageProjectName = \"\";");
+		sc.addJavadoc("The name of the project in the project creation page");
+		sc.add("private String pageProjectName = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PROJECT_NAME + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The configuration element associated with this new project wizard");		
@@ -137,9 +139,9 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		);
 		sc.add("public void init(" + I_WORKBENCH(sc) + " workbench, " + I_STRUCTURED_SELECTION(sc) + " selection) {");
 		sc.addComment("Set default image for all wizard pages");
-		sc.add(I_PATH(sc) + " path = new " + PATH(sc) + "(\"icons/" + UIConstants.Icon.DEFAULT_NEW_PROJECT_WIZBAN.getFilename() + "\");");
+		sc.add(I_PATH(sc) + " path = new " + PATH(sc) + "(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PAGE_ICON + ");");
 		sc.add(BUNDLE(sc) + " bundle = " + uiPluginActivatorClassName + ".getDefault().getBundle();");
-		sc.add(URL(sc) + " url = " + FILE_LOCATOR + ".find(bundle, path, null);");
+		sc.add(URL(sc) + " url = " + FILE_LOCATOR(sc) + ".find(bundle, path, null);");
 		sc.add(IMAGE_DESCRIPTOR(sc) + " descriptor = " + IMAGE_DESCRIPTOR(sc) + ".createFromURL(url);");
 		sc.add("setDefaultPageImageDescriptor(descriptor);");
 		sc.addLineBreak();

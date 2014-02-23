@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -90,6 +90,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String tokenScannerClassName;
 	protected String uiMetaInformationClassName;
 	protected String uiPluginActivatorClassName;
+	protected String uiResourceBundleClassName;
 	
 	protected String debugModelPresentationClassName;
 	protected String lineBreakpointAdapterClassName;
@@ -173,6 +174,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		tokenScannerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.TOKEN_SCANNER);
 		uiMetaInformationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.UI_META_INFORMATION);
 		uiPluginActivatorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.UI_PLUGIN_ACTIVATOR);
+		uiResourceBundleClassName = context.getQualifiedClassName(TextResourceUIArtifacts.UI_RESOURCE_BUNDLE);
 
 		debugModelPresentationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DEBUG_MODEL_PRESENTATION);
 		lineBreakpointAdapterClassName = context.getQualifiedClassName(TextResourceUIArtifacts.LINE_BREAKPOINT_ADAPTER);

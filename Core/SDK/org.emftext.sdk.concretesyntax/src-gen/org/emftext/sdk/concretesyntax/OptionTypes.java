@@ -3056,7 +3056,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NEW_FILE_WIZARD_CATEGORY(307, "NEW_FILE_WIZARD_CATEGORY", "newFileWizardCategory");
+	NEW_FILE_WIZARD_CATEGORY(307, "NEW_FILE_WIZARD_CATEGORY", "newFileWizardCategory"), /**
+	 * The '<em><b>EMF TARGET VERSION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EMF_TARGET_VERSION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	EMF_TARGET_VERSION(308, "EMF_TARGET_VERSION", "EMFTargetVersion"), /**
+	 * The '<em><b>OVERRIDE UI RESOURCE BUNDLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_RESOURCE_BUNDLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UI_RESOURCE_BUNDLE(308, "OVERRIDE_UI_RESOURCE_BUNDLE", "overrideUIResourceBundle");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7353,6 +7369,36 @@ public enum OptionTypes implements Enumerator {
 	public static final int NEW_FILE_WIZARD_CATEGORY_VALUE = 307;
 
 	/**
+	 * The '<em><b>EMF TARGET VERSION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>EMF TARGET VERSION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #EMF_TARGET_VERSION
+	 * @model literal="EMFTargetVersion"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int EMF_TARGET_VERSION_VALUE = 308;
+
+	/**
+	 * The '<em><b>OVERRIDE UI RESOURCE BUNDLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UI RESOURCE BUNDLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UI_RESOURCE_BUNDLE
+	 * @model literal="overrideUIResourceBundle"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UI_RESOURCE_BUNDLE_VALUE = 308;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7665,6 +7711,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ADAPTER_FACTORY_PROVIDER,
 			OVERRIDE_NEW_PROJECT_WIZARD_LOGIC,
 			NEW_FILE_WIZARD_CATEGORY,
+			EMF_TARGET_VERSION,
+			OVERRIDE_UI_RESOURCE_BUNDLE,
 		};
 
 	/**
@@ -8018,6 +8066,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ADAPTER_FACTORY_PROVIDER_VALUE: return OVERRIDE_ADAPTER_FACTORY_PROVIDER;
 			case OVERRIDE_NEW_PROJECT_WIZARD_LOGIC_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD_LOGIC;
 			case NEW_FILE_WIZARD_CATEGORY_VALUE: return NEW_FILE_WIZARD_CATEGORY;
+			case EMF_TARGET_VERSION_VALUE: return EMF_TARGET_VERSION;
 		}
 		return null;
 	}

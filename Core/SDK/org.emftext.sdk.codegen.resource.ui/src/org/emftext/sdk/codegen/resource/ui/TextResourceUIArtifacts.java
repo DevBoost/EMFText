@@ -101,6 +101,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.ToggleCommentHandlerGen
 import org.emftext.sdk.codegen.resource.ui.generators.ui.TokenScannerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.UIMetaInformationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.UIPluginActivatorGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.UIResourceBundleGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.debug.AdapterFactoryGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.debug.DebugModelPresentationGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.debug.LineBreakpointAdapterGenerator;
@@ -183,6 +184,7 @@ public class TextResourceUIArtifacts {
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UI_META_INFORMATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "UIMetaInformation", UIMetaInformationGenerator.class, OptionTypes.OVERRIDE_UI_META_INFORMATION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UI_PLUGIN_ACTIVATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "UIPlugin", UIPluginActivatorGenerator.class, OptionTypes.OVERRIDE_UI_PLUGIN_ACTIVATOR);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> UI_RESOURCE_BUNDLE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "UIResourceBundle", UIResourceBundleGenerator.class, OptionTypes.OVERRIDE_UI_RESOURCE_BUNDLE);
 
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANNOTATION_MODEL_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AnnotationModelFactory", AnnotationModelFactoryGenerator.class, OptionTypes.OVERRIDE_ANNOTATION_MODEL_FACTORY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ANNOTATION_MODEL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "AnnotationModel", AnnotationModelGenerator.class, OptionTypes.OVERRIDE_ANNOTATION_MODEL);
