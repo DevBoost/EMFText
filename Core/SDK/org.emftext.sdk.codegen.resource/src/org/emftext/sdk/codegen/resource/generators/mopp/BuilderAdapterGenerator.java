@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -144,6 +144,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("if (resource instanceof " + I_FILE(sc) + " && resource.getName().endsWith(\".\" + new " + metaInformationClassName + "().getSyntaxName())) {");
+		sc.add("monitor.beginTask(\"Building \" + new " + metaInformationClassName + "().getSyntaxName() + \" file\", 2);");
 		if (disableBuilder) {
 			sc.addComment(
 					"Calling the default generated builder is disabled because of " +
@@ -154,10 +155,13 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 					"customized to add compilation-like behavior.");
 			sc.add("build((" + I_FILE(sc) + ") resource, resourceSet, monitor);");
 		}
+		sc.add("monitor.worked(1);");
 		sc.addComment(
 				"Second, call the task item builder that searches " +
 				"for task items in DSL documents and creates task markers.");
 		sc.add("runTaskItemBuilder((" + I_FILE(sc) + ") resource, resourceSet, monitor);");
+		sc.add("monitor.worked(1);");
+		sc.add("monitor.done();");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");

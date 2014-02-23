@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -23,6 +23,7 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_F
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SUB_PROGRESS_MONITOR;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -58,7 +59,7 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		if (!removeEclipseDependentCode) {
-	addMethods(sc);
+			addMethods(sc);
 		}
 		sc.add("}");
 	}
@@ -71,9 +72,12 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addBuildMethod(JavaComposite sc) {
 		sc.add("public void build(" + I_FILE(sc) + " resource, " + RESOURCE_SET(sc) + " resourceSet, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
-		sc.add("monitor.setTaskName(\"Searching for task items in \" + new " + metaInformationClassName + "().getSyntaxName() + \" files\");");
+		sc.add(SUB_PROGRESS_MONITOR(sc) + " subMonitor = new " + SUB_PROGRESS_MONITOR(sc) + "(monitor, 3);");
+		sc.add("subMonitor.setTaskName(\"Searching for task items in \" + new " + metaInformationClassName + "().getSyntaxName() + \" files\");");
 		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, " + I_MARKER(sc) + ".TASK);");
+		sc.add("subMonitor.worked(1);");
 		sc.add("if (isInBinFolder(resource)) {");
+		sc.add("subMonitor.done();");
 		sc.add("return;");
 		sc.add("}");
 		sc.add(sc.declareArrayList("taskItems", taskItemClassName));
@@ -105,6 +109,7 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
 		sc.addComment("Ignore this");
 		sc.add("}");
+		sc.add("subMonitor.worked(1);");
 		sc.addLineBreak();
 		sc.add("for (" + taskItemClassName + " taskItem : taskItems) {");
 		sc.add(sc.declareLinkedHashMap("markerAttributes", "String", "Object"));
@@ -116,6 +121,8 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("markerAttributes.put(" + I_MARKER(sc) + ".MESSAGE, taskItem.getMessage());");
 		sc.add("new " + markerHelperClassName + "().createMarker(resource, " + I_MARKER(sc) + ".TASK, markerAttributes);");
 		sc.add("}");
+		sc.add("subMonitor.worked(1);");
+		sc.add("subMonitor.done();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

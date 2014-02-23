@@ -123,6 +123,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -891,6 +892,10 @@ public class ClassNameConstants extends
 
 	public static String STRING_WRITER(JavaComposite jc) {
 		return jc.getClassName(StringWriter.class);
+	}
+
+	public static String SUB_PROGRESS_MONITOR(JavaComposite jc) {
+		return jc.getClassName(SubProgressMonitor.class);
 	}
 
 	public static String TIMER(JavaComposite jc) {
