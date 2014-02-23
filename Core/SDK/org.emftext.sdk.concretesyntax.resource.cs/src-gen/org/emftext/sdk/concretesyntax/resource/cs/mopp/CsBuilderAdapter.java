@@ -123,7 +123,7 @@ public class CsBuilderAdapter extends IncrementalProjectBuilder implements IReso
 			return false;
 		}
 		if (resource instanceof IFile && resource.getName().endsWith("." + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName())) {
-			monitor.beginTask("Building " + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName() + " file", 2);
+			monitor.beginTask(org.emftext.sdk.concretesyntax.resource.cs.CsResourceBundle.BUILDER_ADAPTER_TASK_NAME, 2);
 			// Calling the default generated builder is disabled because of syntax option
 			// 'disableBuilder'.
 			monitor.worked(1);
