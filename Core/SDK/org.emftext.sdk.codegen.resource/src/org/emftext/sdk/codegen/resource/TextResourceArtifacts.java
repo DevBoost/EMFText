@@ -59,6 +59,7 @@ import org.emftext.sdk.codegen.resource.generators.PluginActivatorGenerator;
 import org.emftext.sdk.codegen.resource.generators.ProblemGenerator;
 import org.emftext.sdk.codegen.resource.generators.ReferenceResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.ReferenceResolverSwitchGenerator;
+import org.emftext.sdk.codegen.resource.generators.ResourceBundleGenerator;
 import org.emftext.sdk.codegen.resource.generators.ResourceFactoryDelegatorGenerator;
 import org.emftext.sdk.codegen.resource.generators.ResourceFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.SyntaxCoverageInformationProviderGenerator;
@@ -337,6 +338,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_PROBLEM_SEVERITY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "EProblemSeverity", EProblemSeverityGenerator.class, OptionTypes.OVERRIDE_EPROBLEM_SEVERITY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> E_PROBLEM_TYPE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "EProblemType", EProblemTypeGenerator.class, OptionTypes.OVERRIDE_EPROBLEM_TYPE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> I_INTERPRETER_LISTENER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "I", "InterpreterListener", IInterpreterListenerGenerator.class, OptionTypes.OVERRIDE_IINTERPRETER_LISTENER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE_BUNDLE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(ROOT_PACKAGE, "", "ResourceBundle", ResourceBundleGenerator.class, OptionTypes.OVERRIDE_RESOURCE_BUNDLE);
 	
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_CS_STRING = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedCsString", ExpectedCsStringGenerator.class, OptionTypes.OVERRIDE_EXPECTED_CS_STRING);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_STRUCTURAL_FEATURE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedStructuralFeature", ExpectedStructuralFeatureGenerator.class, OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE);

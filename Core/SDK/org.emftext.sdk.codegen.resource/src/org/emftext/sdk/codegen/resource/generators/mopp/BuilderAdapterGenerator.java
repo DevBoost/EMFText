@@ -34,6 +34,7 @@ import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.ResourceBundleGenerator;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -59,8 +60,8 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 
 		if (!removeEclipseDependentCode) {
-	addFields(sc);
-	addMethods(sc, disableBuilder);
+			addFields(sc);
+			addMethods(sc, disableBuilder);
 		} else {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
 		}
@@ -144,7 +145,7 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("if (resource instanceof " + I_FILE(sc) + " && resource.getName().endsWith(\".\" + new " + metaInformationClassName + "().getSyntaxName())) {");
-		sc.add("monitor.beginTask(\"Building \" + new " + metaInformationClassName + "().getSyntaxName() + \" file\", 2);");
+		sc.add("monitor.beginTask(" + resourceBundleClassName + "." +  ResourceBundleGenerator.BUILDER_ADAPTER_TASK_NAME + ", 2);");
 		if (disableBuilder) {
 			sc.addComment(
 					"Calling the default generated builder is disabled because of " +

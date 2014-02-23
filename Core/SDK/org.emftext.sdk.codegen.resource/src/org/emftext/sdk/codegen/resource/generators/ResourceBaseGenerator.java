@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -170,6 +170,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String referenceCacheClassName;
 	protected String referenceResolveResultClassName;
 	protected String referenceResolverSwitchClassName;
+	protected String resourceBundleClassName;
 	protected String resourceFactoryClassName;
 	protected String resourceFactoryDelegatorClassName;
 	protected String resourcePostProcessorClassName;
@@ -355,6 +356,7 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		referenceCacheClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_CACHE);
 		referenceResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVE_RESULT);
 		referenceResolverSwitchClassName = context.getQualifiedClassName(TextResourceArtifacts.REFERENCE_RESOLVER_SWITCH);
+		resourceBundleClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_BUNDLE);
 		resourceFactoryClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY);
 		resourceFactoryDelegatorClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_FACTORY_DELEGATOR);
 		resourcePostProcessorClassName = context.getQualifiedClassName(TextResourceArtifacts.RESOURCE_POST_PROCESSOR);

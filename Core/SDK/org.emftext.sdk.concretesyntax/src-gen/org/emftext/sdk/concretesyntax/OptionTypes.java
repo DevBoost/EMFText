@@ -3072,7 +3072,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UI_RESOURCE_BUNDLE(308, "OVERRIDE_UI_RESOURCE_BUNDLE", "overrideUIResourceBundle");
+	OVERRIDE_UI_RESOURCE_BUNDLE(309, "OVERRIDE_UI_RESOURCE_BUNDLE", "overrideUIResourceBundle"), /**
+	 * The '<em><b>OVERRIDE RESOURCE BUNDLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_BUNDLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_RESOURCE_BUNDLE(310, "OVERRIDE_RESOURCE_BUNDLE", "overrideResourceBundle");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7402,7 +7410,22 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_UI_RESOURCE_BUNDLE_VALUE = 308;
+	public static final int OVERRIDE_UI_RESOURCE_BUNDLE_VALUE = 309;
+
+	/**
+	 * The '<em><b>OVERRIDE RESOURCE BUNDLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE RESOURCE BUNDLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_BUNDLE
+	 * @model literal="overrideResourceBundle"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_RESOURCE_BUNDLE_VALUE = 310;
 
 	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7719,6 +7742,7 @@ public enum OptionTypes implements Enumerator {
 			NEW_FILE_WIZARD_CATEGORY,
 			EMF_TARGET_VERSION,
 			OVERRIDE_UI_RESOURCE_BUNDLE,
+			OVERRIDE_RESOURCE_BUNDLE,
 		};
 
 	/**
@@ -8073,6 +8097,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_NEW_PROJECT_WIZARD_LOGIC_VALUE: return OVERRIDE_NEW_PROJECT_WIZARD_LOGIC;
 			case NEW_FILE_WIZARD_CATEGORY_VALUE: return NEW_FILE_WIZARD_CATEGORY;
 			case EMF_TARGET_VERSION_VALUE: return EMF_TARGET_VERSION;
+			case OVERRIDE_UI_RESOURCE_BUNDLE_VALUE: return OVERRIDE_UI_RESOURCE_BUNDLE;
+			case OVERRIDE_RESOURCE_BUNDLE_VALUE: return OVERRIDE_RESOURCE_BUNDLE;
 		}
 		return null;
 	}
