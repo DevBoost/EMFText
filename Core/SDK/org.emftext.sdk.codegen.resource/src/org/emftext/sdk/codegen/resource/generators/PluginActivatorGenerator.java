@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -36,7 +36,9 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 	public void generateJavaContents(JavaComposite sc) {
 		boolean removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("A singleton class for the text resource plug-in.");
 		String extendsClause = removeEclipseDependentCode ? "" : " extends " + PLUGIN(sc);
@@ -44,9 +46,9 @@ public class PluginActivatorGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.addLineBreak();
 
 		if (!removeEclipseDependentCode) {
-	addFields(sc);
-	addConstructor(sc);
-	addMethods(sc);
+			addFields(sc);
+			addConstructor(sc);
+			addMethods(sc);
 		} else {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
 		}
