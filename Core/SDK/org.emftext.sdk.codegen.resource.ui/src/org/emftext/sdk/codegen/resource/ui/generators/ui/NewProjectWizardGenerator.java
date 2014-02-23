@@ -36,7 +36,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WORKSPACE
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.ui.UIConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 import de.devboost.codecomposers.java.JavaComposite;
