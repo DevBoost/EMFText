@@ -150,6 +150,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.add("wizardNewProjectCreationPage.setInitialProjectName(pageProjectName);");
 		sc.addLineBreak();
 		sc.add("this.addPage(wizardNewProjectCreationPage);");
+		sc.add("setWindowTitle(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_WINDOW_TITLE + ");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

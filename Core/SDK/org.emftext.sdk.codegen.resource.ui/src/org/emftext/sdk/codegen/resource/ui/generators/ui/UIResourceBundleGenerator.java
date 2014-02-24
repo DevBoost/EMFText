@@ -26,6 +26,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	// A list of all constant names so they can be used by other generators
+	public static final String NEW_PROJECT_WIZARD_WINDOW_TITLE = "NEW_PROJECT_WIZARD_WINDOW_TITLE";
 	public static final String NEW_PROJECT_WIZARD_PAGE_NAME = "NEW_PROJECT_WIZARD_PAGE_NAME";
 	public static final String NEW_PROJECT_ZIP_FILE_NAME = "NEW_PROJECT_ZIP_FILE_NAME";
 	public static final String NEW_PROJECT_WIZARD_PAGE_DESCRIPTION = "NEW_PROJECT_WIZARD_PAGE_DESCRIPTION";
@@ -48,8 +49,12 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstants(JavaComposite jc) {
+		jc.addJavadoc("The title of the NewProjectWizard window.");
+		jc.add("public static String " + NEW_PROJECT_WIZARD_WINDOW_TITLE + " = \"New " + getContext().getConcreteSyntax().getName() + " Project\";");
+		jc.addLineBreak();
+		
 		jc.addJavadoc("The name of the main page for the NewProjectWizard.");
-		jc.add("public static String " + NEW_PROJECT_WIZARD_PAGE_NAME + " = \"New " + getContext().getConcreteSyntax().getName() + " Project\";");
+		jc.add("public static String " + NEW_PROJECT_WIZARD_PAGE_NAME + " = \"Create new " + getContext().getConcreteSyntax().getName() + " Project\";");
 		jc.addLineBreak();
 		
 		jc.addJavadoc("The name of the ZIP file that is used as content for the new project (relative to the root of the resource UI plug-in).");
