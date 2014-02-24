@@ -29,9 +29,14 @@ import java.util.Set;
 public class CsUIResourceBundle {
 	
 	/**
+	 * The title of the NewProjectWizard window.
+	 */
+	public static String NEW_PROJECT_WIZARD_WINDOW_TITLE = "New cs Project";
+	
+	/**
 	 * The name of the main page for the NewProjectWizard.
 	 */
-	public static String NEW_PROJECT_WIZARD_PAGE_NAME = "New cs Project";
+	public static String NEW_PROJECT_WIZARD_PAGE_NAME = "Create new cs Project";
 	
 	/**
 	 * The name of the ZIP file that is used as content for the new project (relative

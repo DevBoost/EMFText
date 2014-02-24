@@ -130,6 +130,7 @@ public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutabl
 		wizardNewProjectCreationPage.setInitialProjectName(pageProjectName);
 		
 		this.addPage(wizardNewProjectCreationPage);
+		setWindowTitle(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_PROJECT_WIZARD_WINDOW_TITLE);
 	}
 	
 	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
