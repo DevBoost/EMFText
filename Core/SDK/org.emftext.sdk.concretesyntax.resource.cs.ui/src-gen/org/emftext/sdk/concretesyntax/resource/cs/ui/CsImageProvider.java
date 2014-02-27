@@ -16,8 +16,12 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -48,16 +52,16 @@ public class CsImageProvider {
 		Image image = null;
 		// try shared images
 		try {
-			java.lang.reflect.Field declaredField = ISharedImages.class.getDeclaredField(key);
+			Field declaredField = ISharedImages.class.getDeclaredField(key);
 			Object valueObject = declaredField.get(null);
 			if (valueObject instanceof String) {
 				String value = (String) valueObject;
 				image = PlatformUI.getWorkbench().getSharedImages().getImage(value);
 			}
-		} catch (java.lang.SecurityException e) {
-		} catch (java.lang.NoSuchFieldException e) {
+		} catch (SecurityException e) {
+		} catch (NoSuchFieldException e) {
 		} catch (IllegalArgumentException e) {
-		} catch (java.lang.IllegalAccessException e) {
+		} catch (IllegalAccessException e) {
 		}
 		if (image != null) {
 			return image;
@@ -95,16 +99,16 @@ public class CsImageProvider {
 			return null;
 		}
 		
-		ImageDescriptor descriptor = ImageDescriptor.createFromURL(org.eclipse.core.runtime.FileLocator.find(plugin.getBundle(), path, null));
+		ImageDescriptor descriptor = ImageDescriptor.createFromURL(FileLocator.find(plugin.getBundle(), path, null));
 		if (ImageDescriptor.getMissingImageDescriptor().equals(descriptor) || descriptor == null) {
 			// try loading image from any bundle
 			try {
-				java.net.URL pluginUrl = new java.net.URL(key);
+				URL pluginUrl = new URL(key);
 				descriptor = ImageDescriptor.createFromURL(pluginUrl);
 				if (ImageDescriptor.getMissingImageDescriptor().equals(descriptor) || descriptor == null) {
 					return null;
 				}
-			} catch (java.net.MalformedURLException mue) {
+			} catch (MalformedURLException mue) {
 				org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.logError("IconProvider can't load image (URL is malformed).", mue);
 			}
 		}

@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -35,6 +38,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -173,15 +177,15 @@ public class CsNewProjectWizardLogic {
 	 * 
 	 * @throws InterruptedException
 	 * 
-	 * @throws java.io.FileNotFoundException
+	 * @throws FileNotFoundException
 	 */
-	private void extractProject(File projectFolderFile, URL url, IProgressMonitor monitor) throws java.io.FileNotFoundException, IOException, InterruptedException {
+	private void extractProject(File projectFolderFile, URL url, IProgressMonitor monitor) throws FileNotFoundException, IOException, InterruptedException {
 		
 		// Get project archive
-		URL urlZipLocal = org.eclipse.core.runtime.FileLocator.toFileURL(url);
+		URL urlZipLocal = FileLocator.toFileURL(url);
 		
 		// Walk each element and unzip
-		java.util.zip.ZipFile zipFile = new java.util.zip.ZipFile(urlZipLocal.getPath());
+		ZipFile zipFile = new ZipFile(urlZipLocal.getPath());
 		
 		try {
 			// Allow for a hundred work units
@@ -203,16 +207,16 @@ public class CsNewProjectWizardLogic {
 	 * 
 	 * @throws IOException
 	 * 
-	 * @throws java.io.FileNotFoundException
+	 * @throws FileNotFoundException
 	 * 
 	 * @throws InterruptedException
 	 */
-	private void unzip(java.util.zip.ZipFile zipFile, File projectFolderFile, IProgressMonitor monitor) throws IOException, java.io.FileNotFoundException, InterruptedException {
+	private void unzip(ZipFile zipFile, File projectFolderFile, IProgressMonitor monitor) throws IOException, FileNotFoundException, InterruptedException {
 		
-		Enumeration<? extends java.util.zip.ZipEntry> e = zipFile.entries();
+		Enumeration<? extends ZipEntry> e = zipFile.entries();
 		
 		while (e.hasMoreElements()) {
-			java.util.zip.ZipEntry zipEntry = (java.util.zip.ZipEntry) e.nextElement();
+			ZipEntry zipEntry = (ZipEntry) e.nextElement();
 			File file = new File(projectFolderFile, zipEntry.getName());
 			
 			if (zipEntry.isDirectory()) {

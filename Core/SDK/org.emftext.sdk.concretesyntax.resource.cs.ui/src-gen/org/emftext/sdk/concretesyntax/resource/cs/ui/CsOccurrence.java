@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -263,15 +264,15 @@ public class CsOccurrence {
 		IDocument document = getSourceViewer().getDocument();
 		
 		// Determine all references to the EObject
-		Map<EObject, Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting>> map = EcoreUtil.UsageCrossReferencer.find(Collections.singleton(textResource));
-		Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting> referencingObjects = map.get(referencedElement);
+		Map<EObject, Collection<Setting>> map = EcoreUtil.UsageCrossReferencer.find(Collections.singleton(textResource));
+		Collection<Setting> referencingObjects = map.get(referencedElement);
 		if (referencingObjects == null) {
 			// No references found
 			return;
 		}
 		
 		// Highlight the token in the text for the referencing objects
-		for (org.eclipse.emf.ecore.EStructuralFeature.Setting setting : referencingObjects) {
+		for (Setting setting : referencingObjects) {
 			EObject referencingElement = setting.getEObject();
 			// Search through all tokens in the elements that reference the element at the
 			// caret position

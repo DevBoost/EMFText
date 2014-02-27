@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
+import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -58,7 +60,7 @@ public class CsOutlinePageTreeViewer extends TreeViewer {
 		}
 	}
 	
-	private static class FlatEObjectComparer extends org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper {
+	private static class FlatEObjectComparer extends EqualityHelper {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -68,7 +70,7 @@ public class CsOutlinePageTreeViewer extends TreeViewer {
 		}
 		
 		@Override
-		protected boolean equalFeatureMaps(org.eclipse.emf.ecore.util.FeatureMap featureMap1, org.eclipse.emf.ecore.util.FeatureMap featureMap2) {
+		protected boolean equalFeatureMaps(FeatureMap featureMap1, FeatureMap featureMap2) {
 			return true;
 		}
 		
