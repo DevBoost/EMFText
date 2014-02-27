@@ -1457,7 +1457,11 @@ public class UIClassNameConstants extends ClassNameConstants {
 	}
 
 	public static String I_TOKEN_SCANNER(JavaComposite jc) {
-		return jc.getClassName(ITokenScanner.class);
+		Class<ITokenScanner> clazz = ITokenScanner.class;
+		if (jc == null) {
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String I_TREE_CONTENT_PROVIDER(JavaComposite jc) {
