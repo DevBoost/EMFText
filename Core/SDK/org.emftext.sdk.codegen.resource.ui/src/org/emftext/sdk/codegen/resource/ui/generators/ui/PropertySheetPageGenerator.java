@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GEN_CLASS;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GEN_FEATURE;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.GEN_PACKAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GEN_CLASS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GEN_FEATURE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GEN_PACKAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
@@ -36,22 +36,24 @@ import de.devboost.codecomposers.java.JavaComposite;
 
 public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
-	public void generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite jc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
-		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + PROPERTY_SHEET_PAGE(sc) + " implements " + I_SELECTION_CHANGED_LISTENER(sc) + " {");
-		sc.addLineBreak();
-		addMethods(sc);
-		sc.add("}");
+		jc.add("package " + getResourcePackageName() + ";");
+		jc.addLineBreak();
+		jc.addImportsPlaceholder();
+		jc.addLineBreak();
+		jc.add("public class " + getResourceClassName() + " extends " + PROPERTY_SHEET_PAGE(jc) + " implements " + I_SELECTION_CHANGED_LISTENER(jc) + " {");
+		jc.addLineBreak();
+		addMethods(jc);
+		jc.add("}");
 	}
 
-	private void addMethods(JavaComposite sc) {
-		addSelectionChangedMethod1(sc);
-		addSelectionChangedMethod2(sc);
-		addContainsGenProxyMethod(sc);
-		addIsGenProxyMethod(sc);
-		addIsInstanceOfMethod(sc);
+	private void addMethods(JavaComposite jc) {
+		addSelectionChangedMethod1(jc);
+		addSelectionChangedMethod2(jc);
+		addContainsGenProxyMethod(jc);
+		addIsGenProxyMethod(jc);
+		addIsInstanceOfMethod(jc);
 	}
 
 	private void addSelectionChangedMethod2(JavaComposite sc) {
@@ -122,9 +124,11 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 
 	private void addIsGenProxyMethod(JavaComposite sc) {
 		sc.add("private boolean isGenProxy(" + E_OBJECT(sc) + " selectedObject) {");
-		sc.add("boolean isGenMetaclass = isInstanceOf(\"" + GEN_CLASS + "\", selectedObject);");
-		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_FEATURE + "\", selectedObject);");
-		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_PACKAGE + "\", selectedObject);");
+		// We intentionally pass 'null' as argument here to get the fully
+		// qualified names.
+		sc.add("boolean isGenMetaclass = isInstanceOf(\"" + GEN_CLASS(null) + "\", selectedObject);");
+		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_FEATURE(null) + "\", selectedObject);");
+		sc.add("isGenMetaclass |= isInstanceOf(\"" + GEN_PACKAGE(null) + "\", selectedObject);");
 		sc.add("boolean isProxy = selectedObject.eIsProxy();");
 		sc.add("return isGenMetaclass && isProxy;");
 		sc.add("}");
@@ -141,6 +145,4 @@ public class PropertySheetPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("}");
 		sc.add("}");
 	}
-	
-	
 }

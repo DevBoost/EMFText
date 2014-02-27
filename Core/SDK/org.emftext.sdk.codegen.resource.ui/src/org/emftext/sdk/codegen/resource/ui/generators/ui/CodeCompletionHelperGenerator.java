@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,28 +15,28 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static de.devboost.codecomposers.java.IClassNameConstants.ARRAY_LIST;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ARRAYS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_CLASSIFIER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ENUM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_ENUM_LITERAL;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAYS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASSIFIER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_ENUM;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_ENUM_LITERAL;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_SET_IMPL;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -111,7 +111,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	private void addRemoveKeywordsEndingBeforeIndexMethod(JavaComposite sc) {
 		sc.addJavadoc("Removes all proposals for keywords that end before the given index.");
-		sc.add("protected void removeKeywordsEndingBeforeIndex(" + COLLECTION + "<" + completionProposalClassName + "> proposals, int index) {");
+		sc.add("protected void removeKeywordsEndingBeforeIndex(" + COLLECTION(sc) + "<" + completionProposalClassName + "> proposals, int index) {");
 		sc.add(sc.declareArrayList("toRemove", completionProposalClassName));
 		sc.add("for (" + completionProposalClassName + " proposal : proposals) {");
 		sc.add(expectedTerminalClassName + " expectedTerminal = proposal.getExpectedTerminal();");
@@ -131,8 +131,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	private void addGetImageMethod(JavaComposite sc) {
 		// TODO attach images for keywords and attributes
-		sc.add("protected " + IMAGE(sc) + " getImage(" + E_OBJECT + " element) {");
-		sc.add("if (!" + PLATFORM + ".isRunning()) {");
+		sc.add("protected " + IMAGE(sc) + " getImage(" + E_OBJECT(sc) + " element) {");
+		sc.add("if (!" + PLATFORM(sc) + ".isRunning()) {");
 		sc.add("return null;");
 		sc.add("}");
 		generatorUtil.addCreateAdapterFactoryCode(sc);
@@ -172,7 +172,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"The prefix depends on the current document content, the cursor position, and " +
 			"the position where the element is expected."
 		);
-		sc.add("protected void setPrefixes(" + LIST + "<" + expectedTerminalClassName + "> expectedElements, String content, int cursorOffset) {");
+		sc.add("protected void setPrefixes(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements, String content, int cursorOffset) {");
 		sc.add("if (cursorOffset < 0) {");
 		sc.add("return;");
 		sc.add("}");
@@ -188,10 +188,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addJavadoc(
 			"Creates a set of completion proposals from the given keyword."
 		);
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleKeyword(" + expectedTerminalClassName + " expectedTerminal, " + expectedCsStringClassName + " csString, String prefix, " + E_OBJECT + " container) {");
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> handleKeyword(" + expectedTerminalClassName + " expectedTerminal, " + expectedCsStringClassName + " csString, String prefix, " + E_OBJECT(sc) + " container) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.add("boolean matchesPrefix = matches(proposal, prefix);");
-		sc.add("return " + COLLECTIONS + ".singleton(new " + completionProposalClassName + "(expectedTerminal, proposal, prefix, matchesPrefix, null, container));");
+		sc.add("return " + COLLECTIONS(sc) + ".singleton(new " + completionProposalClassName + "(expectedTerminal, proposal, prefix, matchesPrefix, null, container));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -200,8 +200,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addJavadoc(
 			"Creates a set of (two) completion proposals from the given boolean terminal."
 		);
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleBooleanTerminal(" + expectedTerminalClassName + " expectedTerminal, " + expectedBooleanTerminalClassName + " expectedBooleanTerminal, String prefix) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">(2);");
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> handleBooleanTerminal(" + expectedTerminalClassName + " expectedTerminal, " + expectedBooleanTerminalClassName + " expectedBooleanTerminal, String prefix) {");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">(2);");
 		sc.add(booleanTerminalClassName + " booleanTerminal = expectedBooleanTerminal.getBooleanTerminal();");
 		sc.add("result.addAll(handleLiteral(expectedTerminal, booleanTerminal.getAttribute(), prefix, booleanTerminal.getTrueLiteral()));");
 		sc.add("result.addAll(handleLiteral(expectedTerminal, booleanTerminal.getAttribute(), prefix, booleanTerminal.getFalseLiteral()));");
@@ -210,13 +210,13 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addHandleLiteralMethod(StringComposite sc) {
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleLiteral(" + expectedTerminalClassName + " expectedTerminal, " + E_ATTRIBUTE + " attribute, String prefix, String literal) {");
+	private void addHandleLiteralMethod(JavaComposite sc) {
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> handleLiteral(" + expectedTerminalClassName + " expectedTerminal, " + E_ATTRIBUTE(sc) + " attribute, String prefix, String literal) {");
 		sc.add("if (\"\".equals(literal)) {");
-		sc.add("return " + COLLECTIONS + ".emptySet();");
+		sc.add("return " + COLLECTIONS(sc) + ".emptySet();");
 		sc.add("}");
 		sc.add("boolean matchesPrefix = matches(literal, prefix);");
-		sc.add("return " + COLLECTIONS + ".singleton(new " + completionProposalClassName + "(expectedTerminal, literal, prefix, matchesPrefix, null, null));");
+		sc.add("return " + COLLECTIONS(sc) + ".singleton(new " + completionProposalClassName + "(expectedTerminal, literal, prefix, matchesPrefix, null, null));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -226,10 +226,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"Creates a set of completion proposals from the given enumeration terminal. " +
 			"For each enumeration literal one proposal is created."
 		);
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleEnumerationTerminal(" + expectedTerminalClassName + " expectedTerminal, " + expectedEnumerationTerminalClassName + " expectedEnumerationTerminal, String prefix) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">(2);");
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> handleEnumerationTerminal(" + expectedTerminalClassName + " expectedTerminal, " + expectedEnumerationTerminalClassName + " expectedEnumerationTerminal, String prefix) {");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">(2);");
 		sc.add(enumerationTerminalClassName + " enumerationTerminal = expectedEnumerationTerminal.getEnumerationTerminal();");
-		sc.add(MAP + "<String, String> literalMapping = enumerationTerminal.getLiteralMapping();");
+		sc.add(MAP(sc) + "<String, String> literalMapping = enumerationTerminal.getLiteralMapping();");
 		sc.add("for (String literalName : literalMapping.keySet()) {");
 		sc.add("result.addAll(handleLiteral(expectedTerminal, enumerationTerminal.getAttribute(), prefix, literalMapping.get(literalName)));");
 		sc.add("}");
@@ -255,10 +255,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addHandleEnumAttributeMethod(JavaComposite sc) {
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleEnumAttribute(" + expectedTerminalClassName + " expectedTerminal, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_ENUM + " enumType, String prefix, " + E_OBJECT + " container) {");
-		sc.add(COLLECTION + "<" + E_ENUM_LITERAL + "> enumLiterals = enumType.getELiterals();");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
-		sc.add("for (" + E_ENUM_LITERAL + " literal : enumLiterals) {");
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> handleEnumAttribute(" + expectedTerminalClassName + " expectedTerminal, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_ENUM(sc) + " enumType, String prefix, " + E_OBJECT(sc) + " container) {");
+		sc.add(COLLECTION(sc) + "<" + E_ENUM_LITERAL(sc) + "> enumLiterals = enumType.getELiterals();");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> result = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">();");
+		sc.add("for (" + E_ENUM_LITERAL(sc) + " literal : enumLiterals) {");
 		sc.add("String unResolvedLiteral = literal.getLiteral();");
 		sc.addComment("use token resolver to get de-resolved value of the literal");
 		sc.add(iTokenResolverFactoryClassName + " tokenResolverFactory = metaInformation.getTokenResolverFactory();");
@@ -272,9 +272,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addHandleAttributeMethod(StringComposite sc) {
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleAttribute(" + expectedTerminalClassName + " expectedTerminal, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_OBJECT + " container, " + E_ATTRIBUTE + " attribute, String prefix) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
+	private void addHandleAttributeMethod(JavaComposite sc) {
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> handleAttribute(" + expectedTerminalClassName + " expectedTerminal, " + expectedStructuralFeatureClassName + " expectedFeature, " + E_OBJECT(sc) + " container, " + E_ATTRIBUTE(sc) + " attribute, String prefix) {");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">();");
 		sc.add("Object[] defaultValues = attributeValueProvider.getDefaultValues(attribute);");
 		sc.add("if (defaultValues != null) {");
 		sc.add("for (Object defaultValue : defaultValues) {");
@@ -298,19 +298,19 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addHandleNCReferenceMethod(JavaComposite sc) {
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> handleNCReference(" + expectedTerminalClassName + " expectedTerminal, " + E_OBJECT + " container, " + E_REFERENCE + " reference, String prefix, String tokenName) {");
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> handleNCReference(" + expectedTerminalClassName + " expectedTerminal, " + E_OBJECT(sc) + " container, " + E_REFERENCE(sc) + " reference, String prefix, String tokenName) {");
 		sc.addComment(
 			"proposals for non-containment references are derived by calling the " + 
 			"reference resolver switch in fuzzy mode."
 		);
 		sc.add(iReferenceResolverSwitchClassName + " resolverSwitch = metaInformation.getReferenceResolverSwitch();");
 		sc.add(iTokenResolverFactoryClassName + " tokenResolverFactory = metaInformation.getTokenResolverFactory();");
-		sc.add(iReferenceResolveResultClassName + "<" + E_OBJECT + "> result = new " + referenceResolveResultClassName + "<" + E_OBJECT + ">(true);");
+		sc.add(iReferenceResolveResultClassName + "<" + E_OBJECT(sc) + "> result = new " + referenceResolveResultClassName + "<" + E_OBJECT(sc) + ">(true);");
 		sc.add("resolverSwitch.resolveFuzzy(prefix, container, reference, 0, result);");
-		sc.add(COLLECTION + "<" + iReferenceMappingClassName + "<" + E_OBJECT + ">> mappings = result.getMappings();");
+		sc.add(COLLECTION(sc) + "<" + iReferenceMappingClassName + "<" + E_OBJECT(sc) + ">> mappings = result.getMappings();");
 		sc.add("if (mappings != null) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
-		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">();");
+		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT(sc) + "> mapping : mappings) {");
 		sc.add(IMAGE(sc) + " image = null;");
 		sc.add("if (mapping instanceof " + elementMappingClassName + "<?>) {");
 		sc.add(elementMappingClassName + "<?> elementMapping = (" + elementMappingClassName + "<?>) mapping;");
@@ -318,8 +318,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addComment("de-resolve reference to obtain correct identifier");
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("final String identifier = tokenResolver.deResolve(elementMapping.getIdentifier(), reference, container);");
-		sc.add("if (target instanceof " + E_OBJECT + ") {");
-		sc.add("image = getImage((" + E_OBJECT + ") target);");
+		sc.add("if (target instanceof " + E_OBJECT(sc) + ") {");
+		sc.add("image = getImage((" + E_OBJECT(sc) + ") target);");
 		sc.add("}");
 		sc.add("boolean matchesPrefix = matches(identifier, prefix);");
 		sc.add(completionProposalClassName + " proposal = new " + completionProposalClassName + "(expectedTerminal, identifier, prefix, matchesPrefix, reference, container, image);");
@@ -329,26 +329,26 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.add("return resultSet;");
 		sc.add("}");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
+		sc.add("return " + COLLECTIONS(sc) + ".emptyList();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addFindCorrectContainerMethod(JavaComposite sc) {
-		sc.add("protected " + E_OBJECT + " findCorrectContainer(" + expectedTerminalClassName + " expectedTerminal) {");
-		sc.add(E_OBJECT + " container = expectedTerminal.getContainer();");
-		sc.add(E_CLASS + " ruleMetaclass = expectedTerminal.getTerminal().getRuleMetaclass();");
+		sc.add("protected " + E_OBJECT(sc) + " findCorrectContainer(" + expectedTerminalClassName + " expectedTerminal) {");
+		sc.add(E_OBJECT(sc) + " container = expectedTerminal.getContainer();");
+		sc.add(E_CLASS(sc) + " ruleMetaclass = expectedTerminal.getTerminal().getRuleMetaclass();");
 		sc.add("if (ruleMetaclass.isInstance(container)) {");
 		sc.addComment("container is correct for expected terminal");
 		sc.add("return container;");
 		sc.add("}");
 		sc.addComment("the container is wrong");
-		sc.add(E_OBJECT + " parent = null;");
-		sc.add(E_OBJECT + " previousParent = null;");
-		sc.add(E_OBJECT + " correctContainer = null;");
-		sc.add(E_OBJECT + " hookableParent = null;");
+		sc.add(E_OBJECT(sc) + " parent = null;");
+		sc.add(E_OBJECT(sc) + " previousParent = null;");
+		sc.add(E_OBJECT(sc) + " correctContainer = null;");
+		sc.add(E_OBJECT(sc) + " hookableParent = null;");
 		sc.add(containmentTraceClassName + " containmentTrace = expectedTerminal.getContainmentTrace();");
-		sc.add(E_CLASS + " startClass = containmentTrace.getStartClass();");
+		sc.add(E_CLASS(sc) + " startClass = containmentTrace.getStartClass();");
 		sc.add(containedFeatureClassName + " currentLink = null;");
 		sc.add(containedFeatureClassName + " previousLink = null;");
 		sc.add(containedFeatureClassName + "[] containedFeatures = containmentTrace.getPath();");
@@ -357,7 +357,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (i > 0) {");
 		sc.add("previousLink = containedFeatures[i - 1];");
 		sc.add("}");
-		sc.add(E_CLASS + " containerClass = currentLink.getContainerClass();");
+		sc.add(E_CLASS(sc) + " containerClass = currentLink.getContainerClass();");
 		sc.add("hookableParent = findHookParent(container, startClass, currentLink, parent);");
 		sc.add("if (hookableParent != null) {");
 		sc.addComment("we found the correct parent");
@@ -399,9 +399,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("hookableParent = findHookParent(container, startClass, currentLink, parent);");
 		sc.addLineBreak();
 
-		sc.add("final " + E_OBJECT + " finalHookableParent = hookableParent;");
-		sc.add("final " + E_STRUCTURAL_FEATURE + " finalFeature = currentLink.getFeature();");
-		sc.add("final " + E_OBJECT + " finalParent = parent;");
+		sc.add("final " + E_OBJECT(sc) + " finalHookableParent = hookableParent;");
+		sc.add("final " + E_STRUCTURAL_FEATURE(sc) + " finalFeature = currentLink.getFeature();");
+		sc.add("final " + E_OBJECT(sc) + " finalParent = parent;");
 		sc.add("if (parent != null && hookableParent != null) {");
 		sc.add("expectedTerminal.setAttachmentCode(new Runnable() {");
 		sc.addLineBreak();
@@ -419,8 +419,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addJavadoc(
 			"Walks up the containment hierarchy to find an EObject that is able " +
 			"to hold (contain) the given object.");
-		sc.add("protected " + E_OBJECT + " findHookParent(" + E_OBJECT + " container, " + E_CLASS + " startClass, " + containedFeatureClassName + " currentLink, " + E_OBJECT + " object) {");
-		sc.add(E_CLASS + " containerClass = currentLink.getContainerClass();");
+		sc.add("protected " + E_OBJECT(sc) + " findHookParent(" + E_OBJECT(sc) + " container, " + E_CLASS(sc) + " startClass, " + containedFeatureClassName + " currentLink, " + E_OBJECT(sc) + " object) {");
+		sc.add(E_CLASS(sc) + " containerClass = currentLink.getContainerClass();");
 		sc.add("while (container != null) {");
 		sc.add("if (containerClass.isInstance(object)) {");
 		sc.add("if (startClass.equals(container.eClass())) {");
@@ -438,7 +438,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		// TODO mseifert: remove parameter 'resource'?
 		// TODO mseifert: all methods that are called by this method and that
 		// take a parameter 'expectedTerminal' do not need the parameter 'prefix'
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(final " + expectedTerminalClassName + " expectedTerminal, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> deriveProposals(final " + expectedTerminalClassName + " expectedTerminal, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
 		sc.add(iExpectedElementClassName + " expectedElement = (" + iExpectedElementClassName + ") expectedTerminal.getTerminal();");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
 		sc.add(expectedCsStringClassName + " csString = (" + expectedCsStringClassName + ") expectedElement;");
@@ -451,9 +451,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return handleEnumerationTerminal(expectedTerminal, expectedEnumerationTerminal, expectedTerminal.getPrefix());");
 		sc.add("} else if (expectedElement instanceof " + expectedStructuralFeatureClassName + ") {");
 		sc.add("final " + expectedStructuralFeatureClassName + " expectedFeature = (" + expectedStructuralFeatureClassName + ") expectedElement;");
-		sc.add("final " + E_STRUCTURAL_FEATURE + " feature = expectedFeature.getFeature();");
-		sc.add("final " + E_CLASSIFIER + " featureType = feature.getEType();");
-		sc.add("final " + E_OBJECT + " container = findCorrectContainer(expectedTerminal);");
+		sc.add("final " + E_STRUCTURAL_FEATURE(sc) + " feature = expectedFeature.getFeature();");
+		sc.add("final " + E_CLASSIFIER(sc) + " featureType = feature.getEType();");
+		sc.add("final " + E_OBJECT(sc) + " container = findCorrectContainer(expectedTerminal);");
 		sc.addLineBreak();
 		sc.addComment(
 			"Here it gets really crazy. We need to modify the model in a way that reflects the " +
@@ -463,13 +463,13 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"completion situations. This can be particularly observed when the user has not yet " +
 			"typed a character that starts an element to be completed."
 		);
-		sc.add("final " + COLLECTION + "<" + completionProposalClassName + "> proposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">();");
+		sc.add("final " + COLLECTION(sc) + "<" + completionProposalClassName + "> proposals = new " + ARRAY_LIST(sc) + "<" + completionProposalClassName + ">();");
 		sc.add("expectedTerminal.materialize(new Runnable() {");
 		sc.addLineBreak();
 		sc.add("public void run() {");
-		sc.add("if (feature instanceof " + E_REFERENCE + ") {");
-		sc.add(E_REFERENCE + " reference = (" + E_REFERENCE + ") feature;");
-		sc.add("if (featureType instanceof " + E_CLASS + ") {");
+		sc.add("if (feature instanceof " + E_REFERENCE(sc) + ") {");
+		sc.add(E_REFERENCE(sc) + " reference = (" + E_REFERENCE(sc) + ") feature;");
+		sc.add("if (featureType instanceof " + E_CLASS(sc) + ") {");
 		sc.add("if (reference.isContainment()) {");
 		sc.addComment("the FOLLOW set should contain only non-containment references");
 		sc.add("assert false;");
@@ -477,10 +477,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("proposals.addAll(handleNCReference(expectedTerminal, container, reference, expectedTerminal.getPrefix(), expectedFeature.getTokenName()));");
 		sc.add("}");
 		sc.add("}");
-		sc.add("} else if (feature instanceof " + E_ATTRIBUTE + ") {");
-		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
-		sc.add("if (featureType instanceof " + E_ENUM + ") {");
-		sc.add(E_ENUM + " enumType = (" + E_ENUM + ") featureType;");
+		sc.add("} else if (feature instanceof " + E_ATTRIBUTE(sc) + ") {");
+		sc.add(E_ATTRIBUTE(sc) + " attribute = (" + E_ATTRIBUTE(sc) + ") feature;");
+		sc.add("if (featureType instanceof " + E_ENUM(sc) + ") {");
+		sc.add(E_ENUM(sc) + " enumType = (" + E_ENUM(sc) + ") featureType;");
 		sc.add("proposals.addAll(handleEnumAttribute(expectedTerminal, expectedFeature, enumType, expectedTerminal.getPrefix(), container));");
 		sc.add("} else {");
 		sc.addComment(
@@ -502,14 +502,14 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addComment("there should be no other class implementing IExpectedElement");
 		sc.add("assert false;");
 		sc.add("}");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
+		sc.add("return " + COLLECTIONS(sc) + ".emptyList();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addDeriveProposalsMethod1(StringComposite sc) {
-		sc.add("protected " + COLLECTION + "<" + completionProposalClassName + "> deriveProposals(" + LIST + "<" + expectedTerminalClassName + "> expectedElements, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
+	private void addDeriveProposalsMethod1(JavaComposite sc) {
+		sc.add("protected " + COLLECTION(sc) + "<" + completionProposalClassName + "> deriveProposals(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements, String content, " + iTextResourceClassName + " resource, int cursorOffset) {");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> resultSet = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">();");
 		sc.add("for (" + expectedTerminalClassName + " expectedElement : expectedElements) {");
 		sc.add("resultSet.addAll(deriveProposals(expectedElement, content, resource, cursorOffset));");
 		sc.add("}");
@@ -518,8 +518,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addFindPrefixMethod(StringComposite sc) {
-		sc.add("protected String findPrefix(" + LIST + "<" + expectedTerminalClassName + "> expectedElements, " + expectedTerminalClassName + " expectedAtCursor, String content, int cursorOffset) {");
+	private void addFindPrefixMethod(JavaComposite sc) {
+		sc.add("protected String findPrefix(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements, " + expectedTerminalClassName + " expectedAtCursor, String content, int cursorOffset) {");
 		sc.add("if (cursorOffset < 0) {");
 		sc.add("return \"\";");
 		sc.add("}");
@@ -544,7 +544,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 	}
 
 	private void addRemoveInvalidEntriesAtEndMethod(JavaComposite sc) {
-		sc.add("protected void removeInvalidEntriesAtEnd(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
+		sc.add("protected void removeInvalidEntriesAtEnd(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("for (int i = 0; i < expectedElements.size() - 1;) {");
 		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
 		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(i + 1);");
@@ -575,7 +575,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"Attention: This method assumes that the given list of expected " +
 			"terminals contains only elements that start at the same position."
 		);
-		sc.add("protected void removeDuplicateEntriesFromBucket(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
+		sc.add("protected void removeDuplicateEntriesFromBucket(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("int size = expectedElements.size();");
 		sc.add("for (int i = 0; i < size - 1; i++) {");
 		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
@@ -599,19 +599,19 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"Removes all expected elements that refer to the same terminal and " +
 			"that start at the same position."
 		);
-		sc.add("protected void removeDuplicateEntries(" + LIST + "<" + expectedTerminalClassName + "> expectedElements) {");
+		sc.add("protected void removeDuplicateEntries(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements) {");
 		sc.add("int size = expectedElements.size();");
 		sc.addComment(
 			"We split the list of expected elements into buckets where each bucket " +
 			"contains the elements that start at the same position."
 		);
-		sc.add(MAP + "<Integer, " + LIST + "<" + expectedTerminalClassName + ">> map = new " + LINKED_HASH_MAP + "<Integer, " + LIST + "<" + expectedTerminalClassName + ">>();");
+		sc.add(MAP(sc) + "<Integer, " + LIST(sc) + "<" + expectedTerminalClassName + ">> map = new " + LINKED_HASH_MAP(sc) + "<Integer, " + LIST(sc) + "<" + expectedTerminalClassName + ">>();");
 		sc.add("for (int i = 0; i < size; i++) {");
 		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
 		sc.add("int start1 = elementAtIndex.getStartExcludingHiddenTokens();");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> list = map.get(start1);");
+		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> list = map.get(start1);");
 		sc.add("if (list == null) {");
-		sc.add("list = new " + ARRAY_LIST + "<" + expectedTerminalClassName + ">();");
+		sc.add("list = new " + ARRAY_LIST(sc) + "<" + expectedTerminalClassName + ">();");
 		sc.add("map.put(start1, list);");
 		sc.add("}");
 		sc.add("list.add(elementAtIndex);");
@@ -622,7 +622,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"Then, we remove all duplicate elements from each bucket individually."
 		);
 		sc.add("for (int position : map.keySet()) {");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> list = map.get(position);");
+		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> list = map.get(position);");
 		sc.add("removeDuplicateEntriesFromBucket(list);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -630,7 +630,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addComment("After removing all duplicates, we merge the buckets.");
 		sc.add("expectedElements.clear();");
 		sc.add("for (int position : map.keySet()) {");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> list = map.get(position);");
+		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> list = map.get(position);");
 		sc.add("expectedElements.addAll(list);");
 		sc.add("}");
 
@@ -650,10 +650,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		);
 		
 		sc.add("public " + completionProposalClassName + "[] computeCompletionProposals(" + iTextResourceClassName + " originalResource, String content, int cursorOffset) {");
-		sc.add(RESOURCE_SET + " resourceSet = new " + RESOURCE_SET_IMPL + "();");
+		sc.add(RESOURCE_SET(sc) + " resourceSet = new " + RESOURCE_SET_IMPL(sc) + "();");
 		sc.addComment("the shadow resource needs the same URI because reference resolvers may use the URI to resolve external references");
 		sc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") resourceSet.createResource(originalResource.getURI());");
-		sc.add(BYTE_ARRAY_INPUT_STREAM + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM + "(content.getBytes());");
+		sc.add(BYTE_ARRAY_INPUT_STREAM(sc) + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(content.getBytes());");
 		sc.add(iMetaInformationClassName + " metaInformation = resource.getMetaInformation();");
 		sc.add(iTextParserClassName + " parser = metaInformation.createParser(inputStream, null);");
 		sc.add(expectedTerminalClassName + "[] expectedElements = parseToExpectedElements(parser, resource, cursorOffset);");
@@ -664,8 +664,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("return new " + completionProposalClassName + "[0];");
 		sc.add("}");
 
-		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset));");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));");
+		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> expectedAfterCursor = " + ARRAYS(sc) + ".asList(getElementsExpectedAt(expectedElements, cursorOffset));");
+		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> expectedBeforeCursor = " + ARRAYS(sc) + ".asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));");
 		if (INSERT_DEBUG_OUTPUT_CODE) {
 			sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
 			sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
@@ -675,9 +675,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("setPrefixes(expectedBeforeCursor, content, cursorOffset);");
 
 		sc.addComment("First, we derive all possible proposals from the set of elements that are expected at the cursor position.");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> allProposals = new " + LINKED_HASH_SET + "<" + completionProposalClassName + ">();");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);");
-		sc.add(COLLECTION + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset - 1);");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> allProposals = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">();");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);");
+		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset - 1);");
 		sc.add("removeKeywordsEndingBeforeIndex(leftProposals, cursorOffset);");
 		sc.addComment(
 			"Second, the set of left proposals (i.e., the ones before the cursor) is " +
@@ -702,10 +702,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"Proposals that matched the prefix are preferred over ones that did not. " +
 			"Finally, proposals are sorted alphabetically."
 		);
-		sc.add("final " + LIST + "<" + completionProposalClassName + "> sortedProposals = new " + ARRAY_LIST + "<" + completionProposalClassName + ">(allProposals);");
-		sc.add(COLLECTIONS + ".sort(sortedProposals);");
+		sc.add("final " + LIST(sc) + "<" + completionProposalClassName + "> sortedProposals = new " + ARRAY_LIST(sc) + "<" + completionProposalClassName + ">(allProposals);");
+		sc.add(COLLECTIONS(sc) + ".sort(sortedProposals);");
 
-		sc.add(E_OBJECT + " root = null;");
+		sc.add(E_OBJECT(sc) + " root = null;");
 		sc.add("if (!resource.getContents().isEmpty()) {");
 		sc.add("root = resource.getContents().get(0);");
 		sc.add("}");
@@ -718,9 +718,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addParseToExpectedElementsMethod(StringComposite sc) {
+	private void addParseToExpectedElementsMethod(JavaComposite sc) {
 		sc.add("public " + expectedTerminalClassName + "[] parseToExpectedElements(" + iTextParserClassName + " parser, " + iTextResourceClassName + " resource, int cursorOffset) {");
-		sc.add("final " + LIST + "<" + expectedTerminalClassName + "> expectedElements = parser.parseToExpectedElements(null, resource, cursorOffset);");
+		sc.add("final " + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements = parser.parseToExpectedElements(null, resource, cursorOffset);");
 		sc.add("if (expectedElements == null) {");
 		sc.add("return new " + expectedTerminalClassName + "[0];");
 		sc.add("}");
@@ -731,9 +731,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addGetExpectedElementsAtMethod(StringComposite sc) {
+	private void addGetExpectedElementsAtMethod(JavaComposite sc) {
 		sc.add("public " + expectedTerminalClassName + "[] getElementsExpectedAt(" + expectedTerminalClassName + "[] allExpectedElements, int cursorOffset) {");
-		sc.add(LIST + "<" + expectedTerminalClassName + "> expectedAtCursor = new " + ARRAY_LIST + "<" + expectedTerminalClassName + ">();");
+		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> expectedAtCursor = new " + ARRAY_LIST(sc) + "<" + expectedTerminalClassName + ">();");
 		sc.add("for (int i = 0; i < allExpectedElements.length; i++) {");
 		sc.add(expectedTerminalClassName + " expectedElement = allExpectedElements[i];");
 		sc.add("int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();");

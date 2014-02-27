@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,19 +15,18 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
-import de.devboost.codecomposers.StringComposite;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSED_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import de.devboost.codecomposers.java.JavaComposite;
 
 public class UIGeneratorUtil {
 
-	public void addCreateAdapterFactoryCode(StringComposite sc) {
-		sc.add(COMPOSED_ADAPTER_FACTORY + " adapterFactory = new " + COMPOSED_ADAPTER_FACTORY + "(" + COMPOSED_ADAPTER_FACTORY + ".Descriptor.Registry.INSTANCE);");
-		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
-		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY + "());");
+	public void addCreateAdapterFactoryCode(JavaComposite sc) {
+		sc.add(COMPOSED_ADAPTER_FACTORY(sc) + " adapterFactory = new " + COMPOSED_ADAPTER_FACTORY(sc) + "(" + COMPOSED_ADAPTER_FACTORY(sc) + ".Descriptor.Registry.INSTANCE);");
+		sc.add("adapterFactory.addAdapterFactory(new " + RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY(sc) + "());");
+		sc.add("adapterFactory.addAdapterFactory(new " + ECORE_ITEM_PROVIDER_ADAPTER_FACTORY(sc) + "());");
+		sc.add("adapterFactory.addAdapterFactory(new " + REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY(sc) + "());");
 	}
-
 }

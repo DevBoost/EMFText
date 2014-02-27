@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_LOCATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_NOT_FOUND_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ZIP_ENTRY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ZIP_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE_LOCATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE_NOT_FOUND_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ZIP_ENTRY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ZIP_FILE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
@@ -204,16 +204,16 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 				"@param monitor Monitor to display progress and/or cancel operation",
 				"@throws " + IO_EXCEPTION(sc),
 				"@throws InterruptedException",
-				"@throws " + FILE_NOT_FOUND_EXCEPTION);
+				"@throws " + FILE_NOT_FOUND_EXCEPTION(sc));
 
-		sc.add("private void extractProject(" + FILE(sc) + " projectFolderFile, " + URL(sc) + " url, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + FILE_NOT_FOUND_EXCEPTION + ", " + IO_EXCEPTION(sc) + ", InterruptedException {");
+		sc.add("private void extractProject(" + FILE(sc) + " projectFolderFile, " + URL(sc) + " url, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + FILE_NOT_FOUND_EXCEPTION(sc) + ", " + IO_EXCEPTION(sc) + ", InterruptedException {");
 		sc.addLineBreak();
 		sc.addComment("Get project archive");
-		sc.add(URL(sc) + " urlZipLocal = " + FILE_LOCATOR + ".toFileURL(url);");
+		sc.add(URL(sc) + " urlZipLocal = " + FILE_LOCATOR(sc) + ".toFileURL(url);");
 		sc.addLineBreak();
 		sc.addComment("Walk each element and unzip");
 
-		sc.add(ZIP_FILE + " zipFile = new " + ZIP_FILE + "(urlZipLocal.getPath());");
+		sc.add(ZIP_FILE(sc) + " zipFile = new " + ZIP_FILE(sc) + "(urlZipLocal.getPath());");
 		sc.addLineBreak();
 		sc.add("try {");
 		sc.addComment("Allow for a hundred work units");
@@ -235,15 +235,15 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 				"@param projectFolderFile The folder where to unzip the project archive",
 				"@param monitor Monitor to display progress and/or cancel operation",
 				"@throws " + IO_EXCEPTION(sc),
-				"@throws " + FILE_NOT_FOUND_EXCEPTION,
+				"@throws " + FILE_NOT_FOUND_EXCEPTION(sc),
 				"@throws InterruptedException"
 				);
-		sc.add("private void unzip(" + ZIP_FILE + " zipFile, " + FILE(sc) + " projectFolderFile, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + IO_EXCEPTION(sc) + ", " + FILE_NOT_FOUND_EXCEPTION + ", InterruptedException {");
+		sc.add("private void unzip(" + ZIP_FILE(sc) + " zipFile, " + FILE(sc) + " projectFolderFile, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + IO_EXCEPTION(sc) + ", " + FILE_NOT_FOUND_EXCEPTION(sc) + ", InterruptedException {");
 		sc.addLineBreak();
-		sc.add(ENUMERATION(sc) + "<? extends " + ZIP_ENTRY + "> e = zipFile.entries();");
+		sc.add(ENUMERATION(sc) + "<? extends " + ZIP_ENTRY(sc) + "> e = zipFile.entries();");
 		sc.addLineBreak();
 		sc.add("while (e.hasMoreElements()) {");
-		sc.add(ZIP_ENTRY + " zipEntry = (" + ZIP_ENTRY + ") e.nextElement();");
+		sc.add(ZIP_ENTRY(sc) + " zipEntry = (" + ZIP_ENTRY(sc) + ") e.nextElement();");
 		sc.add(FILE(sc) + " file = new " + FILE(sc) + "(projectFolderFile, zipEntry.getName());");
 		sc.addLineBreak();
 		sc.add("if (zipEntry.isDirectory()) {");

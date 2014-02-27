@@ -880,15 +880,27 @@ public class UIClassNameConstants extends ClassNameConstants {
 	}
 
 	public static String GEN_CLASS(JavaComposite jc) {
-		return jc.getClassName(GenClass.class);
+		Class<GenClass> clazz = GenClass.class;
+		if (jc == null) {
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String GEN_FEATURE(JavaComposite jc) {
-		return jc.getClassName(GenFeature.class);
+		Class<GenFeature> clazz = GenFeature.class;
+		if (jc == null) {
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String GEN_PACKAGE(JavaComposite jc) {
-		return jc.getClassName(GenPackage.class);
+		Class<GenPackage> clazz = GenPackage.class;
+		if (jc == null) {
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String GRID_DATA(JavaComposite jc) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_BREAKPOINT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_BREAKPOINT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEBUG_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LINE_BREAKPOINT;
@@ -65,9 +65,9 @@ public class LineBreakpointAdapterGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add(I_RESOURCE(sc) + " resource = (" + I_RESOURCE(sc) + ") textEditor.getEditorInput().getAdapter(" + I_RESOURCE(sc) + ".class);");
 		sc.add(I_TEXT_SELECTION(sc) + " textSelection = (" + I_TEXT_SELECTION(sc) + ") selection;");
 		sc.add("int lineNumber = textSelection.getStartLine();");
-		sc.add(I_BREAKPOINT + "[] breakpoints = " + DEBUG_PLUGIN(sc) + ".getDefault().getBreakpointManager().getBreakpoints(" + pluginActivatorClassName + ".DEBUG_MODEL_ID);");
+		sc.add(I_BREAKPOINT(sc) + "[] breakpoints = " + DEBUG_PLUGIN(sc) + ".getDefault().getBreakpointManager().getBreakpoints(" + pluginActivatorClassName + ".DEBUG_MODEL_ID);");
 		sc.add("for (int i = 0; i < breakpoints.length; i++) {");
-		sc.add(I_BREAKPOINT + " breakpoint = breakpoints[i];");
+		sc.add(I_BREAKPOINT(sc) + " breakpoint = breakpoints[i];");
 		sc.add("if (resource.equals(breakpoint.getMarker().getResource())) {");
 		sc.add("if (((" + I_LINE_BREAKPOINT(sc) + ")breakpoint).getLineNumber() == (lineNumber + 1)) {");
 		sc.addComment("remove");

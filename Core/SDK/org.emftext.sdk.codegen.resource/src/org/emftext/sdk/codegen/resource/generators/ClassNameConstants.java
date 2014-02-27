@@ -166,6 +166,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
@@ -176,6 +177,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreValidator;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.IBatchValidator;
@@ -366,8 +368,11 @@ public class ClassNameConstants extends
 	}
 
 	public static String EMF_MODEL_VALIDATION_PLUGIN(JavaComposite jc) {
-		return jc
-				.getClassName(org.eclipse.emf.validation.internal.EMFModelValidationPlugin.class);
+		Class<EMFModelValidationPlugin> clazz = org.eclipse.emf.validation.internal.EMFModelValidationPlugin.class;
+		if (jc == null) {
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String EMPTY_STACK_EXCEPTION(JavaComposite jc) {
@@ -784,7 +789,11 @@ public class ClassNameConstants extends
 	}
 
 	public static String PLATFORM(JavaComposite jc) {
-		return jc.getClassName(Platform.class);
+		Class<Platform> clazz = Platform.class;
+		if (jc == null) {
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String PLUGIN(JavaComposite jc) {
@@ -841,7 +850,12 @@ public class ClassNameConstants extends
 	}
 
 	public static String RESOURCE_FACTORY(JavaComposite jc) {
-		return jc.getClassName(Resource.Factory.class);
+		Class<Factory> clazz = Resource.Factory.class;
+		if (jc == null) {
+			// Return fully qualified name
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String RESOURCE_IMPL(JavaComposite jc) {
@@ -897,7 +911,11 @@ public class ClassNameConstants extends
 	}
 
 	public static String STRING_WRITER(JavaComposite jc) {
-		return jc.getClassName(StringWriter.class);
+		Class<StringWriter> clazz = StringWriter.class;
+		if (jc == null) {
+			return clazz.getCanonicalName();
+		}
+		return jc.getClassName(clazz);
 	}
 
 	public static String SUB_PROGRESS_MONITOR(JavaComposite jc) {

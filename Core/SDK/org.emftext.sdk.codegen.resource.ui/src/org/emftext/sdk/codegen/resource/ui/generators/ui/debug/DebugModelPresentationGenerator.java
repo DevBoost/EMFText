@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DEBUG_MODEL_PRESENTATION;
@@ -141,7 +141,7 @@ public class DebugModelPresentationGenerator extends UIJavaBaseGenerator<Artifac
 	}
 
 	private void addComputeDetailMethod(JavaComposite sc) {
-		sc.add("public void computeDetail(" + I_VALUE + " value, " + I_VALUE_DETAIL_LISTENER(sc) + " listener) {");
+		sc.add("public void computeDetail(" + I_VALUE(sc) + " value, " + I_VALUE_DETAIL_LISTENER(sc) + " listener) {");
 		sc.addComment("listener.detailComputed(value, \"detail\");");
 		sc.add("}");
 		sc.addLineBreak();

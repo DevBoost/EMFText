@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.IUIClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.J_FACE_TOKEN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_CONVERTER;
@@ -39,10 +39,12 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface " +
+			"An adapter from the Eclipse <code>" + I_TOKEN_SCANNER(null) + "</code> interface " +
 			"to the generated lexer."
 		);
 		sc.add("public class " + getResourceClassName() + " implements " + iTokenScannerClassName + " {");
@@ -291,6 +293,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	
 	private void addGetTokenOffsetMethod(StringComposite sc) {
 		sc.add("public int getTokenOffset() {");
 		sc.add("return offset + currentToken.getOffset();");

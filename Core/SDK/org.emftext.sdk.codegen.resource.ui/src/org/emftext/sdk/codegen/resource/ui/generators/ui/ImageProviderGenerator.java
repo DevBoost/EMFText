@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,12 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FIELD;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FILE_LOCATOR;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ILLEGAL_ACCESS_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MALFORMED_URL_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.NO_SUCH_FIELD_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SECURITY_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIELD;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE_LOCATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ACCESS_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MALFORMED_URL_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NO_SUCH_FIELD_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SECURITY_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE_DESCRIPTOR;
@@ -34,7 +35,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_
 import org.eclipse.ui.ISharedImages;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
-import org.emftext.sdk.codegen.resource.generators.IClassNameConstants;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
 import de.devboost.codecomposers.java.JavaComposite;
@@ -76,16 +76,16 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(IMAGE_DESCRIPTOR(sc) + " descriptor = " + IMAGE_DESCRIPTOR(sc) + ".createFromURL(" + FILE_LOCATOR + ".find(plugin.getBundle(), path, null));");
+		sc.add(IMAGE_DESCRIPTOR(sc) + " descriptor = " + IMAGE_DESCRIPTOR(sc) + ".createFromURL(" + FILE_LOCATOR(sc) + ".find(plugin.getBundle(), path, null));");
 		sc.add("if (" + IMAGE_DESCRIPTOR(sc) + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
 		sc.addComment("try loading image from any bundle");
 		sc.add("try {");
-		sc.add(IClassNameConstants.URL + " pluginUrl = new " + IClassNameConstants.URL + "(key);");
+		sc.add(URL(sc) + " pluginUrl = new " + URL(sc) + "(key);");
 		sc.add("descriptor = " + IMAGE_DESCRIPTOR(sc) + ".createFromURL(pluginUrl);");
 		sc.add("if (" + IMAGE_DESCRIPTOR(sc) + ".getMissingImageDescriptor().equals(descriptor) || descriptor == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add("} catch (" + MALFORMED_URL_EXCEPTION + " mue) {");
+		sc.add("} catch (" + MALFORMED_URL_EXCEPTION(sc) + " mue) {");
 		sc.add(uiPluginActivatorClassName + ".logError(\"IconProvider can't load image (URL is malformed).\", mue);");
 		sc.add("}");
 		sc.add("}");
@@ -114,16 +114,16 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add(IMAGE(sc) + " image = null;");
 		sc.addComment("try shared images");
 		sc.add("try {");
-		sc.add(FIELD + " declaredField = " + I_SHARED_IMAGES(sc) + ".class.getDeclaredField(key);");
+		sc.add(FIELD(sc) + " declaredField = " + I_SHARED_IMAGES(sc) + ".class.getDeclaredField(key);");
 		sc.add("Object valueObject = declaredField.get(null);");
 		sc.add("if (valueObject instanceof String) {");
 		sc.add("String value = (String) valueObject;");
 		sc.add("image = " + PLATFORM_UI(sc) + ".getWorkbench().getSharedImages().getImage(value);");
 		sc.add("}");
-		sc.add("} catch (" + SECURITY_EXCEPTION + " e) {");
-		sc.add("} catch (" + NO_SUCH_FIELD_EXCEPTION + " e) {");
+		sc.add("} catch (" + SECURITY_EXCEPTION(sc) + " e) {");
+		sc.add("} catch (" + NO_SUCH_FIELD_EXCEPTION(sc) + " e) {");
 		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION(sc) + " e) {");
-		sc.add("} catch (" + ILLEGAL_ACCESS_EXCEPTION + " e) {");
+		sc.add("} catch (" + ILLEGAL_ACCESS_EXCEPTION(sc) + " e) {");
 		sc.add("}");
 		sc.add("if (image != null) {");
 		sc.add("return image;");

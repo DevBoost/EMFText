@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,9 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PLATFORM;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -58,16 +57,19 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		}
 	}
 
-	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
+	private void addIsEMFValidationAvailableMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the class <code>EMFModelValidationPlugin</code> " +
+			"Checks whether the class <code>" + EMF_MODEL_VALIDATION_PLUGIN(null) + "</code> " +
 			"is available on the classpath. This can be used to " +
 			"determine if Eclipse is available in the current runtime " +
 			"environment."
 		);
 		sc.add("public boolean isEMFValidationAvailable() {");
 		sc.add("try {");
-		sc.add("Class.forName(\"" + EMF_MODEL_VALIDATION_PLUGIN + "\");");
+		// We intentionally use 'null' as argument to get the fully qualified
+		// name of the Platform class here. Class.forName() requires a fully
+		// qualified name.
+		sc.add("Class.forName(\"" + EMF_MODEL_VALIDATION_PLUGIN(null) + "\");");
 		sc.add("return true;");
 		sc.add("} catch (ClassNotFoundException cnfe) {");
 		sc.add("}");
@@ -76,16 +78,19 @@ public class RuntimeUtilGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 		sc.addLineBreak();
 	}
 	
-	private void addIsEMFValidationAvailableMethod(JavaComposite sc) {
+	private void addIsEclipsePlatformAvailableMethod(JavaComposite sc) {
 		sc.addJavadoc(
-			"Checks whether the class <code>" + PLATFORM +
+			"Checks whether the class <code>" + PLATFORM(null) +
 			"</code> is available on the classpath. This can be used to " +
-			"determine if EMF Validation is available in the current runtime " +
+			"determine if Eclipse is available in the current runtime " +
 			"environment."
 		);
 		sc.add("public boolean isEclipsePlatformAvailable() {");
 		sc.add("try {");
-		sc.add("Class.forName(\"" + PLATFORM + "\");");
+		// We intentionally use 'null' as argument to get the fully qualified
+		// name of the Platform class here. Class.forName() requires a fully
+		// qualified name.
+		sc.add("Class.forName(\"" + PLATFORM(null) + "\");");
 		sc.add("return true;");
 		sc.add("} catch (ClassNotFoundException cnfe) {");
 		sc.add("}");

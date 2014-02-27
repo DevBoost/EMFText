@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -20,6 +20,7 @@ import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CONSTRAINT_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EVALUATION_MODE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_NOTIFICATION_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
@@ -46,7 +47,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RES
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
@@ -253,9 +253,9 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (runtimeUtil.isEclipsePlatformRunning() && runtimeUtil.isEMFValidationAvailable()) {");
 		sc.addComment("The EMF validation framework code throws a NPE if the validation plug-in is not loaded. "
 				+ "This is a workaround for bug 322079.");
-		// We use the fully qualified name for the EMFModelValidationPlugin,
-		// because an import would cause a warning
-		sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN + ".getPlugin() != null) {");
+		// We use the fully qualified name for the EMFModelValidationPlugin
+		// because an import would cause a warning.
+		sc.add("if (" + EMF_MODEL_VALIDATION_PLUGIN(null) + ".getPlugin() != null) {");
 		sc.add("try {");
 		sc.add(MODEL_VALIDATION_SERVICE(sc) + " service = " + MODEL_VALIDATION_SERVICE(sc) + ".getInstance();");
 		sc.add(I_STATUS(sc) + " status;");

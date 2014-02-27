@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.ECORE_UTIL_EQUALITY_HELPER;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.FEATURE_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL_EQUALITY_HELPER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FEATURE_MAP;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
@@ -62,7 +62,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 	}
 
 	private void addInnerClassFlatEObjectComparer(JavaComposite sc) {
-		sc.add("private static class FlatEObjectComparer extends " + ECORE_UTIL_EQUALITY_HELPER + " {");
+		sc.add("private static class FlatEObjectComparer extends " + ECORE_UTIL_EQUALITY_HELPER(sc) + " {");
 		sc.addLineBreak();
 		sc.add("private static final long serialVersionUID = 1L;");
 		sc.addLineBreak();
@@ -72,7 +72,7 @@ public class OutlinePageTreeViewerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("@Override");
-		sc.add("protected boolean equalFeatureMaps(" + FEATURE_MAP + " featureMap1, " + FEATURE_MAP + " featureMap2) {");
+		sc.add("protected boolean equalFeatureMaps(" + FEATURE_MAP(sc) + " featureMap1, " + FEATURE_MAP(sc) + " featureMap2) {");
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();

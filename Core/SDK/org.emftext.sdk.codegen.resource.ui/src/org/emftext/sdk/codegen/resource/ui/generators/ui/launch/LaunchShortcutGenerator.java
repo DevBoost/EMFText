@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.launch;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_LAUNCH_MANAGER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEBUG_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEBUG_UI_TOOLS;
@@ -104,7 +104,7 @@ public class LaunchShortcutGenerator extends UIJavaBaseGenerator<ArtifactParamet
 	private void addLaunchMethod3(JavaComposite sc) {
 		sc.add("private void launch(" + I_FILE(sc) + " file, String mode) {");
 		sc.add("try {");
-		sc.add(I_LAUNCH_MANAGER + " lm = " + DEBUG_PLUGIN(sc) + ".getDefault().getLaunchManager();");
+		sc.add(I_LAUNCH_MANAGER(sc) + " lm = " + DEBUG_PLUGIN(sc) + ".getDefault().getLaunchManager();");
 		sc.add(I_LAUNCH_CONFIGURATION_TYPE(sc) + " type = lm.getLaunchConfigurationType(new " + metaInformationClassName + "().getLaunchConfigurationType());");
 		sc.add(I_LAUNCH_CONFIGURATION_WORKING_COPY(sc) + " workingCopy = type.newInstance(null, file.getName());");
 		sc.add(URI(sc) + " uri = " + URI(sc) + ".createPlatformResourceURI(file.getFullPath().toString(), true);");

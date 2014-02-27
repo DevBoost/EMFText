@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.PROPERTY_TESTER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PROPERTY_TESTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
@@ -36,7 +36,7 @@ public class PropertyTesterGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		
 		sc.add("public class " + getResourceClassName());
 		if (getContext().isLaunchSupportEnabled()) {
-			sc.add(" extends " + PROPERTY_TESTER);
+			sc.add(" extends " + PROPERTY_TESTER(sc));
 		}
 		sc.add(" {");
 		sc.addLineBreak();

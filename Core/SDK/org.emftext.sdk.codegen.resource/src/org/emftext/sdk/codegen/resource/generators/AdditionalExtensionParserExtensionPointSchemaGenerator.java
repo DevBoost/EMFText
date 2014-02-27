@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -14,8 +14,6 @@
  *      - initial API and implementation
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
-
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.RESOURCE;
 
 import java.io.PrintWriter;
 
@@ -103,7 +101,7 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator extends Reso
 		sc.addLineBreak();
 		sc.add("</documentation>");
 		sc.add("<appinfo>");
-		sc.add("<meta.attribute kind=\"java\" basedOn=\"" + RESOURCE + ".Factory\"/>");
+		sc.add("<meta.attribute kind=\"java\" basedOn=\"" + ClassNameConstants.RESOURCE_FACTORY(null) + "\"/>");
 		sc.add("</appinfo>");
 		sc.add("</annotation>");
 		sc.add("</attribute>");

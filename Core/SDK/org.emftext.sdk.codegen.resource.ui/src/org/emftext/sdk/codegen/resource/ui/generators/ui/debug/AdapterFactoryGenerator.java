@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.I_VARIABLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CHILDREN_COUNT_UPDATE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CHILDREN_UPDATE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT_CONTENT_PROVIDER;
@@ -46,7 +46,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("@SuppressWarnings(\"restriction\")");
-		sc.add("public class " + getResourceClassName() + " implements " + I_ADAPTER_FACTORY + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + I_ADAPTER_FACTORY(sc) + " {");
 		sc.addLineBreak();
 		addMethods(sc);
 		sc.add("}");
@@ -80,7 +80,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("update.setLabel(variable.getName(), 0);");
 		sc.add("update.setLabel(variable.getValue().getValueString(), 1);");
 		sc.add("update.done();");
-		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
+		sc.add("} catch (" + DEBUG_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("}");
 		sc.add("}");
@@ -94,12 +94,12 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("public void update(" + I_CHILDREN_COUNT_UPDATE(sc) + "[] updates) {");
 		sc.add("try {");
 		sc.add("for (" + I_CHILDREN_COUNT_UPDATE(sc) + " update : updates) {");
-		sc.add(I_VALUE + " value = variable.getValue();");
+		sc.add(I_VALUE(sc) + " value = variable.getValue();");
 		sc.add(debugValueClassName + " castedValue = (" + debugValueClassName + ") value;");
 		sc.add("update.setChildCount(castedValue.getVariableCount());");
 		sc.add("update.done();");
 		sc.add("}");
-		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
+		sc.add("} catch (" + DEBUG_EXCEPTION(sc) + " e) {");
 		sc.add("e.printStackTrace();");
 		sc.add("}");
 		sc.add("}");
@@ -107,18 +107,18 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		
 		sc.add("public void update(" + I_CHILDREN_UPDATE(sc) + "[] updates) {");
 		sc.add("try {");
-		sc.add(I_VALUE + " value = variable.getValue();");
+		sc.add(I_VALUE(sc) + " value = variable.getValue();");
 		sc.add(debugValueClassName + " castedValue = (" + debugValueClassName + ") value;");
 		sc.add("for (" + I_CHILDREN_UPDATE(sc) + " update : updates) {");
 		sc.add("int offset = update.getOffset();");
 		sc.add("int length = update.getLength();");
 		sc.add("for (int i = offset; i < offset + length; i++) {");
-		sc.add(I_VARIABLE + " variable = castedValue.getChild(i);");
+		sc.add(I_VARIABLE(sc) + " variable = castedValue.getChild(i);");
 		sc.add("update.setChild(variable, i);");
 		sc.add("}");
 		sc.add("update.done();");
 		sc.add("}");
-		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
+		sc.add("} catch (" + DEBUG_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");
@@ -130,7 +130,7 @@ public class AdapterFactoryGenerator extends UIJavaBaseGenerator<ArtifactParamet
 		sc.add("try {");
 		sc.add("update.setHasChilren(variable.getValue().hasVariables());");
 		sc.add("update.done();");
-		sc.add("} catch (" + DEBUG_EXCEPTION + " e) {");
+		sc.add("} catch (" + DEBUG_EXCEPTION(sc) + " e) {");
 		// TODO handle exception
 		sc.add("e.printStackTrace();");
 		sc.add("}");

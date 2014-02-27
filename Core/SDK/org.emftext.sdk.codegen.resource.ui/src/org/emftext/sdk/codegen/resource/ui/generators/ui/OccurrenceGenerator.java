@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.SETTING;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SETTING;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
@@ -241,15 +241,15 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.add(I_DOCUMENT(sc) + " document = getSourceViewer().getDocument();");
 		sc.addLineBreak();
 		sc.addComment("Determine all references to the EObject");
-		sc.add(MAP(sc) + "<" + E_OBJECT(sc) + ", " + COLLECTION(sc) + "<" + SETTING + ">> map = " + ECORE_UTIL(sc) + ".UsageCrossReferencer.find(" + COLLECTIONS(sc) + ".singleton(textResource));");
-		sc.add(COLLECTION(sc) + "<" + SETTING + "> referencingObjects = map.get(referencedElement);");
+		sc.add(MAP(sc) + "<" + E_OBJECT(sc) + ", " + COLLECTION(sc) + "<" + SETTING(sc) + ">> map = " + ECORE_UTIL(sc) + ".UsageCrossReferencer.find(" + COLLECTIONS(sc) + ".singleton(textResource));");
+		sc.add(COLLECTION(sc) + "<" + SETTING(sc) + "> referencingObjects = map.get(referencedElement);");
 		sc.add("if (referencingObjects == null) {");
 		sc.addComment("No references found");
 		sc.add("return;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.addComment("Highlight the token in the text for the referencing objects");
-		sc.add("for (" + SETTING + " setting : referencingObjects) {");
+		sc.add("for (" + SETTING(sc) + " setting : referencingObjects) {");
 		sc.add(E_OBJECT(sc) + " referencingElement = setting.getEObject();");
 		sc.addComment("Search through all tokens in the elements that reference the " +
 				"element at the caret position");

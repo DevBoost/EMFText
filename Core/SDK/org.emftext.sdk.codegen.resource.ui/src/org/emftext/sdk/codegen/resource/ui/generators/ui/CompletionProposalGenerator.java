@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.COMPARABLE;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPARABLE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
@@ -36,7 +36,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A proposal for completing an incomplete document.");
-		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE + "<" + getResourceClassName() + "> {");
+		sc.add("public class " + getResourceClassName() + " implements " + COMPARABLE(sc) + "<" + getResourceClassName() + "> {");
 		
 		sc.addLineBreak();
 		addFields(sc);
@@ -120,15 +120,15 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addGetStructuralFeatureMethod(StringComposite sc) {
-		sc.add("public " + E_STRUCTURAL_FEATURE + " getStructuralFeature() {");
+	private void addGetStructuralFeatureMethod(JavaComposite sc) {
+		sc.add("public " + E_STRUCTURAL_FEATURE(sc) + " getStructuralFeature() {");
 		sc.add("return structuralFeature;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetContainerMethod(StringComposite sc) {
-		sc.add("public " + E_OBJECT + " getContainer() {");
+	private void addGetContainerMethod(JavaComposite sc) {
+		sc.add("public " + E_OBJECT(sc) + " getContainer() {");
 		sc.add("return container;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -155,8 +155,8 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addConstructor1(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container) {");
+	private void addConstructor1(JavaComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE(sc) + " structuralFeature, " + E_OBJECT(sc) + " container) {");
 		sc.add("super();");
 		sc.add("this.expectedTerminal = expectedTerminal;");
 		sc.add("this.insertString = insertString;");
@@ -169,7 +169,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstructor2(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE(sc) + " image) {");
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE(sc) + " structuralFeature, " + E_OBJECT(sc) + " container, " + IMAGE(sc) + " image) {");
 		sc.add("this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container);");
 		sc.add("this.image = image;");
 		sc.add("}");
@@ -177,7 +177,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 	
 	private void addConstructor3(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + E_OBJECT + " container, " + IMAGE(sc) + " image, String displayString) {");
+		sc.add("public " + getResourceClassName() + "(" + expectedTerminalClassName + " expectedTerminal, String insertString, String prefix, boolean matchesPrefix, " + E_STRUCTURAL_FEATURE(sc) + " structuralFeature, " + E_OBJECT(sc) + " container, " + IMAGE(sc) + " image, String displayString) {");
 		sc.add("this(expectedTerminal, insertString, prefix, matchesPrefix, structuralFeature, container, image);");
 		sc.add("this.displayString = displayString;");
 		sc.add("}");
@@ -185,7 +185,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 	}
 	
 	private void addFields(JavaComposite sc) {
-		sc.addFieldGetSet("root", E_OBJECT, "The root object of the resource for which this proposal was computed.");
+		sc.addFieldGetSet("root", E_OBJECT(sc), "The root object of the resource for which this proposal was computed.");
 		sc.addFieldGetSet("referenceTarget", "Object", "The target object, if this proposal suggests to insert a reference to another object.");
 
 		sc.addJavadoc("The terminal that was expected at the cursor position.");
@@ -222,7 +222,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 		sc.addFieldGetSet("matchesPrefix", "boolean", new String[] {fieldDoc}, new String[] {getterDoc});
 
 		sc.addJavadoc("The structural feature (attribute or non-containment reference) that was expected at the cursor position.");
-		sc.add("private " + E_STRUCTURAL_FEATURE + " structuralFeature;");
+		sc.add("private " + E_STRUCTURAL_FEATURE(sc) + " structuralFeature;");
 		sc.addLineBreak();
 
 		sc.addJavadoc(
@@ -230,7 +230,7 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 			"This container object may not be contained in the resource we're " +
 			"computing proposals for. See {@link #materialize(Runnable)} for an explanation of this."
 		);
-		sc.add("private " + E_OBJECT + " container;");
+		sc.add("private " + E_OBJECT(sc) + " container;");
 		sc.addLineBreak();
 
 		sc.addJavadoc(

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_HANDLER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUSY_INDICATOR;
@@ -63,7 +63,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		sc.add("private " + I_DOCUMENT(sc) + " document;");
 		sc.add("private " + I_TEXT_OPERATION_TARGET(sc) + " operationTarget;");
-		sc.add("private " + MAP + "<String, String[]> prefixesMap;");
+		sc.add("private " + MAP(sc) + "<String, String[]> prefixesMap;");
 	}
 	
 	private void addMethods(JavaComposite sc) {
@@ -105,7 +105,7 @@ public class ToggleCommentHandlerGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.addLineBreak();
 		// TODO Use default prefixes and content types from SourceViewerConfiguration if possible
-		sc.add("prefixesMap = new " + LINKED_HASH_MAP + "<String, String[]>();");
+		sc.add("prefixesMap = new " + LINKED_HASH_MAP(sc) + "<String, String[]>();");
 		sc.add("prefixesMap.put(" + I_DOCUMENT(sc) + ".DEFAULT_CONTENT_TYPE, COMMENT_PREFIXES);");
 		sc.addLineBreak();
 		sc.add(I_SELECTION(sc) + " currentSelection = editor.getSelectionProvider().getSelection();");
