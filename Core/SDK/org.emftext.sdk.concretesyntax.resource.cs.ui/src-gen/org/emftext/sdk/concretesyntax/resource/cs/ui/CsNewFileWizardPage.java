@@ -110,7 +110,7 @@ public class CsNewFileWizardPage extends WizardPage {
 	 * Tests if the current workbench selection is a suitable container to use.
 	 */
 	private void initialize() {
-		String name = "new_file";
+		String name = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_FILE_WIZARD_FILE_NAME;
 		if (selection != null && selection.isEmpty() == false && selection instanceof IStructuredSelection) {
 			IStructuredSelection ssel = (IStructuredSelection) selection;
 			if (ssel.size() > 1) {
@@ -135,7 +135,14 @@ public class CsNewFileWizardPage extends WizardPage {
 				containerText.setText(fullPath.toString());
 			}
 		}
-		fileText.setText(name + "." + fileExtension);
+		fileText.setText(name);
+	}
+	
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if (visible) {
+			fileText.setFocus();
+		}
 	}
 	
 	/**
@@ -198,4 +205,5 @@ public class CsNewFileWizardPage extends WizardPage {
 	public String getFileName() {
 		return fileText.getText();
 	}
+	
 }

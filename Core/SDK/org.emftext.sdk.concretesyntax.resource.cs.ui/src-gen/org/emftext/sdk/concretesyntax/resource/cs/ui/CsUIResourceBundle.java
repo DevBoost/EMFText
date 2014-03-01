@@ -60,6 +60,11 @@ public class CsUIResourceBundle {
 	public static String NEW_PROJECT_WIZARD_PAGE_ICON = "icons/new_project_wizban.gif";
 	
 	/**
+	 * The default file name for the new file wizard.
+	 */
+	public static String NEW_FILE_WIZARD_FILE_NAME = "new_file.cs";
+	
+	/**
 	 * The static initializer tries to load resources from properties files or
 	 * resource bundle classes. If no properties files or resource bundle classes are
 	 * available, the default values are kept.
