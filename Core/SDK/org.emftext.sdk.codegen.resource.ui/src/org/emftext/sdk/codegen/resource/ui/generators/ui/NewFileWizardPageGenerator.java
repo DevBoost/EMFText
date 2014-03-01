@@ -82,12 +82,14 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("fileText.setFocus();");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetFileNameMethod(StringComposite sc) {
 		sc.add("public String getFileName() {");
 		sc.add("return fileText.getText();");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetContainerNameMethod(StringComposite sc) {
