@@ -65,6 +65,21 @@ public class CsUIResourceBundle {
 	public static String NEW_FILE_WIZARD_FILE_NAME = "new_file.cs";
 	
 	/**
+	 * The title for the NewFileWizard window.
+	 */
+	public static String NEW_FILE_WIZARD_WINDOW_TITLE = "New cs File";
+	
+	/**
+	 * The title for the NewFileWizard page.
+	 */
+	public static String NEW_FILE_WIZARD_PAGE_TITLE = "Create new cs file";
+	
+	/**
+	 * The description for the NewFileWizard.
+	 */
+	public static String NEW_FILE_WIZARD_DESCRIPTION = "This wizard creates a new file with *.cs extension.";
+	
+	/**
 	 * The static initializer tries to load resources from properties files or
 	 * resource bundle classes. If no properties files or resource bundle classes are
 	 * available, the default values are kept.

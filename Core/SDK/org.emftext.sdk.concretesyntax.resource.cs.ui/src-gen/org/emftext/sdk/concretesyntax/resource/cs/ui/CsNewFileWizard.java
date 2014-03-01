@@ -54,6 +54,7 @@ public class CsNewFileWizard extends Wizard implements INewWizard {
 	public CsNewFileWizard() {
 		super();
 		setNeedsProgressMonitor(true);
+		setWindowTitle(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_FILE_WIZARD_WINDOW_TITLE);
 	}
 	
 	public String getCategoryId() {

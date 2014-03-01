@@ -55,8 +55,8 @@ public class CsNewFileWizardPage extends WizardPage {
 	 */
 	public CsNewFileWizardPage(ISelection selection, String fileExtension) {
 		super("wizardPage");
-		setTitle("Create new cs file");
-		setDescription("This wizard creates a new file with *." + fileExtension + " extension that can be opened with the EMFText editor.");
+		setTitle(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_FILE_WIZARD_PAGE_TITLE);
+		setDescription(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_FILE_WIZARD_DESCRIPTION);
 		this.selection = selection;
 		this.fileExtension = fileExtension;
 	}
