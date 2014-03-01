@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -51,14 +51,16 @@ import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 /**
- * The NewFileContentGenerator can be used to create a NewFileWizard that 
+ * The {@link NewFileWizardGenerator} can be used to create a NewFileWizard that 
  * creates a minimal sample file from a concrete syntax when it is invoked.
  */
 public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + WIZARD(sc) + " implements " + I_NEW_WIZARD(sc) + " {");
 		sc.addLineBreak();
@@ -68,6 +70,23 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		addMethods(sc);
 
 		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
+		sc.add("private String categoryId = null;");
+		sc.add("private " + newFileWizardPageClassName + " page;");
+		sc.add("private " + I_SELECTION(sc) + " selection;");
+		sc.add("private String newName = null;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "() {");
+		sc.add("super();");
+		sc.add("setNeedsProgressMonitor(true);");
+		sc.add("setWindowTitle(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_WINDOW_TITLE + ");");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc) {
@@ -258,22 +277,4 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	private void addFields(JavaComposite sc) {
-		sc.add("private String categoryId = null;");
-		sc.add("private " + newFileWizardPageClassName + " page;");
-		sc.add("private " + I_SELECTION(sc) + " selection;");
-		sc.add("private String newName = null;");
-		sc.addLineBreak();
-	}
-
-	private void addConstructor(StringComposite sc) {
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.add("setNeedsProgressMonitor(true);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	
 }

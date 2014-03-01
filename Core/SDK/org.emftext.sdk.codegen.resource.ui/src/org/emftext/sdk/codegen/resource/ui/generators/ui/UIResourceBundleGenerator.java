@@ -33,6 +33,9 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 	public static final String NEW_PROJECT_WIZARD_PROJECT_NAME = "NEW_PROJECT_WIZARD_PROJECT_NAME";
 	public static final String NEW_PROJECT_WIZARD_PAGE_ICON = "NEW_PROJECT_WIZARD_PAGE_ICON";
 	public static final String NEW_FILE_WIZARD_FILE_NAME = "NEW_FILE_WIZARD_FILE_NAME";
+	public static final String NEW_FILE_WIZARD_WINDOW_TITLE = "NEW_FILE_WIZARD_WINDOW_TITLE";
+	public static final String NEW_FILE_WIZARD_PAGE_TITLE = "NEW_FILE_WIZARD_PAGE_TITLE";
+	public static final String NEW_FILE_WIZARD_DESCRIPTION = "NEW_FILE_WIZARD_DESCRIPTION";
 
 	public void generateJavaContents(JavaComposite jc) {
 		
@@ -78,6 +81,18 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 		
 		jc.addJavadoc("The default file name for the new file wizard.");
 		jc.add("public static String " + NEW_FILE_WIZARD_FILE_NAME + " = \"new_file." + syntaxName + "\";");
+		jc.addLineBreak();
+		
+		jc.addJavadoc("The title for the NewFileWizard window.");
+		jc.add("public static String " + NEW_FILE_WIZARD_WINDOW_TITLE + " = \"New " + syntaxName + " File\";");
+		jc.addLineBreak();
+		
+		jc.addJavadoc("The title for the NewFileWizard page.");
+		jc.add("public static String " + NEW_FILE_WIZARD_PAGE_TITLE + " = \"Create new " + syntaxName + " file\";");
+		jc.addLineBreak();
+		
+		jc.addJavadoc("The description for the NewFileWizard.");
+		jc.add("public static String " + NEW_FILE_WIZARD_DESCRIPTION + " = \"This wizard creates a new file with *." + syntaxName + " extension.\";");
 		jc.addLineBreak();
 	}
 

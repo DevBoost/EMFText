@@ -238,13 +238,11 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	}
 
 	private void addConstructor(JavaComposite sc) {
-		String syntaxName = getContext().getConcreteSyntax().getName();
-
 		sc.addJavadoc("Constructor for the NewFileWizardPage.");
 		sc.add("public " + getResourceClassName() + "(" + I_SELECTION(sc) + " selection, String fileExtension) {");
 		sc.add("super(\"wizardPage\");");
-		sc.add("setTitle(\"Create new " + syntaxName + " file\");");
-		sc.add("setDescription(\"This wizard creates a new file with *.\" + fileExtension + \" extension that can be opened with the EMFText editor.\");");
+		sc.add("setTitle(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_PAGE_TITLE + ");");
+		sc.add("setDescription(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_DESCRIPTION + ");");
 		sc.add("this.selection = selection;");
 		sc.add("this.fileExtension = fileExtension;");
 		sc.add("}");
