@@ -32,6 +32,7 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 	public static final String NEW_PROJECT_WIZARD_PAGE_DESCRIPTION = "NEW_PROJECT_WIZARD_PAGE_DESCRIPTION";
 	public static final String NEW_PROJECT_WIZARD_PROJECT_NAME = "NEW_PROJECT_WIZARD_PROJECT_NAME";
 	public static final String NEW_PROJECT_WIZARD_PAGE_ICON = "NEW_PROJECT_WIZARD_PAGE_ICON";
+	public static final String NEW_FILE_WIZARD_FILE_NAME = "NEW_FILE_WIZARD_FILE_NAME";
 
 	public void generateJavaContents(JavaComposite jc) {
 		
@@ -49,12 +50,14 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 	}
 
 	private void addConstants(JavaComposite jc) {
+		String syntaxName = getContext().getConcreteSyntax().getName();
+
 		jc.addJavadoc("The title of the NewProjectWizard window.");
-		jc.add("public static String " + NEW_PROJECT_WIZARD_WINDOW_TITLE + " = \"New " + getContext().getConcreteSyntax().getName() + " Project\";");
+		jc.add("public static String " + NEW_PROJECT_WIZARD_WINDOW_TITLE + " = \"New " + syntaxName + " Project\";");
 		jc.addLineBreak();
 		
 		jc.addJavadoc("The name of the main page for the NewProjectWizard.");
-		jc.add("public static String " + NEW_PROJECT_WIZARD_PAGE_NAME + " = \"Create new " + getContext().getConcreteSyntax().getName() + " Project\";");
+		jc.add("public static String " + NEW_PROJECT_WIZARD_PAGE_NAME + " = \"Create new " + syntaxName + " Project\";");
 		jc.addLineBreak();
 		
 		jc.addJavadoc("The name of the ZIP file that is used as content for the new project (relative to the root of the resource UI plug-in).");
@@ -71,6 +74,10 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 		
 		jc.addJavadoc("The path of the icon to be used for the pages of the NewProjectWizard.");
 		jc.add("public static String " + NEW_PROJECT_WIZARD_PAGE_ICON + " = \"icons/" + UIConstants.Icon.DEFAULT_NEW_PROJECT_WIZBAN.getFilename() + "\";");
+		jc.addLineBreak();
+		
+		jc.addJavadoc("The default file name for the new file wizard.");
+		jc.add("public static String " + NEW_FILE_WIZARD_FILE_NAME + " = \"new_file." + syntaxName + "\";");
 		jc.addLineBreak();
 	}
 

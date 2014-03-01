@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -67,11 +67,21 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	private void addMethods(JavaComposite sc) {
 		addCreateControlMethod(sc);
 		addInitializeMethod(sc);
+		addSetVisibleMethod(sc);
 		addHandleBrowseMethod(sc);
 		addDialogChangedMethod(sc);
 		addUpdateStatusMethod(sc);
 		addGetContainerNameMethod(sc);
 		addGetFileNameMethod(sc);
+	}
+
+	private void addSetVisibleMethod(JavaComposite sc) {
+		sc.add("public void setVisible(boolean visible) {");
+		sc.add("super.setVisible(visible);");
+		sc.add("if (visible) {");
+		sc.add("fileText.setFocus();");
+		sc.add("}");
+		sc.add("}");
 	}
 
 	private void addGetFileNameMethod(StringComposite sc) {
@@ -150,7 +160,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 	private void addInitializeMethod(JavaComposite sc) {
 		sc.addJavadoc("Tests if the current workbench selection is a suitable container to use.");
 		sc.add("private void initialize() {");
-		sc.add("String name = \"new_file\";");
+		sc.add("String name = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_FILE_NAME + ";");
 		sc.add("if (selection != null && selection.isEmpty() == false && selection instanceof " + I_STRUCTURED_SELECTION(sc) + ") {");
 		sc.add(I_STRUCTURED_SELECTION(sc) + " ssel = (" + I_STRUCTURED_SELECTION(sc) + ") selection;");
 		sc.add("if (ssel.size() > 1) {");
@@ -175,7 +185,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("containerText.setText(fullPath.toString());");
 		sc.add("}");
 		sc.add("}");
-		sc.add("fileText.setText(name + \".\" + fileExtension);");
+		sc.add("fileText.setText(name);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
