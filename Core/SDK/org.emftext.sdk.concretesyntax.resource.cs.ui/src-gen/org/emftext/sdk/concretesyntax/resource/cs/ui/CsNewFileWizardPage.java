@@ -135,7 +135,15 @@ public class CsNewFileWizardPage extends WizardPage {
 				containerText.setText(fullPath.toString());
 			}
 		}
+		
+		// Select default name for new file
 		fileText.setText(name);
+		
+		// Select file name without extension
+		int indexOfDot = name.lastIndexOf(".");
+		if (indexOfDot > 0) {
+			fileText.setSelection(0, indexOfDot);
+		}
 	}
 	
 	public void setVisible(boolean visible) {
