@@ -66,6 +66,26 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("}");
 	}
 
+	private void addFields(JavaComposite sc) {
+		sc.add("private final String fileExtension;");
+		sc.add("private " + TEXT(sc) + " containerText;");
+		sc.add("private " + TEXT(sc) + " fileText;");
+		sc.add("private " + I_SELECTION(sc) + " selection;");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite sc) {
+		sc.addJavadoc("Constructor for the NewFileWizardPage.");
+		sc.add("public " + getResourceClassName() + "(" + I_SELECTION(sc) + " selection, String fileExtension) {");
+		sc.add("super(\"wizardPage\");");
+		sc.add("setTitle(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_PAGE_TITLE + ");");
+		sc.add("setDescription(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_DESCRIPTION + ");");
+		sc.add("this.selection = selection;");
+		sc.add("this.fileExtension = fileExtension;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addMethods(JavaComposite sc) {
 		addCreateControlMethod(sc);
 		addInitializeMethod(sc);
@@ -244,26 +264,6 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("dialogChanged();");
 		sc.add("setControl(container);");
 		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addConstructor(JavaComposite sc) {
-		sc.addJavadoc("Constructor for the NewFileWizardPage.");
-		sc.add("public " + getResourceClassName() + "(" + I_SELECTION(sc) + " selection, String fileExtension) {");
-		sc.add("super(\"wizardPage\");");
-		sc.add("setTitle(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_PAGE_TITLE + ");");
-		sc.add("setDescription(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_FILE_WIZARD_DESCRIPTION + ");");
-		sc.add("this.selection = selection;");
-		sc.add("this.fileExtension = fileExtension;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addFields(JavaComposite sc) {
-		sc.add("private final String fileExtension;");
-		sc.add("private " + TEXT(sc) + " containerText;");
-		sc.add("private " + TEXT(sc) + " fileText;");
-		sc.add("private " + I_SELECTION(sc) + " selection;");
 		sc.addLineBreak();
 	}
 }
