@@ -187,7 +187,15 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("containerText.setText(fullPath.toString());");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
+		sc.addComment("Select default name for new file");
 		sc.add("fileText.setText(name);");
+		sc.addLineBreak();
+		sc.addComment("Select file name without extension");
+		sc.add("int indexOfDot = name.lastIndexOf(\".\");");
+		sc.add("if (indexOfDot > 0) {");
+		sc.add("fileText.setSelection(0, indexOfDot);");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
