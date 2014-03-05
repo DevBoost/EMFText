@@ -228,6 +228,7 @@ public class CsDefaultResolverDelegate<ContainerType extends EObject, ReferenceT
 	protected boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result) {
 		EClass type = reference.getEReferenceType();
 		
+		@SuppressWarnings("deprecation")
 		final Map<String, URI> packageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
 		for (String nextNS : packageNsURIToGenModelLocationMap.keySet()) {
 			URI genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);

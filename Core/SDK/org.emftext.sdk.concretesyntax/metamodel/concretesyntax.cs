@@ -37,6 +37,7 @@ OPTIONS {
 	disableNewProjectWizard = "true";
 
 	resolveProxyElementsAfterParsing = "false";
+	EMFTargetVersion = "2.9";
 }
 
 TOKENS {
