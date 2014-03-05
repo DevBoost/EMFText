@@ -35,8 +35,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 public class CsTaskItemBuilder {
 	
 	public void build(IFile resource, ResourceSet resourceSet, IProgressMonitor monitor) {
-		SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 3);
-		subMonitor.setTaskName("Searching for task items in " + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName() + " files");
+		// We use one tick from the parent monitor because the BuilderAdapter reserves one
+		// tick for finding task items.
+		SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 1);
+		// We define the overall work to be 3 ticks (removing markers, scanning the
+		// resource, creating new markers).
+		subMonitor.beginTask("Searching for task items in " + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName() + " files", 3);
 		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, IMarker.TASK);
 		subMonitor.worked(1);
 		if (isInBinFolder(resource)) {

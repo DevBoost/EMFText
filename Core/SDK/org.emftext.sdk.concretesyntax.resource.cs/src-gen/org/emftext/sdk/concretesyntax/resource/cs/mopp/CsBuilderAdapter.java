@@ -30,7 +30,31 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-public class CsBuilderAdapter extends IncrementalProjectBuilder implements IResourceDeltaVisitor, IResourceVisitor {
+public class CsBuilderAdapter extends IncrementalProjectBuilder {
+	
+	private static class ResourceCollector implements IResourceDeltaVisitor, IResourceVisitor {
+		
+		private java.util.Map<IResource, Boolean> resourceMap = new java.util.LinkedHashMap<IResource, Boolean>();
+		
+		public boolean visit(IResourceDelta delta) throws CoreException {
+			IResource resource = delta.getResource();
+			return doVisit(resource, delta.getKind() == IResourceDelta.REMOVED);
+		}
+		
+		public boolean visit(IResource resource) throws CoreException {
+			return doVisit(resource, false);
+		}
+		
+		private boolean doVisit(IResource resource, boolean removed) throws CoreException {
+			resourceMap.put(resource, removed);
+			return true;
+		}
+		
+		private Map<IResource, Boolean> getResourceMap() {
+			return resourceMap;
+		}
+		
+	}
 	
 	/**
 	 * The ID of the default, generated builder.
@@ -39,32 +63,26 @@ public class CsBuilderAdapter extends IncrementalProjectBuilder implements IReso
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder defaultBuilder = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsBuilder();
 	
-	/**
-	 * This resource set is used during the whole build.
-	 */
-	private ResourceSet resourceSet;
-	
-	/**
-	 * This monitor is used during the build.
-	 */
-	private IProgressMonitor monitor;
-	
 	public IProject[] build(int kind, Map<String, String> args, final IProgressMonitor monitor) throws CoreException {
-		// Set context for build
-		this.monitor = monitor;
-		this.resourceSet = new ResourceSetImpl();
-		// Perform build by calling the resource visitors
+		// Collect resources that must be built
+		ResourceCollector resourceCollector = new ResourceCollector();
 		IResourceDelta delta = getDelta(getProject());
 		if (delta != null) {
 			// This is an incremental build
-			delta.accept(this);
+			delta.accept(resourceCollector);
 		} else {
 			// This is a full build
-			getProject().accept(this);
+			getProject().accept(resourceCollector);
 		}
-		// Reset build context
-		this.resourceSet = null;
-		this.monitor = null;
+		
+		// This resource set is used during the whole build.
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Map<IResource, Boolean> resourceMap = resourceCollector.getResourceMap();
+		monitor.beginTask(org.emftext.sdk.concretesyntax.resource.cs.CsResourceBundle.BUILDER_ADAPTER_TASK_NAME, resourceMap.size() * 2);
+		for (IResource resource : resourceMap.keySet()) {
+			doVisit(resource, resourceMap.get(resource), monitor, resourceSet);
+		}
+		monitor.done();
 		return null;
 	}
 	
@@ -99,20 +117,10 @@ public class CsBuilderAdapter extends IncrementalProjectBuilder implements IReso
 	 */
 	public void runTaskItemBuilder(IFile resource, ResourceSet resourceSet, IProgressMonitor monitor) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder taskItemBuilder = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemBuilder();
-		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, taskItemBuilder.getBuilderMarkerId());
 		taskItemBuilder.build(resource, resourceSet, monitor);
 	}
 	
-	public boolean visit(IResourceDelta delta) throws CoreException {
-		IResource resource = delta.getResource();
-		return doVisit(resource, delta.getKind() == IResourceDelta.REMOVED);
-	}
-	
-	public boolean visit(IResource resource) throws CoreException {
-		return doVisit(resource, false);
-	}
-	
-	protected boolean doVisit(IResource resource, boolean removed) throws CoreException {
+	protected boolean doVisit(IResource resource, boolean removed, IProgressMonitor monitor, ResourceSet resourceSet) throws CoreException {
 		if (removed) {
 			URI uri = URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
 			org.emftext.sdk.concretesyntax.resource.cs.ICsBuilder builder = getBuilder();
@@ -122,18 +130,18 @@ public class CsBuilderAdapter extends IncrementalProjectBuilder implements IReso
 			new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMarkerHelper().removeAllMarkers(resource, getBuilderMarkerId());
 			return false;
 		}
+		
 		if (resource instanceof IFile && resource.getName().endsWith("." + new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName())) {
-			monitor.beginTask(org.emftext.sdk.concretesyntax.resource.cs.CsResourceBundle.BUILDER_ADAPTER_TASK_NAME, 2);
 			// Calling the default generated builder is disabled because of syntax option
 			// 'disableBuilder'.
 			monitor.worked(1);
 			// Second, call the task item builder that searches for task items in DSL
-			// documents and creates task markers.
+			// documents and creates task markers. The TaskItemBuilder may consume one tick
+			// from the progress monitor.
 			runTaskItemBuilder((IFile) resource, resourceSet, monitor);
-			monitor.worked(1);
-			monitor.done();
 			return false;
 		}
+		
 		return true;
 	}
 	
