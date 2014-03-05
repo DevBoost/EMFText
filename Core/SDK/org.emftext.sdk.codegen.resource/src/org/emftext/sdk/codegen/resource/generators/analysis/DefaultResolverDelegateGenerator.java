@@ -36,6 +36,7 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
@@ -45,6 +46,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
+@SyntaxDependent
 public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
