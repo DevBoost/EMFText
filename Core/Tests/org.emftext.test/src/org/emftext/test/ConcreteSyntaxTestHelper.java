@@ -83,6 +83,7 @@ public class ConcreteSyntaxTestHelper {
 	}
 
 	private static void registerGenModel(String genModelPath, String nsURI, Class<?> clazz) {
+		@SuppressWarnings("deprecation")
 		final Map<String, URI> packageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
 		String path = clazz.getResource(genModelPath).getFile();
 		path = path.replace("file:/", "archive:file:/");
