@@ -73,10 +73,10 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addFields(JavaComposite sc) {
-		sc.add("private String categoryId = null;");
-		sc.add("private " + newFileWizardPageClassName + " page;");
-		sc.add("private " + I_SELECTION(sc) + " selection;");
-		sc.add("private String newName = null;");
+		sc.add("protected String categoryId = null;");
+		sc.add("protected " + newFileWizardPageClassName + " page;");
+		sc.add("protected " + I_SELECTION(sc) + " selection;");
+		sc.add("protected String newName = null;");
 		sc.addLineBreak();
 	}
 
