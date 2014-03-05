@@ -53,19 +53,50 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		boolean removeEclipseDependentCode = optionManager.getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 		boolean disableBuilder = optionManager.getBooleanOptionValue(syntax, OptionTypes.DISABLE_BUILDER);
 
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";")
+		;sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
-		String extendsClause = removeEclipseDependentCode ? "" : " extends " + INCREMENTAL_PROJECT_BUILDER(sc) + " implements " + I_RESOURCE_DELTA_VISITOR(sc) + ", " + I_RESOURCE_VISITOR(sc);
+		String extendsClause = removeEclipseDependentCode ? "" : " extends " + INCREMENTAL_PROJECT_BUILDER(sc);
 		sc.add("public class " + getResourceClassName() + extendsClause + " {");
 		sc.addLineBreak();
 
 		if (!removeEclipseDependentCode) {
+			addInnerClassResourceCollector(sc);
 			addFields(sc);
 			addMethods(sc, disableBuilder);
 		} else {
 			sc.addComment("This class is empty because option '" + OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE.getLiteral() + "' is set to true.");
 		}
 		sc.add("}");
+	}
+	
+	private void addInnerClassResourceCollector(JavaComposite sc) {
+		sc.add("private static class ResourceCollector implements " + I_RESOURCE_DELTA_VISITOR(sc) + ", " + I_RESOURCE_VISITOR(sc) + " {");
+		sc.addLineBreak();
+		sc.add("private " + sc.declareLinkedHashMap("resourceMap", I_RESOURCE(sc), "Boolean"));
+		sc.addLineBreak();
+		sc.add("public boolean visit(" + I_RESOURCE_DELTA(sc) + " delta) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add(I_RESOURCE(sc) + " resource = delta.getResource();");
+		sc.add("return doVisit(resource, delta.getKind() == " + I_RESOURCE_DELTA(sc) + ".REMOVED);");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public boolean visit(" + I_RESOURCE(sc) + " resource) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("return doVisit(resource, false);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("private boolean doVisit(" + I_RESOURCE(sc) + " resource, boolean removed) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("resourceMap.put(resource, removed);");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("private " + MAP(sc) +"<" + I_RESOURCE(sc) + ", Boolean> getResourceMap() {");
+		sc.add("return resourceMap;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite sc, boolean disableBuilder) {
@@ -74,8 +105,6 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		addGetBuilderMethod(sc);
 		addGetBuilderMarkerIdMethod(sc);
 		addRunTaskItemBuilderMethod(sc);
-		addVisitMethod1(sc);
-		addVisitMethod2(sc);
 		addDoVisitMethod(sc, disableBuilder);
 	}
 
@@ -88,53 +117,36 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addLineBreak();
 		sc.add("private " + iBuilderClassName + " defaultBuilder = new " + builderClassName + "();");
 		sc.addLineBreak();
-		sc.addJavadoc("This resource set is used during the whole build.");
-		sc.add("private " + RESOURCE_SET(sc) + " resourceSet;");
-		sc.addLineBreak();
-		sc.addJavadoc("This monitor is used during the build.");
-		sc.add("private " + I_PROGRESS_MONITOR(sc) + " monitor;");
-		sc.addLineBreak();
 	}
 
 	private void addBuildMethod1(JavaComposite sc) {
 		sc.add("public " + I_PROJECT(sc) + "[] build(int kind, " + MAP(sc) + "<String, String> args, final " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
-		sc.addComment("Set context for build");
-		sc.add("this.monitor = monitor;");
-		sc.add("this.resourceSet = new " + RESOURCE_SET_IMPL(sc) + "();");
-		sc.addComment("Perform build by calling the resource visitors");
+		sc.addComment("Collect resources that must be built");
+		sc.add("ResourceCollector resourceCollector = new ResourceCollector();");
 		sc.add(I_RESOURCE_DELTA(sc) + " delta = getDelta(getProject());");
 		sc.add("if (delta != null) {");
 		sc.addComment("This is an incremental build");
-		sc.add("delta.accept(this);");
+		sc.add("delta.accept(resourceCollector);");
 		sc.add("} else {");
 		sc.addComment("This is a full build");
-		sc.add("getProject().accept(this);");
+		sc.add("getProject().accept(resourceCollector);");
 		sc.add("}");
-		sc.addComment("Reset build context");
-		sc.add("this.resourceSet = null;");
-		sc.add("this.monitor = null;");
+		sc.addLineBreak();
+		sc.addComment("This resource set is used during the whole build.");
+		sc.add(RESOURCE_SET(sc) + " resourceSet = new " + RESOURCE_SET_IMPL(sc) + "();");
+		sc.add(MAP(sc) +"<" + I_RESOURCE(sc) + ", Boolean> resourceMap = resourceCollector.getResourceMap();");
+		sc.add("monitor.beginTask(" + resourceBundleClassName + "." +  ResourceBundleGenerator.BUILDER_ADAPTER_TASK_NAME + ", resourceMap.size() * 2);");
+		sc.add("for (" + I_RESOURCE(sc) + " resource : resourceMap.keySet()) {");
+		sc.add("doVisit(resource, resourceMap.get(resource), monitor, resourceSet);");
+		sc.add("}");
+		sc.add("monitor.done();");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
-	private void addVisitMethod1(JavaComposite sc) {
-		sc.add("public boolean visit(" + I_RESOURCE_DELTA(sc) + " delta) throws " + CORE_EXCEPTION(sc) + " {");
-		sc.add(I_RESOURCE(sc) + " resource = delta.getResource();");
-		sc.add("return doVisit(resource, delta.getKind() == " + I_RESOURCE_DELTA(sc) + ".REMOVED);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
-	private void addVisitMethod2(JavaComposite sc) {
-		sc.add("public boolean visit(" + I_RESOURCE(sc) + " resource) throws " + CORE_EXCEPTION(sc) + " {");
-		sc.add("return doVisit(resource, false);");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-	
 	private void addDoVisitMethod(JavaComposite sc, boolean disableBuilder) {
-		sc.add("protected boolean doVisit(" + I_RESOURCE(sc) + " resource, boolean removed) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("protected boolean doVisit(" + I_RESOURCE(sc) + " resource, boolean removed, " + I_PROGRESS_MONITOR(sc) + " monitor, " + RESOURCE_SET(sc) + " resourceSet) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add("if (removed) {");
 		sc.add(URI(sc) + " uri = " + URI(sc) + ".createPlatformResourceURI(resource.getFullPath().toString(), true);");
 		sc.add(iBuilderClassName + " builder = getBuilder();");
@@ -144,27 +156,28 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
     	sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, getBuilderMarkerId());");
 		sc.add("return false;");
 		sc.add("}");
+		sc.addLineBreak();
 		sc.add("if (resource instanceof " + I_FILE(sc) + " && resource.getName().endsWith(\".\" + new " + metaInformationClassName + "().getSyntaxName())) {");
-		sc.add("monitor.beginTask(" + resourceBundleClassName + "." +  ResourceBundleGenerator.BUILDER_ADAPTER_TASK_NAME + ", 2);");
 		if (disableBuilder) {
 			sc.addComment(
 					"Calling the default generated builder is disabled because of " +
 					"syntax option '" + OptionTypes.DISABLE_BUILDER.getLiteral() + "'.");
+			sc.add("monitor.worked(1);");
 		} else {
 			sc.addComment(
 					"First, call the default generated builder that is usually " +
-					"customized to add compilation-like behavior.");
+					"customized to add compilation-like behavior. " +
+					"The Builder may consume one tick from the progress monitor.");
 			sc.add("build((" + I_FILE(sc) + ") resource, resourceSet, monitor);");
 		}
-		sc.add("monitor.worked(1);");
 		sc.addComment(
 				"Second, call the task item builder that searches " +
-				"for task items in DSL documents and creates task markers.");
+				"for task items in DSL documents and creates task markers. " +
+				"The TaskItemBuilder may consume one tick from the progress monitor.");
 		sc.add("runTaskItemBuilder((" + I_FILE(sc) + ") resource, resourceSet, monitor);");
-		sc.add("monitor.worked(1);");
-		sc.add("monitor.done();");
 		sc.add("return false;");
 		sc.add("}");
+		sc.addLineBreak();
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -187,7 +200,6 @@ public class BuilderAdapterGenerator extends JavaBaseGenerator<ArtifactParameter
 		sc.addJavadoc("Runs the task item builder to search for new task items in changed resources.");
 		sc.add("public void runTaskItemBuilder(" + I_FILE(sc) + " resource, " + RESOURCE_SET(sc) + " resourceSet, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
 		sc.add(taskItemBuilderClassName + " taskItemBuilder = new " + taskItemBuilderClassName + "();");
-		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, taskItemBuilder.getBuilderMarkerId());");
 		sc.add("taskItemBuilder.build(resource, resourceSet, monitor);");
 		sc.add("}");
 		sc.addLineBreak();

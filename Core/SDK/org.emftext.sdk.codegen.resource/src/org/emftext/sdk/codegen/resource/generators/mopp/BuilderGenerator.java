@@ -18,6 +18,7 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SUB_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
@@ -55,7 +56,7 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	private void addIsBuildingNeededMethod(JavaComposite sc) {
 		sc.add("public boolean isBuildingNeeded(" + URI(sc) + " uri) {");
-		sc.addComment("change this to return true to enable building of all resources");
+		sc.addComment("Change this to return true to enable building of all resources.");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -63,7 +64,14 @@ public class BuilderGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	private void addBuildMethod(JavaComposite sc) {
 		sc.add("public " + I_STATUS(sc) + " build(" + textResourceClassName + " resource, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
-		sc.addComment("set option " + OptionTypes.OVERRIDE_BUILDER + " to 'false' and then perform build here");
+		sc.addComment("Set option '" + OptionTypes.OVERRIDE_BUILDER + "' to 'false' and then perform build here.");
+		sc.addLineBreak();
+		sc.addComment("We use one tick from the parent monitor because the BuilderAdapter reserves one tick for the Builder.");
+		sc.add(SUB_PROGRESS_MONITOR(sc) + " subMonitor = new " + SUB_PROGRESS_MONITOR(sc) + "(monitor, 1);");
+		sc.add("subMonitor.beginTask(\"Building \" + resource.getURI().lastSegment(), 10);");
+		sc.addComment("The actual work of the builder can be performed here.");
+		sc.add("subMonitor.worked(10);");
+		sc.add("subMonitor.done();");
 		sc.add("return " + STATUS(sc) + ".OK_STATUS;");
 		sc.add("}");
 		sc.addLineBreak();

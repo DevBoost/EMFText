@@ -72,8 +72,10 @@ public class TaskItemBuilderGenerator extends JavaBaseGenerator<ArtifactParamete
 
 	private void addBuildMethod(JavaComposite sc) {
 		sc.add("public void build(" + I_FILE(sc) + " resource, " + RESOURCE_SET(sc) + " resourceSet, " + I_PROGRESS_MONITOR(sc) + " monitor) {");
-		sc.add(SUB_PROGRESS_MONITOR(sc) + " subMonitor = new " + SUB_PROGRESS_MONITOR(sc) + "(monitor, 3);");
-		sc.add("subMonitor.setTaskName(\"Searching for task items in \" + new " + metaInformationClassName + "().getSyntaxName() + \" files\");");
+		sc.addComment("We use one tick from the parent monitor because the BuilderAdapter reserves one tick for finding task items.");
+		sc.add(SUB_PROGRESS_MONITOR(sc) + " subMonitor = new " + SUB_PROGRESS_MONITOR(sc) + "(monitor, 1);");
+		sc.addComment("We define the overall work to be 3 ticks (removing markers, scanning the resource, creating new markers).");
+		sc.add("subMonitor.beginTask(\"Searching for task items in \" + new " + metaInformationClassName + "().getSyntaxName() + \" files\", 3);");
 		sc.add("new " + markerHelperClassName + "().removeAllMarkers(resource, " + I_MARKER(sc) + ".TASK);");
 		sc.add("subMonitor.worked(1);");
 		sc.add("if (isInBinFolder(resource)) {");
