@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -53,7 +53,12 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	}
 
 	private static void doInitialize() {
-		//search all registered generator models
+		// Search for all registered generator models.
+		
+		// We ignore the deprecation warning until the method is not available
+		// anymore to keep this code runnable against old versions of EMF as
+		// long as possible.
+		@SuppressWarnings("deprecation")
 		Map<String, URI> packageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
 		for (String nextNS : packageNsURIToGenModelLocationMap.keySet()) {
 			URI genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);

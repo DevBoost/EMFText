@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -35,22 +35,26 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SETTING;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	private GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
         sc.addLineBreak();
         
 		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT(sc) + ", ReferenceType extends " + E_OBJECT(sc) + "> {");
@@ -131,9 +135,22 @@ public class DefaultResolverDelegateGenerator extends JavaBaseGenerator<Artifact
 	}
 
 	private void addTryToResolveIdentifierInGenModelRegistry(JavaComposite sc) {
+		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
+		boolean targetEMFVersionIsLowerThan2_9 = OptionManager.INSTANCE
+				.isTargetEMFVersionLowerThan2_9(concreteSyntax);
+
 		sc.add("protected boolean tryToResolveIdentifierInGenModelRegistry(String identifier, ContainerType container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, " + iReferenceResolveResultClassName + "<ReferenceType> result) {");
 		sc.add(E_CLASS(sc) + " type = reference.getEReferenceType();");
 		sc.addLineBreak();
+		// For all EMF target versions lower than 2.9, we omit @SuppressWarnings, 
+		// because getEPackageNsURIToGenModelLocationMap() is not deprecated in
+		// these versions. For any target greater or equal to 2.9, we use the
+		// deprecated method, but ignore the warning. So the code does also run
+		// against older versions. Once the method is completely removed from
+		// EMF, we must adjust this generator.
+		if (!targetEMFVersionIsLowerThan2_9) {
+			sc.add("@SuppressWarnings(\"deprecation\")");
+		}
 		sc.add("final " + MAP(sc) + "<String, " + URI(sc) + "> packageNsURIToGenModelLocationMap = " + ECORE_PLUGIN(sc) + ".getEPackageNsURIToGenModelLocationMap();");
 		sc.add("for (String nextNS : packageNsURIToGenModelLocationMap.keySet()) {");
 		sc.add(URI(sc) + " genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);");

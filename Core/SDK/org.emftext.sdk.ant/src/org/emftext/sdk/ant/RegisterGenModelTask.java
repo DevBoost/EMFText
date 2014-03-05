@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -52,23 +52,27 @@ public class RegisterGenModelTask extends Task {
 				"http://www.eclipse.org/uml2/4.0.0/Types",
 				getUML2TypesPackage());
 		
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-			"ecore",
-			new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-			"genmodel",
-			new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
+		Map<String, Object> extensionToFactoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
+		extensionToFactoryMap.put("ecore",
+				new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
+		extensionToFactoryMap.put("genmodel",
+				new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
 		
+		// We ignore the deprecation warning until the method is not available
+		// anymore to keep this code runnable against old versions of EMF as
+		// long as possible.
+		@SuppressWarnings("deprecation")
         final Map<String, URI> packageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
         URI genModelURIObject = URI.createURI(genModelURI);
         ResourceSet rs = new ResourceSetImpl();
-        Resource r = null;
+        Resource resource = null;
         try {
-        	r = rs.getResource(genModelURIObject, true);
+        	resource = rs.getResource(genModelURIObject, true);
         	
-            for (GenPackage genPackage : ((GenModel)r.getContents().get(0)).getGenPackages()) {
-            	EPackage.Registry.INSTANCE.put(genPackage.getEcorePackage().getNsURI(),
-            			genPackage.getEcorePackage());
+            for (GenPackage genPackage : ((GenModel)resource.getContents().get(0)).getGenPackages()) {
+            	EPackage ecorePackage = genPackage.getEcorePackage();
+				String nsURI = ecorePackage.getNsURI();
+				EPackage.Registry.INSTANCE.put(nsURI, ecorePackage);
             }
         } catch (Exception e) {
         	e.printStackTrace();
@@ -82,12 +86,12 @@ public class RegisterGenModelTask extends Task {
 		try {
 			Class<?> factoryClass = Class.forName(
 					"org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage");
-			Field eINSTANCE = factoryClass.getField("eINSTANCE");
-			EPackage p = (EPackage) eINSTANCE.get(null);
-			return p;
+			Field field_eINSTANCE = factoryClass.getField("eINSTANCE");
+			EPackage ePackage = (EPackage) field_eINSTANCE.get(null);
+			return ePackage;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BuildException("Error while creating UML2 gen model adapter.", e);
+			throw new BuildException("Error while creating UML2 genmodel adapter.", e);
 		}
 	}
 	
@@ -95,9 +99,9 @@ public class RegisterGenModelTask extends Task {
 		try {
 			Class<?> factoryClass = Class.forName(
 					"org.eclipse.uml2.types.TypesPackage");
-			Field eINSTANCE = factoryClass.getField("eINSTANCE");
-			EPackage p = (EPackage) eINSTANCE.get(null);
-			return p;
+			Field field_eINSTANCE = factoryClass.getField("eINSTANCE");
+			EPackage ePackage = (EPackage) field_eINSTANCE.get(null);
+			return ePackage;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException("Error while accessing UML2 types package.", e);
@@ -120,4 +124,3 @@ public class RegisterGenModelTask extends Task {
 		this.genModelURI = genModelURI;
 	}
 }
- 

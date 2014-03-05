@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -26,9 +26,8 @@ import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * A manager for code generation options. The manager can be queried
- * for values of options of different types (integer, string and 
- * boolean options).
+ * A manager for code generation options. The manager can be queried for values
+ * of options of different types (integer, string and boolean options).
  */
 public class OptionManager {
 
@@ -95,6 +94,7 @@ public class OptionManager {
 		STRING_OPTIONS.add(OptionTypes.EDITOR_NAME);
 		STRING_OPTIONS.add(OptionTypes.PREFERENCE_PAGES_CATEGORY);
 		STRING_OPTIONS.add(OptionTypes.NEW_FILE_WIZARD_CATEGORY);
+		STRING_OPTIONS.add(OptionTypes.EMF_TARGET_VERSION);
 
 		BOOLEAN_OPTIONS.add(OptionTypes.USE_CLASSIC_PRINTER);
 		BOOLEAN_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
@@ -323,6 +323,21 @@ public class OptionManager {
 		} else {
 			return OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceValue);
 		}
+	}
+
+	public boolean isTargetEMFVersionLowerThan2_9(ConcreteSyntax concreteSyntax) {
+		String emfTargetVersion = getStringOptionValue(concreteSyntax, OptionTypes.EMF_TARGET_VERSION);
+		if (emfTargetVersion == null) {
+			return true;
+		}
+		
+		String[] parts = emfTargetVersion.split("\\.");
+		if (parts.length > 0 && parts[0].compareTo("1") > 0) {
+			if (parts.length > 1 && parts[1].compareTo("8") > 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public boolean doOverride(ConcreteSyntax syntax, OptionTypes overrideOption) {

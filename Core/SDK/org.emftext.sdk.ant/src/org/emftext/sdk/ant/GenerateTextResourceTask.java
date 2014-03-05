@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.tools.ant.AntClassLoader;
@@ -229,8 +230,14 @@ public class GenerateTextResourceTask extends AbstractEMFTextAntTask {
 			String namespaceURI = genModelElement.getNamespaceURI();
 			String genModelURI = genModelElement.getGenModelURI();
 			try {
-				log("registering genmodel " + namespaceURI + " at " + genModelURI);
-				EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(
+				log("Registering genmodel " + namespaceURI + " at " + genModelURI);
+
+				// We ignore the deprecation warning until the method is not available
+				// anymore to keep this code runnable against old versions of EMF as
+				// long as possible.
+				@SuppressWarnings("deprecation")
+				Map<String, URI> ePackageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
+				ePackageNsURIToGenModelLocationMap.put(
 						namespaceURI,
 						URI.createURI(genModelURI)
 				);
