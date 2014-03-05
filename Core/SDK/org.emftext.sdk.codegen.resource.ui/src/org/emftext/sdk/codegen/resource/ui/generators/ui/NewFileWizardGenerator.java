@@ -130,7 +130,7 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addThrowCoreExceptionMethod(JavaComposite sc) {
-		sc.add("private void throwCoreException(String message) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("protected void throwCoreException(String message) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add(I_STATUS(sc) + " status = new " + STATUS(sc) + "(" + I_STATUS(sc) + ".ERROR, \"NewFileContentPrinter\", " + I_STATUS(sc) + ".OK, message, null);");
 		sc.add("throw new " + CORE_EXCEPTION(sc) + "(status);");
 		sc.add("}");
@@ -138,15 +138,15 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 	}
 
 	private void addOpenContentStreamMethod(JavaComposite sc) {
-		sc.addJavadoc("We will initialize file contents with a sample text.");
-		sc.add("private " + INPUT_STREAM(sc) + " openContentStream() {");
+		sc.addJavadoc("Initializes file contents with a sample text.");
+		sc.add("protected " + INPUT_STREAM(sc) + " openContentStream() {");
 		sc.add("return new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(new " + metaInformationClassName + "().getNewFileContentProvider().getNewFileContent(newName).getBytes());");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addGetFileMethod(JavaComposite sc) {
-		sc.add("private " + I_FILE(sc) + " getFile(String fileName, String containerName) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("protected " + I_FILE(sc) + " getFile(String fileName, String containerName) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add(I_WORKSPACE_ROOT(sc) + " root = " + RESOURCES_PLUGIN(sc) + ".getWorkspace().getRoot();");
 		sc.add(I_RESOURCE(sc) + " resource = root.findMember(new " + PATH(sc) + "(containerName));");
 		sc.add("if (!resource.exists() || !(resource instanceof " + I_CONTAINER(sc) + ")) {");
@@ -165,7 +165,7 @@ public class NewFileWizardGenerator extends UIJavaBaseGenerator<ArtifactParamete
 			"file if missing or just replace its contents, and open " +
 			"the editor on the newly created file."
 		);
-		sc.add("private void doFinish(String containerName, String fileName, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("protected void doFinish(String containerName, String fileName, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.addComment("create a sample file");
 		sc.add("monitor.beginTask(\"Creating \" + fileName, 2);");
 		sc.add("final " + I_FILE(sc) + " file = getFile(fileName, containerName);");
