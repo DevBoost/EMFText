@@ -46,10 +46,10 @@ import org.eclipse.ui.ide.IDE;
 
 public class CsNewFileWizard extends Wizard implements INewWizard {
 	
-	private String categoryId = null;
-	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizardPage page;
-	private ISelection selection;
-	private String newName = null;
+	protected String categoryId = null;
+	protected org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizardPage page;
+	protected ISelection selection;
+	protected String newName = null;
 	
 	public CsNewFileWizard() {
 		super();
