@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -59,8 +59,8 @@ import de.devboost.codecomposers.java.JavaComposite;
 import de.devboost.codecomposers.util.StringUtil;
 
 /**
- * A generator that creates a class that contains the syntax structure given
- * in the CS specification.
+ * A generator that creates a class that contains the syntax structure given in
+ * the CS specification.
  */
 @SyntaxDependent
 public class GrammarInformationProviderGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
@@ -77,7 +77,9 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 	public void generateJavaContents(JavaComposite sc) {
 		concreteSyntax = getContext().getConcreteSyntax();
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -141,7 +143,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 	}
 
 
-	private void addStaticConstants(de.devboost.codecomposers.java.JavaComposite sc) {
+	private void addStaticConstants(JavaComposite sc) {
 		sc.add("public final static " + E_STRUCTURAL_FEATURE(sc) + " " + ANONYMOUS_FEATURE + " = " + ECORE_FACTORY(sc) + ".eINSTANCE.createEAttribute();");
 		sc.add("static {");
 		sc.add("ANONYMOUS_FEATURE.setName(\"_\");");
@@ -151,7 +153,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.addLineBreak();
 	}
 
-	private void addFields(de.devboost.codecomposers.java.JavaComposite sc) {
+	private void addFields(JavaComposite sc) {
 		sc.add("private " + SET(sc) + "<String> keywords;");
 		sc.addLineBreak();
 	}
@@ -161,7 +163,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		addConstant(sc, rule, rule);
 	}
 
-	private void addConstant(de.devboost.codecomposers.java.JavaComposite sc, Rule rule, EObject next) {
+	private void addConstant(JavaComposite sc, Rule rule, EObject next) {
 		if (next instanceof CsString) {
 			CsString csString = (CsString) next;
 			String value = csString.getValue();
@@ -301,6 +303,7 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		} else {
 			assert next instanceof Annotation;
 		}
+		sc.addLineBreak();
 	}
 
 	private String getCardinality(EObject next) {
@@ -336,7 +339,6 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.add("};");
 		sc.addLineBreak();
 	}
-
 	
 	private void addGetKeywordsMethod(JavaComposite sc) {
 		sc.addJavadoc(
@@ -354,7 +356,6 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
 	
 	private void addFindKeywordsMethod(JavaComposite sc) {
 		sc.addJavadoc(
