@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -17,7 +17,6 @@ package org.emftext.sdk.codegen.resource.ui;
 
 import java.util.List;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -192,7 +191,9 @@ public abstract class CreateResourcePluginsJob extends AbstractCreatePluginJob {
 		}
 	}
 
-	private void markErrors(IResourceMarker marker, final ConcreteSyntax cSyntax) throws CoreException {
+	private void markErrors(IResourceMarker marker, final ConcreteSyntax cSyntax)
+			throws Exception {
+		
 		// also mark errors on imported concrete syntaxes
 		for (Import aImport : cSyntax.getImports()) {
 			ConcreteSyntax importedCS = aImport.getConcreteSyntax();

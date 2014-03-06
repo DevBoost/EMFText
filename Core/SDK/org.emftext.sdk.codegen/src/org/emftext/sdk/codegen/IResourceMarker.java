@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,7 +15,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
@@ -24,6 +23,6 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public interface IResourceMarker {
 
-	public void mark(Resource resource) throws CoreException;
-	public void unmark(Resource resource) throws CoreException;
+	public void mark(Resource resource) throws Exception;
+	public void unmark(Resource resource) throws Exception;
 }
