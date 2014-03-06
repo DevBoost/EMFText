@@ -10,7 +10,9 @@ Export-Package: org.emftext.sdk.codegen.resource.ui,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.emftext.sdk,
+ org.emftext.sdk.antlr3_4_0,
  org.emftext.sdk.codegen,
+ org.emftext.sdk.codegen.antlr,
  org.emftext.sdk.codegen.resource,
  org.eclipse.debug.core,
  org.eclipse.debug.ui,
@@ -23,8 +25,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf,
  org.eclipse.emf.edit.ui,
  org.eclipse.emf.ecore.edit,
- org.emftext.sdk.antlr3_4_0,
- org.eclipse.emf.validation,
- org.emftext.sdk.codegen.antlr
+ org.eclipse.emf.validation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.ui.texteditor.spelling
