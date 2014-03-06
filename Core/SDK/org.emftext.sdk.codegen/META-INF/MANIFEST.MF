@@ -14,13 +14,10 @@ Export-Package: org.emftext.sdk.codegen,
  org.emftext.sdk.codegen.util
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.core.runtime,
- org.emftext.sdk,
  org.eclipse.emf,
- org.eclipse.emf.edit.ui,
- org.eclipse.emf.ecore.edit,
- org.eclipse.emf.validation,
- org.emftext.sdk.antlr3_4_0,
- de.devboost.codecomposers;visibility:=reexport
+ de.devboost.codecomposers;visibility:=reexport,
+ org.emftext.sdk,
+ org.emftext.sdk.antlr3_4_0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 
