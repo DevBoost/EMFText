@@ -14,4 +14,3 @@ Require-Bundle: org.eclipse.core.runtime,
  org.emftext.sdk.codegen.antlr,
  org.emftext.sdk.codegen.resource
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.eclipse.ui.texteditor.spelling
