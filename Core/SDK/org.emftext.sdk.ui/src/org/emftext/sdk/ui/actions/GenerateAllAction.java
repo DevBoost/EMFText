@@ -16,6 +16,7 @@
 package org.emftext.sdk.ui.actions;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -106,7 +107,9 @@ public class GenerateAllAction implements IObjectActionDelegate {
 					protected IStatus run(IProgressMonitor monitor) {
 						URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 						ResourceSet rs = new ResourceSetImpl();
-						rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
+						@SuppressWarnings("deprecation")
+						Map<URI, URI> platformURIMap = EcorePlugin.computePlatformURIMap();
+						rs.getURIConverter().getURIMap().putAll(platformURIMap);
 						Resource genModelResource = rs.getResource(uri, true);
 						EList<EObject> contents = genModelResource.getContents();
 						for (EObject eObject : contents) {

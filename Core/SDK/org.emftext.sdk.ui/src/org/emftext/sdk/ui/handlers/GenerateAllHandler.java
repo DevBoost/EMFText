@@ -17,6 +17,7 @@ package org.emftext.sdk.ui.handlers;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -128,7 +129,9 @@ public class GenerateAllHandler extends AbstractHandler {
 					protected IStatus run(IProgressMonitor monitor) {
 						URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 						ResourceSet rs = new ResourceSetImpl();
-						rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
+						@SuppressWarnings("deprecation")
+						Map<URI, URI> platformURIMap = EcorePlugin.computePlatformURIMap();
+						rs.getURIConverter().getURIMap().putAll(platformURIMap);
 						Resource genModelResource = rs.getResource(uri, true);
 						EList<EObject> contents = genModelResource.getContents();
 						for (EObject eObject : contents) {
