@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFText SDK Code Generators for Text Editors
+Bundle-SymbolicName: org.emftext.sdk.codegen.resource.ui
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.emftext.sdk.codegen.resource.ui,
+ org.emftext.sdk.codegen.resource.ui.creators,
+ org.emftext.sdk.codegen.resource.ui.generators,
+ org.emftext.sdk.codegen.resource.ui.generators.ui
+Require-Bundle: org.eclipse.core.runtime,
+ org.emftext.sdk,
+ org.emftext.sdk.antlr3_4_0,
+ org.emftext.sdk.codegen,
+ org.emftext.sdk.codegen.antlr,
+ org.emftext.sdk.codegen.resource
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.ui.texteditor.spelling
