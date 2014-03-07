@@ -16,17 +16,17 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EARLY_EXIT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FAILED_PREDICATE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MISMATCHED_SET_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MISMATCHED_TOKEN_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MISMATCHED_TREE_NODE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RECOGNITION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COMMON_TOKEN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.EARLY_EXIT_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.FAILED_PREDICATE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.MISMATCHED_SET_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.MISMATCHED_TOKEN_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.MISMATCHED_TREE_NODE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.NO_VIABLE_ALT_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RECOGNITION_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

@@ -15,15 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_CONTAINER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_CONTAINER_TYPE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_LOOKUP_DIRECTOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_PATH_COMPUTER_DELEGATE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_SOURCE_CONTAINER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_SOURCE_CONTAINER_TYPE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_SOURCE_LOOKUP_DIRECTOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_SOURCE_PATH_COMPUTER_DELEGATE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

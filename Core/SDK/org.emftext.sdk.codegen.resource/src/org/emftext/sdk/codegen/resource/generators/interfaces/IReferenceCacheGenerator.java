@@ -17,8 +17,8 @@ package org.emftext.sdk.codegen.resource.generators.interfaces;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 import org.emftext.sdk.IPluginDescriptor;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
+import org.emftext.sdk.codegen.resource.ClassNameConstants;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 
 import de.devboost.codecomposers.StringComposite;

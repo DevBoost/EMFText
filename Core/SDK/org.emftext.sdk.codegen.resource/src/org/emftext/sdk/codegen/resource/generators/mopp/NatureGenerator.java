@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_COMMAND;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT_DESCRIPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT_NATURE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_COMMAND;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROJECT_DESCRIPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROJECT_NATURE;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;

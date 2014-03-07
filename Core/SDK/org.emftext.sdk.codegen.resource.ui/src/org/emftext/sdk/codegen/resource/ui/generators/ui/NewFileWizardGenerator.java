@@ -15,20 +15,20 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INVOCATION_TARGET_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_CONTAINER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_WORKSPACE_ROOT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.INVOCATION_TARGET_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_CONTAINER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_WORKSPACE_ROOT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IDE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_NEW_WIZARD;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RUNNABLE_WITH_PROGRESS;

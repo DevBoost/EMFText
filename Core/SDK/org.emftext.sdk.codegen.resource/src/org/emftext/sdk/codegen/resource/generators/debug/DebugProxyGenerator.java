@@ -16,17 +16,17 @@
 package org.emftext.sdk.codegen.resource.generators.debug;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_READER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARATOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM_READER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SOCKET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TREE_MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.UNKNOWN_HOST_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BUFFERED_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BUFFERED_READER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_VARIABLE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.PRINT_STREAM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.SOCKET;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.TREE_MAP;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.UNKNOWN_HOST_EXCEPTION;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

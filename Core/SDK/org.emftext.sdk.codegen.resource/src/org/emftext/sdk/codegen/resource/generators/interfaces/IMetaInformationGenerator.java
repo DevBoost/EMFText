@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.OUTPUT_STREAM;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

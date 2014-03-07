@@ -17,8 +17,8 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;

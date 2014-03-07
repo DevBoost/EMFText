@@ -16,9 +16,9 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LISTENER_LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFICATION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;

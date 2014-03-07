@@ -17,9 +17,9 @@ package org.emftext.sdk.codegen.resource.generators;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_FACTORY;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_FACTORY;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;

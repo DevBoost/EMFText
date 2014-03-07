@@ -16,17 +16,17 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER_RESOLUTION;

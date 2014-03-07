@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SUB_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.SUB_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;

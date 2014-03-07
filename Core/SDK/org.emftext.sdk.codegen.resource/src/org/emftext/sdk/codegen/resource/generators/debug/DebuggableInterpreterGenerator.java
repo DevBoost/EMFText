@@ -19,8 +19,8 @@ import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

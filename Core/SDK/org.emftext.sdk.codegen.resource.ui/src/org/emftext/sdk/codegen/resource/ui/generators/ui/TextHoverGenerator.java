@@ -16,13 +16,13 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LISTENER_LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URL;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BUNDLE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ACTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;

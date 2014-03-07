@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE_CONTEXT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLUGIN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BUNDLE_CONTEXT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.PLUGIN;
 
 import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.IPluginDescriptor;

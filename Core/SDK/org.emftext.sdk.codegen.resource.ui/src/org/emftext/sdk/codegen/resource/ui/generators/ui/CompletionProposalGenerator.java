@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARABLE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COMPARABLE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;

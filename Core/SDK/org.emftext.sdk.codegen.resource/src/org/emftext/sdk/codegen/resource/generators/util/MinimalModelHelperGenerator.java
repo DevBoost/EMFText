@@ -17,16 +17,16 @@ package org.emftext.sdk.codegen.resource.generators.util;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASSIFIER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_PACKAGE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASSIFIER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_PACKAGE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

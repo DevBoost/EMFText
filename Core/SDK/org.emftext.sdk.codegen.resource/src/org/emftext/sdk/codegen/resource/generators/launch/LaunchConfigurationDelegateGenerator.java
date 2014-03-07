@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.launch;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LAUNCH_CONFIGURATION_DELEGATE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_LAUNCH;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.LAUNCH_CONFIGURATION_DELEGATE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

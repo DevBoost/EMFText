@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_ADAPTABLE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_CONTAINER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PATH;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_ADAPTABLE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_CONTAINER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTAINER_SELECTION_DIALOG;

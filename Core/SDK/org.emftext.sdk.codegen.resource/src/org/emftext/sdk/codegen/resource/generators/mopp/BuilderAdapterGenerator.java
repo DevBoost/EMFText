@@ -16,18 +16,18 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INCREMENTAL_PROJECT_BUILDER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_DELTA;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_DELTA_VISITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_VISITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.INCREMENTAL_PROJECT_BUILDER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE_DELTA;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE_DELTA_VISITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE_VISITOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;

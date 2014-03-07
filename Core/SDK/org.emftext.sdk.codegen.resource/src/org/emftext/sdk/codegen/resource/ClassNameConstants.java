@@ -13,7 +13,7 @@
  *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.resource.generators;
+package org.emftext.sdk.codegen.resource;
 
 import de.devboost.codecomposers.java.JavaComposite;
 

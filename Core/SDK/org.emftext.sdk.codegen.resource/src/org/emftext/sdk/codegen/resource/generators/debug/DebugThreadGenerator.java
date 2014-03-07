@@ -16,11 +16,11 @@
 package org.emftext.sdk.codegen.resource.generators.debug;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EVENT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_BREAKPOINT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STACK_FRAME;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_THREAD;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.DEBUG_EVENT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_BREAKPOINT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_STACK_FRAME;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_THREAD;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

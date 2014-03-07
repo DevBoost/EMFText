@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE_CONTEXT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BUNDLE_CONTEXT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_UI_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DIALOG_CONSTANTS;

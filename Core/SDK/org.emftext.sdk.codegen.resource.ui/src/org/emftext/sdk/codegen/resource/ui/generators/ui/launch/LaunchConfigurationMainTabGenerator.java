@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.launch;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_LAUNCH_CONFIGURATION_TAB;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;

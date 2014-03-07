@@ -16,7 +16,7 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
 
 import java.util.ArrayList;
 import java.util.Collection;

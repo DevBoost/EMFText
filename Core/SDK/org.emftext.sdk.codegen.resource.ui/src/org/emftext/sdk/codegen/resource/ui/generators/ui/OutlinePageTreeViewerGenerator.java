@@ -16,12 +16,12 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL_EQUALITY_HELPER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FEATURE_MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.ECORE_UTIL_EQUALITY_HELPER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.FEATURE_MAP;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT_COMPARER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;

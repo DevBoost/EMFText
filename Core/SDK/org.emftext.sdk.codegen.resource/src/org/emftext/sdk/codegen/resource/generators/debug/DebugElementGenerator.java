@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_ELEMENT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_BREAKPOINT_MANAGER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_DEBUG_TARGET;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.DEBUG_ELEMENT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.DEBUG_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_BREAKPOINT_MANAGER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_DEBUG_TARGET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

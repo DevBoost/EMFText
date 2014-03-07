@@ -18,11 +18,11 @@ package org.emftext.sdk.codegen.resource.generators;
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARATOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IDENTITY_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.IDENTITY_HASH_MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

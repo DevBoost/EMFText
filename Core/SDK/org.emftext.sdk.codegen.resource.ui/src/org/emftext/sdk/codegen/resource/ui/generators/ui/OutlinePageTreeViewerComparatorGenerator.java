@@ -18,10 +18,10 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARATOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_PACKAGE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_PACKAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER_COMPARATOR;
 

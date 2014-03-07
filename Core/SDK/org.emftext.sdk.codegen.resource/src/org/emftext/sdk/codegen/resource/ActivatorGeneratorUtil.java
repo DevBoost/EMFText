@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.STATUS;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class ActivatorGeneratorUtil {

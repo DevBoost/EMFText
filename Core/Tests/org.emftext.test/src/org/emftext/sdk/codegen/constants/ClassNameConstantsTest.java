@@ -23,7 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import org.emftext.sdk.codegen.resource.generators.ClassNameConstants;
+import org.emftext.sdk.codegen.resource.ClassNameConstants;
 import org.emftext.sdk.codegen.resource.ui.UIClassNameConstants;
 import org.junit.Test;
 

@@ -17,10 +17,10 @@ package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFICATION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFIER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.ADAPTER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.NOTIFIER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

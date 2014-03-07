@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MARKER_ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_MARKER_ANNOTATION_MODEL;
 

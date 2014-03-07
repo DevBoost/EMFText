@@ -416,7 +416,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.eclipse.ui.wizards.IWizardCategory;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.emftext.sdk.codegen.resource.generators.ClassNameConstants;
+import org.emftext.sdk.codegen.resource.ClassNameConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 

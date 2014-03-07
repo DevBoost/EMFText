@@ -18,10 +18,10 @@ package org.emftext.sdk.codegen.resource.generators.debug;
 import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_VARIABLE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

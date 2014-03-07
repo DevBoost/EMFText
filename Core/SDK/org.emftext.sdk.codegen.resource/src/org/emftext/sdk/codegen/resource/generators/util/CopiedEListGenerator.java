@@ -17,10 +17,10 @@ package org.emftext.sdk.codegen.resource.generators.util;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BASIC_E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_LIST;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LIST_ITERATOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.BASIC_E_LIST;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.LIST_ITERATOR;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

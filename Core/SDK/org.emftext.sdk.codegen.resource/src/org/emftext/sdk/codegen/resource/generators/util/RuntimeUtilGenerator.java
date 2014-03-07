@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.EMF_MODEL_VALIDATION_PLUGIN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.PLATFORM;
 
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;

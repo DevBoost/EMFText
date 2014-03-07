@@ -16,10 +16,10 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.GEN_CLASS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.GEN_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.GEN_PACKAGE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.GEN_CLASS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.GEN_FEATURE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.GEN_PACKAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.COMMON_TOKEN;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.TOKEN;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

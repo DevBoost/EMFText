@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ABSTRACT_SOURCE_LOOKUP_DIRECTOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_SOURCE_LOOKUP_PARTICIPANT;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.ABSTRACT_SOURCE_LOOKUP_DIRECTOR;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_SOURCE_LOOKUP_PARTICIPANT;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

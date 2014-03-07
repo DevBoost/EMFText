@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROCESS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STREAMS_PROXY;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_LAUNCH;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_PROCESS;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_STREAMS_PROXY;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

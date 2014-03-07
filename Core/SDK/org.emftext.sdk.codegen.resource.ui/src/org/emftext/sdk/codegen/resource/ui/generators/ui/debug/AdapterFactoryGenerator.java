@@ -15,11 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_ADAPTER_FACTORY;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.DEBUG_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_VALUE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.I_VARIABLE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CHILDREN_COUNT_UPDATE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CHILDREN_UPDATE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT_CONTENT_PROVIDER;
