@@ -5,7 +5,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText SDK Automaton Support
 Bundle-SymbolicName: org.emftext.sdk.automaton; singleton:=true
 Bundle-Version: 1.2.0.qualifier
-Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: dk.brics.automaton
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
