@@ -54,6 +54,7 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 import de.devboost.codecomposers.java.JavaComposite;
@@ -92,11 +93,17 @@ public class EclipseProxyGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod(sc);
 		addGetFileForResourceMethod(sc);
 		addGetFileForURIMethod(sc);
-		addCheckEMFValidationConstraintsMethod(sc);
-		addCreateNotificationsMethod(sc);
-		addCreateNotificationMethod(sc);
-		addAddStatusMethod(sc);
 		addGetPlatformResourceEncodingMethod(sc);
+		
+		OptionTypes option = OptionTypes.DISABLE_EMF_VALIDATION_CONSTRAINTS;
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
+		boolean disableEMFValidation = OptionManager.INSTANCE.getBooleanOptionValue(syntax, option);
+		if (!disableEMFValidation) {
+			addCheckEMFValidationConstraintsMethod(sc);
+			addCreateNotificationsMethod(sc);
+			addCreateNotificationMethod(sc);
+			addAddStatusMethod(sc);
+		}
 	}
 
 	private void addGetFileForResourceMethod(JavaComposite sc) {
