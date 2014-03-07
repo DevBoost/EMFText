@@ -26,6 +26,14 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer");
 	}
 
+	public static String ABSTRACT_SOURCE_LOOKUP_DIRECTOR(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.sourcelookup.AbstractSourceLookupDirector");
+	}
+
+	public static String ABSTRACT_SOURCE_LOOKUP_PARTICIPANT(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.sourcelookup.AbstractSourceLookupParticipant");
+	}
+
 	public static String ADAPTER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.emf.common.notify.Adapter");
 	}
@@ -154,6 +162,22 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.core.runtime.CoreException");
 	}
 
+	public static String DEBUG_ELEMENT(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.DebugElement");
+	}
+
+	public static String DEBUG_EVENT(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.DebugEvent");
+	}
+
+	public static String DEBUG_EXCEPTION(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.DebugException");
+	}
+
+	public static String DEBUG_PLUGIN(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.DebugPlugin");
+	}
+
 	public static String DIAGNOSTIC(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.emf.common.util.Diagnostic");
 	}
@@ -164,50 +188,6 @@ public class ClassNameConstants {
 
 	public static String DOCUMENT_LISTENER(JavaComposite jc) {
 		return getClassName(jc, "javax.swing.event.DocumentListener");
-	}
-
-	public static String EARLY_EXIT_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.EarlyExitException");
-	}
-
-	public static String ECORE_FACTORY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EcoreFactory");
-	}
-
-	public static String ECORE_PLUGIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.plugin.EcorePlugin");
-	}
-
-	public static String ECORE_UTIL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreUtil");
-	}
-
-	public static String ECORE_UTIL_EQUALITY_HELPER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper");
-	}
-
-	public static String ECORE_VALIDATOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreValidator");
-	}
-
-	public static String EDITOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.codegen.ecore.templates.editor.Editor");
-	}
-
-	public static String EMF_MODEL_VALIDATION_PLUGIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.internal.EMFModelValidationPlugin");
-	}
-
-	public static String EMPTY_STACK_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.util.EmptyStackException");
-	}
-
-	public static String ENUMERATOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.Enumerator");
-	}
-
-	public static String EVALUATION_MODE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.model.EvaluationMode");
 	}
 
 	public static String E_ATTRIBUTE(JavaComposite jc) {
@@ -274,6 +254,50 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.emf.ecore.EStructuralFeature");
 	}
 
+	public static String EARLY_EXIT_EXCEPTION(JavaComposite jc) {
+		return getClassName(jc, "org.antlr.runtime3_4_0.EarlyExitException");
+	}
+
+	public static String ECORE_FACTORY(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.ecore.EcoreFactory");
+	}
+
+	public static String ECORE_PLUGIN(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.ecore.plugin.EcorePlugin");
+	}
+
+	public static String ECORE_UTIL(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreUtil");
+	}
+
+	public static String ECORE_UTIL_EQUALITY_HELPER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper");
+	}
+
+	public static String ECORE_VALIDATOR(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreValidator");
+	}
+
+	public static String EDITOR(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.codegen.ecore.templates.editor.Editor");
+	}
+
+	public static String EMF_MODEL_VALIDATION_PLUGIN(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.validation.internal.EMFModelValidationPlugin");
+	}
+
+	public static String EMPTY_STACK_EXCEPTION(JavaComposite jc) {
+		return getClassName(jc, "java.util.EmptyStackException");
+	}
+
+	public static String ENUMERATOR(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.common.util.Enumerator");
+	}
+
+	public static String EVALUATION_MODE(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.validation.model.EvaluationMode");
+	}
+
 	public static String FAILED_PREDICATE_EXCEPTION(JavaComposite jc) {
 		return getClassName(jc, "org.antlr.runtime3_4_0.FailedPredicateException");
 	}
@@ -318,52 +342,10 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.emf.codegen.ecore.genmodel.GenPackage");
 	}
 
-	public static String IDENTITY_HASH_MAP(JavaComposite jc) {
-		return getClassName(jc, "java.util.IdentityHashMap");
-	}
-
-	public static String ILLEGAL_ACCESS_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(IllegalAccessException.class);
-	}
-
-	public static String ILLEGAL_ARGUMENT_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(IllegalArgumentException.class);
-	}
-
-	public static String INCREMENTAL_PROJECT_BUILDER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IncrementalProjectBuilder");
-	}
-
-	public static String INPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.InputStream");
-	}
-
-	public static String INPUT_STREAM_READER(JavaComposite jc) {
-		return getClassName(jc, "java.io.InputStreamReader");
-	}
-
-	public static String INTERNAL_E_LIST(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.InternalEList");
-	}
-
-	public static String INTERNAL_E_OBJECT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.InternalEObject");
-	}
-
-	public static String INT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.IntStream");
-	}
-
-	public static String INVOCATION_HANDLER(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.InvocationHandler");
-	}
-
-	public static String INVOCATION_TARGET_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.InvocationTargetException");
-	}
-
-	public static String IO_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.io.IOException");
+	private static String getClassName(JavaComposite jc,
+			String qualifiedClassName) {
+		return de.devboost.codecomposers.java.ClassNameConstants.getClassName(
+				jc, qualifiedClassName);
 	}
 
 	public static String I_ADAPTABLE(JavaComposite jc) {
@@ -378,6 +360,14 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.emf.validation.service.IBatchValidator");
 	}
 
+	public static String I_BREAKPOINT(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IBreakpoint");
+	}
+
+	public static String I_BREAKPOINT_MANAGER(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.IBreakpointManager");
+	}
+
 	public static String I_COMMAND(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.resources.ICommand");
 	}
@@ -388,6 +378,10 @@ public class ClassNameConstants {
 
 	public static String I_CONTAINER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.resources.IContainer");
+	}
+
+	public static String I_DEBUG_TARGET(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IDebugTarget");
 	}
 
 	public static String I_EXECUTABLE_EXTENSION(JavaComposite jc) {
@@ -402,6 +396,18 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.core.resources.IFile");
 	}
 
+	public static String I_LAUNCH(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.ILaunch");
+	}
+
+	public static String I_LAUNCH_CONFIGURATION(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.ILaunchConfiguration");
+	}
+
+	public static String I_LAUNCH_MANAGER(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.ILaunchManager");
+	}
+
 	public static String I_LIVE_VALIDATOR(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.emf.validation.service.ILiveValidator");
 	}
@@ -414,8 +420,16 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.core.resources.IMarkerDelta");
 	}
 
+	public static String I_MEMORY_BLOCK(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IMemoryBlock");
+	}
+
 	public static String I_PATH(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.runtime.IPath");
+	}
+
+	public static String I_PROCESS(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IProcess");
 	}
 
 	public static String I_PROGRESS_MONITOR(JavaComposite jc) {
@@ -432,6 +446,10 @@ public class ClassNameConstants {
 
 	public static String I_PROJECT_NATURE(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.resources.IProjectNature");
+	}
+
+	public static String I_REGISTER_GROUP(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IRegisterGroup");
 	}
 
 	public static String I_RESOURCE(JavaComposite jc) {
@@ -458,8 +476,52 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.core.resources.IResourceVisitor");
 	}
 
+	public static String I_SCHEDULING_RULE(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.core.runtime.jobs.ISchedulingRule");
+	}
+
+	public static String I_SOURCE_CONTAINER(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceContainer");
+	}
+
+	public static String I_SOURCE_CONTAINER_TYPE(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceContainerType");
+	}
+
+	public static String I_SOURCE_LOOKUP_DIRECTOR(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceLookupDirector");
+	}
+
+	public static String I_SOURCE_LOOKUP_PARTICIPANT(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceLookupParticipant");
+	}
+
+	public static String I_SOURCE_PATH_COMPUTER_DELEGATE(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourcePathComputerDelegate");
+	}
+
+	public static String I_STACK_FRAME(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IStackFrame");
+	}
+
 	public static String I_STATUS(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.runtime.IStatus");
+	}
+
+	public static String I_STREAMS_PROXY(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IStreamsProxy");
+	}
+
+	public static String I_THREAD(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IThread");
+	}
+
+	public static String I_VALUE(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IValue");
+	}
+
+	public static String I_VARIABLE(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.IVariable");
 	}
 
 	public static String I_WORKSPACE(JavaComposite jc) {
@@ -474,24 +536,84 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.core.resources.IWorkspaceRunnable");
 	}
 
+	public static String IDENTITY_HASH_MAP(JavaComposite jc) {
+		return getClassName(jc, "java.util.IdentityHashMap");
+	}
+
+	public static String ILLEGAL_ACCESS_EXCEPTION(JavaComposite jc) {
+		return jc.getClassName(IllegalAccessException.class);
+	}
+
+	public static String ILLEGAL_ARGUMENT_EXCEPTION(JavaComposite jc) {
+		return jc.getClassName(IllegalArgumentException.class);
+	}
+
+	public static String INCREMENTAL_PROJECT_BUILDER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.core.resources.IncrementalProjectBuilder");
+	}
+
+	public static String INPUT_STREAM(JavaComposite jc) {
+		return getClassName(jc, "java.io.InputStream");
+	}
+
+	public static String INPUT_STREAM_READER(JavaComposite jc) {
+		return getClassName(jc, "java.io.InputStreamReader");
+	}
+
+	public static String INT_STREAM(JavaComposite jc) {
+		return getClassName(jc, "org.antlr.runtime3_4_0.IntStream");
+	}
+
+	public static String INTERNAL_E_LIST(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.ecore.util.InternalEList");
+	}
+
+	public static String INTERNAL_E_OBJECT(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.ecore.InternalEObject");
+	}
+
+	public static String INVOCATION_HANDLER(JavaComposite jc) {
+		return getClassName(jc, "java.lang.reflect.InvocationHandler");
+	}
+
+	public static String INVOCATION_TARGET_EXCEPTION(JavaComposite jc) {
+		return getClassName(jc, "java.lang.reflect.InvocationTargetException");
+	}
+
+	public static String IO_EXCEPTION(JavaComposite jc) {
+		return getClassName(jc, "java.io.IOException");
+	}
+
 	public static String JOB(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.runtime.jobs.Job");
+	}
+
+	public static String LAUNCH_CONFIGURATION_DELEGATE(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.LaunchConfigurationDelegate");
 	}
 
 	public static String LEXER(JavaComposite jc) {
 		return getClassName(jc, "org.antlr.runtime3_4_0.Lexer");
 	}
 
+	public static String LINE_BREAKPOINT(JavaComposite jc) {
+		return jc.getClassName("org.eclipse.debug.core.model.LineBreakpoint");
+	}
+
 	public static String LINKED_LIST(JavaComposite jc) {
 		return getClassName(jc, "java.util.LinkedList");
+	}
+
+	public static String LIST_ITERATOR(JavaComposite jc) {
+		return getClassName(jc, "java.util.ListIterator");
 	}
 
 	public static String LISTENER_LIST(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.runtime.ListenerList");
 	}
 
-	public static String LIST_ITERATOR(JavaComposite jc) {
-		return getClassName(jc, "java.util.ListIterator");
+	public static String LOCALE(JavaComposite jc) {
+		return getClassName(jc, "java.util.Locale");
 	}
 
 	public static String MALFORMED_URL_EXCEPTION(JavaComposite jc) {
@@ -546,18 +668,6 @@ public class ClassNameConstants {
 		return getClassName(jc, "java.lang.reflect.Modifier");
 	}
 
-	public static String NOTIFICATION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.Notification");
-	}
-
-	public static String NOTIFICATION_CHAIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.NotificationChain");
-	}
-
-	public static String NOTIFIER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.Notifier");
-	}
-
 	public static String NO_SUCH_ALGORITHM_EXCEPTION(JavaComposite jc) {
 		return getClassName(jc, "java.security.NoSuchAlgorithmException");
 	}
@@ -568,6 +678,18 @@ public class ClassNameConstants {
 
 	public static String NO_VIABLE_ALT_EXCEPTION(JavaComposite jc) {
 		return getClassName(jc, "org.antlr.runtime3_4_0.NoViableAltException");
+	}
+
+	public static String NOTIFICATION(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.common.notify.Notification");
+	}
+
+	public static String NOTIFICATION_CHAIN(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.common.notify.NotificationChain");
+	}
+
+	public static String NOTIFIER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.common.notify.Notifier");
 	}
 
 	public static String NULL_POINTER_EXCEPTION(JavaComposite jc) {
@@ -598,12 +720,12 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.core.runtime.Plugin");
 	}
 
-	public static String PRINTER_WRITER(JavaComposite jc) {
-		return getClassName(jc, "java.io.PrintWriter");
-	}
-
 	public static String PRINT_STREAM(JavaComposite jc) {
 		return getClassName(jc, "java.io.PrintStream");
+	}
+
+	public static String PRINTER_WRITER(JavaComposite jc) {
+		return getClassName(jc, "java.io.PrintWriter");
 	}
 
 	public static String PROPERTY_TESTER(JavaComposite jc) {
@@ -634,10 +756,6 @@ public class ClassNameConstants {
 		return getClassName(jc, "org.eclipse.emf.ecore.resource.Resource");
 	}
 
-	public static String RESOURCES_PLUGIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.ResourcesPlugin");
-	}
-
 	public static String RESOURCE_BUNDLE(JavaComposite jc) {
 		return getClassName(jc, "java.util.ResourceBundle");
 	}
@@ -660,6 +778,10 @@ public class ClassNameConstants {
 
 	public static String RESOURCE_SET_IMPL(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.emf.ecore.resource.impl.ResourceSetImpl");
+	}
+
+	public static String RESOURCES_PLUGIN(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.core.resources.ResourcesPlugin");
 	}
 
 	public static String RUNTIME_EXCEPTION(JavaComposite jc) {
@@ -748,133 +870,5 @@ public class ClassNameConstants {
 
 	public static String ZIP_FILE(JavaComposite jc) {
 		return getClassName(jc, "java.util.zip.ZipFile");
-	}
-
-	public static String I_SCHEDULING_RULE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.jobs.ISchedulingRule");
-	}
-
-	// for the classes contained in the org.eclipse.debug plug-in, we use string
-	// constants instead of referencing the class objects, because this cause
-	// trouble in some environments (e.g., PDE build).
-	//
-	// this fixes bug 1815: Replace class name constants from DebugUI plug-in
-	// with static strings
-	public static String ABSTRACT_SOURCE_LOOKUP_DIRECTOR(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.sourcelookup.AbstractSourceLookupDirector");
-	}
-
-	public static String ABSTRACT_SOURCE_LOOKUP_PARTICIPANT(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.sourcelookup.AbstractSourceLookupParticipant");
-	}
-
-	public static String DEBUG_ELEMENT(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.DebugElement");
-	}
-
-	public static String DEBUG_EVENT(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.DebugEvent");
-	}
-
-	public static String DEBUG_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.DebugException");
-	}
-
-	public static String DEBUG_PLUGIN(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.DebugPlugin");
-	}
-
-	public static String I_BREAKPOINT(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IBreakpoint");
-	}
-
-	public static String I_BREAKPOINT_MANAGER(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.IBreakpointManager");
-	}
-
-	public static String I_DEBUG_TARGET(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IDebugTarget");
-	}
-
-	public static String I_LAUNCH(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.ILaunch");
-	}
-
-	public static String I_LAUNCH_CONFIGURATION(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.ILaunchConfiguration");
-	}
-
-	public static String I_LAUNCH_MANAGER(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.ILaunchManager");
-	}
-
-	public static String I_MEMORY_BLOCK(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IMemoryBlock");
-	}
-
-	public static String I_PROCESS(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IProcess");
-	}
-
-	public static String I_REGISTER_GROUP(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IRegisterGroup");
-	}
-
-	public static String I_SOURCE_CONTAINER(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceContainer");
-	}
-
-	public static String I_SOURCE_CONTAINER_TYPE(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceContainerType");
-	}
-
-	public static String I_SOURCE_LOOKUP_DIRECTOR(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceLookupDirector");
-	}
-
-	public static String I_SOURCE_LOOKUP_PARTICIPANT(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourceLookupParticipant");
-	}
-
-	public static String I_SOURCE_PATH_COMPUTER_DELEGATE(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.sourcelookup.ISourcePathComputerDelegate");
-	}
-
-	public static String I_STACK_FRAME(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IStackFrame");
-	}
-
-	public static String I_STREAMS_PROXY(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IStreamsProxy");
-	}
-
-	public static String I_THREAD(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IThread");
-	}
-
-	public static String I_VALUE(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IValue");
-	}
-
-	public static String I_VARIABLE(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.IVariable");
-	}
-
-	public static String LAUNCH_CONFIGURATION_DELEGATE(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.LaunchConfigurationDelegate");
-	}
-
-	public static String LINE_BREAKPOINT(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.debug.core.model.LineBreakpoint");
-	}
-
-	public static String LOCALE(JavaComposite jc) {
-		return getClassName(jc, "java.util.Locale");
-	}
-
-	private static String getClassName(JavaComposite jc,
-			String qualifiedClassName) {
-		return de.devboost.codecomposers.java.ClassNameConstants.getClassName(
-				jc, qualifiedClassName);
 	}
 }

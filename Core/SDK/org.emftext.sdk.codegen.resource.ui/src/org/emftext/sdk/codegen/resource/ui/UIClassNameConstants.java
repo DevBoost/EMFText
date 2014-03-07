@@ -22,6 +22,11 @@ import de.devboost.codecomposers.java.JavaComposite;
  */
 public class UIClassNameConstants {
 
+	public static String ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS(
+			JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants");
+	}
+
 	public static String ABSTRACT_HANDLER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.core.commands.AbstractHandler");
 	}
@@ -88,6 +93,10 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.text.BadPositionCategoryException");
 	}
 
+	public static String BASIC_NEW_PROJECT_RESOURCE_WIZARD(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard");
+	}
+
 	public static String BROWSER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.swt.browser.Browser");
 	}
@@ -132,12 +141,12 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.ui.dialogs.ContainerSelectionDialog");
 	}
 
-	public static String CONTENT_ASSISTANT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.text.contentassist.ContentAssistant");
-	}
-
 	public static String CONTENT_ASSIST_ACTION(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.texteditor.ContentAssistAction");
+	}
+
+	public static String CONTENT_ASSISTANT(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.ContentAssistant");
 	}
 
 	public static String CONTEXT_INFORMATION(JavaComposite jc) {
@@ -253,6 +262,12 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.swt.graphics.GC");
 	}
 
+	private static String getClassName(JavaComposite jc,
+			String qualifiedClassName) {
+		return de.devboost.codecomposers.java.ClassNameConstants.getClassName(
+				jc, qualifiedClassName);
+	}
+
 	public static String GRID_DATA(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.swt.layout.GridData");
 	}
@@ -271,34 +286,6 @@ public class UIClassNameConstants {
 
 	public static String HANDLER_UTIL(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.handlers.HandlerUtil");
-	}
-
-	public static String I_ELEMENT_COMPARER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.viewers.IElementComparer");
-	}
-
-	public static String IDE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.ide.IDE");
-	}
-
-	public static String IMAGE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.swt.graphics.Image");
-	}
-
-	public static String IMAGE_DATA(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.swt.graphics.ImageData");
-	}
-
-	public static String IMAGE_DESCRIPTOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.resource.ImageDescriptor");
-	}
-
-	public static String IMAGE_LOADER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.swt.graphics.ImageLoader");
-	}
-
-	public static String INTEGER(JavaComposite jc) {
-		return jc.getClassName(Integer.class);
 	}
 
 	public static String I_ACTION(JavaComposite jc) {
@@ -341,12 +328,12 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.text.contentassist.ICompletionProposal");
 	}
 
-	public static String I_CONTENT_ASSISTANT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.text.contentassist.IContentAssistant");
-	}
-
 	public static String I_CONTENT_ASSIST_PROCESSOR(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.contentassist.IContentAssistProcessor");
+	}
+
+	public static String I_CONTENT_ASSISTANT(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.IContentAssistant");
 	}
 
 	public static String I_CONTENT_OUTLINE_PAGE(JavaComposite jc) {
@@ -403,6 +390,10 @@ public class UIClassNameConstants {
 
 	public static String I_EDITOR_PART(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.IEditorPart");
+	}
+
+	public static String I_ELEMENT_COMPARER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.viewers.IElementComparer");
 	}
 
 	public static String I_ELEMENT_CONTENT_PROVIDER(JavaComposite jc) {
@@ -501,12 +492,12 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.ui.IMarkerResolution");
 	}
 
-	public static String I_MARKER_RESOLUTION2(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.IMarkerResolution2");
-	}
-
 	public static String I_MARKER_RESOLUTION_GENERATOR(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.IMarkerResolutionGenerator");
+	}
+
+	public static String I_MARKER_RESOLUTION2(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.IMarkerResolution2");
 	}
 
 	public static String I_MEMENTO(JavaComposite jc) {
@@ -569,6 +560,14 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.text.quickassist.IQuickFixableAnnotation");
 	}
 
+	public static String I_RECONCILER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.text.reconciler.IReconciler");
+	}
+
+	public static String I_RECONCILING_STRATEGY(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.text.reconciler.IReconcilingStrategy");
+	}
+
 	public static String I_REGION(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.IRegion");
 	}
@@ -592,17 +591,21 @@ public class UIClassNameConstants {
 	public static String I_SELECTION_SERVICE(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.ISelectionService");
 	}
-	
+
 	public static String I_SELECTION_STATUS_VALIDATOR(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.dialogs.ISelectionStatusValidator");
 	}
-
+	
 	public static String I_SHARED_IMAGES(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.ISharedImages");
 	}
 
 	public static String I_SOURCE_VIEWER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.source.ISourceViewer");
+	}
+
+	public static String I_SPELLING_PROBLEM_COLLECTOR(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector");
 	}
 
 	public static String I_STORAGE(JavaComposite jc) {
@@ -665,16 +668,16 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.debug.ui.actions.IToggleBreakpointsTarget");
 	}
 
-	public static String I_TOOL_BAR_MANAGER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.action.IToolBarManager");
-	}
-
 	public static String I_TOKEN(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.rules.IToken");
 	}
 
 	public static String I_TOKEN_SCANNER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.rules.ITokenScanner");
+	}
+
+	public static String I_TOOL_BAR_MANAGER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.action.IToolBarManager");
 	}
 
 	public static String I_TREE_CONTENT_PROVIDER(JavaComposite jc) {
@@ -691,6 +694,10 @@ public class UIClassNameConstants {
 
 	public static String I_VERTICAL_RULER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.source.IVerticalRuler");
+	}
+
+	public static String I_VIEWER_NOTIFICATION(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.edit.provider.IViewerNotification");
 	}
 
 	public static String I_VIEWER_PROVIDER(JavaComposite jc) {
@@ -724,7 +731,7 @@ public class UIClassNameConstants {
 	public static String I_WORKBENCH_PART_REFERENCE(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.IWorkbenchPartReference");
 	}
-
+	
 	public static String I_WORKBENCH_PREFERENCE_PAGE(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.IWorkbenchPreferencePage");
 	}
@@ -732,13 +739,33 @@ public class UIClassNameConstants {
 	public static String I_WORKING_SET(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.IWorkingSet");
 	}
-	
+
 	public static String I_WORKING_SET_MANAGER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.IWorkingSetManager");
 	}
 
-	public static String JFACE_DIALOG(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.dialogs.Dialog");
+	public static String IDE(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.ide.IDE");
+	}
+
+	public static String IMAGE(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.swt.graphics.Image");
+	}
+
+	public static String IMAGE_DATA(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.swt.graphics.ImageData");
+	}
+
+	public static String IMAGE_DESCRIPTOR(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.resource.ImageDescriptor");
+	}
+
+	public static String IMAGE_LOADER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.swt.graphics.ImageLoader");
+	}
+
+	public static String INTEGER(JavaComposite jc) {
+		return jc.getClassName(Integer.class);
 	}
 
 	public static String J_FACE_RESOURCES(JavaComposite jc) {
@@ -747,6 +774,10 @@ public class UIClassNameConstants {
 
 	public static String J_FACE_TOKEN(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.rules.Token");
+	}
+
+	public static String JFACE_DIALOG(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.dialogs.Dialog");
 	}
 
 	public static String KEY_EVENT(JavaComposite jc) {
@@ -803,6 +834,10 @@ public class UIClassNameConstants {
 
 	public static String MODIFY_LISTENER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.swt.events.ModifyListener");
+	}
+
+	public static String MONO_RECONCILER(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.jface.text.reconciler.MonoReconciler");
 	}
 
 	public static String MOUSE_EVENT(JavaComposite jc) {
@@ -932,12 +967,16 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.util.SafeRunnable");
 	}
 
+	public static String SCROLL_BAR(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.swt.widgets.ScrollBar");
+	}
+
 	public static String SCROLLABLE(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.swt.widgets.Scrollable");
 	}
 
-	public static String SCROLL_BAR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.swt.widgets.ScrollBar");
+	public static String SELECT_MARKER_RULES_ACTION(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.texteditor.SelectMarkerRulerAction");
 	}
 
 	public static String SELECTION_ADAPTER(JavaComposite jc) {
@@ -956,10 +995,6 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.swt.events.SelectionListener");
 	}
 
-	public static String SELECT_MARKER_RULES_ACTION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.texteditor.SelectMarkerRulerAction");
-	}
-
 	public static String SHELL(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.swt.widgets.Shell");
 	}
@@ -970,6 +1005,18 @@ public class UIClassNameConstants {
 
 	public static String SOURCE_VIEWER_CONFIGURATION(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.source.SourceViewerConfiguration");
+	}
+
+	public static String SPELLING_PROBLEM(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingProblem");
+	}
+
+	public static String SPELLING_RECONCILE_STRATEGY(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy");
+	}
+
+	public static String SPELLING_SERVICE(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingService");
 	}
 
 	public static String STRING_BUILDER(JavaComposite jc) {
@@ -984,12 +1031,12 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.viewers.StructuredViewer");
 	}
 
-	public static String STYLED_TEXT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.swt.custom.StyledText");
-	}
-
 	public static String STYLE_RANGE(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.swt.custom.StyleRange");
+	}
+
+	public static String STYLED_TEXT(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.swt.custom.StyledText");
 	}
 
 	public static String SWT(JavaComposite jc) {
@@ -1084,6 +1131,10 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.viewers.ViewerFilter");
 	}
 
+	public static String VIEWER_REFRESH(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider.ViewerRefresh");
+	}
+
 	public static String WINDOW(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.window.Window");
 	}
@@ -1096,6 +1147,10 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.wizard.Wizard");
 	}
 
+	public static String WIZARD_NEW_PROJECT_CREATION_PAGE(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.dialogs.WizardNewProjectCreationPage");
+	}
+
 	public static String WIZARD_PAGE(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.wizard.WizardPage");
 	}
@@ -1103,71 +1158,16 @@ public class UIClassNameConstants {
 	public static String WORKBENCH_CONTENT_PROVIDER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.model.WorkbenchContentProvider");
 	}
-
+	
 	public static String WORKBENCH_LABEL_PROVIDER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.model.WorkbenchLabelProvider");
 	}
-
-	public static String XML_MEMENTO(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.XMLMemento");
-	}
-
-	public static String WIZARD_NEW_PROJECT_CREATION_PAGE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.dialogs.WizardNewProjectCreationPage");
-	}
-
+	
 	public static String WORKSPACE_MODIFY_OPERATION(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.actions.WorkspaceModifyOperation");
 	}
 
-	public static String BASIC_NEW_PROJECT_RESOURCE_WIZARD(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard");
-	}
-
-	public static String ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS(
-			JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants");
-	}
-
-	public static String I_RECONCILER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.text.reconciler.IReconciler");
-	}
-
-	public static String SPELLING_SERVICE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingService");
-	}
-
-	public static String I_RECONCILING_STRATEGY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.text.reconciler.IReconcilingStrategy");
-	}
-
-	public static String SPELLING_RECONCILE_STRATEGY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy");
-	}
-
-	public static String I_SPELLING_PROBLEM_COLLECTOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector");
-	}
-
-	public static String SPELLING_PROBLEM(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingProblem");
-	}
-
-	public static String MONO_RECONCILER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.jface.text.reconciler.MonoReconciler");
-	}
-	
-	public static String VIEWER_REFRESH(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider.ViewerRefresh");
-	}
-	
-	public static String I_VIEWER_NOTIFICATION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.edit.provider.IViewerNotification");
-	}
-
-	private static String getClassName(JavaComposite jc,
-			String qualifiedClassName) {
-		return de.devboost.codecomposers.java.ClassNameConstants.getClassName(
-				jc, qualifiedClassName);
+	public static String XML_MEMENTO(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.XMLMemento");
 	}
 }
