@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -17,6 +17,7 @@ package org.emftext.sdk.ui.handlers;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,9 +25,11 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -39,7 +42,6 @@ import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -65,12 +67,12 @@ public class GenerateAllHandler extends AbstractHandler {
 			while (it.hasNext()) {
 				Object o = it.next();
 				try {
-					if(o instanceof IAdaptable){
+					if (o instanceof IAdaptable) {
 						IAdaptable a = (IAdaptable) o;
 						IResource adapter = (IResource) a.getAdapter(IResource.class);
-						if(adapter != null){
+						if (adapter != null) {
 							traverse(adapter);
-						} else if(a instanceof IWorkingSet){
+						} else if (a instanceof IWorkingSet) {
 							IWorkingSet workingSet = (IWorkingSet) a;
 							traverse(workingSet);
 						}
@@ -87,7 +89,7 @@ public class GenerateAllHandler extends AbstractHandler {
 		IAdaptable[] elements = workingSet.getElements();
 		for (IAdaptable adaptable : elements) {
 			IResource resource = (IResource) adaptable.getAdapter(IResource.class);
-			if(resource != null){
+			if (resource != null) {
 				traverse(resource);
 			}
 		}
@@ -99,7 +101,7 @@ public class GenerateAllHandler extends AbstractHandler {
 			process(file);
 		} else {
 			IProject project = resource.getProject();
-			if(project != null && project.isOpen()){
+			if (project != null && project.isOpen()) {
 				resource.accept(new IResourceVisitor() {
 
 					@Override
@@ -116,29 +118,34 @@ public class GenerateAllHandler extends AbstractHandler {
 		if (resource instanceof IFile) {
 			final IFile file = (IFile) resource;
 			String fileExtension = file.getFileExtension();
-			Job job = null;
 			if (fileExtension == null) {
 				return;
 			}
+
+			Job job = null;
+			
 			if (fileExtension.equals(new CsMetaInformation().getSyntaxName())) {
 				job = new GenerateResourcePluginsJob("Generating resource project for " + file.getName(), file);
-			} else if (fileExtension.equals("genmodel")) {
+			} else if ("genmodel".equals(fileExtension)) {
 				job = new Job("Generate metamodel code job") {
 
 					@Override
 					protected IStatus run(IProgressMonitor monitor) {
 						URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 						ResourceSet rs = new ResourceSetImpl();
+						
 						@SuppressWarnings("deprecation")
 						Map<URI, URI> platformURIMap = EcorePlugin.computePlatformURIMap();
 						rs.getURIConverter().getURIMap().putAll(platformURIMap);
+
 						Resource genModelResource = rs.getResource(uri, true);
-						EList<EObject> contents = genModelResource.getContents();
+						List<EObject> contents = genModelResource.getContents();
 						for (EObject eObject : contents) {
 							if (eObject instanceof GenModel) {
 								GenModel genModel = (GenModel) eObject;
 								genModel.reconcile();
 								genModel.setCanGenerate(true);
+								
 								Generator generator = new Generator();
 								generator.setInput(genModel);
 								Set<String> types = getGeneratorTypes(file, genModel);
@@ -149,10 +156,9 @@ public class GenerateAllHandler extends AbstractHandler {
 						}
 						return Status.OK_STATUS;
 					}
-
-
 				};
 			}
+			
 			if (job != null) {
 				job.setUser(true);
 				job.schedule();
@@ -160,20 +166,32 @@ public class GenerateAllHandler extends AbstractHandler {
 		}
 	}
 
-	private static  Set<String> getGeneratorTypes(IFile file, GenModel genModel) {
+	private Set<String> getGeneratorTypes(IFile file, GenModel genModel) {
 		Set<String> typeSet = new LinkedHashSet<String>();
 		typeSet.add(GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE);
-		IWorkspaceRoot root = file.getProject().getWorkspace().getRoot();
-		String editPluginDirectory = root.getFolder(new Path(genModel.getEditPluginDirectory())).getProject().getName();
-		String editorPluginDirectory = root.getFolder(new Path(genModel.getEditorPluginDirectory())).getProject().getName();
-		IProject project = root.getProject(editPluginDirectory);
-		if(project.exists()){
+		
+		IProject project = file.getProject();
+		IWorkspace workspace = project.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
+		
+		String editPluginDirectory = genModel.getEditPluginDirectory();
+		IProject editProject = getProject(root, editPluginDirectory);
+		if (editProject.exists()) {
 			typeSet.add(GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE);
 		}
-		project = root.getProject(editorPluginDirectory);
-		if(project.exists()){
+		
+		String editorPluginDirectory = genModel.getEditorPluginDirectory();
+		IProject editorProject = getProject(root, editorPluginDirectory);
+		if (editorProject.exists()) {
 			typeSet.add(GenBaseGeneratorAdapter.EDITOR_PROJECT_TYPE);
 		}
 		return typeSet;
+	}
+
+	private IProject getProject(IWorkspaceRoot root, String directory) {
+		Path directoryPath = new Path(directory);
+		IFolder folder = root.getFolder(directoryPath);
+		IProject project = folder.getProject();
+		return project;
 	}
 }
