@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,23 +15,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER_RESOLUTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER_RESOLUTION2;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER_RESOLUTION_GENERATOR;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

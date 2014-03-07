@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 
 import java.util.Collections;
 

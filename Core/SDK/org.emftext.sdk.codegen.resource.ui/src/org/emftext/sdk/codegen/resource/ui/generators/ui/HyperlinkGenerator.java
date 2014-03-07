@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,28 +15,28 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_WORKSPACE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_WORKSPACE_ROOT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EDITING_DOMAIN;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITING_DOMAIN_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_DESCRIPTOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_PART;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HYPERLINK;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_REGION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_VIEWER_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_PAGE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKSPACE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKSPACE_ROOT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PART_INIT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_UI;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;

@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DEBUG_MODEL_PRESENTATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LABEL_PROVIDER_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LINE_BREAKPOINT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_VALUE_DETAIL_LISTENER;

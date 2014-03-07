@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -16,7 +16,11 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ENUMERATOR;
@@ -27,13 +31,9 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_R
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINTER_WRITER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import java.util.LinkedList;
 import java.util.List;

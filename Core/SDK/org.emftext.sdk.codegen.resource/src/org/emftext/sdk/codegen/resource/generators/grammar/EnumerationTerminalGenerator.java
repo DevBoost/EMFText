@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

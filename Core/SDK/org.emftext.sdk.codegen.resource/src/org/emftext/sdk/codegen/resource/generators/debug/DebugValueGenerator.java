@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

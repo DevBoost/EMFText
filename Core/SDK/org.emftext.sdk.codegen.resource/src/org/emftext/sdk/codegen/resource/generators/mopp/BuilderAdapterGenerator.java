@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INCREMENTAL_PROJECT_BUILDER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
@@ -24,7 +25,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_R
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_DELTA;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_DELTA_VISITOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE_VISITOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;

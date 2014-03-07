@@ -15,6 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFICATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
@@ -32,13 +36,9 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTI
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOOL_BAR_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_VIEWER_NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_ACTION_CONSTANTS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LISTENER_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PAGE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;

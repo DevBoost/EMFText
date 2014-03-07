@@ -15,22 +15,22 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SETTING;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER_EXTENSION5;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROJECTION_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REGION;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,20 +15,20 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ANNOTATION_MODEL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_COMPLETION_PROPOSAL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_ASSIST_INVOCATION_CONTEXT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_ASSIST_PROCESSOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POINT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_INVOCATION_CONTEXT;

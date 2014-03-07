@@ -15,10 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PROPERTY_TESTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

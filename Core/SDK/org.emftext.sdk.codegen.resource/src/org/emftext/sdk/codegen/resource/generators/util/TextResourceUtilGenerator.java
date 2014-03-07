@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;

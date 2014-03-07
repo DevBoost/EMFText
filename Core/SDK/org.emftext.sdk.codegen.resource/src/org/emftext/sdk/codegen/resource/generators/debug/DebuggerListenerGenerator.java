@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -16,7 +16,9 @@
 package org.emftext.sdk.codegen.resource.generators.debug;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ARRAY;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_READER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
@@ -26,8 +28,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIE
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MODIFIER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SERVER_SOCKET;

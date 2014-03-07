@@ -15,28 +15,28 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ARRAYS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASSIFIER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ENUM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ENUM_LITERAL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAYS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_ATTRIBUTE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASSIFIER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_ENUM;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_ENUM_LITERAL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_SET;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE_SET_IMPL;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

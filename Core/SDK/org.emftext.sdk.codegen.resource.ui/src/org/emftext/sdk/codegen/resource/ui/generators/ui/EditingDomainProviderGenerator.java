@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BASIC_COMMAND_STACK;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_EDITING_DOMAIN;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BASIC_COMMAND_STACK;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EDITING_DOMAIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

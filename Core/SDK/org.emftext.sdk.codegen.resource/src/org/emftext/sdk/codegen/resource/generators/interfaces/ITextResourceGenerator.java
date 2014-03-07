@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.interfaces;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;

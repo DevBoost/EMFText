@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASSIFIER;
@@ -23,7 +24,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_E
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_ENUM_LITERAL;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

@@ -15,10 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
@@ -27,13 +29,11 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTI
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.KEY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.KEY_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MOUSE_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MOUSE_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_CONVERTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROJECTION_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RGB;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_CHANGED_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STYLED_TEXT;

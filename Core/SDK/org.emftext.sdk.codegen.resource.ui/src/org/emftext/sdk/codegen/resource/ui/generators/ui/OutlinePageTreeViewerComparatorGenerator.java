@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPARATOR;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_PACKAGE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_PACKAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER_COMPARATOR;
 

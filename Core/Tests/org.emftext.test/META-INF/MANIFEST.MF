@@ -35,7 +35,12 @@ Require-Bundle: org.junit,
  org.emftext.sdk.codegen.newproject,
  org.eclipse.emf.edit.ui,
  org.emftext.sdk.concretesyntax.edit,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.emf.validation,
+ org.eclipse.core.expressions,
+ org.eclipse.debug.core,
+ org.eclipse.debug.ui,
+ org.eclipse.ui.workbench.texteditor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.emftext.test,
  org.emftext.test.bug674,

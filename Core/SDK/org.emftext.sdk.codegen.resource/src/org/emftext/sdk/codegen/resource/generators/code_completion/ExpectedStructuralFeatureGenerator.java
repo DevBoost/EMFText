@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,15 +15,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PUSHBACK_READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.READER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STRING_READER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FONT_DATA;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PUSHBACK_READER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.READER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SET;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRING_READER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STYLE_RANGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT_PRESENTATION;

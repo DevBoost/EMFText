@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE_CONTEXT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_UI_PLUGIN;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE_CONTEXT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DIALOG_CONSTANTS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MESSAGE_DIALOG;

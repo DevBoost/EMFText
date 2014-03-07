@@ -15,7 +15,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.analysis;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_PLUGIN;
@@ -25,13 +29,9 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_L
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RUNTIME_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SETTING;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 

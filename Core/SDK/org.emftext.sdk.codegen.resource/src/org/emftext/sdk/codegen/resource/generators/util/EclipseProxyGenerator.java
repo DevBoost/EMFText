@@ -16,7 +16,10 @@
 package org.emftext.sdk.codegen.resource.generators.util;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CONSTRAINT_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
@@ -25,7 +28,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EVA
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_NOTIFICATION_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_BATCH_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_EXTENSION_REGISTRY;
@@ -35,7 +37,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_R
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_WORKSPACE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_WORKSPACE_ROOT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MODEL_VALIDATION_SERVICE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NOTIFICATION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
@@ -45,7 +46,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RES
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import org.emftext.sdk.OptionManager;

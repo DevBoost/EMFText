@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR;
@@ -23,7 +24,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERE
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.J_FACE_TOKEN;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_CONVERTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RGB;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;

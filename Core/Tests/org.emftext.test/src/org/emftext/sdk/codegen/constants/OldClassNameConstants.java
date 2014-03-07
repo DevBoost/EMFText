@@ -13,125 +13,296 @@
  *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.resource.generators;
+package org.emftext.sdk.codegen.constants;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.PushbackReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Proxy;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.EmptyStackException;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+import javax.swing.event.DocumentListener;
+
+import org.antlr.runtime3_4_0.ANTLRInputStream;
+import org.antlr.runtime3_4_0.ANTLRStringStream;
+import org.antlr.runtime3_4_0.BitSet;
+import org.antlr.runtime3_4_0.CommonToken;
+import org.antlr.runtime3_4_0.CommonTokenStream;
+import org.antlr.runtime3_4_0.EarlyExitException;
+import org.antlr.runtime3_4_0.FailedPredicateException;
+import org.antlr.runtime3_4_0.IntStream;
+import org.antlr.runtime3_4_0.Lexer;
+import org.antlr.runtime3_4_0.MismatchedNotSetException;
+import org.antlr.runtime3_4_0.MismatchedRangeException;
+import org.antlr.runtime3_4_0.MismatchedSetException;
+import org.antlr.runtime3_4_0.MismatchedTokenException;
+import org.antlr.runtime3_4_0.MismatchedTreeNodeException;
+import org.antlr.runtime3_4_0.NoViableAltException;
+import org.antlr.runtime3_4_0.RecognitionException;
+import org.antlr.runtime3_4_0.Token;
+import org.eclipse.core.expressions.PropertyTester;
+import org.eclipse.core.resources.ICommand;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IMarkerDelta;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IProjectNature;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IResourceVisitor;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IAdapterFactory;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExecutableExtension;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.SafeRunner;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.codegen.ecore.templates.editor.Editor;
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.Enumerator;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.change.ChangeDescription;
+import org.eclipse.emf.ecore.change.util.ChangeRecorder;
+import org.eclipse.emf.ecore.impl.BasicEObjectImpl;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreValidator;
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.validation.model.ConstraintStatus;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.ILiveValidator;
+import org.eclipse.emf.validation.service.ModelValidationService;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * Constants for class names used in the generated code.
  */
-public class ClassNameConstants {
+@SuppressWarnings("restriction")
+public class OldClassNameConstants extends
+		de.devboost.codecomposers.java.ClassNameConstants {
 
 	public static String ABSTRACT_PREFERENCE_INITIALIZER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer");
+		return jc.getClassName(AbstractPreferenceInitializer.class);
 	}
 
 	public static String ADAPTER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.Adapter");
+		return jc.getClassName(Adapter.class);
 	}
 
 	public static String ADAPTER_IMPL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.impl.AdapterImpl");
+		return jc.getClassName(AdapterImpl.class);
 	}
 
 	public static String ANTLR_INPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.ANTLRInputStream");
+		return jc.getClassName(ANTLRInputStream.class);
 	}
 
 	public static String ANTLR_PARSER(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.Parser");
+		return jc.getClassName(org.antlr.runtime3_4_0.Parser.class);
 	}
 
 	public static String ANTLR_STRING_STREAM(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.ANTLRStringStream");
+		return jc.getClassName(ANTLRStringStream.class);
 	}
 
 	public static String ARRAY(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.Array");
+		return jc.getClassName(java.lang.reflect.Array.class);
 	}
 
 	public static String ARRAYS(JavaComposite jc) {
-		return getClassName(jc, "java.util.Arrays");
+		return jc.getClassName(java.util.Arrays.class);
 	}
 
 	public static String ASSERT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.Assert");
+		return jc.getClassName(Assert.class);
 	}
 
 	public static String BASIC_COMMAND_STACK(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.command.BasicCommandStack");
+		return jc.getClassName(BasicCommandStack.class);
 	}
 
 	public static String BASIC_E_LIST(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.BasicEList");
+		return jc.getClassName(BasicEList.class);
 	}
 
 	public static String BASIC_E_MAP(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.BasicEMap");
+		return jc.getClassName(BasicEMap.class);
 	}
 
 	public static String BASIC_E_OBJECT_IMPL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.impl.BasicEObjectImpl");
+		return jc.getClassName(BasicEObjectImpl.class);
 	}
 
 	public static String BASIC_INTERNAL_E_LIST(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.BasicInternalEList");
+		return jc.getClassName(BasicInternalEList.class);
 	}
 
 	public static String BIT_SET(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.BitSet");
+		return jc.getClassName(BitSet.class);
 	}
 
 	public static String BUFFERED_INPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.BufferedInputStream");
+		return jc.getClassName(BufferedInputStream.class);
 	}
 
 	public static String BUFFERED_OUTPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.BufferedOutputStream");
+		return jc.getClassName(BufferedOutputStream.class);
 	}
 
 	public static String BUFFERED_READER(JavaComposite jc) {
-		return getClassName(jc, "java.io.BufferedReader");
+		return jc.getClassName(BufferedReader.class);
 	}
 
 	public static String BUNDLE(JavaComposite jc) {
-		return getClassName(jc, "org.osgi.framework.Bundle");
+		return jc.getClassName(Bundle.class);
 	}
 
 	public static String BUNDLE_CONTEXT(JavaComposite jc) {
-		return getClassName(jc, "org.osgi.framework.BundleContext");
+		return jc.getClassName(BundleContext.class);
 	}
 
 	public static String BYTE_ARRAY_INPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.ByteArrayInputStream");
+		return jc.getClassName(ByteArrayInputStream.class);
 	}
 
 	public static String BYTE_ARRAY_OUTPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.ByteArrayOutputStream");
+		return jc.getClassName(ByteArrayOutputStream.class);
 	}
 
 	public static String CHANGE_DESCRIPTION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.change.ChangeDescription");
+		return jc.getClassName(ChangeDescription.class);
 	}
 
 	public static String CHANGE_RECORDER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.change.util.ChangeRecorder");
+		return jc.getClassName(ChangeRecorder.class);
 	}
 
 	public static String COLLECTION(JavaComposite jc) {
-		return getClassName(jc, "java.util.Collection");
+		return jc.getClassName(Collection.class);
 	}
 
 	public static String COLLECTIONS(JavaComposite jc) {
-		return getClassName(jc, "java.util.Collections");
+		return jc.getClassName(Collections.class);
 	}
 
 	public static String COMMON_TOKEN(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.CommonToken");
+		return jc.getClassName(CommonToken.class);
 	}
 
 	public static String COMMON_TOKEN_STREAM(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.CommonTokenStream");
+		return jc.getClassName(CommonTokenStream.class);
 	}
 
 	public static String COMPARABLE(JavaComposite jc) {
@@ -139,187 +310,187 @@ public class ClassNameConstants {
 	}
 
 	public static String COMPARATOR(JavaComposite jc) {
-		return getClassName(jc, "java.util.Comparator");
+		return jc.getClassName(Comparator.class);
 	}
 
 	public static String CONNECT_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.net.ConnectException");
+		return jc.getClassName(ConnectException.class);
 	}
 
 	public static String CONSTRAINT_STATUS(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.model.ConstraintStatus");
+		return jc.getClassName(ConstraintStatus.class);
 	}
 
 	public static String CORE_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.CoreException");
+		return jc.getClassName(CoreException.class);
 	}
 
 	public static String DIAGNOSTIC(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.Diagnostic");
+		return jc.getClassName(org.eclipse.emf.common.util.Diagnostic.class);
 	}
 
 	public static String DIAGNOSTICIAN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.Diagnostician");
+		return jc.getClassName(org.eclipse.emf.ecore.util.Diagnostician.class);
 	}
 
 	public static String DOCUMENT_LISTENER(JavaComposite jc) {
-		return getClassName(jc, "javax.swing.event.DocumentListener");
+		return jc.getClassName(DocumentListener.class);
 	}
 
 	public static String EARLY_EXIT_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.EarlyExitException");
+		return jc.getClassName(EarlyExitException.class);
 	}
 
 	public static String ECORE_FACTORY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EcoreFactory");
+		return jc.getClassName(EcoreFactory.class);
 	}
 
 	public static String ECORE_PLUGIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.plugin.EcorePlugin");
+		return jc.getClassName(EcorePlugin.class);
 	}
 
 	public static String ECORE_UTIL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreUtil");
+		return jc.getClassName(EcoreUtil.class);
 	}
 
 	public static String ECORE_UTIL_EQUALITY_HELPER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper");
+		return jc.getClassName(EcoreUtil.EqualityHelper.class);
 	}
 
 	public static String ECORE_VALIDATOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.EcoreValidator");
+		return jc.getClassName(EcoreValidator.class);
 	}
 
 	public static String EDITOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.codegen.ecore.templates.editor.Editor");
+		return jc.getClassName(Editor.class);
 	}
 
 	public static String EMF_MODEL_VALIDATION_PLUGIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.internal.EMFModelValidationPlugin");
+		return jc.getClassName(org.eclipse.emf.validation.internal.EMFModelValidationPlugin.class);
 	}
 
 	public static String EMPTY_STACK_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.util.EmptyStackException");
+		return jc.getClassName(EmptyStackException.class);
 	}
 
 	public static String ENUMERATOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.Enumerator");
+		return jc.getClassName(Enumerator.class);
 	}
 
 	public static String EVALUATION_MODE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.model.EvaluationMode");
+		return jc.getClassName(EvaluationMode.class);
 	}
 
 	public static String E_ATTRIBUTE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EAttribute");
+		return jc.getClassName(EAttribute.class);
 	}
 
 	public static String E_CLASS(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EClass");
+		return jc.getClassName(EClass.class);
 	}
 
 	public static String E_CLASSIFIER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EClassifier");
+		return jc.getClassName(EClassifier.class);
 	}
 
 	public static String E_DATA_TYPE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EDataType");
+		return jc.getClassName(EDataType.class);
 	}
 
 	public static String E_ENUM(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EEnum");
+		return jc.getClassName(EEnum.class);
 	}
 
 	public static String E_ENUM_LITERAL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EEnumLiteral");
+		return jc.getClassName(EEnumLiteral.class);
 	}
 
 	public static String E_FACTORY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EFactory");
+		return jc.getClassName(EFactory.class);
 	}
 
 	public static String E_LIST(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.EList");
+		return jc.getClassName(EList.class);
 	}
 
 	public static String E_MAP(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.EMap");
+		return jc.getClassName(EMap.class);
 	}
 
 	public static String E_NOTIFICATION_IMPL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.impl.ENotificationImpl");
+		return jc.getClassName(ENotificationImpl.class);
 	}
 
 	public static String E_OBJECT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EObject");
+		return jc.getClassName(EObject.class);
 	}
 
 	public static String E_OBJECT_IMPL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.impl.EObjectImpl");
+		return jc.getClassName(EObjectImpl.class);
 	}
 
 	public static String E_OPERATION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EOperation");
+		return jc.getClassName(EOperation.class);
 	}
 
 	public static String E_PACKAGE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EPackage");
+		return jc.getClassName(EPackage.class);
 	}
 
 	public static String E_REFERENCE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EReference");
+		return jc.getClassName(EReference.class);
 	}
 
 	public static String E_STRUCTURAL_FEATURE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EStructuralFeature");
+		return jc.getClassName(EStructuralFeature.class);
 	}
 
 	public static String FAILED_PREDICATE_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.FailedPredicateException");
+		return jc.getClassName(FailedPredicateException.class);
 	}
 
 	public static String FEATURE_MAP(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.FeatureMap");
+		return jc.getClassName(FeatureMap.class);
 	}
 
 	public static String FIELD(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.Field");
+		return jc.getClassName(Field.class);
 	}
 
 	public static String FILE(JavaComposite jc) {
-		return getClassName(jc, "java.io.File");
+		return jc.getClassName(File.class);
 	}
 
 	public static String FILE_INPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.FileInputStream");
+		return jc.getClassName(FileInputStream.class);
 	}
 
 	public static String FILE_LOCATOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.FileLocator");
+		return jc.getClassName(FileLocator.class);
 	}
 
 	public static String FILE_NOT_FOUND_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.io.FileNotFoundException");
+		return jc.getClassName(FileNotFoundException.class);
 	}
 
 	public static String FILE_OUTPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.FileOutputStream");
+		return jc.getClassName(FileOutputStream.class);
 	}
 
 	public static String GEN_CLASS(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.codegen.ecore.genmodel.GenClass");
+		return jc.getClassName(GenClass.class);
 	}
 
 	public static String GEN_FEATURE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.codegen.ecore.genmodel.GenFeature");
+		return jc.getClassName(GenFeature.class);
 	}
 
 	public static String GEN_PACKAGE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.codegen.ecore.genmodel.GenPackage");
+		return jc.getClassName(GenPackage.class);
 	}
 
 	public static String IDENTITY_HASH_MAP(JavaComposite jc) {
-		return getClassName(jc, "java.util.IdentityHashMap");
+		return jc.getClassName(IdentityHashMap.class);
 	}
 
 	public static String ILLEGAL_ACCESS_EXCEPTION(JavaComposite jc) {
@@ -331,235 +502,256 @@ public class ClassNameConstants {
 	}
 
 	public static String INCREMENTAL_PROJECT_BUILDER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IncrementalProjectBuilder");
+		return jc.getClassName(IncrementalProjectBuilder.class);
 	}
 
 	public static String INPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.InputStream");
+		return jc.getClassName(InputStream.class);
 	}
 
 	public static String INPUT_STREAM_READER(JavaComposite jc) {
-		return getClassName(jc, "java.io.InputStreamReader");
+		return jc.getClassName(InputStreamReader.class);
 	}
 
 	public static String INTERNAL_E_LIST(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.util.InternalEList");
+		return jc.getClassName(InternalEList.class);
 	}
 
 	public static String INTERNAL_E_OBJECT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.InternalEObject");
+		return jc.getClassName(InternalEObject.class);
 	}
 
 	public static String INT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.IntStream");
+		return jc.getClassName(IntStream.class);
 	}
 
 	public static String INVOCATION_HANDLER(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.InvocationHandler");
+		return jc.getClassName(InvocationHandler.class);
 	}
 
 	public static String INVOCATION_TARGET_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.InvocationTargetException");
+		return jc.getClassName(InvocationTargetException.class);
 	}
 
 	public static String IO_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.io.IOException");
+		return jc.getClassName(IOException.class);
+	}
+
+	public static String ITERATOR(JavaComposite jc) {
+		return jc.getClassName(Iterator.class);
 	}
 
 	public static String I_ADAPTABLE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IAdaptable");
+		return jc.getClassName(org.eclipse.core.runtime.IAdaptable.class);
 	}
 
 	public static String I_ADAPTER_FACTORY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IAdapterFactory");
+		return jc.getClassName(IAdapterFactory.class);
 	}
 
 	public static String I_BATCH_VALIDATOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.service.IBatchValidator");
+		return jc.getClassName(IBatchValidator.class);
 	}
 
 	public static String I_COMMAND(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.ICommand");
+		return jc.getClassName(ICommand.class);
 	}
 
 	public static String I_CONFIGURATION_ELEMENT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IConfigurationElement");
+		return jc.getClassName(IConfigurationElement.class);
 	}
 
 	public static String I_CONTAINER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IContainer");
+		return jc.getClassName(IContainer.class);
 	}
 
 	public static String I_EXECUTABLE_EXTENSION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IExecutableExtension");
+		return jc.getClassName(IExecutableExtension.class);
 	}
 
 	public static String I_EXTENSION_REGISTRY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IExtensionRegistry");
+		return jc.getClassName(IExtensionRegistry.class);
 	}
 
 	public static String I_FILE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IFile");
+		return jc.getClassName(IFile.class);
 	}
 
 	public static String I_LIVE_VALIDATOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.service.ILiveValidator");
+		return jc.getClassName(ILiveValidator.class);
 	}
 
 	public static String I_MARKER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IMarker");
+		return jc.getClassName(IMarker.class);
 	}
 
 	public static String I_MARKER_DELTA(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IMarkerDelta");
+		return jc.getClassName(IMarkerDelta.class);
 	}
 
 	public static String I_PATH(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IPath");
+		return jc.getClassName(IPath.class);
 	}
 
 	public static String I_PROGRESS_MONITOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IProgressMonitor");
+		return jc.getClassName(IProgressMonitor.class);
 	}
 
 	public static String I_PROJECT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IProject");
+		return jc.getClassName(IProject.class);
 	}
 
 	public static String I_PROJECT_DESCRIPTION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IProjectDescription");
+		return jc.getClassName(IProjectDescription.class);
 	}
 
 	public static String I_PROJECT_NATURE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IProjectNature");
+		return jc.getClassName(IProjectNature.class);
 	}
 
 	public static String I_RESOURCE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IResource");
+		return jc.getClassName(IResource.class);
 	}
 
 	public static String I_RESOURCE_CHANGE_EVENT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IResourceChangeEvent");
+		return jc.getClassName(IResourceChangeEvent.class);
 	}
 
 	public static String I_RESOURCE_CHANGE_LISTENER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IResourceChangeListener");
+		return jc.getClassName(IResourceChangeListener.class);
 	}
 
 	public static String I_RESOURCE_DELTA(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IResourceDelta");
+		return jc.getClassName(IResourceDelta.class);
 	}
 
 	public static String I_RESOURCE_DELTA_VISITOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IResourceDeltaVisitor");
+		return jc.getClassName(IResourceDeltaVisitor.class);
 	}
 
 	public static String I_RESOURCE_VISITOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IResourceVisitor");
+		return jc.getClassName(IResourceVisitor.class);
 	}
 
 	public static String I_STATUS(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.IStatus");
+		return jc.getClassName(IStatus.class);
 	}
 
 	public static String I_WORKSPACE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IWorkspace");
+		return jc.getClassName(IWorkspace.class);
 	}
 
 	public static String I_WORKSPACE_ROOT(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IWorkspaceRoot");
+		return jc.getClassName(IWorkspaceRoot.class);
 	}
 
 	public static String I_WORKSPACE_RUNNABLE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.IWorkspaceRunnable");
+		return jc.getClassName(IWorkspaceRunnable.class);
 	}
 
 	public static String JOB(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.jobs.Job");
+		return jc.getClassName(org.eclipse.core.runtime.jobs.Job.class);
 	}
 
 	public static String LEXER(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.Lexer");
+		return jc.getClassName(Lexer.class);
+	}
+
+	public static String LINKED_HASH_MAP(JavaComposite jc) {
+		return jc.getClassName(LinkedHashMap.class);
+	}
+
+	public static String LINKED_HASH_SET(JavaComposite jc) {
+		return jc.getClassName(LinkedHashSet.class);
 	}
 
 	public static String LINKED_LIST(JavaComposite jc) {
-		return getClassName(jc, "java.util.LinkedList");
+		return jc.getClassName(LinkedList.class);
 	}
 
 	public static String LISTENER_LIST(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.ListenerList");
+		return jc.getClassName(ListenerList.class);
 	}
 
 	public static String LIST_ITERATOR(JavaComposite jc) {
-		return getClassName(jc, "java.util.ListIterator");
+		return jc.getClassName(ListIterator.class);
 	}
 
 	public static String MALFORMED_URL_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.net.MalformedURLException");
+		return jc.getClassName(MalformedURLException.class);
 	}
 
 	public static String MANY_INVERSE(JavaComposite jc) {
-		return jc.getClassName("org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList.ManyInverse");
+		return jc
+				.getClassName(EObjectWithInverseResolvingEList.ManyInverse.class);
+	}
+
+	public static String MAP(JavaComposite jc) {
+		return jc.getClassName(Map.class);
+	}
+
+	public static String MAP_ENTRY(JavaComposite jc) {
+		return jc.getClassName(Map.Entry.class);
 	}
 
 	public static String MATCHER(JavaComposite jc) {
-		return getClassName(jc, "java.util.regex.Matcher");
+		return jc.getClassName(Matcher.class);
 	}
 
 	public static String MESSAGE_DIGEST(JavaComposite jc) {
-		return getClassName(jc, "java.security.MessageDigest");
+		return jc.getClassName(MessageDigest.class);
 	}
 
 	public static String METHOD(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.Method");
+		return jc.getClassName(java.lang.reflect.Method.class);
 	}
 
 	public static String MISMATCHED_NOT_SET_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.MismatchedNotSetException");
+		return jc.getClassName(MismatchedNotSetException.class);
 	}
 
 	public static String MISMATCHED_RANGE_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.MismatchedRangeException");
+		return jc.getClassName(MismatchedRangeException.class);
 	}
 
 	public static String MISMATCHED_SET_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.MismatchedSetException");
+		return jc.getClassName(MismatchedSetException.class);
 	}
 
 	public static String MISMATCHED_TOKEN_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.MismatchedTokenException");
+		return jc.getClassName(MismatchedTokenException.class);
 	}
 
 	public static String MISMATCHED_TREE_NODE_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.MismatchedTreeNodeException");
+		return jc.getClassName(MismatchedTreeNodeException.class);
 	}
 
 	public static String MISSING_RESOURCE_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.util.MissingResourceException");
+		return jc.getClassName(MissingResourceException.class);
 	}
 
 	public static String MODEL_VALIDATION_SERVICE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.validation.service.ModelValidationService");
+		return jc.getClassName(ModelValidationService.class);
 	}
 
 	public static String MODIFIER(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.Modifier");
+		return jc.getClassName(java.lang.reflect.Modifier.class);
 	}
 
 	public static String NOTIFICATION(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.Notification");
+		return jc.getClassName(Notification.class);
 	}
 
 	public static String NOTIFICATION_CHAIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.NotificationChain");
+		return jc.getClassName(NotificationChain.class);
 	}
 
 	public static String NOTIFIER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.notify.Notifier");
+		return jc.getClassName(Notifier.class);
 	}
 
 	public static String NO_SUCH_ALGORITHM_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.security.NoSuchAlgorithmException");
+		return jc.getClassName(NoSuchAlgorithmException.class);
 	}
 
 	public static String NO_SUCH_FIELD_EXCEPTION(JavaComposite jc) {
@@ -567,7 +759,7 @@ public class ClassNameConstants {
 	}
 
 	public static String NO_VIABLE_ALT_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.NoViableAltException");
+		return jc.getClassName(NoViableAltException.class);
 	}
 
 	public static String NULL_POINTER_EXCEPTION(JavaComposite jc) {
@@ -575,91 +767,91 @@ public class ClassNameConstants {
 	}
 
 	public static String OUTPUT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.OutputStream");
+		return jc.getClassName(OutputStream.class);
 	}
 
 	public static String OUTPUT_STREAM_WRITER(JavaComposite jc) {
-		return getClassName(jc, "java.io.OutputStreamWriter");
+		return jc.getClassName(OutputStreamWriter.class);
 	}
 
 	public static String PATH(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.Path");
+		return jc.getClassName(Path.class);
 	}
 
 	public static String PATTERN(JavaComposite jc) {
-		return getClassName(jc, "java.util.regex.Pattern");
+		return jc.getClassName(java.util.regex.Pattern.class);
 	}
 
 	public static String PLATFORM(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.Platform");
+		return jc.getClassName(Platform.class);
 	}
 
 	public static String PLUGIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.Plugin");
+		return jc.getClassName(Plugin.class);
 	}
 
 	public static String PRINTER_WRITER(JavaComposite jc) {
-		return getClassName(jc, "java.io.PrintWriter");
+		return jc.getClassName(PrintWriter.class);
 	}
 
 	public static String PRINT_STREAM(JavaComposite jc) {
-		return getClassName(jc, "java.io.PrintStream");
+		return jc.getClassName(PrintStream.class);
 	}
 
 	public static String PROPERTY_TESTER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.expressions.PropertyTester");
+		return jc.getClassName(PropertyTester.class);
 	}
 
 	public static String PROXY(JavaComposite jc) {
-		return getClassName(jc, "java.lang.reflect.Proxy");
+		return jc.getClassName(Proxy.class);
 	}
 
 	public static String PUSHBACK_READER(JavaComposite jc) {
-		return getClassName(jc, "java.io.PushbackReader");
+		return jc.getClassName(PushbackReader.class);
 	}
 
 	public static String READER(JavaComposite jc) {
-		return getClassName(jc, "java.io.Reader");
+		return jc.getClassName(Reader.class);
 	}
 
 	public static String RECOGNITION_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.RecognitionException");
+		return jc.getClassName(RecognitionException.class);
 	}
 
 	public static String RECOGNIZER_SHARED_STATE(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.RecognizerSharedState");
+		return jc.getClassName(org.antlr.runtime3_4_0.RecognizerSharedState.class);
 	}
 
 	public static String RESOURCE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.resource.Resource");
+		return jc.getClassName(org.eclipse.emf.ecore.resource.Resource.class);
 	}
 
 	public static String RESOURCES_PLUGIN(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.resources.ResourcesPlugin");
+		return jc.getClassName(ResourcesPlugin.class);
 	}
 
 	public static String RESOURCE_BUNDLE(JavaComposite jc) {
-		return getClassName(jc, "java.util.ResourceBundle");
+		return jc.getClassName(ResourceBundle.class);
 	}
 
 	public static String RESOURCE_DIAGNOSTIC(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.resource.Resource.Diagnostic");
+		return jc.getClassName(Diagnostic.class);
 	}
 
 	public static String RESOURCE_FACTORY(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.resource.Resource.Factory");
+		return jc.getClassName(Resource.Factory.class);
 	}
 
 	public static String RESOURCE_IMPL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.resource.impl.ResourceImpl");
+		return jc.getClassName(ResourceImpl.class);
 	}
 
 	public static String RESOURCE_SET(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.resource.ResourceSet");
+		return jc.getClassName(ResourceSet.class);
 	}
 
 	public static String RESOURCE_SET_IMPL(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.resource.impl.ResourceSetImpl");
+		return jc.getClassName(ResourceSetImpl.class);
 	}
 
 	public static String RUNTIME_EXCEPTION(JavaComposite jc) {
@@ -667,7 +859,7 @@ public class ClassNameConstants {
 	}
 
 	public static String SAFE_RUNNER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.SafeRunner");
+		return jc.getClassName(SafeRunner.class);
 	}
 
 	public static String SECURITY_EXCEPTION(JavaComposite jc) {
@@ -675,83 +867,87 @@ public class ClassNameConstants {
 	}
 
 	public static String SERVER_SOCKET(JavaComposite jc) {
-		return getClassName(jc, "java.net.ServerSocket");
+		return jc.getClassName(ServerSocket.class);
+	}
+
+	public static String SET(JavaComposite jc) {
+		return jc.getClassName(Set.class);
 	}
 
 	public static String SETTING(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.EStructuralFeature.Setting");
+		return jc.getClassName(Setting.class);
 	}
 
 	public static String SOCKET(JavaComposite jc) {
-		return getClassName(jc, "java.net.Socket");
+		return jc.getClassName(Socket.class);
 	}
 
 	public static String STACK(JavaComposite jc) {
-		return getClassName(jc, "java.util.Stack");
+		return jc.getClassName(Stack.class);
 	}
 
 	public static String STATUS(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.Status");
+		return jc.getClassName(Status.class);
 	}
 
 	public static String STRING_READER(JavaComposite jc) {
-		return getClassName(jc, "java.io.StringReader");
+		return jc.getClassName(StringReader.class);
 	}
 
 	public static String STRING_WRITER(JavaComposite jc) {
-		return getClassName(jc, "java.io.StringWriter");
+		return jc.getClassName(StringWriter.class);
 	}
 
 	public static String SUB_PROGRESS_MONITOR(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.SubProgressMonitor");
+		return jc.getClassName(SubProgressMonitor.class);
 	}
 
 	public static String TIMER(JavaComposite jc) {
-		return getClassName(jc, "java.util.Timer");
+		return jc.getClassName(Timer.class);
 	}
 
 	public static String TIMER_TASK(JavaComposite jc) {
-		return getClassName(jc, "java.util.TimerTask");
+		return jc.getClassName(TimerTask.class);
 	}
 
 	public static String TOKEN(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.Token");
+		return jc.getClassName(Token.class);
 	}
 
 	public static String TOKEN_STREAM(JavaComposite jc) {
-		return getClassName(jc, "org.antlr.runtime3_4_0.TokenStream");
+		return jc.getClassName(org.antlr.runtime3_4_0.TokenStream.class);
 	}
 
 	public static String TREE_MAP(JavaComposite jc) {
-		return getClassName(jc, "java.util.TreeMap");
+		return jc.getClassName(TreeMap.class);
 	}
 
 	public static String UNKNOWN_HOST_EXCEPTION(JavaComposite jc) {
-		return getClassName(jc, "java.net.UnknownHostException");
+		return jc.getClassName(UnknownHostException.class);
 	}
 
 	public static String URI(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.common.util.URI");
+		return jc.getClassName(org.eclipse.emf.common.util.URI.class);
 	}
 
 	public static String URI_CONVERTER(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.emf.ecore.resource.URIConverter");
+		return jc.getClassName(URIConverter.class);
 	}
 
 	public static String URL(JavaComposite jc) {
-		return getClassName(jc, "java.net.URL");
+		return jc.getClassName(URL.class);
 	}
 
 	public static String ZIP_ENTRY(JavaComposite jc) {
-		return getClassName(jc, "java.util.zip.ZipEntry");
+		return jc.getClassName(ZipEntry.class);
 	}
 
 	public static String ZIP_FILE(JavaComposite jc) {
-		return getClassName(jc, "java.util.zip.ZipFile");
+		return jc.getClassName(ZipFile.class);
 	}
 
 	public static String I_SCHEDULING_RULE(JavaComposite jc) {
-		return getClassName(jc, "org.eclipse.core.runtime.jobs.ISchedulingRule");
+		return jc.getClassName(ISchedulingRule.class);
 	}
 
 	// for the classes contained in the org.eclipse.debug plug-in, we use string
@@ -869,12 +1065,6 @@ public class ClassNameConstants {
 	}
 
 	public static String LOCALE(JavaComposite jc) {
-		return getClassName(jc, "java.util.Locale");
-	}
-
-	private static String getClassName(JavaComposite jc,
-			String qualifiedClassName) {
-		return de.devboost.codecomposers.java.ClassNameConstants.getClassName(
-				jc, qualifiedClassName);
+		return jc.getClassName(Locale.class);
 	}
 }

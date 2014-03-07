@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -16,7 +16,10 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ANTLR_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ANTLR_STRING_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BIT_SET;
@@ -33,10 +36,7 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INP
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LEXER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RECOGNITION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
 
 import java.io.PrintWriter;

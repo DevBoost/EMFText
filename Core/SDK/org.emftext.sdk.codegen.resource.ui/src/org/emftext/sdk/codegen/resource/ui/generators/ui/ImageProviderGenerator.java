@@ -15,24 +15,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIELD;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE_LOCATOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ACCESS_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PATH;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MALFORMED_URL_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.NO_SUCH_FIELD_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SECURITY_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE_DESCRIPTOR;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PATH;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SHARED_IMAGES;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_UI;
 
-import org.eclipse.ui.ISharedImages;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
@@ -105,7 +104,7 @@ public class ImageProviderGenerator extends UIJavaBaseGenerator<ArtifactParamete
 		sc.addJavadoc(
 			"Returns the image associated with the given key. " +
 			"The key can be either a path to an image file in the resource bundle or " +
-			"a shared image from " + ISharedImages.class.getName() + "."
+			"a shared image from " + I_SHARED_IMAGES(null) + "."
 		);
 		sc.add("public " + IMAGE(sc) + " getImage(String key) {");
 		sc.add("if (key == null) {");

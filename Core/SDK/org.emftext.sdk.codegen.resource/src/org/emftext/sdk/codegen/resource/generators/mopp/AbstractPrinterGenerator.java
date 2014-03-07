@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;

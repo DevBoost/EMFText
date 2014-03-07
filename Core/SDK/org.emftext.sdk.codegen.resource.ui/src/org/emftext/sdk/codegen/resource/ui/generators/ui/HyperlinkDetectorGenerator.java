@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,16 +15,16 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HYPERLINK;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HYPERLINK_DETECTOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_REGION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REGION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

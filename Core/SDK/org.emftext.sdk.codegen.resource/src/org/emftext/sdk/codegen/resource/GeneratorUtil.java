@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.antlr.Constants.DEFAULT_ANTLR_PLUGIN_NAME;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ADAPTER;
@@ -26,10 +28,8 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_S
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIELD;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LOCALE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MISSING_RESOURCE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_BUNDLE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TOKEN;
 
 import java.io.File;

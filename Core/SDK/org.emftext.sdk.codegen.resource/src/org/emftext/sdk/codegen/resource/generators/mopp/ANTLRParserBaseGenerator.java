@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -16,6 +16,7 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ANTLR_PARSER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMMON_TOKEN;
@@ -23,7 +24,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_O
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT_IMPL;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INVOCATION_HANDLER;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.METHOD;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PROXY;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RECOGNIZER_SHARED_STATE;

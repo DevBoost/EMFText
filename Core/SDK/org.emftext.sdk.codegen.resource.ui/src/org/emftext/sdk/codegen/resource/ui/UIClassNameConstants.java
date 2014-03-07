@@ -15,2183 +15,1159 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.PushbackReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Proxy;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.regex.Matcher;
-
-import javax.swing.event.DocumentListener;
-
-import org.antlr.runtime3_4_0.ANTLRInputStream;
-import org.antlr.runtime3_4_0.ANTLRStringStream;
-import org.antlr.runtime3_4_0.BitSet;
-import org.antlr.runtime3_4_0.CommonToken;
-import org.antlr.runtime3_4_0.CommonTokenStream;
-import org.antlr.runtime3_4_0.EarlyExitException;
-import org.antlr.runtime3_4_0.FailedPredicateException;
-import org.antlr.runtime3_4_0.IntStream;
-import org.antlr.runtime3_4_0.Lexer;
-import org.antlr.runtime3_4_0.MismatchedNotSetException;
-import org.antlr.runtime3_4_0.MismatchedRangeException;
-import org.antlr.runtime3_4_0.MismatchedSetException;
-import org.antlr.runtime3_4_0.MismatchedTokenException;
-import org.antlr.runtime3_4_0.MismatchedTreeNodeException;
-import org.antlr.runtime3_4_0.NoViableAltException;
-import org.antlr.runtime3_4_0.RecognitionException;
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.filebuffers.IAnnotationModelFactory;
-import org.eclipse.core.resources.ICommand;
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IProjectNature;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.IStorage;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.SafeRunner;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchConfigurationType;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.core.model.ILineBreakpoint;
-import org.eclipse.debug.internal.ui.viewers.model.provisional.IChildrenCountUpdate;
-import org.eclipse.debug.internal.ui.viewers.model.provisional.IChildrenUpdate;
-import org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider;
-import org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider;
-import org.eclipse.debug.internal.ui.viewers.model.provisional.IHasChildrenUpdate;
-import org.eclipse.debug.internal.ui.viewers.model.provisional.ILabelUpdate;
-import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
-import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
-import org.eclipse.debug.ui.DebugUITools;
-import org.eclipse.debug.ui.IDebugModelPresentation;
-import org.eclipse.debug.ui.ILaunchConfigurationDialog;
-import org.eclipse.debug.ui.ILaunchConfigurationTab;
-import org.eclipse.debug.ui.ILaunchShortcut2;
-import org.eclipse.debug.ui.IValueDetailListener;
-import org.eclipse.debug.ui.actions.IToggleBreakpointsTarget;
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.codegen.ecore.templates.editor.Editor;
-import org.eclipse.emf.common.command.BasicCommandStack;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.common.ui.viewer.IViewerProvider;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.BasicEMap;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.edit.domain.IEditingDomainProvider;
-import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IViewerNotification;
-import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
-import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider.ViewerRefresh;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
-import org.eclipse.emf.edit.ui.provider.PropertySource;
-import org.eclipse.emf.validation.model.ConstraintStatus;
-import org.eclipse.emf.validation.model.EvaluationMode;
-import org.eclipse.emf.validation.service.IBatchValidator;
-import org.eclipse.emf.validation.service.ModelValidationService;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.GroupMarker;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.ColorSelector;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
-import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.text.AbstractInformationControl;
-import org.eclipse.jface.text.AbstractReusableInformationControlCreator;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.BadPositionCategoryException;
-import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
-import org.eclipse.jface.text.DefaultInformationControl;
-import org.eclipse.jface.text.Document;
-import org.eclipse.jface.text.DocumentCommand;
-import org.eclipse.jface.text.DocumentEvent;
-import org.eclipse.jface.text.IAutoEditStrategy;
-import org.eclipse.jface.text.IDelayedInputChangeProvider;
-import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.IDocumentExtension3;
-import org.eclipse.jface.text.IDocumentListener;
-import org.eclipse.jface.text.IInformationControl;
-import org.eclipse.jface.text.IInformationControlCreator;
-import org.eclipse.jface.text.IInformationControlExtension2;
-import org.eclipse.jface.text.IInformationControlExtension4;
-import org.eclipse.jface.text.IInputChangedListener;
-import org.eclipse.jface.text.IRegion;
-import org.eclipse.jface.text.ITextHover;
-import org.eclipse.jface.text.ITextHoverExtension;
-import org.eclipse.jface.text.ITextHoverExtension2;
-import org.eclipse.jface.text.ITextOperationTarget;
-import org.eclipse.jface.text.ITextPresentationListener;
-import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.jface.text.ITextViewer;
-import org.eclipse.jface.text.ITextViewerExtension5;
-import org.eclipse.jface.text.ITypedRegion;
-import org.eclipse.jface.text.Position;
-import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.TextAttribute;
-import org.eclipse.jface.text.TextPresentation;
-import org.eclipse.jface.text.TextSelection;
-import org.eclipse.jface.text.TextUtilities;
-import org.eclipse.jface.text.TextViewer;
-import org.eclipse.jface.text.contentassist.CompletionProposal;
-import org.eclipse.jface.text.contentassist.ContentAssistant;
-import org.eclipse.jface.text.contentassist.ContextInformation;
-import org.eclipse.jface.text.contentassist.ICompletionProposal;
-import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-import org.eclipse.jface.text.contentassist.IContentAssistant;
-import org.eclipse.jface.text.contentassist.IContextInformation;
-import org.eclipse.jface.text.contentassist.IContextInformationValidator;
-import org.eclipse.jface.text.hyperlink.IHyperlink;
-import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
-import org.eclipse.jface.text.presentation.IPresentationReconciler;
-import org.eclipse.jface.text.presentation.PresentationReconciler;
-import org.eclipse.jface.text.quickassist.IQuickAssistAssistant;
-import org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext;
-import org.eclipse.jface.text.quickassist.IQuickAssistProcessor;
-import org.eclipse.jface.text.quickassist.IQuickFixableAnnotation;
-import org.eclipse.jface.text.quickassist.QuickAssistAssistant;
-import org.eclipse.jface.text.reconciler.IReconciler;
-import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
-import org.eclipse.jface.text.reconciler.MonoReconciler;
-import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
-import org.eclipse.jface.text.rules.IToken;
-import org.eclipse.jface.text.rules.ITokenScanner;
-import org.eclipse.jface.text.source.Annotation;
-import org.eclipse.jface.text.source.DefaultAnnotationHover;
-import org.eclipse.jface.text.source.IAnnotationAccessExtension;
-import org.eclipse.jface.text.source.IAnnotationHover;
-import org.eclipse.jface.text.source.IAnnotationModel;
-import org.eclipse.jface.text.source.ISourceViewer;
-import org.eclipse.jface.text.source.IVerticalRuler;
-import org.eclipse.jface.text.source.SourceViewerConfiguration;
-import org.eclipse.jface.text.source.TextInvocationContext;
-import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
-import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
-import org.eclipse.jface.text.source.projection.ProjectionSupport;
-import org.eclipse.jface.text.source.projection.ProjectionViewer;
-import org.eclipse.jface.util.SafeRunnable;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.IElementComparer;
-import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.StructuredViewer;
-import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerComparator;
-import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.jface.window.Window;
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTError;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.LocationListener;
-import org.eclipse.swt.browser.OpenWindowListener;
-import org.eclipse.swt.browser.ProgressAdapter;
-import org.eclipse.swt.browser.ProgressEvent;
-import org.eclipse.swt.browser.WindowEvent;
-import org.eclipse.swt.custom.BusyIndicator;
-import org.eclipse.swt.custom.StyleRange;
-import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.custom.VerifyKeyListener;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.FontMetrics;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.ImageLoader;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.graphics.TextLayout;
-import org.eclipse.swt.graphics.TextStyle;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.program.Program;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Dialog;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Link;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.ScrollBar;
-import org.eclipse.swt.widgets.Scrollable;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Slider;
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IMarkerResolution;
-import org.eclipse.ui.IMarkerResolution2;
-import org.eclipse.ui.IMarkerResolutionGenerator;
-import org.eclipse.ui.IMemento;
-import org.eclipse.ui.INewWizard;
-import org.eclipse.ui.IPartListener2;
-import org.eclipse.ui.ISelectionService;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.IStorageEditorInput;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchActionConstants;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPartReference;
-import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.eclipse.ui.IWorkingSet;
-import org.eclipse.ui.IWorkingSetManager;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.XMLMemento;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.eclipse.ui.contexts.IContextService;
-import org.eclipse.ui.dialogs.ContainerSelectionDialog;
-import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.dialogs.ISelectionStatusValidator;
-import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
-import org.eclipse.ui.editors.text.EditorsUI;
-import org.eclipse.ui.editors.text.FileDocumentProvider;
-import org.eclipse.ui.editors.text.TextEditor;
-import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
-import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.model.WorkbenchContentProvider;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.part.IPageSite;
-import org.eclipse.ui.part.Page;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
-import org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel;
-import org.eclipse.ui.texteditor.ContentAssistAction;
-import org.eclipse.ui.texteditor.ITextEditor;
-import org.eclipse.ui.texteditor.ITextEditorActionConstants;
-import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
-import org.eclipse.ui.texteditor.MarkerAnnotation;
-import org.eclipse.ui.texteditor.ResourceMarkerAnnotationModel;
-import org.eclipse.ui.texteditor.SelectMarkerRulerAction;
-import org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector;
-import org.eclipse.ui.texteditor.spelling.SpellingProblem;
-import org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy;
-import org.eclipse.ui.texteditor.spelling.SpellingService;
-import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.eclipse.ui.views.properties.IPropertySheetPage;
-import org.eclipse.ui.views.properties.IPropertySource;
-import org.eclipse.ui.views.properties.PropertySheetPage;
-import org.eclipse.ui.wizards.IWizardCategory;
-import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
-import org.emftext.sdk.codegen.resource.generators.ClassNameConstants;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-
 import de.devboost.codecomposers.java.JavaComposite;
 
 /**
  * Constants for class names used in the generated code.
  */
-@SuppressWarnings("restriction")
-public class UIClassNameConstants extends ClassNameConstants {
+public class UIClassNameConstants {
 
 	public static String ABSTRACT_HANDLER(JavaComposite jc) {
-		return jc.getClassName(AbstractHandler.class);
+		return getClassName(jc, "org.eclipse.core.commands.AbstractHandler");
 	}
 
 	public static String ABSTRACT_INFORMATION_CONTROL(JavaComposite jc) {
-		return jc.getClassName(AbstractInformationControl.class);
+		return getClassName(jc, "org.eclipse.jface.text.AbstractInformationControl");
 	}
 
 	public static String ABSTRACT_LAUNCH_CONFIGURATION_TAB(JavaComposite jc) {
-		return jc.getClassName(AbstractLaunchConfigurationTab.class);
+		return getClassName(jc, "org.eclipse.debug.ui.AbstractLaunchConfigurationTab");
 	}
 
 	public static String ABSTRACT_LAUNCH_CONFIGURATION_TAB_GROUP(
 			JavaComposite jc) {
-		return jc.getClassName(AbstractLaunchConfigurationTabGroup.class
-				.getName());
+		return getClassName(jc, "org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup");
 	}
 
 	public static String ABSTRACT_MARKER_ANNOTATION_MODEL(JavaComposite jc) {
-		return jc.getClassName(AbstractMarkerAnnotationModel.class);
-	}
-
-	public static String ABSTRACT_PREFERENCE_INITIALIZER(JavaComposite jc) {
-		return jc.getClassName(AbstractPreferenceInitializer.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel");
 	}
 
 	public static String ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR(
 			JavaComposite jc) {
-		return jc.getClassName(AbstractReusableInformationControlCreator.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.text.AbstractReusableInformationControlCreator");
 	}
 
 	public static String ABSTRACT_UI_PLUGIN(JavaComposite jc) {
-		return jc.getClassName(AbstractUIPlugin.class);
+		return getClassName(jc, "org.eclipse.ui.plugin.AbstractUIPlugin");
 	}
 
 	public static String ACTION(JavaComposite jc) {
-		return jc.getClassName(Action.class);
-	}
-
-	public static String ADAPTER(JavaComposite jc) {
-		return jc.getClassName(Adapter.class);
+		return getClassName(jc, "org.eclipse.jface.action.Action");
 	}
 
 	public static String ADAPTER_FACTORY(JavaComposite jc) {
-		return jc.getClassName(AdapterFactory.class);
+		return getClassName(jc, "org.eclipse.emf.common.notify.AdapterFactory");
 	}
 
 	public static String ADAPTER_FACTORY_CONTENT_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(AdapterFactoryContentProvider.class);
+		return getClassName(jc, "org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider");
 	}
 
 	public static String ADAPTER_FACTORY_EDITING_DOMAIN(JavaComposite jc) {
-		return jc.getClassName(AdapterFactoryEditingDomain.class);
+		return getClassName(jc, "org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain");
 	}
 
 	public static String ADAPTER_FACTORY_LABEL_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(AdapterFactoryLabelProvider.class);
-	}
-
-	public static String ADAPTER_IMPL(JavaComposite jc) {
-		return jc.getClassName(AdapterImpl.class);
+		return getClassName(jc, "org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider");
 	}
 
 	public static String ANNOTATION(JavaComposite jc) {
-		return jc.getClassName(Annotation.class);
-	}
-
-	public static String ANTLR_INPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(ANTLRInputStream.class);
-	}
-
-	public static String ANTLR_PARSER(JavaComposite jc) {
-		return jc.getClassName(org.antlr.runtime3_4_0.Parser.class);
-	}
-
-	public static String ANTLR_STRING_STREAM(JavaComposite jc) {
-		return jc.getClassName(ANTLRStringStream.class);
-	}
-
-	public static String ARRAYS(JavaComposite jc) {
-		return jc.getClassName(java.util.Arrays.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.Annotation");
 	}
 
 	public static String ARRAY_LIST(JavaComposite jc) {
-		return jc.getClassName(ArrayList.class);
-	}
-
-	public static String ASSERT(JavaComposite jc) {
-		return jc.getClassName(Assert.class);
+		return getClassName(jc, "java.util.ArrayList");
 	}
 
 	public static String BAD_LOCATION_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(BadLocationException.class);
+		return getClassName(jc, "org.eclipse.jface.text.BadLocationException");
 	}
 
 	public static String BAD_POSITION_CATEGORY_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(BadPositionCategoryException.class);
-	}
-
-	public static String BASIC_COMMAND_STACK(JavaComposite jc) {
-		return jc.getClassName(BasicCommandStack.class);
-	}
-
-	public static String BASIC_E_LIST(JavaComposite jc) {
-		return jc.getClassName(BasicEList.class);
-	}
-
-	public static String BASIC_E_MAP(JavaComposite jc) {
-		return jc.getClassName(BasicEMap.class);
-	}
-
-	public static String BASIC_INTERNAL_E_LIST(JavaComposite jc) {
-		return jc.getClassName(BasicInternalEList.class);
-	}
-
-	public static String BIT_SET(JavaComposite jc) {
-		return jc.getClassName(BitSet.class);
+		return getClassName(jc, "org.eclipse.jface.text.BadPositionCategoryException");
 	}
 
 	public static String BROWSER(JavaComposite jc) {
-		return jc.getClassName(Browser.class);
-	}
-
-	public static String BUFFERED_OUTPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(BufferedOutputStream.class);
-	}
-
-	public static String BUFFERED_READER(JavaComposite jc) {
-		return jc.getClassName(BufferedReader.class);
-	}
-
-	public static String BUNDLE(JavaComposite jc) {
-		return jc.getClassName(Bundle.class);
-	}
-
-	public static String BUNDLE_CONTEXT(JavaComposite jc) {
-		return jc.getClassName(BundleContext.class);
+		return getClassName(jc, "org.eclipse.swt.browser.Browser");
 	}
 
 	public static String BUSY_INDICATOR(JavaComposite jc) {
-		return jc.getClassName(BusyIndicator.class);
+		return getClassName(jc, "org.eclipse.swt.custom.BusyIndicator");
 	}
 
 	public static String BUTTON(JavaComposite jc) {
-		return jc.getClassName(Button.class);
-	}
-
-	public static String BYTE_ARRAY_INPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(ByteArrayInputStream.class);
-	}
-
-	public static String BYTE_ARRAY_OUTPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(ByteArrayOutputStream.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Button");
 	}
 
 	public static String CELL_EDITOR(JavaComposite jc) {
-		return jc.getClassName(CellEditor.class);
-	}
-
-	public static String COLLECTION(JavaComposite jc) {
-		return jc.getClassName(Collection.class);
-	}
-
-	public static String COLLECTIONS(JavaComposite jc) {
-		return jc.getClassName(Collections.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.CellEditor");
 	}
 
 	public static String COLOR(JavaComposite jc) {
-		return jc.getClassName(Color.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.Color");
 	}
 
 	public static String COLOR_SELECTOR(JavaComposite jc) {
-		return jc.getClassName(ColorSelector.class);
+		return getClassName(jc, "org.eclipse.jface.preference.ColorSelector");
 	}
 
 	public static String COMBO(JavaComposite jc) {
-		return jc.getClassName(Combo.class);
-	}
-
-	public static String COMMON_TOKEN(JavaComposite jc) {
-		return jc.getClassName(CommonToken.class);
-	}
-
-	public static String COMMON_TOKEN_STREAM(JavaComposite jc) {
-		return jc.getClassName(CommonTokenStream.class);
-	}
-
-	public static String COMPARABLE(JavaComposite jc) {
-		return jc.getClassName(Comparable.class);
-	}
-
-	public static String COMPARATOR(JavaComposite jc) {
-		return jc.getClassName(Comparator.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Combo");
 	}
 
 	public static String COMPLETION_PROPOSAL(JavaComposite jc) {
-		return jc.getClassName(CompletionProposal.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.CompletionProposal");
 	}
 
 	public static String COMPOSED_ADAPTER_FACTORY(JavaComposite jc) {
-		return jc.getClassName(ComposedAdapterFactory.class);
+		return getClassName(jc, "org.eclipse.emf.edit.provider.ComposedAdapterFactory");
 	}
 
 	public static String COMPOSITE(JavaComposite jc) {
-		return jc.getClassName(Composite.class);
-	}
-
-	public static String CONSTRAINT_STATUS(JavaComposite jc) {
-		return jc.getClassName(ConstraintStatus.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Composite");
 	}
 
 	public static String CONTAINER_SELECTION_DIALOG(JavaComposite jc) {
-		return jc.getClassName(ContainerSelectionDialog.class);
+		return getClassName(jc, "org.eclipse.ui.dialogs.ContainerSelectionDialog");
 	}
 
 	public static String CONTENT_ASSISTANT(JavaComposite jc) {
-		return jc.getClassName(ContentAssistant.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.ContentAssistant");
 	}
 
 	public static String CONTENT_ASSIST_ACTION(JavaComposite jc) {
-		return jc.getClassName(ContentAssistAction.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.ContentAssistAction");
 	}
 
 	public static String CONTEXT_INFORMATION(JavaComposite jc) {
-		return jc.getClassName(ContextInformation.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.ContextInformation");
 	}
 
 	public static String CONTROL(JavaComposite jc) {
-		return jc.getClassName(Control.class);
-	}
-
-	public static String CORE_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(CoreException.class);
-	}
-
-	public static String DEBUG_PLUGIN(JavaComposite jc) {
-		return jc.getClassName(DebugPlugin.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Control");
 	}
 
 	public static String DEBUG_UI_TOOLS(JavaComposite jc) {
-		return jc.getClassName(DebugUITools.class);
+		return getClassName(jc, "org.eclipse.debug.ui.DebugUITools");
 	}
 
 	public static String DEFAULT_ANNOTATION_HOVER(JavaComposite jc) {
-		return jc.getClassName(DefaultAnnotationHover.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.DefaultAnnotationHover");
 	}
 
 	public static String DEFAULT_DAMAGER_REPAIRER(JavaComposite jc) {
-		return jc.getClassName(DefaultDamagerRepairer.class);
+		return getClassName(jc, "org.eclipse.jface.text.rules.DefaultDamagerRepairer");
 	}
 
 	public static String DEFAULT_INDENT_LINE_AUTO_EDIT_STRATEGY(JavaComposite jc) {
-		return jc.getClassName(DefaultIndentLineAutoEditStrategy.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy");
 	}
 
 	public static String DEFAULT_INFORMATION_CONTROL(JavaComposite jc) {
-		return jc.getClassName(DefaultInformationControl.class);
-	}
-
-	public static String DIAGNOSTIC(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.emf.common.util.Diagnostic.class
-				.getName());
-	}
-
-	public static String DIAGNOSTICIAN(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.emf.ecore.util.Diagnostician.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.text.DefaultInformationControl");
 	}
 
 	public static String DIALOG(JavaComposite jc) {
-		return jc.getClassName(Dialog.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Dialog");
 	}
 
 	public static String DISPLAY(JavaComposite jc) {
-		return jc.getClassName(Display.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Display");
 	}
 
 	public static String DOCUMENT(JavaComposite jc) {
-		return jc.getClassName(Document.class);
+		return getClassName(jc, "org.eclipse.jface.text.Document");
 	}
 
 	public static String DOCUMENT_COMMAND(JavaComposite jc) {
-		return jc.getClassName(DocumentCommand.class);
+		return getClassName(jc, "org.eclipse.jface.text.DocumentCommand");
 	}
 
 	public static String DOCUMENT_EVENT(JavaComposite jc) {
-		return jc.getClassName(DocumentEvent.class);
-	}
-
-	public static String DOCUMENT_LISTENER(JavaComposite jc) {
-		return jc.getClassName(DocumentListener.class);
-	}
-
-	public static String EARLY_EXIT_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(EarlyExitException.class);
-	}
-
-	public static String ECORE_FACTORY(JavaComposite jc) {
-		return jc.getClassName(EcoreFactory.class);
+		return getClassName(jc, "org.eclipse.jface.text.DocumentEvent");
 	}
 
 	public static String ECORE_ITEM_PROVIDER_ADAPTER_FACTORY(JavaComposite jc) {
-		return jc.getClassName(EcoreItemProviderAdapterFactory.class);
-	}
-
-	public static String ECORE_UTIL(JavaComposite jc) {
-		return jc.getClassName(EcoreUtil.class);
+		return getClassName(jc, "org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory");
 	}
 
 	public static String EDITING_DOMAIN(JavaComposite jc) {
-		return jc.getClassName(EditingDomain.class);
-	}
-
-	public static String EDITOR(JavaComposite jc) {
-		return jc.getClassName(Editor.class);
+		return getClassName(jc, "org.eclipse.emf.edit.domain.EditingDomain");
 	}
 
 	public static String EDITORS_UI(JavaComposite jc) {
-		return jc.getClassName(EditorsUI.class);
+		return getClassName(jc, "org.eclipse.ui.editors.text.EditorsUI");
 	}
 
 	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC(JavaComposite jc) {
+		// FIXME
 		return jc.getClassName("ElementBasedTextDiagnostic");
 	}
 
 	public static String ELEMENT_TREE_SELECTION_DIALOG(JavaComposite jc) {
-		return jc.getClassName(ElementTreeSelectionDialog.class);
+		return getClassName(jc, "org.eclipse.ui.dialogs.ElementTreeSelectionDialog");
 	}
 
 	public static String ENUMERATION(JavaComposite jc) {
-		return jc.getClassName(Enumeration.class);
-	}
-
-	public static String EVALUATION_MODE(JavaComposite jc) {
-		return jc.getClassName(EvaluationMode.class);
+		return getClassName(jc, "java.util.Enumeration");
 	}
 
 	public static String EVENT(JavaComposite jc) {
-		return jc.getClassName(Event.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Event");
 	}
 
 	public static String EXECUTION_EVENT(JavaComposite jc) {
-		return jc.getClassName(ExecutionEvent.class);
+		return getClassName(jc, "org.eclipse.core.commands.ExecutionEvent");
 	}
 
 	public static String EXECUTION_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(ExecutionException.class);
-	}
-
-	public static String E_ATTRIBUTE(JavaComposite jc) {
-		return jc.getClassName(EAttribute.class);
-	}
-
-	public static String E_CLASS(JavaComposite jc) {
-		return jc.getClassName(EClass.class);
-	}
-
-	public static String E_CLASSIFIER(JavaComposite jc) {
-		return jc.getClassName(EClassifier.class);
-	}
-
-	public static String E_DATA_TYPE(JavaComposite jc) {
-		return jc.getClassName(EDataType.class);
-	}
-
-	public static String E_ENUM(JavaComposite jc) {
-		return jc.getClassName(EEnum.class);
-	}
-
-	public static String E_ENUM_LITERAL(JavaComposite jc) {
-		return jc.getClassName(EEnumLiteral.class);
-	}
-
-	public static String E_LIST(JavaComposite jc) {
-		return jc.getClassName(EList.class);
-	}
-
-	public static String E_MAP(JavaComposite jc) {
-		return jc.getClassName(EMap.class);
-	}
-
-	public static String E_OBJECT(JavaComposite jc) {
-		return jc.getClassName(EObject.class);
-	}
-
-	public static String E_OBJECT_IMPL(JavaComposite jc) {
-		return jc.getClassName(EObjectImpl.class);
-	}
-
-	public static String E_OPERATION(JavaComposite jc) {
-		return jc.getClassName(EOperation.class);
-	}
-
-	public static String E_PACKAGE(JavaComposite jc) {
-		return jc.getClassName(EPackage.class);
-	}
-
-	public static String E_REFERENCE(JavaComposite jc) {
-		return jc.getClassName(EReference.class);
-	}
-
-	public static String E_STRUCTURAL_FEATURE(JavaComposite jc) {
-		return jc.getClassName(EStructuralFeature.class);
-	}
-
-	public static String FAILED_PREDICATE_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(FailedPredicateException.class);
-	}
-
-	public static String FILE(JavaComposite jc) {
-		return jc.getClassName(File.class);
+		return getClassName(jc, "org.eclipse.core.commands.ExecutionException");
 	}
 
 	public static String FILE_DIALOG(JavaComposite jc) {
-		return jc.getClassName(FileDialog.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.FileDialog");
 	}
 
 	public static String FILE_DOCUMENT_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(FileDocumentProvider.class);
+		return getClassName(jc, "org.eclipse.ui.editors.text.FileDocumentProvider");
 	}
 
 	public static String FILE_EDITOR_INPUT(JavaComposite jc) {
-		return jc.getClassName(FileEditorInput.class);
-	}
-
-	public static String FILE_INPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(FileInputStream.class);
-	}
-
-	public static String FILE_OUTPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(FileOutputStream.class);
+		return getClassName(jc, "org.eclipse.ui.part.FileEditorInput");
 	}
 
 	public static String FONT(JavaComposite jc) {
-		return jc.getClassName(Font.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.Font");
 	}
 
 	public static String FONT_DATA(JavaComposite jc) {
-		return jc.getClassName(FontData.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.FontData");
 	}
 
 	public static String FONT_METRICS(JavaComposite jc) {
-		return jc.getClassName(FontMetrics.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.FontMetrics");
 	}
 
 	public static String GC(JavaComposite jc) {
-		return jc.getClassName(GC.class);
-	}
-
-	public static String GEN_CLASS(JavaComposite jc) {
-		Class<GenClass> clazz = GenClass.class;
-		if (jc == null) {
-			return clazz.getCanonicalName();
-		}
-		return jc.getClassName(clazz);
-	}
-
-	public static String GEN_FEATURE(JavaComposite jc) {
-		Class<GenFeature> clazz = GenFeature.class;
-		if (jc == null) {
-			return clazz.getCanonicalName();
-		}
-		return jc.getClassName(clazz);
-	}
-
-	public static String GEN_PACKAGE(JavaComposite jc) {
-		Class<GenPackage> clazz = GenPackage.class;
-		if (jc == null) {
-			return clazz.getCanonicalName();
-		}
-		return jc.getClassName(clazz);
+		return getClassName(jc, "org.eclipse.swt.graphics.GC");
 	}
 
 	public static String GRID_DATA(JavaComposite jc) {
-		return jc.getClassName(GridData.class);
+		return getClassName(jc, "org.eclipse.swt.layout.GridData");
 	}
 
 	public static String GRID_LAYOUT(JavaComposite jc) {
-		return jc.getClassName(GridLayout.class);
+		return getClassName(jc, "org.eclipse.swt.layout.GridLayout");
 	}
 
 	public static String GROUP(JavaComposite jc) {
-		return jc.getClassName(Group.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Group");
 	}
 
 	public static String GROUP_MARKER(JavaComposite jc) {
-		return jc.getClassName(GroupMarker.class);
+		return getClassName(jc, "org.eclipse.jface.action.GroupMarker");
 	}
 
 	public static String HANDLER_UTIL(JavaComposite jc) {
-		return jc.getClassName(HandlerUtil.class);
+		return getClassName(jc, "org.eclipse.ui.handlers.HandlerUtil");
 	}
 
 	public static String I_ELEMENT_COMPARER(JavaComposite jc) {
-		return jc.getClassName(IElementComparer.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.IElementComparer");
 	}
 
 	public static String IDE(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.ui.ide.IDE.class);
-	}
-
-	public static String ILLEGAL_ARGUMENT_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(IllegalArgumentException.class);
+		return getClassName(jc, "org.eclipse.ui.ide.IDE");
 	}
 
 	public static String IMAGE(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.swt.graphics.Image.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.Image");
 	}
 
 	public static String IMAGE_DATA(JavaComposite jc) {
-		return jc.getClassName(ImageData.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.ImageData");
 	}
 
 	public static String IMAGE_DESCRIPTOR(JavaComposite jc) {
-		return jc.getClassName(ImageDescriptor.class);
+		return getClassName(jc, "org.eclipse.jface.resource.ImageDescriptor");
 	}
 
 	public static String IMAGE_LOADER(JavaComposite jc) {
-		return jc.getClassName(ImageLoader.class);
-	}
-
-	public static String INCREMENTAL_PROJECT_BUILDER(JavaComposite jc) {
-		return jc.getClassName(IncrementalProjectBuilder.class);
-	}
-
-	public static String INPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(InputStream.class);
-	}
-
-	public static String INPUT_STREAM_READER(JavaComposite jc) {
-		return jc.getClassName(InputStreamReader.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.ImageLoader");
 	}
 
 	public static String INTEGER(JavaComposite jc) {
 		return jc.getClassName(Integer.class);
 	}
 
-	public static String INTERNAL_E_LIST(JavaComposite jc) {
-		return jc.getClassName(InternalEList.class);
-	}
-
-	public static String INTERNAL_E_OBJECT(JavaComposite jc) {
-		return jc.getClassName(InternalEObject.class);
-	}
-
-	public static String INT_STREAM(JavaComposite jc) {
-		return jc.getClassName(IntStream.class);
-	}
-
-	public static String INVOCATION_HANDLER(JavaComposite jc) {
-		return jc.getClassName(InvocationHandler.class);
-	}
-
-	public static String INVOCATION_TARGET_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(InvocationTargetException.class);
-	}
-
-	public static String IO_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(IOException.class);
-	}
-
-	public static String ITERATOR(JavaComposite jc) {
-		return jc.getClassName(Iterator.class);
-	}
-
 	public static String I_ACTION(JavaComposite jc) {
-		return jc.getClassName(IAction.class);
+		return getClassName(jc, "org.eclipse.jface.action.IAction");
 	}
 
 	public static String I_ACTION_BARS(JavaComposite jc) {
-		return jc.getClassName(IActionBars.class);
-	}
-
-	public static String I_ADAPTABLE(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.core.runtime.IAdaptable.class
-				.getName());
+		return getClassName(jc, "org.eclipse.ui.IActionBars");
 	}
 
 	public static String I_ANNOTATION_ACCESS_EXTENSION(JavaComposite jc) {
-		return jc.getClassName(IAnnotationAccessExtension.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.IAnnotationAccessExtension");
 	}
 
 	public static String I_ANNOTATION_HOVER(JavaComposite jc) {
-		return jc.getClassName(IAnnotationHover.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.IAnnotationHover");
 	}
 
 	public static String I_ANNOTATION_MODEL(JavaComposite jc) {
-		return jc.getClassName(IAnnotationModel.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.IAnnotationModel");
 	}
 
 	public static String I_ANNOTATION_MODEL_FACTORY(JavaComposite jc) {
-		return jc.getClassName(IAnnotationModelFactory.class);
+		return getClassName(jc, "org.eclipse.core.filebuffers.IAnnotationModelFactory");
 	}
 
 	public static String I_AUTO_EDIT_STRATEGY(JavaComposite jc) {
-		return jc.getClassName(IAutoEditStrategy.class);
-	}
-
-	public static String I_BATCH_VALIDATOR(JavaComposite jc) {
-		return jc.getClassName(IBatchValidator.class);
+		return getClassName(jc, "org.eclipse.jface.text.IAutoEditStrategy");
 	}
 
 	public static String I_CHILDREN_COUNT_UPDATE(JavaComposite jc) {
-		return jc.getClassName(IChildrenCountUpdate.class);
+		return getClassName(jc, "org.eclipse.debug.internal.ui.viewers.model.provisional.IChildrenCountUpdate");
 	}
 
 	public static String I_CHILDREN_UPDATE(JavaComposite jc) {
-		return jc.getClassName(IChildrenUpdate.class);
-	}
-
-	public static String I_COMMAND(JavaComposite jc) {
-		return jc.getClassName(ICommand.class);
+		return getClassName(jc, "org.eclipse.debug.internal.ui.viewers.model.provisional.IChildrenUpdate");
 	}
 
 	public static String I_COMPLETION_PROPOSAL(JavaComposite jc) {
-		return jc.getClassName(ICompletionProposal.class);
-	}
-
-	public static String I_CONFIGURATION_ELEMENT(JavaComposite jc) {
-		return jc.getClassName(IConfigurationElement.class);
-	}
-
-	public static String I_CONTAINER(JavaComposite jc) {
-		return jc.getClassName(IContainer.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.ICompletionProposal");
 	}
 
 	public static String I_CONTENT_ASSISTANT(JavaComposite jc) {
-		return jc.getClassName(IContentAssistant.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.IContentAssistant");
 	}
 
 	public static String I_CONTENT_ASSIST_PROCESSOR(JavaComposite jc) {
-		return jc.getClassName(IContentAssistProcessor.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.IContentAssistProcessor");
 	}
 
 	public static String I_CONTENT_OUTLINE_PAGE(JavaComposite jc) {
-		return jc.getClassName(IContentOutlinePage.class);
+		return getClassName(jc, "org.eclipse.ui.views.contentoutline.IContentOutlinePage");
 	}
 
 	public static String I_CONTEXT_INFORMATION(JavaComposite jc) {
-		return jc.getClassName(IContextInformation.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.IContextInformation");
 	}
 
 	public static String I_CONTEXT_INFORMATION_VALIDATOR(JavaComposite jc) {
-		return jc.getClassName(IContextInformationValidator.class);
+		return getClassName(jc, "org.eclipse.jface.text.contentassist.IContextInformationValidator");
 	}
 
 	public static String I_CONTEXT_SERVICE(JavaComposite jc) {
-		return jc.getClassName(IContextService.class);
+		return getClassName(jc, "org.eclipse.ui.contexts.IContextService");
 	}
 
 	public static String I_DEBUG_MODEL_PRESENTATION(JavaComposite jc) {
-		return jc.getClassName(IDebugModelPresentation.class);
+		return getClassName(jc, "org.eclipse.debug.ui.IDebugModelPresentation");
 	}
 
 	public static String I_DELAYED_INPUT_CHANGE_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(IDelayedInputChangeProvider.class);
+		return getClassName(jc, "org.eclipse.jface.text.IDelayedInputChangeProvider");
 	}
 
 	public static String I_DIALOG_CONSTANTS(JavaComposite jc) {
-		return jc.getClassName(IDialogConstants.class);
+		return getClassName(jc, "org.eclipse.jface.dialogs.IDialogConstants");
 	}
 
 	public static String I_DOCUMENT(JavaComposite jc) {
-		return jc.getClassName(IDocument.class);
+		return getClassName(jc, "org.eclipse.jface.text.IDocument");
 	}
 
 	public static String I_DOCUMENT_EXTENSION_3(JavaComposite jc) {
-		return jc.getClassName(IDocumentExtension3.class);
+		return getClassName(jc, "org.eclipse.jface.text.IDocumentExtension3");
 	}
 
 	public static String I_DOCUMENT_LISTENER(JavaComposite jc) {
-		return jc.getClassName(IDocumentListener.class);
+		return getClassName(jc, "org.eclipse.jface.text.IDocumentListener");
 	}
 
 	public static String I_EDITING_DOMAIN_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(IEditingDomainProvider.class);
+		return getClassName(jc, "org.eclipse.emf.edit.domain.IEditingDomainProvider");
 	}
 
 	public static String I_EDITOR_DESCRIPTOR(JavaComposite jc) {
-		return jc.getClassName(IEditorDescriptor.class);
+		return getClassName(jc, "org.eclipse.ui.IEditorDescriptor");
 	}
 
 	public static String I_EDITOR_INPUT(JavaComposite jc) {
-		return jc.getClassName(IEditorInput.class);
+		return getClassName(jc, "org.eclipse.ui.IEditorInput");
 	}
 
 	public static String I_EDITOR_PART(JavaComposite jc) {
-		return jc.getClassName(IEditorPart.class);
+		return getClassName(jc, "org.eclipse.ui.IEditorPart");
 	}
 
 	public static String I_ELEMENT_CONTENT_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(IElementContentProvider.class);
+		return getClassName(jc, "org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider");
 	}
 
 	public static String I_ELEMENT_LABEL_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(IElementLabelProvider.class);
-	}
-
-	public static String I_EXTENSION_REGISTRY(JavaComposite jc) {
-		return jc.getClassName(IExtensionRegistry.class);
-	}
-
-	public static String I_FILE(JavaComposite jc) {
-		return jc.getClassName(IFile.class);
+		return getClassName(jc, "org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider");
 	}
 
 	public static String I_FILE_EDITOR_INPUT(JavaComposite jc) {
-		return jc.getClassName(IFileEditorInput.class);
+		return getClassName(jc, "org.eclipse.ui.IFileEditorInput");
 	}
 
 	public static String I_HAS_CHILDREN_UPDATE(JavaComposite jc) {
-		return jc.getClassName(IHasChildrenUpdate.class);
+		return getClassName(jc, "org.eclipse.debug.internal.ui.viewers.model.provisional.IHasChildrenUpdate");
 	}
 
 	public static String I_HYPERLINK(JavaComposite jc) {
-		return jc.getClassName(IHyperlink.class);
+		return getClassName(jc, "org.eclipse.jface.text.hyperlink.IHyperlink");
 	}
 
 	public static String I_HYPERLINK_DETECTOR(JavaComposite jc) {
-		return jc.getClassName(IHyperlinkDetector.class);
+		return getClassName(jc, "org.eclipse.jface.text.hyperlink.IHyperlinkDetector");
 	}
 
 	public static String I_INFORMATION_CONTROL(JavaComposite jc) {
-		return jc.getClassName(IInformationControl.class);
+		return getClassName(jc, "org.eclipse.jface.text.IInformationControl");
 	}
 
 	public static String I_INFORMATION_CONTROL_CREATOR(JavaComposite jc) {
-		return jc.getClassName(IInformationControlCreator.class);
+		return getClassName(jc, "org.eclipse.jface.text.IInformationControlCreator");
 	}
 
 	public static String I_INFORMATION_CONTROL_EXTENSION2(JavaComposite jc) {
-		return jc.getClassName(IInformationControlExtension2.class);
+		return getClassName(jc, "org.eclipse.jface.text.IInformationControlExtension2");
 	}
 
 	public static String I_INFORMATION_CONTROL_EXTENSION4(JavaComposite jc) {
-		return jc.getClassName(IInformationControlExtension4.class);
+		return getClassName(jc, "org.eclipse.jface.text.IInformationControlExtension4");
 	}
 
 	public static String I_INFORMATION_PRESENTER(JavaComposite jc) {
-		return jc
-				.getClassName(org.eclipse.jface.text.DefaultInformationControl.IInformationPresenter.class
-						);
+		return getClassName(jc, "org.eclipse.jface.text.DefaultInformationControl.IInformationPresenter");
 	}
 
 	public static String I_INPUT_CHANGED_LISTENER(JavaComposite jc) {
-		return jc.getClassName(IInputChangedListener.class);
+		return getClassName(jc, "org.eclipse.jface.text.IInputChangedListener");
 	}
 
 	public static String I_ITEM_LABEL_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(IItemLabelProvider.class);
+		return getClassName(jc, "org.eclipse.emf.edit.provider.IItemLabelProvider");
 	}
 
 	public static String I_ITEM_PROPERTY_DESCRIPTOR(JavaComposite jc) {
-		return jc.getClassName(IItemPropertyDescriptor.class);
+		return getClassName(jc, "org.eclipse.emf.edit.provider.IItemPropertyDescriptor");
 	}
 
 	public static String I_ITEM_PROPERTY_SOURCE(JavaComposite jc) {
-		return jc.getClassName(IItemPropertySource.class);
+		return getClassName(jc, "org.eclipse.emf.edit.provider.IItemPropertySource");
 	}
 
 	public static String I_LABEL_PROVIDER_LISTENER(JavaComposite jc) {
-		return jc.getClassName(ILabelProviderListener.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.ILabelProviderListener");
 	}
 
 	public static String I_LABEL_UPDATE(JavaComposite jc) {
-		return jc.getClassName(ILabelUpdate.class);
-	}
-
-	public static String I_LAUNCH(JavaComposite jc) {
-		return jc.getClassName(ILaunch.class);
-	}
-
-	public static String I_LAUNCH_CONFIGURATION(JavaComposite jc) {
-		return jc.getClassName(ILaunchConfiguration.class);
+		return getClassName(jc, "org.eclipse.debug.internal.ui.viewers.model.provisional.ILabelUpdate");
 	}
 
 	public static String I_LAUNCH_CONFIGURATION_DIALOG(JavaComposite jc) {
-		return jc.getClassName(ILaunchConfigurationDialog.class);
+		return getClassName(jc, "org.eclipse.debug.ui.ILaunchConfigurationDialog");
 	}
 
 	public static String I_LAUNCH_CONFIGURATION_TAB(JavaComposite jc) {
-		return jc.getClassName(ILaunchConfigurationTab.class);
+		return getClassName(jc, "org.eclipse.debug.ui.ILaunchConfigurationTab");
 	}
 
 	public static String I_LAUNCH_CONFIGURATION_TYPE(JavaComposite jc) {
-		return jc.getClassName(ILaunchConfigurationType.class);
+		return getClassName(jc, "org.eclipse.debug.core.ILaunchConfigurationType");
 	}
 
 	public static String I_LAUNCH_CONFIGURATION_WORKING_COPY(JavaComposite jc) {
-		return jc.getClassName(ILaunchConfigurationWorkingCopy.class);
+		return getClassName(jc, "org.eclipse.debug.core.ILaunchConfigurationWorkingCopy");
 	}
 
 	public static String I_LAUNCH_SHORTCUT2(JavaComposite jc) {
-		return jc.getClassName(ILaunchShortcut2.class);
+		return getClassName(jc, "org.eclipse.debug.ui.ILaunchShortcut2");
 	}
 
 	public static String I_LINE_BREAKPOINT(JavaComposite jc) {
-		return jc.getClassName(ILineBreakpoint.class);
-	}
-
-	public static String I_MARKER(JavaComposite jc) {
-		return jc.getClassName(IMarker.class);
+		return getClassName(jc, "org.eclipse.debug.core.model.ILineBreakpoint");
 	}
 
 	public static String I_MARKER_RESOLUTION(JavaComposite jc) {
-		return jc.getClassName(IMarkerResolution.class);
+		return getClassName(jc, "org.eclipse.ui.IMarkerResolution");
 	}
 
 	public static String I_MARKER_RESOLUTION2(JavaComposite jc) {
-		return jc.getClassName(IMarkerResolution2.class);
+		return getClassName(jc, "org.eclipse.ui.IMarkerResolution2");
 	}
 
 	public static String I_MARKER_RESOLUTION_GENERATOR(JavaComposite jc) {
-		return jc.getClassName(IMarkerResolutionGenerator.class);
+		return getClassName(jc, "org.eclipse.ui.IMarkerResolutionGenerator");
 	}
 
 	public static String I_MEMENTO(JavaComposite jc) {
-		return jc.getClassName(IMemento.class);
+		return getClassName(jc, "org.eclipse.ui.IMemento");
 	}
 
 	public static String I_MENU_LISTENER(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.jface.action.IMenuListener.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.action.IMenuListener");
 	}
 
 	public static String I_MENU_MANAGER(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.jface.action.IMenuManager.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.action.IMenuManager");
 	}
 
 	public static String I_NEW_WIZARD(JavaComposite jc) {
-		return jc.getClassName(INewWizard.class);
+		return getClassName(jc, "org.eclipse.ui.INewWizard");
 	}
 
 	public static String I_PAGE_SITE(JavaComposite jc) {
-		return jc.getClassName(IPageSite.class);
+		return getClassName(jc, "org.eclipse.ui.part.IPageSite");
 	}
 
 	public static String I_PART_LISTENER2(JavaComposite jc) {
-		return jc.getClassName(IPartListener2.class);
-	}
-
-	public static String I_PATH(JavaComposite jc) {
-		return jc.getClassName(IPath.class);
+		return getClassName(jc, "org.eclipse.ui.IPartListener2");
 	}
 
 	public static String I_PREFERENCE_STORE(JavaComposite jc) {
-		return jc.getClassName(IPreferenceStore.class);
+		return getClassName(jc, "org.eclipse.jface.preference.IPreferenceStore");
 	}
 
 	public static String I_PRESENTATION_RECONCILER(JavaComposite jc) {
-		return jc.getClassName(IPresentationReconciler.class);
-	}
-
-	public static String I_PROGRESS_MONITOR(JavaComposite jc) {
-		return jc.getClassName(IProgressMonitor.class);
-	}
-
-	public static String I_PROJECT(JavaComposite jc) {
-		return jc.getClassName(IProject.class);
-	}
-
-	public static String I_PROJECT_DESCRIPTION(JavaComposite jc) {
-		return jc.getClassName(IProjectDescription.class);
-	}
-
-	public static String I_PROJECT_NATURE(JavaComposite jc) {
-		return jc.getClassName(IProjectNature.class);
+		return getClassName(jc, "org.eclipse.jface.text.presentation.IPresentationReconciler");
 	}
 
 	public static String I_PROPERTY_DESCRIPTOR(JavaComposite jc) {
-		return jc.getClassName(IPropertyDescriptor.class);
+		return getClassName(jc, "org.eclipse.ui.views.properties.IPropertyDescriptor");
 	}
 
 	public static String I_PROPERTY_SHEET_PAGE(JavaComposite jc) {
-		return jc.getClassName(IPropertySheetPage.class);
+		return getClassName(jc, "org.eclipse.ui.views.properties.IPropertySheetPage");
 	}
 
 	public static String I_PROPERTY_SOURCE(JavaComposite jc) {
-		return jc.getClassName(IPropertySource.class);
+		return getClassName(jc, "org.eclipse.ui.views.properties.IPropertySource");
 	}
 
 	public static String I_QUICK_ASSIST_ASSISTANT(JavaComposite jc) {
-		return jc.getClassName(IQuickAssistAssistant.class);
+		return getClassName(jc, "org.eclipse.jface.text.quickassist.IQuickAssistAssistant");
 	}
 
 	public static String I_QUICK_ASSIST_INVOCATION_CONTEXT(JavaComposite jc) {
-		return jc.getClassName(IQuickAssistInvocationContext.class);
+		return getClassName(jc, "org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext");
 	}
 
 	public static String I_QUICK_ASSIST_PROCESSOR(JavaComposite jc) {
-		return jc.getClassName(IQuickAssistProcessor.class);
+		return getClassName(jc, "org.eclipse.jface.text.quickassist.IQuickAssistProcessor");
 	}
 
 	public static String I_QUICK_FIXABLE_ANNOTATION(JavaComposite jc) {
-		return jc.getClassName(IQuickFixableAnnotation.class);
+		return getClassName(jc, "org.eclipse.jface.text.quickassist.IQuickFixableAnnotation");
 	}
 
 	public static String I_REGION(JavaComposite jc) {
-		return jc.getClassName(IRegion.class);
-	}
-
-	public static String I_RESOURCE(JavaComposite jc) {
-		return jc.getClassName(IResource.class);
-	}
-
-	public static String I_RESOURCE_CHANGE_EVENT(JavaComposite jc) {
-		return jc.getClassName(IResourceChangeEvent.class);
-	}
-
-	public static String I_RESOURCE_CHANGE_LISTENER(JavaComposite jc) {
-		return jc.getClassName(IResourceChangeListener.class);
-	}
-
-	public static String I_RESOURCE_DELTA(JavaComposite jc) {
-		return jc.getClassName(IResourceDelta.class);
-	}
-
-	public static String I_RESOURCE_DELTA_VISITOR(JavaComposite jc) {
-		return jc.getClassName(IResourceDeltaVisitor.class);
+		return getClassName(jc, "org.eclipse.jface.text.IRegion");
 	}
 
 	public static String I_RUNNABLE_WITH_PROGRESS(JavaComposite jc) {
-		return jc.getClassName(IRunnableWithProgress.class);
+		return getClassName(jc, "org.eclipse.jface.operation.IRunnableWithProgress");
 	}
 
 	public static String I_SELECTION(JavaComposite jc) {
-		return jc.getClassName(ISelection.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.ISelection");
 	}
 
 	public static String I_SELECTION_CHANGED_LISTENER(JavaComposite jc) {
-		return jc.getClassName(ISelectionChangedListener.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.ISelectionChangedListener");
 	}
 
 	public static String I_SELECTION_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(ISelectionProvider.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.ISelectionProvider");
 	}
 
 	public static String I_SELECTION_SERVICE(JavaComposite jc) {
-		return jc.getClassName(ISelectionService.class);
+		return getClassName(jc, "org.eclipse.ui.ISelectionService");
 	}
 	
 	public static String I_SELECTION_STATUS_VALIDATOR(JavaComposite jc) {
-		return jc.getClassName(ISelectionStatusValidator.class);
+		return getClassName(jc, "org.eclipse.ui.dialogs.ISelectionStatusValidator");
 	}
 
 	public static String I_SHARED_IMAGES(JavaComposite jc) {
-		return jc.getClassName(ISharedImages.class);
+		return getClassName(jc, "org.eclipse.ui.ISharedImages");
 	}
 
 	public static String I_SOURCE_VIEWER(JavaComposite jc) {
-		return jc.getClassName(ISourceViewer.class);
-	}
-
-	public static String I_STATUS(JavaComposite jc) {
-		return jc.getClassName(IStatus.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.ISourceViewer");
 	}
 
 	public static String I_STORAGE(JavaComposite jc) {
-		return jc.getClassName(IStorage.class);
+		return getClassName(jc, "org.eclipse.core.resources.IStorage");
 	}
 
 	public static String I_STORAGE_EDITOR_INPUT(JavaComposite jc) {
-		return jc.getClassName(IStorageEditorInput.class);
+		return getClassName(jc, "org.eclipse.ui.IStorageEditorInput");
 	}
 
 	public static String I_STRUCTURED_SELECTION(JavaComposite jc) {
-		return jc.getClassName(IStructuredSelection.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.IStructuredSelection");
 	}
 
 	public static String I_TEXT_EDITOR(JavaComposite jc) {
-		return jc.getClassName(ITextEditor.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.ITextEditor");
 	}
 
 	public static String I_TEXT_EDITOR_ACTION_CONSTANTS(JavaComposite jc) {
-		return jc.getClassName(ITextEditorActionConstants.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.ITextEditorActionConstants");
 	}
 
 	public static String I_TEXT_EDITOR_ACTION_DEFINITION_IDS(JavaComposite jc) {
-		return jc.getClassName(ITextEditorActionDefinitionIds.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds");
 	}
 
 	public static String I_TEXT_HOVER(JavaComposite jc) {
-		return jc.getClassName(ITextHover.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextHover");
 	}
 
 	public static String I_TEXT_HOVER_EXTENSION(JavaComposite jc) {
-		return jc.getClassName(ITextHoverExtension.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextHoverExtension");
 	}
 
 	public static String I_TEXT_HOVER_EXTENSION2(JavaComposite jc) {
-		return jc.getClassName(ITextHoverExtension2.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextHoverExtension2");
 	}
 
 	public static String I_TEXT_OPERATION_TARGET(JavaComposite jc) {
-		return jc.getClassName(ITextOperationTarget.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextOperationTarget");
 	}
 
 	public static String I_TEXT_PRESENTATION_LISTENER(JavaComposite jc) {
-		return jc.getClassName(ITextPresentationListener.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextPresentationListener");
 	}
 
 	public static String I_TEXT_SELECTION(JavaComposite jc) {
-		return jc.getClassName(ITextSelection.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextSelection");
 	}
 
 	public static String I_TEXT_VIEWER(JavaComposite jc) {
-		return jc.getClassName(ITextViewer.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextViewer");
 	}
 
 	public static String I_TEXT_VIEWER_EXTENSION5(JavaComposite jc) {
-		return jc.getClassName(ITextViewerExtension5.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITextViewerExtension5");
 	}
 
 	public static String I_TOGGLE_BREAKPOINTS_TARGET(JavaComposite jc) {
-		return jc.getClassName(IToggleBreakpointsTarget.class);
+		return getClassName(jc, "org.eclipse.debug.ui.actions.IToggleBreakpointsTarget");
 	}
 
 	public static String I_TOOL_BAR_MANAGER(JavaComposite jc) {
-		return jc.getClassName(IToolBarManager.class);
+		return getClassName(jc, "org.eclipse.jface.action.IToolBarManager");
 	}
 
 	public static String I_TOKEN(JavaComposite jc) {
-		return jc.getClassName(IToken.class);
+		return getClassName(jc, "org.eclipse.jface.text.rules.IToken");
 	}
 
 	public static String I_TOKEN_SCANNER(JavaComposite jc) {
-		Class<ITokenScanner> clazz = ITokenScanner.class;
-		if (jc == null) {
-			return clazz.getCanonicalName();
-		}
-		return jc.getClassName(clazz);
+		return getClassName(jc, "org.eclipse.jface.text.rules.ITokenScanner");
 	}
 
 	public static String I_TREE_CONTENT_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(ITreeContentProvider.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.ITreeContentProvider");
 	}
 
 	public static String I_TYPED_REGION(JavaComposite jc) {
-		return jc.getClassName(ITypedRegion.class);
+		return getClassName(jc, "org.eclipse.jface.text.ITypedRegion");
 	}
 
 	public static String I_VALUE_DETAIL_LISTENER(JavaComposite jc) {
-		return jc.getClassName(IValueDetailListener.class);
+		return getClassName(jc, "org.eclipse.debug.ui.IValueDetailListener");
 	}
 
 	public static String I_VERTICAL_RULER(JavaComposite jc) {
-		return jc.getClassName(IVerticalRuler.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.IVerticalRuler");
 	}
 
 	public static String I_VIEWER_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(IViewerProvider.class);
+		return getClassName(jc, "org.eclipse.emf.common.ui.viewer.IViewerProvider");
 	}
 
 	public static String I_WIZARD(JavaComposite jc) {
-		return jc.getClassName(IWizard.class);
+		return getClassName(jc, "org.eclipse.jface.wizard.IWizard");
 	}
 
 	public static String I_WIZARD_CATEGORY(JavaComposite jc) {
-		return jc.getClassName(IWizardCategory.class);
+		return getClassName(jc, "org.eclipse.ui.wizards.IWizardCategory");
 	}
 
 	public static String I_WORKBENCH(JavaComposite jc) {
-		return jc.getClassName(IWorkbench.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkbench");
 	}
 
 	public static String I_WORKBENCH_ACTION_CONSTANTS(JavaComposite jc) {
-		return jc.getClassName(IWorkbenchActionConstants.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkbenchActionConstants");
 	}
 
 	public static String I_WORKBENCH_PAGE(JavaComposite jc) {
-		return jc.getClassName(IWorkbenchPage.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkbenchPage");
 	}
 
 	public static String I_WORKBENCH_PART(JavaComposite jc) {
-		return jc.getClassName(IWorkbenchPart.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkbenchPart");
 	}
 
 	public static String I_WORKBENCH_PART_REFERENCE(JavaComposite jc) {
-		return jc.getClassName(IWorkbenchPartReference.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkbenchPartReference");
 	}
 
 	public static String I_WORKBENCH_PREFERENCE_PAGE(JavaComposite jc) {
-		return jc.getClassName(IWorkbenchPreferencePage.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkbenchPreferencePage");
 	}
 	
 	public static String I_WORKING_SET(JavaComposite jc) {
-		return jc.getClassName(IWorkingSet.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkingSet");
 	}
 	
 	public static String I_WORKING_SET_MANAGER(JavaComposite jc) {
-		return jc.getClassName(IWorkingSetManager.class);
-	}
-
-	public static String I_WORKSPACE(JavaComposite jc) {
-		return jc.getClassName(IWorkspace.class);
-	}
-
-	public static String I_WORKSPACE_ROOT(JavaComposite jc) {
-		return jc.getClassName(IWorkspaceRoot.class);
+		return getClassName(jc, "org.eclipse.ui.IWorkingSetManager");
 	}
 
 	public static String JFACE_DIALOG(JavaComposite jc) {
-		return jc
-				.getClassName(org.eclipse.jface.dialogs.Dialog.class);
-	}
-
-	public static String JOB(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.core.runtime.jobs.Job.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.dialogs.Dialog");
 	}
 
 	public static String J_FACE_RESOURCES(JavaComposite jc) {
-		return jc.getClassName(JFaceResources.class);
+		return getClassName(jc, "org.eclipse.jface.resource.JFaceResources");
 	}
 
 	public static String J_FACE_TOKEN(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.jface.text.rules.Token.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.text.rules.Token");
 	}
 
 	public static String KEY_EVENT(JavaComposite jc) {
-		return jc.getClassName(KeyEvent.class);
+		return getClassName(jc, "org.eclipse.swt.events.KeyEvent");
 	}
 
 	public static String KEY_LISTENER(JavaComposite jc) {
-		return jc.getClassName(KeyListener.class);
+		return getClassName(jc, "org.eclipse.swt.events.KeyListener");
 	}
 
 	public static String LABEL(JavaComposite jc) {
-		return jc.getClassName(Label.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Label");
 	}
 
 	public static String LABEL_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(LabelProvider.class);
-	}
-
-	public static String LEXER(JavaComposite jc) {
-		return jc.getClassName(Lexer.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.LabelProvider");
 	}
 
 	public static String LINK(JavaComposite jc) {
-		return jc.getClassName(Link.class);
-	}
-
-	public static String LINKED_HASH_MAP(JavaComposite jc) {
-		return jc.getClassName(LinkedHashMap.class);
-	}
-
-	public static String LINKED_HASH_SET(JavaComposite jc) {
-		return jc.getClassName(LinkedHashSet.class);
-	}
-
-	public static String LINKED_LIST(JavaComposite jc) {
-		return jc.getClassName(LinkedList.class);
-	}
-
-	public static String LIST(JavaComposite jc) {
-		return jc.getClassName(List.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Link");
 	}
 
 	public static String LISTENER(JavaComposite jc) {
-		return jc.getClassName(Listener.class);
-	}
-
-	public static String LISTENER_LIST(JavaComposite jc) {
-		return jc.getClassName(ListenerList.class);
-	}
-
-	public static String LIST_ITERATOR(JavaComposite jc) {
-		return jc.getClassName(ListIterator.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Listener");
 	}
 
 	public static String LOCATION_LISTENER(JavaComposite jc) {
-		return jc.getClassName(LocationListener.class);
-	}
-
-	public static String MANY_INVERSE(JavaComposite jc) {
-		return jc
-				.getClassName(EObjectWithInverseResolvingEList.ManyInverse.class
-						);
-	}
-
-	public static String MAP(JavaComposite jc) {
-		return jc.getClassName(Map.class);
-	}
-
-	public static String MAP_ENTRY(JavaComposite jc) {
-		return jc.getClassName(Map.Entry.class);
+		return getClassName(jc, "org.eclipse.swt.browser.LocationListener");
 	}
 
 	public static String MARKER_ANNOTATION(JavaComposite jc) {
-		return jc.getClassName(MarkerAnnotation.class);
-	}
-
-	public static String MATCHER(JavaComposite jc) {
-		return jc.getClassName(Matcher.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.MarkerAnnotation");
 	}
 
 	public static String MENU(JavaComposite jc) {
-		return jc.getClassName(Menu.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Menu");
 	}
 
 	public static String MENU_MANAGER(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.jface.action.MenuManager.class
-				.getName());
+		return getClassName(jc, "org.eclipse.jface.action.MenuManager");
 	}
 
 	public static String MESSAGE_BOX(JavaComposite jc) {
-		return jc.getClassName(MessageBox.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.MessageBox");
 	}
 
 	public static String MESSAGE_DIALOG(JavaComposite jc) {
-		return jc.getClassName(MessageDialog.class);
-	}
-
-	public static String MESSAGE_DIGEST(JavaComposite jc) {
-		return jc.getClassName(MessageDigest.class);
-	}
-
-	public static String METHOD(JavaComposite jc) {
-		return jc.getClassName(java.lang.reflect.Method.class);
-	}
-
-	public static String MISMATCHED_NOT_SET_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(MismatchedNotSetException.class);
-	}
-
-	public static String MISMATCHED_RANGE_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(MismatchedRangeException.class);
-	}
-
-	public static String MISMATCHED_SET_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(MismatchedSetException.class);
-	}
-
-	public static String MISMATCHED_TOKEN_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(MismatchedTokenException.class);
-	}
-
-	public static String MISMATCHED_TREE_NODE_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(MismatchedTreeNodeException.class);
-	}
-
-	public static String MODEL_VALIDATION_SERVICE(JavaComposite jc) {
-		return jc.getClassName(ModelValidationService.class);
+		return getClassName(jc, "org.eclipse.jface.dialogs.MessageDialog");
 	}
 
 	public static String MODIFY_EVENT(JavaComposite jc) {
-		return jc.getClassName(ModifyEvent.class);
+		return getClassName(jc, "org.eclipse.swt.events.ModifyEvent");
 	}
 
 	public static String MODIFY_LISTENER(JavaComposite jc) {
-		return jc.getClassName(ModifyListener.class);
+		return getClassName(jc, "org.eclipse.swt.events.ModifyListener");
 	}
 
 	public static String MOUSE_EVENT(JavaComposite jc) {
-		return jc.getClassName(MouseEvent.class);
+		return getClassName(jc, "org.eclipse.swt.events.MouseEvent");
 	}
 
 	public static String MOUSE_LISTENER(JavaComposite jc) {
-		return jc.getClassName(MouseListener.class);
-	}
-
-	public static String NOTIFICATION(JavaComposite jc) {
-		return jc.getClassName(Notification.class);
-	}
-
-	public static String NOTIFICATION_CHAIN(JavaComposite jc) {
-		return jc.getClassName(NotificationChain.class);
-	}
-
-	public static String NOTIFIER(JavaComposite jc) {
-		return jc.getClassName(Notifier.class);
-	}
-
-	public static String NO_SUCH_ALGORITHM_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(NoSuchAlgorithmException.class);
-	}
-
-	public static String NO_VIABLE_ALT_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(NoViableAltException.class);
-	}
-
-	public static String NULL_POINTER_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(NullPointerException.class);
+		return getClassName(jc, "org.eclipse.swt.events.MouseListener");
 	}
 
 	public static String OPEN_WINDOW_LISTENER(JavaComposite jc) {
-		return jc.getClassName(OpenWindowListener.class);
-	}
-
-	public static String OUTPUT_STREAM(JavaComposite jc) {
-		return jc.getClassName(OutputStream.class);
-	}
-
-	public static String OUTPUT_STREAM_WRITER(JavaComposite jc) {
-		return jc.getClassName(OutputStreamWriter.class);
+		return getClassName(jc, "org.eclipse.swt.browser.OpenWindowListener");
 	}
 
 	public static String PAGE(JavaComposite jc) {
-		return jc.getClassName(Page.class);
+		return getClassName(jc, "org.eclipse.ui.part.Page");
 	}
 
 	public static String PART_INIT_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(PartInitException.class);
-	}
-
-	public static String PATH(JavaComposite jc) {
-		return jc.getClassName(Path.class);
-	}
-
-	public static String PATTERN(JavaComposite jc) {
-		return jc.getClassName(java.util.regex.Pattern.class);
-	}
-
-	public static String PLATFORM(JavaComposite jc) {
-		return jc.getClassName(Platform.class);
+		return getClassName(jc, "org.eclipse.ui.PartInitException");
 	}
 
 	public static String PLATFORM_UI(JavaComposite jc) {
-		return jc.getClassName(PlatformUI.class);
+		return getClassName(jc, "org.eclipse.ui.PlatformUI");
 	}
 
 	public static String POINT(JavaComposite jc) {
-		return jc.getClassName(Point.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.Point");
 	}
 
 	public static String POSITION(JavaComposite jc) {
-		return jc.getClassName(Position.class);
+		return getClassName(jc, "org.eclipse.jface.text.Position");
 	}
 
 	public static String POSITION_BASED_TEXT_DIAGNOSTIC(JavaComposite jc) {
+		// TODO FIXME
 		return jc.getClassName("PositionBasedTextDiagnostic");
 	}
 
 	public static String PREFERENCE_CONVERTER(JavaComposite jc) {
-		return jc.getClassName(PreferenceConverter.class);
+		return getClassName(jc, "org.eclipse.jface.preference.PreferenceConverter");
 	}
 
 	public static String PREFERENCE_PAGE(JavaComposite jc) {
-		return jc.getClassName(PreferencePage.class);
+		return getClassName(jc, "org.eclipse.jface.preference.PreferencePage");
 	}
 
 	public static String PRESENTATION_RECONCILER(JavaComposite jc) {
-		return jc.getClassName(PresentationReconciler.class);
-	}
-
-	public static String PRINTER_WRITER(JavaComposite jc) {
-		return jc.getClassName(PrintWriter.class);
+		return getClassName(jc, "org.eclipse.jface.text.presentation.PresentationReconciler");
 	}
 
 	public static String PROGRAM(JavaComposite jc) {
-		return jc.getClassName(Program.class);
+		return getClassName(jc, "org.eclipse.swt.program.Program");
 	}
 
 	public static String PROGRESS_ADAPTER(JavaComposite jc) {
-		return jc.getClassName(ProgressAdapter.class);
+		return getClassName(jc, "org.eclipse.swt.browser.ProgressAdapter");
 	}
 
 	public static String PROGRESS_EVENT(JavaComposite jc) {
-		return jc.getClassName(ProgressEvent.class);
+		return getClassName(jc, "org.eclipse.swt.browser.ProgressEvent");
 	}
 
 	public static String PROJECTION_ANNOTATION(JavaComposite jc) {
-		return jc.getClassName(ProjectionAnnotation.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.projection.ProjectionAnnotation");
 	}
 
 	public static String PROJECTION_ANNOTATION_MODEL(JavaComposite jc) {
-		return jc.getClassName(ProjectionAnnotationModel.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.projection.ProjectionAnnotationModel");
 	}
 
 	public static String PROJECTION_SUPPORT(JavaComposite jc) {
-		return jc.getClassName(ProjectionSupport.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.projection.ProjectionSupport");
 	}
 
 	public static String PROJECTION_VIEWER(JavaComposite jc) {
-		return jc.getClassName(ProjectionViewer.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.projection.ProjectionViewer");
 	}
 
 	public static String PROPERTY_DESCRIPTOR(JavaComposite jc) {
-		return jc.getClassName(PropertyDescriptor.class);
+		return getClassName(jc, "org.eclipse.emf.edit.ui.provider.PropertyDescriptor");
 	}
 
 	public static String PROPERTY_SHEET_PAGE(JavaComposite jc) {
-		return jc.getClassName(PropertySheetPage.class);
+		return getClassName(jc, "org.eclipse.ui.views.properties.PropertySheetPage");
 	}
 
 	public static String PROPERTY_SOURCE(JavaComposite jc) {
-		return jc.getClassName(PropertySource.class);
-	}
-
-	public static String PROXY(JavaComposite jc) {
-		return jc.getClassName(Proxy.class);
-	}
-
-	public static String PUSHBACK_READER(JavaComposite jc) {
-		return jc.getClassName(PushbackReader.class);
+		return getClassName(jc, "org.eclipse.emf.edit.ui.provider.PropertySource");
 	}
 
 	public static String QUICK_ASSIST_ASSISTANT(JavaComposite jc) {
-		return jc.getClassName(QuickAssistAssistant.class);
-	}
-
-	public static String READER(JavaComposite jc) {
-		return jc.getClassName(Reader.class);
-	}
-
-	public static String RECOGNITION_EXCEPTION(JavaComposite jc) {
-		return jc.getClassName(RecognitionException.class);
-	}
-
-	public static String RECOGNIZER_SHARED_STATE(JavaComposite jc) {
-		return jc
-				.getClassName(org.antlr.runtime3_4_0.RecognizerSharedState.class
-						.getName());
+		return getClassName(jc, "org.eclipse.jface.text.quickassist.QuickAssistAssistant");
 	}
 
 	public static String RECTANGLE(JavaComposite jc) {
-		return jc.getClassName(Rectangle.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.Rectangle");
 	}
 
 	public static String REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY(
 			JavaComposite jc) {
-		return jc.getClassName(ReflectiveItemProviderAdapterFactory.class
-				.getName());
+		return getClassName(jc, "org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory");
 	}
 
 	public static String REGION(JavaComposite jc) {
-		return jc.getClassName(Region.class);
+		return getClassName(jc, "org.eclipse.jface.text.Region");
 	}
 
 	public static String RESOLVER_SWITCH_FIELD_NAME(JavaComposite jc) {
+		// FIXME
 		return jc.getClassName("resolverSwitch");
 	}
 
-	public static String RESOURCE(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.emf.ecore.resource.Resource.class
-				.getName());
-	}
-
-	public static String RESOURCES_PLUGIN(JavaComposite jc) {
-		return jc.getClassName(ResourcesPlugin.class);
-	}
-
-	public static String RESOURCE_DIAGNOSTIC(JavaComposite jc) {
-		return jc.getClassName(Diagnostic.class);
-	}
-
-	public static String RESOURCE_FACTORY(JavaComposite jc) {
-		return jc.getClassName(Resource.Factory.class);
-	}
-
-	public static String RESOURCE_IMPL(JavaComposite jc) {
-		return jc.getClassName(ResourceImpl.class);
-	}
-
 	public static String RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY(JavaComposite jc) {
-		return jc.getClassName(ResourceItemProviderAdapterFactory.class
-				.getName());
+		return getClassName(jc, "org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory");
 	}
 
 	public static String RESOURCE_MARKER_ANNOTATION_MODEL(JavaComposite jc) {
-		return jc.getClassName(ResourceMarkerAnnotationModel.class);
-	}
-
-	public static String RESOURCE_SET(JavaComposite jc) {
-		return jc.getClassName(ResourceSet.class);
-	}
-
-	public static String RESOURCE_SET_IMPL(JavaComposite jc) {
-		return jc.getClassName(ResourceSetImpl.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.ResourceMarkerAnnotationModel");
 	}
 
 	public static String RGB(JavaComposite jc) {
-		return jc.getClassName(RGB.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.RGB");
 	}
 
 	public static String SAFE_RUNNABLE(JavaComposite jc) {
-		return jc.getClassName(SafeRunnable.class);
-	}
-
-	public static String SAFE_RUNNER(JavaComposite jc) {
-		return jc.getClassName(SafeRunner.class);
+		return getClassName(jc, "org.eclipse.jface.util.SafeRunnable");
 	}
 
 	public static String SCROLLABLE(JavaComposite jc) {
-		return jc.getClassName(Scrollable.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Scrollable");
 	}
 
 	public static String SCROLL_BAR(JavaComposite jc) {
-		return jc.getClassName(ScrollBar.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.ScrollBar");
 	}
 
 	public static String SELECTION_ADAPTER(JavaComposite jc) {
-		return jc.getClassName(SelectionAdapter.class);
+		return getClassName(jc, "org.eclipse.swt.events.SelectionAdapter");
 	}
 
 	public static String SELECTION_CHANGED_EVENT(JavaComposite jc) {
-		return jc.getClassName(SelectionChangedEvent.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.SelectionChangedEvent");
 	}
 
 	public static String SELECTION_EVENT(JavaComposite jc) {
-		return jc.getClassName(SelectionEvent.class);
+		return getClassName(jc, "org.eclipse.swt.events.SelectionEvent");
 	}
 
 	public static String SELECTION_LISTENER(JavaComposite jc) {
-		return jc.getClassName(SelectionListener.class);
+		return getClassName(jc, "org.eclipse.swt.events.SelectionListener");
 	}
 
 	public static String SELECT_MARKER_RULES_ACTION(JavaComposite jc) {
-		return jc.getClassName(SelectMarkerRulerAction.class);
-	}
-
-	public static String SET(JavaComposite jc) {
-		return jc.getClassName(Set.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.SelectMarkerRulerAction");
 	}
 
 	public static String SHELL(JavaComposite jc) {
-		return jc.getClassName(Shell.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Shell");
 	}
 
 	public static String SLIDER(JavaComposite jc) {
-		return jc.getClassName(Slider.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Slider");
 	}
 
 	public static String SOURCE_VIEWER_CONFIGURATION(JavaComposite jc) {
-		return jc.getClassName(SourceViewerConfiguration.class);
-	}
-
-	public static String STACK(JavaComposite jc) {
-		return jc.getClassName(Stack.class);
-	}
-
-	public static String STATUS(JavaComposite jc) {
-		return jc.getClassName(Status.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.SourceViewerConfiguration");
 	}
 
 	public static String STRING_BUILDER(JavaComposite jc) {
 		return jc.getClassName(StringBuilder.class);
 	}
 
-	public static String STRING_READER(JavaComposite jc) {
-		return jc.getClassName(StringReader.class);
-	}
-
-	public static String STRING_WRITER(JavaComposite jc) {
-		return jc.getClassName(StringWriter.class);
-	}
-
 	public static String STRUCTURED_SELECTION(JavaComposite jc) {
-		return jc.getClassName(StructuredSelection.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.StructuredSelection");
 	}
 
 	public static String STRUCTURED_VIEWER(JavaComposite jc) {
-		return jc.getClassName(StructuredViewer.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.StructuredViewer");
 	}
 
 	public static String STYLED_TEXT(JavaComposite jc) {
-		return jc.getClassName(StyledText.class);
+		return getClassName(jc, "org.eclipse.swt.custom.StyledText");
 	}
 
 	public static String STYLE_RANGE(JavaComposite jc) {
-		return jc.getClassName(StyleRange.class);
+		return getClassName(jc, "org.eclipse.swt.custom.StyleRange");
 	}
 
 	public static String SWT(JavaComposite jc) {
-		return jc.getClassName(SWT.class);
+		return getClassName(jc, "org.eclipse.swt.SWT");
 	}
 
 	public static String SWT_ERROR(JavaComposite jc) {
-		return jc.getClassName(SWTError.class);
+		return getClassName(jc, "org.eclipse.swt.SWTError");
 	}
 
 	public static String SWT_LIST(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.swt.widgets.List.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.List");
 	}
 
 	public static String TEXT(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.swt.widgets.Text.class);
+		return getClassName(jc, "org.eclipse.swt.widgets.Text");
 	}
 
 	public static String TEXT_ATTRIBUTE(JavaComposite jc) {
-		return jc.getClassName(TextAttribute.class);
+		return getClassName(jc, "org.eclipse.jface.text.TextAttribute");
 	}
 
 	public static String TEXT_EDITOR(JavaComposite jc) {
-		return jc.getClassName(TextEditor.class);
+		return getClassName(jc, "org.eclipse.ui.editors.text.TextEditor");
 	}
 
 	public static String TEXT_INVOCATION_CONTEXT(JavaComposite jc) {
-		return jc.getClassName(TextInvocationContext.class);
+		return getClassName(jc, "org.eclipse.jface.text.source.TextInvocationContext");
 	}
 
 	public static String TEXT_LAYOUT(JavaComposite jc) {
-		return jc.getClassName(TextLayout.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.TextLayout");
 	}
 
 	public static String TEXT_PRESENTATION(JavaComposite jc) {
-		return jc.getClassName(TextPresentation.class);
+		return getClassName(jc, "org.eclipse.jface.text.TextPresentation");
 	}
 
 	public static String TEXT_SELECTION(JavaComposite jc) {
-		return jc.getClassName(TextSelection.class);
+		return getClassName(jc, "org.eclipse.jface.text.TextSelection");
 	}
 
 	public static String TEXT_SOURCE_VIEWER_CONFIGURATION(JavaComposite jc) {
-		return jc.getClassName(TextSourceViewerConfiguration.class);
+		return getClassName(jc, "org.eclipse.ui.editors.text.TextSourceViewerConfiguration");
 	}
 
 	public static String TEXT_STYLE(JavaComposite jc) {
-		return jc.getClassName(TextStyle.class);
+		return getClassName(jc, "org.eclipse.swt.graphics.TextStyle");
 	}
 
 	public static String TEXT_UTILITIES(JavaComposite jc) {
-		return jc.getClassName(TextUtilities.class);
+		return getClassName(jc, "org.eclipse.jface.text.TextUtilities");
 	}
 
 	public static String TEXT_VIEWER(JavaComposite jc) {
-		return jc.getClassName(TextViewer.class);
-	}
-
-	public static String TIMER(JavaComposite jc) {
-		return jc.getClassName(Timer.class);
-	}
-
-	public static String TIMER_TASK(JavaComposite jc) {
-		return jc.getClassName(TimerTask.class);
+		return getClassName(jc, "org.eclipse.jface.text.TextViewer");
 	}
 
 	public static String TOOL_BAR_MANAGER(JavaComposite jc) {
-		return jc.getClassName(ToolBarManager.class);
+		return getClassName(jc, "org.eclipse.jface.action.ToolBarManager");
 	}
 
 	public static String TREE_SELECTION(JavaComposite jc) {
-		return jc.getClassName(TreeSelection.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.TreeSelection");
 	}
 
 	public static String TREE_VIEWER(JavaComposite jc) {
-		return jc.getClassName(TreeViewer.class);
-	}
-
-	public static String URI(JavaComposite jc) {
-		return jc.getClassName(org.eclipse.emf.common.util.URI.class);
-	}
-
-	public static String URI_CONVERTER(JavaComposite jc) {
-		return jc.getClassName(URIConverter.class);
-	}
-
-	public static String URL(JavaComposite jc) {
-		return jc.getClassName(URL.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.TreeViewer");
 	}
 
 	public static String VERIFY_EVENT(JavaComposite jc) {
-		return jc.getClassName(VerifyEvent.class);
+		return getClassName(jc, "org.eclipse.swt.events.VerifyEvent");
 	}
 
 	public static String VERIFY_KEY_LISTENER(JavaComposite jc) {
-		return jc.getClassName(VerifyKeyListener.class);
+		return getClassName(jc, "org.eclipse.swt.custom.VerifyKeyListener");
 	}
 
 	public static String VERIFY_LISTENER(JavaComposite jc) {
-		return jc.getClassName(VerifyListener.class);
+		return getClassName(jc, "org.eclipse.swt.events.VerifyListener");
 	}
 
 	public static String VIEWER(JavaComposite jc) {
-		return jc.getClassName(Viewer.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.Viewer");
 	}
 
 	public static String VIEWER_COMPARATOR(JavaComposite jc) {
-		return jc.getClassName(ViewerComparator.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.ViewerComparator");
 	}
 
 	public static String VIEWER_FILTER(JavaComposite jc) {
-		return jc.getClassName(ViewerFilter.class);
+		return getClassName(jc, "org.eclipse.jface.viewers.ViewerFilter");
 	}
 
 	public static String WINDOW(JavaComposite jc) {
-		return jc.getClassName(Window.class);
+		return getClassName(jc, "org.eclipse.jface.window.Window");
 	}
 
 	public static String WINDOW_EVENT(JavaComposite jc) {
-		return jc.getClassName(WindowEvent.class);
+		return getClassName(jc, "org.eclipse.swt.browser.WindowEvent");
 	}
 
 	public static String WIZARD(JavaComposite jc) {
-		return jc.getClassName(Wizard.class);
+		return getClassName(jc, "org.eclipse.jface.wizard.Wizard");
 	}
 
 	public static String WIZARD_PAGE(JavaComposite jc) {
-		return jc.getClassName(WizardPage.class);
+		return getClassName(jc, "org.eclipse.jface.wizard.WizardPage");
 	}
 
 	public static String WORKBENCH_CONTENT_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(WorkbenchContentProvider.class);
+		return getClassName(jc, "org.eclipse.ui.model.WorkbenchContentProvider");
 	}
 
 	public static String WORKBENCH_LABEL_PROVIDER(JavaComposite jc) {
-		return jc.getClassName(WorkbenchLabelProvider.class);
+		return getClassName(jc, "org.eclipse.ui.model.WorkbenchLabelProvider");
 	}
 
 	public static String XML_MEMENTO(JavaComposite jc) {
-		return jc.getClassName(XMLMemento.class);
+		return getClassName(jc, "org.eclipse.ui.XMLMemento");
 	}
 
 	public static String WIZARD_NEW_PROJECT_CREATION_PAGE(JavaComposite jc) {
-		return jc.getClassName(WizardNewProjectCreationPage.class);
+		return getClassName(jc, "org.eclipse.ui.dialogs.WizardNewProjectCreationPage");
 	}
 
 	public static String WORKSPACE_MODIFY_OPERATION(JavaComposite jc) {
-		return jc.getClassName(WorkspaceModifyOperation.class);
-	}
-
-	public static String SUB_PROGRESS_MONITOR(JavaComposite jc) {
-		return jc.getClassName(SubProgressMonitor.class);
+		return getClassName(jc, "org.eclipse.ui.actions.WorkspaceModifyOperation");
 	}
 
 	public static String BASIC_NEW_PROJECT_RESOURCE_WIZARD(JavaComposite jc) {
-		return jc.getClassName(BasicNewProjectResourceWizard.class);
+		return getClassName(jc, "org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard");
 	}
 
 	public static String ABSTRACT_DECORATED_TEXT_EDITOR_PREFERENCE_CONSTANTS(
 			JavaComposite jc) {
-		return jc
-				.getClassName(AbstractDecoratedTextEditorPreferenceConstants.class
-						.getName());
+		return getClassName(jc, "org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants");
 	}
 
 	public static String I_RECONCILER(JavaComposite jc) {
-		return jc.getClassName(IReconciler.class);
+		return getClassName(jc, "org.eclipse.jface.text.reconciler.IReconciler");
 	}
 
 	public static String SPELLING_SERVICE(JavaComposite jc) {
-		return jc.getClassName(SpellingService.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingService");
 	}
 
 	public static String I_RECONCILING_STRATEGY(JavaComposite jc) {
-		return jc.getClassName(IReconcilingStrategy.class);
+		return getClassName(jc, "org.eclipse.jface.text.reconciler.IReconcilingStrategy");
 	}
 
 	public static String SPELLING_RECONCILE_STRATEGY(JavaComposite jc) {
-		return jc.getClassName(SpellingReconcileStrategy.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingReconcileStrategy");
 	}
 
 	public static String I_SPELLING_PROBLEM_COLLECTOR(JavaComposite jc) {
-		return jc.getClassName(ISpellingProblemCollector.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector");
 	}
 
 	public static String SPELLING_PROBLEM(JavaComposite jc) {
-		return jc.getClassName(SpellingProblem.class);
+		return getClassName(jc, "org.eclipse.ui.texteditor.spelling.SpellingProblem");
 	}
 
 	public static String MONO_RECONCILER(JavaComposite jc) {
-		return jc.getClassName(MonoReconciler.class);
+		return getClassName(jc, "org.eclipse.jface.text.reconciler.MonoReconciler");
 	}
 	
 	public static String VIEWER_REFRESH(JavaComposite jc) {
-		return jc.getClassName(ViewerRefresh.class);
+		return getClassName(jc, "org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider.ViewerRefresh");
 	}
 	
 	public static String I_VIEWER_NOTIFICATION(JavaComposite jc) {
-		return jc.getClassName(IViewerNotification.class);
+		return getClassName(jc, "org.eclipse.emf.edit.provider.IViewerNotification");
+	}
+
+	private static String getClassName(JavaComposite jc,
+			String qualifiedClassName) {
+		return de.devboost.codecomposers.java.ClassNameConstants.getClassName(
+				jc, qualifiedClassName);
 	}
 }

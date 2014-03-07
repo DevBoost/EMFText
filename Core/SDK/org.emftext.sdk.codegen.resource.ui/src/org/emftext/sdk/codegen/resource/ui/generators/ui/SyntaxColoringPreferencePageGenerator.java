@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,16 +15,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR_SELECTOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_DATA;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_LAYOUT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_PART;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_CHANGED_LISTENER;
@@ -34,9 +37,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBEN
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL_PROVIDER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_CONVERTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RGB;

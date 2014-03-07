@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.debug;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_READER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COMPARATOR;
@@ -22,7 +23,6 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.INP
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SOCKET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.TREE_MAP;

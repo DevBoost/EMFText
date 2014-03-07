@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,13 +15,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.JOB;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DOCUMENT_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PROGRESS_MONITOR;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STATUS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.JOB;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STATUS;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

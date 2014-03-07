@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -16,13 +16,13 @@
 package org.emftext.sdk.codegen.resource.generators;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.ARRAY_LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static de.devboost.codecomposers.java.IClassNameConstants.MAP_ENTRY;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.EMPTY_STACK_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STACK;
 
 import java.util.ArrayList;

@@ -15,21 +15,21 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE_LOCATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_EXECUTABLE_EXTENSION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BASIC_NEW_PROJECT_RESOURCE_WIZARD;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE_DESCRIPTOR;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_NEW_WIZARD;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PATH;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RUNNABLE_WITH_PROGRESS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WIZARD;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WIZARD_NEW_PROJECT_CREATION_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WORKSPACE_MODIFY_OPERATION;

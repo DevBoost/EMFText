@@ -16,6 +16,8 @@
 package org.emftext.sdk.codegen.resource.generators.util;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
@@ -24,12 +26,10 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_O
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FILE_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCE_SET_IMPL;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 
 import java.util.List;

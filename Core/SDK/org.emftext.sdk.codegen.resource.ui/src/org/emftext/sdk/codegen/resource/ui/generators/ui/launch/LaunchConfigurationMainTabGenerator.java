@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,31 +15,31 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.launch;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STATUS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_LAUNCH_CONFIGURATION_TAB;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ELEMENT_TREE_SELECTION_DIALOG;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FILE_DIALOG;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_DATA;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_LAYOUT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GROUP;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION_WORKING_COPY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_STATUS_VALIDATOR;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MODIFY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MODIFY_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_ADAPTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_EVENT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TEXT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.VIEWER_FILTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.WINDOW;

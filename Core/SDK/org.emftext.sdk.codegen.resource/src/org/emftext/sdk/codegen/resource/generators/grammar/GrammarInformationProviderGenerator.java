@@ -15,12 +15,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.grammar;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_FACTORY;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.FIELD;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import java.util.ArrayList;
 import java.util.List;

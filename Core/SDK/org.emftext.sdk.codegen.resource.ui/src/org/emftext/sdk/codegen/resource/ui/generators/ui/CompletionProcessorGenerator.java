@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,9 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAYS;
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ARRAYS;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPLETION_PROPOSAL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IMAGE;
@@ -26,7 +27,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTENT
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_MARKER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_QUICK_FIXABLE_ANNOTATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MARKER_ANNOTATION;
 

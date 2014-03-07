@@ -15,23 +15,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui.launch;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_CONFIGURATION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_LAUNCH_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CORE_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEBUG_PLUGIN;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEBUG_UI_TOOLS;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_PART;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_FILE_EDITOR_INPUT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION_TYPE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_CONFIGURATION_WORKING_COPY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LAUNCH_SHORTCUT2;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URI;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

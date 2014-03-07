@@ -15,7 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ARRAYS;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUFFERED_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTION;
@@ -23,9 +25,7 @@ import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_O
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LIST_ITERATOR;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.OUTPUT_STREAM_WRITER;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PRINTER_WRITER;

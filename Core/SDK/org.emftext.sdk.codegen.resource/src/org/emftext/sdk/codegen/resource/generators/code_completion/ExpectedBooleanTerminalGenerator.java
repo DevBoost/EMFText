@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,9 +15,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.code_completion;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.SET;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

@@ -17,6 +17,7 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui.debug;
 
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.DEBUG_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VALUE;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_VARIABLE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CHILDREN_COUNT_UPDATE;
@@ -25,7 +26,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ELEMENT_LABEL_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_HAS_CHILDREN_UPDATE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_LABEL_UPDATE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_EDITOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TOGGLE_BREAKPOINTS_TARGET;
 

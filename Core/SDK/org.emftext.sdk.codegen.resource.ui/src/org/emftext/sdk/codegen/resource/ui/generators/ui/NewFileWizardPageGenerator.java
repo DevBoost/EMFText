@@ -15,22 +15,22 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_ADAPTABLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_CONTAINER;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.CONTAINER_SELECTION_DIALOG;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_DATA;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GRID_LAYOUT;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ADAPTABLE;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTAINER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PATH;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MODIFY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MODIFY_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PATH;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RESOURCES_PLUGIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_ADAPTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;

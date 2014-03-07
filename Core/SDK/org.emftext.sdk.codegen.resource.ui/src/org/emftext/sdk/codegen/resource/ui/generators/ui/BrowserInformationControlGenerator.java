@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,23 +15,24 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ASSERT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.STRING_READER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_INFORMATION_CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ASSERT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BROWSER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FONT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.GC;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ITERATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DELAYED_INPUT_CHANGE_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL_EXTENSION2;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INPUT_CHANGED_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.J_FACE_RESOURCES;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.KEY_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.KEY_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LISTENER_LIST;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LOCATION_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MENU;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.OPEN_WINDOW_LISTENER;
@@ -41,7 +42,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROGRESS_
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RECTANGLE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SLIDER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRING_READER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STYLE_RANGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT_ERROR;

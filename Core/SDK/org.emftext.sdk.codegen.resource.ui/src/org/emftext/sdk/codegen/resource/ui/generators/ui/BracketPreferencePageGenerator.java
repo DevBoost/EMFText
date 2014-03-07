@@ -15,6 +15,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_SET;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUTTON;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COLOR_SELECTOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.COMBO;
@@ -27,15 +31,11 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERE
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LABEL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_MAP;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LINKED_HASH_SET;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_CONVERTER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PREFERENCE_PAGE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.RGB;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_EVENT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SELECTION_LISTENER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SET;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT_LIST;
 

@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.COLLECTIONS;
-import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.MAP;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

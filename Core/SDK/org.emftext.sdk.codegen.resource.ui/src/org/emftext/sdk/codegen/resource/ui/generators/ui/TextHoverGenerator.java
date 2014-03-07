@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,16 +15,20 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.BUNDLE;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.resource.generators.ClassNameConstants.URL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ACTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BAD_LOCATION_EXCEPTION;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.BUNDLE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.DEFAULT_INFORMATION_CONTROL;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EDITORS_UI;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.FONT_DATA;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL_CREATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_INFORMATION_CONTROL_EXTENSION4;
@@ -39,9 +43,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_HO
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_HOVER_EXTENSION2;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.J_FACE_RESOURCES;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.LISTENER_LIST;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_UI;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POINT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.REGION;
@@ -50,7 +51,6 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SHELL;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.TOOL_BAR_MANAGER;
-import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.URL;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;

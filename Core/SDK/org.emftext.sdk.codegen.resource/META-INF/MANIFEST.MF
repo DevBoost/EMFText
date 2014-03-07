@@ -13,15 +13,9 @@ Export-Package: org.emftext.sdk.codegen.resource,
  org.emftext.sdk.codegen.resource.generators.interfaces,
  org.emftext.sdk.codegen.resource.generators.mopp,
  org.emftext.sdk.codegen.resource.generators.util
-Require-Bundle: org.eclipse.core.expressions,
- org.eclipse.core.runtime,
- org.eclipse.core.resources,
+Require-Bundle: org.eclipse.core.runtime,
  org.emftext.sdk,
  org.emftext.sdk.antlr3_4_0,
  org.emftext.sdk.codegen,
- org.emftext.sdk.codegen.antlr,
- org.eclipse.emf.ecore.change,
- org.eclipse.emf.validation,
- org.eclipse.debug.core,
- org.eclipse.debug.ui
+ org.emftext.sdk.codegen.antlr
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
