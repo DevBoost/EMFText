@@ -602,7 +602,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		sc.add("setResource((" + iTextResourceClassName + ") demandLoadedResource);");
 		sc.add("} else {");
 		sc.addComment("the resource was not loaded by an EMFText resource, but some other EMF resource");
-		sc.add(uiPluginActivatorClassName + ".showErrorDialog(\"No EMFText resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
+		sc.add(uiPluginActivatorClassName + ".showErrorDialog(\"Invalid resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
 		sc.addComment("close this editor because it can not present the resource");
 		sc.add("close(false);");
 		sc.add("}");
