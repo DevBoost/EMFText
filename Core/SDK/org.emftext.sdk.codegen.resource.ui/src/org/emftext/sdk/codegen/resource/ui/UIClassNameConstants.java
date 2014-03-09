@@ -209,11 +209,6 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.ui.editors.text.EditorsUI");
 	}
 
-	public static String ELEMENT_BASED_TEXT_DIAGNOSTIC(JavaComposite jc) {
-		// FIXME
-		return jc.getClassName("ElementBasedTextDiagnostic");
-	}
-
 	public static String ELEMENT_TREE_SELECTION_DIALOG(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.dialogs.ElementTreeSelectionDialog");
 	}
@@ -872,11 +867,6 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.jface.text.Position");
 	}
 
-	public static String POSITION_BASED_TEXT_DIAGNOSTIC(JavaComposite jc) {
-		// TODO FIXME
-		return jc.getClassName("PositionBasedTextDiagnostic");
-	}
-
 	public static String PREFERENCE_CONVERTER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.preference.PreferenceConverter");
 	}
@@ -944,11 +934,6 @@ public class UIClassNameConstants {
 
 	public static String REGION(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.text.Region");
-	}
-
-	public static String RESOLVER_SWITCH_FIELD_NAME(JavaComposite jc) {
-		// FIXME
-		return jc.getClassName("resolverSwitch");
 	}
 
 	public static String RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY(JavaComposite jc) {
