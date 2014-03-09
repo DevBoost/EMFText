@@ -36,6 +36,8 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 	public static final String NEW_FILE_WIZARD_WINDOW_TITLE = "NEW_FILE_WIZARD_WINDOW_TITLE";
 	public static final String NEW_FILE_WIZARD_PAGE_TITLE = "NEW_FILE_WIZARD_PAGE_TITLE";
 	public static final String NEW_FILE_WIZARD_DESCRIPTION = "NEW_FILE_WIZARD_DESCRIPTION";
+	public static final String ROOT_PREFERENCE_PAGE_DESCRIPTION = "ROOT_PREFERENCE_PAGE_DESCRIPTION";
+	public static final String ROOT_PREFERENCE_PAGE_TEXT = "ROOT_PREFERENCE_PAGE_TEXT";
 
 	public void generateJavaContents(JavaComposite jc) {
 		
@@ -93,6 +95,14 @@ public class UIResourceBundleGenerator extends UIJavaBaseGenerator<ArtifactParam
 		
 		jc.addJavadoc("The description for the NewFileWizard.");
 		jc.add("public static String " + NEW_FILE_WIZARD_DESCRIPTION + " = \"This wizard creates a new file with *." + syntaxName + " extension.\";");
+		jc.addLineBreak();
+		
+		jc.addJavadoc("The description for the root preference page.");
+		jc.add("public static String " + ROOT_PREFERENCE_PAGE_DESCRIPTION + " = \"" + getContext().getCapitalizedConcreteSyntaxName() + " Text Editor Preferences\";");
+		jc.addLineBreak();
+		
+		jc.addJavadoc("The text for the root preference page.");
+		jc.add("public static String " + ROOT_PREFERENCE_PAGE_TEXT + " = \"Go to <a href=\\\"http://www.emftext.org\\\">www.emftext.org</a> for more information.\";");
 		jc.addLineBreak();
 	}
 

@@ -36,56 +36,57 @@ import de.devboost.codecomposers.java.JavaComposite;
 
 public class PreferencePageGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public void generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite jc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
-		sc.addLineBreak();
+		jc.add("package " + getResourcePackageName() + ";");
+		jc.addLineBreak();
+		jc.addImportsPlaceholder();
+		jc.addLineBreak();
 		
-		sc.addJavadoc("The root preference page");
-		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE(sc) + " implements " + I_WORKBENCH_PREFERENCE_PAGE(sc) + " {");
-		sc.addLineBreak();
-		addmethods(sc);
-		sc.add("}");
+		jc.addJavadoc("The root preference page.");
+		jc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE(jc) + " implements " + I_WORKBENCH_PREFERENCE_PAGE(jc) + " {");
+		jc.addLineBreak();
+		addMethods(jc);
+		jc.add("}");
 	}
 
-	private void addmethods(JavaComposite sc) {
-		addInitMethod(sc);
-		addCreateContentsMethod(sc);
+	private void addMethods(JavaComposite jc) {
+		addInitMethod(jc);
+		addCreateContentsMethod(jc);
 	}
 
-	private void addInitMethod(JavaComposite sc) {
-		sc.add("public void init(" + I_WORKBENCH(sc) + " workbench) {");
-		sc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
-		sc.add("setDescription(\"" + getContext().getCapitalizedConcreteSyntaxName() + " Text Editor Preferences\");");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addInitMethod(JavaComposite jc) {
+		jc.add("public void init(" + I_WORKBENCH(jc) + " workbench) {");
+		jc.add("setPreferenceStore(" + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
+		jc.add("setDescription(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.ROOT_PREFERENCE_PAGE_DESCRIPTION + ");");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addCreateContentsMethod(JavaComposite sc) {
-		sc.add("@Override");
-		sc.add("protected " + CONTROL(sc) + " createContents(" + COMPOSITE(sc) + " parent) {");
-		sc.add(COMPOSITE(sc) + " settingComposite = new " + COMPOSITE(sc) + "(parent, " + SWT(sc) + ".NONE);");
-		sc.add(GRID_LAYOUT(sc) + " layout = new " + GRID_LAYOUT(sc) + "();");
-		sc.add(GRID_DATA(sc) + " gd;");
-		sc.add("layout.numColumns= 1;");
-		sc.add("layout.marginHeight= 0;");
-		sc.add("layout.marginWidth= 0;");
-		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".BEGINNING);");
-        sc.add("settingComposite.setLayout(layout);");
-        sc.add("settingComposite.setLayoutData(gd);");
-        sc.add(LINK(sc) + " link = new " + LINK(sc) + "(settingComposite, " + SWT(sc) + ".NONE);");
-        sc.add("link.setText(\"Go to <A href=\\\"http://www.emftext.org\\\">www.emftext.org</A> for more information.\");");
-        sc.add("link.setSize(140, 40);");
-        sc.add("link.addSelectionListener(new " + SELECTION_LISTENER(sc) + "() {");
-        sc.add("public void widgetSelected(" + SELECTION_EVENT(sc) + " e) {");
-        sc.add("if (e.text.startsWith(\"http\")) " + PROGRAM(sc) + ".launch(e.text);");
-        sc.add("}");
-        sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(sc) + " e) {}");
-        sc.add("});");
-        sc.add("return settingComposite;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addCreateContentsMethod(JavaComposite jc) {
+		jc.add("@Override");
+		jc.add("protected " + CONTROL(jc) + " createContents(" + COMPOSITE(jc) + " parent) {");
+		jc.add(COMPOSITE(jc) + " settingComposite = new " + COMPOSITE(jc) + "(parent, " + SWT(jc) + ".NONE);");
+		jc.add(GRID_LAYOUT(jc) + " layout = new " + GRID_LAYOUT(jc) + "();");
+		jc.add(GRID_DATA(jc) + " gd;");
+		jc.add("layout.numColumns= 1;");
+		jc.add("layout.marginHeight= 0;");
+		jc.add("layout.marginWidth= 0;");
+		jc.add("gd = new " + GRID_DATA(jc) + "(" + GRID_DATA(jc) + ".BEGINNING);");
+        jc.add("settingComposite.setLayout(layout);");
+        jc.add("settingComposite.setLayoutData(gd);");
+        jc.addLineBreak();
+        jc.add(LINK(jc) + " link = new " + LINK(jc) + "(settingComposite, " + SWT(jc) + ".NONE);");
+        jc.add("link.setText(" + uiResourceBundleClassName + "." + UIResourceBundleGenerator.ROOT_PREFERENCE_PAGE_TEXT + ");");
+        jc.add("link.setSize(140, 40);");
+        jc.add("link.addSelectionListener(new " + SELECTION_LISTENER(jc) + "() {");
+        jc.add("public void widgetSelected(" + SELECTION_EVENT(jc) + " e) {");
+        jc.add("if (e.text.startsWith(\"http\")) " + PROGRAM(jc) + ".launch(e.text);");
+        jc.add("}");
+        jc.add("public void widgetDefaultSelected(" + SELECTION_EVENT(jc) + " e) {}");
+        jc.add("});");
+        jc.add("return settingComposite;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
-
-	
 }
