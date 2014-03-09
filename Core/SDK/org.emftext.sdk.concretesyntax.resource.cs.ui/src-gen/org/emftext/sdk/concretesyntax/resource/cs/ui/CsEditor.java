@@ -259,7 +259,7 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 					setResource((org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) demandLoadedResource);
 				} else {
 					// the resource was not loaded by an EMFText resource, but some other EMF resource
-					org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.showErrorDialog("No EMFText resource.", "The file '" + uri.lastSegment() + "' of type '" + uri.fileExtension() + "' can not be handled by the CsEditor.");
+					org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.showErrorDialog("Invalid resource.", "The file '" + uri.lastSegment() + "' of type '" + uri.fileExtension() + "' can not be handled by the CsEditor.");
 					// close this editor because it can not present the resource
 					close(false);
 				}

@@ -30,13 +30,13 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
- * The root preference page
+ * The root preference page.
  */
 public class CsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	
 	public void init(IWorkbench workbench) {
 		setPreferenceStore(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore());
-		setDescription("Cs Text Editor Preferences");
+		setDescription(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.ROOT_PREFERENCE_PAGE_DESCRIPTION);
 	}
 	
 	@Override
@@ -50,8 +50,9 @@ public class CsPreferencePage extends PreferencePage implements IWorkbenchPrefer
 		gd = new GridData(GridData.BEGINNING);
 		settingComposite.setLayout(layout);
 		settingComposite.setLayoutData(gd);
+		
 		Link link = new Link(settingComposite, SWT.NONE);
-		link.setText("Go to <A href=\"http://www.emftext.org\">www.emftext.org</A> for more information.");
+		link.setText(org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.ROOT_PREFERENCE_PAGE_TEXT);
 		link.setSize(140, 40);
 		link.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {

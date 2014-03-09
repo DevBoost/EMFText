@@ -80,6 +80,16 @@ public class CsUIResourceBundle {
 	public static String NEW_FILE_WIZARD_DESCRIPTION = "This wizard creates a new file with *.cs extension.";
 	
 	/**
+	 * The description for the root preference page.
+	 */
+	public static String ROOT_PREFERENCE_PAGE_DESCRIPTION = "Cs Text Editor Preferences";
+	
+	/**
+	 * The text for the root preference page.
+	 */
+	public static String ROOT_PREFERENCE_PAGE_TEXT = "Go to <a href=\"http://www.emftext.org\">www.emftext.org</a> for more information.";
+	
+	/**
 	 * The static initializer tries to load resources from properties files or
 	 * resource bundle classes. If no properties files or resource bundle classes are
 	 * available, the default values are kept.
