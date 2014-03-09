@@ -49,9 +49,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	/**
-	 * This is a temporary flag which can be used to enable the
-	 * generation of debug output. This flag must be removed once
-	 * all code completion issues have been resolved.
+	 * This is a temporary flag which can be used to enable the generation of
+	 * debug output. This flag must be removed once all code completion issues
+	 * have been resolved.
 	 */
 	public static final boolean INSERT_DEBUG_OUTPUT_CODE = false;
 
