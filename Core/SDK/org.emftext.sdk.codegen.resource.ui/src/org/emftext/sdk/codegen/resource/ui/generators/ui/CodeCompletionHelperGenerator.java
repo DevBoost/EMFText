@@ -523,6 +523,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (cursorOffset < 0) {");
 		sc.add("return \"\";");
 		sc.add("}");
+
+		sc.addLineBreak();
 		sc.add("int end = 0;");
 		sc.add("for (" + expectedTerminalClassName + " expectedElement : expectedElements) {");
 		sc.add("if (expectedElement == expectedAtCursor) {");
@@ -643,10 +645,10 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 			"Computes a set of proposals for the given document assuming the cursor is " +
 			"at 'cursorOffset'. The proposals are derived using the meta information, i.e., " +
 			"the generated language plug-in.",
-			"@param originalResource",
+			"@param originalResource the resource to compute completions for",
 			"@param content the documents content",
-			"@param cursorOffset",
-			"@return"
+			"@param cursorOffset the current offset of the cursor",
+			"@return an array of completion proposals"
 		);
 		
 		sc.add("public " + completionProposalClassName + "[] computeCompletionProposals(" + iTextResourceClassName + " originalResource, String content, int cursorOffset) {");
@@ -674,11 +676,14 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("setPrefixes(expectedAfterCursor, content, cursorOffset);");
 		sc.add("setPrefixes(expectedBeforeCursor, content, cursorOffset);");
 
+		sc.addLineBreak();
 		sc.addComment("First, we derive all possible proposals from the set of elements that are expected at the cursor position.");
 		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> allProposals = new " + LINKED_HASH_SET(sc) + "<" + completionProposalClassName + ">();");
 		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);");
 		sc.add(COLLECTION(sc) + "<" + completionProposalClassName + "> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset - 1);");
 		sc.add("removeKeywordsEndingBeforeIndex(leftProposals, cursorOffset);");
+
+		sc.addLineBreak();
 		sc.addComment(
 			"Second, the set of left proposals (i.e., the ones before the cursor) is " +
 			"checked for emptiness. If the set is empty, the right proposals (i.e., " +
@@ -697,6 +702,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("if (leftMatchingProposals == 0) {");
 		sc.add("allProposals.addAll(rightProposals);");
 		sc.add("}");
+		
+		sc.addLineBreak();
 		sc.addComment(
 			"Third, the proposals are sorted according to their relevance. " +
 			"Proposals that matched the prefix are preferred over ones that did not. " +
@@ -712,7 +719,8 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.add("for (" + completionProposalClassName + " proposal : sortedProposals) {");
 		sc.add("proposal.setRoot(root);");
 		sc.add("}");
-		
+
+		sc.addLineBreak();
 		sc.add("return sortedProposals.toArray(new " + completionProposalClassName + "[sortedProposals.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
