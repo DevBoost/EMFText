@@ -78,7 +78,9 @@ public class TextResourceGenerator extends
 						OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
 		removeEclipseDependentCode = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		sc.add("public class " + getResourceClassName() + " extends "
