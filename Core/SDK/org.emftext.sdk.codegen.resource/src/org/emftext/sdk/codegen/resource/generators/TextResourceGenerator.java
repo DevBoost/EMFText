@@ -190,7 +190,11 @@ public class TextResourceGenerator extends
 		sc.add("protected void runValidators(" + E_OBJECT(sc) + " root) {");
 		if (!disableEValidators) {
 			sc.addComment("Check constraints provided by EMF Validator classes");
-			sc.add(DIAGNOSTIC(sc) + " diagnostics = " + DIAGNOSTICIAN(sc)
+			// We need to use the qualified name for the Diagnostic class here,
+			// because the super class of the generated TextResource class is
+			// org.eclipse.emf.ecore.resource.Resource which does contain an
+			// inner class Diagnostic that overrides the imports.
+			sc.add(DIAGNOSTIC(null) + " diagnostics = " + DIAGNOSTICIAN(sc)
 					+ ".INSTANCE.validate(root);");
 			sc.add("addDiagnostics(diagnostics, root);");
 		} else {
@@ -220,7 +224,12 @@ public class TextResourceGenerator extends
 	}
 
 	private void addAddDiagnosticsMethod(JavaComposite sc) {
-		sc.add("protected void addDiagnostics(" + DIAGNOSTIC(sc) + " diagnostics, "
+		// We need to use the qualified name for the Diagnostic class here,
+		// because the super class of the generated TextResource class is
+		// org.eclipse.emf.ecore.resource.Resource which does contain an
+		// inner class Diagnostic that overrides the imports.
+		String diagnosticsClassName = DIAGNOSTIC(null);
+		sc.add("protected void addDiagnostics(" + diagnosticsClassName + " diagnostics, "
 				+ E_OBJECT(sc) + " root) {");
 		sc.add(E_OBJECT(sc) + " cause = root;");
 		sc.add(LIST(sc) + "<?> data = diagnostics.getData();");
@@ -230,7 +239,7 @@ public class TextResourceGenerator extends
 		sc.add("cause = (" + E_OBJECT(sc) + ") causeObject;");
 		sc.add("}");
 		sc.add("}");
-		sc.add(LIST(sc) + "<" + DIAGNOSTIC(sc)
+		sc.add(LIST(sc) + "<" + diagnosticsClassName
 				+ "> children = diagnostics.getChildren();");
 		sc.add("if (children.size() == 0) {");
 		sc.add("if (diagnostics.getSeverity() == " + I_STATUS(sc) + ".ERROR) {");
@@ -240,7 +249,7 @@ public class TextResourceGenerator extends
 		sc.add("addWarning(diagnostics.getMessage(), cause);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("for (" + DIAGNOSTIC(sc) + " diagnostic : children) {");
+		sc.add("for (" + diagnosticsClassName + " diagnostic : children) {");
 		sc.add("addDiagnostics(diagnostic, root);");
 		sc.add("}");
 		sc.add("}");
