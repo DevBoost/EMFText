@@ -731,6 +731,10 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.ui.IWorkbenchPreferencePage");
 	}
 	
+	public static String I_WORKBENCH_WINDOW(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.IWorkbenchWindow");
+	}
+	
 	public static String I_WORKING_SET(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.ui.IWorkingSet");
 	}
