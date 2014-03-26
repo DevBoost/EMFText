@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -40,6 +40,7 @@ import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.ResourceBundleGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 import de.devboost.codecomposers.java.JavaComposite;
@@ -53,7 +54,9 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 
 	public void generateJavaContents(JavaComposite sc) {
 
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"Helper class to add markers to text files based on EMF's <code>ResourceDiagnostic</code>. " +
@@ -108,7 +111,7 @@ public class MarkerHelperGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void scheduleRunCommandsJob() {");
-		sc.add(JOB(sc) + " job = new " + JOB(sc) + "(\"updating markers\") {");
+		sc.add(JOB(sc) + " job = new " + JOB(sc) + "(" + resourceBundleClassName + "." +  ResourceBundleGenerator.UPDATING_MARKERS_JOB_NAME + ") {");
 		sc.add("@Override");	
 		sc.add("protected " + I_STATUS(sc) + " run(" + I_PROGRESS_MONITOR(sc) + " monitor) {");	
 		sc.add("runCommands();");

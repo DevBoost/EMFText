@@ -24,6 +24,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class ResourceBundleGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public final static String BUILDER_ADAPTER_TASK_NAME = "BUILDER_ADAPTER_TASK_NAME";
+	public final static String UPDATING_MARKERS_JOB_NAME = "UPDATING_MARKERS_JOB_NAME";
 	
 	public void generateJavaContents(JavaComposite jc) {
 		jc.add("package " + getResourcePackageName() + ";");
@@ -41,6 +42,10 @@ public class ResourceBundleGenerator extends JavaBaseGenerator<ArtifactParameter
 	private void addConstants(JavaComposite jc) {
 		jc.addJavadoc("The name of the main task that is shown in the progress view when the builders are running.");
 		jc.add("public static String BUILDER_ADAPTER_TASK_NAME = \"Building " + getContext().getConcreteSyntax().getName() + " file\";");
+		jc.addLineBreak();
+		
+		jc.addJavadoc("The name of the main job that is shown in the progress view while updating markers for resources.");
+		jc.add("public static String UPDATING_MARKERS_JOB_NAME = \"Updating markers\";");
 		jc.addLineBreak();
 	}
 
