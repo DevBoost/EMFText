@@ -60,11 +60,11 @@ public class CsCodeCompletionHelper {
 	 * 'cursorOffset'. The proposals are derived using the meta information, i.e., the
 	 * generated language plug-in.
 	 * 
-	 * @param originalResource
+	 * @param originalResource the resource to compute completions for
 	 * @param content the documents content
-	 * @param cursorOffset
+	 * @param cursorOffset the current offset of the cursor
 	 * 
-	 * @return
+	 * @return an array of completion proposals
 	 */
 	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource originalResource, String content, int cursorOffset) {
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -85,12 +85,14 @@ public class CsCodeCompletionHelper {
 		List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedBeforeCursor = Arrays.asList(getElementsExpectedAt(expectedElements, cursorOffset - 1));
 		setPrefixes(expectedAfterCursor, content, cursorOffset);
 		setPrefixes(expectedBeforeCursor, content, cursorOffset);
+		
 		// First, we derive all possible proposals from the set of elements that are
 		// expected at the cursor position.
 		Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> allProposals = new LinkedHashSet<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
 		Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> rightProposals = deriveProposals(expectedAfterCursor, content, resource, cursorOffset);
 		Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> leftProposals = deriveProposals(expectedBeforeCursor, content, resource, cursorOffset - 1);
 		removeKeywordsEndingBeforeIndex(leftProposals, cursorOffset);
+		
 		// Second, the set of left proposals (i.e., the ones before the cursor) is checked
 		// for emptiness. If the set is empty, the right proposals (i.e., the ones after
 		// the cursor) are also considered. If the set is not empty, the right proposal
@@ -107,6 +109,7 @@ public class CsCodeCompletionHelper {
 		if (leftMatchingProposals == 0) {
 			allProposals.addAll(rightProposals);
 		}
+		
 		// Third, the proposals are sorted according to their relevance. Proposals that
 		// matched the prefix are preferred over ones that did not. Finally, proposals are
 		// sorted alphabetically.
@@ -119,6 +122,7 @@ public class CsCodeCompletionHelper {
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : sortedProposals) {
 			proposal.setRoot(root);
 		}
+		
 		return sortedProposals.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[sortedProposals.size()]);
 	}
 	
@@ -233,6 +237,7 @@ public class CsCodeCompletionHelper {
 		if (cursorOffset < 0) {
 			return "";
 		}
+		
 		int end = 0;
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedElement : expectedElements) {
 			if (expectedElement == expectedAtCursor) {

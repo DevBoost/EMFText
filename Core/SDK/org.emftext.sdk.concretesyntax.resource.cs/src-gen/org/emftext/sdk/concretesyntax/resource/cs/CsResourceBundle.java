@@ -34,6 +34,12 @@ public class CsResourceBundle {
 	public static String BUILDER_ADAPTER_TASK_NAME = "Building cs file";
 	
 	/**
+	 * The name of the main job that is shown in the progress view while updating
+	 * markers for resources.
+	 */
+	public static String UPDATING_MARKERS_JOB_NAME = "Updating markers";
+	
+	/**
 	 * The static initializer tries to load resources from properties files or
 	 * resource bundle classes. If no properties files or resource bundle classes are
 	 * available, the default values are kept.

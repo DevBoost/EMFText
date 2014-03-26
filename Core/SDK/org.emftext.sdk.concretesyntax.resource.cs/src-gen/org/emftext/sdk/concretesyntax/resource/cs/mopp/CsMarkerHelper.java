@@ -92,7 +92,7 @@ public class CsMarkerHelper {
 		}
 		
 		private void scheduleRunCommandsJob() {
-			Job job = new Job("updating markers") {
+			Job job = new Job(org.emftext.sdk.concretesyntax.resource.cs.CsResourceBundle.UPDATING_MARKERS_JOB_NAME) {
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 					runCommands();
