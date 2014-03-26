@@ -49,6 +49,7 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTI
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_SELECTION_SERVICE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_STRUCTURED_SELECTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_WINDOW;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKING_SET;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKING_SET_MANAGER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PLATFORM_UI;
@@ -178,7 +179,11 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 				"@param project the project to be added to the selected working set");
 		sc.add("private void addProjectToSelectedWorkingSet(" + I_PROJECT(sc) + " project) {");
 		sc.add(I_WORKBENCH(sc) + " workbench = " + PLATFORM_UI(sc) + ".getWorkbench();");
-		sc.add(I_SELECTION_SERVICE(sc) + " selectionService = workbench.getActiveWorkbenchWindow().getSelectionService();");
+		sc.add(I_WORKBENCH_WINDOW(sc) + " workbenchWindow = workbench.getActiveWorkbenchWindow();");
+		sc.add("if (workbenchWindow == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add(I_SELECTION_SERVICE(sc) + " selectionService = workbenchWindow.getSelectionService();");
 		sc.add(I_SELECTION(sc) + " selection = selectionService.getSelection();");
 		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION(sc) + ") {");
 		sc.add(I_STRUCTURED_SELECTION(sc) + " structuredSelection = (" + I_STRUCTURED_SELECTION(sc) + ") selection;");
