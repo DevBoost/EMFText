@@ -120,17 +120,38 @@ public class CsResourceUtil {
 	}
 	
 	/**
-	 * Returns the resource after parsing the given text.
+	 * Returns the resource after parsing the given text. This method is deprecated
+	 * because it uses the default platform encoding. Use {@link #getResource(byte[])}
+	 * instead.
 	 */
+	@Deprecated
 	public static Resource getResource(String text) {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		return getResource(text, resourceSet);
 	}
 	
 	/**
-	 * Returns the resource after parsing the given text.
+	 * Returns the resource after parsing the given text. This method is deprecated
+	 * because it uses the default platform encoding. Use {@link #getResource(byte[],
+	 * ResourceSet)} instead.
 	 */
+	@Deprecated
 	public static Resource getResource(String text, ResourceSet resourceSet) {
+		return getResource(text.getBytes(), resourceSet);
+	}
+	
+	/**
+	 * Returns the resource after parsing the given bytes.
+	 */
+	public static Resource getResource(byte[] content) {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		return getResource(content, resourceSet);
+	}
+	
+	/**
+	 * Returns the resource after parsing the given bytes.
+	 */
+	public static Resource getResource(byte[] content, ResourceSet resourceSet) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 		metaInformation.registerResourceFactory();
 		URI uri = URI.createURI("temp." + metaInformation.getSyntaxName());
@@ -138,7 +159,7 @@ public class CsResourceUtil {
 		if (resource == null) {
 			return null;
 		}
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(text.getBytes());
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(content);
 		try {
 			resource.load(inputStream, null);
 		} catch (IOException ioe) {

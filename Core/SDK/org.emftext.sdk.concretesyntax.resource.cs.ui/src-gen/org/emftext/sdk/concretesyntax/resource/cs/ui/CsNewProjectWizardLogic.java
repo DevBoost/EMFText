@@ -49,6 +49,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetManager;
 import org.eclipse.ui.PlatformUI;
@@ -150,7 +151,11 @@ public class CsNewProjectWizardLogic {
 	 */
 	private void addProjectToSelectedWorkingSet(IProject project) {
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		ISelectionService selectionService = workbench.getActiveWorkbenchWindow().getSelectionService();
+		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+		if (workbenchWindow == null) {
+			return;
+		}
+		ISelectionService selectionService = workbenchWindow.getSelectionService();
 		ISelection selection = selectionService.getSelection();
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
