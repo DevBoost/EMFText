@@ -75,6 +75,8 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod4(sc);
 		addGetResourceMethod5(sc);
 		addGetResourceMethod6(sc);
+		addGetResourceMethod7(sc);
+		addGetResourceMethod8(sc);
 		addGetResourceContentMethod1(sc);
 		addGetResourceContentMethod2(sc);
 		addGetResourceContentMethod3(sc);
@@ -286,7 +288,12 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetResourceMethod5(JavaComposite sc) {
-		sc.addJavadoc("Returns the resource after parsing the given text.");
+		sc.addJavadoc(
+			"Returns the resource after parsing the given text. This method is " +
+			"deprecated because it uses the default platform encoding. Use " +
+			"{@link #getResource(byte[])} instead."
+		);
+		sc.add("@" + sc.getClassName(Deprecated.class));
 		sc.add("public static " + RESOURCE(sc) + " getResource(String text) {");
 		sc.add(RESOURCE_SET(sc) + " resourceSet = new " + RESOURCE_SET_IMPL(sc) + "();");
 		sc.add("return getResource(text, resourceSet);");
@@ -295,8 +302,30 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 	
 	private void addGetResourceMethod6(JavaComposite sc) {
-		sc.addJavadoc("Returns the resource after parsing the given text.");
+		sc.addJavadoc(
+			"Returns the resource after parsing the given text. This method is " +
+			"deprecated because it uses the default platform encoding. Use " +
+			"{@link #getResource(byte[], ResourceSet)} instead."
+		);
+		sc.add("@" + sc.getClassName(Deprecated.class));
 		sc.add("public static " + RESOURCE(sc) + " getResource(String text, " + RESOURCE_SET(sc) + " resourceSet) {");
+		sc.add("return getResource(text.getBytes(), resourceSet);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceMethod7(JavaComposite sc) {
+		sc.addJavadoc("Returns the resource after parsing the given bytes.");
+		sc.add("public static " + RESOURCE(sc) + " getResource(byte[] content) {");
+		sc.add(RESOURCE_SET(sc) + " resourceSet = new " + RESOURCE_SET_IMPL(sc) + "();");
+		sc.add("return getResource(content, resourceSet);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addGetResourceMethod8(JavaComposite sc) {
+		sc.addJavadoc("Returns the resource after parsing the given bytes.");
+		sc.add("public static " + RESOURCE(sc) + " getResource(byte[] content, " + RESOURCE_SET(sc) + " resourceSet) {");
 		sc.add(metaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
 		sc.add("metaInformation.registerResourceFactory();");
 		sc.add(URI(sc) + " uri = " + URI(sc) + ".createURI(\"temp.\" + metaInformation.getSyntaxName());");
@@ -304,7 +333,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("if (resource == null) {");
 		sc.add("return null;");
 		sc.add("}");
-		sc.add(BYTE_ARRAY_INPUT_STREAM(sc) + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(text.getBytes());");
+		sc.add(BYTE_ARRAY_INPUT_STREAM(sc) + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(content);");
 		sc.add("try {");
 		sc.add("resource.load(inputStream, null);");
 		sc.add("} catch (" + IO_EXCEPTION(sc) + " ioe) {");
