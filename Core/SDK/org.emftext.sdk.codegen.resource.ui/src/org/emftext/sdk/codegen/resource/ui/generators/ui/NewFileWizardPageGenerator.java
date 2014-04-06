@@ -204,6 +204,7 @@ public class NewFileWizardPageGenerator extends UIJavaBaseGenerator<ArtifactPara
 		sc.add("container = resource.getParent();");
 		sc.addComment("we use the name of the currently selected file instead of 'new_file'.");
 		sc.add("name = resource.getFullPath().removeFileExtension().lastSegment();");
+		sc.add("name = name + \".\" + fileExtension;");
 		sc.add("}");
 		sc.add(I_PATH(sc) + " fullPath = container.getFullPath();");
 		sc.add("containerText.setText(fullPath.toString());");
