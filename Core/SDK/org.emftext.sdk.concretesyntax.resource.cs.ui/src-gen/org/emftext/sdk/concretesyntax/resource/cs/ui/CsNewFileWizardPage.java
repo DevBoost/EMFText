@@ -130,6 +130,7 @@ public class CsNewFileWizardPage extends WizardPage {
 					container = resource.getParent();
 					// we use the name of the currently selected file instead of 'new_file'.
 					name = resource.getFullPath().removeFileExtension().lastSegment();
+					name = name + "." + fileExtension;
 				}
 				IPath fullPath = container.getFullPath();
 				containerText.setText(fullPath.toString());
