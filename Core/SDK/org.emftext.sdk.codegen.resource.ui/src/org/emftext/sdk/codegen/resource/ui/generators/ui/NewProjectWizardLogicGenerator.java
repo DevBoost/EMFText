@@ -64,7 +64,9 @@ import de.devboost.codecomposers.java.JavaComposite;
 public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 
 		sc.addJavadoc(
@@ -85,6 +87,32 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 		addExtractProjectMethod(sc);
 		addUnzipMethod(sc);
 		addRenameProjectMethod(sc);
+		addGetTaskNameMethod(sc);
+		addCreateDefaultNewFile(sc);
+	}
+
+	private void addCreateDefaultNewFile(JavaComposite jc) {
+		jc.add("protected void createDefaultNewFile(" + I_PROJECT(jc) + " project, boolean createDefaultNewFile) throws " + CORE_EXCEPTION(jc) + " {");
+		jc.add(I_FILE(jc) + " defaultNewFile = project.getFile(\"NEW_FILE_PLACEHOLDER\");");
+		jc.add("if (createDefaultNewFile) {");
+		jc.add("defaultNewFile.create(new " + BYTE_ARRAY_INPUT_STREAM(jc) + "(new byte[0]), true, null);");
+		jc.add("}");
+		jc.add("if (defaultNewFile.exists()) {");
+		jc.add(metaInformationClassName + " info = new " + metaInformationClassName + "();");
+		jc.add("String fileName = \"new_file.\" + info.getSyntaxName();");
+		jc.add("String content = info.getNewFileContentProvider().getNewFileContent(\"new_file.\" + info.getSyntaxName());");
+		jc.add("defaultNewFile.setContents(new " + BYTE_ARRAY_INPUT_STREAM(jc) + "(content.getBytes()), " + I_FILE(jc) + ".FORCE, null);");
+		jc.add("defaultNewFile.move(project.getProjectRelativePath().append(fileName), true, null);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+	}
+
+	private void addGetTaskNameMethod(JavaComposite sc) {
+		sc.add("protected String getTaskName() {");
+		sc.add("return \"Creating Example Project\";");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCreateExampleProjectMethod(JavaComposite sc) {
@@ -93,7 +121,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 				);
 		sc.add("public void createExampleProject(" + I_PROGRESS_MONITOR(sc) + " monitor, " + I_PATH(sc) + " projectPath, String projectName, String bundleName, String newProjectZip) throws InterruptedException {");
 		sc.add("try {");
-		sc.add("monitor.beginTask(\"Creating Example Project\", 120);");
+		sc.add("monitor.beginTask(getTaskName(), 120);");
 		sc.addLineBreak();
 		sc.addComment("Create the project folder");
 
@@ -144,17 +172,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("project.open(monitor);");
 		sc.add("renameProject(project, projectName);");
 		sc.addLineBreak();
-		sc.add(I_FILE(sc) + " defaultNewFile = project.getFile(\"NEW_FILE_PLACEHOLDER\");");
-		sc.add("if (newProjectZipURL == null) {");
-		sc.add("defaultNewFile.create(new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(new byte[0]), true, null);");
-		sc.add("}");
-		sc.add("if (defaultNewFile.exists()) {");
-		sc.add(metaInformationClassName + " info = new " + metaInformationClassName + "();");
-		sc.add("String fileName = \"new_file.\" + info.getSyntaxName();");
-		sc.add("String content = info.getNewFileContentProvider().getNewFileContent(\"new_file.\" + info.getSyntaxName());");
-		sc.add("defaultNewFile.setContents(new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(content.getBytes()), " + I_FILE(sc) + ".FORCE, null);");
-		sc.add("defaultNewFile.move(project.getProjectRelativePath().append(fileName), true, null);");
-		sc.add("}");
+		sc.add("createDefaultNewFile(project, newProjectZipURL == null);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("monitor.worked(10);");
@@ -243,7 +261,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 				"@throws " + FILE_NOT_FOUND_EXCEPTION(sc),
 				"@throws InterruptedException"
 				);
-		sc.add("private void unzip(" + ZIP_FILE(sc) + " zipFile, " + FILE(sc) + " projectFolderFile, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + IO_EXCEPTION(sc) + ", " + FILE_NOT_FOUND_EXCEPTION(sc) + ", InterruptedException {");
+		sc.add("protected void unzip(" + ZIP_FILE(sc) + " zipFile, " + FILE(sc) + " projectFolderFile, " + I_PROGRESS_MONITOR(sc) + " monitor) throws " + IO_EXCEPTION(sc) + ", " + FILE_NOT_FOUND_EXCEPTION(sc) + ", InterruptedException {");
 		sc.addLineBreak();
 		sc.add(ENUMERATION(sc) + "<? extends " + ZIP_ENTRY(sc) + "> e = zipFile.entries();");
 		sc.addLineBreak();
@@ -331,7 +349,7 @@ public class NewProjectWizardLogicGenerator extends UIJavaBaseGenerator<Artifact
 				"@param projectName a new name for the project",
 				"@throws " + CORE_EXCEPTION(sc) + " if something goes wrong"
 				);
-		sc.add("private void renameProject(" + I_PROJECT(sc) + " project, String projectName) throws " + CORE_EXCEPTION(sc) + " {");
+		sc.add("protected void renameProject(" + I_PROJECT(sc) + " project, String projectName) throws " + CORE_EXCEPTION(sc) + " {");
 		sc.add(I_PROJECT_DESCRIPTION(sc) + " description = project.getDescription();");
 		sc.add("description.setName(projectName);");
 		//sc.add("project.move(description, " + I_RESOURCE + ".FORCE | " + I_RESOURCE + ".SHALLOW, null);");
