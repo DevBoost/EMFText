@@ -91,7 +91,7 @@ public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutabl
 				
 				public void execute(IProgressMonitor monitor) throws InterruptedException {
 					try {
-						new org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewProjectWizardLogic().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);
+						doPerformFinish(monitor);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
@@ -108,6 +108,10 @@ public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutabl
 			return false;
 		}
 		return true;
+	}
+	
+	protected void doPerformFinish(IProgressMonitor monitor) throws Exception {
+		new org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewProjectWizardLogic().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);
 	}
 	
 	/**
