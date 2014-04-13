@@ -70,7 +70,7 @@ public class CsNewProjectWizardLogic {
 	 */
 	public void createExampleProject(IProgressMonitor monitor, IPath projectPath, String projectName, String bundleName, String newProjectZip) throws InterruptedException {
 		try {
-			monitor.beginTask("Creating Example Project", 120);
+			monitor.beginTask(getTaskName(), 120);
 			
 			// Create the project folder
 			String projectFolder = projectPath.toOSString() + File.separator + projectName;
@@ -117,17 +117,7 @@ public class CsNewProjectWizardLogic {
 				project.open(monitor);
 				renameProject(project, projectName);
 				
-				IFile defaultNewFile = project.getFile("NEW_FILE_PLACEHOLDER");
-				if (newProjectZipURL == null) {
-					defaultNewFile.create(new ByteArrayInputStream(new byte[0]), true, null);
-				}
-				if (defaultNewFile.exists()) {
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation info = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
-					String fileName = "new_file." + info.getSyntaxName();
-					String content = info.getNewFileContentProvider().getNewFileContent("new_file." + info.getSyntaxName());
-					defaultNewFile.setContents(new ByteArrayInputStream(content.getBytes()), IFile.FORCE, null);
-					defaultNewFile.move(project.getProjectRelativePath().append(fileName), true, null);
-				}
+				createDefaultNewFile(project, newProjectZipURL == null);
 			}
 			
 			monitor.worked(10);
@@ -216,7 +206,7 @@ public class CsNewProjectWizardLogic {
 	 * 
 	 * @throws InterruptedException
 	 */
-	private void unzip(ZipFile zipFile, File projectFolderFile, IProgressMonitor monitor) throws IOException, FileNotFoundException, InterruptedException {
+	protected void unzip(ZipFile zipFile, File projectFolderFile, IProgressMonitor monitor) throws IOException, FileNotFoundException, InterruptedException {
 		
 		Enumeration<? extends ZipEntry> e = zipFile.entries();
 		
@@ -301,9 +291,27 @@ public class CsNewProjectWizardLogic {
 	 * 
 	 * @throws CoreException if something goes wrong
 	 */
-	private void renameProject(IProject project, String projectName) throws CoreException {
+	protected void renameProject(IProject project, String projectName) throws CoreException {
 		IProjectDescription description = project.getDescription();
 		description.setName(projectName);
+	}
+	
+	protected String getTaskName() {
+		return "Creating Example Project";
+	}
+	
+	protected void createDefaultNewFile(IProject project, boolean createDefaultNewFile) throws CoreException {
+		IFile defaultNewFile = project.getFile("NEW_FILE_PLACEHOLDER");
+		if (createDefaultNewFile) {
+			defaultNewFile.create(new ByteArrayInputStream(new byte[0]), true, null);
+		}
+		if (defaultNewFile.exists()) {
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation info = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+			String fileName = "new_file." + info.getSyntaxName();
+			String content = info.getNewFileContentProvider().getNewFileContent("new_file." + info.getSyntaxName());
+			defaultNewFile.setContents(new ByteArrayInputStream(content.getBytes()), IFile.FORCE, null);
+			defaultNewFile.move(project.getProjectRelativePath().append(fileName), true, null);
+		}
 	}
 	
 }
