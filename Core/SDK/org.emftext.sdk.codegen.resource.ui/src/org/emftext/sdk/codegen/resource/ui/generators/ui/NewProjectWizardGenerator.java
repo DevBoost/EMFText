@@ -70,27 +70,27 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 			"functionality required to capture the name and location of the target " +
 			"project."
 		);
-		sc.add("private " + WIZARD_NEW_PROJECT_CREATION_PAGE(sc) + " wizardNewProjectCreationPage;");
+		sc.add("protected " + WIZARD_NEW_PROJECT_CREATION_PAGE(sc) + " wizardNewProjectCreationPage;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The name of the project creation page");
-		sc.add("private String pageName = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PAGE_NAME + ";");
+		sc.add("protected String pageName = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PAGE_NAME + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The title of the project creation page");
-		sc.add("private String pageTitle = pageName;");
+		sc.add("protected String pageTitle = pageName;");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The description of the project creation page");
-		sc.add("private String pageDescription = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PAGE_DESCRIPTION + ";");
+		sc.add("protected String pageDescription = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PAGE_DESCRIPTION + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The name of the project in the project creation page");
-		sc.add("private String pageProjectName = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PROJECT_NAME + ";");
+		sc.add("protected String pageProjectName = " + uiResourceBundleClassName + "." + UIResourceBundleGenerator.NEW_PROJECT_WIZARD_PROJECT_NAME + ";");
 		sc.addLineBreak();
 		
 		sc.addJavadoc("The configuration element associated with this new project wizard");		
-		sc.add("private " + I_CONFIGURATION_ELEMENT(sc) + " config;");
+		sc.add("protected " + I_CONFIGURATION_ELEMENT(sc) + " config;");
 		sc.addLineBreak();
 	}
 
