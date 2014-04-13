@@ -94,10 +94,18 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 
-	private void addMethods(JavaComposite sc) {
-		addPerformFinishMethod(sc);
-		addInitMethod(sc);
-		addSetInitializationDataMethod(sc);
+	private void addMethods(JavaComposite jc) {
+		addPerformFinishMethod(jc);
+		addDoPerformFinishMethod(jc);
+		addInitMethod(jc);
+		addSetInitializationDataMethod(jc);
+	}
+
+	private void addDoPerformFinishMethod(JavaComposite sc) {
+		sc.add("protected void doPerformFinish(" + I_PROGRESS_MONITOR(sc) + " monitor) throws Exception {");
+		sc.add("new " + newProjectWizardLogicClassName + "().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), " + uiPluginActivatorClassName + ".PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addPerformFinishMethod(JavaComposite sc) {
@@ -109,7 +117,7 @@ public class NewProjectWizardGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 		sc.add("public void execute(" + I_PROGRESS_MONITOR(sc) + " monitor) throws InterruptedException {");
 		sc.add("try {");
-		sc.add("new " + newProjectWizardLogicClassName + "().createExampleProject(monitor, wizardNewProjectCreationPage.getLocationPath(), wizardNewProjectCreationPage.getProjectName(), " + uiPluginActivatorClassName + ".PLUGIN_ID, NEW_PROJECT_ZIP_FILE_NAME);");
+		sc.add("doPerformFinish(monitor);");
 		sc.add("} catch (Exception e) {");
 		sc.add("throw new RuntimeException(e);");
 		sc.add("}");
