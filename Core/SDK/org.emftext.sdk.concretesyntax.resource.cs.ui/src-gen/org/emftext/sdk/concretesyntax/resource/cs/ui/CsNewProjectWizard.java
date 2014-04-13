@@ -53,32 +53,32 @@ public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutabl
 	 * The single page provided by this base implementation. It provides all the
 	 * functionality required to capture the name and location of the target project.
 	 */
-	private WizardNewProjectCreationPage wizardNewProjectCreationPage;
+	protected WizardNewProjectCreationPage wizardNewProjectCreationPage;
 	
 	/**
 	 * The name of the project creation page
 	 */
-	private String pageName = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_PROJECT_WIZARD_PAGE_NAME;
+	protected String pageName = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_PROJECT_WIZARD_PAGE_NAME;
 	
 	/**
 	 * The title of the project creation page
 	 */
-	private String pageTitle = pageName;
+	protected String pageTitle = pageName;
 	
 	/**
 	 * The description of the project creation page
 	 */
-	private String pageDescription = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_PROJECT_WIZARD_PAGE_DESCRIPTION;
+	protected String pageDescription = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_PROJECT_WIZARD_PAGE_DESCRIPTION;
 	
 	/**
 	 * The name of the project in the project creation page
 	 */
-	private String pageProjectName = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_PROJECT_WIZARD_PROJECT_NAME;
+	protected String pageProjectName = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIResourceBundle.NEW_PROJECT_WIZARD_PROJECT_NAME;
 	
 	/**
 	 * The configuration element associated with this new project wizard
 	 */
-	private IConfigurationElement config;
+	protected IConfigurationElement config;
 	
 	/**
 	 * Creates the example project by delegating the work to
