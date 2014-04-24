@@ -2,7 +2,7 @@
 <feature
       id="org.emftext.commons.jdt"
       label="EMFText JDT Integration"
-      version="1.4.7"
+      version="1.4.8"
       provider-name="DevBoost GmbH">
 
    <description url="http://www.emftext.org">
