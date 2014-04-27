@@ -1391,6 +1391,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			List<Rule> equalWeightOPs, 
 			String nextRuleName) {
 		
+		Counter counter = new Counter();
 		for (Rule rule : equalWeightOPs) {
 			List<Definition> definitions = rule.getDefinition().getOptions().get(0).getParts();
 			assert definitions.size() >= 2;
@@ -1401,7 +1402,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			assert right instanceof Containment;
 			
-			printDefinitions(definitions, rule, sc, new Counter(), eClassesReferenced, "0");
+			printDefinitions(definitions, rule, sc, counter, eClassesReferenced, "0");
+			counter.inc();
 			
 			sc.add("arg = " + nextRuleName);
 			Containment containment = (Containment) right;
