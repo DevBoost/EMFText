@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated MultiUnaryPrefix -->
+      <package
+            uri="http://www.emftext.org/test/issue49"
+            class="org.emftext.test.issue49.Issue49Package"
+            genModel="model/MultiUnaryPrefix.genmodel"/>
+   </extension>
+
+</plugin>

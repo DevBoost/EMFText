@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="issue49" nsURI="http://www.emftext.org/test/issue49" nsPrefix="issue49">
+  <eClassifiers xsi:type="ecore:EClass" name="Sign" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Plus" eSuperTypes="#//Sign"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Minus" eSuperTypes="#//Sign"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SignedExpression" eSuperTypes="#//UnaryExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sign" lowerBound="1" eType="#//Sign"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NotExpression" eSuperTypes="#//UnaryExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operator" lowerBound="1"
+        eType="#//Not" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Not"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UnaryExpression" abstract="true" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" lowerBound="1"
+        eType="#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AtomicExpression" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Content">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
+        eType="#//Expression" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
