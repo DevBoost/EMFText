@@ -1543,12 +1543,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		return "parse_" + ruleName;
 	}
 
-	private void printChoice(Choice choice, Rule rule, ANTLRGrammarComposite sc,
-			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced, String scopeID) {
+	private void printChoice(Choice choice, Rule rule,
+			ANTLRGrammarComposite sc, Counter counter,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			String scopeID) {
+		
 		Iterator<Sequence> it = choice.getOptions().iterator();
 		while (it.hasNext()) {
-			Sequence seq = it.next();
-			printSequence(seq, rule, sc, counter, eClassesReferenced, scopeID);
+			Sequence sequence = it.next();
+			printSequence(sequence, rule, sc, counter, eClassesReferenced,
+					scopeID);
 			if (it.hasNext()) {
 				sc.addLineBreak();
 				sc.add("|");
@@ -1556,21 +1560,33 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 	}
 
-	private void printSequence(Sequence sequence, Rule rule, ANTLRGrammarComposite sc,
-			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced, String scopeID) {
-		printDefinitions(sequence.getParts(), rule, sc, counter, eClassesReferenced, scopeID);
+	private void printSequence(Sequence sequence, Rule rule,
+			ANTLRGrammarComposite sc, Counter counter,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			String scopeID) {
+		
+		printDefinitions(sequence.getParts(), rule, sc, counter,
+				eClassesReferenced, scopeID);
 	}
 	
-	private void printDefinitions(List<Definition> definitions, Rule rule, ANTLRGrammarComposite sc,
-			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced, String scopeID){
+	private void printDefinitions(List<Definition> definitions, Rule rule,
+			ANTLRGrammarComposite sc, Counter counter,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced,
+			String scopeID) {
+		
 		int i = 0;
 		for (Definition definition : definitions) {
-			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
+			if (definition instanceof LineBreak) {
 				continue;
 			}
+			if (definition instanceof WhiteSpaces) {
+				continue;
+			}
+			
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
 			Set<Expectation> expectations = computer.computeFollowSet(syntax, definition);
 			getContext().getConstantsPool().addToFollowSetMap(definition, expectations);
+			
 			String cardinality = definition.computeCardinalityString();
 			if (!"".equals(cardinality)) {
 				sc.add("(");
@@ -1580,27 +1596,26 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 
 				CompoundDefinition compoundDef = (CompoundDefinition) definition;
 				sc.add("(");
-				printChoice(compoundDef.getDefinition(), rule, sc,
-						counter, eClassesReferenced, subScopeID);
+				printChoice(compoundDef.getDefinition(), rule, sc, counter,
+						eClassesReferenced, subScopeID);
 				sc.add(")");
 				i++;
 			} else if (definition instanceof CsString) {
 				final CsString csString = (CsString) definition;
-				printCsString(csString, rule, sc, counter,
-						eClassesReferenced);
+				printCsString(csString, rule, sc, counter, eClassesReferenced);
 			} else {
 				assert definition instanceof Terminal;
 				final Terminal terminal = (Terminal) definition;
-				printTerminal(terminal, rule, sc, counter,
-						eClassesReferenced);
+				printTerminal(terminal, rule, sc, counter, eClassesReferenced);
 			}
+			
 			if (!"".equals(cardinality)) {
 				sc.addLineBreak();
 				sc.add(")" + cardinality);
 			}
 			sc.add("{");
 			sc.addComment("expected elements (follow set)");
-	addExpectationsCode(sc, expectations);
+			addExpectationsCode(sc, expectations);
 			sc.add("}");
 
 			sc.addLineBreak();
@@ -1718,8 +1733,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 	}
 
-	private void printTerminal(Terminal terminal, Rule rule,de.devboost.codecomposers.java.JavaComposite sc,
-			Counter counter, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+	private void printTerminal(Terminal terminal, Rule rule, JavaComposite sc,
+			Counter counter,
+			Map<GenClass, Collection<Terminal>> eClassesReferenced) {
+		
 		final GenClass genClass = rule.getMetaclass();
 		final GenFeature genFeature = terminal.getFeature();
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
@@ -1779,7 +1796,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			// ignore the anonymous features
 			if (!isAnonymousFeature) {
 				String targetTypeName = null;
-	String resolvedIdent = "resolved";
+				String resolvedIdent = "resolved";
 				String preResolved = resolvedIdent + "Object";
 				String resolverIdent = "tokenResolver";
 				resolvements.add(iTokenResolverClassName + " "
@@ -1819,8 +1836,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 					if (genClassUtil.isNotConcrete(instanceType)) {
 						// TODO mseifert: replace this code with a call to class
 						// GenClassFinder
-						// a slightly more elegant version of this code can also be
-						// found in the ScannerlessParserGenerator
+						// a slightly more elegant version of this code can also 
+						// be found in the ScannerlessParserGenerator
 						for (GenClass instanceCand : allGenClasses) {
 							Collection<String> supertypes = genClassNames2superClassNames
 									.get(genClassCache
