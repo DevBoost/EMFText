@@ -1260,8 +1260,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 	
 	private void printGrammarRule(Rule rule, ANTLRGrammarComposite sc,
-			EList<GenClass> eClassesWithSyntax,
+			List<GenClass> eClassesWithSyntax,
 			Map<GenClass,Collection<Terminal>> eClassesReferenced) {
+		
 		GenClass genClass = rule.getMetaclass();
 		String ruleName = getRuleName(genClass);
 
@@ -1274,7 +1275,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		if (!subClasses.isEmpty()) {
 			sc.add("|//derived choice rules for sub-classes: ");
 			sc.addLineBreak();
-	printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
+			printSubClassOrPrimitiveOperatorChoices(sc, subClasses);
 			sc.addLineBreak();
 		}
 		printGrammarRuleSuffix(sc);
@@ -1286,7 +1287,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void printGrammarExpressionSlice(
 			ANTLRGrammarComposite sc,
 			List<Rule> slice, 
-			EList<GenClass> eClassesWithSyntax,
+			List<GenClass> eClassesWithSyntax,
 			Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		
 		ListIterator<Rule> sliceIterator = slice.listIterator();
@@ -1326,26 +1327,26 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			printGrammarRulePrefix(returnGenClass, ruleName, sc);
 			
 			if (!isLast) { 
-				//we assume all arguments to be typed by the same class
+				// we assume all arguments to be typed by the same class
 				final String nextRuleName = getExpressionSliceRuleName(sliceIterator.next());
 				sliceIterator.previous();
-				//we do unary operators first
+				// we do unary operators first
 				if (operatorType == OperatorAnnotationType.UNARY_PREFIX) {
-			    //1st case: unary operator starts with keyword (prefix)
+					// 1st case: unary operator starts with keyword (prefix)
 					printUnaryPrefixOperatorRule(sc, eClassesReferenced,
 								firstRule, rulesWithEqualWeight, nextRuleName);	
 				}
-				//2nd case: unary operator starts with argument (postfix, this means left recursion)
+				// 2nd case: unary operator starts with argument (postfix, this means left recursion)
 				else if (operatorType == OperatorAnnotationType.UNARY_POSTFIX) {
 						printUnaryPostfixOperatorRule(sc, eClassesReferenced,
 								rulesWithEqualWeight, firstSequence, nextRuleName);		
 				}
 				// now we do binary infix operators
 				else if (operatorType == OperatorAnnotationType.BINARY_LEFT_ASSOCIATIVE) {
-	printBinaryLeftAssociativeRule(sc, eClassesReferenced,
+					printBinaryLeftAssociativeRule(sc, eClassesReferenced,
 							rulesWithEqualWeight, nextRuleName);
 				} else if (operatorType == OperatorAnnotationType.BINARY_RIGHT_ASSOCIATIVE) {
-	printBinaryRightAssociativeRule(sc, eClassesReferenced,
+					printBinaryRightAssociativeRule(sc, eClassesReferenced,
 							rulesWithEqualWeight, ruleName, nextRuleName);
 				}
 			}
@@ -1361,15 +1362,16 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			// primitive operator rules add the suffix on their own,
 			// because they need to add more rules
 			if (!isLast && !wasPrimitiveOperatorRule) {
-	printGrammarRuleSuffix(sc);
+				printGrammarRuleSuffix(sc);
 			}
 		}
 	}
 
 	private void printPrimitiveOperatorRule(ANTLRGrammarComposite sc,
-			EList<GenClass> eClassesWithSyntax,
+			List<GenClass> eClassesWithSyntax,
 			Map<GenClass,Collection<Terminal>> eClassesReferenced,
 			List<Rule> rulesWithEqualWeight) {
+		
 		List<GenClass> choiceClasses = new LinkedList<GenClass>();
 		for (Rule rule : rulesWithEqualWeight) {
 			choiceClasses.add(rule.getMetaclass());
