@@ -5,6 +5,7 @@ START Content
 OPTIONS {
 	reloadGeneratorModel = "true";
 	generateCodeFromGeneratorModel = "true";
+	licenceHeader ="../../org.dropsbox/licence.txt";
 }
 
 TOKENS {
