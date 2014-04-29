@@ -16,7 +16,7 @@
    <license>
       Eclipse Public License v1.0
 
-Copyright (c) 2006-2013
+Copyright (c) 2006-2014
 Software Technology Group, Dresden University of Technology
 DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.
 
@@ -29,7 +29,9 @@ Contributors:
    </license>
 
    <requires>
-      <import feature="org.eclipse.emf"/>
+      <import feature="org.eclipse.emf.ecore"/>
+      <import feature="org.eclipse.emf.ecore.edit"/>
+      <import feature="org.eclipse.emf.edit.ui"/>
       <import feature="org.eclipse.jdt"/>
    </requires>
 
