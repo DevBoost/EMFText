@@ -56,7 +56,9 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		genClassCache = concreteSyntax.getGenClassCache();
 		allGenClasses = new ConcreteSyntaxUtil().getAllGenClasses(concreteSyntax);
 
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 				"This class provides basic infrastructure to interpret models. " +
@@ -71,6 +73,11 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 				"by pushing objects on the interpretation stack during interpretation."
 		);
 		sc.add("public class " + getResourceClassName() + "<ResultType, ContextType> {");
+		// We must add the type parameters as implicit imports to make sure that
+		// classes with the same name are referenced using fully qualified
+		// names.
+		sc.getImportsPlaceholder().addImplicitImport("ResultType");
+		sc.getImportsPlaceholder().addImplicitImport("ContextType");
 		sc.addLineBreak();
 		addFields(sc);
 		addMethods(sc);
