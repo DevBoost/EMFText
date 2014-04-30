@@ -76,8 +76,8 @@ public class AbstractInterpreterGenerator extends JavaBaseGenerator<ArtifactPara
 		// We must add the type parameters as implicit imports to make sure that
 		// classes with the same name are referenced using fully qualified
 		// names.
-		sc.getImportsPlaceholder().addImplicitImport("ResultType");
-		sc.getImportsPlaceholder().addImplicitImport("ContextType");
+		sc.addImplicitImport("ResultType");
+		sc.addImplicitImport("ContextType");
 		sc.addLineBreak();
 		addFields(sc);
 		addMethods(sc);
