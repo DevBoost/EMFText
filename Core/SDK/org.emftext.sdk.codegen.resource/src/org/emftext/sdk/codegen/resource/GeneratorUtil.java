@@ -15,12 +15,14 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.OBJECT;
 import static de.devboost.codecomposers.java.ClassNameConstants.SET;
-import static de.devboost.codecomposers.java.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.antlr.Constants.DEFAULT_ANTLR_PLUGIN_NAME;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.ADAPTER;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_REFERENCE;
@@ -157,20 +159,24 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addAddObjectToListMethod1(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")");
-        sc.add("public boolean addObjectToList(" + E_OBJECT(sc) + " container, int featureID, Object object) {");
-        sc.add("return ((" + LIST + "<Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);");
-        sc.add("}");
-        sc.addLineBreak();
+	public void addAddObjectToListMethod1(JavaComposite jc) {
+		jc.add("@SuppressWarnings(\"unchecked\")");
+        jc.add("public boolean addObjectToList(" + E_OBJECT(jc) + " container, int featureID, Object object) {");
+        jc.add(E_CLASS(jc) + " eClass = container.eClass();");
+        jc.add(E_STRUCTURAL_FEATURE(jc) + " eStructuralFeature = eClass.getEStructuralFeature(featureID);");
+        jc.add(OBJECT(jc) + " value = container.eGet(eStructuralFeature);");
+        jc.add("return ((" + LIST(jc) + "<Object>) value).add(object);");
+        jc.add("}");
+        jc.addLineBreak();
 	}
 
-	public void addAddObjectToListMethod2(JavaComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")");
-        sc.add("public boolean addObjectToList(" + E_OBJECT(sc) + " container, " + E_STRUCTURAL_FEATURE(sc) + " feature, Object object) {");
-        sc.add("return ((" + LIST + "<Object>) container.eGet(feature)).add(object);");
-        sc.add("}");
-        sc.addLineBreak();
+	public void addAddObjectToListMethod2(JavaComposite jc) {
+		jc.add("@SuppressWarnings(\"unchecked\")");
+        jc.add("public boolean addObjectToList(" + E_OBJECT(jc) + " container, " + E_STRUCTURAL_FEATURE(jc) + " feature, Object object) {");
+        jc.add(OBJECT(jc) + " value = container.eGet(feature);");
+        jc.add("return ((" + LIST(jc) + "<Object>) value).add(object);");
+        jc.add("}");
+        jc.addLineBreak();
 	}
 
 	public void addGetFreshTokenResolveResultMethod(StringComposite sc, String qualifiedTokenResolveResultClassName) {
@@ -194,7 +200,7 @@ public class GeneratorUtil {
 
     	sc.add("final int position;");
     	sc.add("if (reference.isMany()) {");
-    	sc.add("position = ((" + LIST + "<?>) container.eGet(reference)).size();");
+    	sc.add("position = ((" + LIST(sc) + "<?>) container.eGet(reference)).size();");
     	sc.add("} else {");
     	sc.add("position = -1;");
     	sc.add("}");
