@@ -159,7 +159,6 @@ public class GeneratorUtil {
 
 	public void addAddObjectToListMethod1(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.addLineBreak();
         sc.add("public boolean addObjectToList(" + E_OBJECT(sc) + " container, int featureID, Object object) {");
         sc.add("return ((" + LIST + "<Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);");
         sc.add("}");
@@ -168,7 +167,6 @@ public class GeneratorUtil {
 
 	public void addAddObjectToListMethod2(JavaComposite sc) {
 		sc.add("@SuppressWarnings(\"unchecked\")");
-		sc.addLineBreak();
         sc.add("public boolean addObjectToList(" + E_OBJECT(sc) + " container, " + E_STRUCTURAL_FEATURE(sc) + " feature, Object object) {");
         sc.add("return ((" + LIST + "<Object>) container.eGet(feature)).add(object);");
         sc.add("}");
