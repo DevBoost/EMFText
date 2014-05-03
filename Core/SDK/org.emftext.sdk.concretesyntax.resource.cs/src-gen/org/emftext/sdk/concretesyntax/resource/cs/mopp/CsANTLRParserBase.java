@@ -29,6 +29,7 @@ import org.antlr.runtime3_4_0.Token;
 import org.antlr.runtime3_4_0.TokenStream;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -177,7 +178,7 @@ public abstract class CsANTLRParserBase extends Parser implements org.emftext.sd
 	protected <ContainerType extends EObject, ReferenceType extends EObject> void registerContextDependentProxy(final org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, final ContainerType container, final EReference reference, final String id, final EObject proxy) {
 		final int position;
 		if (reference.isMany()) {
-			position = ((java.util.List<?>) container.eGet(reference)).size();
+			position = ((List<?>) container.eGet(reference)).size();
 		} else {
 			position = -1;
 		}
@@ -262,15 +263,17 @@ public abstract class CsANTLRParserBase extends Parser implements org.emftext.sd
 	}
 	
 	@SuppressWarnings("unchecked")
-	
 	public boolean addObjectToList(EObject container, int featureID, Object object) {
-		return ((java.util.List<Object>) container.eGet(container.eClass().getEStructuralFeature(featureID))).add(object);
+		EClass eClass = container.eClass();
+		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(featureID);
+		Object value = container.eGet(eStructuralFeature);
+		return ((List<Object>) value).add(object);
 	}
 	
 	@SuppressWarnings("unchecked")
-	
 	public boolean addObjectToList(EObject container, EStructuralFeature feature, Object object) {
-		return ((java.util.List<Object>) container.eGet(feature)).add(object);
+		Object value = container.eGet(feature);
+		return ((List<Object>) value).add(object);
 	}
 	
 	protected EObject apply(EObject target, List<EObject> dummyEObjects) {
