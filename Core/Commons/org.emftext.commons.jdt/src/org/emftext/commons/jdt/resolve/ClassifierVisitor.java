@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -18,6 +18,7 @@ package org.emftext.commons.jdt.resolve;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.search.TypeNameRequestor;
 import org.emftext.commons.jdt.JDTJavaClassifier;
@@ -33,8 +34,8 @@ import org.emftext.commons.jdt.JdtFactory;
  */
 class ClassifierVisitor extends TypeNameRequestor {
 	
-	private List<JDTJavaClassifier> classifiersInClasspath = new ArrayList<JDTJavaClassifier>();
-	private IJavaProject project;
+	private final List<JDTJavaClassifier> classifiersInClasspath = new ArrayList<JDTJavaClassifier>();
+	private final IJavaProject project;
 	
 	public ClassifierVisitor(IJavaProject project) {
 		super();
@@ -42,9 +43,8 @@ class ClassifierVisitor extends TypeNameRequestor {
 	}
 
 	@Override
-	public void acceptType(int modifiers,
-			char[] packageName, char[] simpleTypeName,
-			char[][] enclosingTypeNames, String path) {
+	public void acceptType(int modifiers, char[] packageName,
+			char[] simpleTypeName, char[][] enclosingTypeNames, String path) {
 		
 		JDTJavaClassifier javaClass = JdtFactory.eINSTANCE.createJDTJavaClassifier();
 		javaClass.setProjectName(project.getProject().getName());
@@ -54,7 +54,12 @@ class ClassifierVisitor extends TypeNameRequestor {
 		}
 		javaClass.setSimpleName(String.valueOf(simpleTypeName));
 		javaClass.setPath(path);
-		// TODO set modifiers (flags)
+		
+		// Set modifiers (flags)
+		javaClass.setAbstract(Flags.isAbstract(modifiers));
+		javaClass.setInterface(Flags.isInterface(modifiers));
+		javaClass.setEnum(Flags.isEnum(modifiers));
+		
 		classifiersInClasspath.add(javaClass);			
 	}
 
