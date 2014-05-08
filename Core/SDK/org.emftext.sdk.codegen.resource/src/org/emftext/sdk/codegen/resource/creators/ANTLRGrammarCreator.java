@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -27,7 +27,7 @@ import org.emftext.sdk.codegen.resource.generators.mopp.ANTLRGrammarGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * Creates an ANTLR .g file using the ANTLRGrammarGenerator, which
+ * Creates an ANTLR .g file using the {@link ANTLRGrammarGenerator}, which
  * creates the content for the file.
  */
 public class ANTLRGrammarCreator extends TextResourceArtifactCreator<ArtifactParameter<GenerationContext>> {
