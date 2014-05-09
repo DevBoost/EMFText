@@ -254,6 +254,9 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		String specifiedNewFileWizardCategoryID = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.NEW_FILE_WIZARD_CATEGORY);
 		final boolean newFileWizardCategorySet = specifiedNewFileWizardCategoryID != null;
 		final String newFileWizardCategoryID = newFileWizardCategorySet ? specifiedNewFileWizardCategoryID : "org.emftext.runtime.ui.EMFTextFileCategory";
+		String specifiedNewFileWizardName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.NEW_FILE_WIZARD_NAME);
+		final boolean newFileWizardNameSet = specifiedNewFileWizardName != null;
+		final String newFileWizardName = newFileWizardNameSet ? specifiedNewFileWizardName : ("EMFText ." + context.getConcreteSyntax().getName() + " file");
 		final String newProjectWizardCategoryID = "org.emftext.runtime.ui.EMFTextProjectCategory";
 		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
 		final IPluginDescriptor resourcePlugin = context.getResourcePlugin();
@@ -343,7 +346,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		wizardFile.setAttribute("icon", getProjectRelativeNewIconPath());
 		wizardFile.setAttribute("class", newFileWizard);
 		wizardFile.setAttribute("id", newFileWizard);
-		wizardFile.setAttribute("name", "EMFText ." + context.getConcreteSyntax().getName() + " file");
+		wizardFile.setAttribute("name", newFileWizardName);
 		
 		if (!OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.DISABLE_NEW_PROJECT_WIZARD)) {
 			XMLElement newProjectsCategory = newWizardExtension.createChild("category");

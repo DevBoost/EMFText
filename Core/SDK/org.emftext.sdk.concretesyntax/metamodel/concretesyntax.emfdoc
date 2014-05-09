@@ -700,6 +700,9 @@ OptionTypes.EMF_TARGET_VERSION : "Specify the target version of EMF to generate 
 
 OptionTypes.OVERRIDE_RESOURCE_BUNDLE : "If set to <code>false</code>, the ResourceBundle class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.NEW_FILE_WIZARD_NAME : "Specify the name for the generated new file wizard."
+
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
