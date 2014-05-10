@@ -3080,7 +3080,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_RESOURCE_BUNDLE(310, "OVERRIDE_RESOURCE_BUNDLE", "overrideResourceBundle");
+	OVERRIDE_RESOURCE_BUNDLE(310, "OVERRIDE_RESOURCE_BUNDLE", "overrideResourceBundle"), /**
+	 * The '<em><b>NEW FILE WIZARD NAME</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NEW_FILE_WIZARD_NAME_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NEW_FILE_WIZARD_NAME(311, "NEW_FILE_WIZARD_NAME", "newFileWizardName");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -7431,6 +7439,20 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_RESOURCE_BUNDLE_VALUE = 310;
 
 	/**
+	 * The '<em><b>NEW FILE WIZARD NAME</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specify the name for the generated new file wizard.
+	 * <!-- end-model-doc -->
+	 * @see #NEW_FILE_WIZARD_NAME
+	 * @model literal="newFileWizardName"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NEW_FILE_WIZARD_NAME_VALUE = 311;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7746,6 +7768,7 @@ public enum OptionTypes implements Enumerator {
 			EMF_TARGET_VERSION,
 			OVERRIDE_UI_RESOURCE_BUNDLE,
 			OVERRIDE_RESOURCE_BUNDLE,
+			NEW_FILE_WIZARD_NAME,
 		};
 
 	/**
@@ -8102,6 +8125,7 @@ public enum OptionTypes implements Enumerator {
 			case EMF_TARGET_VERSION_VALUE: return EMF_TARGET_VERSION;
 			case OVERRIDE_UI_RESOURCE_BUNDLE_VALUE: return OVERRIDE_UI_RESOURCE_BUNDLE;
 			case OVERRIDE_RESOURCE_BUNDLE_VALUE: return OVERRIDE_RESOURCE_BUNDLE;
+			case NEW_FILE_WIZARD_NAME_VALUE: return NEW_FILE_WIZARD_NAME;
 		}
 		return null;
 	}

@@ -70,11 +70,9 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Returns an escaped version of the qualified name of the interface for 
+	 * Returns an escaped version of the qualified name of the interface for 
 	 *  the given GenClass. Underscores and dots are replaced to be able to use 
 	 *  the returned name, for example, as method name.
-	 * 
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.lang.String interfaceName = getQualifiedInterfaceName(genClass);\njava.lang.String escapedName = interfaceName.replace(\"_\", \"_005f\");\nescapedName = escapedName.replace(\".\", \"_\");\nreturn escapedName;'"
 	 * @generated
