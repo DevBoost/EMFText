@@ -702,6 +702,7 @@ OptionTypes.OVERRIDE_RESOURCE_BUNDLE : "If set to <code>false</code>, the Resour
 
 OptionTypes.NEW_FILE_WIZARD_NAME : "Specify the name for the generated new file wizard."
 
+OptionTypes.ADDITIONAL_FILE_EXTENSIONS : "Comma separated list of file extensions that should be supported by the editor in addition to the primary file extension."
 
 Annotation.getValue : "Returns the annotation value for the given key."
 

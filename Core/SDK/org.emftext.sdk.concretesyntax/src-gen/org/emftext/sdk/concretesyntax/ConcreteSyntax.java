@@ -449,11 +449,12 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Returns true if the given rule was defined in the given syntax.
-	 * If the rule is defined in an imported syntax, this method returns false.
+	 *  If the rule is defined in an imported syntax, this method returns
+	 *  false.
 	 *  
-	 * @param syntax the syntax that refers to the rule
-	 * @param rule the rule to check
-	 * @return true if the rule is contained, false if it is imported
+	 *  @param syntax the syntax that refers to the rule
+	 *  @param rule the rule to check
+	 *  @return true if the rule is contained, false if it is imported
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return rule.getSyntax() != this;'"
 	 * @generated

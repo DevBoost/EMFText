@@ -3,12 +3,10 @@ Ant-Version: Apache Ant 1.7.0
 Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Concretesyntax Metamodel Edit Support
-Bundle-SymbolicName: org.emftext.sdk.concretesyntax.edit; singleton:=t
- rue
+Bundle-SymbolicName: org.emftext.sdk.concretesyntax.edit;singleton:=true
 Bundle-Version: 1.2.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.emftext.sdk.concretesyntax.provider.Concretesynt
- axEditPlugin$Implementation
+Bundle-Activator: org.emftext.sdk.concretesyntax.provider.ConcretesyntaxEditPlugin$Implementation
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

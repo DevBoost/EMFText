@@ -272,6 +272,18 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		final String markerResolutionGeneratorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.MARKER_RESOLUTION_GENERATOR);
 		final String annotationModelFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ANNOTATION_MODEL_FACTORY);
 
+		//Assemble all effective file extensions.
+		String fileExtensions = primaryConcreteSyntaxName;
+		
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		final String additionalFileExtensionsString = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
+		
+		if (additionalFileExtensionsString != null) {
+			//additionalFileExtensionsString should already contain a comma separated list.
+			fileExtensions += "," + additionalFileExtensionsString;
+		}
+		
+		
 		XMLElement root = new XMLElement("plugin");
 
 		XMLElement uiAccessExtension = root.createChild("extension");
@@ -288,7 +300,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		XMLElement editor = editorExtension.createChild("editor");
 		editor.setAttribute("class", editorClassName);
 		editor.setAttribute("contributorClass", "org.eclipse.ui.texteditor.BasicTextEditorActionContributor");
-		editor.setAttribute("extensions", primaryConcreteSyntaxName);
+		editor.setAttribute("extensions", fileExtensions);
 		editor.setAttribute("icon", "icons/" + UIConstants.Icon.DEFAULT_EDITOR_ICON.getFilename());
 		editor.setAttribute("id", editorClassName);
 		
@@ -371,7 +383,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		annotationModelExtension.setAttribute("point", "org.eclipse.core.filebuffers.annotationModelCreation");
 		XMLElement factory = annotationModelExtension.createChild("factory");
 		factory.setAttribute("class", annotationModelFactoryClassName);
-		factory.setAttribute("extensions", primaryConcreteSyntaxName);
+		factory.setAttribute("extensions", fileExtensions);
 		
 		XMLElement contentTypeExtension = root.createChild("extension");
 		contentTypeExtension.setAttribute("point", "org.eclipse.core.contenttype.contentTypes");
@@ -379,13 +391,13 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		contentType.setAttribute("id", resourcePluginID);
 		contentType.setAttribute("name", "." + primaryConcreteSyntaxName + " File");
 		contentType.setAttribute("base-type", "org.eclipse.core.runtime.text");
-		contentType.setAttribute("file-extensions", primaryConcreteSyntaxName);
+		contentType.setAttribute("file-extensions", fileExtensions);
 		
 		XMLElement documentProviderExtension = root.createChild("extension");
 		documentProviderExtension.setAttribute("point", "org.eclipse.ui.editors.documentProviders");
 		XMLElement provider = documentProviderExtension.createChild("provider");
 		provider.setAttribute("class", "org.eclipse.ui.editors.text.TextFileDocumentProvider");
-		provider.setAttribute("extensions", primaryConcreteSyntaxName);
+		provider.setAttribute("extensions", fileExtensions);
 		provider.setAttribute("id", uiPluginID + ".provider");
 		
 		XMLElement annotationTypeExtension = root.createChild("extension");
