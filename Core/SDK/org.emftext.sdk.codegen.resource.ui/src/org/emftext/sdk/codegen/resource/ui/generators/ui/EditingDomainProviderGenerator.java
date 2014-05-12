@@ -17,15 +17,22 @@ package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.BASIC_COMMAND_STACK;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY_EDITING_DOMAIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.EDITING_DOMAIN;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
 
+import java.util.Collection;
+
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 import de.devboost.codecomposers.java.JavaComposite;
 
@@ -65,7 +72,28 @@ public class EditingDomainProviderGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		sc.add(BASIC_COMMAND_STACK(sc) + " commandStack = new " + BASIC_COMMAND_STACK(sc) + "();");
 		sc.addLineBreak();
-		sc.add("return new " + ADAPTER_FACTORY_EDITING_DOMAIN(sc) + "(adapterFactory, commandStack, new " + LINKED_HASH_MAP(sc) + "<" + RESOURCE(sc) + ", Boolean>());");
+		
+		sc.add(EDITING_DOMAIN(sc) + " editingDomain = new " + ADAPTER_FACTORY_EDITING_DOMAIN(sc) + "(adapterFactory, commandStack, new " + LINKED_HASH_MAP(sc) + "<" + RESOURCE(sc) + ", Boolean>());");
+		
+		GenerationContext context = getContext();
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		Collection<String> additionalFileExtensions = OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
+		
+		if (additionalFileExtensions != null && !additionalFileExtensions.isEmpty()) {
+			sc.addLineBreak();
+			sc.add(RESOURCE_SET(sc) + " resourceSet = editingDomain.getResourceSet();");
+			sc.add("Resource.Factory.Registry registry = resourceSet.getResourceFactoryRegistry();");
+			sc.add(MAP(sc) + "<String, Object> extensionToFactoryMap = registry.getExtensionToFactoryMap();");
+			sc.addLineBreak();
+			sc.addComment("Register resource factory for additional extensions.");
+			
+			for (String additionalFileExtension : additionalFileExtensions) {
+				sc.add("extensionToFactoryMap.put(\"" + additionalFileExtension.trim() + "\", new " + resourceFactoryClassName + "());");
+			}
+			sc.addLineBreak();
+		}
+		
+		sc.add("return editingDomain;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
