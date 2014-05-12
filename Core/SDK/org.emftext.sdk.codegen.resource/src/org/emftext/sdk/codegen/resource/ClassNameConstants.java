@@ -624,10 +624,6 @@ public class ClassNameConstants {
 		return jc.getClassName("org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList.ManyInverse");
 	}
 
-	public static String MAP(JavaComposite jc) {
-		return getClassName(jc, "java.util.Map");
-	}
-	
 	public static String MATCHER(JavaComposite jc) {
 		return getClassName(jc, "java.util.regex.Matcher");
 	}

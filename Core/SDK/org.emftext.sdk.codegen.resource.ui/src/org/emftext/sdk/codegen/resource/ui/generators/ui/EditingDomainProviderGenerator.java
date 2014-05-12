@@ -16,8 +16,8 @@
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.BASIC_COMMAND_STACK;
-import static org.emftext.sdk.codegen.resource.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_SET;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.ADAPTER_FACTORY;
