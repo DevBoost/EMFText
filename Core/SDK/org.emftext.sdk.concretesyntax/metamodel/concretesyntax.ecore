@@ -2117,6 +2117,11 @@
         <details key="documentation" value="Specify the name for the generated new file wizard."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="ADDITIONAL_FILE_EXTENSIONS" value="312" literal="additionalFileExtensions">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Comma separated list of file extensions that should be supported by the editor in addition to the primary file extension."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
