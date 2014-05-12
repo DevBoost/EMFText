@@ -28,6 +28,7 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_
 import java.util.Collection;
 
 import org.emftext.sdk.OptionManager;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
@@ -36,11 +37,14 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 import de.devboost.codecomposers.java.JavaComposite;
 
+@SyntaxDependent
 public class EditingDomainProviderGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc(
 			"The EditingDomainProvider is used by the editor to obtain an EMF editing domain. " +
