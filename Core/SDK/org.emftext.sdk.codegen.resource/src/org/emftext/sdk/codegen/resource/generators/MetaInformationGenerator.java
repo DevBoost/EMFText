@@ -15,16 +15,20 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.RESOURCE_FACTORY;
 
+import java.util.Collection;
+
 import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.ConcreteSyntaxUtil;
 
@@ -109,6 +113,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 		sc.add("public void registerResourceFactory() {");
 		if (secondaryConcreteSyntaxName == null) {
 			sc.add("// if no resource factory registered, register delegator");
+			
 			sc.add("if (" + RESOURCE_FACTORY(sc) + ".Registry.INSTANCE.getExtensionToFactoryMap().get(getSyntaxName()) == null) {");
 			sc.add(RESOURCE_FACTORY(sc) + ".Registry.INSTANCE.getExtensionToFactoryMap().put(getSyntaxName(), new " + resourceFactoryDelegatorClassName + "());");
 			sc.add("}");
@@ -123,6 +128,32 @@ public class MetaInformationGenerator extends JavaBaseGenerator<ArtifactParamete
 				"Registering the resource factory is done via the 'additional_extension_parser' extension point."
 			);
 		}
+		
+
+		//Register resource factory for additional file extensions if required.
+		GenerationContext context = getContext();
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		Collection<String> additionalFileExtensions = OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
+		
+		if (additionalFileExtensions != null && !additionalFileExtensions.isEmpty()) {
+			sc.addLineBreak();
+			sc.add("Factory.Registry registry = " + RESOURCE_FACTORY(sc) + ".Registry.INSTANCE;");
+			sc.add(MAP(sc) + "<String, Object> extensionToFactoryMap = registry.getExtensionToFactoryMap();");
+			sc.addLineBreak();
+			sc.add(resourceFactoryClassName + " resourceFactory = new " + resourceFactoryClassName + "();");
+			sc.addLineBreak();
+			sc.addComment("Register resource factory for additional extensions.");
+			
+			for (String additionalFileExtension : additionalFileExtensions) {
+				additionalFileExtension = additionalFileExtension.trim();
+				
+				sc.add("if (extensionToFactoryMap.get(\"" + additionalFileExtension + "\") == null) {");
+				sc.add("extensionToFactoryMap.put(\"" + additionalFileExtension + "\", resourceFactory);");
+				sc.add("}");
+				sc.addLineBreak();
+			}
+		}
+		
 		sc.add("}");
 		sc.addLineBreak();
 	}
