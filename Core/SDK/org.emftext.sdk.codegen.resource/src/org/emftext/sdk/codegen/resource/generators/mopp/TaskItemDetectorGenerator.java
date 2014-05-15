@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -16,6 +16,7 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.PATTERN;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -43,6 +44,11 @@ public class TaskItemDetectorGenerator extends JavaBaseGenerator<ArtifactParamet
 	}
 
 	private void addConstants(JavaComposite sc) {
+		sc.addJavadoc("This regular expression is used to split string at the line breaks. It is precompiled for performance reasons.");
+		sc.add("private static final " + PATTERN(sc) + " LINE_BREAK_REGEX = " + PATTERN(sc) + ".compile(\"(\\r\\n|\\r|\\n)\");");
+		sc.addLineBreak();
+
+		sc.addJavadoc("This is an array of all keywords that indicate task items. The array is public to allow customizations.");
 		sc.add("public static String[] TASK_ITEM_KEYWORDS = new String[] {\"TODO\", \"FIXME\", \"XXX\"};");
 		sc.addLineBreak();
 	}
@@ -96,7 +102,7 @@ public class TaskItemDetectorGenerator extends JavaBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 		sc.add("int offset = index + localCharStart;");
 		sc.add("int end = offset + keyword.length();");
-		sc.add("int localLine = line + text.substring(0, offset - charStart).split(\"(\\r\\n|\\r|\\n)\").length - 1;");
+		sc.add("int localLine = line + LINE_BREAK_REGEX.split(text.substring(0, offset - charStart), 0).length - 1;");
 		sc.add("foundItems.add(new " + taskItemClassName + "(keyword, message, localLine, offset, end));");
 		sc.add("localCharStart += eolIndex;");
 		sc.addComment("stop looping over the keywords, we've found one");
