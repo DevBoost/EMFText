@@ -197,7 +197,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		// this is the offset for the next token to be added
 		int offset = charStart;
 		int itemBeginRelative;
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken> newItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken>();
+		List<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken> newItems = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem taskItem : taskItems) {
 			int itemBegin = taskItem.getCharStart();
 			int itemLine = taskItem.getLine();

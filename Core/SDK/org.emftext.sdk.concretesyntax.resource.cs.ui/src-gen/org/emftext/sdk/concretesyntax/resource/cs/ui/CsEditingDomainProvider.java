@@ -40,6 +40,9 @@ public class CsEditingDomainProvider {
 		
 		BasicCommandStack commandStack = new BasicCommandStack();
 		
+		// Register resource factories (esp. for additional extensions).
+		new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().registerResourceFactory();
+		
 		return new AdapterFactoryEditingDomain(adapterFactory, commandStack, new LinkedHashMap<Resource, Boolean>());
 	}
 	

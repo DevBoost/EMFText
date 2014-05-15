@@ -16,6 +16,7 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class CsTaskItemDetector {
 	public static String[] TASK_ITEM_KEYWORDS = new String[] {"TODO", "FIXME", "XXX"};
 	
 	public List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> findTaskItems(String text, int line, int charStart) {
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> foundItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
+		List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> foundItems = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
 		String remainingText = text;
 		boolean continueSearch = true;
 		int localCharStart = charStart;
