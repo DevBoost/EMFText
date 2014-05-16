@@ -57,8 +57,9 @@ public class BooleanTerminalAnalyser extends AbstractPostProcessor {
 			EAttribute eAttribute = (EAttribute) eFeature;
 			EClassifier eType = eAttribute.getEType();
 			EDataType eBoolean = EcorePackage.eINSTANCE.getEBoolean();
+			EDataType eBooleanObject = EcorePackage.eINSTANCE.getEBooleanObject();
 			Class<?> typeClass = eType.getInstanceClass();
-			if (typeClass == null || !typeClass.equals(eBoolean.getInstanceClass())) {
+			if (typeClass == null || !(typeClass.equals(eBoolean.getInstanceClass()) || typeClass.equals(eBooleanObject.getInstanceClass()))) {
 				addProblem(CsAnalysisProblemType.BOOLEAN_TERMINAL_FEATURE_NOT_BOOLEAN, FEATURE_NOT_BOOLEAN, booleanTerminal);
 				continue;
 			}
