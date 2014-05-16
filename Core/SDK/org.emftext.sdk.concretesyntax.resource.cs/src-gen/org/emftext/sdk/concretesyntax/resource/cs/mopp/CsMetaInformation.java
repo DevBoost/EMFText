@@ -18,9 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
 
@@ -127,7 +125,7 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 	
 	public String[] getSyntaxHighlightableTokenNames() {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAntlrTokenHelper tokenHelper = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAntlrTokenHelper();
-		List<String> highlightableTokens = new ArrayList<String>();
+		java.util.List<String> highlightableTokens = new java.util.ArrayList<String>();
 		String[] parserTokenNames = getTokenNames();
 		for (int i = 0; i < parserTokenNames.length; i++) {
 			// If ANTLR is used we need to normalize the token names

@@ -16,7 +16,6 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -26,7 +25,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class CsEnumerationTerminal extends org.emftext.sdk.concretesyntax.resource.cs.grammar.CsTerminal {
 	
-	private Map<String, String> mapping = new LinkedHashMap<String, String>();
+	private java.util.Map<String, String> mapping = new java.util.LinkedHashMap<String, String>();
 	
 	public CsEnumerationTerminal(EStructuralFeature attribute, String[] literalMappings, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality cardinality, int mandatoryOccurrencesAfter) {
 		super(attribute, cardinality, mandatoryOccurrencesAfter);

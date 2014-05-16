@@ -16,7 +16,6 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,7 +35,7 @@ public class CsExpectedEnumerationTerminal extends org.emftext.sdk.concretesynta
 	public Set<String> getTokenNames() {
 		// EnumerationTerminals are associated with multiple tokens, one for each literal
 		// that was mapped to a string
-		Set<String> tokenNames = new LinkedHashSet<String>();
+		java.util.Set<String> tokenNames = new java.util.LinkedHashSet<String>();
 		Map<String, String> mapping = enumerationTerminal.getLiteralMapping();
 		for (String literalName : mapping.keySet()) {
 			String text = mapping.get(literalName);

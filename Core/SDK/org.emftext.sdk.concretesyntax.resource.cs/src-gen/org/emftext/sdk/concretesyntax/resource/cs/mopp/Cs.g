@@ -90,7 +90,7 @@ import org.eclipse.emf.ecore.EReference;
 	 * pushed on the stack. Once the element was parser completely it is popped from
 	 * the stack.
 	 */
-	List<EObject> incompleteObjects = new ArrayList<EObject>();
+	java.util.List<EObject> incompleteObjects = new java.util.ArrayList<EObject>();
 	
 	private int stopIncludingHiddenTokens;
 	private int stopExcludingHiddenTokens;
@@ -5531,8 +5531,12 @@ parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concrete
 	
 ;
 
-COMMENTS:
-	('//'(~('\n'|'\r'))*)
+SL_COMMENT:
+	('//'(~('\n'|'\r'|'\uffff'))*)
+	{ _channel = 99; }
+;
+ML_COMMENT:
+	('/*'.*'*/')
 	{ _channel = 99; }
 ;
 QUALIFIED_NAME:

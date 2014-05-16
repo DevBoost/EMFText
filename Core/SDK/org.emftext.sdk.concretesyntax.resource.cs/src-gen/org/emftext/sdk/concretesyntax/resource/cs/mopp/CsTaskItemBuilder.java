@@ -18,10 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -51,7 +47,7 @@ public class CsTaskItemBuilder {
 			subMonitor.done();
 			return;
 		}
-		List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> taskItems = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> taskItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector taskItemDetector = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItemDetector();
 		InputStream inputStream = null;
 		try {
@@ -83,7 +79,7 @@ public class CsTaskItemBuilder {
 		subMonitor.worked(1);
 		
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem taskItem : taskItems) {
-			Map<String, Object> markerAttributes = new LinkedHashMap<String, Object>();
+			java.util.Map<String, Object> markerAttributes = new java.util.LinkedHashMap<String, Object>();
 			markerAttributes.put(IMarker.USER_EDITABLE, false);
 			markerAttributes.put(IMarker.DONE, false);
 			markerAttributes.put(IMarker.LINE_NUMBER, taskItem.getLine());

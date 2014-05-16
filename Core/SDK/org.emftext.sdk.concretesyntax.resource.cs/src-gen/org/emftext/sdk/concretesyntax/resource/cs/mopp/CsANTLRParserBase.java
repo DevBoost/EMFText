@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +46,7 @@ public abstract class CsANTLRParserBase extends Parser implements org.emftext.sd
 	/**
 	 * A collection to store all anonymous tokens.
 	 */
-	protected List<CommonToken> anonymousTokens = new ArrayList<CommonToken>();
+	protected java.util.List<CommonToken> anonymousTokens = new java.util.ArrayList<CommonToken>();
 	
 	/**
 	 * A collection that is filled with commands to be executed after parsing. This
