@@ -316,6 +316,7 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.ANTLR_TEXT_TOKEN);
 	    add(creators, TextResourceArtifacts.ANTLR_TOKEN_HELPER);
 	    add(creators, TextResourceArtifacts.BRACKET_PAIR);
+	    add(creators, TextResourceArtifacts.STRING_PARSER);
 
 	    add(creators, TextResourceArtifacts.ABSTRACT_DEBUGGABLE);
 	    add(creators, TextResourceArtifacts.E_DEBUG_MESSAGE_TYPES);
