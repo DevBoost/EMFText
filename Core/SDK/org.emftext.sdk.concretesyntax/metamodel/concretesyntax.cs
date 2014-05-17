@@ -17,7 +17,11 @@ OPTIONS {
 	overrideResourcePostProcessor = "false";
 	overrideOutlinePageActionProvider = "false";
 	overrideUIPluginActivator = "false";
-
+	
+	overrideNewFileContentProvider = "false";
+	overrideNewFileWizard = "false";
+	overrideNewProjectWizardLogic = "false";
+	
 	// adjust dependencies
 	additionalUIDependencies = "org.emftext.sdk";
 	antlrPluginID = "org.emftext.sdk";
