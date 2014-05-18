@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -31,7 +31,9 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc(
@@ -44,7 +46,6 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		);
 		sc.add("public class " + getResourceClassName() + " extends " + DEFAULT_INDENT_LINE_AUTO_EDIT_STRATEGY(sc) + " {");
 		sc.addLineBreak();
-
 
 		addFields(sc);
 		addConstructor(sc);
@@ -71,180 +72,180 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		sc.addLineBreak();
 	}
 	
-	private void addMethods(JavaComposite sc) {
-		addSetBracketSet(sc);
-		addCustomizeDocumentCommand(sc);
-		addConsumeAddedClosingBracket(sc);
-		addAddClosingBracket(sc);
-		addAddClosingBracketAfterEnterIfRequired(sc);
-		addCount(sc);
-		addGetCloseAfterBracketBefore(sc);
-		addIsLineBreak(sc);
+	private void addMethods(JavaComposite jc) {
+		addSetBracketSetMethod(jc);
+		addCustomizeDocumentCommandMethod(jc);
+		addConsumeAddedClosingBracketMethod(jc);
+		addAddClosingBracketMethod(jc);
+		addAddClosingBracketAfterEnterIfRequiredMethod(jc);
+		addCountMethod(jc);
+		addGetCloseAfterBracketBeforeMethod(jc);
+		addIsLineBreakMethod(jc);
 	}
 	
-	private void addSetBracketSet(JavaComposite sc) {
-		sc.addJavadoc("This method is only used for injecting a bracket set during tests.");
-		sc.add("@Deprecated");
-		sc.add("public void setBracketSet(" + bracketSetClassName + " bracketSet) {");
-		sc.add("this.bracketSet = bracketSet;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSetBracketSetMethod(JavaComposite jc) {
+		jc.addJavadoc("This method is only used for injecting a bracket set during tests.");
+		jc.add("@Deprecated");
+		jc.add("public void setBracketSet(" + bracketSetClassName + " bracketSet) {");
+		jc.add("this.bracketSet = bracketSet;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addCustomizeDocumentCommand(JavaComposite sc) {
-		sc.add("@Override");
-		sc.add("public void customizeDocumentCommand(" + I_DOCUMENT(sc) + " document, " + DOCUMENT_COMMAND(sc) + " command) {");
-		sc.add("String text = command.text;");
-		sc.add("String textBefore = command.text;");
-		sc.add("super.customizeDocumentCommand(document, command);");
-		sc.add("String textAfter = command.text;");
-		sc.add("if (textAfter.length() < textBefore.length()) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("consumeAddedClosingBracket(document, command);");
-		sc.add("addClosingBracketAfterEnterIfRequired(document, command, text, textBefore, textAfter);");
-		sc.add("addClosingBracket(document, command);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addCustomizeDocumentCommandMethod(JavaComposite jc) {
+		jc.add("@Override");
+		jc.add("public void customizeDocumentCommand(" + I_DOCUMENT(jc) + " document, " + DOCUMENT_COMMAND(jc) + " command) {");
+		jc.add("String text = command.text;");
+		jc.add("String textBefore = command.text;");
+		jc.add("super.customizeDocumentCommand(document, command);");
+		jc.add("String textAfter = command.text;");
+		jc.add("if (textAfter.length() < textBefore.length()) {");
+		jc.add("return;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("consumeAddedClosingBracket(document, command);");
+		jc.add("addClosingBracketAfterEnterIfRequired(document, command, text, textBefore, textAfter);");
+		jc.add("addClosingBracket(document, command);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addConsumeAddedClosingBracket(JavaComposite sc) {
-		sc.add("protected void consumeAddedClosingBracket(" + I_DOCUMENT(sc) + " document, " + DOCUMENT_COMMAND(sc) + " command) {");
-		sc.addComment("When typing the closing bracket manually and the next character is an auto generated closing bracket, then do not insert the new closing bracket (i.e., make it feel like it was overridden).");
-		sc.add("String insertedText = command.text;");
-		sc.addLineBreak();
-		sc.add("if (!bracketSet.isClosingBracket(insertedText) || insertedText.length() != 1) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("try {");
-		sc.add("char insertedBracket = insertedText.charAt(0);");
-		sc.addLineBreak();
-		sc.add("int offset = command.offset;");
-		sc.add("char nextCharacter = document.getChar(offset);");
-		sc.addLineBreak();
-		sc.addComment("NOTE: To be entirely accurate, one would have to check whether the next character truly _functions_ as a closing bracket (e.g., is the second of a pair of quotes, not the first).");
-		sc.add("boolean nextCharacterIsClosingBracket = bracketSet.isClosingBracket(Character.toString(nextCharacter));");
-		sc.addLineBreak();
-		sc.addComment("TODO: chseidl: find a way to determine that");
-		sc.add("boolean nextCharacterWasAddedAutomatically = true;");
-		sc.addLineBreak();	
-		sc.add("if (insertedBracket == nextCharacter && nextCharacterIsClosingBracket && nextCharacterWasAddedAutomatically) {");
-		sc.addComment("Do not add the character again but forward the caret. Effectively gives the illusion of overriding the previously automatically added closing bracket.");
-		sc.add("command.text = \"\";");
-		sc.add("command.caretOffset = offset + 1;");
-		sc.add("command.shiftsCaret = true;");
-		sc.add("}");
-		sc.add("} catch(" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addConsumeAddedClosingBracketMethod(JavaComposite jc) {
+		jc.add("protected void consumeAddedClosingBracket(" + I_DOCUMENT(jc) + " document, " + DOCUMENT_COMMAND(jc) + " command) {");
+		jc.addComment("When typing the closing bracket manually and the next character is an auto generated closing bracket, then do not insert the new closing bracket (i.e., make it feel like it was overridden).");
+		jc.add("String insertedText = command.text;");
+		jc.addLineBreak();
+		jc.add("if (!bracketSet.isClosingBracket(insertedText) || insertedText.length() != 1) {");
+		jc.add("return;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("try {");
+		jc.add("char insertedBracket = insertedText.charAt(0);");
+		jc.addLineBreak();
+		jc.add("int offset = command.offset;");
+		jc.add("char nextCharacter = document.getChar(offset);");
+		jc.addLineBreak();
+		jc.addComment("NOTE: To be entirely accurate, one would have to check whether the next character truly _functions_ as a closing bracket (e.g., is the second of a pair of quotes, not the first).");
+		jc.add("boolean nextCharacterIsClosingBracket = bracketSet.isClosingBracket(Character.toString(nextCharacter));");
+		jc.addLineBreak();
+		// TODO chseidl: find a way to determine that
+		jc.add("boolean nextCharacterWasAddedAutomatically = true;");
+		jc.addLineBreak();	
+		jc.add("if (insertedBracket == nextCharacter && nextCharacterIsClosingBracket && nextCharacterWasAddedAutomatically) {");
+		jc.addComment("Do not add the character again but forward the caret. Effectively gives the illusion of overriding the previously automatically added closing bracket.");
+		jc.add("command.text = \"\";");
+		jc.add("command.caretOffset = offset + 1;");
+		jc.add("command.shiftsCaret = true;");
+		jc.add("}");
+		jc.add("} catch(" + BAD_LOCATION_EXCEPTION(jc) + " e) {");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addAddClosingBracket(JavaComposite sc) {
-		sc.add("protected void addClosingBracket(" + I_DOCUMENT(sc) + " document, " + DOCUMENT_COMMAND(sc) + " command) {");
-		sc.add("String openingBracket = command.text;");
-		sc.addLineBreak();
-		sc.add("if (!bracketSet.isOpeningBracket(openingBracket) || !bracketSet.isCloseInstantly(openingBracket)) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.addComment("Only add closing bracket if the bracket itself is not already the closing one (i.e., check whether an opening bracket is still open). This often happens for quotes where the opening and closing mark are identical.");
-		sc.add("String closingBracket = bracketSet.getCounterpart(openingBracket);");
-		sc.addLineBreak();
-		sc.addComment("Check if there is an open bracket");
-		sc.add("int caretOffset = command.offset;");
-		sc.addLineBreak();
-		sc.add("String documentText = document.get();");
-		sc.add("String before = documentText.substring(0, caretOffset);");
-		sc.add("String after = documentText.substring(caretOffset);");
-		sc.add("String modifiedDocumentText = before + openingBracket + after;");
-		sc.addLineBreak();
-		sc.add("int matchingBracketPosition = bracketSet.findMatchingBrackets(modifiedDocumentText, caretOffset + 1);");
-		sc.addLineBreak();
-		sc.add("boolean bracketPairIsOpen = (matchingBracketPosition != -1 && matchingBracketPosition < caretOffset);");
-		sc.add("boolean insertedTextIsClosingBracket = (openingBracket != null && openingBracket.equals(closingBracket));");
-		sc.addLineBreak();	
-		sc.addComment("Only add the closing bracket if there actually is an according opening bracket. This may not be the case if opening and closing bracket use the same symbol and the closing bracket is typed manually.");
-		sc.add("if (!(bracketPairIsOpen && insertedTextIsClosingBracket)) {");
-		sc.add("command.text = command.text + closingBracket;");
-		sc.add("command.shiftsCaret = false;");
-		sc.add("command.caretOffset = command.offset + 1;");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addAddClosingBracketMethod(JavaComposite jc) {
+		jc.add("protected void addClosingBracket(" + I_DOCUMENT(jc) + " document, " + DOCUMENT_COMMAND(jc) + " command) {");
+		jc.add("String openingBracket = command.text;");
+		jc.addLineBreak();
+		jc.add("if (!bracketSet.isOpeningBracket(openingBracket) || !bracketSet.isCloseInstantly(openingBracket)) {");
+		jc.add("return;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.addComment("Only add closing bracket if the bracket itself is not already the closing one (i.e., check whether an opening bracket is still open). This often happens for quotes where the opening and closing mark are identical.");
+		jc.add("String closingBracket = bracketSet.getCounterpart(openingBracket);");
+		jc.addLineBreak();
+		jc.addComment("Check if there is an open bracket");
+		jc.add("int caretOffset = command.offset;");
+		jc.addLineBreak();
+		jc.add("String documentText = document.get();");
+		jc.add("String before = documentText.substring(0, caretOffset);");
+		jc.add("String after = documentText.substring(caretOffset);");
+		jc.add("String modifiedDocumentText = before + openingBracket + after;");
+		jc.addLineBreak();
+		jc.add("int matchingBracketPosition = bracketSet.findMatchingBrackets(modifiedDocumentText, caretOffset + 1);");
+		jc.addLineBreak();
+		jc.add("boolean bracketPairIsOpen = (matchingBracketPosition != -1 && matchingBracketPosition < caretOffset);");
+		jc.add("boolean insertedTextIsClosingBracket = (openingBracket != null && openingBracket.equals(closingBracket));");
+		jc.addLineBreak();	
+		jc.addComment("Only add the closing bracket if there actually is an according opening bracket. This may not be the case if opening and closing bracket use the same symbol and the closing bracket is typed manually.");
+		jc.add("if (!(bracketPairIsOpen && insertedTextIsClosingBracket)) {");
+		jc.add("command.text = command.text + closingBracket;");
+		jc.add("command.shiftsCaret = false;");
+		jc.add("command.caretOffset = command.offset + 1;");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addAddClosingBracketAfterEnterIfRequired(JavaComposite sc) {
-		sc.add("protected void addClosingBracketAfterEnterIfRequired(" + I_DOCUMENT(sc) + " document, " + DOCUMENT_COMMAND(sc) + " command, String text, String textBefore, String textAfter) {");
-		sc.add("boolean isLineBreak = isLineBreak(text);");
-		sc.add("if (!isLineBreak) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("String documentText = document.get();");
-		sc.add("String openingBracketBefore = getCloseAfterBracketBefore(documentText, command.offset);");
-		sc.add("if (openingBracketBefore == null) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.addComment("add additional indentation (because a line break was entered after an opening bracket)");
+	private void addAddClosingBracketAfterEnterIfRequiredMethod(JavaComposite jc) {
+		jc.add("protected void addClosingBracketAfterEnterIfRequired(" + I_DOCUMENT(jc) + " document, " + DOCUMENT_COMMAND(jc) + " command, String text, String textBefore, String textAfter) {");
+		jc.add("boolean isLineBreak = isLineBreak(text);");
+		jc.add("if (!isLineBreak) {");
+		jc.add("return;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("String documentText = document.get();");
+		jc.add("String openingBracketBefore = getCloseAfterBracketBefore(documentText, command.offset);");
+		jc.add("if (openingBracketBefore == null) {");
+		jc.add("return;");
+		jc.add("}");
+		jc.addComment("add additional indentation (because a line break was entered after an opening bracket)");
 		// TODO Figure out when to use spaces instead of tabs
-		sc.add("command.text = command.text + \"\\t\";");
-		sc.add("String closingBracket = bracketSet.getCounterpart(openingBracketBefore);");
-		sc.add("boolean closingBracketIsMissing = count(documentText, openingBracketBefore) != count(documentText, closingBracket);");
-		sc.addComment("add closing bracket (if required)");
-		sc.add("if (closingBracketIsMissing) {");
-		sc.add("command.text = command.text + textAfter;");
-		sc.add("command.text = command.text + closingBracket;");
-		sc.add("}");
-		sc.add("command.shiftsCaret = false;");
-		sc.add("command.caretOffset = command.offset + textAfter.length() + 1;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("command.text = command.text + \"\\t\";");
+		jc.add("String closingBracket = bracketSet.getCounterpart(openingBracketBefore);");
+		jc.add("boolean closingBracketIsMissing = count(documentText, openingBracketBefore) != count(documentText, closingBracket);");
+		jc.addComment("add closing bracket (if required)");
+		jc.add("if (closingBracketIsMissing) {");
+		jc.add("command.text = command.text + textAfter;");
+		jc.add("command.text = command.text + closingBracket;");
+		jc.add("}");
+		jc.add("command.shiftsCaret = false;");
+		jc.add("command.caretOffset = command.offset + textAfter.length() + 1;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addCount(JavaComposite sc) {
-		sc.addJavadoc("Returns the number of occurrences of 'searchString' in 'text'.");
-		sc.add("protected int count(String text, String searchString) {");
-		sc.add("int index = text.indexOf(searchString);");
-		sc.add("int count = 0;");
-		sc.add("while (index >= 0) {");
-		sc.add("count++;");
-		sc.add("index = text.indexOf(searchString, index + 1);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("return count;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addCountMethod(JavaComposite jc) {
+		jc.addJavadoc("Returns the number of occurrences of 'searchString' in 'text'.");
+		jc.add("protected int count(String text, String searchString) {");
+		jc.add("int index = text.indexOf(searchString);");
+		jc.add("int count = 0;");
+		jc.add("while (index >= 0) {");
+		jc.add("count++;");
+		jc.add("index = text.indexOf(searchString, index + 1);");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("return count;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addGetCloseAfterBracketBefore(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addGetCloseAfterBracketBeforeMethod(JavaComposite jc) {
+		jc.addJavadoc(
 			"Searches for a bracket that must be closed when line breaks are entered " +
 			"and which is located right before the cursor (ignoring whitespace)."
 		);
-		sc.add("protected String getCloseAfterBracketBefore(String text, int offset) {");
-		sc.add("for (int i = offset - 1; i >= 0; i--) {");
-		sc.add("char charAtI = text.charAt(i);");
-		sc.add("String stringAtI = Character.toString(charAtI);");
-		sc.add("if (bracketSet.isCloseAfterEnter(stringAtI)) {");
-		sc.add("return stringAtI;");
-		sc.add("}");
-		sc.add("if (charAtI == ' ' || charAtI == '\\t') {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("protected String getCloseAfterBracketBefore(String text, int offset) {");
+		jc.add("for (int i = offset - 1; i >= 0; i--) {");
+		jc.add("char charAtI = text.charAt(i);");
+		jc.add("String stringAtI = Character.toString(charAtI);");
+		jc.add("if (bracketSet.isCloseAfterEnter(stringAtI)) {");
+		jc.add("return stringAtI;");
+		jc.add("}");
+		jc.add("if (charAtI == ' ' || charAtI == '\\t') {");
+		jc.add("continue;");
+		jc.add("}");
+		jc.add("break;");
+		jc.add("}");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addIsLineBreak(JavaComposite sc) {
-		sc.add("protected boolean isLineBreak(String text) {");
-		sc.add("return \"\\n\".equals(text) || \"\\r\".equals(text) || \"\\r\\n\".equals(text);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addIsLineBreakMethod(JavaComposite jc) {
+		jc.add("protected boolean isLineBreak(String text) {");
+		jc.add("return \"\\n\".equals(text) || \"\\r\".equals(text) || \"\\r\\n\".equals(text);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 }
