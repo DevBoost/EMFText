@@ -30,19 +30,34 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
  */
 public class ANTLRParserCreator implements IArtifactCreator<GenerationContext> {
 
-	public void createArtifacts(IPluginDescriptor plugin, GenerationContext context) {
-		if (context.getANTLRGrammarHasChanged()) {
-			File antlrFile = context.getANTLRGrammarFile(context.getResourcePlugin());
-        	
-			ANTLRErrorListener listener = new TextResourceGeneratorANTLRErrorListener(context);
-			ErrorManager.setErrorListener(listener);
-			
-			String[] arguments = new String[] { "-Xconversiontimeout", "10000",
-					"-o", antlrFile.getParentFile().getAbsolutePath(),
-					antlrFile.getAbsolutePath() };
-			Tool antlrTool = new Tool(arguments);
-        	antlrTool.process();
+	public void createArtifacts(IPluginDescriptor plugin,
+			GenerationContext context) {
+		
+		if (!context.getANTLRGrammarHasChanged()) {
+			// If the grammar has not changed, we do not run the ANTLR tool to
+			// speed up the code generation process. If the grammar is the same
+			// ANTLR would generate the same lexer/parser anyway.
+			return;
 		}
+		
+		runANTLR(context);
+	}
+
+	private void runANTLR(GenerationContext context) {
+		IPluginDescriptor resourcePlugin = context.getResourcePlugin();
+		File antlrFile = context.getANTLRGrammarFile(resourcePlugin);
+
+		ANTLRErrorListener listener = new TextResourceGeneratorANTLRErrorListener(
+				context);
+		ErrorManager.setErrorListener(listener);
+
+		String parentPath = antlrFile.getParentFile().getAbsolutePath();
+		String grammarFilePath = antlrFile.getAbsolutePath();
+
+		String[] arguments = new String[] { "-Xconversiontimeout", "10000",
+				"-o", parentPath, grammarFilePath };
+		Tool antlrTool = new Tool(arguments);
+		antlrTool.process();
 	}
 
 	public String getArtifactTypeDescription() {
