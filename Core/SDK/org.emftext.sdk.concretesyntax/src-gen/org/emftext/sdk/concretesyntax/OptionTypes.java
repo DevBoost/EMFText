@@ -2512,15 +2512,7 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITIONAL_FILE_EXTENSIONS(312, "ADDITIONAL_FILE_EXTENSIONS", "additionalFileExtensions"), /**
-	 * The '<em><b>OVERRIDE STRING PARSER</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_STRING_PARSER_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	OVERRIDE_STRING_PARSER(313, "OVERRIDE_STRING_PARSER", "overrideStringParser");
+	ADDITIONAL_FILE_EXTENSIONS(312, "ADDITIONAL_FILE_EXTENSIONS", "additionalFileExtensions");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6553,19 +6545,6 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int ADDITIONAL_FILE_EXTENSIONS_VALUE = 312;
 /**
-	 * The '<em><b>OVERRIDE STRING PARSER</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * If set to <code>false</code>, the StringParser class will not be overridden. The default value for this option is <code>true</code>.
-	 * <!-- end-model-doc -->
-	 * @see #OVERRIDE_STRING_PARSER
-	 * @model literal="overrideStringParser"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int OVERRIDE_STRING_PARSER_VALUE = 313;
-/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6883,7 +6862,6 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_RESOURCE_BUNDLE,
 			NEW_FILE_WIZARD_NAME,
 			ADDITIONAL_FILE_EXTENSIONS,
-			OVERRIDE_STRING_PARSER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7241,7 +7219,6 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_RESOURCE_BUNDLE_VALUE: return OVERRIDE_RESOURCE_BUNDLE;
 			case NEW_FILE_WIZARD_NAME_VALUE: return NEW_FILE_WIZARD_NAME;
 			case ADDITIONAL_FILE_EXTENSIONS_VALUE: return ADDITIONAL_FILE_EXTENSIONS;
-			case OVERRIDE_STRING_PARSER_VALUE: return OVERRIDE_STRING_PARSER;
 		}
 		return null;
 	}

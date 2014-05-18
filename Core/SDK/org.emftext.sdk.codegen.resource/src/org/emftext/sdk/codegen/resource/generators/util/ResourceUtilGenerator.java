@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.generators.util;
 
+import static de.devboost.codecomposers.java.ClassNameConstants.LINKED_HASH_MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.LIST;
 import static de.devboost.codecomposers.java.ClassNameConstants.MAP;
 import static de.devboost.codecomposers.java.ClassNameConstants.SET;
@@ -22,6 +23,7 @@ import static org.emftext.sdk.codegen.resource.ClassNameConstants.BYTE_ARRAY_INP
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.FILE;
 import static org.emftext.sdk.codegen.resource.ClassNameConstants.FILE_OUTPUT_STREAM;
@@ -39,6 +41,7 @@ import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.GeneratorUtil;
+import org.emftext.sdk.codegen.resource.TextResourceArtifacts;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -77,9 +80,11 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		addGetResourceMethod6(sc);
 		addGetResourceMethod7(sc);
 		addGetResourceMethod8(sc);
+		addGetResourceMethod9(sc);
 		addGetResourceContentMethod1(sc);
 		addGetResourceContentMethod2(sc);
 		addGetResourceContentMethod3(sc);
+		addGetResourceContentMethod4(sc);
 		addSaveResourceMethod(sc);
 		addGetTextMethod(sc);
 		addContainsErrorsMethod(sc);
@@ -273,7 +278,24 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		String returnType = getRootElementType(sc);
 		sc.addJavadoc("Returns the root element after parsing the given text.");
 		sc.add("public static " + returnType + " getResourceContent(String text) {");
-		sc.add(RESOURCE(sc) + " resource = getResource(text);");
+		sc.add("return (" + returnType + ") getResourceContent(text, null);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceContentMethod4(JavaComposite sc) {
+		String returnType = getRootElementType(sc);
+		String optionsClass = getContext().getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
+		sc.addJavadoc("Returns the root element after parsing the given text assuming the specified EClass as start rule.");
+		sc.add("public static " + E_OBJECT(sc) + " getResourceContent(String text, " + E_CLASS(sc) + " startEClass) {");
+		sc.add(MAP(sc) + "<Object, Object> loadOptions = new " + LINKED_HASH_MAP(sc) + "<Object, Object>();");
+		sc.addLineBreak();
+		sc.add("if (startEClass != null) {");
+		sc.add("loadOptions.put(" + optionsClass + ".RESOURCE_CONTENT_TYPE, startEClass);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("Resource resource = getResource(text.getBytes(), new ResourceSetImpl(), loadOptions);");
+		sc.addLineBreak();
 		sc.add("if (resource == null) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -286,7 +308,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
+	
 	private void addGetResourceMethod5(JavaComposite sc) {
 		sc.addJavadoc(
 			"Returns the resource after parsing the given text. This method is " +
@@ -326,6 +348,14 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	private void addGetResourceMethod8(JavaComposite sc) {
 		sc.addJavadoc("Returns the resource after parsing the given bytes.");
 		sc.add("public static " + RESOURCE(sc) + " getResource(byte[] content, " + RESOURCE_SET(sc) + " resourceSet) {");
+		sc.add("return getResource(content, resourceSet, null);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetResourceMethod9(JavaComposite sc) {
+		sc.addJavadoc("Returns the resource after parsing the given bytes using the given load options.");
+		sc.add("public static " + RESOURCE(sc) + " getResource(byte[] content, " + RESOURCE_SET(sc) + " resourceSet, " + MAP(sc) + "<?, ?> loadOptions) {");
 		sc.add(metaInformationClassName + " metaInformation = new " + metaInformationClassName + "();");
 		sc.add("metaInformation.registerResourceFactory();");
 		sc.add(URI(sc) + " uri = " + URI(sc) + ".createURI(\"temp.\" + metaInformation.getSyntaxName());");
@@ -335,7 +365,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.add(BYTE_ARRAY_INPUT_STREAM(sc) + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM(sc) + "(content);");
 		sc.add("try {");
-		sc.add("resource.load(inputStream, null);");
+		sc.add("resource.load(inputStream, loadOptions);");
 		sc.add("} catch (" + IO_EXCEPTION(sc) + " ioe) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -343,7 +373,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
+	
 	private String getRootElementType(JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
