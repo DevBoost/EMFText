@@ -10,6 +10,8 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+//import org.emftext.sdk.OptionManager;
+
 /**
  * The DefaultTokenStyleAdder adds default styles from comments, keywords
  * and quoted tokens. Comments are recognized heuristically by their regular
@@ -84,22 +86,48 @@ eclass DefaultTokenStyleAdder {
 		return KEYWORD_REGEX;
 	}
 
+	//TODO: CS
 	addTokenStylesForKeywords(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
 		final Pattern KEYWORD_PATTERN = Pattern.compile(getKeywordRegex());
 		final String KEYWORD_COLOR = "800055";
+		
 		for (Rule rule : syntax.getAllRules()) {
 			EList<String> keywords = getAllKeywords(rule);
+			
 			for (String keyword : keywords) {
 				if (KEYWORD_PATTERN.matcher(keyword).matches()) {
+					//TODO CS: Replace by rule if required
+					//boolean caseInsensitiveKeywords = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
+					boolean caseInsensitiveTokens = true;
+					//TODO: This doubles logic of ANTLRGrammarGenerator.getKeywordPseudoTokenName()	but cannot reference class
+					String keywordName = caseInsensitiveTokens ? "KEYWORD_" + keyword.toUpperCase() : keyword;
+					
 					TokenStyle newStyle = #TokenStyle;
 					newStyle.setRgb(KEYWORD_COLOR);
-					newStyle.getTokenNames().add(keyword);
+					newStyle.getTokenNames().add(keywordName);
 					newStyle.getFontStyles().add(FontStyle.BOLD);
 					syntax.addTokenStyle(allStyles, newStyle);
 				}
 			}
 		}
 	}
+	
+//	addTokenStylesForKeywords(/*ConcreteSyntax syntax, EList<TokenStyle> allStyles*/) {
+//		final Pattern KEYWORD_PATTERN = Pattern.compile(getKeywordRegex());
+//		final String KEYWORD_COLOR = "800055";
+//		for (Rule rule : syntax.getAllRules()) {
+//			EList<String> keywords = getAllKeywords(rule);
+//			for (String keyword : keywords) {
+//				if (KEYWORD_PATTERN.matcher(keyword).matches()) {
+//					TokenStyle newStyle = #TokenStyle;
+//					newStyle.setRgb(KEYWORD_COLOR);
+//					newStyle.getTokenNames().add(keyword);
+//					newStyle.getFontStyles().add(FontStyle.BOLD);
+//					syntax.addTokenStyle(allStyles, newStyle);
+//				}
+//			}
+//		}
+//	}
 
 	/* EList<CsString> */getAllKeywords(/*Rule rule*/) {
 		EList<String> allKeywords = new BasicEList<String>();

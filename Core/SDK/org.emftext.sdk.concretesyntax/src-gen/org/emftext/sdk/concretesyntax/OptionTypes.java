@@ -2520,7 +2520,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_STRING_PARSER(313, "OVERRIDE_STRING_PARSER", "overrideStringParser");
+	OVERRIDE_STRING_PARSER(313, "OVERRIDE_STRING_PARSER", "overrideStringParser"), /**
+	 * The '<em><b>CASE INSENSITIVE KEYWORDS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CASE_INSENSITIVE_KEYWORDS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CASE_INSENSITIVE_KEYWORDS(314, "CASE_INSENSITIVE_KEYWORDS", "caseInsensitiveKeywords");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6566,6 +6574,19 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_STRING_PARSER_VALUE = 313;
 /**
+	 * The '<em><b>CASE INSENSITIVE KEYWORDS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>true</code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is <code>false</code>.
+	 * <!-- end-model-doc -->
+	 * @see #CASE_INSENSITIVE_KEYWORDS
+	 * @model literal="caseInsensitiveKeywords"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CASE_INSENSITIVE_KEYWORDS_VALUE = 314;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6884,6 +6905,7 @@ public enum OptionTypes implements Enumerator {
 			NEW_FILE_WIZARD_NAME,
 			ADDITIONAL_FILE_EXTENSIONS,
 			OVERRIDE_STRING_PARSER,
+			CASE_INSENSITIVE_KEYWORDS,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7242,6 +7264,7 @@ public enum OptionTypes implements Enumerator {
 			case NEW_FILE_WIZARD_NAME_VALUE: return NEW_FILE_WIZARD_NAME;
 			case ADDITIONAL_FILE_EXTENSIONS_VALUE: return ADDITIONAL_FILE_EXTENSIONS;
 			case OVERRIDE_STRING_PARSER_VALUE: return OVERRIDE_STRING_PARSER;
+			case CASE_INSENSITIVE_KEYWORDS_VALUE: return CASE_INSENSITIVE_KEYWORDS;
 		}
 		return null;
 	}

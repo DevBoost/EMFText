@@ -97,7 +97,7 @@ public class OptionManager {
 		STRING_OPTIONS.add(OptionTypes.EMF_TARGET_VERSION);
 		STRING_OPTIONS.add(OptionTypes.NEW_FILE_WIZARD_NAME);
 		STRING_OPTIONS.add(OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
-		
+
 		BOOLEAN_OPTIONS.add(OptionTypes.USE_CLASSIC_PRINTER);
 		BOOLEAN_OPTIONS.add(OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
 		BOOLEAN_OPTIONS.add(OptionTypes.FORCE_EOF);
@@ -119,6 +119,7 @@ public class OptionManager {
 		BOOLEAN_OPTIONS.add(OptionTypes.DISABLE_NEW_PROJECT_WIZARD);
 		BOOLEAN_OPTIONS.add(OptionTypes.IGNORE_TYPE_RESTRICTIONS_FOR_PRINTING);
 		BOOLEAN_OPTIONS.add(OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		BOOLEAN_OPTIONS.add(OptionTypes.CASE_INSENSITIVE_KEYWORDS);
 
 		// all override options are boolean
 		for (OptionTypes optionType : OptionTypes.VALUES) {
@@ -132,8 +133,10 @@ public class OptionManager {
 	 * Return the value of the given option. If the option is not set, null is
 	 * returned.
 	 * 
-	 * @param syntax the syntax that specifies the option.
-	 * @param type the type of the option
+	 * @param syntax
+	 *            the syntax that specifies the option.
+	 * @param type
+	 *            the type of the option
 	 * @return the value as string
 	 */
 	public String getStringOptionValue(ConcreteSyntax syntax, OptionTypes type) {
@@ -147,18 +150,23 @@ public class OptionManager {
 		}
 		return option.getValue();
 	}
-	
+
 	/**
-	 * Returns the value of the given syntax option. If the option is not
-	 * set, the default value is returned.
+	 * Returns the value of the given syntax option. If the option is not set,
+	 * the default value is returned.
 	 * 
-	 * @param syntax the syntax that specifies the option.
-	 * @param type the type of the option
-	 * @param defaultValue the options default value
+	 * @param syntax
+	 *            the syntax that specifies the option.
+	 * @param type
+	 *            the type of the option
+	 * @param defaultValue
+	 *            the options default value
 	 */
-	public String getStringOptionValue(ConcreteSyntax syntax, OptionTypes type, String defaultValue) {
+	public String getStringOptionValue(ConcreteSyntax syntax, OptionTypes type,
+			String defaultValue) {
 		String value;
-		String optionValue = OptionManager.INSTANCE.getStringOptionValue(syntax, type);
+		String optionValue = OptionManager.INSTANCE.getStringOptionValue(
+				syntax, type);
 		if (optionValue != null) {
 			// use package plug-in from option
 			value = optionValue;
@@ -170,13 +178,16 @@ public class OptionManager {
 	}
 
 	/**
-	 * Returns the value of the given syntax option as collection. The value is split into
-	 * parts denoted by commata.
+	 * Returns the value of the given syntax option as collection. The value is
+	 * split into parts denoted by commata.
 	 * 
-	 * @param syntax the syntax that specifies the option.
-	 * @param type the type of the option
+	 * @param syntax
+	 *            the syntax that specifies the option.
+	 * @param type
+	 *            the type of the option
 	 */
-	public Collection<String> getStringOptionValueAsCollection(ConcreteSyntax syntax, OptionTypes type) {
+	public Collection<String> getStringOptionValueAsCollection(
+			ConcreteSyntax syntax, OptionTypes type) {
 		String optionValue = getStringOptionValue(syntax, type);
 		if (optionValue != null) {
 			String[] parts = optionValue.split(",");
@@ -185,13 +196,15 @@ public class OptionManager {
 			return Collections.emptySet();
 		}
 	}
-	
+
 	/**
-	 * Return the value of the given (boolean) option. If the option is not 
-	 * set, the default value is returned.
+	 * Return the value of the given (boolean) option. If the option is not set,
+	 * the default value is returned.
 	 * 
-	 * @param syntax the syntax that specifies the option.
-	 * @param type the type of the option
+	 * @param syntax
+	 *            the syntax that specifies the option.
+	 * @param type
+	 *            the type of the option
 	 * @return the value as boolean
 	 */
 	public boolean getBooleanOptionValue(ConcreteSyntax syntax, OptionTypes type) {
@@ -219,7 +232,8 @@ public class OptionManager {
 	/**
 	 * Returns the default value for the given (boolean) option.
 	 * 
-	 * @param type the option type
+	 * @param type
+	 *            the option type
 	 * @return the boolean default value.
 	 */
 	public boolean getBooleanOptionsDefaultValue(OptionTypes type) {
@@ -285,16 +299,20 @@ public class OptionManager {
 		if (type == OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE) {
 			return false;
 		}
+		if (type == OptionTypes.CASE_INSENSITIVE_KEYWORDS) {
+			return false;
+		}
 		return true;
 	}
 
 	/**
-	 * Searches in 'options' for an option of type 'type'.
-	 * If one is found, it is returned. If not, <code>null</code>
-	 * is returned. 
+	 * Searches in 'options' for an option of type 'type'. If one is found, it
+	 * is returned. If not, <code>null</code> is returned.
 	 * 
-	 * @param options the list of options to search in
-	 * @param type the type to search for
+	 * @param options
+	 *            the list of options to search in
+	 * @param type
+	 *            the type to search for
 	 * @return the found option, or null if none was found
 	 */
 	public Option findOptionByType(List<Option> options, OptionTypes type) {
@@ -307,7 +325,8 @@ public class OptionManager {
 	}
 
 	public boolean useScalesParser(ConcreteSyntax syntax) {
-		String value = getStringOptionValue(syntax, OptionTypes.PARSER_GENERATOR);
+		String value = getStringOptionValue(syntax,
+				OptionTypes.PARSER_GENERATOR);
 		if (value == null) {
 			return false;
 		}
@@ -318,21 +337,24 @@ public class OptionManager {
 	}
 
 	public boolean handleTokenSpaceAutomatically(ConcreteSyntax syntax) {
-		String tokenSpaceValue = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.TOKENSPACE);
+		String tokenSpaceValue = OptionManager.INSTANCE.getStringOptionValue(
+				syntax, OptionTypes.TOKENSPACE);
 		if (tokenSpaceValue == null) {
 			// options is not set, use default
 			return true;
 		} else {
-			return OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC.equals(tokenSpaceValue);
+			return OptionManager.TOKEN_SPACE_VALUE_AUTOMATIC
+					.equals(tokenSpaceValue);
 		}
 	}
 
 	public boolean isTargetEMFVersionLowerThan2_9(ConcreteSyntax concreteSyntax) {
-		String emfTargetVersion = getStringOptionValue(concreteSyntax, OptionTypes.EMF_TARGET_VERSION);
+		String emfTargetVersion = getStringOptionValue(concreteSyntax,
+				OptionTypes.EMF_TARGET_VERSION);
 		if (emfTargetVersion == null) {
 			return true;
 		}
-		
+
 		String[] parts = emfTargetVersion.split("\\.");
 		if (parts.length > 0 && parts[0].compareTo("1") > 0) {
 			if (parts.length > 1 && parts[1].compareTo("8") > 0) {
@@ -343,11 +365,15 @@ public class OptionManager {
 	}
 
 	public boolean doOverride(ConcreteSyntax syntax, OptionTypes overrideOption) {
-		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
+		boolean doOverride = overrideOption == null
+				|| OptionManager.INSTANCE.getBooleanOptionValue(syntax,
+						overrideOption);
 		return doOverride;
 	}
 
 	public boolean generateUIPlugin(ConcreteSyntax syntax) {
-		return getBooleanOptionValue(syntax, OptionTypes.GENERATE_UI_PLUGIN) && !getBooleanOptionValue(syntax, OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
+		return getBooleanOptionValue(syntax, OptionTypes.GENERATE_UI_PLUGIN)
+				&& !getBooleanOptionValue(syntax,
+						OptionTypes.REMOVE_ECLIPSE_DEPENDENT_CODE);
 	}
 }

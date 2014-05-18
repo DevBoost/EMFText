@@ -42,6 +42,7 @@ import static org.emftext.sdk.codegen.resource.ClassNameConstants.TOKEN;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -257,6 +258,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		ANTLRGrammarComposite grammarCore = new ANTLRGrammarComposite();
 		grammarCore.setImportsPlaceholder(sc.getImportsPlaceholder());
 		addRules(grammarCore);
+		addLetterPseudoTokenDefinitions(grammarCore);
 		addTokenDefinitions(grammarCore);
 
 		sc.add("@members{");
@@ -1665,8 +1667,23 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	private void printCsString(CsString csString, Rule rule,de.devboost.codecomposers.java.JavaComposite sc,
 			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		String identifier = "a" + counter.getValue();
-		String escapedCsString = StringUtil.escapeToANTLRKeyword(csString.getValue());
-		sc.add(identifier + " = '" + escapedCsString + "' {");
+		
+		//TODO: CS
+		boolean caseInsensitiveKeywords = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
+		String rawStringValue = csString.getValue();
+		String encodedCsString = "";
+		
+		//If appropriate, call the rule for the case insensitive keyword instead of using the literal keyword.
+		if (caseInsensitiveKeywords && isKeyword2(rawStringValue)) {
+			encodedCsString = getKeywordPseudoTokenName(rawStringValue);
+		} else {
+			encodedCsString = "'" + StringUtil.escapeToANTLRKeyword(rawStringValue) + "'";
+		}
+		//TODO: CS END
+		
+//		String encodedCsString = "'" + StringUtil.escapeToANTLRKeyword(csString.getValue()) + "'";
+		
+		sc.add(identifier + " = " + encodedCsString + " {");
 		addCodeToCreateObject(sc, rule);
 		sc.add("collectHiddenTokens(element);");
 		sc.add("retrieveLayoutInformation(element, " + grammarInformationProviderClassName + "." + nameUtil.getFieldName(csString) + ", null, true);");
@@ -1676,6 +1693,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		counter.inc();
 	}
 
+	
 	private void addCodeToCreateObject(StringComposite sc, Rule rule) {
 		final GenClass metaclass = rule.getMetaclass();
 
@@ -2165,12 +2183,106 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 	}
 
+	//TODO: CS
+	private void addLetterPseudoTokenDefinitions(StringComposite sc) {
+		boolean caseInsensitiveKeywords = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
+		
+		if (caseInsensitiveKeywords) {
+			//If case insensitive keywords are enabled, add pseudo token rules
+			//for all letters permitting both the upper and lower case letter.
+			for (char character = 'A'; character <= 'Z'; character++) {
+				char lowerCharacter = Character.toLowerCase(character);
+				String letterPseudoTokenName = getLetterPseudoTokenName(character);
+				sc.add("fragment " + letterPseudoTokenName + ":('" + lowerCharacter + "'|'" + character + "');");
+			}
+			
+			sc.addLineBreak();
+			
+			
+			//Synthesize keyword rules using the pseudo letter tokens.
+			
+			//Track if a keyword has already been encoded which may happen
+			//if it was provided in different casings in the concrete syntax.
+			Set<String> existingKeywordRuleNames = new HashSet<String>();
+			
+			for (String keyword : keywords) {
+				if (isKeyword2(keyword)) {
+					String ruleName = getKeywordPseudoTokenName(keyword);
+					
+					if (!existingKeywordRuleNames.contains(ruleName)) {
+						String ruleBody = encodeCaseInsensitiveKeyword(keyword);
+						
+						//TODO: Channel etc??!
+						sc.add(ruleName + ": " + ruleBody + ";");
+						sc.addLineBreak();
+						
+						existingKeywordRuleNames.add(ruleName);
+					}
+				}
+			}
+		}
+	}
+	
+	private String encodeCaseInsensitiveKeyword(String keyword) {
+		String encodedKeyword = "";
+		
+		for (int i = 0; i < keyword.length(); i++) {
+			if (i > 0) {
+				encodedKeyword += " ";
+			}
+			
+			char character = keyword.charAt(i);
+			
+			if (Character.isAlphabetic(character)) {
+				String letterPseudoTokenName = getLetterPseudoTokenName(character);
+				encodedKeyword += letterPseudoTokenName;
+			} else {
+				encodedKeyword += "'" + character + "'";
+			}
+		}
+		
+		return encodedKeyword;
+	}
+	
+	private static String getLetterPseudoTokenName(char character) {
+		assert Character.isAlphabetic(character);
+		return "LETTER_" + Character.toUpperCase(character);
+	}
+	
+	public static String getKeywordPseudoTokenName(String keyword) {
+		String escapedKeyword = StringUtil.escapeToANTLRKeyword(keyword);
+		
+		//TODO: More constraints regarding special characters?! Encoding?
+		return "KEYWORD_" + escapedKeyword.toUpperCase();
+	}
+	
+	//TODO: rename
+	private boolean isKeyword2(String keyword) {
+		//TODO: There is a keyword regex in DefaultTokenStyleAdder
+		
+		if (keywords.contains(keyword)) {
+			for (int i = 0; i < keyword.length(); i++) {
+				char character = keyword.charAt(i);
+				
+				//TODO: Keyword has to contain at least one letter - or not?! INVESTIGATE
+
+				if (Character.isAlphabetic(character)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	//TODO: END CS
+
 	private void addTokenDefinitions(StringComposite sc) {
 		for (CompleteTokenDefinition tokenDefinition : concreteSyntax.getActiveTokens()) {
 			printToken(tokenDefinition, sc);
 		}
 	}
-
+	
 	private void printToken(CompleteTokenDefinition definition, StringComposite sc) {
 		sc.add(definition.getName());
 		sc.add(":");

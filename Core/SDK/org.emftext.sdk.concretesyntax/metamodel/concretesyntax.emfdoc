@@ -706,6 +706,8 @@ OptionTypes.ADDITIONAL_FILE_EXTENSIONS : "Comma separated list of file extension
 
 OptionTypes.OVERRIDE_STRING_PARSER : "If set to <code>false</code>, the StringParser class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.CASE_INSENSITIVE_KEYWORDS : "If set to <code>true</code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is <code>false</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."

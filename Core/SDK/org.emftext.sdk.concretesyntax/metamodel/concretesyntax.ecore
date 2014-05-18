@@ -2127,6 +2127,11 @@
         <details key="documentation" value="If set to &lt;code>false&lt;/code>, the StringParser class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="CASE_INSENSITIVE_KEYWORDS" value="314" literal="caseInsensitiveKeywords">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If set to &lt;code>true&lt;/code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is &lt;code>false&lt;/code>."/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2306,7 +2311,7 @@
     </eOperations>
     <eOperations name="addTokenStylesForKeywords">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());&#xA;final java.lang.String KEYWORD_COLOR = &quot;800055&quot;;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {&#xA;&#x9;org.eclipse.emf.common.util.EList&lt; java.lang.String> keywords = getAllKeywords(rule);&#xA;&#x9;for ( java.lang.String keyword : keywords) {&#xA;&#x9;&#x9;if (KEYWORD_PATTERN.matcher(keyword).matches()) {&#xA;&#x9;&#x9;&#x9;org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();&#xA;&#x9;&#x9;&#x9;newStyle.setRgb(KEYWORD_COLOR);&#xA;&#x9;&#x9;&#x9;newStyle.getTokenNames().add(keyword);&#xA;&#x9;&#x9;&#x9;newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);&#xA;&#x9;&#x9;&#x9;syntax.addTokenStyle(allStyles, newStyle);&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}"/>
+        <details key="body" value="final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());&#xA;final java.lang.String KEYWORD_COLOR = &quot;800055&quot;;&#xA;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {&#xA;&#x9;org.eclipse.emf.common.util.EList&lt; java.lang.String> keywords = getAllKeywords(rule);&#xA;&#x9;&#xA;&#x9;for ( java.lang.String keyword : keywords) {&#xA;&#x9;&#x9;if (KEYWORD_PATTERN.matcher(keyword).matches()) {&#xA;&#x9;&#x9;&#x9;//TODO CS: Replace by rule if required&#xA;&#x9;&#x9;&#x9;//boolean caseInsensitiveKeywords = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.CASE_INSENSITIVE_KEYWORDS);&#xA;&#x9;&#x9;&#x9;boolean caseInsensitiveTokens = true;&#xA;&#x9;&#x9;&#x9;//TODO: This doubles logic of ANTLRGrammarGenerator.getKeywordPseudoTokenName()&#x9;but cannot reference class&#xA;&#x9;&#x9;&#x9;java.lang.String keywordName = caseInsensitiveTokens ? &quot;KEYWORD_&quot; + keyword.toUpperCase() : keyword;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();&#xA;&#x9;&#x9;&#x9;newStyle.setRgb(KEYWORD_COLOR);&#xA;&#x9;&#x9;&#x9;newStyle.getTokenNames().add(keywordName);&#xA;&#x9;&#x9;&#x9;newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);&#xA;&#x9;&#x9;&#x9;syntax.addTokenStyle(allStyles, newStyle);&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}"/>
         <details key="documentation" value=""/>
       </eAnnotations>
       <eParameters name="syntax" eType="#//ConcreteSyntax"/>

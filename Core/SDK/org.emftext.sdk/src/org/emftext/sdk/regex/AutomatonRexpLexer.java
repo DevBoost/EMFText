@@ -19,7 +19,16 @@ package org.emftext.sdk.regex;
 
 
 
-import org.antlr.runtime3_4_0.*;
+import org.antlr.runtime3_4_0.BaseRecognizer;
+import org.antlr.runtime3_4_0.CharStream;
+import org.antlr.runtime3_4_0.DFA;
+import org.antlr.runtime3_4_0.EarlyExitException;
+import org.antlr.runtime3_4_0.IntStream;
+import org.antlr.runtime3_4_0.Lexer;
+import org.antlr.runtime3_4_0.MismatchedSetException;
+import org.antlr.runtime3_4_0.NoViableAltException;
+import org.antlr.runtime3_4_0.RecognitionException;
+import org.antlr.runtime3_4_0.RecognizerSharedState;
 
 public class AutomatonRexpLexer extends Lexer {
     public static final int EOF=-1;
