@@ -53,14 +53,14 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver implements ICsReference
 				}
 				else{
 					if (!isOperatorMetaClass) {
-						String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+" and not a common operator metaclass.";						
+						String message = "EClass \"" + genClass.getEcoreClass().getName() + "\" does exist, but it is " + (genClass.getEcoreClass().isInterface()? "an interface" : "abstract") + " and not a common operator metaclass.";						
 						setMessage(message);
+						return false;
 					}	
 					else {
 						return true;
 					}
 				}
-				return false;
 			}
 			
 			private boolean isCommonOperatorMetaClass(String operatorSliceName){

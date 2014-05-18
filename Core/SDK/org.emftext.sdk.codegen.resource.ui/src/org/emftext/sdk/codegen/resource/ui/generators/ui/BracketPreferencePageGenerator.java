@@ -397,7 +397,7 @@ public class BracketPreferencePageGenerator extends UIJavaBaseGenerator<Artifact
 		sc.add("configurePairsLabel.setText(\"Configure bracket pairs\");");
 		sc.add("configurePairsLabel.setLayoutData(gd);");
 		
-		sc.add("bracketsList = new " + SWT_LIST(sc) + "(tokenSelectionComposite, " + SWT(sc) + ".SINGLE);");
+		sc.add("bracketsList = new " + SWT_LIST(sc) + "(tokenSelectionComposite, " + SWT(sc) + ".SINGLE | " + SWT(sc) + ".BORDER);");
 		sc.add("gd = new " + GRID_DATA(sc) + "(" + GRID_DATA(sc) + ".CENTER, " + GRID_DATA(sc) + ".FILL, false, true);");
 		sc.add("gd.horizontalSpan = 2;");
 		sc.add("gd.verticalSpan = 4;");

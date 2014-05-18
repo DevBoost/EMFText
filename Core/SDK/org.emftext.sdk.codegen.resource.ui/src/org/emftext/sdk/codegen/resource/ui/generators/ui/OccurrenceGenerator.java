@@ -275,6 +275,11 @@ public class OccurrenceGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 	private void addGetCaretOffsetMethod(JavaComposite sc) {
 		sc.add("protected int getCaretOffset() {");
 		sc.add(STYLED_TEXT(sc) + " textWidget = getSourceViewer().getTextWidget();");
+		sc.addLineBreak();
+		sc.add("if (textWidget == null) {");
+		sc.add("return -1;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("int widgetOffset = textWidget.getCaretOffset();");
 		sc.add("return getTextViewerExtension5().widgetOffset2ModelOffset(widgetOffset);");
 		sc.add("}");
