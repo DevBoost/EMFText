@@ -406,6 +406,11 @@ public class CsOccurrence {
 	
 	protected int getCaretOffset() {
 		StyledText textWidget = getSourceViewer().getTextWidget();
+		
+		if (textWidget == null) {
+			return -1;
+		}
+		
 		int widgetOffset = textWidget.getCaretOffset();
 		return getTextViewerExtension5().widgetOffset2ModelOffset(widgetOffset);
 	}

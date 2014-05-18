@@ -87,7 +87,6 @@ public class CsAutoEditStrategy extends DefaultIndentLineAutoEditStrategy {
 			// of quotes, not the first).
 			boolean nextCharacterIsClosingBracket = bracketSet.isClosingBracket(Character.toString(nextCharacter));
 			
-			// TODO: chseidl: find a way to determine that
 			boolean nextCharacterWasAddedAutomatically = true;
 			
 			if (insertedBracket == nextCharacter && nextCharacterIsClosingBracket && nextCharacterWasAddedAutomatically) {
@@ -186,7 +185,7 @@ public class CsAutoEditStrategy extends DefaultIndentLineAutoEditStrategy {
 			if (bracketSet.isCloseAfterEnter(stringAtI)) {
 				return stringAtI;
 			}
-			if (charAtI == ' ' || charAtI == '	') {
+			if (charAtI == ' ' || charAtI == '\t') {
 				continue;
 			}
 			break;

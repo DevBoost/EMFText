@@ -166,7 +166,7 @@ public class CsBracketPreferencePage extends PreferencePage implements IWorkbenc
 		gd.verticalIndent = 20;
 		configurePairsLabel.setText("Configure bracket pairs");
 		configurePairsLabel.setLayoutData(gd);
-		bracketsList = new List(tokenSelectionComposite, SWT.SINGLE);
+		bracketsList = new List(tokenSelectionComposite, SWT.SINGLE | SWT.BORDER);
 		gd = new GridData(GridData.CENTER, GridData.FILL, false, true);
 		gd.horizontalSpan = 2;
 		gd.verticalSpan = 4;

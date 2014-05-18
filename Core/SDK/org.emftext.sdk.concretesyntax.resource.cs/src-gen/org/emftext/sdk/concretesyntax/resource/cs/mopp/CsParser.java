@@ -147,7 +147,7 @@ public class CsParser extends CsANTLRParserBase {
     	 * pushed on the stack. Once the element was parser completely it is popped from
     	 * the stack.
     	 */
-    	java.util.List<EObject> incompleteObjects = new java.util.ArrayList<EObject>();
+    	List<EObject> incompleteObjects = new ArrayList<EObject>();
     	
     	private int stopIncludingHiddenTokens;
     	private int stopExcludingHiddenTokens;
