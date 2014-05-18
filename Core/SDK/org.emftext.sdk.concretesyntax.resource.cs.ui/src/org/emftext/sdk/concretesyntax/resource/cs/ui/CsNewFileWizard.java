@@ -137,7 +137,7 @@ public class CsNewFileWizard extends Wizard implements INewWizard {
 		monitor.beginTask("Creating " + fileName, 2);
 		final IFile file = getFile(fileName, containerName);
 		try {
-			InputStream stream = openContentStream();
+			InputStream stream = openContentStream(file);
 			if (file.exists()) {
 				file.setContents(stream, true, true, monitor);
 			} else {
@@ -174,8 +174,8 @@ public class CsNewFileWizard extends Wizard implements INewWizard {
 	/**
 	 * Initializes file contents with a sample text.
 	 */
-	protected InputStream openContentStream() {
-		return new ByteArrayInputStream(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getNewFileContentProvider().getNewFileContent(newName).getBytes());
+	protected InputStream openContentStream(IFile newFile) {
+		return new ByteArrayInputStream(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getNewFileContentProvider().getNewFileContent(newFile).getBytes());
 	}
 	
 	protected void throwCoreException(String message) throws CoreException {

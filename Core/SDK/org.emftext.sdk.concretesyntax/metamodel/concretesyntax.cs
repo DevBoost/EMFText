@@ -17,7 +17,11 @@ OPTIONS {
 	overrideResourcePostProcessor = "false";
 	overrideOutlinePageActionProvider = "false";
 	overrideUIPluginActivator = "false";
-
+	
+	overrideNewFileContentProvider = "false";
+	overrideNewFileWizard = "false";
+	overrideNewProjectWizardLogic = "false";
+	
 	// adjust dependencies
 	additionalUIDependencies = "org.emftext.sdk";
 	antlrPluginID = "org.emftext.sdk";
@@ -41,7 +45,9 @@ OPTIONS {
 }
 
 TOKENS {
-	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$;
+	DEFINE SL_COMMENT $'//'(~('\n'|'\r'|'\uffff'))*$;
+	DEFINE ML_COMMENT $'/*'.*'*/'$;
+	
 	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
 	DEFINE FRAGMENT NUMBER $('0'..'9')+$;
 	DEFINE HEXNUMBER $'#'('0'..'9'|'A'..'F'|'a'..'f')+$;
@@ -60,7 +66,7 @@ TOKENSTYLES {
 	"COLOR", "PRIORITIZE" COLOR #FF9000, BOLD;
 	
 	// comments
-	"COMMENTS" COLOR #008000;
+	"SL_COMMENT", "ML_COMMENT" COLOR #008000;
 
 	// other keywords
 	"ABSTRACT", "SYNTAXDEF", "FOR", "START", "IMPORTS",

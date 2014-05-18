@@ -52,7 +52,10 @@ public class CsTokenStyleInformationProvider {
 		if ("PRIORITIZE".equals(tokenName)) {
 			return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(new int[] {0xFF, 0x90, 0x00}, null, true, false, false, false);
 		}
-		if ("COMMENTS".equals(tokenName)) {
+		if ("SL_COMMENT".equals(tokenName)) {
+			return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(new int[] {0x00, 0x80, 0x00}, null, false, false, false, false);
+		}
+		if ("ML_COMMENT".equals(tokenName)) {
 			return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenStyle(new int[] {0x00, 0x80, 0x00}, null, false, false, false, false);
 		}
 		if ("ABSTRACT".equals(tokenName)) {

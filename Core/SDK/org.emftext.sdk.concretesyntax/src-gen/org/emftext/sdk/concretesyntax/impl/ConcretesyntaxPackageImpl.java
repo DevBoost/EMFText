@@ -2483,6 +2483,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_RESOURCE_BUNDLE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.NEW_FILE_WIZARD_NAME);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_STRING_PARSER);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -4854,6 +4855,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "documentation", "Comma separated list of file extensions that should be supported by the editor in addition to the primary file extension."
+		   });		
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(310), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the StringParser class will not be overridden. The default value for this option is <code>true</code>."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 

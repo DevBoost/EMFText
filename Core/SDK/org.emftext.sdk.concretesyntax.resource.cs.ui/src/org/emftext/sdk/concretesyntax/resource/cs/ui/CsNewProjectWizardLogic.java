@@ -308,7 +308,7 @@ public class CsNewProjectWizardLogic {
 		if (defaultNewFile.exists()) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation info = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 			String fileName = "new_file." + info.getSyntaxName();
-			String content = info.getNewFileContentProvider().getNewFileContent("new_file." + info.getSyntaxName());
+			String content = info.getNewFileContentProvider().getNewFileContent(defaultNewFile);
 			defaultNewFile.setContents(new ByteArrayInputStream(content.getBytes()), IFile.FORCE, null);
 			defaultNewFile.move(project.getProjectRelativePath().append(fileName), true, null);
 		}
