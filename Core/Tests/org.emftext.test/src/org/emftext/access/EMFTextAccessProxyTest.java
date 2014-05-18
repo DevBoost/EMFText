@@ -76,6 +76,10 @@ public class EMFTextAccessProxyTest {
 	}
 
 	private void assertIsAccessible(Class<?> clazz, Class<?> interfaze) {
-		assertTrue("Class " + clazz.getSimpleName() + " must be accessible via interface " + interfaze.getSimpleName(), EMFTextAccessProxy.isAccessibleWith(clazz, interfaze));
+		boolean isAccessible = EMFTextAccessProxy.isAccessibleWith(clazz, interfaze);
+		assertTrue(
+				"Class " + clazz.getSimpleName()
+						+ " must be accessible via interface "
+						+ interfaze.getSimpleName(), isAccessible);
 	}
 }
