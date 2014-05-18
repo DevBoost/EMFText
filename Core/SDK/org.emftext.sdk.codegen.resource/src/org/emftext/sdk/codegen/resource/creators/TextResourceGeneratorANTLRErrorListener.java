@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -20,58 +20,82 @@ import org.antlr.tool.Message;
 import org.antlr.tool.ToolMessage;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
+import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.resource.GenerationContext;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
- * An error listener for the ANTLR Tool that reports errors by attaching diagnostics to
- * the given resource (containing a concrete syntax model). This ensures that errors that
- * occur when the generated grammar file is processed by the ANTLR Tool, are reported. However,
- * since the file is generated, such errors should not occur.
+ * An error listener for the ANTLR Tool that reports errors by attaching
+ * diagnostics to the given resource (containing a concrete syntax model). This
+ * ensures that errors that occur when the generated grammar file is processed
+ * by the ANTLR Tool, are reported. However, since the file is generated, such
+ * errors should not occur.
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
-public class TextResourceGeneratorANTLRErrorListener implements ANTLRErrorListener {
+public class TextResourceGeneratorANTLRErrorListener implements
+		ANTLRErrorListener {
 
-    protected GenerationContext context;
-    
-    public TextResourceGeneratorANTLRErrorListener(GenerationContext context) {
-        this.context = context;
-    }
-    
-    public void error(Message msg) {
-    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.ERROR));
-    }
+	private final GenerationContext context;
 
-    public void error(ToolMessage msg) {
-    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.ERROR));
-    }
+	public TextResourceGeneratorANTLRErrorListener(GenerationContext context) {
+		super();
+		this.context = context;
+	}
 
-    public void info(String msg) {
-    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.WARNING));
-    }
+	public void error(Message message) {
+		getProblemCollector().addProblem(createError(message));
+	}
 
-    public void warning(Message msg) {
-    	context.getProblemCollector().addProblem(new GenerationProblem(formatMessage(msg), context.getConcreteSyntax(), Severity.WARNING));
-    }
-    
-    private String formatMessage(Message msg) {
-        return formatMessage(msg + "");
-    }
-    
-    /**
-     * Converts a message from the ANTLR tool to something that is human
-     * readable and that can be attached to a resource.
-     * 
-     * @param msg Message from the ANTLR Tool
-     * @return a readable message
-     */
-    private String formatMessage(String msg) {
-    	msg = msg.substring(msg.indexOf(":") + 1);
-    	msg = msg.substring(msg.indexOf(":") + 1);
-        msg = msg.substring(msg.indexOf(":") + 2);        
-        msg = msg.toString();
-        
-        String text = msg.substring(msg.indexOf(":") + 1);
-        return text.replace("\n", "").replace("\r", "");
-     }
+	public void error(ToolMessage message) {
+		getProblemCollector().addProblem(createError(message));
+	}
+
+	public void info(String message) {
+		getProblemCollector().addProblem(createWarning(message));
+	}
+
+	public void warning(Message message) {
+		getProblemCollector().addProblem(createWarning(formatMessage(message)));
+	}
+
+	private GenerationProblem createError(Message message) {
+		String formattedMessage = formatMessage(message);
+		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		Severity error = Severity.ERROR;
+		return new GenerationProblem(formattedMessage, concreteSyntax, error);
+	}
+
+	private GenerationProblem createWarning(String message) {
+		String formattedMessage = formatMessage(message);
+		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		Severity warning = Severity.WARNING;
+		return new GenerationProblem(formattedMessage, concreteSyntax, warning);
+	}
+
+	private String formatMessage(Message msg) {
+		return formatMessage(msg + "");
+	}
+
+	private IProblemCollector getProblemCollector() {
+		return context.getProblemCollector();
+	}
+
+	/**
+	 * Converts a message from the ANTLR tool to something that is human
+	 * readable and that can be attached to a resource.
+	 * 
+	 * @param message
+	 *            Message from the ANTLR Tool
+	 * @return a readable message
+	 */
+	private String formatMessage(String message) {
+		message = message.substring(message.indexOf(":") + 1);
+		message = message.substring(message.indexOf(":") + 1);
+		message = message.substring(message.indexOf(":") + 2);
+		message = message.toString();
+
+		String text = message.substring(message.indexOf(":") + 1);
+		return text.replace("\n", "").replace("\r", "");
+	}
 }
