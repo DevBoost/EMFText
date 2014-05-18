@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -46,7 +46,9 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -80,6 +82,7 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 	private void addGetNewFileContentMethod(de.devboost.codecomposers.java.JavaComposite sc) {
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
+		
 		sc.add("public String getNewFileContent(String newFileName) {");
 		sc.add("return getExampleContent(new " + E_CLASS(sc) + "[] {");
 		for (GenClass startSymbol : startSymbols) {
@@ -144,6 +147,4 @@ public class NewFileContentProviderGenerator extends JavaBaseGenerator<ArtifactP
 		sc.add("}");
 		sc.addLineBreak();
 	}
-
-	
 }
