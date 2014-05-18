@@ -87,6 +87,7 @@ public class CsAutoEditStrategy extends DefaultIndentLineAutoEditStrategy {
 			// of quotes, not the first).
 			boolean nextCharacterIsClosingBracket = bracketSet.isClosingBracket(Character.toString(nextCharacter));
 			
+			// TODO: chseidl: find a way to determine that
 			boolean nextCharacterWasAddedAutomatically = true;
 			
 			if (insertedBracket == nextCharacter && nextCharacterIsClosingBracket && nextCharacterWasAddedAutomatically) {
@@ -107,32 +108,11 @@ public class CsAutoEditStrategy extends DefaultIndentLineAutoEditStrategy {
 			return;
 		}
 		
-		// Only add closing bracket if the bracket itself is not already the closing one
-		// (i.e., check whether an opening bracket is still open). This often happens for
-		// quotes where the opening and closing mark are identical.
 		String closingBracket = bracketSet.getCounterpart(openingBracket);
 		
-		// Check if there is an open bracket
-		int caretOffset = command.offset;
-		
-		String documentText = document.get();
-		String before = documentText.substring(0, caretOffset);
-		String after = documentText.substring(caretOffset);
-		String modifiedDocumentText = before + openingBracket + after;
-		
-		int matchingBracketPosition = bracketSet.findMatchingBrackets(modifiedDocumentText, caretOffset + 1);
-		
-		boolean bracketPairIsOpen = (matchingBracketPosition != -1 && matchingBracketPosition < caretOffset);
-		boolean insertedTextIsClosingBracket = (openingBracket != null && openingBracket.equals(closingBracket));
-		
-		// Only add the closing bracket if there actually is an according opening bracket.
-		// This may not be the case if opening and closing bracket use the same symbol and
-		// the closing bracket is typed manually.
-		if (!(bracketPairIsOpen && insertedTextIsClosingBracket)) {
-			command.text = command.text + closingBracket;
-			command.shiftsCaret = false;
-			command.caretOffset = command.offset + 1;
-		}
+		command.text = command.text + closingBracket;
+		command.shiftsCaret = false;
+		command.caretOffset = command.offset + 1;
 	}
 	
 	protected void addClosingBracketAfterEnterIfRequired(IDocument document, DocumentCommand command, String text, String textBefore, String textAfter) {

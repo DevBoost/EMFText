@@ -17,6 +17,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.ArrayList;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -29,7 +30,7 @@ import org.eclipse.swt.custom.StyledText;
 public class CsBracketSet {
 	
 	/**
-	 * The separator between a bracket pair must not contain characters that need to
+	 * The separator between a bracket pair, must not contain characters that need to
 	 * be escaped as it will be used as regular expression.
 	 */
 	public final static String BRACKET_SEPARATOR = " and ";
@@ -303,7 +304,7 @@ public class CsBracketSet {
 		int lastOpenPosition = -1;
 		
 		// Nesting is not possible!
-		for (int i = 0; i < documentText.length() - 1; i++) {
+		for (int i = 0; i < documentText.length(); i++) {
 			char currentCharacter = documentText.charAt(i);
 			
 			if (currentCharacter == markerToSearch) {

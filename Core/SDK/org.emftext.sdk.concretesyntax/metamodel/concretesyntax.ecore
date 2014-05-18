@@ -57,7 +57,7 @@
     <eOperations name="isImportedRule" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return rule.getSyntax() != this;"/>
-        <details key="documentation" value="Returns true if the given rule was defined in the given syntax.&#xD;&#xA; If the rule is defined in an imported syntax, this method returns&#xD;&#xA; false.&#xD;&#xA; &#xD;&#xA; @param syntax the syntax that refers to the rule&#xD;&#xA; @param rule the rule to check&#xD;&#xA; @return true if the rule is contained, false if it is imported"/>
+        <details key="documentation" value="&#xD;&#xA; Returns true if the given rule was defined in the given syntax.&#xD;&#xA; If the rule is defined in an imported syntax, this method returns&#xD;&#xA; false.&#xD;&#xA; &#xD;&#xA; @param syntax the syntax that refers to the rule&#xD;&#xA; @param rule the rule to check&#xD;&#xA; @return true if the rule is contained, false if it is imported&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="rule" eType="#//Rule"/>
     </eOperations>
@@ -70,14 +70,14 @@
     <eOperations name="getClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="java.util.Collection&lt; org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();&#xA;org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xA;for ( org.emftext.sdk.concretesyntax.Rule rule : rules) {&#xA;&#x9;if (excludeOperatorRules &amp;&amp; rule.getOperatorAnnotation() != null) {&#xA;&#x9;&#x9;continue;&#xA;&#x9;}&#xA;&#x9;org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();&#xA;&#x9;foundGenClasses.add(subClassCand);&#xA;}&#xA;return foundGenClasses;"/>
-        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     </eOperations>
     <eOperations name="getSubClassesWithSyntax" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="org.eclipse.emf.common.util.EList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList&lt; org.eclipse.emf.codegen.ecore.genmodel.GenClass>();&#xD;&#xA;&#xA;org.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();&#xA;org.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();&#xA;for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {&#xA;&#x9;if (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {&#xA;&#x9;&#x9;subClasses.add(subClassCand);&#xA;&#x9;}&#xA;}&#xA;return subClasses;"/>
-        <details key="documentation" value="Collects all the subclasses for which concrete syntax is defined."/>
+        <details key="documentation" value="&#xD;&#xA; Collects all the subclasses for which concrete syntax is defined.&#xD;&#xA;"/>
       </eAnnotations>
       <eParameters name="superClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
       <eParameters name="excludeOperatorRules" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
