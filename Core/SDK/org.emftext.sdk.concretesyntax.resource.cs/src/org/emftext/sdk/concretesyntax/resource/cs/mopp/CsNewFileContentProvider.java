@@ -13,12 +13,8 @@
  *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
-
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,17 +30,31 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emftext.access.resource.INewFileContentProvider;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation;
 
 public class CsNewFileContentProvider {
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation getMetaInformation() {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+	public ICsMetaInformation getMetaInformation() {
+		return new CsMetaInformation();
+	}
+	
+	/**
+	 * This method is not used, but to keep the {@link CsNewFileContentProvider}
+	 * class backwards compatibly with the {@link INewFileContentProvider}
+	 * interface we do not remove it.
+	 */
+	public String getNewFileContent(String newFileName) {
+		return "";
 	}
 	
 	public String getNewFileContent(IFile newFile) {
-		return getExampleContent(new EClass[] {
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
-		}, getMetaInformation().getClassesWithSyntax(), newFile);
+		EClass[] startClasses = new EClass[] {
+			ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
+		};
+		EClass[] classesWithSyntax = getMetaInformation().getClassesWithSyntax();
+		return getExampleContent(startClasses, classesWithSyntax, newFile);
 	}
 	
 	protected String getExampleContent(EClass[] startClasses, EClass[] allClassesWithSyntax, IFile newFile) {
@@ -53,21 +63,22 @@ public class CsNewFileContentProvider {
 		String genmodelLocationHint = "optional/path/to/myLanguage.genmodel";
 		String startMetaClassName = "StartMetaClass";
 		
-		//Determine better values from file.
+		// Determine better values from file.
 
-		//Important to use the absolute file system path returned by getLocation() because otherwise
-		//proxies (such as to the wrapped EPackages) cannot be resolved properly.
-		IPath genmodelFilePath = newFile.getLocation().removeFileExtension().addFileExtension("genmodel");
-		URI genmodelFileURI = URI.createFileURI(genmodelFilePath.toString());
+		// Important to use the absolute file system path returned by
+		// getLocation() because otherwise proxies (such as to the wrapped
+		// EPackages) cannot be resolved properly.
+		IPath newLocation = newFile.getLocation();
+		IPath genmodelPath = newLocation.removeFileExtension().addFileExtension("genmodel");
+		URI genmodelURI = URI.createFileURI(genmodelPath.toString());
 		
 		try {
 			ResourceSet resourceSet = new ResourceSetImpl();
-			Resource ecoreResource = resourceSet.createResource(genmodelFileURI);
 			
-			ecoreResource.load(Collections.EMPTY_MAP);
+			Resource genmodelResource = resourceSet.createResource(genmodelURI);
+			genmodelResource.load(Collections.EMPTY_MAP);
 			
-			List<EObject> ecoreContents = ecoreResource.getContents();
-			
+			List<EObject> ecoreContents = genmodelResource.getContents();
 			if (!ecoreContents.isEmpty()) {
 				EObject ecoreContent = ecoreContents.get(0);
 				
@@ -81,11 +92,11 @@ public class CsNewFileContentProvider {
 						
 						fileExtension = genPackage.getFileExtension() + "_text";
 						namespaceURI = ePackage.getNsURI();
-						//If the genmodel could be found with the derived name, then there is no need to specify it explicitly.
+						// If the genmodel could be found with the derived name,
+						// then there is no need to specify it explicitly.
 						genmodelLocationHint = null;
 						
 						List<EClassifier> eClassifiers = ePackage.getEClassifiers();
-						
 						for (EClassifier eClassifier : eClassifiers) {
 							if (eClassifier instanceof EClass) {
 								EClass eClass = (EClass) eClassifier;
@@ -99,12 +110,12 @@ public class CsNewFileContentProvider {
 					}
 				}
 			}
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			CsPlugin.logWarning("Exception while deriving example content for new CS file.", e);
 		}
 		
 		
-		//Create the example content.
+		// Create the example content.
 		final String endl = System.getProperty("line.separator");
 		
 		String content = "";
@@ -133,28 +144,4 @@ public class CsNewFileContentProvider {
 		
 		return content;
 	}
-	
-	protected String getExampleContent(EClass eClass, EClass[] allClassesWithSyntax, String newFileName) {
-		// create a minimal model
-		EObject root = new org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newFileName);
-		if (root == null) {
-			// could not create a minimal model. returning an empty document is the best we
-			// can do.
-			return "";
-		}
-		// use printer to get text for model
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getPrinter(buffer);
-		try {
-			printer.print(root);
-		} catch (IOException e) {
-			new org.emftext.sdk.concretesyntax.resource.cs.util.CsRuntimeUtil().logError("Exception while generating example content.", e);
-		}
-		return buffer.toString();
-	}
-	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(OutputStream outputStream) {
-		return getMetaInformation().createPrinter(outputStream, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource());
-	}
-	
 }
