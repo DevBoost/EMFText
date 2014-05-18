@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2013
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -26,83 +26,86 @@ import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 // TODO mseifert: Consider case where an opening bracket is deleted on the left side of the caret.
 // In such a situation, the closing bracket on the right side of this caret must deleted as well.
 public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
-	public void generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite jc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
-		sc.addLineBreak();
-		sc.addJavadoc("A container for all bracket pairs.");
-		sc.add("public class " + getResourceClassName() + " {");
-		sc.addLineBreak();
-		addConstants(sc);
-		addFields(sc);
-		addConstructor(sc);
-		addMethods(sc);
-		sc.add("}");
+		jc.add("package " + getResourcePackageName() + ";");
+		jc.addLineBreak();
+		jc.addImportsPlaceholder();
+		jc.addLineBreak();
+		jc.addJavadoc("A container for all bracket pairs.");
+		jc.add("public class " + getResourceClassName() + " {");
+		jc.addLineBreak();
+		
+		addConstants(jc);
+		addFields(jc);
+		addConstructor(jc);
+		addMethods(jc);
+		
+		jc.add("}");
 	}
 	
-	private void addConstants(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addConstants(JavaComposite jc) {
+		jc.addJavadoc(
 			"The separator between a bracket pair must not contain characters " +
 			"that need to be escaped as it will be used as regular expression."
 		);
-		sc.add("public final static String BRACKET_SEPARATOR = \" and \";");
-		sc.addLineBreak();
+		jc.add("public final static String BRACKET_SEPARATOR = \" and \";");
+		jc.addLineBreak();
 		
-		sc.add("private final static String SERIAL_SEPARATOR = \"#\";");
-		sc.addLineBreak();
+		jc.add("private final static String SERIAL_SEPARATOR = \"#\";");
+		jc.addLineBreak();
 		
-		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
-		sc.addLineBreak();
+		jc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
+		jc.addLineBreak();
 	}
 
-	private void addFields(JavaComposite sc) {
-		sc.add("private " + ARRAY_LIST(sc) + "<" + iBracketPairClassName + "> bracketPairs;");
-		sc.add("private String languageID;");
-		sc.addLineBreak();
+	private void addFields(JavaComposite jc) {
+		jc.add("private " + ARRAY_LIST(jc) + "<" + iBracketPairClassName + "> bracketPairs;");
+		jc.add("private String languageID;");
+		jc.addLineBreak();
 	}
 
-	private void addConstructor(JavaComposite sc) {
-		sc.addJavadoc("Creates a new bracket set to manage bracket pairs.");
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.add("this.languageID = new " + metaInformationClassName + "().getSyntaxName();");
-		sc.add("this.bracketPairs = new " + ARRAY_LIST(sc) + "<" + iBracketPairClassName + ">();");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addConstructor(JavaComposite jc) {
+		jc.addJavadoc("Creates a new bracket set to manage bracket pairs.");
+		jc.add("public " + getResourceClassName() + "() {");
+		jc.add("super();");
+		jc.add("this.languageID = new " + metaInformationClassName + "().getSyntaxName();");
+		jc.add("this.bracketPairs = new " + ARRAY_LIST(jc) + "<" + iBracketPairClassName + ">();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addMethods(JavaComposite sc) {
-		addIsOpeningBracketMethod(sc);
-		addIsClosingBracketMethod(sc);
-		addIsBracketMethod(sc);
-		addGetBracketPairMethod1(sc);
-		addGetBracketPairMethod2(sc);
-		addAddBracketPairMethod(sc);
-		addResetBracketsMethod(sc);
-		addGetCounterpartMethod(sc);
-		addSizeMethod(sc);
-		addRemoveMethod(sc);
-		addRemoveBracketPairsMethod(sc);
-		addDeserializeMethod(sc);
-		addGetBracketArrayMethod(sc);
-		addSerializeMethod(sc);
-		addGetCaretOffset(sc);
-		addFindAndHighlightMatchingBrackets(sc);
-		addGetInsertedBracket(sc);
-		addFindMatchingBracketPositionForIdenticalOpeningClosingBrackets(sc);
-		addFindMatchingBracketPositionForDistinctOpeningClosingBrackets(sc);
-		addIsCloseAfterEnterMethod(sc);
-		addIsCloseInstantlyMethod(sc);
+	private void addMethods(JavaComposite jc) {
+		addIsOpeningBracketMethod(jc);
+		addIsClosingBracketMethod(jc);
+		addIsBracketMethod(jc);
+		addGetBracketPairMethod1(jc);
+		addGetBracketPairMethod2(jc);
+		addAddBracketPairMethod(jc);
+		addResetBracketsMethod(jc);
+		addGetCounterpartMethod(jc);
+		addSizeMethod(jc);
+		addRemoveMethod(jc);
+		addRemoveBracketPairsMethod(jc);
+		addDeserializeMethod(jc);
+		addGetBracketArrayMethod(jc);
+		addSerializeMethod(jc);
+		addGetCaretOffsetMethod(jc);
+		addFindAndHighlightMatchingBracketsMethod(jc);
+		addGetInsertedBracketMethod(jc);
+		addFindMatchingBracketPositionForIdenticalOpeningClosingBracketsMethod(jc);
+		addFindMatchingBracketPositionForDistinctOpeningClosingBracketsMethod(jc);
+		addIsCloseAfterEnterMethodMethod(jc);
+		addIsCloseInstantlyMethodMethod(jc);
 	}
 
-	private void addGetCaretOffset(JavaComposite sc) {
+	private void addGetCaretOffsetMethod(JavaComposite sc) {
 		// TODO mseifert: MOVE THIS TO SOME OTHER CLASS
 		sc.add("public int getCaretOffset(" + I_SOURCE_VIEWER(sc) + " viewer, " + STYLED_TEXT(sc) + " textWidget) {");
 		sc.add(I_DOCUMENT(sc) + " document = viewer.getDocument();");
@@ -122,358 +125,358 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		sc.addLineBreak();
 	}
 	
-	private void addFindAndHighlightMatchingBrackets(JavaComposite sc) {
-		sc.addJavadoc(
-		"Searches the matching bracket at the left side of the caret. The position " +
-		"information will be stored in the <code>" + I_DOCUMENT(sc) + "</code> in the category " +
-		"<code>ExtensionConstants.PositionCategory.BRACKET</code>."
-		// TODO fix referenced class
+	private void addFindAndHighlightMatchingBracketsMethod(JavaComposite jc) {
+		jc.addJavadoc(
+			"Searches the matching bracket at the left side of the caret. The position " +
+			"information will be stored in the <code>" + I_DOCUMENT(jc) + "</code> in the category " +
+			"<code>ExtensionConstants.PositionCategory.BRACKET</code>."
+			// TODO fix referenced class
 		);
-		sc.add("public void findAndHighlightMatchingBrackets(" + I_DOCUMENT(sc) + " document, int caretOffset) {");
-		sc.add("String documentText = document.get();");
-		sc.add("String insertedBracket = getInsertedBracket(documentText, caretOffset);");
-		sc.addLineBreak();
-		sc.addComment("Only highlight true brackets (not quotes etc.)");
-		sc.add("if (insertedBracket == null || insertedBracket.equals(getCounterpart(insertedBracket))) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("int position = findMatchingBrackets(documentText, caretOffset);");
-		sc.add("highlightBrackets(document, position, caretOffset);");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public void findAndHighlightMatchingBrackets(" + I_DOCUMENT(jc) + " document, int caretOffset) {");
+		jc.add("String documentText = document.get();");
+		jc.add("String insertedBracket = getInsertedBracket(documentText, caretOffset);");
+		jc.addLineBreak();
+		jc.addComment("Only highlight true brackets (not quotes etc.)");
+		jc.add("if (insertedBracket == null || insertedBracket.equals(getCounterpart(insertedBracket))) {");
+		jc.add("return;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("int position = findMatchingBrackets(documentText, caretOffset);");
+		jc.add("highlightBrackets(document, position, caretOffset);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addGetInsertedBracket(JavaComposite sc) {
-		sc.add("private String getInsertedBracket(String documentText, int caretOffset) {");
-		sc.add("if (caretOffset <= 0) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("final String insertedText = Character.toString(documentText.charAt(caretOffset - 1));");
-		sc.addLineBreak();
-		sc.add("if (!isBracket(insertedText)) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("return insertedText;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public int findMatchingBrackets(String documentText, int caretOffset) {");
-		sc.add("String insertedBracket = getInsertedBracket(documentText, caretOffset);");
-		sc.addLineBreak();
-		sc.add("if (insertedBracket == null) {");
-		sc.add("return - 1;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("final int insertPosition = caretOffset - 1;");
-		sc.addLineBreak();
-		sc.add("if (insertedBracket.equals(getCounterpart(insertedBracket))) {");
-		sc.add("return findMatchingBracketPositionForIdenticalOpeningClosingBrackets(documentText, insertPosition, insertedBracket);");
-		sc.add("} else {");
-		sc.add("return findMatchingBracketPositionForDistinctOpeningClosingBrackets(documentText, insertPosition, insertedBracket);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetInsertedBracketMethod(JavaComposite jc) {
+		jc.add("private String getInsertedBracket(String documentText, int caretOffset) {");
+		jc.add("if (caretOffset <= 0) {");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("final String insertedText = Character.toString(documentText.charAt(caretOffset - 1));");
+		jc.addLineBreak();
+		jc.add("if (!isBracket(insertedText)) {");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("return insertedText;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("public int findMatchingBrackets(String documentText, int caretOffset) {");
+		jc.add("String insertedBracket = getInsertedBracket(documentText, caretOffset);");
+		jc.addLineBreak();
+		jc.add("if (insertedBracket == null) {");
+		jc.add("return - 1;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("final int insertPosition = caretOffset - 1;");
+		jc.addLineBreak();
+		jc.add("if (insertedBracket.equals(getCounterpart(insertedBracket))) {");
+		jc.add("return findMatchingBracketPositionForIdenticalOpeningClosingBrackets(documentText, insertPosition, insertedBracket);");
+		jc.add("} else {");
+		jc.add("return findMatchingBracketPositionForDistinctOpeningClosingBrackets(documentText, insertPosition, insertedBracket);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addFindMatchingBracketPositionForIdenticalOpeningClosingBrackets(JavaComposite sc) {
-		sc.add("private int findMatchingBracketPositionForIdenticalOpeningClosingBrackets(String documentText, int markerPosition, String marker) {");
-		sc.add("char markerToSearch = marker.charAt(0);");
-		sc.add("boolean opened = false;");
-		sc.add("int lastOpenPosition = -1;");
-		sc.addLineBreak();
-		sc.addComment("Nesting is not possible!");
-		sc.add("for (int i = 0; i < documentText.length() - 1; i++) {");
-		sc.add("char currentCharacter = documentText.charAt(i);");
-		sc.addLineBreak();
-		sc.add("if (currentCharacter == markerToSearch) {");
-		sc.add("opened = !opened;");
-		sc.addLineBreak();	
-		sc.add("if (opened) {");
-		sc.add("lastOpenPosition = i;");
-		sc.add("}");
-		sc.addLineBreak();	
-		sc.add("if (i == markerPosition && !opened) {");
-		sc.add("return lastOpenPosition;");
-		sc.add("}");
-		sc.addLineBreak();	
-		sc.add("if (i > markerPosition && !opened) {");
-		sc.add("return i;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("return -1;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addFindMatchingBracketPositionForIdenticalOpeningClosingBracketsMethod(JavaComposite jc) {
+		jc.add("private int findMatchingBracketPositionForIdenticalOpeningClosingBrackets(String documentText, int markerPosition, String marker) {");
+		jc.add("char markerToSearch = marker.charAt(0);");
+		jc.add("boolean opened = false;");
+		jc.add("int lastOpenPosition = -1;");
+		jc.addLineBreak();
+		jc.addComment("Nesting is not possible!");
+		jc.add("for (int i = 0; i < documentText.length() - 1; i++) {");
+		jc.add("char currentCharacter = documentText.charAt(i);");
+		jc.addLineBreak();
+		jc.add("if (currentCharacter == markerToSearch) {");
+		jc.add("opened = !opened;");
+		jc.addLineBreak();	
+		jc.add("if (opened) {");
+		jc.add("lastOpenPosition = i;");
+		jc.add("}");
+		jc.addLineBreak();	
+		jc.add("if (i == markerPosition && !opened) {");
+		jc.add("return lastOpenPosition;");
+		jc.add("}");
+		jc.addLineBreak();	
+		jc.add("if (i > markerPosition && !opened) {");
+		jc.add("return i;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("return -1;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addFindMatchingBracketPositionForDistinctOpeningClosingBrackets(JavaComposite sc) {
-		sc.add("private int findMatchingBracketPositionForDistinctOpeningClosingBrackets(String documentText, int markerPosition, String insertedBracket) {");
-		sc.add("boolean isForward = isOpeningBracket(insertedBracket);");
-		sc.add("final String counterpart = getCounterpart(insertedBracket);");
-		sc.addLineBreak();
-		sc.add("int boundary = isForward ? documentText.length() : -1;");
-		sc.add("int position = isForward ? markerPosition + 1 : markerPosition - 1;");
-		sc.addLineBreak();
-		sc.add("int openBrackets = 0;");
-		sc.addLineBreak();
-		sc.add("while (position != boundary) {");
-		sc.add("String currentString = Character.toString(documentText.charAt(position));");
-		sc.addLineBreak();
-		sc.add("if (currentString.equals(insertedBracket)) {");
-		sc.add("openBrackets++;");
-		sc.add("} else if (currentString.equals(counterpart)) {");
-		sc.add("if (openBrackets == 0) {");
-		sc.add("return position;");
-		sc.add("} else {");
-		sc.add("openBrackets--;");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();	
-		sc.add("position += isForward ? 1 : -1;");
-		sc.add("}");
-		sc.addLineBreak();	
-		sc.add("return -1;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void highlightBrackets(" + I_DOCUMENT(sc) + " document, int position, int caretOffset) {");
-		sc.add("if (position != -1 && position != document.getLength()) {");
-		sc.add("positionHelper.addPosition(document, " + positionCategoryClassName + ".BRACKET.toString(), position, 1);");
-		sc.add("positionHelper.addPosition(document, " + positionCategoryClassName + ".BRACKET.toString(), caretOffset - 1, 1);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addFindMatchingBracketPositionForDistinctOpeningClosingBracketsMethod(JavaComposite jc) {
+		jc.add("private int findMatchingBracketPositionForDistinctOpeningClosingBrackets(String documentText, int markerPosition, String insertedBracket) {");
+		jc.add("boolean isForward = isOpeningBracket(insertedBracket);");
+		jc.add("final String counterpart = getCounterpart(insertedBracket);");
+		jc.addLineBreak();
+		jc.add("int boundary = isForward ? documentText.length() : -1;");
+		jc.add("int position = isForward ? markerPosition + 1 : markerPosition - 1;");
+		jc.addLineBreak();
+		jc.add("int openBrackets = 0;");
+		jc.addLineBreak();
+		jc.add("while (position != boundary) {");
+		jc.add("String currentString = Character.toString(documentText.charAt(position));");
+		jc.addLineBreak();
+		jc.add("if (currentString.equals(insertedBracket)) {");
+		jc.add("openBrackets++;");
+		jc.add("} else if (currentString.equals(counterpart)) {");
+		jc.add("if (openBrackets == 0) {");
+		jc.add("return position;");
+		jc.add("} else {");
+		jc.add("openBrackets--;");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();	
+		jc.add("position += isForward ? 1 : -1;");
+		jc.add("}");
+		jc.addLineBreak();	
+		jc.add("return -1;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("public void highlightBrackets(" + I_DOCUMENT(jc) + " document, int position, int caretOffset) {");
+		jc.add("if (position != -1 && position != document.getLength()) {");
+		jc.add("positionHelper.addPosition(document, " + positionCategoryClassName + ".BRACKET.toString(), position, 1);");
+		jc.add("positionHelper.addPosition(document, " + positionCategoryClassName + ".BRACKET.toString(), caretOffset - 1, 1);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addSerializeMethod(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addSerializeMethod(JavaComposite jc) {
+		jc.addJavadoc(
 			"Returns this bracket set as <code>String</code>. This is useful to store the set in " +
-			"the <code>" + I_PREFERENCE_STORE(sc) + "</code>.",
-			"@see " + I_PREFERENCE_STORE(sc)
+			"the <code>" + I_PREFERENCE_STORE(jc) + "</code>.",
+			"@see " + I_PREFERENCE_STORE(jc)
 		);
-		sc.add("public String serialize() {");
-		sc.add("StringBuilder result = new StringBuilder();");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("result.append(bracketPair.getOpeningBracket());");
-		sc.add("result.append(SERIAL_SEPARATOR);");
-		sc.add("result.append(bracketPair.getClosingBracket());");
-		sc.add("result.append(SERIAL_SEPARATOR);");
-		sc.add("result.append(bracketPair.isClosingEnabledInside() ? \"1\" : \"0\");");
-		sc.add("result.append(SERIAL_SEPARATOR);");
-		sc.add("result.append(bracketPair.isCloseAfterEnter() ? \"1\" : \"0\");");
-		sc.addComment("We use two separators to indicate the boundary between two bracket pairs");
-		sc.add("result.append(SERIAL_SEPARATOR);");
-		sc.add("result.append(SERIAL_SEPARATOR);");
-		sc.add("}");
-		sc.add("return result.toString();");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public String serialize() {");
+		jc.add("StringBuilder result = new StringBuilder();");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("result.append(bracketPair.getOpeningBracket());");
+		jc.add("result.append(SERIAL_SEPARATOR);");
+		jc.add("result.append(bracketPair.getClosingBracket());");
+		jc.add("result.append(SERIAL_SEPARATOR);");
+		jc.add("result.append(bracketPair.isClosingEnabledInside() ? \"1\" : \"0\");");
+		jc.add("result.append(SERIAL_SEPARATOR);");
+		jc.add("result.append(bracketPair.isCloseAfterEnter() ? \"1\" : \"0\");");
+		jc.addComment("We use two separators to indicate the boundary between two bracket pairs");
+		jc.add("result.append(SERIAL_SEPARATOR);");
+		jc.add("result.append(SERIAL_SEPARATOR);");
+		jc.add("}");
+		jc.add("return result.toString();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetBracketArrayMethod(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addGetBracketArrayMethod(JavaComposite jc) {
+		jc.addJavadoc(
 			"Returns a list of bracket pairs. This call is for the list in the preference page.",
 			"@return a list of bracket pairs in the form <code>String[]{\"{BRACKET_SEPARATOR}\",\"(BRACKET_SEPARATOR)\"}</code>"
 		);
-		sc.add("public String[] getBracketArray() {");
-		sc.add("String[] ret = new String[bracketPairs.size()];");
-		sc.add("int i = 0;");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR + bracketPair.getClosingBracket();");
-		sc.add("i++;");
-		sc.add("}");
-		sc.add("return ret;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public String[] getBracketArray() {");
+		jc.add("String[] ret = new String[bracketPairs.size()];");
+		jc.add("int i = 0;");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR + bracketPair.getClosingBracket();");
+		jc.add("i++;");
+		jc.add("}");
+		jc.add("return ret;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addDeserializeMethod(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addDeserializeMethod(JavaComposite jc) {
+		jc.addJavadoc(
 			"Removes the old bracket set and sets the given bracket set. It is useful " +
 			"to take a stored <code>String</code> in a preference store. A bracket pair " +
 			"contains of opening, closing and the flags 'closingEnabledInside' and 'closeAfterEnter'."
 		);
-		sc.add("public void deserialize(String bracketSet) {");
-		sc.add("bracketPairs = new " + ARRAY_LIST(sc) + "<" + iBracketPairClassName + ">();");
-		sc.add("String[] parts = bracketSet.split(SERIAL_SEPARATOR + SERIAL_SEPARATOR);");
-		sc.add("for (String part : parts) {");
-		sc.add("String[] fields = part.split(SERIAL_SEPARATOR);");
-		sc.add("if (fields.length != 4) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.add("addBracketPair(fields[0], fields[1], \"1\".equals(fields[2]), \"1\".equals(fields[3]));");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public void deserialize(String bracketSet) {");
+		jc.add("bracketPairs = new " + ARRAY_LIST(jc) + "<" + iBracketPairClassName + ">();");
+		jc.add("String[] parts = bracketSet.split(SERIAL_SEPARATOR + SERIAL_SEPARATOR);");
+		jc.add("for (String part : parts) {");
+		jc.add("String[] fields = part.split(SERIAL_SEPARATOR);");
+		jc.add("if (fields.length != 4) {");
+		jc.add("continue;");
+		jc.add("}");
+		jc.add("addBracketPair(fields[0], fields[1], \"1\".equals(fields[2]), \"1\".equals(fields[3]));");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addRemoveBracketPairsMethod(JavaComposite sc) {
-		sc.addJavadoc("Removes pairs of brackets.");
-		sc.add("public void removeBracketPairs(String[] bracketsAsArray) {");
-		sc.add("for (String bracket : bracketsAsArray) {");
-		sc.add("String[] tmp = bracket.split(BRACKET_SEPARATOR);");
-		sc.add("remove(tmp[0], tmp[1]);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addRemoveBracketPairsMethod(JavaComposite jc) {
+		jc.addJavadoc("Removes pairs of brackets.");
+		jc.add("public void removeBracketPairs(String[] bracketsAsArray) {");
+		jc.add("for (String bracket : bracketsAsArray) {");
+		jc.add("String[] tmp = bracket.split(BRACKET_SEPARATOR);");
+		jc.add("remove(tmp[0], tmp[1]);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addRemoveMethod(JavaComposite sc) {
-		sc.addJavadoc("Removes the given bracket pair.");
-		sc.add("public " + iBracketPairClassName + " remove(String opening, String closing) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
-		sc.add("bracketPairs.remove(bracketPair);");
-		sc.add("return bracketPair;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addRemoveMethod(JavaComposite jc) {
+		jc.addJavadoc("Removes the given bracket pair.");
+		jc.add("public " + iBracketPairClassName + " remove(String opening, String closing) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
+		jc.add("bracketPairs.remove(bracketPair);");
+		jc.add("return bracketPair;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addSizeMethod(StringComposite sc) {
-		sc.add("public int size() {");
-		sc.add("return bracketPairs.size();");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSizeMethod(JavaComposite jc) {
+		jc.add("public int size() {");
+		jc.add("return bracketPairs.size();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetCounterpartMethod(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addGetCounterpartMethod(JavaComposite jc) {
+		jc.addJavadoc(
 			"Returns the counter part of a bracket (i.e., the closing bracket for the opening one and the other way around). " +
 			"If no respective bracket is found, <code>null</code> is returned."
 		);
-		sc.add("public String getCounterpart(String bracket) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
-		sc.add("return bracketPair.getClosingBracket();");
-		sc.add("}");
-		sc.add("if (bracket.equals(bracketPair.getClosingBracket())) {");
-		sc.add("return bracketPair.getOpeningBracket();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public String getCounterpart(String bracket) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
+		jc.add("return bracketPair.getClosingBracket();");
+		jc.add("}");
+		jc.add("if (bracket.equals(bracketPair.getClosingBracket())) {");
+		jc.add("return bracketPair.getOpeningBracket();");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addResetBracketsMethod(JavaComposite sc) {
-		sc.addJavadoc("Removes all bracket pairs from this bracket set and reloads the bracket set from the preference store.");
-		sc.add("public boolean resetBrackets(" + I_PREFERENCE_STORE(sc) + " preferenceStore) {");
-		sc.add("String bracketPairs = preferenceStore.getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX);");
-		sc.add("if (bracketPairs == null) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("deserialize(bracketPairs);");
-		sc.add("return true;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addResetBracketsMethod(JavaComposite jc) {
+		jc.addJavadoc("Removes all bracket pairs from this bracket set and reloads the bracket set from the preference store.");
+		jc.add("public boolean resetBrackets(" + I_PREFERENCE_STORE(jc) + " preferenceStore) {");
+		jc.add("String bracketPairs = preferenceStore.getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX);");
+		jc.add("if (bracketPairs == null) {");
+		jc.add("return false;");
+		jc.add("}");
+		jc.add("deserialize(bracketPairs);");
+		jc.add("return true;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addAddBracketPairMethod(JavaComposite sc) {
-		sc.addJavadoc("Adds a new bracket pair to this bracket set.");
-		sc.add("public boolean addBracketPair(String opening, String closing, boolean closingEnabledInside, boolean closeAfterEnter) {");
-		sc.add("if (isBracket(opening) || isBracket(closing)) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("bracketPairs.add(new " + bracketPairClassName + "(opening, closing, closingEnabledInside, closeAfterEnter));");
-		sc.add("return true;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addAddBracketPairMethod(JavaComposite jc) {
+		jc.addJavadoc("Adds a new bracket pair to this bracket set.");
+		jc.add("public boolean addBracketPair(String opening, String closing, boolean closingEnabledInside, boolean closeAfterEnter) {");
+		jc.add("if (isBracket(opening) || isBracket(closing)) {");
+		jc.add("return false;");
+		jc.add("}");
+		jc.add("bracketPairs.add(new " + bracketPairClassName + "(opening, closing, closingEnabledInside, closeAfterEnter));");
+		jc.add("return true;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetBracketPairMethod1(StringComposite sc) {
-		sc.add("public " + iBracketPairClassName + " getBracketPair(int index) {");
-		sc.add("try {");
-		sc.add("return bracketPairs.get(index);");
-		sc.add("} catch (Exception e) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetBracketPairMethod1(JavaComposite jc) {
+		jc.add("public " + iBracketPairClassName + " getBracketPair(int index) {");
+		jc.add("try {");
+		jc.add("return bracketPairs.get(index);");
+		jc.add("} catch (Exception e) {");
+		jc.add("return null;");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetBracketPairMethod2(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addGetBracketPairMethod2(JavaComposite jc) {
+		jc.addJavadoc(
 			"Returns the bracket pair with the given opening and closing bracket. " +
 			"If no matching pair is found, <code>null</code> is returned."
 		);
-		sc.add("public " + iBracketPairClassName + " getBracketPair(String opening, String closing) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
-		sc.add("return bracketPair;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public " + iBracketPairClassName + " getBracketPair(String opening, String closing) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
+		jc.add("return bracketPair;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addIsBracketMethod(JavaComposite sc) {
-		sc.addJavadoc("Checks whether the given string is a bracket (opening or closing).");
-		sc.add("public boolean isBracket(String bracket) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracket.equals(bracketPair.getOpeningBracket()) || bracket.equals(bracketPair.getClosingBracket())) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addIsBracketMethod(JavaComposite jc) {
+		jc.addJavadoc("Checks whether the given string is a bracket (opening or closing).");
+		jc.add("public boolean isBracket(String bracket) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracket.equals(bracketPair.getOpeningBracket()) || bracket.equals(bracketPair.getClosingBracket())) {");
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return false;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addIsOpeningBracketMethod(JavaComposite sc) {
-		sc.addJavadoc("Checks whether the given string is an opening bracket.");
-		sc.add("public boolean isOpeningBracket(String bracket) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addIsOpeningBracketMethod(JavaComposite jc) {
+		jc.addJavadoc("Checks whether the given string is an opening bracket.");
+		jc.add("public boolean isOpeningBracket(String bracket) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return false;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addIsClosingBracketMethod(JavaComposite sc) {
-		sc.addJavadoc("Checks whether the given string is a closing bracket.");
-		sc.add("public boolean isClosingBracket(String bracket) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracket.equals(bracketPair.getClosingBracket())) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addIsClosingBracketMethod(JavaComposite jc) {
+		jc.addJavadoc("Checks whether the given string is a closing bracket.");
+		jc.add("public boolean isClosingBracket(String bracket) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracket.equals(bracketPair.getClosingBracket())) {");
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return false;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addIsCloseAfterEnterMethod(JavaComposite sc) {
-		sc.addJavadoc("Checks whether the given string is an opening bracket and closing is desired after entering a line break.");
-		sc.add("public boolean isCloseAfterEnter(String bracket) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
-		sc.add("return bracketPair.isCloseAfterEnter();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addIsCloseAfterEnterMethodMethod(JavaComposite jc) {
+		jc.addJavadoc("Checks whether the given string is an opening bracket and closing is desired after entering a line break.");
+		jc.add("public boolean isCloseAfterEnter(String bracket) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
+		jc.add("return bracketPair.isCloseAfterEnter();");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return false;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addIsCloseInstantlyMethod(JavaComposite sc) {
-		sc.addJavadoc("Checks whether the given string is an opening bracket and closing is desired right after entering this bracket.");
-		sc.add("public boolean isCloseInstantly(String bracket) {");
-		sc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
-		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
-		sc.add("return !bracketPair.isCloseAfterEnter();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addIsCloseInstantlyMethodMethod(JavaComposite jc) {
+		jc.addJavadoc("Checks whether the given string is an opening bracket and closing is desired right after entering this bracket.");
+		jc.add("public boolean isCloseInstantly(String bracket) {");
+		jc.add("for (" + iBracketPairClassName + " bracketPair : bracketPairs) {");
+		jc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
+		jc.add("return !bracketPair.isCloseAfterEnter();");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return false;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 }
