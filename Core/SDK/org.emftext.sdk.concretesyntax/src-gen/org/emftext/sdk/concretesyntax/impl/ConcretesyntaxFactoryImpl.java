@@ -72,6 +72,7 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  * @generated
  */
 public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements ConcretesyntaxFactory {
+
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->

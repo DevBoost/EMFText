@@ -2483,7 +2483,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_RESOURCE_BUNDLE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.NEW_FILE_WIZARD_NAME);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_STRING_PARSER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
@@ -4861,12 +4860,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(310), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to <code>false</code>, the StringParser class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
-		addAnnotation
-		  (optionTypesEEnum.getELiterals().get(311), 
-		   source, 
-		   new String[] {
 			 "documentation", "If set to <code>true</code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
@@ -5048,5 +5041,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", ""
 		   });
 	}
+
 
 } //ConcretesyntaxPackageImpl

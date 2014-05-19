@@ -2122,12 +2122,7 @@
         <details key="documentation" value="Comma separated list of file extensions that should be supported by the editor in addition to the primary file extension."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="OVERRIDE_STRING_PARSER" value="313" literal="overrideStringParser">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="If set to &lt;code>false&lt;/code>, the StringParser class will not be overridden. The default value for this option is &lt;code>true&lt;/code>."/>
-      </eAnnotations>
-    </eLiterals>
-    <eLiterals name="CASE_INSENSITIVE_KEYWORDS" value="314" literal="caseInsensitiveKeywords">
+    <eLiterals name="CASE_INSENSITIVE_KEYWORDS" value="313" literal="caseInsensitiveKeywords">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="If set to &lt;code>true&lt;/code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is &lt;code>false&lt;/code>."/>
       </eAnnotations>

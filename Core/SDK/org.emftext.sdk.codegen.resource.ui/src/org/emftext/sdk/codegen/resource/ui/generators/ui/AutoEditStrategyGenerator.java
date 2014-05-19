@@ -151,28 +151,35 @@ public class AutoEditStrategyGenerator extends UIJavaBaseGenerator<ArtifactParam
 		jc.add("return;");
 		jc.add("}");
 		jc.addLineBreak();
-		jc.addComment("Only add closing bracket if the bracket itself is not already the closing one (i.e., check whether an opening bracket is still open). This often happens for quotes where the opening and closing mark are identical.");
+		
+		//chseidl: For identical symbols for opening and closing bracket (e.g., quotes), the disabled code is supposed to
+		//ensure that closing brackets are only inserted when they actually close a bracket set. The problem is that this cannot
+		//be determined by simply assuring an even number of brackets as the bracket symbol might be used an odd number of times
+		//in a different context (such as a comment) that is not semantically relevant but falsifies the result. This makes the
+		//procedure such unstable and unpredictable that, right now, the alternative of not using it seems more suitable.
+		
+//		jc.addComment("Only add closing bracket if the bracket itself is not already the closing one (i.e., check whether an opening bracket is still open). This often happens for quotes where the opening and closing mark are identical.");
 		jc.add("String closingBracket = bracketSet.getCounterpart(openingBracket);");
 		jc.addLineBreak();
-		jc.addComment("Check if there is an open bracket");
-		jc.add("int caretOffset = command.offset;");
-		jc.addLineBreak();
-		jc.add("String documentText = document.get();");
-		jc.add("String before = documentText.substring(0, caretOffset);");
-		jc.add("String after = documentText.substring(caretOffset);");
-		jc.add("String modifiedDocumentText = before + openingBracket + after;");
-		jc.addLineBreak();
-		jc.add("int matchingBracketPosition = bracketSet.findMatchingBrackets(modifiedDocumentText, caretOffset + 1);");
-		jc.addLineBreak();
-		jc.add("boolean bracketPairIsOpen = (matchingBracketPosition != -1 && matchingBracketPosition < caretOffset);");
-		jc.add("boolean insertedTextIsClosingBracket = (openingBracket != null && openingBracket.equals(closingBracket));");
-		jc.addLineBreak();	
-		jc.addComment("Only add the closing bracket if there actually is an according opening bracket. This may not be the case if opening and closing bracket use the same symbol and the closing bracket is typed manually.");
-		jc.add("if (!(bracketPairIsOpen && insertedTextIsClosingBracket)) {");
+//		jc.addComment("Check if there is an open bracket");
+//		jc.add("int caretOffset = command.offset;");
+//		jc.addLineBreak();
+//		jc.add("String documentText = document.get();");
+//		jc.add("String before = documentText.substring(0, caretOffset);");
+//		jc.add("String after = documentText.substring(caretOffset);");
+//		jc.add("String modifiedDocumentText = before + openingBracket + after;");
+//		jc.addLineBreak();
+//		jc.add("int matchingBracketPosition = bracketSet.findMatchingBrackets(modifiedDocumentText, caretOffset + 1);");
+//		jc.addLineBreak();
+//		jc.add("boolean bracketPairIsOpen = (matchingBracketPosition != -1 && matchingBracketPosition < caretOffset);");
+//		jc.add("boolean insertedTextIsClosingBracket = (openingBracket != null && openingBracket.equals(closingBracket));");
+//		jc.addLineBreak();	
+//		jc.addComment("Only add the closing bracket if there actually is an according opening bracket. This may not be the case if opening and closing bracket use the same symbol and the closing bracket is typed manually.");
+//		jc.add("if (!(bracketPairIsOpen && insertedTextIsClosingBracket)) {");
 		jc.add("command.text = command.text + closingBracket;");
 		jc.add("command.shiftsCaret = false;");
 		jc.add("command.caretOffset = command.offset + 1;");
-		jc.add("}");
+//		jc.add("}");
 		jc.add("}");
 		jc.addLineBreak();
 	}

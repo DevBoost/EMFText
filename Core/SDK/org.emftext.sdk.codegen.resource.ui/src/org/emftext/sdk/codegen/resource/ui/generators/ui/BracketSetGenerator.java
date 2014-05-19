@@ -187,7 +187,7 @@ public class BracketSetGenerator extends UIJavaBaseGenerator<ArtifactParameter<G
 		jc.add("int lastOpenPosition = -1;");
 		jc.addLineBreak();
 		jc.addComment("Nesting is not possible!");
-		jc.add("for (int i = 0; i < documentText.length() - 1; i++) {");
+		jc.add("for (int i = 0; i < documentText.length(); i++) {");
 		jc.add("char currentCharacter = documentText.charAt(i);");
 		jc.addLineBreak();
 		jc.add("if (currentCharacter == markerToSearch) {");
