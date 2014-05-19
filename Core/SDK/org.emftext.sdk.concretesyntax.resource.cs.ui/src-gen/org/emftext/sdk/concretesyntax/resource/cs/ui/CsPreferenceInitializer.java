@@ -17,6 +17,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.Collection;
+
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 

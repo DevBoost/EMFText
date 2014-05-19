@@ -17,6 +17,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 import java.util.Collection;
+
 import org.eclipse.emf.ecore.EObject;
 
 public interface ICsQuickFix {

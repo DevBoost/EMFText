@@ -2483,7 +2483,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_RESOURCE_BUNDLE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.NEW_FILE_WIZARD_NAME);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_STRING_PARSER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -2585,7 +2585,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "return rule.getSyntax() != this;",
-			 "documentation", "Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported"
+			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(8), 
@@ -2599,14 +2599,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\norg.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\n\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\n\t\tcontinue;\n\t}\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\n\tfoundGenClasses.add(subClassCand);\n}\nreturn foundGenClasses;",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\norg.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\n\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\n\t\tsubClasses.add(subClassCand);\n\t}\n}\nreturn subClasses;",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(11), 
@@ -2634,7 +2634,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "// add the imported token styles\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\n\torg.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\n\tif (importedSyntax != null) {\n\t\torg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\n\t\t\taddTokenStyle(allStyles, importedStyle);\n\t\t}\n\t}\n}",
-			 "documentation", "\r\n Reads all token styles from imported syntaxes and\r\n merges them with the styles defined in the current syntax. If a token\r\n styles exists both in an imported and in the current syntax the one from\r\n the current syntax overrides the imported one.\r\n"
+			 "documentation", "\r\n Reads all token styles from imported syntaxes and\r\n merges them with the styles defined in the current syntax. If a token\r\n style exists both in an imported and in the current syntax the one from\r\n the current syntax overrides the imported one.\r\n"
 		   });		
 		addAnnotation
 		  (getConcreteSyntax_SyntheticTokens(), 
@@ -4860,7 +4860,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionTypesEEnum.getELiterals().get(310), 
 		   source, 
 		   new String[] {
-			 "documentation", "If set to <code>false</code>, the StringParser class will not be overridden. The default value for this option is <code>true</code>."
+			 "documentation", "If set to <code>true</code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is <code>false</code>."
 		   });		
 		addAnnotation
 		  (tokenStyleEClass, 
@@ -5041,5 +5041,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", ""
 		   });
 	}
+
 
 } //ConcretesyntaxPackageImpl

@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**

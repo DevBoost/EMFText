@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 
 /**

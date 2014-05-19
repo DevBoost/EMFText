@@ -84,6 +84,19 @@ public class AutoEditStrategyTest {
 		// simulate entering of brackets
 		testData.add(new Object[] {"abc <CURSOR>", "{", "abc {<CURSOR>"});
 		testData.add(new Object[] {"abc <CURSOR>", "(", "abc (<CURSOR>)"});
+		
+		
+		testData.add(new Object[] {"abc <CURSOR>", "\"", "abc \"<CURSOR>\""});
+
+		//Ideally, this should work as well. 
+//		testData.add(new Object[] {"abc \"def<CURSOR>", "\"", "abc \"def\"<CURSOR>"});
+		
+		testData.add(new Object[] {"abc (<CURSOR>", ")", "abc ()<CURSOR>"});
+		
+		//Closing brackets on following position can be overwritten by typing that character manually
+		testData.add(new Object[] {"abc \"def<CURSOR>\"", "\"", "abc \"def\"<CURSOR>"});
+		testData.add(new Object[] {"abc (<CURSOR>)", ")", "abc ()<CURSOR>"});
+		
 		return testData;
 	}
 
@@ -93,6 +106,7 @@ public class AutoEditStrategyTest {
 		stategy = new CsAutoEditStrategy();
 		
 		CsBracketSet bracketSet = new CsBracketSet();
+		bracketSet.addBracketPair("\"", "\"", true, false);
 		bracketSet.addBracketPair("{", "}", false, true);
 		bracketSet.addBracketPair("(", ")", false, false);
 		stategy.setBracketSet(bracketSet);

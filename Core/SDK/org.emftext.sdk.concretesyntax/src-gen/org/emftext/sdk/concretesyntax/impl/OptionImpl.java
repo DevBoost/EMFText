@@ -39,6 +39,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * @generated
  */
 public class OptionImpl extends EObjectImpl implements Option {
+
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -48,7 +49,6 @@ public class OptionImpl extends EObjectImpl implements Option {
 	 * @ordered
 	 */
 	protected static final OptionTypes TYPE_EDEFAULT = OptionTypes.GENERATE_TEST_ACTION;
-
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -58,7 +58,6 @@ public class OptionImpl extends EObjectImpl implements Option {
 	 * @ordered
 	 */
 	protected OptionTypes type = TYPE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -68,7 +67,6 @@ public class OptionImpl extends EObjectImpl implements Option {
 	 * @ordered
 	 */
 	protected static final String VALUE_EDEFAULT = null;
-
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->

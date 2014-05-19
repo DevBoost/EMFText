@@ -17,6 +17,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;

@@ -10,6 +10,8 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+//import org.emftext.sdk.OptionManager;
+
 /**
  * The DefaultTokenStyleAdder adds default styles from comments, keywords
  * and quoted tokens. Comments are recognized heuristically by their regular

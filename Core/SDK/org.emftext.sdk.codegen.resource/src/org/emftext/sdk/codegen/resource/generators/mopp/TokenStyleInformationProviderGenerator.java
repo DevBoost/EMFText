@@ -16,12 +16,16 @@
 package org.emftext.sdk.codegen.resource.generators.mopp;
 
 import java.util.List;
+import java.util.Set;
 
+import org.emftext.sdk.OptionManager;
 import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.FontStyle;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
 import de.devboost.codecomposers.StringComposite;
@@ -37,7 +41,6 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		
         sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
 		sc.addLineBreak();
         
@@ -50,12 +53,24 @@ public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator<Ar
 	}
 
 	private void addGetDefaultTokenStyleMethod(StringComposite sc) {
-		List<TokenStyle> styles = getContext().getConcreteSyntax().getAllTokenStyles();
+		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
+		List<TokenStyle> styles = concreteSyntax.getAllTokenStyles();
+		Set<String> keywords = ANTLRGrammarGenerator.collectAllKeywords(concreteSyntax);
+		boolean caseInsensitiveKeywords = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
 		
 		sc.add("public " + iTokenStyleClassName + " getDefaultTokenStyle(String tokenName) {");
 		for (TokenStyle nextStyle : styles) {
 			for (String name : nextStyle.getTokenNames()) {
-				sc.add("if (\"" + StringUtil.escapeToJavaString(StringUtil.escapeToANTLRKeyword(name)) + "\".equals(tokenName)) {");
+				String keywordString = "";
+				
+				if (caseInsensitiveKeywords && ANTLRGrammarGenerator.isKeywordWithPseudoToken(name, keywords)) {
+					keywordString = ANTLRGrammarGenerator.getKeywordPseudoTokenName(name);
+				} else {
+					keywordString = StringUtil.escapeToANTLRKeyword(name);
+				}
+				
+				
+				sc.add("if (\"" + StringUtil.escapeToJavaString(keywordString) + "\".equals(tokenName)) {");
 				String rgb = nextStyle.getRgb();
 				String color = "new int[] {0x" + rgb.substring(0,2)+ ", 0x" + rgb.substring(2,4) + ", 0x" + rgb.substring(4,6) + "}";
 				String bold = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.BOLD));

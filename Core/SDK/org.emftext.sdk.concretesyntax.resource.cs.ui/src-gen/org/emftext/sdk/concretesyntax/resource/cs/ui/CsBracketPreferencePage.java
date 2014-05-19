@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+
 import org.eclipse.jface.preference.ColorSelector;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -166,7 +167,7 @@ public class CsBracketPreferencePage extends PreferencePage implements IWorkbenc
 		gd.verticalIndent = 20;
 		configurePairsLabel.setText("Configure bracket pairs");
 		configurePairsLabel.setLayoutData(gd);
-		bracketsList = new List(tokenSelectionComposite, SWT.SINGLE | SWT.BORDER);
+		bracketsList = new List(tokenSelectionComposite, SWT.SINGLE);
 		gd = new GridData(GridData.CENTER, GridData.FILL, false, true);
 		gd.horizontalSpan = 2;
 		gd.verticalSpan = 4;

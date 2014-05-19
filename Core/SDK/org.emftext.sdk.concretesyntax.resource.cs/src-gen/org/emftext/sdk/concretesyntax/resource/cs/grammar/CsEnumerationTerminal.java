@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EStructuralFeature;
 

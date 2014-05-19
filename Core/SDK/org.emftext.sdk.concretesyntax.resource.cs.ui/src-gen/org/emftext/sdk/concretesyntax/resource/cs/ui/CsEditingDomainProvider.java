@@ -17,6 +17,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.LinkedHashMap;
+
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;

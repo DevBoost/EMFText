@@ -448,13 +448,15 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Returns true if the given rule was defined in the given syntax.
+	 * 
+	 *  Returns true if the given rule was defined in the given syntax.
 	 *  If the rule is defined in an imported syntax, this method returns
 	 *  false.
 	 *  
 	 *  @param syntax the syntax that refers to the rule
 	 *  @param rule the rule to check
 	 *  @return true if the rule is contained, false if it is imported
+	 * 
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return rule.getSyntax() != this;'"
 	 * @generated
@@ -477,7 +479,9 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Collects all the subclasses for which concrete syntax is defined.
+	 * 
+	 *  Collects all the subclasses for which concrete syntax is defined.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\norg.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\n\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\n\t\tcontinue;\n\t}\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\n\tfoundGenClasses.add(subClassCand);\n}\nreturn foundGenClasses;'"
 	 * @generated
@@ -488,7 +492,9 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Collects all the subclasses for which concrete syntax is defined.
+	 * 
+	 *  Collects all the subclasses for which concrete syntax is defined.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\norg.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\n\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\n\t\tsubClasses.add(subClassCand);\n\t}\n}\nreturn subClasses;'"
 	 * @generated
@@ -538,7 +544,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * 
 	 *  Reads all token styles from imported syntaxes and
 	 *  merges them with the styles defined in the current syntax. If a token
-	 *  styles exists both in an imported and in the current syntax the one from
+	 *  style exists both in an imported and in the current syntax the one from
 	 *  the current syntax overrides the imported one.
 	 * 
 	 * <!-- end-model-doc -->

@@ -19,6 +19,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
