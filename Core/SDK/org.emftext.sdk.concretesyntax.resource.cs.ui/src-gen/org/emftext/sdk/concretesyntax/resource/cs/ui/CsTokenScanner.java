@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.BadLocationException;
@@ -197,7 +198,7 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 		// this is the offset for the next token to be added
 		int offset = charStart;
 		int itemBeginRelative;
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken> newItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken>();
+		List<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken> newItems = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem taskItem : taskItems) {
 			int itemBegin = taskItem.getCharStart();
 			int itemLine = taskItem.getLine();

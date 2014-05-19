@@ -16,7 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -34,7 +36,7 @@ public class CsBuilderAdapter extends IncrementalProjectBuilder {
 	
 	private static class ResourceCollector implements IResourceDeltaVisitor, IResourceVisitor {
 		
-		private java.util.Map<IResource, Boolean> resourceMap = new java.util.LinkedHashMap<IResource, Boolean>();
+		private Map<IResource, Boolean> resourceMap = new LinkedHashMap<IResource, Boolean>();
 		
 		public boolean visit(IResourceDelta delta) throws CoreException {
 			IResource resource = delta.getResource();

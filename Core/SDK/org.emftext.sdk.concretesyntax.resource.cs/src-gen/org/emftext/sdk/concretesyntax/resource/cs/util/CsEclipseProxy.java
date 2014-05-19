@@ -18,6 +18,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 
 import java.util.Collection;
 import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;

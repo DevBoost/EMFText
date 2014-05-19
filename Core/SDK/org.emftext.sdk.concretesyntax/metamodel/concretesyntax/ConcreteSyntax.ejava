@@ -210,7 +210,7 @@ eclass ConcreteSyntax {
 	/**
 	 * Reads all token styles from imported syntaxes and
 	 * merges them with the styles defined in the current syntax. If a token
-	 * styles exists both in an imported and in the current syntax the one from
+	 * style exists both in an imported and in the current syntax the one from
 	 * the current syntax overrides the imported one.
 	 */
 	addImportedTokenStyles() {

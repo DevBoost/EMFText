@@ -76,20 +76,13 @@ public class DefaultTokenStyleAdderImpl extends EObjectImpl implements DefaultTo
 	public void addTokenStylesForKeywords(final ConcreteSyntax syntax, final EList<TokenStyle> allStyles) {
 		final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());
 		final java.lang.String KEYWORD_COLOR = "800055";
-		
 		for ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {
 			org.eclipse.emf.common.util.EList< java.lang.String> keywords = getAllKeywords(rule);
-			
 			for ( java.lang.String keyword : keywords) {
 				if (KEYWORD_PATTERN.matcher(keyword).matches()) {
-					//TODO CS: Replace by rule if required
-					boolean caseInsensitiveTokens = true;
-					//TODO: This doubles logic of ANTLRGrammarGenerator.getKeywordPseudoTokenName()	but cannot reference class
-					java.lang.String keywordName = caseInsensitiveTokens ? "KEYWORD_" + keyword.toUpperCase() : keyword;
-					
 					org.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 					newStyle.setRgb(KEYWORD_COLOR);
-					newStyle.getTokenNames().add(keywordName);
+					newStyle.getTokenNames().add(keyword);
 					newStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);
 					syntax.addTokenStyle(allStyles, newStyle);
 				}

@@ -2586,7 +2586,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "return rule.getSyntax() != this;",
-			 "documentation", "Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported"
+			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(8), 
@@ -2600,14 +2600,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\norg.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\n\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\n\t\tcontinue;\n\t}\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\n\tfoundGenClasses.add(subClassCand);\n}\nreturn foundGenClasses;",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\norg.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\n\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\n\t\tsubClasses.add(subClassCand);\n\t}\n}\nreturn subClasses;",
-			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
+			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
 		   });		
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(11), 
@@ -2635,7 +2635,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "// add the imported token styles\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\n\torg.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\n\tif (importedSyntax != null) {\n\t\torg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\n\t\t\taddTokenStyle(allStyles, importedStyle);\n\t\t}\n\t}\n}",
-			 "documentation", "\r\n Reads all token styles from imported syntaxes and\r\n merges them with the styles defined in the current syntax. If a token\r\n styles exists both in an imported and in the current syntax the one from\r\n the current syntax overrides the imported one.\r\n"
+			 "documentation", "\r\n Reads all token styles from imported syntaxes and\r\n merges them with the styles defined in the current syntax. If a token\r\n style exists both in an imported and in the current syntax the one from\r\n the current syntax overrides the imported one.\r\n"
 		   });		
 		addAnnotation
 		  (getConcreteSyntax_SyntheticTokens(), 
@@ -4995,7 +4995,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (defaultTokenStyleAdderEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
-			 "body", "final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());\nfinal java.lang.String KEYWORD_COLOR = \"800055\";\n\nfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\n\torg.eclipse.emf.common.util.EList< java.lang.String> keywords = getAllKeywords(rule);\n\t\n\tfor ( java.lang.String keyword : keywords) {\n\t\tif (KEYWORD_PATTERN.matcher(keyword).matches()) {\n\t\t\t//TODO CS: Replace by rule if required\n\t\t\tboolean caseInsensitiveTokens = true;\n\t\t\t//TODO: This doubles logic of ANTLRGrammarGenerator.getKeywordPseudoTokenName()\tbut cannot reference class\n\t\t\tjava.lang.String keywordName = caseInsensitiveTokens ? \"KEYWORD_\" + keyword.toUpperCase() : keyword;\n\t\t\t\n\t\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\n\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\n\t\t\tnewStyle.getTokenNames().add(keywordName);\n\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\n\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\n\t\t}\n\t}\n}",
+			 "body", "final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());\nfinal java.lang.String KEYWORD_COLOR = \"800055\";\nfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\n\torg.eclipse.emf.common.util.EList< java.lang.String> keywords = getAllKeywords(rule);\n\tfor ( java.lang.String keyword : keywords) {\n\t\tif (KEYWORD_PATTERN.matcher(keyword).matches()) {\n\t\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\n\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\n\t\t\tnewStyle.getTokenNames().add(keyword);\n\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\n\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\n\t\t}\n\t}\n}",
 			 "documentation", ""
 		   });		
 		addAnnotation

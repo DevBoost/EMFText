@@ -19,6 +19,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;

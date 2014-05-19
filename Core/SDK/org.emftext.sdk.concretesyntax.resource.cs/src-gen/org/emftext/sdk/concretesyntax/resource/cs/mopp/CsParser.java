@@ -11,24 +11,23 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.antlr.runtime3_4_0.ANTLRInputStream;
+import org.antlr.runtime3_4_0.BaseRecognizer;
 import org.antlr.runtime3_4_0.BitSet;
 import org.antlr.runtime3_4_0.CommonToken;
 import org.antlr.runtime3_4_0.CommonTokenStream;
+import org.antlr.runtime3_4_0.DFA;
 import org.antlr.runtime3_4_0.IntStream;
 import org.antlr.runtime3_4_0.Lexer;
+import org.antlr.runtime3_4_0.NoViableAltException;
 import org.antlr.runtime3_4_0.RecognitionException;
+import org.antlr.runtime3_4_0.RecognizerSharedState;
+import org.antlr.runtime3_4_0.Token;
+import org.antlr.runtime3_4_0.TokenStream;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-
-
-import org.antlr.runtime3_4_0.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class CsParser extends CsANTLRParserBase {
@@ -147,7 +146,7 @@ public class CsParser extends CsANTLRParserBase {
     	 * pushed on the stack. Once the element was parser completely it is popped from
     	 * the stack.
     	 */
-    	java.util.List<EObject> incompleteObjects = new java.util.ArrayList<EObject>();
+    	List<EObject> incompleteObjects = new ArrayList<EObject>();
     	
     	private int stopIncludingHiddenTokens;
     	private int stopExcludingHiddenTokens;

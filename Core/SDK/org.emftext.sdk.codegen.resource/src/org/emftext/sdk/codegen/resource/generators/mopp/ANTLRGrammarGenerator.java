@@ -187,7 +187,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		allGenClasses = genClassFinder.findAllGenClasses(concreteSyntax, true, true);
 		genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses, genClassCache);
 		
-		keywords = new LinkedHashSet<String>();
+		keywords = collectAllKeywords(concreteSyntax);
+	}
+
+	public static Set<String> collectAllKeywords(ConcreteSyntax concreteSyntax) {
+		Set<String> keywords = new LinkedHashSet<String>();
 		
 		List<Rule> allRules = concreteSyntax.getAllRules();
 		for (Rule rule : allRules) {
@@ -196,8 +200,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 				keywords.add(nextKeyword.getValue());
 			}
 		}
+		
+		return keywords;
 	}
-
+	
 	@Override
 	public void doGenerate(PrintWriter writer) {
 		super.doGenerate(writer);
@@ -1674,7 +1680,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		String encodedCsString = "";
 		
 		//If appropriate, call the rule for the case insensitive keyword instead of using the literal keyword.
-		if (caseInsensitiveKeywords && isKeyword2(rawStringValue)) {
+		if (caseInsensitiveKeywords && isKeywordWithPseudoToken(rawStringValue, keywords)) {
 			encodedCsString = getKeywordPseudoTokenName(rawStringValue);
 		} else {
 			encodedCsString = "'" + StringUtil.escapeToANTLRKeyword(rawStringValue) + "'";
@@ -2206,7 +2212,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			Set<String> existingKeywordRuleNames = new HashSet<String>();
 			
 			for (String keyword : keywords) {
-				if (isKeyword2(keyword)) {
+				if (isKeywordWithPseudoToken(keyword, keywords)) {
 					String ruleName = getKeywordPseudoTokenName(keyword);
 					
 					if (!existingKeywordRuleNames.contains(ruleName)) {
@@ -2224,7 +2230,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 	
 	private String encodeCaseInsensitiveKeyword(String keyword) {
-		String encodedKeyword = "";
+		String encodedKeyword = "(";
 		
 		for (int i = 0; i < keyword.length(); i++) {
 			if (i > 0) {
@@ -2241,6 +2247,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			}
 		}
 		
+		encodedKeyword += ")";
+		
 		return encodedKeyword;
 	}
 	
@@ -2250,22 +2258,37 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 	
 	public static String getKeywordPseudoTokenName(String keyword) {
-		String escapedKeyword = StringUtil.escapeToANTLRKeyword(keyword);
+		String keywordPseudoTokenName = "KEYWORD_";
 		
-		//TODO: More constraints regarding special characters?! Encoding?
-		return "KEYWORD_" + escapedKeyword.toUpperCase();
+		final int n = keyword.length();
+		
+		for (int i = 0; i < n; i++) {
+			char character = Character.toUpperCase(keyword.charAt(i));
+
+			if (!Character.isAlphabetic(character)) {
+				String characterName = Character.getName(character);
+				keywordPseudoTokenName += "_" + characterName.replaceAll(" ", "_");
+				
+				if (i < n - 1) {
+					keywordPseudoTokenName += "_";
+				}
+			} else {
+				keywordPseudoTokenName += Character.toUpperCase(character);
+			}
+		}
+		
+		return StringUtil.escapeToANTLRKeyword(keywordPseudoTokenName);
 	}
 	
-	//TODO: rename
-	private boolean isKeyword2(String keyword) {
-		//TODO: There is a keyword regex in DefaultTokenStyleAdder
+	
+	public static boolean isKeywordWithPseudoToken(String keyword, Set<String> keywords) {
+		//TODO: There is a keyword regex in DefaultTokenStyleAdder but it
+		//seems to not match all possible keywords
 		
 		if (keywords.contains(keyword)) {
 			for (int i = 0; i < keyword.length(); i++) {
 				char character = keyword.charAt(i);
 				
-				//TODO: Keyword has to contain at least one letter - or not?! INVESTIGATE
-
 				if (Character.isAlphabetic(character)) {
 					return true;
 				}
@@ -2274,7 +2297,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		return false;
 	}
-	
 	//TODO: END CS
 
 	private void addTokenDefinitions(StringComposite sc) {

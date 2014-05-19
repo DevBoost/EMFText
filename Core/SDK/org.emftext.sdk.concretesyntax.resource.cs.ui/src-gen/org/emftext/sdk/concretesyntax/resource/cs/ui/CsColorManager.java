@@ -19,6 +19,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;

@@ -4,14 +4,17 @@
 	
 	import java.util.ArrayList;
 import java.util.List;
+
 import org.antlr.runtime3_4_0.ANTLRStringStream;
+import org.antlr.runtime3_4_0.BaseRecognizer;
+import org.antlr.runtime3_4_0.CharStream;
+import org.antlr.runtime3_4_0.DFA;
+import org.antlr.runtime3_4_0.EarlyExitException;
+import org.antlr.runtime3_4_0.Lexer;
+import org.antlr.runtime3_4_0.MismatchedSetException;
+import org.antlr.runtime3_4_0.NoViableAltException;
 import org.antlr.runtime3_4_0.RecognitionException;
-
-
-import org.antlr.runtime3_4_0.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
+import org.antlr.runtime3_4_0.RecognizerSharedState;
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class CsLexer extends Lexer {

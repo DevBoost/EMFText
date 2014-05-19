@@ -16,7 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * The CsTaskItemDetector is used to find task items in text documents. The
@@ -25,10 +27,20 @@ import java.util.List;
  */
 public class CsTaskItemDetector {
 	
+	/**
+	 * This regular expression is used to split string at the line breaks. It is
+	 * precompiled for performance reasons.
+	 */
+	private static final Pattern LINE_BREAK_REGEX = Pattern.compile("(\r\n|\r|\n)");
+	
+	/**
+	 * This is an array of all keywords that indicate task items. The array is public
+	 * to allow customizations.
+	 */
 	public static String[] TASK_ITEM_KEYWORDS = new String[] {"TODO", "FIXME", "XXX"};
 	
 	public List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> findTaskItems(String text, int line, int charStart) {
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> foundItems = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
+		List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem> foundItems = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem>();
 		String remainingText = text;
 		boolean continueSearch = true;
 		int localCharStart = charStart;
@@ -69,7 +81,7 @@ public class CsTaskItemDetector {
 					
 					int offset = index + localCharStart;
 					int end = offset + keyword.length();
-					int localLine = line + text.substring(0, offset - charStart).split("(\r\n|\r|\n)").length - 1;
+					int localLine = line + LINE_BREAK_REGEX.split(text.substring(0, offset - charStart), 0).length - 1;
 					foundItems.add(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTaskItem(keyword, message, localLine, offset, end));
 					localCharStart += eolIndex;
 					// stop looping over the keywords, we've found one

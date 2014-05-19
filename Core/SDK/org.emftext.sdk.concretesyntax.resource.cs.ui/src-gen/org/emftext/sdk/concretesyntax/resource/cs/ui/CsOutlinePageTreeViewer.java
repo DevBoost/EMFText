@@ -16,7 +16,9 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -40,7 +42,7 @@ public class CsOutlinePageTreeViewer extends TreeViewer {
 	
 	public class TypeFilter extends ViewerFilter {
 		
-		private java.util.Set<EClass> filteredTypes = new java.util.LinkedHashSet<EClass>();
+		private Set<EClass> filteredTypes = new LinkedHashSet<EClass>();
 		
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element) {

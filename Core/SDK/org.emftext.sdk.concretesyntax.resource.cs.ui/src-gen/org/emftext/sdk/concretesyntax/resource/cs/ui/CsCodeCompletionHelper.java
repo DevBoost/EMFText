@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -218,7 +219,7 @@ public class CsCodeCompletionHelper {
 	 * Removes all proposals for keywords that end before the given index.
 	 */
 	protected void removeKeywordsEndingBeforeIndex(Collection<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> proposals, int index) {
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> toRemove = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
+		List<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal> toRemove = new ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal>();
 		for (org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal proposal : proposals) {
 			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal = proposal.getExpectedTerminal();
 			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal = expectedTerminal.getTerminal();
