@@ -239,6 +239,12 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
+		if (object instanceof org.emftext.sdk.concretesyntax.ReferencableTokenDefinition) {
+			result = interprete_org_emftext_sdk_concretesyntax_ReferencableTokenDefinition((org.emftext.sdk.concretesyntax.ReferencableTokenDefinition) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
 		if (object instanceof org.emftext.sdk.concretesyntax.PartialTokenDefinition) {
 			result = interprete_org_emftext_sdk_concretesyntax_PartialTokenDefinition((org.emftext.sdk.concretesyntax.PartialTokenDefinition) object, context);
 		}
@@ -275,14 +281,14 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof org.emftext.sdk.concretesyntax.TokenDirective) {
-			result = interprete_org_emftext_sdk_concretesyntax_TokenDirective((org.emftext.sdk.concretesyntax.TokenDirective) object, context);
+		if (object instanceof org.emftext.sdk.concretesyntax.TokenPriorityDirective) {
+			result = interprete_org_emftext_sdk_concretesyntax_TokenPriorityDirective((org.emftext.sdk.concretesyntax.TokenPriorityDirective) object, context);
 		}
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof org.emftext.sdk.concretesyntax.ReferencableTokenDefinition) {
-			result = interprete_org_emftext_sdk_concretesyntax_ReferencableTokenDefinition((org.emftext.sdk.concretesyntax.ReferencableTokenDefinition) object, context);
+		if (object instanceof org.emftext.sdk.concretesyntax.TokenDirective) {
+			result = interprete_org_emftext_sdk_concretesyntax_TokenDirective((org.emftext.sdk.concretesyntax.TokenDirective) object, context);
 		}
 		if (result != null) {
 			return result;
@@ -295,12 +301,6 @@ public class AbstractCsInterpreter<ResultType, ContextType> {
 		}
 		if (object instanceof org.emftext.sdk.concretesyntax.AbstractTokenDefinition) {
 			result = interprete_org_emftext_sdk_concretesyntax_AbstractTokenDefinition((org.emftext.sdk.concretesyntax.AbstractTokenDefinition) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
-		if (object instanceof org.emftext.sdk.concretesyntax.TokenPriorityDirective) {
-			result = interprete_org_emftext_sdk_concretesyntax_TokenPriorityDirective((org.emftext.sdk.concretesyntax.TokenPriorityDirective) object, context);
 		}
 		if (result != null) {
 			return result;

@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 import java.util.ArrayList;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
@@ -31,7 +30,7 @@ import org.eclipse.swt.custom.StyledText;
 public class CsBracketSet {
 	
 	/**
-	 * The separator between a bracket pair, must not contain characters that need to
+	 * The separator between a bracket pair must not contain characters that need to
 	 * be escaped as it will be used as regular expression.
 	 */
 	public final static String BRACKET_SEPARATOR = " and ";
@@ -58,6 +57,18 @@ public class CsBracketSet {
 	public boolean isOpeningBracket(String bracket) {
 		for (org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair : bracketPairs) {
 			if (bracket.equals(bracketPair.getOpeningBracket())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks whether the given string is a closing bracket.
+	 */
+	public boolean isClosingBracket(String bracket) {
+		for (org.emftext.sdk.concretesyntax.resource.cs.ICsBracketPair bracketPair : bracketPairs) {
+			if (bracket.equals(bracketPair.getClosingBracket())) {
 				return true;
 			}
 		}
@@ -245,42 +256,106 @@ public class CsBracketSet {
 	 * <code>ExtensionConstants.PositionCategory.BRACKET</code>.
 	 */
 	public void findAndHighlightMatchingBrackets(IDocument document, int caretOffset) {
-		if (caretOffset <= 0) {
+		String documentText = document.get();
+		String insertedBracket = getInsertedBracket(documentText, caretOffset);
+		
+		// Only highlight true brackets (not quotes etc.)
+		if (insertedBracket == null || insertedBracket.equals(getCounterpart(insertedBracket))) {
 			return;
 		}
 		
-		final String prevStr;
-		try {
-			prevStr = "" + document.getChar(caretOffset - 1);
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-			return;
+		int position = findMatchingBrackets(documentText, caretOffset);
+		highlightBrackets(document, position, caretOffset);
+	}
+	
+	private String getInsertedBracket(String documentText, int caretOffset) {
+		if (caretOffset <= 0) {
+			return null;
 		}
-		if (!isBracket(prevStr) || prevStr.equals(getCounterpart(prevStr))) {
-			return;
+		
+		final String insertedText = Character.toString(documentText.charAt(caretOffset - 1));
+		
+		if (!isBracket(insertedText)) {
+			return null;
 		}
-		boolean isForward = isOpeningBracket(prevStr);
-		final String toFindStr = getCounterpart(prevStr);
-		int boundary = isForward ? document.getLength() : -1;
-		int position = isForward ? caretOffset : caretOffset - 2;
-		String currentStr;
-		int count = 0;
-		try {
-			while (position != boundary) {
-				currentStr = "" + document.getChar(position);
-				if (toFindStr.equals(currentStr) && count == 0) {
-					break;
-				} else if (prevStr.equals(currentStr)) {
-					count++;
-				} else if (currentStr.equals(toFindStr)) {
-					count--;
+		
+		return insertedText;
+	}
+	
+	public int findMatchingBrackets(String documentText, int caretOffset) {
+		String insertedBracket = getInsertedBracket(documentText, caretOffset);
+		
+		if (insertedBracket == null) {
+			return - 1;
+		}
+		
+		final int insertPosition = caretOffset - 1;
+		
+		if (insertedBracket.equals(getCounterpart(insertedBracket))) {
+			return findMatchingBracketPositionForIdenticalOpeningClosingBrackets(documentText, insertPosition, insertedBracket);
+		} else {
+			return findMatchingBracketPositionForDistinctOpeningClosingBrackets(documentText, insertPosition, insertedBracket);
+		}
+	}
+	
+	private int findMatchingBracketPositionForIdenticalOpeningClosingBrackets(String documentText, int markerPosition, String marker) {
+		char markerToSearch = marker.charAt(0);
+		boolean opened = false;
+		int lastOpenPosition = -1;
+		
+		// Nesting is not possible!
+		for (int i = 0; i < documentText.length(); i++) {
+			char currentCharacter = documentText.charAt(i);
+			
+			if (currentCharacter == markerToSearch) {
+				opened = !opened;
+				
+				if (opened) {
+					lastOpenPosition = i;
 				}
-				position += isForward ? 1 : -1;
+				
+				if (i == markerPosition && !opened) {
+					return lastOpenPosition;
+				}
+				
+				if (i > markerPosition && !opened) {
+					return i;
+				}
 			}
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-			return;
 		}
+		
+		return -1;
+	}
+	
+	private int findMatchingBracketPositionForDistinctOpeningClosingBrackets(String documentText, int markerPosition, String insertedBracket) {
+		boolean isForward = isOpeningBracket(insertedBracket);
+		final String counterpart = getCounterpart(insertedBracket);
+		
+		int boundary = isForward ? documentText.length() : -1;
+		int position = isForward ? markerPosition + 1 : markerPosition - 1;
+		
+		int openBrackets = 0;
+		
+		while (position != boundary) {
+			String currentString = Character.toString(documentText.charAt(position));
+			
+			if (currentString.equals(insertedBracket)) {
+				openBrackets++;
+			} else if (currentString.equals(counterpart)) {
+				if (openBrackets == 0) {
+					return position;
+				} else {
+					openBrackets--;
+				}
+			}
+			
+			position += isForward ? 1 : -1;
+		}
+		
+		return -1;
+	}
+	
+	public void highlightBrackets(IDocument document, int position, int caretOffset) {
 		if (position != -1 && position != document.getLength()) {
 			positionHelper.addPosition(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString(), position, 1);
 			positionHelper.addPosition(document, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString(), caretOffset - 1, 1);
