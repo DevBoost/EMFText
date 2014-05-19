@@ -2239,7 +2239,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			char character = keyword.charAt(i);
 			
-			if (Character.isAlphabetic(character)) {
+			if (isAlphabetic(character)) {
 				String letterPseudoTokenName = getLetterPseudoTokenName(character);
 				encodedKeyword += letterPseudoTokenName;
 			} else {
@@ -2253,7 +2253,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 	
 	private static String getLetterPseudoTokenName(char character) {
-		assert Character.isAlphabetic(character);
+		assert isAlphabetic(character);
 		return "LETTER_" + Character.toUpperCase(character);
 	}
 	
@@ -2265,8 +2265,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		for (int i = 0; i < n; i++) {
 			char character = Character.toUpperCase(keyword.charAt(i));
 
-			if (!Character.isAlphabetic(character)) {
-				String characterName = Character.getName(character);
+			if (!isAlphabetic(character)) {
+				// FIXME chseidl String characterName = Character.getName(character);
+				String characterName = Integer.toString(Character.getNumericValue(character));
 				keywordPseudoTokenName += "_" + characterName.replaceAll(" ", "_");
 				
 				if (i < n - 1) {
@@ -2280,7 +2281,15 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		return StringUtil.escapeToANTLRKeyword(keywordPseudoTokenName);
 	}
 	
-	
+	public static boolean isAlphabetic(int codePoint) {
+		return (((((1 << Character.UPPERCASE_LETTER)
+				| (1 << Character.LOWERCASE_LETTER)
+				| (1 << Character.TITLECASE_LETTER)
+				| (1 << Character.MODIFIER_LETTER)
+				| (1 << Character.OTHER_LETTER) | (1 << Character.LETTER_NUMBER)) >> Character.getType(codePoint)) & 1) != 0);
+				// FIXME This is not available in Java 6: || CharacterData.of(codePoint).isOtherAlphabetic(codePoint);
+	}
+
 	public static boolean isKeywordWithPseudoToken(String keyword, Set<String> keywords) {
 		//TODO: There is a keyword regex in DefaultTokenStyleAdder but it
 		//seems to not match all possible keywords
@@ -2289,7 +2298,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			for (int i = 0; i < keyword.length(); i++) {
 				char character = keyword.charAt(i);
 				
-				if (Character.isAlphabetic(character)) {
+				if (isAlphabetic(character)) {
 					return true;
 				}
 			}
