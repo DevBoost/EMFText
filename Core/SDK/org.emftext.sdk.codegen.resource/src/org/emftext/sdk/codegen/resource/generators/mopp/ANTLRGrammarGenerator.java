@@ -49,6 +49,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -1674,7 +1675,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			Counter counter, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		String identifier = "a" + counter.getValue();
 		
-		//TODO: CS
 		boolean caseInsensitiveKeywords = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
 		String rawStringValue = csString.getValue();
 		String encodedCsString = "";
@@ -1685,9 +1685,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		} else {
 			encodedCsString = "'" + StringUtil.escapeToANTLRKeyword(rawStringValue) + "'";
 		}
-		//TODO: CS END
-		
-//		String encodedCsString = "'" + StringUtil.escapeToANTLRKeyword(csString.getValue()) + "'";
 		
 		sc.add(identifier + " = " + encodedCsString + " {");
 		addCodeToCreateObject(sc, rule);
@@ -2189,7 +2186,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 	}
 
-	//TODO: CS
 	private void addLetterPseudoTokenDefinitions(StringComposite sc) {
 		boolean caseInsensitiveKeywords = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
 		
@@ -2239,9 +2235,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			
 			char character = keyword.charAt(i);
 			
-			if (isAlphabetic(character)) {
-				String letterPseudoTokenName = getLetterPseudoTokenName(character);
-				encodedKeyword += letterPseudoTokenName;
+			if (Character.isLetter(character)) {
+				encodedKeyword += getLetterPseudoTokenName(character);;
 			} else {
 				encodedKeyword += "'" + character + "'";
 			}
@@ -2253,7 +2248,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 	}
 	
 	private static String getLetterPseudoTokenName(char character) {
-		assert isAlphabetic(character);
+		assert Character.isLetter(character);
 		return "LETTER_" + Character.toUpperCase(character);
 	}
 	
@@ -2265,10 +2260,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		for (int i = 0; i < n; i++) {
 			char character = Character.toUpperCase(keyword.charAt(i));
 
-			if (!isAlphabetic(character)) {
-				// FIXME chseidl String characterName = Character.getName(character);
-				String characterName = Integer.toString(Character.getNumericValue(character));
-				keywordPseudoTokenName += "_" + characterName.replaceAll(" ", "_");
+			if (!Character.isLetter(character)) {
+				keywordPseudoTokenName += "CHAR_" + Integer.toHexString(character);
 				
 				if (i < n - 1) {
 					keywordPseudoTokenName += "_";
@@ -2281,15 +2274,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		return StringUtil.escapeToANTLRKeyword(keywordPseudoTokenName);
 	}
 	
-	public static boolean isAlphabetic(int codePoint) {
-		return (((((1 << Character.UPPERCASE_LETTER)
-				| (1 << Character.LOWERCASE_LETTER)
-				| (1 << Character.TITLECASE_LETTER)
-				| (1 << Character.MODIFIER_LETTER)
-				| (1 << Character.OTHER_LETTER) | (1 << Character.LETTER_NUMBER)) >> Character.getType(codePoint)) & 1) != 0);
-				// FIXME This is not available in Java 6: || CharacterData.of(codePoint).isOtherAlphabetic(codePoint);
-	}
-
 	public static boolean isKeywordWithPseudoToken(String keyword, Set<String> keywords) {
 		//TODO: There is a keyword regex in DefaultTokenStyleAdder but it
 		//seems to not match all possible keywords
@@ -2298,7 +2282,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			for (int i = 0; i < keyword.length(); i++) {
 				char character = keyword.charAt(i);
 				
-				if (isAlphabetic(character)) {
+				if (Character.isLetter(character)) {
 					return true;
 				}
 			}
@@ -2306,7 +2290,6 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		return false;
 	}
-	//TODO: END CS
 
 	private void addTokenDefinitions(StringComposite sc) {
 		for (CompleteTokenDefinition tokenDefinition : concreteSyntax.getActiveTokens()) {
