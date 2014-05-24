@@ -36,10 +36,12 @@ import org.emftext.access.resource.IScanner;
 import org.emftext.access.resource.IToken;
 
 /**
+ * <p>
  * The EMFTextAccessProxy class can be used to access generated text resource
  * plug-ins via a set of interfaces. This is particularly useful for tools that
  * need to perform the same operations over a set of languages.
- * 
+ * </p>
+ * <p>
  * The access to generated classes using interfaces that are not declared to be
  * implemented by those classes is established by Java's reflection mechanisms.
  * However, the EMFTextAccessProxy class allows to make transparent use of this
@@ -48,9 +50,11 @@ import org.emftext.access.resource.IToken;
  * must therefore contain the methods declared in the interface (i.e., the
  * methods must have the same signature), but the class does not need to declare
  * that it implements the interface.
- * 
+ * </p>
+ * <p>
  * The central starting point to gather reflective access are the get() methods.
- * 
+ * </p>
+ * <p>
  * Note that not all kinds of interfaces can be handled by the
  * EMFTextAccessProxy! Methods that use generic types as return type or
  * parameter can not be handled. This is due to Java's type erasure which
@@ -58,6 +62,7 @@ import org.emftext.access.resource.IToken;
  * generic types are not known at run-time, which makes wrapping and unwrapping
  * of objects impossible. Furthermore, the current implementation of the
  * EMFTextAccessProxy can not handle multidimensional arrays.
+ * </p>
  */
 public class EMFTextAccessProxy implements InvocationHandler {
 
