@@ -67,7 +67,8 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addComputeCompletionProposalsMethod(sc);
+		addComputeCompletionProposalsMethod1(sc);
+		addComputeCompletionProposalsMethod2(sc);
 		addComputeContextInformationMethod(sc);
 		addGetCompletionProposalAutoActivationCharactersMethod(sc);
 		addGetContextInformationAutoActivationCharactersMethod(sc);
@@ -109,15 +110,22 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 	}
 
-	private void addComputeCompletionProposalsMethod(JavaComposite sc) {
+	private void addComputeCompletionProposalsMethod1(JavaComposite sc) {
 		sc.add("public " + I_COMPLETION_PROPOSAL(sc) + "[] computeCompletionProposals(" + I_TEXT_VIEWER(sc) + " viewer, int offset) {");
 		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
 		sc.add("if (textResource == null) {");
 		sc.add("return new " + I_COMPLETION_PROPOSAL(sc) + "[0];");
 		sc.add("}");
 		sc.add("String content = viewer.getDocument().get();");
+		sc.add("return computeCompletionProposals(textResource, content, offset);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addComputeCompletionProposalsMethod2(JavaComposite sc) {
+		sc.add("public " + I_COMPLETION_PROPOSAL(sc) + "[] computeCompletionProposals(" + iTextResourceClassName + " textResource, String text, int offset) {");
 		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
-		sc.add(completionProposalClassName + "[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);");
+		sc.add(completionProposalClassName + "[] computedProposals = helper.computeCompletionProposals(textResource, text, offset);");
 		sc.addLineBreak();
 		sc.addComment("call completion proposal post processor to allow for customizing the proposals");
 		sc.add(proposalPostProcessorClassName + " proposalPostProcessor = new " + proposalPostProcessorClassName + "();");
