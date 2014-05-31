@@ -45,8 +45,12 @@ public class CsCompletionProcessor implements IContentAssistProcessor {
 			return new ICompletionProposal[0];
 		}
 		String content = viewer.getDocument().get();
+		return computeCompletionProposals(textResource, content, offset);
+	}
+	
+	public ICompletionProposal[] computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, String text, int offset) {
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper();
-		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);
+		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] computedProposals = helper.computeCompletionProposals(textResource, text, offset);
 		
 		// call completion proposal post processor to allow for customizing the proposals
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor proposalPostProcessor = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor();
