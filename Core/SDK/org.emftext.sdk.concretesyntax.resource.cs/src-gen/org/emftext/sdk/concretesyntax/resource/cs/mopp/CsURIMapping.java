@@ -19,9 +19,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 import org.eclipse.emf.common.util.URI;
 
 /**
+ * <p>
  * A basic implementation of the
  * org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping interface that can map
  * identifiers to URIs.
+ * </p>
  * 
  * @param <ReferenceType> unused type parameter which is needed to implement
  * org.emftext.sdk.concretesyntax.resource.cs.ICsURIMapping.

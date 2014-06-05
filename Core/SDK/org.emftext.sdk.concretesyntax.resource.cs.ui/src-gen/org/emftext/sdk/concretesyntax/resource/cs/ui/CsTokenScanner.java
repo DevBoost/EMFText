@@ -47,7 +47,9 @@ public class CsTokenScanner implements org.emftext.sdk.concretesyntax.resource.c
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
 	
 	/**
+	 * <p>
 	 * Creates a new CsTokenScanner.
+	 * </p>
 	 * 
 	 * @param resource The resource to scan
 	 * @param colorManager A manager to obtain color objects

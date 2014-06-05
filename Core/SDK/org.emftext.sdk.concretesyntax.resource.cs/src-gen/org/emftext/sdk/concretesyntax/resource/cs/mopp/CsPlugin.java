@@ -60,7 +60,9 @@ public class CsPlugin extends Plugin {
 	}
 	
 	/**
+	 * <p>
 	 * Helper method for error logging.
+	 * </p>
 	 * 
 	 * @param message the error message to log
 	 * @param throwable the exception that describes the error in detail (can be null)
@@ -72,7 +74,9 @@ public class CsPlugin extends Plugin {
 	}
 	
 	/**
+	 * <p>
 	 * Helper method for logging warnings.
+	 * </p>
 	 * 
 	 * @param message the warning message to log
 	 * @param throwable the exception that describes the warning in detail (can be
@@ -85,7 +89,9 @@ public class CsPlugin extends Plugin {
 	}
 	
 	/**
+	 * <p>
 	 * Helper method for logging infos.
+	 * </p>
 	 * 
 	 * @param message the info message to log
 	 * @param throwable the exception that describes the info in detail (can be null)
@@ -97,7 +103,9 @@ public class CsPlugin extends Plugin {
 	}
 	
 	/**
+	 * <p>
 	 * Helper method for logging.
+	 * </p>
 	 * 
 	 * @param type the type of the message to log
 	 * @param message the message to log

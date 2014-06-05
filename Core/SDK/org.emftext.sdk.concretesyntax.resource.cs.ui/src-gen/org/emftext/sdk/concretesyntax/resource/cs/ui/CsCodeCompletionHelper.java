@@ -57,9 +57,11 @@ public class CsCodeCompletionHelper {
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	
 	/**
+	 * <p>
 	 * Computes a set of proposals for the given document assuming the cursor is at
 	 * 'cursorOffset'. The proposals are derived using the meta information, i.e., the
 	 * generated language plug-in.
+	 * </p>
 	 * 
 	 * @param originalResource the resource to compute completions for
 	 * @param content the documents content

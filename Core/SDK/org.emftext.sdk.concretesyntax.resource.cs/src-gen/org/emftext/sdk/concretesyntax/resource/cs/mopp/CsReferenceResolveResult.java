@@ -25,9 +25,11 @@ import java.util.Set;
 import org.eclipse.emf.common.util.URI;
 
 /**
+ * <p>
  * A basic implementation of the
  * org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult interface
  * that collects mappings in a list.
+ * </p>
  * 
  * @param <ReferenceType> the type of the references that can be contained in this
  * result

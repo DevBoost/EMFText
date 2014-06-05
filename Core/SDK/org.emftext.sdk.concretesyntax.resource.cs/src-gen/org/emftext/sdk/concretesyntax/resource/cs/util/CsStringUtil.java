@@ -35,7 +35,9 @@ public class CsStringUtil {
 	public final static String ESC_REGEXP = "\\A((" + UNICODE_SEQUENCE_REGEXP + ")|(" + ESC_OTHER + ")).*";
 	
 	/**
+	 * <p>
 	 * Capitalizes the first letter of the given string.
+	 * </p>
 	 * 
 	 * @param text the string to capitalize.
 	 * 
@@ -67,9 +69,11 @@ public class CsStringUtil {
 	}
 	
 	/**
+	 * <p>
 	 * Converts a string that contains upper-case letter and underscores (e.g.,
 	 * constant names) to a camel-case string. For example, MY_CONSTANT is converted
 	 * to myConstant.
+	 * </p>
 	 * 
 	 * @param text the string to convert
 	 * 
@@ -235,8 +239,10 @@ public class CsStringUtil {
 	}
 	
 	/**
+	 * <p>
 	 * Escapes the given text such that it can be safely embedded in a string literal
 	 * in Java source code.
+	 * </p>
 	 * 
 	 * @param text the text to escape
 	 * 
@@ -264,9 +270,11 @@ public class CsStringUtil {
 	}
 	
 	/**
+	 * <p>
 	 * Escapes the given text such that it can be safely embedded in an ANTLR grammar
 	 * as keyword (i.e., an in-line token). Single quotes are escaped using a
 	 * backslash. Backslashes are escaped using a backslash.
+	 * </p>
 	 * 
 	 * @param value the text to escape
 	 * 

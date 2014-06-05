@@ -195,8 +195,10 @@ public class CsBracketSet {
 	}
 	
 	/**
+	 * <p>
 	 * Returns a list of bracket pairs. This call is for the list in the preference
 	 * page.
+	 * </p>
 	 * 
 	 * @return a list of bracket pairs in the form
 	 * <code>String[]{"{BRACKET_SEPARATOR}","(BRACKET_SEPARATOR)"}</code>
@@ -212,8 +214,10 @@ public class CsBracketSet {
 	}
 	
 	/**
+	 * <p>
 	 * Returns this bracket set as <code>String</code>. This is useful to store the
 	 * set in the <code>IPreferenceStore</code>.
+	 * </p>
 	 * 
 	 * @see IPreferenceStore
 	 */

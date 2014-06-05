@@ -75,7 +75,9 @@ public class CsOccurrence {
 	private Region tokenRegion;
 	
 	/**
+	 * <p>
 	 * Creates a CsOccurrence object to find positions to highlight.
+	 * </p>
 	 * 
 	 * @param textResource the text resource for location
 	 * @param projectionViewer the viewer for the text
@@ -93,7 +95,9 @@ public class CsOccurrence {
 	}
 	
 	/**
+	 * <p>
 	 * Tries to resolve the first proxy object in the given list.
+	 * </p>
 	 * 
 	 * @param objects the <code>EObject</code>s located at the caret position
 	 * 
@@ -142,8 +146,10 @@ public class CsOccurrence {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the text of the token that was found at the caret position at the time
 	 * occurrence we computed last.
+	 * </p>
 	 * 
 	 * @return the token text
 	 */

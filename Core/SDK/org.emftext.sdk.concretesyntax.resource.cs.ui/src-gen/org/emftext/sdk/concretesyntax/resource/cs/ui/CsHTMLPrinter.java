@@ -36,10 +36,14 @@ import org.eclipse.swt.graphics.FontData;
 public class CsHTMLPrinter {
 	
 	/**
+	 * <p>
 	 * Reads the text contents from a reader of HTML contents and translates the tags
 	 * or cut them out.
+	 * </p>
+	 * <p>
 	 * <p>Moved into HTMLPrinter as inner class from
 	 * <code>org.eclipse.jface.internal.text.html</code>.</p>
+	 * </p>
 	 */
 	private static final class HTML2TextReader extends Reader {
 		
@@ -72,7 +76,9 @@ public class CsHTMLPrinter {
 		private int fIndex;
 		
 		/**
+		 * <p>
 		 * Transforms the HTML text from the reader to formatted text.
+		 * </p>
 		 * 
 		 * @param reader the reader
 		 * @param presentation If not <code>null</code>, formattings will be applied to
@@ -403,7 +409,9 @@ public class CsHTMLPrinter {
 		}
 		
 		/**
+		 * <p>
 		 * Returns the internal reader.
+		 * </p>
 		 * 
 		 * @return the internal reader
 		 */
@@ -412,7 +420,9 @@ public class CsHTMLPrinter {
 		}
 		
 		/**
+		 * <p>
 		 * Returns the next character.
+		 * </p>
 		 * 
 		 * @return the next character
 		 * 
@@ -472,7 +482,9 @@ public class CsHTMLPrinter {
 		}
 		
 		/**
+		 * <p>
 		 * Returns the readable content as string.
+		 * </p>
 		 * 
 		 * @return the readable content as string
 		 * 

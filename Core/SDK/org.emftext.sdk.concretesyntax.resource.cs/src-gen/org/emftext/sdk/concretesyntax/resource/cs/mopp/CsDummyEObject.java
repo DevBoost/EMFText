@@ -25,12 +25,16 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
+ * <p>
  * The DummyEObject is used to build a stack of dummy objects when descending by
  * tail recursion into left recursive rules. They cache the setting information
  * for initializing concrete EObject instances.
+ * </p>
+ * <p>
  * When the tail descent is finished this stack is reduced in reverse order. The
  * EObjects are created using the setting informations and a containment hierarchy
  * is build using the left recursive EStructuralFeature.
+ * </p>
  */
 public class CsDummyEObject extends EObjectImpl  {
 	

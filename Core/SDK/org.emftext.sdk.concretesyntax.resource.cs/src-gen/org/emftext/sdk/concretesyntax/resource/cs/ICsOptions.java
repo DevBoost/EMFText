@@ -87,9 +87,11 @@ public interface ICsOptions {
 	public final String DISABLE_EMF_VALIDATION = "DISABLE_EMF_VALIDATION";
 	
 	/**
+	 * <p>
 	 * The key for the option to set the encoding to use when loading or saving
 	 * resources. This is equivalent to the same option specified in class
 	 * <code>org.eclipse.emf.ecore.xmi.XMLResource</code>.
+	 * </p>
 	 * 
 	 * @see org.eclipse.emf.ecore.xmi.XMLResource
 	 */

@@ -28,21 +28,29 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
+ * <p>
  * A default implementation for token resolvers. Generated token resolvers
  * delegate calls to this class to convert text (i.e., tokens) to Java objects.
  * This default implementation tries to perform this conversion using the
  * EMF-based data type serialization mechanism using EcoreUtil.createFromString().
+ * </p>
  * 
+ * <p>
  * In addition, enumeration literals are converted to the respective literal
  * object, if the text (i.e., the token) matches the literal.
+ * </p>
  * 
+ * <p>
  * For boolean attributes the token is considered to represent <code>true</code>
  * if it matches the name of the attribute. Attributes that have names like
  * <code>isFoo</code> are also interpret as <code>true</code> if the text is
  * <code>foo</code>.
+ * </p>
  * 
+ * <p>
  * The behavior of this resolving can be customized by either changing the
  * generated token resolver classes or by using custom EMF data type converters.
+ * </p>
  */
 public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver {
 	

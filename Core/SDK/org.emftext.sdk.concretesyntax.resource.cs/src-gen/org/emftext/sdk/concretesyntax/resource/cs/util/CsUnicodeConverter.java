@@ -38,7 +38,9 @@ public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.
 	private InputStream inputStream;
 	
 	/**
+	 * <p>
 	 * Creates a new UnicodeConverter that reads from the given stream.
+	 * </p>
 	 * 
 	 * @param inputStream the original stream to read from
 	 */

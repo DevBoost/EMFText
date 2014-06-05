@@ -23,16 +23,20 @@ import org.eclipse.emf.ecore.EObject;
 public interface ICsQuickFix {
 	
 	/**
+	 * <p>
 	 * Returns a string that briefly describes the quick fix.
+	 * </p>
 	 * 
 	 * @return brief description to display
 	 */
 	public String getDisplayString();
 	
 	/**
+	 * <p>
 	 * Returns an image key that references an image for the quick fix. This key will
 	 * be passed to the ImageProvider class of the resource UI plug-in to obtain the
 	 * image.
+	 * </p>
 	 * 
 	 * @return key of the image to display
 	 */

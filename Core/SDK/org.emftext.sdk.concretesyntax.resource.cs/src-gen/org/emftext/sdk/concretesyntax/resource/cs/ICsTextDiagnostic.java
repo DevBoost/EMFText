@@ -51,7 +51,9 @@ public interface ICsTextDiagnostic extends Resource.Diagnostic {
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsProblem getProblem();
 	
 	/**
+	 * <p>
 	 * Checks whether the problem was caused by the given element.
+	 * </p>
 	 * 
 	 * @return true if the problem was caused by <code>element</code>
 	 */

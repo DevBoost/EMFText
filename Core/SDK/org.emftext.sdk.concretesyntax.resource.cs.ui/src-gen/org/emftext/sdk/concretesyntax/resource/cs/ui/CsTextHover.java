@@ -124,7 +124,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 		private final org.emftext.sdk.concretesyntax.resource.cs.ui.CsBrowserInformationControl infoControl;
 		
 		/**
+		 * <p>
 		 * Creates the action to jump to the declaration.
+		 * </p>
 		 * 
 		 * @param infoControl the info control holds the hover information and the target
 		 * element
@@ -301,7 +303,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 	}
 	
 	/**
+	 * <p>
 	 * Computes the hover info.
+	 * </p>
 	 * 
 	 * @param elements the resolved elements
 	 * @param constantValue a constant value iff result contains exactly 1 constant
@@ -343,7 +347,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 	}
 	
 	/**
+	 * <p>
 	 * Sets the style sheet font.
+	 * </p>
 	 * 
 	 * @return the hover style sheet
 	 */
@@ -361,7 +367,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 	}
 	
 	/**
+	 * <p>
 	 * Loads and returns the hover style sheet.
+	 * </p>
 	 * 
 	 * @return the style sheet, or <code>null</code> if unable to load
 	 */

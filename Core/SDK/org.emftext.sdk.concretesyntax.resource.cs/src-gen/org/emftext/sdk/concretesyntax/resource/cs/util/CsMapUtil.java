@@ -28,9 +28,11 @@ import org.eclipse.emf.common.util.EMap;
 public class CsMapUtil {
 	
 	/**
+	 * <p>
 	 * This method encapsulate an unchecked cast from Object to Map<Object, Object>.
 	 * This case can not be performed type safe, because type parameters are not
 	 * available for reflective access to Ecore models.
+	 * </p>
 	 * 
 	 * @param value the object to cast
 	 * 
@@ -42,9 +44,11 @@ public class CsMapUtil {
 	}
 	
 	/**
+	 * <p>
 	 * This method encapsulate an unchecked cast from Object to EMap<Object, Object>.
 	 * This case can not be performed type safe, because type parameters are not
 	 * available for reflective access to Ecore models.
+	 * </p>
 	 * 
 	 * @return the same object casted to a map
 	 */

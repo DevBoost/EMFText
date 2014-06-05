@@ -39,7 +39,9 @@ public class CsInterruptibleEcoreResolver {
 	}
 	
 	/**
+	 * <p>
 	 * Visits all proxies in the resource set and tries to resolve them.
+	 * </p>
 	 * 
 	 * @param resourceSet the objects to visit.
 	 */
@@ -51,7 +53,9 @@ public class CsInterruptibleEcoreResolver {
 	}
 	
 	/**
+	 * <p>
 	 * Visits all proxies in the resource and tries to resolve them.
+	 * </p>
 	 * 
 	 * @param resource the objects to visit.
 	 */
@@ -65,8 +69,10 @@ public class CsInterruptibleEcoreResolver {
 	}
 	
 	/**
+	 * <p>
 	 * Visits all proxies referenced by the object and recursively any of its
 	 * contained objects.
+	 * </p>
 	 * 
 	 * @param eObject the object to visit.
 	 */
@@ -92,7 +98,9 @@ public class CsInterruptibleEcoreResolver {
 	}
 	
 	/**
+	 * <p>
 	 * Searches for all unresolved proxy objects in the given resource.
+	 * </p>
 	 * 
 	 * @param resource
 	 * 
@@ -123,7 +131,9 @@ public class CsInterruptibleEcoreResolver {
 	}
 	
 	/**
+	 * <p>
 	 * Searches for all unresolved proxy objects in the given resource set.
+	 * </p>
 	 * 
 	 * @param resourceSet
 	 * 

@@ -87,11 +87,21 @@ public class CsImageProvider {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the image for the given key. Possible keys are:
+	 * </p>
+	 * <p>
 	 * <ul>
+	 * </p>
+	 * <p>
 	 * <li>platform:/plugin/your.plugin/icons/yourIcon.png</li>
+	 * </p>
+	 * <p>
 	 * <li>bundleentry://557.fwk3560063/icons/yourIcon.png</li>
+	 * </p>
+	 * <p>
 	 * </ul>
+	 * </p>
 	 */
 	public ImageDescriptor getImageDescriptor(String key) {
 		IPath path = new Path(key);

@@ -20,9 +20,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 /**
+ * <p>
  * A factory for ContextDependentURIFragments. Given a feasible reference
  * resolver, this factory returns a matching fragment that used the resolver to
  * resolver proxy objects.
+ * </p>
  * 
  * @param <ContainerType> the type of the class containing the reference to be
  * resolved

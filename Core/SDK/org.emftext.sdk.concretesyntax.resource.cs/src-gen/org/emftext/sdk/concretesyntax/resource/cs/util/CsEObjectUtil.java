@@ -32,9 +32,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
+ * <p>
  * A utility class that can be used to work with EObjects. While many similar
  * methods are provided by EMF's own EcoreUtil class, the missing ones are
  * collected here.
+ * </p>
  * 
  * @see org.eclipse.emf.ecore.util.EcoreUtil
  */

@@ -178,7 +178,9 @@ public class CsOutlinePage extends Page implements ISelectionProvider, ISelectio
 	}
 	
 	/**
+	 * <p>
 	 * Returns this page's tree viewer.
+	 * </p>
 	 * 
 	 * @return this page's tree viewer, or <code>null</code> if
 	 * <code>createControl</code> has not been called yet

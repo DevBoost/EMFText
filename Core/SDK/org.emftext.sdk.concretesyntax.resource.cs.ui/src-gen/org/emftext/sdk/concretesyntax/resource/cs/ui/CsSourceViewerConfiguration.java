@@ -57,7 +57,9 @@ public class CsSourceViewerConfiguration extends TextSourceViewerConfiguration {
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.ICsTokenScanner tokenScanner;
 	
 	/**
+	 * <p>
 	 * Creates a new editor configuration.
+	 * </p>
 	 * 
 	 * @param resourceProvider the provider for the resource (usually this is the
 	 * editor)

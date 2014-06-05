@@ -26,8 +26,10 @@ import org.eclipse.emf.ecore.EObject;
 public interface ICsTextPrinter extends org.emftext.sdk.concretesyntax.resource.cs.ICsConfigurable {
 	
 	/**
+	 * <p>
 	 * Prints the given <code>EObject</code> and its content to the underlying output
 	 * stream that was passed to this printer upon creation.
+	 * </p>
 	 * 
 	 * @param element The element to print.
 	 * 

@@ -135,7 +135,9 @@ public class CsCodeFoldingManager {
 	protected org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
 	
 	/**
+	 * <p>
 	 * Creates a code folding manager to handle the <code>ProjectionAnnotation</code>.
+	 * </p>
 	 * 
 	 * @param sourceViewer the source viewer to calculate the element lines
 	 */
@@ -157,10 +159,12 @@ public class CsCodeFoldingManager {
 	}
 	
 	/**
+	 * <p>
 	 * Checks whether the given positions are in the
 	 * <code>ProjectionAnnotationModel</code> or in the addition set. If not it tries
 	 * to add into <code>additions</code>. Deletes old ProjectionAnnotation with line
 	 * count less than 2.
+	 * </p>
 	 * 
 	 * @param positions a list of available foldable positions
 	 */
@@ -185,9 +189,11 @@ public class CsCodeFoldingManager {
 	}
 	
 	/**
+	 * <p>
 	 * Checks the offset of the given <code>Position</code> against the
 	 * <code>Position</code>s in <code>additions</code> to determine the existence
 	 * whether the given position is contained in the additions set.
+	 * </p>
 	 * 
 	 * @param position the position to check
 	 * 
@@ -204,9 +210,11 @@ public class CsCodeFoldingManager {
 	}
 	
 	/**
+	 * <p>
 	 * Tries to add this position into the model. Only positions with more than 3
 	 * lines can be taken in. If multiple positions exist on the same line, the
 	 * longest will be chosen. The shorter ones will be deleted.
+	 * </p>
 	 * 
 	 * @param position the position to be added.
 	 */
@@ -299,7 +307,9 @@ public class CsCodeFoldingManager {
 	}
 	
 	/**
+	 * <p>
 	 * Restores the code folding state from a XML file in the state location.
+	 * </p>
 	 * 
 	 * @param uriString the key to determine the file to load the state from
 	 */
@@ -326,7 +336,9 @@ public class CsCodeFoldingManager {
 	}
 	
 	/**
+	 * <p>
 	 * Saves the code folding state to a XML file in the state location.
+	 * </p>
 	 * 
 	 * @param uriString the key to determine the file to save to
 	 */

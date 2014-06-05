@@ -19,7 +19,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 import org.antlr.runtime3_4_0.RecognitionException;
 
 /**
+ * <p>
  * An Excpetion to represent invalid content types for parser instances.
+ * </p>
  * 
  * @see org.emftext.sdk.concretesyntax.resource.cs.ICsOptions.RESOURCE_CONTENT_TYPE
  */

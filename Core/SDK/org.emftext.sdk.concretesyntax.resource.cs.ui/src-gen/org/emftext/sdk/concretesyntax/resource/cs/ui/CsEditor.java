@@ -89,16 +89,30 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 /**
+ * <p>
  * A text editor for 'cs' models.
+ * </p>
+ * <p>
+ * <p>
+ * </p>
  * <p>
  * This editor has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor</code>
+ * </p>
+ * <p>
  * The editor's context menu has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorContext</code>.
+ * </p>
+ * <p>
  * The editor's ruler context menu has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorRuler</code>.
+ * </p>
+ * <p>
  * The editor's editing context has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorScope</code>.
+ * </p>
+ * <p>
+ * </p>
  * </p>
  */
 public class CsEditor extends TextEditor implements IEditingDomainProvider, ISelectionProvider, ISelectionChangedListener, IViewerProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
@@ -139,11 +153,15 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 	}
 	
 	/**
+	 * <p>
 	 * Reacts to changes of the text resource displayed in the editor and resources
 	 * cross-referenced by it. Cross-referenced resources are unloaded, the displayed
 	 * resource is reloaded. An attempt to resolve all proxies in the displayed
 	 * resource is made after each change.
+	 * </p>
+	 * <p>
 	 * The code pretty much corresponds to what EMF generates for a tree editor.
+	 * </p>
 	 */
 	private class ModelResourceChangeListener implements IResourceChangeListener {
 		public void resourceChanged(IResourceChangeEvent event) {
@@ -423,7 +441,9 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 	}
 	
 	/**
+	 * <p>
 	 * Sets the caret to the offset of the given element.
+	 * </p>
 	 * 
 	 * @param element has to be contained in the resource of this editor.
 	 */

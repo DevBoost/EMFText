@@ -54,8 +54,12 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
+ * <p>
  * Preference page for configuring syntax coloring.
+ * </p>
+ * <p>
  * <p><i>Parts of the code were taken from the JDT Java Editor</i>
+ * </p>
  */
 public class CsSyntaxColoringPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	

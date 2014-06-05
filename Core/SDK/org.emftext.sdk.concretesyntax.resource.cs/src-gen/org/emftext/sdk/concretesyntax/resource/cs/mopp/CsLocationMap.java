@@ -27,18 +27,34 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
+ * <p>
  * A basic implementation of the ILocationMap interface. Instances store
  * information about element locations using four maps.
+ * </p>
+ * <p>
+ * <p>
+ * </p>
  * <p>
  * The set-methods can be called multiple times by the parser that may visit
  * multiple children from which it copies the localization information for the
  * parent element (i.e., the element for which set-method is called). It
  * implements the following behavior:
+ * </p>
+ * <p>
+ * <p>
+ * </p>
  * <p>
  * Line:   The lowest of all sources is used for target<br>
+ * </p>
+ * <p>
  * Column: The lowest of all sources is used for target<br>
+ * </p>
+ * <p>
  * Start:  The lowest of all sources is used for target<br>
+ * </p>
+ * <p>
  * End:    The highest of all sources is used for target<br>
+ * </p>
  */
 public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap {
 	

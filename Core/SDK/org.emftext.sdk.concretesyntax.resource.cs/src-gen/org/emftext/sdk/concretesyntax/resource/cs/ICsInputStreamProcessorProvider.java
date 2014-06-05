@@ -27,7 +27,9 @@ import java.io.InputStream;
 public interface ICsInputStreamProcessorProvider {
 	
 	/**
+	 * <p>
 	 * Returns a processor for the given input stream.
+	 * </p>
 	 * 
 	 * @param inputStream the actual stream that provides the content of a resource
 	 * 

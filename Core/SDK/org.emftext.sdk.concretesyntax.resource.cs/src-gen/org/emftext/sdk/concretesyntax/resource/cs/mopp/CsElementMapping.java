@@ -18,8 +18,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 
 /**
+ * <p>
  * A basic implementation of the
  * org.emftext.sdk.concretesyntax.resource.cs.ICsElementMapping interface.
+ * </p>
  * 
  * @param <ReferenceType> the type of the reference that can be mapped to
  */

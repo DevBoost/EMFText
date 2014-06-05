@@ -25,8 +25,10 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 public interface ICsResourcePostProcessor {
 	
 	/**
+	 * <p>
 	 * Processes the resource after it was parsed. This method is automatically called
 	 * for registered post processors.
+	 * </p>
 	 * 
 	 * @param resource the resource to validate of modify
 	 */

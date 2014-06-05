@@ -37,10 +37,14 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.osgi.framework.Bundle;
 
 /**
+ * <p>
  * This class is based on:
  * <i>org.eclipse.gef.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard</i>
  * .
+ * </p>
+ * <p>
  * It is responsible for offering an example project via the new dialog of Eclipse.
+ * </p>
  */
 public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutableExtension {
 	
@@ -116,8 +120,10 @@ public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutabl
 	}
 	
 	/**
+	 * <p>
 	 * Creates the sole wizard page contributed by this base implementation; the
 	 * standard Eclipse WizardNewProjectCreationPage.
+	 * </p>
 	 * 
 	 * @see WizardNewProjectCreationPage#WizardNewProjectCreationPage(String)
 	 */

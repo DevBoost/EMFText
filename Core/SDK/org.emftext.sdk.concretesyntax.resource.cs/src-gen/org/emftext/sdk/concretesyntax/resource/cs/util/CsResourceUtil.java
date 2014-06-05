@@ -44,7 +44,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 public class CsResourceUtil {
 	
 	/**
+	 * <p>
 	 * Searches for all unresolved proxy objects in the given resource set.
+	 * </p>
 	 * 
 	 * @param resourceSet
 	 * 
@@ -55,7 +57,9 @@ public class CsResourceUtil {
 	}
 	
 	/**
+	 * <p>
 	 * Searches for all unresolved proxy objects in the given resource.
+	 * </p>
 	 * 
 	 * @param resource
 	 * 
@@ -66,9 +70,11 @@ public class CsResourceUtil {
 	}
 	
 	/**
+	 * <p>
 	 * Tries to resolve all unresolved proxy objects in the given resource. If all
 	 * proxies were resolved true is returned. If some could not be resolved, false is
 	 * returned.
+	 * </p>
 	 * 
 	 * @param resource the resource containing the proxy object
 	 * 

@@ -42,12 +42,24 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
+ * <p>
  * The preference page for the bracket setting with following features:
+ * </p>
+ * <p>
  * <ul>
+ * </p>
+ * <p>
  * <li>enables bracket matching</li>
+ * </p>
+ * <p>
  * <li>chooses matching highlight color</li>
+ * </p>
+ * <p>
  * <li>customizes bracket set</li>
+ * </p>
+ * <p>
  * </ul>
+ * </p>
  */
 public class CsBracketPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	

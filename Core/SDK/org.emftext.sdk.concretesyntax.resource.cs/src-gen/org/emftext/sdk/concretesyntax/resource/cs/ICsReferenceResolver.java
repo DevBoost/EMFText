@@ -20,8 +20,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 /**
+ * <p>
  * A reference resolver tries to resolve a reference to one or many model elements
  * (EObjects). It is called by the EMF proxy resolution mechanism.
+ * </p>
  * 
  * @param <ContainerType> the type of the container that contains the reference
  * that is resolved by this resolver
@@ -31,7 +33,9 @@ import org.eclipse.emf.ecore.EReference;
 public interface ICsReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> extends org.emftext.sdk.concretesyntax.resource.cs.ICsConfigurable {
 	
 	/**
+	 * <p>
 	 * Attempts to resolve a reference string.
+	 * </p>
 	 * 
 	 * @param identifier The identifier for the reference.
 	 * @param container The object that contains the reference.
@@ -46,8 +50,10 @@ public interface ICsReferenceResolver<ContainerType extends EObject, ReferenceTy
 	public void resolve(String identifier, ContainerType container, EReference reference, int position, boolean resolveFuzzy, org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult<ReferenceType> result);
 	
 	/**
+	 * <p>
 	 * Reverse of the resolve operation: constructs a String representing the given
 	 * object.
+	 * </p>
 	 * 
 	 * @param element The referenced model element.
 	 * @param container The object referencing the element.

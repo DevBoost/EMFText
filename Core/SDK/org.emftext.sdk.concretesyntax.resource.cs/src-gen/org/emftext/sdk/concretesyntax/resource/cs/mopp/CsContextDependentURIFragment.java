@@ -24,7 +24,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
+ * <p>
  * Standard implementation of <code>IContextDependentURIFragment</code>.
+ * </p>
  * 
  * @param <ContainerType> the type of the object that contains the reference which
  * shall be resolved by this fragment.

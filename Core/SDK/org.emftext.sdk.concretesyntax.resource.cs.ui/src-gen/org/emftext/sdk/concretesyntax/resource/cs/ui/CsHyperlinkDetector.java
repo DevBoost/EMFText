@@ -37,7 +37,9 @@ public class CsHyperlinkDetector implements IHyperlinkDetector {
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource;
 	
 	/**
+	 * <p>
 	 * Creates a hyperlink detector.
+	 * </p>
 	 * 
 	 * @param resource the resource to use for calculating the locations.
 	 */
