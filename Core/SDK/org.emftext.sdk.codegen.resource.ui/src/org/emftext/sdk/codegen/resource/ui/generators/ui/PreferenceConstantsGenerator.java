@@ -89,7 +89,7 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator<ArtifactPa
 					String stringValue = csString.getValue();
 					if (stringValue.length() == 1) {
 						// \w = A word character, short for [a-zA-Z_0-9]
-						if(!stringValue.matches("\\w") && !stringValue.matches(BRACKETS_EXPRESSION) && !stringValue.matches(DELIMITERS_EXPRESSION)){
+						if (!stringValue.matches("\\w") && !stringValue.matches(BRACKETS_EXPRESSION) && !stringValue.matches(DELIMITERS_EXPRESSION)){
 							tokenSet.add(stringValue);
 						}
 					}
