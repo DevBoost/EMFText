@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
 
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -77,7 +77,7 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator<ArtifactPa
 	}
 
 	private String getSingleActivationTokens() {
-		Set<String> tokenSet = new HashSet<String>();
+		Set<String> tokenSet = new LinkedHashSet<String>();
 		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<Rule> rules = syntax.getRules();
 		for (Rule rule : rules) {
