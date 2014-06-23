@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.List;
-
 import org.antlr.runtime3_4_0.CommonToken;
 import org.antlr.runtime3_4_0.EarlyExitException;
 import org.antlr.runtime3_4_0.FailedPredicateException;

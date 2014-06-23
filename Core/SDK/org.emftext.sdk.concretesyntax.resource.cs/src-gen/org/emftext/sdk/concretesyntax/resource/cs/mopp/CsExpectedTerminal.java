@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.Collections;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.change.ChangeDescription;
 import org.eclipse.emf.ecore.change.util.ChangeRecorder;

@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.Map;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;

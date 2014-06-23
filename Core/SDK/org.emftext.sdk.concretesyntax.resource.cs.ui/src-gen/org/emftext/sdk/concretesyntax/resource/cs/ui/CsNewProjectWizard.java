@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.net.URL;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;

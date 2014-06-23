@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;

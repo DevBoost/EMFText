@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 
 import java.io.File;
 import java.util.Map;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 

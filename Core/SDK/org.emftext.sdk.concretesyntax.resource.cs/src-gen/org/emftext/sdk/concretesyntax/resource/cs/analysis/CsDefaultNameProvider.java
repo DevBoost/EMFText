@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;

@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.Collection;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 

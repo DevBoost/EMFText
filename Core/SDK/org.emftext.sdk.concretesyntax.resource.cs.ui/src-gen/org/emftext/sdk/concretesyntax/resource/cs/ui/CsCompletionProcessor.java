@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ContextInformation;
@@ -86,6 +86,16 @@ public class CsCompletionProcessor implements IContentAssistProcessor {
 	}
 	
 	public char[] getCompletionProposalAutoActivationCharacters() {
+		IPreferenceStore preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
+		boolean enabled = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_ENABLED);
+		String triggerString = preferenceStore.getString(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_TRIGGERS);
+		if(enabled && triggerString != null && triggerString.length() > 0){
+			char[] triggers = new char[triggerString.length()];
+			for (int i = 0; i < triggerString.length(); i++) {
+				triggers[i] = triggerString.charAt(i);
+			}
+			return triggers;
+		}
 		return null;
 	}
 	

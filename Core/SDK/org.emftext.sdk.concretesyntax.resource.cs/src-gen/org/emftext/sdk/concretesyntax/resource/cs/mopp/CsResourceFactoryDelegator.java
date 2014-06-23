@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Factory;

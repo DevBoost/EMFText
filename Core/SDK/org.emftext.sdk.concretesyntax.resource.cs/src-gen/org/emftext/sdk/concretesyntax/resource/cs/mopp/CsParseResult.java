@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.eclipse.emf.ecore.EObject;
 
 public class CsParseResult implements org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult {

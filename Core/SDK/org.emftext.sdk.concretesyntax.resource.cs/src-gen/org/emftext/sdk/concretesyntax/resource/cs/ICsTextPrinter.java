@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 import java.io.IOException;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

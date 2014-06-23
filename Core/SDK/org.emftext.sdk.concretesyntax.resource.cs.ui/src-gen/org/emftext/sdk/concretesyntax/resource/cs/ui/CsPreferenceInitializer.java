@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.Collection;
-
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -30,6 +29,7 @@ public class CsPreferenceInitializer extends AbstractPreferenceInitializer {
 		
 		initializeDefaultSyntaxHighlighting();
 		initializeDefaultBrackets();
+		initializeDefaultsContentAssist();
 		
 		IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
 		// Set default value for matching brackets
@@ -77,6 +77,13 @@ public class CsPreferenceInitializer extends AbstractPreferenceInitializer {
 				setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
 			}
 		}
+	}
+	
+	private void initializeDefaultsContentAssist() {
+		IPreferenceStore store = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
+		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_ENABLED, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_ENABLED_DEFAULT);
+		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_DELAY, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_DELAY_DEFAULT);
+		store.setDefault(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_TRIGGERS, org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_TRIGGERS_DEFAULT);
 	}
 	
 	protected void setProperties(IPreferenceStore store, String languageID, String tokenName, String color, boolean bold, boolean enable, boolean italic, boolean strikethrough, boolean underline) {

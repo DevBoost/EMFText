@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;

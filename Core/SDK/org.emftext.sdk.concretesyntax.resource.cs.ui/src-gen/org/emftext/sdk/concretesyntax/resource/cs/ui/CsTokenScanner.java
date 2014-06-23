@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.BadLocationException;

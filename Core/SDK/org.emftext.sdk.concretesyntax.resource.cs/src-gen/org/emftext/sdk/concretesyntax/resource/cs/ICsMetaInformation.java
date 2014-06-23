@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
-
 import org.eclipse.emf.ecore.EClass;
 
 /**

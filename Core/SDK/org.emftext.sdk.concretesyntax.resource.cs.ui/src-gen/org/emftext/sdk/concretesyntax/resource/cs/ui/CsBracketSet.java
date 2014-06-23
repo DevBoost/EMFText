@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.ArrayList;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;

@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Iterator;
-
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.action.ToolBarManager;

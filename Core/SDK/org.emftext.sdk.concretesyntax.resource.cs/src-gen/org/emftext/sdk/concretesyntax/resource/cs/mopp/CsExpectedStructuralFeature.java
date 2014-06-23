@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.Collections;
 import java.util.Set;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**

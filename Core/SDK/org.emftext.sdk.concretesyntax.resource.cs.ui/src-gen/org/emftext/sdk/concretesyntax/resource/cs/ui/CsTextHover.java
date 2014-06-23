@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;

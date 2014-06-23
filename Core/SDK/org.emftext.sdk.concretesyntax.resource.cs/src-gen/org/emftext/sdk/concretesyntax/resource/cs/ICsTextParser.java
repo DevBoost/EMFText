@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 import java.util.List;
-
 import org.eclipse.emf.ecore.EClass;
 
 /**

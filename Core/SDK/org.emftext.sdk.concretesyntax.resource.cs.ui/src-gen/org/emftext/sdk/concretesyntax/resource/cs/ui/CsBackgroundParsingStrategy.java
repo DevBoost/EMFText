@@ -17,7 +17,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.io.ByteArrayInputStream;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
