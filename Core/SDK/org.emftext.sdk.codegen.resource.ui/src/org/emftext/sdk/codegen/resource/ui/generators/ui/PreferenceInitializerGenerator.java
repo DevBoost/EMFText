@@ -46,8 +46,19 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		addInitializeDefaultBracketsMethod2(sc);
 		addInitializeDefaultSyntaxHighlightingMethod1(sc);
 		addInitializeDefaultSyntaxHighlightingMethod2(sc);
+		addInitializeDefaultsContentAssistMethod(sc);
 		addSetPropertiesMethod(sc);
 		addGetColorStringMethod(sc);
+	}
+
+	private void addInitializeDefaultsContentAssistMethod(JavaComposite sc) {
+		sc.add("private void initializeDefaultsContentAssist() {");
+		sc.add(I_PREFERENCE_STORE(sc) + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_ENABLED, " + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_ENABLED_DEFAULT);");
+		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_DELAY, " + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_DELAY_DEFAULT);");
+		sc.add("store.setDefault(" + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_TRIGGERS, " + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_TRIGGERS_DEFAULT);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addInitializeDefaultPreferencesMethod(JavaComposite sc) {
@@ -55,6 +66,7 @@ public class PreferenceInitializerGenerator extends UIJavaBaseGenerator<Artifact
 		sc.addLineBreak();
 		sc.add("initializeDefaultSyntaxHighlighting();");
 		sc.add("initializeDefaultBrackets();");
+		sc.add("initializeDefaultsContentAssist();");
 		sc.addLineBreak();
 		sc.add(I_PREFERENCE_STORE(sc) + " store = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.addComment("Set default value for matching brackets");

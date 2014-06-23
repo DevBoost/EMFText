@@ -196,6 +196,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.PREFERENCE_INITIALIZER);
 	    add(creators, TextResourceUIArtifacts.SYNTAX_COLORING_HELPER);
 	    add(creators, TextResourceUIArtifacts.SYNTAX_COLORING_PREFERENCE_PAGE);
+	    add(creators, TextResourceUIArtifacts.CONTENT_ASSIST_PREFERENCE_PAGE);
 
 	    add(creators, TextResourceUIArtifacts.CODE_COMPLETION_HELPER);
 	    add(creators, TextResourceUIArtifacts.PROPOSAL_POST_PROCESSOR);
@@ -345,6 +346,12 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		bracketPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.BRACKET_PREFERENCE_PAGE));
 		bracketPage.setAttribute("category", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
 
+		XMLElement contentAssistPage = preferencePageExtension.createChild("page");
+		contentAssistPage.setAttribute("name", "Content Assist");
+		contentAssistPage.setAttribute("id", context.getQualifiedClassName(TextResourceUIArtifacts.CONTENT_ASSIST_PREFERENCE_PAGE));
+		contentAssistPage.setAttribute("class", context.getQualifiedClassName(TextResourceUIArtifacts.CONTENT_ASSIST_PREFERENCE_PAGE));
+		contentAssistPage.setAttribute("category", context.getQualifiedClassName(TextResourceUIArtifacts.PREFERENCE_PAGE));
+		
 		XMLElement newWizardExtension = root.createChild("extension");
 		newWizardExtension.setAttribute("point", "org.eclipse.ui.newWizards");
 		

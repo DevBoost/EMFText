@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTENT
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -96,8 +97,19 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 	}
 
-	private void addGetCompletionProposalAutoActivationCharactersMethod(StringComposite sc) {
+	private void addGetCompletionProposalAutoActivationCharactersMethod(JavaComposite sc) {
 		sc.add("public char[] getCompletionProposalAutoActivationCharacters() {");
+		getContext();
+		sc.add(I_PREFERENCE_STORE(sc) + " preferenceStore = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add("boolean enabled = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_ENABLED);");
+		sc.add("String triggerString = preferenceStore.getString(" + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_TRIGGERS);");
+		sc.add("if(enabled && triggerString != null && triggerString.length() > 0){");
+		sc.add("char[] triggers = new char[triggerString.length()];");
+		sc.add("for (int i = 0; i < triggerString.length(); i++) {");
+		sc.add("triggers[i] = triggerString.charAt(i);");
+		sc.add("}");
+		sc.add("return triggers;");
+		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();

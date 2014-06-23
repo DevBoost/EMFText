@@ -38,6 +38,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String colorManagerClassName;
 	protected String completionProcessorClassName;
 	protected String completionProposalClassName;
+	protected String contentAssistPreferencePageClassName;
 	protected String defaultHoverTextProviderClassName;
 	protected String docBrowserInformationControlInputClassName;
 	protected String eObjectSelectionClassName;
@@ -121,6 +122,7 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		colorManagerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.COLOR_MANAGER);
 		completionProcessorClassName = context.getQualifiedClassName(TextResourceUIArtifacts.COMPLETION_PROCESSOR);
 		completionProposalClassName = context.getQualifiedClassName(TextResourceUIArtifacts.COMPLETION_PROPOSAL);
+		contentAssistPreferencePageClassName = context.getQualifiedClassName(TextResourceUIArtifacts.CONTENT_ASSIST_PREFERENCE_PAGE);
 		defaultHoverTextProviderClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DEFAULT_HOVER_TEXT_PROVIDER);
 		docBrowserInformationControlInputClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 		eObjectSelectionClassName = context.getQualifiedClassName(TextResourceUIArtifacts.E_OBJECT_SELECTION);
