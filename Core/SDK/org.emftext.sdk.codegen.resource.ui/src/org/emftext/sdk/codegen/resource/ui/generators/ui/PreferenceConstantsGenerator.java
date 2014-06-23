@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.codegen.annotations.SyntaxDependent;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
@@ -31,6 +32,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 
 import de.devboost.codecomposers.java.JavaComposite;
 
+@SyntaxDependent
 public class PreferenceConstantsGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private static final String BRACKETS_EXPRESSION 	= "[\\(\\)\\{\\}\\[\\]\\<\\>]";
