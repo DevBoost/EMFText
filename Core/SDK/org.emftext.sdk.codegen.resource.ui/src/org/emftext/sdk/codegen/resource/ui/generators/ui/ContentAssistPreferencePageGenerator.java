@@ -30,7 +30,9 @@ public class ContentAssistPreferencePageGenerator extends UIJavaBaseGenerator<Ar
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.addJavadoc("The preference page for the content assist settings.");
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE(sc) + " implements " + I_WORKBENCH_PREFERENCE_PAGE(sc) + " {");
@@ -39,6 +41,28 @@ public class ContentAssistPreferencePageGenerator extends UIJavaBaseGenerator<Ar
 		addConstructor(sc);
 		addMethods(sc);
 		sc.add("}");
+	}
+
+	private void addFields(JavaComposite jc) {
+		jc.add("private " + GROUP(jc) + " grpAuto;");
+		jc.add("private " + BUTTON(jc) + " btnActivate;");
+		jc.add("private " + LABEL(jc) + " lblAutoActivationDelay;");
+		jc.add("private " + TEXT(jc) + " txtDelay;");
+		jc.add("private " + LABEL(jc) + " lblAutoActivationTriggers;");
+		jc.add("private " + TEXT(jc) + " txtTriggers;");
+		jc.addLineBreak();
+		jc.addComment("preference values");
+		jc.add("private boolean assistEnabled;");
+		jc.add("private int activationDelay;");
+		jc.add("private String activationTriggers = \"\";");
+		jc.addLineBreak();
+	}
+
+	private void addConstructor(JavaComposite jc) {
+		jc.add("public " + getResourceClassName() + "() {");
+		jc.add("initialize();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
 	private void addMethods(JavaComposite jc) {
@@ -188,28 +212,6 @@ public class ContentAssistPreferencePageGenerator extends UIJavaBaseGenerator<Ar
 		jc.add("setDescription(\"Define the behaviour of the content assist\");");
 		jc.add("setTitle(\"Content Assist\");");
 		jc.add("}");
-		jc.addLineBreak();
-	}
-
-	private void addConstructor(JavaComposite jc) {
-		jc.add("public " + getResourceClassName() + "() {");
-		jc.add("initialize();");
-		jc.add("}");
-		jc.addLineBreak();
-	}
-
-	private void addFields(JavaComposite jc) {
-		jc.add("private " + GROUP(jc) + " grpAuto;");
-		jc.add("private " + BUTTON(jc) + " btnActivate;");
-		jc.add("private " + LABEL(jc) + " lblAutoActivationDelay;");
-		jc.add("private " + TEXT(jc) + " txtDelay;");
-		jc.add("private " + LABEL(jc) + " lblAutoActivationTriggers;");
-		jc.add("private " + TEXT(jc) + " txtTriggers;");
-		jc.addLineBreak();
-		jc.addComment("preference values");
-		jc.add("private boolean assistEnabled;");
-		jc.add("private int activationDelay;");
-		jc.add("private String activationTriggers = \"\";");
 		jc.addLineBreak();
 	}
 }
