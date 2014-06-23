@@ -84,10 +84,10 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator<ArtifactPa
 			TreeIterator<EObject> iterator = rule.eAllContents();
 			while (iterator.hasNext()) {
 				EObject element = (EObject) iterator.next();
-				if(element instanceof CsString){
+				if (element instanceof CsString) {
 					CsString csString = (CsString) element;
 					String stringValue = csString.getValue();
-					if(stringValue.length() == 1){
+					if (stringValue.length() == 1) {
 						// \w = A word character, short for [a-zA-Z_0-9]
 						if(!stringValue.matches("\\w") && !stringValue.matches(BRACKETS_EXPRESSION) && !stringValue.matches(DELIMITERS_EXPRESSION)){
 							tokenSet.add(stringValue);
