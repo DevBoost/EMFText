@@ -99,7 +99,7 @@ public class PreferenceConstantsGenerator extends UIJavaBaseGenerator<ArtifactPa
 		String tokens = "";
 		Iterator<String> iterator = tokenSet.iterator();
 		while (iterator.hasNext()) {
-			String token = (String) iterator.next();
+			String token = iterator.next();
 			tokens += token;
 		}
 		return tokens;
