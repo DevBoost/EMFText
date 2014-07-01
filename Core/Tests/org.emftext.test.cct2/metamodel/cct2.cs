@@ -1,6 +1,6 @@
 SYNTAXDEF cct2 // == code completion test2
 FOR <http://www.emftext.org/test/cct2>
-START Sequence, StarSequence, OptionalSequence, PlusSequence, Containment
+START Sequence, StarSequence, OptionalSequence, PlusSequence, Containment, GroupedSequence
 
 OPTIONS {
 	reloadGeneratorModel = "true";
@@ -19,6 +19,7 @@ RULES {
 	OptionalSequence ::= "OS" ("c" "d")? "end2";
 	Sequence ::= "S" "e" "f" "end3";
 	PlusSequence ::= "PS" ("g" "h")+ "end4";
+	GroupedSequence ::= "GS" ("i") ("j")? ("k") "end5";
 	
 	Containment ::= "CM" feature;
 	ContainmentA ::= "CA";

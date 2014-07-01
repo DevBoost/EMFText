@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,27 +15,24 @@
  ******************************************************************************/
 package org.emftext.test.code_completion.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.LineNumberReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -70,97 +67,27 @@ import org.emftext.test.cct4.resource.cct4.mopp.Cct4MetaInformation;
 import org.emftext.test.cct4.resource.cct4.ui.Cct4UIMetaInformation;
 import org.emftext.test.code_completion.test.access.ICodeCompletionHelper;
 import org.emftext.test.code_completion.test.access.ICompletionProposal;
+import org.emftext.test.code_completion.test.access.IContainedFeature;
+import org.emftext.test.code_completion.test.access.IContainmentTrace;
 import org.emftext.test.code_completion.test.access.IExpectedCsString;
 import org.emftext.test.code_completion.test.access.IExpectedElement;
 import org.emftext.test.code_completion.test.access.IExpectedStructuralFeature;
 import org.emftext.test.code_completion.test.access.IExpectedTerminal;
 import org.emftext.test.code_completion.test.access.IMetaInformation2;
+import org.junit.Before;
 
-public class CodeCompletionTest extends TestCase {
+public abstract class AbstractCodeCompletionTestCase {
 
-	private final static boolean HIDE_OUTPUT = false;
-
-	public abstract static class CompletionTestCase extends TestCase {
-
-		private boolean failed;
-		private PrintStream systemOut;
-		private OutputStream tempOut;
-
-		public CompletionTestCase(String name) {
-			super(name);
-		}
-
-		public void setUp() {
-			this.failed = false;
-			if (HIDE_OUTPUT) {
-				this.systemOut = System.out;
-				this.tempOut = new ByteArrayOutputStream();
-				System.setOut(new PrintStream(tempOut));
-			}
-		}
-
-		public final void runTest() {
-			try {
-				runCompletionTest();
-			} catch (AssertionFailedError e) {
-				this.failed = true;
-				throw e;
-			}
-		}
-
-		public abstract void runCompletionTest();
-
-		public void tearDown() {
-			if (HIDE_OUTPUT) {
-				System.setOut(systemOut);
-				if (failed) {
-					System.out.print(tempOut.toString());
-				}
-			}
-		}
-	}
-
-	private static final class TestFileFilter implements FileFilter {
-		private String[] validExtensions;
-
-		public TestFileFilter(String... validExtensions) {
-			this.validExtensions = validExtensions;
-		}
-
-		public boolean accept(File file) {
-			boolean hasValidExtension = false;
-			for (String validExtension : validExtensions) {
-				hasValidExtension |= file.getName().endsWith(validExtension);
-			}
-			return file.isDirectory() || hasValidExtension;
-		}
-	}
-
-	private static final String INPUT_DIR = "input";
+	protected static final String INPUT_DIR = "input";
+	
 	private static final String CURSOR_MARKER = "<CURSOR>";
-
-	public static Test suite() {
-
+	
+	@Before
+	public void setUp() {
 		registerSyntaxes();
 		registerEPackages();
 		registerGenModels();
 		registerResourceFactories();
-
-		TestSuite suite = new TestSuite("All tests");
-		TestSuite suite1 = createExpectedElementsSuite();
-		TestSuite suite2 = createExpectedInsertStringsSuite();
-		TestSuite suite3 = createExpectationsSuite();
-
-		//FIXME fix and enable this test!
-		boolean fixed = false;
-		if (!fixed) {
-			return suite;
-		}
-		
-		suite.addTest(suite1);
-		suite.addTest(suite2);
-		suite.addTest(suite3);
-		return suite;
 	}
 
 	private static void registerEPackages() {
@@ -173,6 +100,7 @@ public class CodeCompletionTest extends TestCase {
 		//TODO #1879: EPackage.Registry.INSTANCE.put(CustomerPackage.eNS_URI, CustomerPackage.eINSTANCE);
 	}
 
+	@SuppressWarnings("deprecation")
 	private static void registerGenModels() {
 		String pathToCsGenModel = ".." + File.separator + "org.emftext.sdk.concretesyntax" + File.separator + "metamodel" + File.separator + "concretesyntax.genmodel";
 		String absolutePathToCsGenModel = new File(pathToCsGenModel).getAbsolutePath();
@@ -207,51 +135,8 @@ public class CodeCompletionTest extends TestCase {
 		//TODO #1879: uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new CustomerUIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
 	}
 
-	/**
-	 * Creates a test suite that checks whether the parse returns the correct
-	 * expected elements at the cursor position.
-	 *
-	 * @return
-	 */
-	private static TestSuite createExpectedElementsSuite() {
-		TestSuite suite = new TestSuite("Test expected element at cursor position");
-		File inputFolder = new File(INPUT_DIR);
-		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter(".cct1", ".cs"))) {
-			suite.addTest(new CompletionTestCase("Parse " + file.getName()) {
-				public void runCompletionTest() {
-					try {
-						new CodeCompletionTest().checkExpectedBeforeAndAfter(file);
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-						fail(e.getClass() +  ": " + e.getMessage());
-					}
-				}
-			});
-		}
-		return suite;
-	}
 
-	private static TestSuite createExpectationsSuite() {
-		TestSuite suite = new TestSuite("Test list of expected elements");
-		File inputFolder = new File(INPUT_DIR);
-		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter("BracketExpected.cct1", ".cct2"))) {
-			suite.addTest(new CompletionTestCase("Parse " + file.getName()) {
-				public void runCompletionTest() {
-					try {
-						new CodeCompletionTest().checkExpectations(file);
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-						fail(e.getClass() +  ": " + e.getMessage());
-					}
-				}
-			});
-		}
-		return suite;
-	}
-
-	private static List<File> listFilesRecursivly(File inputFolder,
+	protected static List<File> listFilesRecursivly(File inputFolder,
 			FileFilter filter) {
 		List<File> result = new ArrayList<File>();
 		for (File file : inputFolder.listFiles(filter)) {
@@ -264,34 +149,6 @@ public class CodeCompletionTest extends TestCase {
 		return result;
 	}
 
-	/**
-	 * Creates a test suite that checks whether the CodeCompletionHelper
-	 * returns the correct string to insert at the cursor position.
-	 *
-	 * @return
-	 */
-	private static TestSuite createExpectedInsertStringsSuite() {
-		TestSuite suite = new TestSuite("Test insert strings");
-		File inputFolder = new File(INPUT_DIR);
-		// TODO mseifert: enable all tests
-		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter(".cct1", ".cct3", ".cct4", ".cs", ".customer"))) {
-			suite.addTest(new CompletionTestCase("Parse " + file.getName()) {
-				public void runCompletionTest() {
-					try {
-						new CodeCompletionTest().checkInsertStrings(file);
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-						fail(e.getClass() +  ": " + e.getMessage());
-					}
-				}
-			});
-		}
-		return suite;
-	}
-
-	//private Map<String, Object> expectedElementsMap;
-	//private Map<String, String[]> expectedInsertStringsMap;
 	private static Class<?>[] additionalAccessInterfaces = new Class<?>[] {
 		IMetaInformation2.class,
 		IExpectedElement.class,
@@ -299,48 +156,16 @@ public class CodeCompletionTest extends TestCase {
 		IExpectedStructuralFeature.class,
 		IExpectedTerminal.class,
 		ICompletionProposal.class,
-		ICodeCompletionHelper.class
+		ICodeCompletionHelper.class,
+		IContainmentTrace.class,
+		IContainedFeature.class
 	};
 
-	public CodeCompletionTest() {
+	public AbstractCodeCompletionTestCase() {
 		super();
 	}
 
-	private void checkInsertStrings(File file) {
-		String filename = file.getName();
-		if (!accept(filename)) {
-			return;
-		}
-		String[] expectedInsertStrings = getExpectedInsertStrings(file);
-		assertNotNull("No expected insert strings given for file " + filename, expectedInsertStrings);
-		checkInsertStrings(file, expectedInsertStrings);
-	}
-
-	private void checkExpectedBeforeAndAfter(File file) {
-		String filename = file.getName();
-		if (!accept(filename)) {
-			return;
-		}
-		List<IExpectedTerminal> expectedBefore = getExpectations(file, ".expected_before");
-		List<IExpectedTerminal> expectedAfter = getExpectations(file, ".expected_after");
-		assertExpectedElementsAtCursor(file, expectedBefore, expectedAfter);
-	}
-
-	private void checkExpectations(File file) {
-		System.out.println("-- checkExpectations(" + file.getName() + ")");
-		String filename = file.getName();
-		if (!accept(filename)) {
-			return;
-		}
-		List<IExpectedTerminal> expectedElements = getExpectations(file, ".expectations");
-		//System.out.println("- Actual       from " + file.getName() + "");
-		for (IExpectedTerminal expectedElement : expectedElements) {
-			System.out.println("EXPECTED ELEMENT: " + expectedElement);
-		}
-		assertExpectedElementsList(file, expectedElements);
-	}
-
-	private String[] getExpectedInsertStrings(File file) {
+	protected String[] getExpectedInsertStrings(File file) {
 		List<String> expectedInsertStrings = new ArrayList<String>();
 		String[] lines = getLines(file, ".expected_inserts");
 		for (String line : lines) {
@@ -352,13 +177,17 @@ public class CodeCompletionTest extends TestCase {
 		return expectedInsertStrings.toArray(new String[expectedInsertStrings.size()]);
 	}
 
-	private List<IExpectedTerminal> getExpectations(File file, String fileExtension) {
+	protected List<IExpectedTerminal> getExpectations(File file, String fileExtension) {
 		//System.out.println("- Expectations from " + file.getName() + "");
 		List<IExpectedTerminal> expectations = new ArrayList<IExpectedTerminal>();
 
 		String[] lines = getLines(file, fileExtension);
 		for (String line : lines) {
 			if ("".equals(line)) {
+				continue;
+			}
+			// Ignore comments
+			if (line.startsWith("//")) {
 				continue;
 			}
 			String[] parts = line.split("\\t");
@@ -426,7 +255,7 @@ public class CodeCompletionTest extends TestCase {
 		return null;
 	}
 
-	private void checkInsertStrings(File file, String[] expectedInsertStrings) {
+	protected void checkInsertStrings(File file, String[] expectedInsertStrings) {
 		String fileContent = getFileContent(file);
 		int cursorIndex = getCursorMarkerIndex(fileContent);
 		System.out.println("-------- " + file + " - CURSOR AT " + cursorIndex);
@@ -472,7 +301,7 @@ public class CodeCompletionTest extends TestCase {
 	 * @param expectedElementsList the list of expected elements that should be returned by the parser
 	 *        for the given cursor position
 	 */
-	private void assertExpectedElementsAtCursor(File file, List<IExpectedTerminal> expectedBeforeList, List<IExpectedTerminal> expectedAfterList) {
+	protected void assertExpectedElementsAtCursor(File file, List<IExpectedTerminal> expectedBeforeList, List<IExpectedTerminal> expectedAfterList) {
 		String fileExtension = getFileExtension(file);
 		String fileContent = getFileContent(file);
 		int cursorOffset = getCursorMarkerIndex(fileContent);
@@ -519,11 +348,14 @@ public class CodeCompletionTest extends TestCase {
 	 * @param file the test input file
 	 * @param expectedElementsList the list of expected elements that should be returned by the parser
 	 */
-	private void assertExpectedElementsList(File file, List<IExpectedTerminal> expectedElementsList) {
+	protected void assertExpectedElementsList(File file, List<IExpectedTerminal> expectedElementsList) {
 		String fileExtension = getFileExtension(file);
 		String fileContent = getFileContent(file);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		final IExpectedTerminal[] actualElements = getExpectedElementsList(file, fileExtension, contentWithoutMarker);
+		for (IExpectedTerminal actualElement : actualElements) {
+			System.out.println("ACTUAL ELEMENT: " + actualElement);
+		}
 		// compare lists
 		final int actualSize = actualElements.length;
 		final int expectedSize = expectedElementsList.size();
@@ -536,7 +368,7 @@ public class CodeCompletionTest extends TestCase {
 			assertEquals(i + ": Expected start (including hidden) does not match.", expectedElementAtIndex.getStartIncludingHiddenTokens(), actualElementAtIndex.getStartIncludingHiddenTokens());
 			//assertEquals("Expected end (excluding hidden) does not match.", expectedElementAtIndex.getEndExcludingHiddenTokens(), actualElementAtIndex.getEndExcludingHiddenTokens());
 		}
-		assertEquals("List sizes should match.", expectedSize, actualSize);
+		assertEquals("List sizes must match.", expectedSize, actualSize);
 	}
 
 	private IExpectedTerminal[] getExpectedElementsList(File file, String fileExtension,
@@ -549,14 +381,16 @@ public class CodeCompletionTest extends TestCase {
 		IResource resource = createDummyResource(fileExtension);
 		IMetaInformation2 metaInformation2 = getMetaInformation2(file);
 		ICodeCompletionHelper codeCompletionHelper = metaInformation2.createCodeCompletionHelper();
-		final IExpectedTerminal[] actualElements = codeCompletionHelper.parseToExpectedElements(parser, resource);
+		final IExpectedTerminal[] actualElements = codeCompletionHelper.parseToExpectedElements(parser, resource, contentWithoutMarker.length());
 		if (actualElements == null) {
 			fail("Parser must return an expected elements list.");
 		}
 		for (IExpectedTerminal iExpectedTerminal : actualElements) {
-			EStructuralFeature[] containmentTrace = iExpectedTerminal.getContainmentTrace();
+			IContainmentTrace containmentTrace = iExpectedTerminal.getContainmentTrace();
 			String trace = "";
-			for (EStructuralFeature eStructuralFeature : containmentTrace) {
+			IContainedFeature[] features = containmentTrace.getPath();
+			for (IContainedFeature feature : features) {
+				EStructuralFeature eStructuralFeature = feature.getFeature();
 				trace += "->" + eStructuralFeature.getEContainingClass().getName() + "." + eStructuralFeature.getName();
 			}
 			System.out.println("EXPECT " + iExpectedTerminal + " (FOLLOWSET ID=" + iExpectedTerminal.getFollowSetID() + ", TRACE=" + trace+ ") at " + iExpectedTerminal.getStartIncludingHiddenTokens() + "," + iExpectedTerminal.getStartExcludingHiddenTokens());
@@ -627,7 +461,7 @@ public class CodeCompletionTest extends TestCase {
 		}
 	}
 
-	private boolean accept(String filename) {
+	protected boolean accept(String filename) {
 		return true;
 	}
 }

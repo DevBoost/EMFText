@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -20,12 +20,12 @@ import org.emftext.access.resource.IResource;
 
 public interface ICodeCompletionHelper {
 
-	public ICompletionProposal[] computeCompletionProposals(
-			IResource resource, String contentWithoutMarker,
-			int cursorIndex);
+	public ICompletionProposal[] computeCompletionProposals(IResource resource,
+			String contentWithoutMarker, int cursorIndex);
 
 	public IExpectedTerminal[] getElementsExpectedAt(
 			IExpectedTerminal[] allExpectedElements, int i);
 
-	public IExpectedTerminal[] parseToExpectedElements(IParser parser, IResource resource);
+	public IExpectedTerminal[] parseToExpectedElements(IParser parser,
+			IResource resource, int cursorOffset);
 }

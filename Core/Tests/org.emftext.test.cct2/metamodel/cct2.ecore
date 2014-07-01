@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cct2"
-    nsURI="http://www.emftext.org/test/cct2" nsPrefix="cct2">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cct2" nsURI="http://www.emftext.org/test/cct2" nsPrefix="cct2">
   <eClassifiers xsi:type="ecore:EClass" name="StarSequence"/>
   <eClassifiers xsi:type="ecore:EClass" name="OptionalSequence"/>
   <eClassifiers xsi:type="ecore:EClass" name="Sequence"/>
@@ -14,4 +12,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractContainmentType" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ContainmentA" eSuperTypes="#//AbstractContainmentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="ContainmentB" eSuperTypes="#//AbstractContainmentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GroupedSequence"/>
 </ecore:EPackage>

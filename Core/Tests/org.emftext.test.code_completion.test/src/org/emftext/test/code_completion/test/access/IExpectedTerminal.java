@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,8 +15,6 @@
  ******************************************************************************/
 package org.emftext.test.code_completion.test.access;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 public interface IExpectedTerminal {
 
 	public void setPosition(int beginIncl, int beginExcl);
@@ -28,5 +26,7 @@ public interface IExpectedTerminal {
 
 	public int getFollowSetID();
 
-	public EStructuralFeature[] getContainmentTrace();
+	public IContainmentTrace getContainmentTrace();
+	
+	public boolean equals(Object o);
 }
