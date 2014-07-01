@@ -74,6 +74,9 @@ import org.emftext.test.code_completion.test.access.IExpectedElement;
 import org.emftext.test.code_completion.test.access.IExpectedStructuralFeature;
 import org.emftext.test.code_completion.test.access.IExpectedTerminal;
 import org.emftext.test.code_completion.test.access.IMetaInformation2;
+import org.emftext.test.code_completion.test.util.ExpectedCsString;
+import org.emftext.test.code_completion.test.util.ExpectedStructuralFeature;
+import org.emftext.test.code_completion.test.util.ExpectedTerminal;
 import org.junit.Before;
 
 public abstract class AbstractCodeCompletionTestCase {

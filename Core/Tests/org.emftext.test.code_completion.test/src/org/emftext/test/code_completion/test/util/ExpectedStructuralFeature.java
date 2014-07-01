@@ -13,23 +13,24 @@
  *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.test.code_completion.test;
+package org.emftext.test.code_completion.test.util;
 
-import org.emftext.test.code_completion.test.access.IExpectedCsString;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.test.code_completion.test.access.IExpectedStructuralFeature;
 
-public class ExpectedCsString implements IExpectedCsString {
+public class ExpectedStructuralFeature implements IExpectedStructuralFeature {
 
-	private String value;
+	private EStructuralFeature feature;
 
-	public ExpectedCsString(String value) {
-		this.value = value;
+	public ExpectedStructuralFeature(EStructuralFeature feature) {
+		this.feature = feature;
 	}
 
-	public String getValue() {
-		return value;
+	public EStructuralFeature getFeature() {
+		return feature;
 	}
 	
 	public String toString() {
-		return "CsString \"" + value + "\"";
+		return "EFeature " + feature.getEContainingClass().getName() + "." + feature.getName();
 	}
 }

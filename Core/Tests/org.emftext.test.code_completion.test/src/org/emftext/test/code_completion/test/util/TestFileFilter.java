@@ -1,4 +1,4 @@
-package org.emftext.test.code_completion.test;
+package org.emftext.test.code_completion.test.util;
 
 import java.io.File;
 import java.io.FileFilter;

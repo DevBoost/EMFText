@@ -13,7 +13,7 @@
  *   DevBoost GmbH - Berlin, Germany
  *      - initial API and implementation
  ******************************************************************************/
-package org.emftext.test.code_completion.test;
+package org.emftext.test.code_completion.test.util;
 
 import org.emftext.test.code_completion.test.access.IContainmentTrace;
 import org.emftext.test.code_completion.test.access.IExpectedElement;

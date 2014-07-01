@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.emftext.test.code_completion.test.util.TestFileFilter;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

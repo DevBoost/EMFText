@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.emftext.test.code_completion.test.access.IExpectedTerminal;
+import org.emftext.test.code_completion.test.util.TestFileFilter;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
