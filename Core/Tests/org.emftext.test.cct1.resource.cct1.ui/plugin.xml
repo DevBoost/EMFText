@@ -25,6 +25,8 @@
 		</page>
 		<page name="Brackets" id="org.emftext.test.cct1.resource.cct1.ui.Cct1BracketPreferencePage" class="org.emftext.test.cct1.resource.cct1.ui.Cct1BracketPreferencePage" category="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferencePage">
 		</page>
+		<page name="Content Assist" id="org.emftext.test.cct1.resource.cct1.ui.Cct1ContentAssistPreferencePage" class="org.emftext.test.cct1.resource.cct1.ui.Cct1ContentAssistPreferencePage" category="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferencePage">
+		</page>
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
@@ -70,6 +72,28 @@
 		</specification>
 		<specification annotationType="org.emftext.test.cct1.resource.cct1.ui.occurences.declaration" label="Declarations (in .cct1 files)" textPreferenceKey="cct1.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="cct1.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="cct1.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cct1.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cct1.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="cct1.declarationTextStyle" textStylePreferenceValue="NONE">
 		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Cct1" id="org.emftext.test.cct1.resource.cct1.ui.command.category" name="Cct1">
+		</category>
+		<command categoryId="org.emftext.test.cct1.resource.cct1.ui.command.category" description="Toggle comment of the selected lines" id="org.emftext.test.cct1.resource.cct1.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="org.emftext.test.cct1.resource.cct1.ui.Cct1ToggleCommentHandler" commandId="org.emftext.test.cct1.resource.cct1.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Cct1 Files" description="Editing Cct1 Files Context" parentId="org.eclipse.ui.textEditorScope" id="org.emftext.test.cct1.resource.cct1.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="org.emftext.test.cct1.resource.cct1.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="org.emftext.test.cct1.resource.cct1.EditorScope">
+		</key>
 	</extension>
 	
 	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
