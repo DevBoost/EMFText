@@ -555,7 +555,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 		sc.addComment(
 				"If the two expected elements have a different parent in the syntax definition, " +
-				"we must not discard the second element, because is probably stems from a parent rule."
+				"we must not discard the second element, because it probably stems from a parent rule."
 		);
 		sc.add(syntaxElementClassName + " symtaxElementOfThis = elementAtIndex.getTerminal().getSymtaxElement();");
 		sc.add(syntaxElementClassName + " symtaxElementOfNext = elementAtNext.getTerminal().getSymtaxElement();");
