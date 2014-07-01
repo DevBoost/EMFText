@@ -283,7 +283,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		printStartRule(sc);
 
 		EList<GenClass> eClassesWithSyntax = new BasicEList<GenClass>();
-		Map<GenClass,Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass,Collection<Terminal>>();
+		Map<GenClass, Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass, Collection<Terminal>>();
 		
 		printGrammarRules(sc, eClassesWithSyntax, eClassesReferenced);		
 		printImplicitChoiceRules(sc, eClassesWithSyntax, eClassesReferenced);
@@ -989,7 +989,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			}
 			else{
 				Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
-				for(Rule startRule:startRules){
+				for(Rule startRule : startRules){
 					ruleNames.add(getRuleName(startRule.getMetaclass()));
 				}
 			}
