@@ -269,9 +269,14 @@ public abstract class AbstractCodeCompletionTestCase {
 		IResource resource = createDummyResource(metaInformation.getSyntaxName());
 		ICompletionProposal[] proposals = helper.computeCompletionProposals(resource, contentWithoutMarker, cursorIndex);
 		assertNotNull("Proposal list should not be null", proposals);
-		Collection<ICompletionProposal> proposalList = Arrays.asList(proposals);
-		for (ICompletionProposal proposal : proposals) {
-			System.out.println("Found proposal \"" + proposal.getInsertString() + "\"");
+		Collection<ICompletionProposal> proposalList = new ArrayList<ICompletionProposal>(Arrays.asList(proposals));
+		Iterator<ICompletionProposal> it = proposalList.iterator();
+		while (it.hasNext()) {
+			ICompletionProposal proposal = it.next();
+			System.out.println("Found proposal \"" + proposal.getInsertString() + "\" - prefix ok " + proposal.isMatchesPrefix());
+			if (!proposal.isMatchesPrefix()) {
+				it.remove();
+			}
 		}
 		for (String expectedInsertString : expectedInsertStrings) {
 			boolean foundExpectedInsertString = false;
