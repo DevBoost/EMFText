@@ -57,7 +57,7 @@ import de.devboost.codecomposers.java.JavaComposite;
  * <code>doSave()</code> methods will call the generated parser and printer.
  */
 @SyntaxDependent
-public class TextResourceGenerator extends
+public class ResourceGenerator extends
 		JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	private static final String RESOLVER_SWITCH_FIELD_NAME = "resolverSwitch";

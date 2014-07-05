@@ -27,7 +27,7 @@ import de.devboost.codecomposers.java.JavaComposite;
  * Generates a factory for the TextResource which loads and stores generated resources. 
  * It can be registered to the EMF resource framework.
  * 
- * @see org.emftext.sdk.codegen.resource.generators.TextResourceGenerator
+ * @see org.emftext.sdk.codegen.resource.generators.ResourceGenerator
  */
 public class ResourceFactoryGenerator extends JavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 	
