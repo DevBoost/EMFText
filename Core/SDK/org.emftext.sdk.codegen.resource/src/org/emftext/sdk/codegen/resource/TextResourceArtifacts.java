@@ -64,7 +64,7 @@ import org.emftext.sdk.codegen.resource.generators.ResourceFactoryDelegatorGener
 import org.emftext.sdk.codegen.resource.generators.ResourceFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.SyntaxCoverageInformationProviderGenerator;
 import org.emftext.sdk.codegen.resource.generators.TerminateParsingExceptionGenerator;
-import org.emftext.sdk.codegen.resource.generators.TextResourceGenerator;
+import org.emftext.sdk.codegen.resource.generators.ResourceGenerator;
 import org.emftext.sdk.codegen.resource.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.resource.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.resource.generators.URIMappingGenerator;
@@ -254,7 +254,7 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PRINTER2 = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Printer2", Printer2Generator.class, OptionTypes.OVERRIDE_PRINTER2);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SYNTAX_ELEMENT_DECORATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "SyntaxElementDecorator", SyntaxElementDecoratorGenerator.class, OptionTypes.OVERRIDE_SYNTAX_ELEMENT_DECORATOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SYNTAX_ERROR_MESSAGE_CONVERTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "SyntaxErrorMessageConverter", SyntaxErrorMessageConverterGenerator.class, OptionTypes.OVERRIDE_SYNTAX_ERROR_MESSAGE_CONVERTER);
-	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Resource", TextResourceGenerator.class, OptionTypes.OVERRIDE_TEXT_RESOURCE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "Resource", ResourceGenerator.class, OptionTypes.OVERRIDE_TEXT_RESOURCE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ResourceFactory", ResourceFactoryGenerator.class, OptionTypes.OVERRIDE_RESOURCE_FACTORY);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> RESOURCE_FACTORY_DELEGATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "ResourceFactoryDelegator", ResourceFactoryDelegatorGenerator.class, OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> TOKEN_RESOLVER_FACTORY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(MOPP_PACKAGE, "", "TokenResolverFactory", TokenResolverFactoryGenerator.class, OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY);
