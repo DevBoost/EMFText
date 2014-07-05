@@ -94,98 +94,99 @@ import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.ui.TextResourceUIArtifacts;
 import org.emftext.sdk.codegen.resource.ui.generators.UIJavaBaseGenerator;
 
-import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
 	@Override
-	public void generateJavaContents(JavaComposite sc) {
+	public void generateJavaContents(JavaComposite jc) {
 		GenerationContext context = getContext();
 
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
-		sc.addLineBreak();
-		sc.addJavadoc("A text editor for '" + context.getConcreteSyntax().getName() + "' models."
+		jc.add("package " + getResourcePackageName() + ";");
+		jc.addLineBreak();
+		jc.addImportsPlaceholder();
+		jc.addLineBreak();
+		jc.addJavadoc("A text editor for '" + context.getConcreteSyntax().getName() + "' models."
 				, "<p>"
 				, "This editor has id <code>" + context.getQualifiedClassName(TextResourceUIArtifacts.EDITOR) + "</code>"
 				, "The editor's context menu has id <code>" + context.getEditorContextID() + "</code>. "
 				, "The editor's ruler context menu has id <code>" + context.getEditorRulerID() + "</code>."
 				, "The editor's editing context has id <code>" + context.getEditorScopeID() + "</code>."
 				, "</p>");
-		sc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR(sc) + " implements " + I_EDITING_DOMAIN_PROVIDER(sc) + ", " + I_SELECTION_PROVIDER(sc) + ", " + I_SELECTION_CHANGED_LISTENER(sc) + ", " + I_VIEWER_PROVIDER(sc) + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
-		sc.addLineBreak();
+		jc.add("public class " + getResourceClassName() + " extends " + TEXT_EDITOR(jc) + " implements " + I_EDITING_DOMAIN_PROVIDER(jc) + ", " + I_SELECTION_PROVIDER(jc) + ", " + I_SELECTION_CHANGED_LISTENER(jc) + ", " + I_VIEWER_PROVIDER(jc) + ", " + iResourceProviderClassName + ", " + iBracketHandlerProviderClassName + ", " + iAnnotationModelProviderClassName + " {");
+		jc.addLineBreak();
 
-		addFields(sc);
-		addConstructor(sc);
-		addMethods(sc);
+		addFields(jc);
+		addConstructor(jc);
+		addMethods(jc);
 
-		sc.add("}");
+		jc.add("}");
 	}
 	
-	private void addFields(JavaComposite sc) {
-		sc.add("private " + highlightingClassName + " highlighting;");
-		sc.add("private " + PROJECTION_SUPPORT(sc) + " projectionSupport;");
-		sc.add("private " + codeFoldingManagerClassName + " codeFoldingManager;");
-		sc.add("private " + backgroundParsingStrategyClassName + " bgParsingStrategy = new " + backgroundParsingStrategyClassName + "();");
-		sc.add("private " + COLLECTION(sc) + "<" + iBackgroundParsingListenerClassName + "> bgParsingListeners = new " + ARRAY_LIST(sc) + "<" + iBackgroundParsingListenerClassName + ">();");
-		sc.add("private " + colorManagerClassName + " colorManager = new " + colorManagerClassName + "();");
-		sc.add("private " + outlinePageClassName + " outlinePage;");
-		sc.add("private " + iTextResourceClassName + " resource;");
-		sc.add("private " + I_RESOURCE_CHANGE_LISTENER(sc) + " resourceChangeListener = new ModelResourceChangeListener();");
-		sc.add("private " + propertySheetPageClassName + " propertySheetPage;");
-		sc.add("private " + EDITING_DOMAIN(sc) + " editingDomain;");
-		sc.add("private " + iBracketHandlerClassName + " bracketHandler;");
-		sc.add("private " + LIST(sc) + "<" + I_SELECTION_CHANGED_LISTENER(sc) + "> selectionChangedListeners = new " + LINKED_LIST(sc) + "<" + I_SELECTION_CHANGED_LISTENER(sc) + ">();");
-		sc.add("private " + I_SELECTION(sc) + " editorSelection;");
-		sc.addLineBreak();
+	private void addFields(JavaComposite jc) {
+		jc.add("private " + highlightingClassName + " highlighting;");
+		jc.add("private " + PROJECTION_SUPPORT(jc) + " projectionSupport;");
+		jc.add("private " + codeFoldingManagerClassName + " codeFoldingManager;");
+		jc.add("private " + backgroundParsingStrategyClassName + " bgParsingStrategy = new " + backgroundParsingStrategyClassName + "();");
+		jc.add("private " + COLLECTION(jc) + "<" + iBackgroundParsingListenerClassName + "> bgParsingListeners = new " + ARRAY_LIST(jc) + "<" + iBackgroundParsingListenerClassName + ">();");
+		jc.add("private " + colorManagerClassName + " colorManager = new " + colorManagerClassName + "();");
+		jc.add("private " + outlinePageClassName + " outlinePage;");
+		jc.add("private " + iTextResourceClassName + " resource;");
+		jc.add("private " + I_RESOURCE_CHANGE_LISTENER(jc) + " resourceChangeListener = new ModelResourceChangeListener();");
+		jc.add("private " + propertySheetPageClassName + " propertySheetPage;");
+		jc.add("private " + EDITING_DOMAIN(jc) + " editingDomain;");
+		jc.add("private " + iBracketHandlerClassName + " bracketHandler;");
+		jc.add("private " + LIST(jc) + "<" + I_SELECTION_CHANGED_LISTENER(jc) + "> selectionChangedListeners = new " + LINKED_LIST(jc) + "<" + I_SELECTION_CHANGED_LISTENER(jc) + ">();");
+		jc.add("private " + I_SELECTION(jc) + " editorSelection;");
+		jc.addLineBreak();
 	}
 
-	private void addConstructor(JavaComposite sc) {
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.add("setSourceViewerConfiguration(new " + sourceViewerConfigurationClassName + "(this, this, colorManager));");
-		sc.add(RESOURCES_PLUGIN(sc) + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT(sc) + ".POST_CHANGE);");
-		sc.add("addSelectionChangedListener(this);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addConstructor(JavaComposite jc) {
+		jc.add("public " + getResourceClassName() + "() {");
+		jc.add("super();");
+		jc.add("setSourceViewerConfiguration(new " + sourceViewerConfigurationClassName + "(this, this, colorManager));");
+		jc.add(RESOURCES_PLUGIN(jc) + ".getWorkspace().addResourceChangeListener(resourceChangeListener, " + I_RESOURCE_CHANGE_EVENT(jc) + ".POST_CHANGE);");
+		jc.add("addSelectionChangedListener(this);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addMethods(JavaComposite sc) {
-		addDocumentListenerClass(sc);
-		addModelResourceChangeListenerClass(sc);
-		addInitializeEditorMethod(sc);
-		addGetAdapterMethod(sc);
-		addCreatePartControlMethod(sc);
-		addInitMethod(sc);
-		addInitializeResourceObjectMethod(sc);
-		addInitializeResourceObjectFromFileMethod(sc);
-		addInitializeResourceObjectFromStorageMethod(sc);
-		addDisposeMethod(sc);
-		addPerformSaveMethod(sc);
-		addInvalidateTextRepresentationMethod(sc);
-		addSetFocusMethod(sc);
-		addPerformSaveAsMethod(sc);
-		addGetResourceSetMethod(sc);
-		addGetResourceMethod(sc);
-		addSetResourceMethod(sc);
-		addGetOutlinePageMethod(sc);
-		addGetPropertySheetPageMethod(sc);
-		addGetEditingDomainMethod(sc);
-		addSetCaretMethod(sc);
-		addCreateSourceViewerMethod(sc);
-		addAddBackgroundParsingListenerMethod(sc);
-		addNotifyBackgroundParsingFinishedMethod(sc);
-		addGetBracketHandlerMethod(sc);
-		addSetBracketHandlerMethod(sc);
-		addCreateActionsMethod(sc);
-		addGetAnnotationModelMethod(sc);
-		addAddSelectionChangedListenerMethod(sc);
-		addGetSelectionMethod(sc);
-		addRemoveSelectionChangedListenerMethod(sc);
-		addSelectionChangedMethod(sc);
-		addSetSelectionMethod1(sc);
-		addSetSelectionMethod2(sc);
-		addGetViewerMethod(sc);
+	private void addMethods(JavaComposite jc) {
+		addDocumentListenerClass(jc);
+		addModelResourceChangeListenerClass(jc);
+		addInitializeEditorMethod(jc);
+		addGetAdapterMethod(jc);
+		addCreatePartControlMethod(jc);
+		addInitMethod(jc);
+		addInitializeResourceObjectMethod(jc);
+		addInitializeResourceObjectFromFileMethod(jc);
+		addInitializeResourceObjectFromStorageMethod(jc);
+		addDisposeMethod(jc);
+		addPerformSaveMethod(jc);
+		addInvalidateTextRepresentationMethod(jc);
+		addSetFocusMethod(jc);
+		addPerformSaveAsMethod(jc);
+		addGetResourceSetMethod(jc);
+		addGetResourceMethod(jc);
+		addSetResourceMethod(jc);
+		addGetOutlinePageMethod(jc);
+		addGetPropertySheetPageMethod(jc);
+		addGetEditingDomainMethod(jc);
+		addSetCaretMethod(jc);
+		addCreateSourceViewerMethod(jc);
+		addAddBackgroundParsingListenerMethod(jc);
+		addNotifyBackgroundParsingFinishedMethod(jc);
+		addGetBracketHandlerMethod(jc);
+		addSetBracketHandlerMethod(jc);
+		addCreateActionsMethod(jc);
+		addGetAnnotationModelMethod(jc);
+		addAddSelectionChangedListenerMethod(jc);
+		addGetSelectionMethod(jc);
+		addRemoveSelectionChangedListenerMethod(jc);
+		addSelectionChangedMethod(jc);
+		addSetSelectionMethod1(jc);
+		addSetSelectionMethod2(jc);
+		addGetViewerMethod(jc);
 	}
 
 	private void addInitMethod(JavaComposite jc) {
@@ -202,620 +203,620 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		jc.addLineBreak();
 	}
 
-	private void addSetSelectionMethod1(JavaComposite sc) {
-		sc.add("public void setSelection(" + I_SELECTION(sc) + " selection) {");
-		sc.add("editorSelection = selection;");
-		sc.add("for (" + I_SELECTION_CHANGED_LISTENER(sc) + " listener : selectionChangedListeners) {");
-		sc.add("listener.selectionChanged(new " + SELECTION_CHANGED_EVENT(sc) + "(this, selection));");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSetSelectionMethod1(JavaComposite jc) {
+		jc.add("public void setSelection(" + I_SELECTION(jc) + " selection) {");
+		jc.add("editorSelection = selection;");
+		jc.add("for (" + I_SELECTION_CHANGED_LISTENER(jc) + " listener : selectionChangedListeners) {");
+		jc.add("listener.selectionChanged(new " + SELECTION_CHANGED_EVENT(jc) + "(this, selection));");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addSetSelectionMethod2(JavaComposite sc) {
-		sc.add("private boolean setSelection(" + I_SELECTION(sc) + " selection, boolean reveal) {");
-		sc.add("if (selection instanceof " + I_STRUCTURED_SELECTION(sc) + ") {");
-		sc.add(I_STRUCTURED_SELECTION(sc) + " structuredSelection = (" + I_STRUCTURED_SELECTION(sc) + ") selection;");
-		sc.add("Object object = structuredSelection.getFirstElement();");
-		sc.add("if (object instanceof " + E_OBJECT(sc) + ") {");
-		sc.add(E_OBJECT(sc) + " element = (" + E_OBJECT(sc) + ") object;");
-		sc.add(RESOURCE(sc) + " resource = element.eResource();");
-		sc.add("if (resource == null) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("if (!(resource instanceof " + iTextResourceClassName + ")) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
-		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add("int destination = locationMap.getCharStart(element);");
-		sc.add("if (destination < 0) {");
-		sc.add("destination = 0;");
-		sc.add("}");
-		sc.add("selectAndReveal(destination, 0);");
-		sc.add("int length = locationMap.getCharEnd(element) - destination + 1;");
-		sc.add("getSourceViewer().setRangeIndication(destination, length, true);");
-		sc.add("getSourceViewer().setSelectedRange(destination, length);");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSetSelectionMethod2(JavaComposite jc) {
+		jc.add("private boolean setSelection(" + I_SELECTION(jc) + " selection, boolean reveal) {");
+		jc.add("if (selection instanceof " + I_STRUCTURED_SELECTION(jc) + ") {");
+		jc.add(I_STRUCTURED_SELECTION(jc) + " structuredSelection = (" + I_STRUCTURED_SELECTION(jc) + ") selection;");
+		jc.add("Object object = structuredSelection.getFirstElement();");
+		jc.add("if (object instanceof " + E_OBJECT(jc) + ") {");
+		jc.add(E_OBJECT(jc) + " element = (" + E_OBJECT(jc) + ") object;");
+		jc.add(RESOURCE(jc) + " resource = element.eResource();");
+		jc.add("if (resource == null) {");
+		jc.add("return false;");
+		jc.add("}");
+		jc.add("if (!(resource instanceof " + iTextResourceClassName + ")) {");
+		jc.add("return false;");
+		jc.add("}");
+		jc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") resource;");
+		jc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
+		jc.add("int destination = locationMap.getCharStart(element);");
+		jc.add("if (destination < 0) {");
+		jc.add("destination = 0;");
+		jc.add("}");
+		jc.add("selectAndReveal(destination, 0);");
+		jc.add("int length = locationMap.getCharEnd(element) - destination + 1;");
+		jc.add("getSourceViewer().setRangeIndication(destination, length, true);");
+		jc.add("getSourceViewer().setSelectedRange(destination, length);");
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("return false;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetViewerMethod(JavaComposite sc) {
-		sc.add("public " + VIEWER(sc) + " getViewer() {");
-		sc.add("return (" + PROJECTION_VIEWER(sc) + ") getSourceViewer();");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetViewerMethod(JavaComposite jc) {
+		jc.add("public " + VIEWER(jc) + " getViewer() {");
+		jc.add("return (" + PROJECTION_VIEWER(jc) + ") getSourceViewer();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addSelectionChangedMethod(JavaComposite sc) {
-		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT(sc) + " event) {");
-		sc.add(I_SELECTION(sc) + " selection = event.getSelection();");
-		sc.add("setSelection(selection, true);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSelectionChangedMethod(JavaComposite jc) {
+		jc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT(jc) + " event) {");
+		jc.add(I_SELECTION(jc) + " selection = event.getSelection();");
+		jc.add("setSelection(selection, true);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addRemoveSelectionChangedListenerMethod(JavaComposite sc) {
-		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(sc) + " listener) {");
-		sc.add("selectionChangedListeners.remove(listener);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addRemoveSelectionChangedListenerMethod(JavaComposite jc) {
+		jc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(jc) + " listener) {");
+		jc.add("selectionChangedListeners.remove(listener);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetSelectionMethod(JavaComposite sc) {
-		sc.add("public " + I_SELECTION(sc) + " getSelection() {");
-		sc.add("return editorSelection;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetSelectionMethod(JavaComposite jc) {
+		jc.add("public " + I_SELECTION(jc) + " getSelection() {");
+		jc.add("return editorSelection;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addAddSelectionChangedListenerMethod(JavaComposite sc) {
-		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(sc) + " listener) {");
-		sc.add("selectionChangedListeners.add(listener);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addAddSelectionChangedListenerMethod(JavaComposite jc) {
+		jc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER(jc) + " listener) {");
+		jc.add("selectionChangedListeners.add(listener);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetAnnotationModelMethod(JavaComposite sc) {
-		sc.add("public " + I_ANNOTATION_MODEL(sc) + " getAnnotationModel() {");
-		sc.add("return getDocumentProvider().getAnnotationModel(getEditorInput());");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetAnnotationModelMethod(JavaComposite jc) {
+		jc.add("public " + I_ANNOTATION_MODEL(jc) + " getAnnotationModel() {");
+		jc.add("return getDocumentProvider().getAnnotationModel(getEditorInput());");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetBracketHandlerMethod(JavaComposite sc) {
-		sc.add("public " + iBracketHandlerClassName + " getBracketHandler() {");
-		sc.add("return bracketHandler;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetBracketHandlerMethod(JavaComposite jc) {
+		jc.add("public " + iBracketHandlerClassName + " getBracketHandler() {");
+		jc.add("return bracketHandler;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addSetBracketHandlerMethod(JavaComposite sc) {
-		sc.add("public void setBracketHandler(" + iBracketHandlerClassName + " bracketHandler) {");
-		sc.add("this.bracketHandler = bracketHandler;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSetBracketHandlerMethod(JavaComposite jc) {
+		jc.add("public void setBracketHandler(" + iBracketHandlerClassName + " bracketHandler) {");
+		jc.add("this.bracketHandler = bracketHandler;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addInitializeEditorMethod(StringComposite sc) {
+	private void addInitializeEditorMethod(JavaComposite jc) {
 		String editorContextID = getContext().getEditorContextID();
 		String editorRulerID = getContext().getEditorRulerID();
 
-		sc.add("public void initializeEditor() {");
-		sc.add("super.initializeEditor();");
-		sc.add("setEditorContextMenuId(\"" + editorContextID + "\");");
-		sc.add("setRulerContextMenuId(\"" + editorRulerID + "\");");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public void initializeEditor() {");
+		jc.add("super.initializeEditor();");
+		jc.add("setEditorContextMenuId(\"" + editorContextID + "\");");
+		jc.add("setRulerContextMenuId(\"" + editorRulerID + "\");");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addNotifyBackgroundParsingFinishedMethod(StringComposite sc) {
-		sc.add("public void notifyBackgroundParsingFinished() {");
-		sc.add("for (" + iBackgroundParsingListenerClassName + " listener : bgParsingListeners) {");
-		sc.add("listener.parsingCompleted(getResource());");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addNotifyBackgroundParsingFinishedMethod(JavaComposite jc) {
+		jc.add("public void notifyBackgroundParsingFinished() {");
+		jc.add("for (" + iBackgroundParsingListenerClassName + " listener : bgParsingListeners) {");
+		jc.add("listener.parsingCompleted(getResource());");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addAddBackgroundParsingListenerMethod(StringComposite sc) {
-		sc.add("public void addBackgroundParsingListener(" + iBackgroundParsingListenerClassName + " listener) {");
-		sc.add("bgParsingListeners.add(listener);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addAddBackgroundParsingListenerMethod(JavaComposite jc) {
+		jc.add("public void addBackgroundParsingListener(" + iBackgroundParsingListenerClassName + " listener) {");
+		jc.add("bgParsingListeners.add(listener);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addCreateSourceViewerMethod(JavaComposite sc) {
-		sc.add("protected " + I_SOURCE_VIEWER(sc) + " createSourceViewer(" + COMPOSITE(sc) + " parent, " + I_VERTICAL_RULER(sc) + " ruler, int styles) {");
-		sc.add(I_SOURCE_VIEWER(sc) + " viewer = new " + PROJECTION_VIEWER(sc) + "(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles) {");
-		sc.addLineBreak();
-		sc.add("public void setSelection(" + I_SELECTION(sc) + " selection, boolean reveal) {");
-		sc.add("if (!" + getResourceClassName() + ".this.setSelection(selection, reveal)) {");
-		sc.add("super.setSelection(selection, reveal);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("};");
-		sc.addComment("ensure decoration support has been created and configured.");
-		sc.add("getSourceViewerDecorationSupport(viewer);");
-		sc.add("return viewer;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addCreateSourceViewerMethod(JavaComposite jc) {
+		jc.add("protected " + I_SOURCE_VIEWER(jc) + " createSourceViewer(" + COMPOSITE(jc) + " parent, " + I_VERTICAL_RULER(jc) + " ruler, int styles) {");
+		jc.add(I_SOURCE_VIEWER(jc) + " viewer = new " + PROJECTION_VIEWER(jc) + "(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles) {");
+		jc.addLineBreak();
+		jc.add("public void setSelection(" + I_SELECTION(jc) + " selection, boolean reveal) {");
+		jc.add("if (!" + getResourceClassName() + ".this.setSelection(selection, reveal)) {");
+		jc.add("super.setSelection(selection, reveal);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("};");
+		jc.addComment("ensure decoration support has been created and configured.");
+		jc.add("getSourceViewerDecorationSupport(viewer);");
+		jc.add("return viewer;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
 	// FIXME This method seems not to be used. Remove it?
-	private void addSetCaretMethod(JavaComposite sc) {
+	private void addSetCaretMethod(JavaComposite jc) {
 
-		sc.addJavadoc(
+		jc.addJavadoc(
 				"Sets the caret to the offset of the given element.",
 				"@param element has to be contained in the resource of this editor."
 		);
-		sc.add("public void setCaret(" + E_OBJECT(sc) + " element, String text) {");
-		sc.add("try {");
-		sc.add("if (element == null || text == null || text.equals(\"\")) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add(I_SOURCE_VIEWER(sc) + " viewer = getSourceViewer();");
-		sc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
-		sc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
-		sc.add("int destination = locationMap.getCharStart(element);");
-		sc.add("int length = locationMap.getCharEnd(element) + 1 - destination;");
-		sc.addLineBreak();
-		sc.add(iTextScannerClassName + " lexer = getResource().getMetaInformation().createLexer();");
-		sc.add("try {");
-		sc.add("lexer.setText(viewer.getDocument().get(destination, length));");
-		sc.add(iTextTokenClassName + " token = lexer.getNextToken();");
-		sc.add("String tokenText = token.getText();");
-		sc.add("while (tokenText != null) {");
-		sc.add("if (token.getText().equals(text)) {");
-		sc.add("destination += token.getOffset();");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("token = lexer.getNextToken();");
-		sc.add("if (token == null) {");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("tokenText = token.getText();");
-		sc.add("}");
-		sc.add("} catch (" + BAD_LOCATION_EXCEPTION(sc) + " e) {");
-		sc.add("}");
-		sc.add("destination = ((" + PROJECTION_VIEWER(sc) + ") viewer).modelOffset2WidgetOffset(destination);");
-		sc.add("if (destination < 0) {");
-		sc.add("destination = 0;");
-		sc.add("}");
-		sc.add("viewer.getTextWidget().setSelection(destination);");
-		sc.add("} catch (Exception e) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"Exception in setCaret()\", e);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public void setCaret(" + E_OBJECT(jc) + " element, String text) {");
+		jc.add("try {");
+		jc.add("if (element == null || text == null || text.equals(\"\")) {");
+		jc.add("return;");
+		jc.add("}");
+		jc.add(I_SOURCE_VIEWER(jc) + " viewer = getSourceViewer();");
+		jc.add(iTextResourceClassName + " textResource = (" + iTextResourceClassName + ") element.eResource();");
+		jc.add(iLocationMapClassName + " locationMap = textResource.getLocationMap();");
+		jc.add("int destination = locationMap.getCharStart(element);");
+		jc.add("int length = locationMap.getCharEnd(element) + 1 - destination;");
+		jc.addLineBreak();
+		jc.add(iTextScannerClassName + " lexer = getResource().getMetaInformation().createLexer();");
+		jc.add("try {");
+		jc.add("lexer.setText(viewer.getDocument().get(destination, length));");
+		jc.add(iTextTokenClassName + " token = lexer.getNextToken();");
+		jc.add("String tokenText = token.getText();");
+		jc.add("while (tokenText != null) {");
+		jc.add("if (token.getText().equals(text)) {");
+		jc.add("destination += token.getOffset();");
+		jc.add("break;");
+		jc.add("}");
+		jc.add("token = lexer.getNextToken();");
+		jc.add("if (token == null) {");
+		jc.add("break;");
+		jc.add("}");
+		jc.add("tokenText = token.getText();");
+		jc.add("}");
+		jc.add("} catch (" + BAD_LOCATION_EXCEPTION(jc) + " e) {");
+		jc.add("}");
+		jc.add("destination = ((" + PROJECTION_VIEWER(jc) + ") viewer).modelOffset2WidgetOffset(destination);");
+		jc.add("if (destination < 0) {");
+		jc.add("destination = 0;");
+		jc.add("}");
+		jc.add("viewer.getTextWidget().setSelection(destination);");
+		jc.add("} catch (Exception e) {");
+		jc.add(uiPluginActivatorClassName + ".logError(\"Exception in setCaret()\", e);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetEditingDomainMethod(JavaComposite sc) {
-		sc.add("public " + EDITING_DOMAIN(sc) + " getEditingDomain() {");
-		sc.add("if (editingDomain == null) {");
-		sc.add("editingDomain = new " + editingDomainProviderClassName + "().getEditingDomain(getEditorInput());");
-		sc.add("}");
-		sc.add("return editingDomain;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetEditingDomainMethod(JavaComposite jsc) {
+		jsc.add("public " + EDITING_DOMAIN(jsc) + " getEditingDomain() {");
+		jsc.add("if (editingDomain == null) {");
+		jsc.add("editingDomain = new " + editingDomainProviderClassName + "().getEditingDomain(getEditorInput());");
+		jsc.add("}");
+		jsc.add("return editingDomain;");
+		jsc.add("}");
+		jsc.addLineBreak();
 	}
 
-	private void addGetPropertySheetPageMethod(JavaComposite sc) {
-		sc.add("public " + I_PROPERTY_SHEET_PAGE(sc) + " getPropertySheetPage() {");
-		sc.add("if (propertySheetPage == null) {");
-		sc.add("propertySheetPage = new " + propertySheetPageClassName + "();");
-		sc.addComment(
+	private void addGetPropertySheetPageMethod(JavaComposite jc) {
+		jc.add("public " + I_PROPERTY_SHEET_PAGE(jc) + " getPropertySheetPage() {");
+		jc.add("if (propertySheetPage == null) {");
+		jc.add("propertySheetPage = new " + propertySheetPageClassName + "();");
+		jc.addComment(
 				"add a slightly modified adapter factory that does not return any " +
 				"editors for properties. " +
 				"this way, a model can never be modified through the properties " +
 				"view."
 		);
-		sc.add(ADAPTER_FACTORY(sc) + " adapterFactory = new " + adapterFactoryProviderClassName + "().getAdapterFactory();");
-		sc.add("propertySheetPage.setPropertySourceProvider(new " + ADAPTER_FACTORY_CONTENT_PROVIDER(sc) + "(adapterFactory) {");
-		sc.add("protected " + I_PROPERTY_SOURCE(sc) + " createPropertySource(Object object, " + I_ITEM_PROPERTY_SOURCE(sc) + " itemPropertySource) {");
-		sc.add("return new " + PROPERTY_SOURCE(sc) + "(object, itemPropertySource) {");
-		sc.add("protected " + I_PROPERTY_DESCRIPTOR(sc) + " createPropertyDescriptor(" + I_ITEM_PROPERTY_DESCRIPTOR(sc) + " itemPropertyDescriptor) {");
-		sc.add("return new " + PROPERTY_DESCRIPTOR(sc) + "(object, itemPropertyDescriptor) {");
-		sc.add("public " + CELL_EDITOR(sc) + " createPropertyEditor(" + COMPOSITE(sc) + " composite) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add("};");
-		sc.add("}");
-		sc.add("};");
-		sc.add("}");
-		sc.add("});");
-		sc.add("highlighting.addSelectionChangedListener(propertySheetPage);");
-		sc.add("}");
-		sc.add("return propertySheetPage;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add(ADAPTER_FACTORY(jc) + " adapterFactory = new " + adapterFactoryProviderClassName + "().getAdapterFactory();");
+		jc.add("propertySheetPage.setPropertySourceProvider(new " + ADAPTER_FACTORY_CONTENT_PROVIDER(jc) + "(adapterFactory) {");
+		jc.add("protected " + I_PROPERTY_SOURCE(jc) + " createPropertySource(Object object, " + I_ITEM_PROPERTY_SOURCE(jc) + " itemPropertySource) {");
+		jc.add("return new " + PROPERTY_SOURCE(jc) + "(object, itemPropertySource) {");
+		jc.add("protected " + I_PROPERTY_DESCRIPTOR(jc) + " createPropertyDescriptor(" + I_ITEM_PROPERTY_DESCRIPTOR(jc) + " itemPropertyDescriptor) {");
+		jc.add("return new " + PROPERTY_DESCRIPTOR(jc) + "(object, itemPropertyDescriptor) {");
+		jc.add("public " + CELL_EDITOR(jc) + " createPropertyEditor(" + COMPOSITE(jc) + " composite) {");
+		jc.add("return null;");
+		jc.add("}");
+		jc.add("};");
+		jc.add("}");
+		jc.add("};");
+		jc.add("}");
+		jc.add("});");
+		jc.add("highlighting.addSelectionChangedListener(propertySheetPage);");
+		jc.add("}");
+		jc.add("return propertySheetPage;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetOutlinePageMethod(JavaComposite sc) {
-		sc.addJavadoc(
-			"Return the outline page this is associated with this editor. If " +
-			"no outline page exists, a new one is created."
+	private void addGetOutlinePageMethod(JavaComposite jc) {
+		jc.addJavadoc(
+			"Returns the outline page this is associated with this editor. " +
+			"If no outline page exists, a new one is created."
 		);
-		sc.add("private " + outlinePageClassName + " getOutlinePage() {");
-		sc.add("if (outlinePage == null) {");
-		sc.add("outlinePage = new " + outlinePageClassName + "(this);");
-		sc.addComment("Connect highlighting class and outline page for event notification");
-		sc.add("outlinePage.addSelectionChangedListener(highlighting);");
-		sc.add("highlighting.addSelectionChangedListener(outlinePage);");
-		sc.add("}");
-		sc.add("return outlinePage;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("private " + outlinePageClassName + " getOutlinePage() {");
+		jc.add("if (outlinePage == null) {");
+		jc.add("outlinePage = new " + outlinePageClassName + "(this);");
+		jc.addComment("Connect highlighting class and outline page for event notification");
+		jc.add("outlinePage.addSelectionChangedListener(highlighting);");
+		jc.add("highlighting.addSelectionChangedListener(outlinePage);");
+		jc.add("}");
+		jc.add("return outlinePage;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addSetResourceMethod(JavaComposite sc) {
-		sc.add("private void setResource(" + iTextResourceClassName + " resource) {");
-		sc.add("assert resource != null;");
-		sc.add("this.resource = resource;");
-		sc.add("if (this.resource.getErrors().isEmpty()) {");
-		sc.add(ECORE_UTIL(sc) + ".resolveAll(this.resource);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSetResourceMethod(JavaComposite jc) {
+		jc.add("private void setResource(" + iTextResourceClassName + " resource) {");
+		jc.add("assert resource != null;");
+		jc.add("this.resource = resource;");
+		jc.add("if (this.resource.getErrors().isEmpty()) {");
+		jc.add(ECORE_UTIL(jc) + ".resolveAll(this.resource);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetResourceMethod(StringComposite sc) {
-		sc.add("public " + iTextResourceClassName + " getResource() {");
-		sc.add("return resource;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetResourceMethod(JavaComposite jc) {
+		jc.add("public " + iTextResourceClassName + " getResource() {");
+		jc.add("return resource;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetResourceSetMethod(JavaComposite sc) {
-		sc.add("public " + RESOURCE_SET(sc) + " getResourceSet() {");
-		sc.add("return getEditingDomain().getResourceSet();");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetResourceSetMethod(JavaComposite jc) {
+		jc.add("public " + RESOURCE_SET(jc) + " getResourceSet() {");
+		jc.add("return getEditingDomain().getResourceSet();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addPerformSaveAsMethod(JavaComposite sc) {
-		sc.add("protected void performSaveAs(" + I_PROGRESS_MONITOR(sc) + " progressMonitor) {");
-		sc.add(FILE_EDITOR_INPUT(sc) + " input = (" + FILE_EDITOR_INPUT(sc) + ") getEditorInput();");
-		sc.add("String path = input.getFile().getFullPath().toString();");
-		sc.add(RESOURCE_SET(sc) + " resourceSet = getResourceSet();");
-		sc.add(URI(sc) + " platformURI = " + URI(sc) + ".createPlatformResourceURI(path, true);");
-		sc.add(RESOURCE(sc) + " oldFile = resourceSet.getResource(platformURI, true);");
-		sc.addLineBreak();
-		sc.add("super.performSaveAs(progressMonitor);");
-		sc.addLineBreak();
-		sc.addComment("load and resave - input has been changed to new path by super");
-		sc.add(FILE_EDITOR_INPUT(sc) + " newInput = (" + FILE_EDITOR_INPUT(sc) + ") getEditorInput();");
-		sc.add("String newPath = newInput.getFile().getFullPath().toString();");
-		sc.add(URI(sc) + " newPlatformURI = " + URI(sc) + ".createPlatformResourceURI(newPath, true);");
-		sc.add(RESOURCE(sc) + " newFile = resourceSet.createResource(newPlatformURI);");
-		sc.addComment("if the extension is the same, saving was already performed by super by saving the plain text");
-		sc.add("if (platformURI.fileExtension().equals(newPlatformURI.fileExtension())) {");
-		sc.add("oldFile.unload();");
-		sc.addComment("save code folding state, is it possible with a new name");
-		sc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
-		sc.add("}");
-		sc.add("else {");
-		sc.add("newFile.getContents().clear();");
-		sc.add("newFile.getContents().addAll(oldFile.getContents());");
-		sc.add("try {");
-		sc.add("oldFile.unload();");
-		sc.add("if (newFile.getErrors().isEmpty()) {");
-		sc.add("newFile.save(null);");
-		sc.add("}");
-		sc.add("} catch (Exception e) {");
-		sc.add("e.printStackTrace();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addPerformSaveAsMethod(JavaComposite jc) {
+		jc.add("protected void performSaveAs(" + I_PROGRESS_MONITOR(jc) + " progressMonitor) {");
+		jc.add(FILE_EDITOR_INPUT(jc) + " input = (" + FILE_EDITOR_INPUT(jc) + ") getEditorInput();");
+		jc.add("String path = input.getFile().getFullPath().toString();");
+		jc.add(RESOURCE_SET(jc) + " resourceSet = getResourceSet();");
+		jc.add(URI(jc) + " platformURI = " + URI(jc) + ".createPlatformResourceURI(path, true);");
+		jc.add(RESOURCE(jc) + " oldFile = resourceSet.getResource(platformURI, true);");
+		jc.addLineBreak();
+		jc.add("super.performSaveAs(progressMonitor);");
+		jc.addLineBreak();
+		jc.addComment("load and resave - input has been changed to new path by super");
+		jc.add(FILE_EDITOR_INPUT(jc) + " newInput = (" + FILE_EDITOR_INPUT(jc) + ") getEditorInput();");
+		jc.add("String newPath = newInput.getFile().getFullPath().toString();");
+		jc.add(URI(jc) + " newPlatformURI = " + URI(jc) + ".createPlatformResourceURI(newPath, true);");
+		jc.add(RESOURCE(jc) + " newFile = resourceSet.createResource(newPlatformURI);");
+		jc.addComment("if the extension is the same, saving was already performed by super by saving the plain text");
+		jc.add("if (platformURI.fileExtension().equals(newPlatformURI.fileExtension())) {");
+		jc.add("oldFile.unload();");
+		jc.addComment("save code folding state, is it possible with a new name");
+		jc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
+		jc.add("}");
+		jc.add("else {");
+		jc.add("newFile.getContents().clear();");
+		jc.add("newFile.getContents().addAll(oldFile.getContents());");
+		jc.add("try {");
+		jc.add("oldFile.unload();");
+		jc.add("if (newFile.getErrors().isEmpty()) {");
+		jc.add("newFile.save(null);");
+		jc.add("}");
+		jc.add("} catch (Exception e) {");
+		jc.add("e.printStackTrace();");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addSetFocusMethod(JavaComposite sc) {
-		sc.add("public void setFocus() {");
-		sc.add("super.setFocus();");
-		sc.add("this.invalidateTextRepresentation();");
-		sc.addComment("Parse the document again to remove errors that stem from unresolvable proxy objects");
-		sc.add("bgParsingStrategy.parse(getSourceViewer().getDocument(), resource, this, 10);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addSetFocusMethod(JavaComposite jc) {
+		jc.add("public void setFocus() {");
+		jc.add("super.setFocus();");
+		jc.add("this.invalidateTextRepresentation();");
+		jc.addComment("Parse the document again to remove errors that stem from unresolvable proxy objects");
+		jc.add("bgParsingStrategy.parse(getSourceViewer().getDocument(), resource, this, 10);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addInvalidateTextRepresentationMethod(JavaComposite sc) {
-		sc.add("public void invalidateTextRepresentation() {");
-		sc.add(I_SOURCE_VIEWER(sc) + " viewer = getSourceViewer();");
-		sc.add("if (viewer != null) {");
-		sc.add("viewer.invalidateTextPresentation();");
-		sc.add("}");
-		sc.add("highlighting.resetValues();");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addInvalidateTextRepresentationMethod(JavaComposite jc) {
+		jc.add("public void invalidateTextRepresentation() {");
+		jc.add(I_SOURCE_VIEWER(jc) + " viewer = getSourceViewer();");
+		jc.add("if (viewer != null) {");
+		jc.add("viewer.invalidateTextPresentation();");
+		jc.add("}");
+		jc.add("highlighting.resetValues();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addPerformSaveMethod(JavaComposite sc) {
-		sc.add("protected void performSave(boolean overwrite, " + I_PROGRESS_MONITOR(sc) + " progressMonitor) {");
-		sc.addLineBreak();
-		sc.add("super.performSave(overwrite, progressMonitor);");
-		sc.addLineBreak();
-		sc.addComment("Save code folding state");
-		sc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void registerTextPresentationListener(" + I_TEXT_PRESENTATION_LISTENER(sc) + " listener) {");
-		sc.add(I_SOURCE_VIEWER(sc) + " viewer = getSourceViewer();");
-		sc.add("if (viewer instanceof " + TEXT_VIEWER(sc) + ") {");
-		sc.add("((" + TEXT_VIEWER(sc) + ") viewer).addTextPresentationListener(listener);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addPerformSaveMethod(JavaComposite jc) {
+		jc.add("protected void performSave(boolean overwrite, " + I_PROGRESS_MONITOR(jc) + " progressMonitor) {");
+		jc.addLineBreak();
+		jc.add("super.performSave(overwrite, progressMonitor);");
+		jc.addLineBreak();
+		jc.addComment("Save code folding state");
+		jc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("public void registerTextPresentationListener(" + I_TEXT_PRESENTATION_LISTENER(jc) + " listener) {");
+		jc.add(I_SOURCE_VIEWER(jc) + " viewer = getSourceViewer();");
+		jc.add("if (viewer instanceof " + TEXT_VIEWER(jc) + ") {");
+		jc.add("((" + TEXT_VIEWER(jc) + ") viewer).addTextPresentationListener(listener);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addDisposeMethod(JavaComposite sc) {
-		sc.add("public void dispose() {");
-		sc.add("colorManager.dispose();");
-		sc.add(RESOURCES_PLUGIN(sc) + ".getWorkspace().removeResourceChangeListener(resourceChangeListener);"); 
-		sc.add("super.dispose();");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addDisposeMethod(JavaComposite jc) {
+		jc.add("public void dispose() {");
+		jc.add("colorManager.dispose();");
+		jc.add(RESOURCES_PLUGIN(jc) + ".getWorkspace().removeResourceChangeListener(resourceChangeListener);"); 
+		jc.add("super.dispose();");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 	
-	private void addInitializeResourceObjectMethod(JavaComposite sc) {
-		sc.add("private void initializeResourceObject(" + I_EDITOR_INPUT(sc) + " editorInput) {");
-		sc.add("if (editorInput instanceof " + FILE_EDITOR_INPUT(sc) + ") {");
-		sc.add("initializeResourceObjectFromFile((" + FILE_EDITOR_INPUT(sc) + ") editorInput);");
-		sc.add("} else if (editorInput instanceof " + I_STORAGE_EDITOR_INPUT(sc) + ") {");
-		sc.add("initializeResourceObjectFromStorage((" + I_STORAGE_EDITOR_INPUT(sc) + ") editorInput);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addInitializeResourceObjectMethod(JavaComposite jc) {
+		jc.add("private void initializeResourceObject(" + I_EDITOR_INPUT(jc) + " editorInput) {");
+		jc.add("if (editorInput instanceof " + FILE_EDITOR_INPUT(jc) + ") {");
+		jc.add("initializeResourceObjectFromFile((" + FILE_EDITOR_INPUT(jc) + ") editorInput);");
+		jc.add("} else if (editorInput instanceof " + I_STORAGE_EDITOR_INPUT(jc) + ") {");
+		jc.add("initializeResourceObjectFromStorage((" + I_STORAGE_EDITOR_INPUT(jc) + ") editorInput);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addInitializeResourceObjectFromStorageMethod(JavaComposite sc) {
-		sc.add("private void initializeResourceObjectFromStorage(" + I_STORAGE_EDITOR_INPUT(sc) + " input) {");
-		sc.add(URI(sc) + " uri = null;");
-		sc.add("try {");
-		sc.add(I_STORAGE(sc) + " storage = input.getStorage();");
-		sc.add(INPUT_STREAM(sc) + " inputStream = storage.getContents();");
-		sc.add("uri = URI.createURI(storage.getName(), true);");
-		sc.add(RESOURCE_SET(sc) + " resourceSet = getResourceSet();");
-		sc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") resourceSet.createResource(uri);");
-		sc.add("resource.load(inputStream, null);");
-		sc.add("setResource(resource);");
-		sc.add("} catch (" + CORE_EXCEPTION(sc) + " e) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource (\" + uri + \") in \" + getClass().getSimpleName() + \".\", e);");
-		sc.add("} catch (" + IO_EXCEPTION(sc) + " e) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource (\" + uri + \") in \" + getClass().getSimpleName() + \".\", e);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addInitializeResourceObjectFromStorageMethod(JavaComposite jc) {
+		jc.add("private void initializeResourceObjectFromStorage(" + I_STORAGE_EDITOR_INPUT(jc) + " input) {");
+		jc.add(URI(jc) + " uri = null;");
+		jc.add("try {");
+		jc.add(I_STORAGE(jc) + " storage = input.getStorage();");
+		jc.add(INPUT_STREAM(jc) + " inputStream = storage.getContents();");
+		jc.add("uri = URI.createURI(storage.getName(), true);");
+		jc.add(RESOURCE_SET(jc) + " resourceSet = getResourceSet();");
+		jc.add(iTextResourceClassName + " resource = (" + iTextResourceClassName + ") resourceSet.createResource(uri);");
+		jc.add("resource.load(inputStream, null);");
+		jc.add("setResource(resource);");
+		jc.add("} catch (" + CORE_EXCEPTION(jc) + " e) {");
+		jc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource (\" + uri + \") in \" + getClass().getSimpleName() + \".\", e);");
+		jc.add("} catch (" + IO_EXCEPTION(jc) + " e) {");
+		jc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource (\" + uri + \") in \" + getClass().getSimpleName() + \".\", e);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addInitializeResourceObjectFromFileMethod(JavaComposite sc) {
-		sc.add("private void initializeResourceObjectFromFile(" + FILE_EDITOR_INPUT(sc) + " input) {");
-		sc.add(I_FILE(sc) + " inputFile = input.getFile();");
+	private void addInitializeResourceObjectFromFileMethod(JavaComposite jc) {
+		jc.add("private void initializeResourceObjectFromFile(" + FILE_EDITOR_INPUT(jc) + " input) {");
+		jc.add(I_FILE(jc) + " inputFile = input.getFile();");
 		
 		// TODO activating the DSL nature here is ugly
-		sc.add(natureClassName + ".activate(inputFile.getProject());");
+		jc.add(natureClassName + ".activate(inputFile.getProject());");
 
-		sc.add("String path = inputFile.getFullPath().toString();");
-		sc.add(URI(sc) + " uri = " + URI(sc) + ".createPlatformResourceURI(path, true);");
-		sc.add(RESOURCE_SET(sc) + " resourceSet = getResourceSet();");
-		sc.add(iTextResourceClassName + " loadedResource = (" + iTextResourceClassName + ") resourceSet.getResource(uri, false);");
-		sc.add("if (loadedResource == null) {");
-		sc.add("try {");
-		sc.add(RESOURCE(sc)  + " demandLoadedResource = null;");
-		sc.addComment("here we do not use getResource(), because 'resource' might be null, which is ok when initializing the resource object");
-		sc.add(iTextResourceClassName + " currentResource = this.resource;");
-		sc.add("if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {");
-		sc.addComment("do not attempt to load if file extension has changed in a 'save as' operation	");
-		sc.add("}");
-		sc.add("else {");
-		sc.add("demandLoadedResource = resourceSet.getResource(uri, true);");
-		sc.add("}");
-		sc.add("if (demandLoadedResource instanceof " + iTextResourceClassName + ") {");
-		sc.add("setResource((" + iTextResourceClassName + ") demandLoadedResource);");
-		sc.add("} else {");
-		sc.addComment("the resource was not loaded by an EMFText resource, but some other EMF resource");
-		sc.add(uiPluginActivatorClassName + ".showErrorDialog(\"Invalid resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
-		sc.addComment("close this editor because it can not present the resource");
-		sc.add("close(false);");
-		sc.add("}");
-		sc.add("} catch (Exception e) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
-		sc.add("}");
-		sc.add("} else {");
-		sc.add("setResource(loadedResource);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("String path = inputFile.getFullPath().toString();");
+		jc.add(URI(jc) + " uri = " + URI(jc) + ".createPlatformResourceURI(path, true);");
+		jc.add(RESOURCE_SET(jc) + " resourceSet = getResourceSet();");
+		jc.add(iTextResourceClassName + " loadedResource = (" + iTextResourceClassName + ") resourceSet.getResource(uri, false);");
+		jc.add("if (loadedResource == null) {");
+		jc.add("try {");
+		jc.add(RESOURCE(jc)  + " demandLoadedResource = null;");
+		jc.addComment("here we do not use getResource(), because 'resource' might be null, which is ok when initializing the resource object");
+		jc.add(iTextResourceClassName + " currentResource = this.resource;");
+		jc.add("if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {");
+		jc.addComment("do not attempt to load if file extension has changed in a 'save as' operation	");
+		jc.add("}");
+		jc.add("else {");
+		jc.add("demandLoadedResource = resourceSet.getResource(uri, true);");
+		jc.add("}");
+		jc.add("if (demandLoadedResource instanceof " + iTextResourceClassName + ") {");
+		jc.add("setResource((" + iTextResourceClassName + ") demandLoadedResource);");
+		jc.add("} else {");
+		jc.addComment("the resource was not loaded by an EMFText resource, but some other EMF resource");
+		jc.add(uiPluginActivatorClassName + ".showErrorDialog(\"Invalid resource.\", \"The file '\" + uri.lastSegment() + \"' of type '\" + uri.fileExtension() + \"' can not be handled by the " + getResourceClassName() + ".\");");
+		jc.addComment("close this editor because it can not present the resource");
+		jc.add("close(false);");
+		jc.add("}");
+		jc.add("} catch (Exception e) {");
+		jc.add(uiPluginActivatorClassName + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
+		jc.add("}");
+		jc.add("} else {");
+		jc.add("setResource(loadedResource);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addCreatePartControlMethod(JavaComposite sc) {
-		sc.add("public void createPartControl(" + COMPOSITE(sc) + " parent) {");
-		sc.add("super.createPartControl(parent);");
-		sc.addLineBreak();
-		sc.addComment("Code Folding");
-		sc.add(PROJECTION_VIEWER(sc) + " viewer = (" + PROJECTION_VIEWER(sc) + ") getSourceViewer();");
-		sc.addComment("Occurrence initiation, need ITextResource and ISourceViewer.");
-		sc.add("highlighting = new " + highlightingClassName + "(getResource(), viewer, colorManager, this);");
-		sc.addLineBreak();
-		sc.add("projectionSupport = new " + PROJECTION_SUPPORT(sc) + "(viewer, getAnnotationAccess(), getSharedColors());");
-		sc.add("projectionSupport.install();");
-		sc.addLineBreak();
-		sc.addComment("turn projection mode on");
-		sc.add("viewer.doOperation(" + PROJECTION_VIEWER(sc) + ".TOGGLE);");
-		sc.add("codeFoldingManager = new " + codeFoldingManagerClassName + "(viewer, this);");
-		sc.addLineBreak();
-		sc.add(I_CONTEXT_SERVICE(sc) + " contextService = ("+ I_CONTEXT_SERVICE(sc) + ") getSite().getService(" + I_CONTEXT_SERVICE(sc) + ".class);");
-		sc.add("contextService.activateContext(\"" + getContext().getEditorScopeID() + "\");");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("protected void doSetInput(" + I_EDITOR_INPUT(sc) + " editorInput) throws " + CORE_EXCEPTION(sc) + " {");
-		sc.add("super.doSetInput(editorInput);");
-		sc.add("initializeResourceObject(editorInput);");
-		sc.add(I_DOCUMENT(sc) + " document = getDocumentProvider().getDocument(getEditorInput());");
-		sc.add("document.addDocumentListener(new DocumentListener());");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addCreatePartControlMethod(JavaComposite jc) {
+		jc.add("public void createPartControl(" + COMPOSITE(jc) + " parent) {");
+		jc.add("super.createPartControl(parent);");
+		jc.addLineBreak();
+		jc.addComment("Code Folding");
+		jc.add(PROJECTION_VIEWER(jc) + " viewer = (" + PROJECTION_VIEWER(jc) + ") getSourceViewer();");
+		jc.addComment("Occurrence initiation, need ITextResource and ISourceViewer.");
+		jc.add("highlighting = new " + highlightingClassName + "(getResource(), viewer, colorManager, this);");
+		jc.addLineBreak();
+		jc.add("projectionSupport = new " + PROJECTION_SUPPORT(jc) + "(viewer, getAnnotationAccess(), getSharedColors());");
+		jc.add("projectionSupport.install();");
+		jc.addLineBreak();
+		jc.addComment("turn projection mode on");
+		jc.add("viewer.doOperation(" + PROJECTION_VIEWER(jc) + ".TOGGLE);");
+		jc.add("codeFoldingManager = new " + codeFoldingManagerClassName + "(viewer, this);");
+		jc.addLineBreak();
+		jc.add(I_CONTEXT_SERVICE(jc) + " contextService = ("+ I_CONTEXT_SERVICE(jc) + ") getSite().getService(" + I_CONTEXT_SERVICE(jc) + ".class);");
+		jc.add("contextService.activateContext(\"" + getContext().getEditorScopeID() + "\");");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("protected void doSetInput(" + I_EDITOR_INPUT(jc) + " editorInput) throws " + CORE_EXCEPTION(jc) + " {");
+		jc.add("super.doSetInput(editorInput);");
+		jc.add("initializeResourceObject(editorInput);");
+		jc.add(I_DOCUMENT(jc) + " document = getDocumentProvider().getDocument(getEditorInput());");
+		jc.add("document.addDocumentListener(new DocumentListener());");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addCreateActionsMethod(JavaComposite sc) {
-		sc.add("public void createActions() {");
-		sc.add("super.createActions();");
-		sc.add(RESOURCE_BUNDLE(sc) + " resourceBundle = new " + RESOURCE_BUNDLE(sc) + "() {");
-		sc.add("public " + ENUMERATION(sc) + "<String> getKeys() {");
-		sc.add(LIST(sc) + "<String> keys = new " + ARRAY_LIST(sc) + "<String>(3);");
-		sc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.label\");");
-		sc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.tooltip\");");
-		sc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.description\");");
-		sc.add("return " + COLLECTIONS(sc) + ".enumeration(keys);");
-		sc.add("}");
-		sc.add("public Object handleGetObject(String key) {");
-		sc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.label\")) return \"&Quick Fix\";");
-		sc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.tooltip\")) return \"Quick Fix\";");
-		sc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.description\")) return \"Runs Quick Fix on the annotation's line\";");
-		sc.add("return null;");
-		sc.add("}");
-		sc.add("};");
-		sc.add("setAction(" + I_TEXT_EDITOR_ACTION_CONSTANTS(sc) + ".RULER_CLICK, new " + SELECT_MARKER_RULES_ACTION(sc) + "(resourceBundle, \"SelectAnnotationRulerAction.\", this, getVerticalRuler()) {");
-		sc.add("public void run() {");
-		sc.add("runWithEvent(null);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void runWithEvent(" + EVENT(sc) + " event) {");
-		sc.add(I_TEXT_OPERATION_TARGET(sc) + " operation = (" + I_TEXT_OPERATION_TARGET(sc) + ") getAdapter(" + I_TEXT_OPERATION_TARGET(sc) + ".class);");
-		sc.add("final int opCode = " + I_SOURCE_VIEWER(sc) + ".QUICK_ASSIST;");
-		sc.add("if (operation != null && operation.canDoOperation(opCode)) {");
-		sc.add(POSITION(sc) + " position = getPosition();");
-		sc.add("if (position != null) {");
-		sc.add("selectAndReveal(position.getOffset(), position.getLength());");
-		sc.add("}");
-		sc.add("operation.doOperation(opCode);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private " + POSITION(sc) + " getPosition() {");
-		sc.add(ABSTRACT_MARKER_ANNOTATION_MODEL(sc) + " model = getAnnotationModel();");
-		sc.add(I_ANNOTATION_ACCESS_EXTENSION(sc) + "  annotationAccess = getAnnotationAccessExtension();");
-		sc.addLineBreak();
-		sc.add(I_DOCUMENT(sc) + " document = getDocument();");
-		sc.add("if (model == null) {");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add(ITERATOR(sc) + "<?> iter = model.getAnnotationIterator();");
-		sc.add("int layer = Integer.MIN_VALUE;");
-		sc.addLineBreak();
-		sc.add("while (iter.hasNext()) {");
-		sc.add(ANNOTATION(sc) + " annotation = (" + ANNOTATION(sc) + ") iter.next();");
-		sc.add("if (annotation.isMarkedDeleted()) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("if (annotationAccess != null) {");
-		sc.add("int annotationLayer = annotationAccess.getLayer(annotation);");
-		sc.add("if (annotationLayer < layer) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add(POSITION(sc) + " position = model.getPosition(annotation);");
-		sc.add("if (!includesRulerLine(position, document)) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("return position;");
-		sc.add("}");
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("});");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addCreateActionsMethod(JavaComposite jc) {
+		jc.add("public void createActions() {");
+		jc.add("super.createActions();");
+		jc.add(RESOURCE_BUNDLE(jc) + " resourceBundle = new " + RESOURCE_BUNDLE(jc) + "() {");
+		jc.add("public " + ENUMERATION(jc) + "<String> getKeys() {");
+		jc.add(LIST(jc) + "<String> keys = new " + ARRAY_LIST(jc) + "<String>(3);");
+		jc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.label\");");
+		jc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.tooltip\");");
+		jc.add("keys.add(\"SelectAnnotationRulerAction.QuickFix.description\");");
+		jc.add("return " + COLLECTIONS(jc) + ".enumeration(keys);");
+		jc.add("}");
+		jc.add("public Object handleGetObject(String key) {");
+		jc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.label\")) return \"&Quick Fix\";");
+		jc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.tooltip\")) return \"Quick Fix\";");
+		jc.add("if (key.equals(\"SelectAnnotationRulerAction.QuickFix.description\")) return \"Runs Quick Fix on the annotation's line\";");
+		jc.add("return null;");
+		jc.add("}");
+		jc.add("};");
+		jc.add("setAction(" + I_TEXT_EDITOR_ACTION_CONSTANTS(jc) + ".RULER_CLICK, new " + SELECT_MARKER_RULES_ACTION(jc) + "(resourceBundle, \"SelectAnnotationRulerAction.\", this, getVerticalRuler()) {");
+		jc.add("public void run() {");
+		jc.add("runWithEvent(null);");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("public void runWithEvent(" + EVENT(jc) + " event) {");
+		jc.add(I_TEXT_OPERATION_TARGET(jc) + " operation = (" + I_TEXT_OPERATION_TARGET(jc) + ") getAdapter(" + I_TEXT_OPERATION_TARGET(jc) + ".class);");
+		jc.add("final int opCode = " + I_SOURCE_VIEWER(jc) + ".QUICK_ASSIST;");
+		jc.add("if (operation != null && operation.canDoOperation(opCode)) {");
+		jc.add(POSITION(jc) + " position = getPosition();");
+		jc.add("if (position != null) {");
+		jc.add("selectAndReveal(position.getOffset(), position.getLength());");
+		jc.add("}");
+		jc.add("operation.doOperation(opCode);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("private " + POSITION(jc) + " getPosition() {");
+		jc.add(ABSTRACT_MARKER_ANNOTATION_MODEL(jc) + " model = getAnnotationModel();");
+		jc.add(I_ANNOTATION_ACCESS_EXTENSION(jc) + "  annotationAccess = getAnnotationAccessExtension();");
+		jc.addLineBreak();
+		jc.add(I_DOCUMENT(jc) + " document = getDocument();");
+		jc.add("if (model == null) {");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add(ITERATOR(jc) + "<?> iter = model.getAnnotationIterator();");
+		jc.add("int layer = Integer.MIN_VALUE;");
+		jc.addLineBreak();
+		jc.add("while (iter.hasNext()) {");
+		jc.add(ANNOTATION(jc) + " annotation = (" + ANNOTATION(jc) + ") iter.next();");
+		jc.add("if (annotation.isMarkedDeleted()) {");
+		jc.add("continue;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("if (annotationAccess != null) {");
+		jc.add("int annotationLayer = annotationAccess.getLayer(annotation);");
+		jc.add("if (annotationLayer < layer) {");
+		jc.add("continue;");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add(POSITION(jc) + " position = model.getPosition(annotation);");
+		jc.add("if (!includesRulerLine(position, document)) {");
+		jc.add("continue;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("return position;");
+		jc.add("}");
+		jc.add("return null;");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("});");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addGetAdapterMethod(JavaComposite sc) {
-		sc.add("public Object getAdapter(@SuppressWarnings(\"rawtypes\") Class required) {");
-		sc.add("if (" + I_CONTENT_OUTLINE_PAGE(sc) + ".class.equals(required)) {");
-		sc.add("return getOutlinePage();");
-		sc.add("} else if (required.equals(" + I_PROPERTY_SHEET_PAGE(sc) + ".class)) {");
-		sc.add("return getPropertySheetPage();");
-		sc.add("}");
-		sc.add("return super.getAdapter(required);");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addGetAdapterMethod(JavaComposite jc) {
+		jc.add("public Object getAdapter(@SuppressWarnings(\"rawtypes\") Class required) {");
+		jc.add("if (" + I_CONTENT_OUTLINE_PAGE(jc) + ".class.equals(required)) {");
+		jc.add("return getOutlinePage();");
+		jc.add("} else if (required.equals(" + I_PROPERTY_SHEET_PAGE(jc) + ".class)) {");
+		jc.add("return getPropertySheetPage();");
+		jc.add("}");
+		jc.add("return super.getAdapter(required);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addModelResourceChangeListenerClass(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addModelResourceChangeListenerClass(JavaComposite jc) {
+		jc.addJavadoc(
 				"Reacts to changes of the text resource displayed in the editor and " +
 				"resources cross-referenced by it. Cross-referenced resources are " +
 				"unloaded, the displayed resource is reloaded. An attempt to resolve all " +
 				"proxies in the displayed resource is made after each change.",
 				"The code pretty much corresponds to what EMF generates for a tree editor."
 		);
-		sc.add("private class ModelResourceChangeListener implements " + I_RESOURCE_CHANGE_LISTENER(sc) + " {");
-		sc.add("public void resourceChanged(" + I_RESOURCE_CHANGE_EVENT(sc) + " event) {");
-		sc.add(I_RESOURCE_DELTA(sc) + " delta = event.getDelta();");
-		sc.add("try {");
-		sc.add("class ResourceDeltaVisitor implements " + I_RESOURCE_DELTA_VISITOR(sc) + " {");
-		sc.add("protected " + RESOURCE_SET(sc) + " resourceSet = getResourceSet();");
-		sc.addLineBreak();
-		sc.add("public boolean visit(" + I_RESOURCE_DELTA(sc) + " delta) {");
-		sc.add("if (delta.getResource().getType() != " + I_RESOURCE(sc) + ".FILE) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("int deltaKind = delta.getKind();");
-		sc.add("if (deltaKind == " + I_RESOURCE_DELTA(sc) + ".CHANGED && delta.getFlags() != " + I_RESOURCE_DELTA(sc) + ".MARKERS) {");
-		sc.add(RESOURCE(sc) + " changedResource = resourceSet.getResource(" + URI(sc) + ".createURI(delta.getFullPath().toString()), false);");
-		sc.add("if (changedResource != null) {");
-		sc.add("changedResource.unload();");
-		sc.add(iTextResourceClassName + " currentResource = getResource();");
-		sc.add("if (changedResource.equals(currentResource)) {");
-		sc.addComment("reload the resource displayed in the editor");
-		sc.add("resourceSet.getResource(currentResource.getURI(), true);");
-		sc.add("}");
+		jc.add("private class ModelResourceChangeListener implements " + I_RESOURCE_CHANGE_LISTENER(jc) + " {");
+		jc.add("public void resourceChanged(" + I_RESOURCE_CHANGE_EVENT(jc) + " event) {");
+		jc.add(I_RESOURCE_DELTA(jc) + " delta = event.getDelta();");
+		jc.add("try {");
+		jc.add("class ResourceDeltaVisitor implements " + I_RESOURCE_DELTA_VISITOR(jc) + " {");
+		jc.add("protected " + RESOURCE_SET(jc) + " resourceSet = getResourceSet();");
+		jc.addLineBreak();
+		jc.add("public boolean visit(" + I_RESOURCE_DELTA(jc) + " delta) {");
+		jc.add("if (delta.getResource().getType() != " + I_RESOURCE(jc) + ".FILE) {");
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("int deltaKind = delta.getKind();");
+		jc.add("if (deltaKind == " + I_RESOURCE_DELTA(jc) + ".CHANGED && delta.getFlags() != " + I_RESOURCE_DELTA(jc) + ".MARKERS) {");
+		jc.add(RESOURCE(jc) + " changedResource = resourceSet.getResource(" + URI(jc) + ".createURI(delta.getFullPath().toString()), false);");
+		jc.add("if (changedResource != null) {");
+		jc.add("changedResource.unload();");
+		jc.add(iTextResourceClassName + " currentResource = getResource();");
+		jc.add("if (changedResource.equals(currentResource)) {");
+		jc.addComment("reload the resource displayed in the editor");
+		jc.add("resourceSet.getResource(currentResource.getURI(), true);");
+		jc.add("}");
 		// TODO this is kind of strange, since the code is the same as in setResource()
 		// I was wondering why setResource() is not called after reloading the resource
-		sc.add("if (currentResource != null && currentResource.getErrors().isEmpty()) {");
-		sc.add(ECORE_UTIL(sc) + ".resolveAll(currentResource);");
-		sc.add("}");
-		sc.addComment("reset the selected element in outline and properties by text position");
-		sc.add("if (highlighting != null) {");
-		sc.add("highlighting.updateEObjectSelection();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();");
-		sc.add("delta.accept(visitor);");
-		sc.add("} catch (" + CORE_EXCEPTION(sc) + " exception) {");
-		sc.add(uiPluginActivatorClassName + ".logError(\"Unexpected Error: \", exception);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("if (currentResource != null && currentResource.getErrors().isEmpty()) {");
+		jc.add(ECORE_UTIL(jc) + ".resolveAll(currentResource);");
+		jc.add("}");
+		jc.addComment("reset the selected element in outline and properties by text position");
+		jc.add("if (highlighting != null) {");
+		jc.add("highlighting.updateEObjectSelection();");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();");
+		jc.add("delta.accept(visitor);");
+		jc.add("} catch (" + CORE_EXCEPTION(jc) + " exception) {");
+		jc.add(uiPluginActivatorClassName + ".logError(\"Unexpected Error: \", exception);");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
-	private void addDocumentListenerClass(JavaComposite sc) {
-		sc.addJavadoc("A custom document listener that triggers background parsing if needed.");
-		sc.add("private final class DocumentListener implements " + I_DOCUMENT_LISTENER(sc) + " {");
-		sc.addLineBreak();
-		sc.add("public void documentAboutToBeChanged(" + DOCUMENT_EVENT(sc) + " event) {");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void documentChanged(" + DOCUMENT_EVENT(sc) + " event) {");
-		sc.add("bgParsingStrategy.parse(event, getResource(), " + getResourceClassName() + ".this);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addDocumentListenerClass(JavaComposite jc) {
+		jc.addJavadoc("A custom document listener that triggers background parsing if needed.");
+		jc.add("private final class DocumentListener implements " + I_DOCUMENT_LISTENER(jc) + " {");
+		jc.addLineBreak();
+		jc.add("public void documentAboutToBeChanged(" + DOCUMENT_EVENT(jc) + " event) {");
+		jc.add("}");
+		jc.addLineBreak();
+		jc.add("public void documentChanged(" + DOCUMENT_EVENT(jc) + " event) {");
+		jc.add("bgParsingStrategy.parse(event, getResource(), " + getResourceClassName() + ".this);");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 }
