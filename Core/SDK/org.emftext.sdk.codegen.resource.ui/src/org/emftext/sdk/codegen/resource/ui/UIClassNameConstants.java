@@ -387,6 +387,10 @@ public class UIClassNameConstants {
 		return getClassName(jc, "org.eclipse.ui.IEditorPart");
 	}
 
+	public static String I_EDITOR_SITE(JavaComposite jc) {
+		return getClassName(jc, "org.eclipse.ui.IEditorSite");
+	}
+
 	public static String I_ELEMENT_COMPARER(JavaComposite jc) {
 		return getClassName(jc, "org.eclipse.jface.viewers.IElementComparer");
 	}

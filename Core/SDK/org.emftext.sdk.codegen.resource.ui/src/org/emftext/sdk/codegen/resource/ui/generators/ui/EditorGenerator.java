@@ -58,6 +58,7 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMEN
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_DOCUMENT_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITING_DOMAIN_PROVIDER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_INPUT;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_EDITOR_SITE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ITEM_PROPERTY_DESCRIPTOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_ITEM_PROPERTY_SOURCE;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PROPERTY_DESCRIPTOR;
@@ -75,6 +76,8 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_OP
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_PRESENTATION_LISTENER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_VERTICAL_RULER;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_VIEWER_PROVIDER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_WORKBENCH_PAGE;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PART_INIT_EXCEPTION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.POSITION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROJECTION_SUPPORT;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.PROJECTION_VIEWER;
@@ -153,6 +156,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addInitializeEditorMethod(sc);
 		addGetAdapterMethod(sc);
 		addCreatePartControlMethod(sc);
+		addInitMethod(sc);
 		addInitializeResourceObjectMethod(sc);
 		addInitializeResourceObjectFromFileMethod(sc);
 		addInitializeResourceObjectFromStorageMethod(sc);
@@ -182,6 +186,19 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		addSetSelectionMethod1(sc);
 		addSetSelectionMethod2(sc);
 		addGetViewerMethod(sc);
+	}
+
+	private void addInitMethod(JavaComposite jc) {
+		jc.add("@" + jc.getClassName(Override.class));
+		jc.add("public void init(" + I_EDITOR_SITE(jc) + " site, " + I_EDITOR_INPUT(jc) + " input) throws " + PART_INIT_EXCEPTION(jc) + " {");
+		jc.add("super.init(site, input);");
+		jc.addComment(
+			"Show the 'presentation' action set with the 'Toggle Block Selection" +
+	        "Mode' and 'Show Whitespace Characters' actions.");
+		jc.add(I_WORKBENCH_PAGE(jc) + " page = site.getPage();");
+		jc.add("page.showActionSet(\"org.eclipse.ui.edit.text.actionSet.presentation\");");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
 	private void addSetSelectionMethod1(JavaComposite sc) {
