@@ -192,6 +192,7 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		jc.add("@" + jc.getClassName(Override.class));
 		jc.add("public void init(" + I_EDITOR_SITE(jc) + " site, " + I_EDITOR_INPUT(jc) + " input) throws " + PART_INIT_EXCEPTION(jc) + " {");
 		jc.add("super.init(site, input);");
+		jc.addLineBreak();
 		jc.addComment(
 			"Show the 'presentation' action set with the 'Toggle Block Selection" +
 	        "Mode' and 'Show Whitespace Characters' actions.");
