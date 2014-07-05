@@ -135,6 +135,7 @@ public class TextResourceGenerator extends
 		addResolveAfterParsingMethod(jc);
 		addSetURIMethod(jc);
 		addGetLocationMapMethod(jc);
+		addSetLocationMapMethod(jc);
 		addAddProblemMethod1(jc);
 		addAddProblemMethod2(jc);
 		addAddQuickFixesToQuickFixMap(jc);
@@ -501,16 +502,32 @@ public class TextResourceGenerator extends
 		sc.addLineBreak();
 	}
 
-	private void addGetLocationMapMethod(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addGetLocationMapMethod(JavaComposite jc) {
+		jc.addJavadoc(
 			"Returns the location map that contains information about " +
 			"the position of the contents of this resource in the original " +
 			"textual representation."
 		);
-		sc.add("public " + iLocationMapClassName + " getLocationMap() {");
-		sc.add("return locationMap;");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("public " + iLocationMapClassName + " getLocationMap() {");
+		jc.add("return locationMap;");
+		jc.add("}");
+		jc.addLineBreak();
+	}
+
+	private void addSetLocationMapMethod(JavaComposite jc) {
+		jc.addJavadoc(
+			"Sets the location map that contains information about the " +
+			"position of the contents of this resource in the original " +
+			"textual representation.",
+			"Use this method carefully. If the location map is replaced " +
+			"with a map that contains wrong location data, clients that " +
+			"obtain locations via {@link #getLocationMap()} will behave " +
+			"unexpectedly."
+		);
+		jc.add("public void setLocationMap(" + iLocationMapClassName + " locationMap) {");
+		jc.add("this.locationMap = locationMap;");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
 	private void addSetURIMethod(JavaComposite sc) {
