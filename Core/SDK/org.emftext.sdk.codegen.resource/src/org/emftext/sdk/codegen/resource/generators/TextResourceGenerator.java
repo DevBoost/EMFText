@@ -112,8 +112,8 @@ public class TextResourceGenerator extends
 		addDoSaveMethod(sc);
 
 		if (saveChangedResourcesOnly) {
-	addSaveOnlyIfChangedWithMemoryBuffer(sc);
-	addGetPrint(sc);
+			addSaveOnlyIfChangedWithMemoryBuffer(sc);
+			addGetPrint(sc);
 		}
 		addGetSyntaxNameMethod(sc);
 		addGetEncoding(sc);
