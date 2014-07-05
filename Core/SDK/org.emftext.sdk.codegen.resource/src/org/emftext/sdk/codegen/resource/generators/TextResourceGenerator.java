@@ -99,67 +99,67 @@ public class TextResourceGenerator extends
 		addPositionBasedTextDiagnosticClass(sc);
 	}
 
-	private void addMethods(JavaComposite sc) {
+	private void addMethods(JavaComposite jc) {
 		GenerationContext context = getContext();
-		addConstructors(sc);
-		addDoLoadMethod(sc);
-		addUnloadAndClearContentsMethod(sc);
-		addProcessTerminationRequestedMethod(sc);
-		addNotifyDelayedMethod(sc);
-		addENotifyMethod(sc);
-		addReloadMethod(sc);
-		addCancelReloadMethod(sc);
-		addDoSaveMethod(sc);
+		addConstructors(jc);
+		addDoLoadMethod(jc);
+		addUnloadAndClearContentsMethod(jc);
+		addProcessTerminationRequestedMethod(jc);
+		addNotifyDelayedMethod(jc);
+		addENotifyMethod(jc);
+		addReloadMethod(jc);
+		addCancelReloadMethod(jc);
+		addDoSaveMethod(jc);
 
 		if (saveChangedResourcesOnly) {
-			addSaveOnlyIfChangedWithMemoryBuffer(sc);
-			addGetPrint(sc);
+			addSaveOnlyIfChangedWithMemoryBuffer(jc);
+			addGetPrint(jc);
 		}
-		addGetSyntaxNameMethod(sc);
-		addGetEncoding(sc);
-		addGetReferenceResolverSwitchMethod(sc);
-		generatorUtil.addGetMetaInformationMethod(sc, context);
-		addResetLocationMapMethod(sc);
-		addAddURIFragmentMethod(sc);
-		addRegisterContextDependentProxyMethod(sc);
-		addGetEObjectMethod(sc);
-		addReplaceProxyInLayoutAdaptersMethod(sc);
-		addGetResultElementMethod(sc);
-		addRemoveDiagnosticsMethod(sc);
-		addAttachResolveErrorMethod(sc);
-		addAttachResolveWarningsMethod(sc);
-		addDoUnloadMethod(sc);
-		addRunPostProcessorsMethod(sc);
-		addRunPostProcessorMethod(sc);
-		addLoadMethod(sc);
-		addResolveAfterParsingMethod(sc);
-		addSetURIMethod(sc);
-		addGetLocationMapMethod(sc);
-		addAddProblemMethod1(sc);
-		addAddProblemMethod2(sc);
-		addAddQuickFixesToQuickFixMap(sc);
-		addAddErrorMethod1(sc);
-		addAddErrorMethod2(sc);
-		addAddWarningMethod1(sc);
-		addAddWarningMethod2(sc);
-		addGetDiagnosticsMethod(sc);
-		addAddDefaultLoadOptionsMethod(sc);
-		addClearStateMethod(sc);
-		addGetContentsMethod(sc);
-		addGetContentsInternalMethod(sc);
-		addGetWarningsMethod(sc);
-		addGetErrorsMethod(sc);
-		addHasErrorsMethod(sc);
-		addRunValidatorsMethods(sc);
-		addGetQuickFixMethod(sc);
-		addMarkMethod(sc);
-		addUnmarkMethod1(sc);
-		addUnmarkMethod2(sc);
-		addGetMarkerHelperMethod(sc);
+		addGetSyntaxNameMethod(jc);
+		addGetEncoding(jc);
+		addGetReferenceResolverSwitchMethod(jc);
+		generatorUtil.addGetMetaInformationMethod(jc, context);
+		addResetLocationMapMethod(jc);
+		addAddURIFragmentMethod(jc);
+		addRegisterContextDependentProxyMethod(jc);
+		addGetEObjectMethod(jc);
+		addReplaceProxyInLayoutAdaptersMethod(jc);
+		addGetResultElementMethod(jc);
+		addRemoveDiagnosticsMethod(jc);
+		addAttachResolveErrorMethod(jc);
+		addAttachResolveWarningsMethod(jc);
+		addDoUnloadMethod(jc);
+		addRunPostProcessorsMethod(jc);
+		addRunPostProcessorMethod(jc);
+		addLoadMethod(jc);
+		addResolveAfterParsingMethod(jc);
+		addSetURIMethod(jc);
+		addGetLocationMapMethod(jc);
+		addAddProblemMethod1(jc);
+		addAddProblemMethod2(jc);
+		addAddQuickFixesToQuickFixMap(jc);
+		addAddErrorMethod1(jc);
+		addAddErrorMethod2(jc);
+		addAddWarningMethod1(jc);
+		addAddWarningMethod2(jc);
+		addGetDiagnosticsMethod(jc);
+		addAddDefaultLoadOptionsMethod(jc);
+		addClearStateMethod(jc);
+		addGetContentsMethod(jc);
+		addGetContentsInternalMethod(jc);
+		addGetWarningsMethod(jc);
+		addGetErrorsMethod(jc);
+		addHasErrorsMethod(jc);
+		addRunValidatorsMethods(jc);
+		addGetQuickFixMethod(jc);
+		addMarkMethod(jc);
+		addUnmarkMethod1(jc);
+		addUnmarkMethod2(jc);
+		addGetMarkerHelperMethod(jc);
 
-		generatorUtil.addIsMarkerCreationEnabledMethod(sc, context, "loadOptions");
-		generatorUtil.addIsLocationMapEnabledMethod(sc, context, "loadOptions");
-		generatorUtil.addIsLayoutInformationRecordingEnabled(sc, context, "loadOptions");
+		generatorUtil.addIsMarkerCreationEnabledMethod(jc, context, "loadOptions");
+		generatorUtil.addIsLocationMapEnabledMethod(jc, context, "loadOptions");
+		generatorUtil.addIsLayoutInformationRecordingEnabled(jc, context, "loadOptions");
 	}
 
 	private void addUnloadAndClearContentsMethod(JavaComposite sc) {
