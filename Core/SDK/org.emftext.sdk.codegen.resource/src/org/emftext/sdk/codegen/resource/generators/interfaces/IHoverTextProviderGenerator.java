@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -28,19 +28,22 @@ public class IHoverTextProviderGenerator extends JavaBaseGenerator<ArtifactParam
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
+		sc.addImportsPlaceholder();
+		sc.addLineBreak();
+		
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		sc.addJavadoc(
-			"Returns the hoves text that is shown when the mouse pointer rests over the given object. " +
+			"Returns the hover text that is shown when the mouse pointer rests over the given object. " +
 			"The hover text can contain HTML."
 		);
 		sc.add("public String getHoverText(" + E_OBJECT(sc) + " object);");
 		sc.addLineBreak();
 
 		sc.addJavadoc(
-			"Returns the hoves text that is shown when the mouse pointer rests over a reference to the given object. " +
+			"Returns the hover text that is shown when the mouse pointer rests over a reference to the given object. " +
 			"The hover text can contain HTML."
 		);
 		sc.add("public String getHoverText(" + E_OBJECT(sc) + " container, " + E_OBJECT(sc) + " referencedObject);");
