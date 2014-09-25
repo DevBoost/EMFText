@@ -72,9 +72,9 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		
 		sc.add("public final static " + containedFeatureClassName + "[] EMPTY_LINK_ARRAY = new " + containedFeatureClassName + "[0];");
 		sc.addLineBreak();
-		addLargeMethod(sc, "initializeTerminals", initializeTerminalConstantsCode,22);
-		addLargeMethod(sc, "initializeFeatures", initializeFeatureConstantsCode,31);
-		addLargeMethod(sc, "initializeLinks", initializeLinkConstantsCode,37);
+		addLargeMethod(sc, "initializeTerminals", initializeTerminalConstantsCode, 22);
+		addLargeMethod(sc, "initializeFeatures", initializeFeatureConstantsCode, 31);
+		addLargeMethod(sc, "initializeLinks", initializeLinkConstantsCode, 37);
 		addWireTerminalsCode(sc);
 
 		sc.add("static {");
@@ -106,7 +106,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	private void touchAllFieldsAndLinks() {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
-		Map<String,Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
 		
 		for (String firstID : followSetMap.keySet()) {
 			for (Expectation expectation : followSetMap.get(firstID)) {
@@ -205,7 +205,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	private void addWireTerminalsCode(JavaComposite sc) {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
-		Map<String,Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
 
 		// TODO figure out whether 'tempCount' is actually required here
 		int tempCount = 0;
