@@ -391,7 +391,7 @@ public class ExpectationComputer {
 				Set<Expectation> firstSetOfSubRule = computeFirstSet(syntax, nextFeatureTypeRule, contributingNonterminals);
 				// for every expectation that results from a contained rule, 
 				// we extend the rule trace. this way, we know the types of the 
-				// containers that may potentially be created if they do not 
+				// containers that must potentially be created if they do not 
 				// exist.
 				for (Expectation expectation : firstSetOfSubRule) {
 					ContainmentLink link = new ContainmentLink(metaclass, containment.getFeature());
