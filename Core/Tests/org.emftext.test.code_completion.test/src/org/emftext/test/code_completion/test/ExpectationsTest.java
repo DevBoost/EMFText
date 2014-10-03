@@ -45,9 +45,10 @@ public class ExpectationsTest extends AbstractCodeCompletionTestCase {
 			return;
 		}
 		List<IExpectedTerminal> expectedElements = getExpectations(file, ".expectations");
-		//System.out.println("- Actual       from " + file.getName() + "");
+		int i = 0;
 		for (IExpectedTerminal expectedElement : expectedElements) {
-			System.out.println("EXPECTED ELEMENT: " + expectedElement);
+			System.out.println(i + " EXPECTED ELEMENT: " + expectedElement);
+			i++;
 		}
 		assertExpectedElementsList(file, expectedElements);
 	}

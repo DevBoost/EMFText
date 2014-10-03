@@ -1,3 +1,11 @@
+0	0	S
+0	0	SS
+0	0	OS
+0	0	PS
+0	0	CM
+0	0	GS
+2	2	a
+2	2	end1
 3	4	b
-// FIXME 5	5	a
-// FIXME 5	5	end1
+5	5	a
+5	5	end1

@@ -39,7 +39,7 @@ public class ExpectedInsertStringsTest extends AbstractCodeCompletionTestCase {
 	}
 
 	@Test
-	@Ignore("Must be ingored until test data has been adjusted")
+	//@Ignore("Must be ingored until test data has been adjusted")
 	public void checkInsertStrings() {
 		String filename = file.getName();
 		if (!accept(filename)) {

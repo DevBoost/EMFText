@@ -1,8 +1,9 @@
-// FIXME 0	0	S
-// FIXME 0	0	SS
-// FIXME 0	0	OS
-// FIXME 0	0	PS
-// FIXME 0	0	CM
+0	0	S
+0	0	SS
+0	0	OS
+0	0	PS
+0	0	CM
+0	0	GS
 2	2	a
-// FIXME 2	2	end1
-// FIXME 3	3	b
+2	2	end1
+3	3	b
