@@ -78,12 +78,6 @@ public class AbstractCct5Interpreter<ResultType, ContextType> {
 		if (result != null) {
 			return result;
 		}
-		if (object instanceof org.emftext.test.cct5.Animal) {
-			result = interprete_org_emftext_test_cct5_Animal((org.emftext.test.cct5.Animal) object, context);
-		}
-		if (result != null) {
-			return result;
-		}
 		if (object instanceof org.emftext.test.cct5.NamedElement) {
 			result = interprete_org_emftext_test_cct5_NamedElement((org.emftext.test.cct5.NamedElement) object, context);
 		}
@@ -92,6 +86,12 @@ public class AbstractCct5Interpreter<ResultType, ContextType> {
 		}
 		if (object instanceof org.emftext.test.cct5.Diet) {
 			result = interprete_org_emftext_test_cct5_Diet((org.emftext.test.cct5.Diet) object, context);
+		}
+		if (result != null) {
+			return result;
+		}
+		if (object instanceof org.emftext.test.cct5.Animal) {
+			result = interprete_org_emftext_test_cct5_Animal((org.emftext.test.cct5.Animal) object, context);
 		}
 		if (result != null) {
 			return result;

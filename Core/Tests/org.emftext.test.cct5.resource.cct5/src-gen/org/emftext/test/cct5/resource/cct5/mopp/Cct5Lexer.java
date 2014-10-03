@@ -308,13 +308,13 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = TEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:984:5: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ ) )
-            // Cct5.g:985:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // Cct5.g:990:5: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ ) )
+            // Cct5.g:991:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
             {
-            // Cct5.g:985:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // Cct5.g:985:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // Cct5.g:991:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // Cct5.g:991:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // Cct5.g:985:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // Cct5.g:991:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt1=0;
             loop1:
             do {
@@ -372,8 +372,8 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:987:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
-            // Cct5.g:988:2: ( ( ' ' | '\\t' | '\\f' ) )
+            // Cct5.g:993:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
+            // Cct5.g:994:2: ( ( ' ' | '\\t' | '\\f' ) )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -403,13 +403,13 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:991:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // Cct5.g:992:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Cct5.g:997:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // Cct5.g:998:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // Cct5.g:992:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Cct5.g:992:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cct5.g:998:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Cct5.g:998:3: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Cct5.g:992:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cct5.g:998:3: ( '\\r\\n' | '\\r' | '\\n' )
             int alt2=3;
             int LA2_0 = input.LA(1);
 
@@ -435,7 +435,7 @@ public class Cct5Lexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // Cct5.g:992:4: '\\r\\n'
+                    // Cct5.g:998:4: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -444,14 +444,14 @@ public class Cct5Lexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Cct5.g:992:13: '\\r'
+                    // Cct5.g:998:13: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Cct5.g:992:20: '\\n'
+                    // Cct5.g:998:20: '\\n'
                     {
                     match('\n'); 
 
@@ -482,21 +482,21 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = QUOTED_34_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:995:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
-            // Cct5.g:996:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Cct5.g:1001:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
+            // Cct5.g:1002:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
             {
-            // Cct5.g:996:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
-            // Cct5.g:996:3: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
+            // Cct5.g:1002:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Cct5.g:1002:3: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
             {
-            // Cct5.g:996:3: ( '\"' )
-            // Cct5.g:996:4: '\"'
+            // Cct5.g:1002:3: ( '\"' )
+            // Cct5.g:1002:4: '\"'
             {
             match('\"'); 
 
             }
 
 
-            // Cct5.g:996:8: (~ ( '\"' ) )*
+            // Cct5.g:1002:8: (~ ( '\"' ) )*
             loop3:
             do {
                 int alt3=2;
@@ -530,8 +530,8 @@ public class Cct5Lexer extends Lexer {
             } while (true);
 
 
-            // Cct5.g:996:17: ( '\"' )
-            // Cct5.g:996:18: '\"'
+            // Cct5.g:1002:17: ( '\"' )
+            // Cct5.g:1002:18: '\"'
             {
             match('\"'); 
 

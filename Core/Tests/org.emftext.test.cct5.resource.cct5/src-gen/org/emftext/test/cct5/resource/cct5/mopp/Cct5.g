@@ -167,11 +167,6 @@ import org.eclipse.emf.ecore.EObject;
 		org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal expectedElement = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal(container, terminal, followSetID, containmentTrace);
 		setPosition(expectedElement, input.index());
 		int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();
-		if (lastStartIncludingHidden >= 0 && lastStartIncludingHidden < startIncludingHiddenTokens && cursorOffset > startIncludingHiddenTokens) {
-			// clear list of expected elements
-			this.expectedElements.clear();
-			this.expectedElementsIndexOfLastCompleteElement = 0;
-		}
 		lastStartIncludingHidden = startIncludingHiddenTokens;
 		this.expectedElements.add(expectedElement);
 	}
@@ -375,8 +370,6 @@ import org.eclipse.emf.ecore.EObject;
 				command.execute(dummyResource);
 			}
 		}
-		// remove all expected elements that were added after the last complete element
-		expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);
 		int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();
 		Set<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal> currentFollowSet = new LinkedHashSet<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal>();
 		List<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal> newFollowSet = new ArrayList<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal>();
@@ -467,9 +460,7 @@ import org.eclipse.emf.ecore.EObject;
 	
 	private void completedElement(Object object, boolean isContainment) {
 		if (isContainment && !this.incompleteObjects.isEmpty()) {
-			boolean exists = this.incompleteObjects.remove(object);
-			if (!exists) {
-			}
+			this.incompleteObjects.remove(object);
 		}
 		if (object instanceof EObject) {
 			this.tokenIndexOfLastCompleteElement = getTokenStream().index();
@@ -621,6 +612,9 @@ parse_org_emftext_test_cct5_Farm returns [org.emftext.test.cct5.Farm element = n
 	}
 	{
 		// expected elements (follow set)
+		// We've found the last token for this rule. The constructed EObject is now
+		// complete.
+		completedElement(element, true);
 	}
 	
 ;
@@ -744,6 +738,9 @@ parse_org_emftext_test_cct5_Farmer returns [org.emftext.test.cct5.Farmer element
 	}
 	{
 		// expected elements (follow set)
+		// We've found the last token for this rule. The constructed EObject is now
+		// complete.
+		completedElement(element, true);
 		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarm(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[18]);
 		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarm(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[19]);
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[20]);
@@ -870,6 +867,9 @@ parse_org_emftext_test_cct5_Animal returns [org.emftext.test.cct5.Animal element
 	}
 	{
 		// expected elements (follow set)
+		// We've found the last token for this rule. The constructed EObject is now
+		// complete.
+		completedElement(element, true);
 		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarm(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[26]);
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[27]);
 	}
@@ -967,6 +967,9 @@ parse_org_emftext_test_cct5_Diet returns [org.emftext.test.cct5.Diet element = n
 			)
 			{
 				// expected elements (follow set)
+				// We've found the last token for this rule. The constructed EObject is now
+				// complete.
+				completedElement(element, true);
 				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[32]);
 				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[33]);
 			}
@@ -975,6 +978,9 @@ parse_org_emftext_test_cct5_Diet returns [org.emftext.test.cct5.Diet element = n
 		
 	)?	{
 		// expected elements (follow set)
+		// We've found the last token for this rule. The constructed EObject is now
+		// complete.
+		completedElement(element, true);
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[34]);
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[35]);
 	}

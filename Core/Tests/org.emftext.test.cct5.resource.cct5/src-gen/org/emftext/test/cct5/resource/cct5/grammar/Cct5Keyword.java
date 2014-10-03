@@ -24,7 +24,7 @@ public class Cct5Keyword extends org.emftext.test.cct5.resource.cct5.grammar.Cct
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

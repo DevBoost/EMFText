@@ -52,7 +52,23 @@ public class Cct5ContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + org.emftext.test.cct5.resource.cct5.util.Cct5StringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + org.emftext.test.cct5.resource.cct5.util.Cct5StringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(org.emftext.test.cct5.resource.cct5.grammar.Cct5Rule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (org.emftext.test.cct5.resource.cct5.mopp.Cct5ContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

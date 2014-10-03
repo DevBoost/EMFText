@@ -193,11 +193,6 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
     		org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal expectedElement = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal(container, terminal, followSetID, containmentTrace);
     		setPosition(expectedElement, input.index());
     		int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();
-    		if (lastStartIncludingHidden >= 0 && lastStartIncludingHidden < startIncludingHiddenTokens && cursorOffset > startIncludingHiddenTokens) {
-    			// clear list of expected elements
-    			this.expectedElements.clear();
-    			this.expectedElementsIndexOfLastCompleteElement = 0;
-    		}
     		lastStartIncludingHidden = startIncludingHiddenTokens;
     		this.expectedElements.add(expectedElement);
     	}
@@ -401,8 +396,6 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
     				command.execute(dummyResource);
     			}
     		}
-    		// remove all expected elements that were added after the last complete element
-    		expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);
     		int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();
     		Set<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal> currentFollowSet = new LinkedHashSet<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal>();
     		List<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal> newFollowSet = new ArrayList<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal>();
@@ -493,9 +486,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
     	
     	private void completedElement(Object object, boolean isContainment) {
     		if (isContainment && !this.incompleteObjects.isEmpty()) {
-    			boolean exists = this.incompleteObjects.remove(object);
-    			if (!exists) {
-    			}
+    			this.incompleteObjects.remove(object);
     		}
     		if (object instanceof EObject) {
     			this.tokenIndexOfLastCompleteElement = getTokenStream().index();
@@ -514,7 +505,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
 
     // $ANTLR start "start"
-    // Cct5.g:489:1: start returns [ EObject element = null] : (c0= parse_org_emftext_test_cct5_Farm ) EOF ;
+    // Cct5.g:480:1: start returns [ EObject element = null] : (c0= parse_org_emftext_test_cct5_Farm ) EOF ;
     public final EObject start() throws RecognitionException {
         EObject element =  null;
 
@@ -526,8 +517,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
 
-            // Cct5.g:490:2: ( (c0= parse_org_emftext_test_cct5_Farm ) EOF )
-            // Cct5.g:491:2: (c0= parse_org_emftext_test_cct5_Farm ) EOF
+            // Cct5.g:481:2: ( (c0= parse_org_emftext_test_cct5_Farm ) EOF )
+            // Cct5.g:482:2: (c0= parse_org_emftext_test_cct5_Farm ) EOF
             {
             if ( state.backtracking==0 ) {
             		// follow set for start rule(s)
@@ -535,8 +526,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		expectedElementsIndexOfLastCompleteElement = 0;
             	}
 
-            // Cct5.g:496:2: (c0= parse_org_emftext_test_cct5_Farm )
-            // Cct5.g:497:3: c0= parse_org_emftext_test_cct5_Farm
+            // Cct5.g:487:2: (c0= parse_org_emftext_test_cct5_Farm )
+            // Cct5.g:488:3: c0= parse_org_emftext_test_cct5_Farm
             {
             pushFollow(FOLLOW_parse_org_emftext_test_cct5_Farm_in_start82);
             c0=parse_org_emftext_test_cct5_Farm();
@@ -575,7 +566,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_test_cct5_Farm"
-    // Cct5.g:505:1: parse_org_emftext_test_cct5_Farm returns [org.emftext.test.cct5.Farm element = null] : a0= 'Farm' a1= '{' ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+ ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )* a4= '}' ;
+    // Cct5.g:496:1: parse_org_emftext_test_cct5_Farm returns [org.emftext.test.cct5.Farm element = null] : a0= 'Farm' a1= '{' ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+ ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )* a4= '}' ;
     public final org.emftext.test.cct5.Farm parse_org_emftext_test_cct5_Farm() throws RecognitionException {
         org.emftext.test.cct5.Farm element =  null;
 
@@ -594,8 +585,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return element; }
 
-            // Cct5.g:508:2: (a0= 'Farm' a1= '{' ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+ ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )* a4= '}' )
-            // Cct5.g:509:2: a0= 'Farm' a1= '{' ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+ ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )* a4= '}'
+            // Cct5.g:499:2: (a0= 'Farm' a1= '{' ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+ ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )* a4= '}' )
+            // Cct5.g:500:2: a0= 'Farm' a1= '{' ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+ ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )* a4= '}'
             {
             a0=(Token)match(input,14,FOLLOW_14_in_parse_org_emftext_test_cct5_Farm115); if (state.failed) return element;
 
@@ -631,7 +622,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarm(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[2]);
             	}
 
-            // Cct5.g:537:2: ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+
+            // Cct5.g:528:2: ( ( (a2_0= parse_org_emftext_test_cct5_Farmer ) ) )+
             int cnt1=0;
             loop1:
             do {
@@ -645,13 +636,13 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
                 switch (alt1) {
             	case 1 :
-            	    // Cct5.g:538:3: ( (a2_0= parse_org_emftext_test_cct5_Farmer ) )
+            	    // Cct5.g:529:3: ( (a2_0= parse_org_emftext_test_cct5_Farmer ) )
             	    {
-            	    // Cct5.g:538:3: ( (a2_0= parse_org_emftext_test_cct5_Farmer ) )
-            	    // Cct5.g:539:4: (a2_0= parse_org_emftext_test_cct5_Farmer )
+            	    // Cct5.g:529:3: ( (a2_0= parse_org_emftext_test_cct5_Farmer ) )
+            	    // Cct5.g:530:4: (a2_0= parse_org_emftext_test_cct5_Farmer )
             	    {
-            	    // Cct5.g:539:4: (a2_0= parse_org_emftext_test_cct5_Farmer )
-            	    // Cct5.g:540:5: a2_0= parse_org_emftext_test_cct5_Farmer
+            	    // Cct5.g:530:4: (a2_0= parse_org_emftext_test_cct5_Farmer )
+            	    // Cct5.g:531:5: a2_0= parse_org_emftext_test_cct5_Farmer
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_test_cct5_Farmer_in_parse_org_emftext_test_cct5_Farm158);
             	    a2_0=parse_org_emftext_test_cct5_Farmer();
@@ -713,7 +704,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[8]);
             	}
 
-            // Cct5.g:576:2: ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )*
+            // Cct5.g:567:2: ( ( (a3_0= parse_org_emftext_test_cct5_Animal ) ) )*
             loop2:
             do {
                 int alt2=2;
@@ -726,13 +717,13 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
                 switch (alt2) {
             	case 1 :
-            	    // Cct5.g:577:3: ( (a3_0= parse_org_emftext_test_cct5_Animal ) )
+            	    // Cct5.g:568:3: ( (a3_0= parse_org_emftext_test_cct5_Animal ) )
             	    {
-            	    // Cct5.g:577:3: ( (a3_0= parse_org_emftext_test_cct5_Animal ) )
-            	    // Cct5.g:578:4: (a3_0= parse_org_emftext_test_cct5_Animal )
+            	    // Cct5.g:568:3: ( (a3_0= parse_org_emftext_test_cct5_Animal ) )
+            	    // Cct5.g:569:4: (a3_0= parse_org_emftext_test_cct5_Animal )
             	    {
-            	    // Cct5.g:578:4: (a3_0= parse_org_emftext_test_cct5_Animal )
-            	    // Cct5.g:579:5: a3_0= parse_org_emftext_test_cct5_Animal
+            	    // Cct5.g:569:4: (a3_0= parse_org_emftext_test_cct5_Animal )
+            	    // Cct5.g:570:5: a3_0= parse_org_emftext_test_cct5_Animal
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_test_cct5_Animal_in_parse_org_emftext_test_cct5_Farm214);
             	    a3_0=parse_org_emftext_test_cct5_Animal();
@@ -801,6 +792,9 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             	}
 
             }
@@ -823,7 +817,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_test_cct5_Farmer"
-    // Cct5.g:628:1: parse_org_emftext_test_cct5_Farmer returns [org.emftext.test.cct5.Farmer element = null] : a0= 'BEGIN_FARMER' (a1= TEXT ) a2= 'Diet' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_FARMER' ;
+    // Cct5.g:622:1: parse_org_emftext_test_cct5_Farmer returns [org.emftext.test.cct5.Farmer element = null] : a0= 'BEGIN_FARMER' (a1= TEXT ) a2= 'Diet' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_FARMER' ;
     public final org.emftext.test.cct5.Farmer parse_org_emftext_test_cct5_Farmer() throws RecognitionException {
         org.emftext.test.cct5.Farmer element =  null;
 
@@ -842,8 +836,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
 
-            // Cct5.g:631:2: (a0= 'BEGIN_FARMER' (a1= TEXT ) a2= 'Diet' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_FARMER' )
-            // Cct5.g:632:2: a0= 'BEGIN_FARMER' (a1= TEXT ) a2= 'Diet' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_FARMER'
+            // Cct5.g:625:2: (a0= 'BEGIN_FARMER' (a1= TEXT ) a2= 'Diet' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_FARMER' )
+            // Cct5.g:626:2: a0= 'BEGIN_FARMER' (a1= TEXT ) a2= 'Diet' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_FARMER'
             {
             a0=(Token)match(input,10,FOLLOW_10_in_parse_org_emftext_test_cct5_Farmer284); if (state.failed) return element;
 
@@ -862,8 +856,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[13]);
             	}
 
-            // Cct5.g:646:2: (a1= TEXT )
-            // Cct5.g:647:3: a1= TEXT
+            // Cct5.g:640:2: (a1= TEXT )
+            // Cct5.g:641:3: a1= TEXT
             {
             a1=(Token)match(input,TEXT,FOLLOW_TEXT_in_parse_org_emftext_test_cct5_Farmer302); if (state.failed) return element;
 
@@ -938,8 +932,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarmer(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[16]);
             	}
 
-            // Cct5.g:710:2: (a4_0= parse_org_emftext_test_cct5_Diet )
-            // Cct5.g:711:3: a4_0= parse_org_emftext_test_cct5_Diet
+            // Cct5.g:704:2: (a4_0= parse_org_emftext_test_cct5_Diet )
+            // Cct5.g:705:3: a4_0= parse_org_emftext_test_cct5_Diet
             {
             pushFollow(FOLLOW_parse_org_emftext_test_cct5_Diet_in_parse_org_emftext_test_cct5_Farmer355);
             a4_0=parse_org_emftext_test_cct5_Diet();
@@ -989,6 +983,9 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarm(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[18]);
             		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarm(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[19]);
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[20]);
@@ -1014,7 +1011,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_test_cct5_Animal"
-    // Cct5.g:754:1: parse_org_emftext_test_cct5_Animal returns [org.emftext.test.cct5.Animal element = null] : a0= 'BEGIN_ANIMAL' (a1= TEXT ) a2= 'FeedingInstruction' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_ANIMAL' ;
+    // Cct5.g:751:1: parse_org_emftext_test_cct5_Animal returns [org.emftext.test.cct5.Animal element = null] : a0= 'BEGIN_ANIMAL' (a1= TEXT ) a2= 'FeedingInstruction' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_ANIMAL' ;
     public final org.emftext.test.cct5.Animal parse_org_emftext_test_cct5_Animal() throws RecognitionException {
         org.emftext.test.cct5.Animal element =  null;
 
@@ -1033,8 +1030,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
 
-            // Cct5.g:757:2: (a0= 'BEGIN_ANIMAL' (a1= TEXT ) a2= 'FeedingInstruction' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_ANIMAL' )
-            // Cct5.g:758:2: a0= 'BEGIN_ANIMAL' (a1= TEXT ) a2= 'FeedingInstruction' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_ANIMAL'
+            // Cct5.g:754:2: (a0= 'BEGIN_ANIMAL' (a1= TEXT ) a2= 'FeedingInstruction' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_ANIMAL' )
+            // Cct5.g:755:2: a0= 'BEGIN_ANIMAL' (a1= TEXT ) a2= 'FeedingInstruction' a3= ':' (a4_0= parse_org_emftext_test_cct5_Diet ) a5= 'END_ANIMAL'
             {
             a0=(Token)match(input,9,FOLLOW_9_in_parse_org_emftext_test_cct5_Animal402); if (state.failed) return element;
 
@@ -1053,8 +1050,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[21]);
             	}
 
-            // Cct5.g:772:2: (a1= TEXT )
-            // Cct5.g:773:3: a1= TEXT
+            // Cct5.g:769:2: (a1= TEXT )
+            // Cct5.g:770:3: a1= TEXT
             {
             a1=(Token)match(input,TEXT,FOLLOW_TEXT_in_parse_org_emftext_test_cct5_Animal420); if (state.failed) return element;
 
@@ -1129,8 +1126,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getAnimal(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[24]);
             	}
 
-            // Cct5.g:836:2: (a4_0= parse_org_emftext_test_cct5_Diet )
-            // Cct5.g:837:3: a4_0= parse_org_emftext_test_cct5_Diet
+            // Cct5.g:833:2: (a4_0= parse_org_emftext_test_cct5_Diet )
+            // Cct5.g:834:3: a4_0= parse_org_emftext_test_cct5_Diet
             {
             pushFollow(FOLLOW_parse_org_emftext_test_cct5_Diet_in_parse_org_emftext_test_cct5_Animal473);
             a4_0=parse_org_emftext_test_cct5_Diet();
@@ -1180,6 +1177,9 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             		addExpectedElement(org.emftext.test.cct5.Cct5Package.eINSTANCE.getFarm(), org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[26]);
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[27]);
             	}
@@ -1336,6 +1336,9 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
+                    				// We've found the last token for this rule. The constructed EObject is now
+                    				// complete.
+                    				completedElement(element, true);
                     				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[32]);
                     				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[33]);
                     			}
@@ -1351,6 +1354,9 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		// We've found the last token for this rule. The constructed EObject is now
+            		// complete.
+            		completedElement(element, true);
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[34]);
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[35]);
             	}

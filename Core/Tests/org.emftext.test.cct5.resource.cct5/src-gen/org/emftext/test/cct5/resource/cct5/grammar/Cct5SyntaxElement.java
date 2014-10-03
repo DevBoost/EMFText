@@ -45,6 +45,17 @@ public abstract class Cct5SyntaxElement {
 		return parent;
 	}
 	
+	/**
+	 * Returns the rule of this syntax element. The rule is determined by the
+	 * containment hierarchy in the CS model.
+	 */
+	public org.emftext.test.cct5.resource.cct5.grammar.Cct5Rule getRule() {
+		if (this instanceof org.emftext.test.cct5.resource.cct5.grammar.Cct5Rule) {
+			return (org.emftext.test.cct5.resource.cct5.grammar.Cct5Rule) this;
+		}
+		return parent.getRule();
+	}
+	
 	public Cct5SyntaxElement[] getChildren() {
 		if (children == null) {
 			return new Cct5SyntaxElement[0];
@@ -58,6 +69,16 @@ public abstract class Cct5SyntaxElement {
 	
 	public org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality getCardinality() {
 		return cardinality;
+	}
+	
+	public boolean hasContainment(EClass metaclass) {
+		org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement[] children = getChildren();
+		for (org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement child : children) {
+			if (child.hasContainment(metaclass)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

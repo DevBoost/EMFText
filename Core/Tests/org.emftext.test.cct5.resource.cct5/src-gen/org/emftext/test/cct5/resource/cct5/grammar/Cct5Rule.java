@@ -28,5 +28,10 @@ public class Cct5Rule extends org.emftext.test.cct5.resource.cct5.grammar.Cct5Sy
 		return (org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 
