@@ -45,7 +45,7 @@ public class GenClassFinder {
 	
 	public static final String DOT = ".";
 	
-	private static final GenClassUtil genClassUtil = new GenClassUtil();
+	private static final GenClassUtil GEN_CLASS_UTIL = new GenClassUtil();
 
 	/**
 	 * Returns all generator classes in the given syntax.
@@ -108,7 +108,7 @@ public class GenClassFinder {
 		Set<GenClass> foundClasses = new LinkedHashSet<GenClass>();
 		for (Pair<String, GenClass> prefixAndGenClass : foundClassesAndPrefixes) {
 			final GenClass right = prefixAndGenClass.getRight();
-			if (!genClassUtil.contains(foundClasses, right, genClassCache)) {
+			if (!GEN_CLASS_UTIL.contains(foundClasses, right, genClassCache)) {
 				foundClasses.add(right);
 			}
 		}
@@ -166,7 +166,7 @@ public class GenClassFinder {
 		Collection<GenClass> foundSubclasses = new ArrayList<GenClass>();
 	    
 	    for (GenClass genClass : findAllGenClasses(syntax, true, true)) {
-			if (genClassUtil.isSuperClass(superClass, genClass, genClassCache)) {
+			if (GEN_CLASS_UTIL.isSuperClass(superClass, genClass, genClassCache)) {
 				foundSubclasses.add(genClass);
 			}
 		}
@@ -176,7 +176,7 @@ public class GenClassFinder {
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax cs, GenClass genClass) {
 		if (cs == null) return null;
 		GenClassCache genClassCache = cs.getGenClassCache();
-		if (genClassUtil.contains(findAllGenClasses(cs, false, false), genClass, genClassCache)) {
+		if (GEN_CLASS_UTIL.contains(findAllGenClasses(cs, false, false), genClass, genClassCache)) {
 			return cs;
 		}
 		EList<Import> imports = cs.getImports();

@@ -41,7 +41,9 @@ public class ConcreteSyntaxByHintFinder implements IConcreteSyntaxFinder {
 			
 			try {
 				csResource = rs.getResource(hintURI, true);
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				// Ignore this
+			}
 			
 			EList<EObject> contents = null; 
 			if (csResource != null) {

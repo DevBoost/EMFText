@@ -100,7 +100,7 @@ public class GenerateAllAction implements IObjectActionDelegate {
 			}
 			if (fileExtension.equals(new CsMetaInformation().getSyntaxName())) {
 				job = new GenerateResourcePluginsJob("Generating resource project for " + file.getName(), file);
-			} else if (fileExtension.equals("genmodel")) {
+			} else if ("genmodel".equals(fileExtension)) {
 				job = new Job("Generate metamodel code job") {
 
 					@Override

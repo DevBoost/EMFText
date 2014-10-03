@@ -40,7 +40,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  */
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
-	private static final Map<String, GenPackageInRegistry> cache = new LinkedHashMap<String, GenPackageInRegistry>();
+	private static final Map<String, GenPackageInRegistry> CACHE = new LinkedHashMap<String, GenPackageInRegistry>();
 	private static boolean isInitialized = false;
 	
 	private static void init() {
@@ -77,7 +77,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 					if (genPackage != null && !genPackage.eIsProxy()) {
 		        		String nsURI = genPackage.getNSURI();
 		        		GenPackageInRegistry result = new GenPackageInRegistry(genPackage);
-						cache.put(nsURI, result);
+						CACHE.put(nsURI, result);
 						registerSubGenPackages(genPackage);
 					}
 		    	}
@@ -157,7 +157,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			if (genPackage != null && !genPackage.eIsProxy()) {
         		String nsURI = genPackage.getNSURI();
         		GenPackageInRegistry result = new GenPackageInRegistry(genPackage);
-				cache.put(nsURI, result);
+				CACHE.put(nsURI, result);
 				registerSubGenPackages(genPackage);
 			}
 		}
@@ -189,12 +189,12 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	public GenPackageResolveResult findGenPackages(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource, boolean resolveFuzzy) {
 		init();
 		Collection<IResolvedGenPackage> result = new LinkedHashSet<IResolvedGenPackage>();
-		for (String nextNsURI : cache.keySet()) {
+		for (String nextNsURI : CACHE.keySet()) {
 			if (nextNsURI == null) {
 				continue;
 			}
 			if (nextNsURI.equals(nsURI) || resolveFuzzy) {
-				result.add(cache.get(nextNsURI));
+				result.add(CACHE.get(nextNsURI));
 			}
 		}
 		return new GenPackageResolveResult(result);

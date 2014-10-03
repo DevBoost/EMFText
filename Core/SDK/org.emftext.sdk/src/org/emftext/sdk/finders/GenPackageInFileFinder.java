@@ -65,7 +65,9 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 		
 		try {
 			genModelResource = resourceSet.getResource(genModelURI, true);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			// Ignore this
+		}
 		
 		EList<EObject> contents = null; 
 		if (genModelResource != null) {
