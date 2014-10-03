@@ -29,7 +29,7 @@ public class Cct5ExpectedCsString extends org.emftext.test.cct5.resource.cct5.mo
 	/**
 	 * Returns the expected keyword.
 	 */
-	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSymtaxElement() {
+	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	

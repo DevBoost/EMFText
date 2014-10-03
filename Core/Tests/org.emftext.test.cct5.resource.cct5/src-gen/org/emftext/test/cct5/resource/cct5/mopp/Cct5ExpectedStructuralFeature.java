@@ -30,7 +30,7 @@ public class Cct5ExpectedStructuralFeature extends org.emftext.test.cct5.resourc
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSymtaxElement() {
+	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

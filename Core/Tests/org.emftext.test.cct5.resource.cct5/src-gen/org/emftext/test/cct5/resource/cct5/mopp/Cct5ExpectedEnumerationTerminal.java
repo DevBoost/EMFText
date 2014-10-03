@@ -44,7 +44,7 @@ public class Cct5ExpectedEnumerationTerminal extends org.emftext.test.cct5.resou
 	/**
 	 * Returns the expected enumeration terminal.
 	 */
-	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSymtaxElement() {
+	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSyntaxElement() {
 		return enumerationTerminal;
 	}
 	

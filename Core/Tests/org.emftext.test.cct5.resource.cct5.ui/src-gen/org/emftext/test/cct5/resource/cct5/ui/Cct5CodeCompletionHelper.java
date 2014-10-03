@@ -11,14 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -36,7 +32,6 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal;
 
 /**
  * A CodeCompletionHelper can be used to derive completion proposals for partial
@@ -190,48 +185,29 @@ public class Cct5CodeCompletionHelper {
 	}
 	
 	protected void removeInvalidEntriesAtEnd(List<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal> expectedElements) {
-		FollowSetGroupList followSetGroupList = new FollowSetGroupList(expectedElements);
-		System.out.println("removeInvalidEntriesAtEnd()");
-		List<FollowSetGroup> followSetGroups = followSetGroupList.getFollowSetGroups();
+		org.emftext.test.cct5.resource.cct5.mopp.Cct5FollowSetGroupList followSetGroupList = new org.emftext.test.cct5.resource.cct5.mopp.Cct5FollowSetGroupList(expectedElements);
+		List<org.emftext.test.cct5.resource.cct5.mopp.Cct5FollowSetGroup> followSetGroups = followSetGroupList.getFollowSetGroups();
 		int lastStartExcludingHiddenTokens = -1;
-		for (FollowSetGroup followSetGroup : followSetGroups) {
-			
-			System.out.println("  ------------ FOLLOW SET GROUP " + followSetGroup);
+		for (org.emftext.test.cct5.resource.cct5.mopp.Cct5FollowSetGroup followSetGroup : followSetGroups) {
 			boolean sameStartExcludingHiddenTokens = followSetGroup.hasSameStartExcludingHiddenTokens(lastStartExcludingHiddenTokens);
 			lastStartExcludingHiddenTokens = followSetGroup.getStartExcludingHiddenTokens();
-			
 			EObject container = followSetGroup.getContainer();
 			EClass currentRule = null;
 			if (container != null) {
 				currentRule = container.eClass();
 			}
-			
-			Collection<Cct5ExpectedTerminal> expectedTerminals = followSetGroup.getExpectedTerminals();
-			for (Cct5ExpectedTerminal expectedTerminal : expectedTerminals) {
-				System.out.println("    ------------ FOLLOWER " + expectedTerminal);
-				boolean differentRule = currentRule != expectedTerminal.getTerminal().getRuleMetaclass();
-			
+			List<org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal> expectedTerminals = followSetGroup.getExpectedTerminals();
+			for (org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal expectedTerminal : expectedTerminals) {
 				org.emftext.test.cct5.resource.cct5.ICct5ExpectedElement terminalAtIndex = expectedTerminal.getTerminal();
 				EClass ruleMetaclass = terminalAtIndex.getRuleMetaclass();
-				org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement syntaxElement = terminalAtIndex.getSymtaxElement();
-				System.out.println("    " + syntaxElement + " IN RULE " + ruleMetaclass.getName());
-				printPathToRoot(container);
-				
+				boolean differentRule = currentRule != ruleMetaclass;
 				// If the two expected elements have a different parent in the syntax definition,
 				// we must not discard the second element, because it probably stems from a parent
 				// rule.
 				org.emftext.test.cct5.resource.cct5.grammar.Cct5ContainmentTrace containmentTrace = expectedTerminal.getContainmentTrace();
-				System.out.println("    containment trace: " + containmentTrace);
 				boolean fitsAtCurrentPosition = fitsAtCurrentPosition(container, containmentTrace);
-				System.out.println("    fitsAtCurrentPosition: " + fitsAtCurrentPosition);
-				
 				boolean inContainmentTrace = pathToRootContains(container, expectedTerminal.getTerminal().getRuleMetaclass());
-				System.out.println("    inContainmentTrace: " + inContainmentTrace);
-				
-				boolean differentFollowSet = true;
-				
 				boolean keepElement = true;
-				// new rules
 				if (differentRule && !inContainmentTrace) {
 					if (!fitsAtCurrentPosition) {
 						keepElement = false;
@@ -240,35 +216,14 @@ public class Cct5CodeCompletionHelper {
 				if (sameStartExcludingHiddenTokens) {
 					keepElement = false;
 				}
-
-				String message = " because of: ";
-				if (sameStartExcludingHiddenTokens) {
-					message += "same start, ";
-				} else {
-					message += "different start, ";
-				}
-				if (differentFollowSet) {
-					message += "different follow set, ";
-				} else {
-					message += "same follow set, ";
-				}
-				if (differentRule) {
-					message += "different rule, ";
-				} else {
-					message += "same rule, ";
-				}
-				if (inContainmentTrace) {
-					message += "in containment trace";
-				} else {
-					message += "not in containment trace";
-				}
+				
 				if (keepElement) {
-					System.out.println("  Keeping:  " + expectedTerminal + message);
 				} else {
-					System.out.println("  Removing: " + expectedTerminal + message + " " + System.identityHashCode(expectedTerminal));
-					// We must not call expectedElements.remove(expectedTerminal) because the hashCode() method of ExpectedTerminal does not consider the start positions
+					// We must not call expectedElements.remove(expectedTerminal) because the
+					// hashCode() method of ExpectedTerminal does not consider the start positions and
+					// remove the wrong elements.
 					for (int i = 0; i < expectedElements.size(); i++) {
-						Cct5ExpectedTerminal next = expectedElements.get(i);
+						org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedTerminal next = expectedElements.get(i);
 						if (next == expectedTerminal) {
 							expectedElements.remove(i);
 							break;
@@ -281,7 +236,9 @@ public class Cct5CodeCompletionHelper {
 	
 	private boolean fitsAtCurrentPosition(EObject container, org.emftext.test.cct5.resource.cct5.grammar.Cct5ContainmentTrace containmentTrace) {
 		if (container == null) {
-			return false;
+			// If no container is available, there is no model yet because we're before the
+			// first token. In this case we assume that everything fits here.
+			return true;
 		}
 		return containmentTrace.getStartClass() == container.eClass();
 	}
@@ -295,20 +252,6 @@ public class Cct5CodeCompletionHelper {
 			current = current.eContainer();
 		}
 		return false;
-	}
-	
-	private void printPathToRoot(EObject container) {
-		String path = "";
-		if (container == null) {
-			System.out.println("  printPathToRoot() Container is null. No path available.");
-			return;
-		}
-		EObject current = container;
-		while (current != null) {
-			path += current.eClass().getName() + " -> ";
-			current = current.eContainer();
-		}
-		System.out.println("  printPathToRoot() " + path);
 	}
 	
 	/**

@@ -28,7 +28,7 @@ public interface ICct5ExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSymtaxElement();
+	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSyntaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.

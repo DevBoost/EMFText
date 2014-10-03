@@ -30,7 +30,7 @@ public class Cct5ExpectedBooleanTerminal extends org.emftext.test.cct5.resource.
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSymtaxElement() {
+	public org.emftext.test.cct5.resource.cct5.grammar.Cct5SyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	
