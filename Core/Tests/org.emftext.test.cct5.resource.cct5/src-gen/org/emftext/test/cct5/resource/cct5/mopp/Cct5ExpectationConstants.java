@@ -12,7 +12,7 @@ package org.emftext.test.cct5.resource.cct5.mopp;
  */
 public class Cct5ExpectationConstants {
 	
-	public final static int EXPECTATIONS[][] = new int[37][];
+	public final static int EXPECTATIONS[][] = new int[36][];
 	
 	public static void initialize0() {
 		EXPECTATIONS[0] = new int[2];
@@ -115,29 +115,26 @@ public class Cct5ExpectationConstants {
 		EXPECTATIONS[28][0] = 14;
 		EXPECTATIONS[28][1] = 20;
 		EXPECTATIONS[29] = new int[2];
-		EXPECTATIONS[29][0] = 15;
-		EXPECTATIONS[29][1] = 21;
+		EXPECTATIONS[29][0] = 9;
+		EXPECTATIONS[29][1] = 20;
 		EXPECTATIONS[30] = new int[2];
-		EXPECTATIONS[30][0] = 9;
-		EXPECTATIONS[30][1] = 21;
+		EXPECTATIONS[30][0] = 13;
+		EXPECTATIONS[30][1] = 20;
 		EXPECTATIONS[31] = new int[2];
-		EXPECTATIONS[31][0] = 13;
+		EXPECTATIONS[31][0] = 15;
 		EXPECTATIONS[31][1] = 21;
 		EXPECTATIONS[32] = new int[2];
-		EXPECTATIONS[32][0] = 16;
+		EXPECTATIONS[32][0] = 9;
 		EXPECTATIONS[32][1] = 22;
 		EXPECTATIONS[33] = new int[2];
-		EXPECTATIONS[33][0] = 9;
-		EXPECTATIONS[33][1] = 23;
+		EXPECTATIONS[33][0] = 13;
+		EXPECTATIONS[33][1] = 22;
 		EXPECTATIONS[34] = new int[2];
-		EXPECTATIONS[34][0] = 13;
+		EXPECTATIONS[34][0] = 9;
 		EXPECTATIONS[34][1] = 23;
 		EXPECTATIONS[35] = new int[2];
-		EXPECTATIONS[35][0] = 9;
-		EXPECTATIONS[35][1] = 24;
-		EXPECTATIONS[36] = new int[2];
-		EXPECTATIONS[36][0] = 13;
-		EXPECTATIONS[36][1] = 24;
+		EXPECTATIONS[35][0] = 13;
+		EXPECTATIONS[35][1] = 23;
 	}
 	
 	public static void initialize() {

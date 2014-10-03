@@ -33,10 +33,7 @@ public class Cct5TokenStyleInformationProvider {
 		if ("END_ANIMAL".equals(tokenName)) {
 			return new org.emftext.test.cct5.resource.cct5.mopp.Cct5TokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
 		}
-		if ("with".equals(tokenName)) {
-			return new org.emftext.test.cct5.resource.cct5.mopp.Cct5TokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
-		}
-		if ("as favorite dish".equals(tokenName)) {
+		if ("favored".equals(tokenName)) {
 			return new org.emftext.test.cct5.resource.cct5.mopp.Cct5TokenStyle(new int[] {0x80, 0x00, 0x55}, null, true, false, false, false);
 		}
 		if ("QUOTED_34_34".equals(tokenName)) {

@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class Cct5FollowSetProvider {
 	
-	public final static org.emftext.test.cct5.resource.cct5.ICct5ExpectedElement TERMINALS[] = new org.emftext.test.cct5.resource.cct5.ICct5ExpectedElement[17];
+	public final static org.emftext.test.cct5.resource.cct5.ICct5ExpectedElement TERMINALS[] = new org.emftext.test.cct5.resource.cct5.ICct5ExpectedElement[16];
 	
 	public final static EStructuralFeature[] FEATURES = new EStructuralFeature[4];
 	
@@ -37,9 +37,8 @@ public class Cct5FollowSetProvider {
 		TERMINALS[11] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedCsString(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_2_0_0_2);
 		TERMINALS[12] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedCsString(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_2_0_0_3);
 		TERMINALS[13] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedCsString(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_2_0_0_5);
-		TERMINALS[14] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedCsString(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1);
-		TERMINALS[15] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedStructuralFeature(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_2_0_0_0);
-		TERMINALS[16] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedCsString(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_2_0_0_1);
+		TERMINALS[14] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedCsString(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1_0_0_0);
+		TERMINALS[15] = new org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectedStructuralFeature(org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1_0_0_1);
 	}
 	
 	public static void initializeTerminals() {
@@ -93,12 +92,11 @@ public class Cct5FollowSetProvider {
 		TERMINALS[13].addFollower(TERMINALS[3], new org.emftext.test.cct5.resource.cct5.mopp.Cct5ContainedFeature[] {new org.emftext.test.cct5.resource.cct5.mopp.Cct5ContainedFeature(org.emftext.test.cct5.Cct5Package.eINSTANCE.getAnimal(), FEATURES[2]), });
 		TERMINALS[13].addFollower(TERMINALS[4], EMPTY_LINK_ARRAY);
 		TERMINALS[8].addFollower(TERMINALS[14], EMPTY_LINK_ARRAY);
+		TERMINALS[8].addFollower(TERMINALS[9], EMPTY_LINK_ARRAY);
+		TERMINALS[8].addFollower(TERMINALS[13], EMPTY_LINK_ARRAY);
 		TERMINALS[14].addFollower(TERMINALS[15], EMPTY_LINK_ARRAY);
-		TERMINALS[14].addFollower(TERMINALS[9], EMPTY_LINK_ARRAY);
-		TERMINALS[14].addFollower(TERMINALS[13], EMPTY_LINK_ARRAY);
-		TERMINALS[15].addFollower(TERMINALS[16], EMPTY_LINK_ARRAY);
-		TERMINALS[16].addFollower(TERMINALS[9], EMPTY_LINK_ARRAY);
-		TERMINALS[16].addFollower(TERMINALS[13], EMPTY_LINK_ARRAY);
+		TERMINALS[15].addFollower(TERMINALS[9], EMPTY_LINK_ARRAY);
+		TERMINALS[15].addFollower(TERMINALS[13], EMPTY_LINK_ARRAY);
 	}
 	
 	public static void wire() {
