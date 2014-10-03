@@ -2484,6 +2484,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.NEW_FILE_WIZARD_NAME);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.CASE_INSENSITIVE_KEYWORDS);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_FOLLOW_SET_GROUP_LIST);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_FOLLOW_SET_GROUP);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
@@ -2524,2515 +2526,2515 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	protected void createGenModelAnnotations() {
-		String source = "http://www.eclipse.org/emf/2002/GenModel";		
+		String source = "http://www.eclipse.org/emf/2002/GenModel";	
 		addAnnotation
 		  (concreteSyntaxEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A specification of the concrete syntax for an Ecore metamodel."
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> subset = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>();\nif (identifier == null) {\n\treturn subset;\n}\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getOperatorRules()) {\n\torg.emftext.sdk.concretesyntax.Annotation annotation = rule.getOperatorAnnotation();\n\tjava.lang.String value = annotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\n\tif (identifier.equals(value)) {\n\t\tsubset.add(rule);\n\t}\n}\nreturn subset;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> symbols = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\nsymbols.addAll(getStartSymbols());\nif (symbols.size() > 0) {\n\treturn symbols;\n}\n\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\n\tfinal org.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\n\tif (importedSyntax != null) {\n\t\tsymbols.addAll(importedSyntax.getActiveStartSymbols());\n\t}\n}\nreturn symbols;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "//EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Rule> l = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Rule>(getRules().size());\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\n\t// don\'t add rules that are @override rules with remove=true\n\tif (!rule.isOverrideRemoveRule()) {\n\t\tl.add(rule);\n\t}\n}\nfor ( org.emftext.sdk.concretesyntax.Import aImport : getImports()) {\n\torg.emftext.sdk.concretesyntax.ConcreteSyntax importedCS = aImport.getConcreteSyntax();\n\tif (importedCS != null) {\n\t\touter: for ( org.emftext.sdk.concretesyntax.Rule importedRule : importedCS.getAllRules()) {\n\t\t\tfor ( org.emftext.sdk.concretesyntax.Rule rule : getRules()) {\n\t\t\t\t// don\'t add rules that have @override rules for same\n\t\t\t\t// meta-class\n\t\t\t\tif (rule.isOverrideRule(importedRule.getMetaclass())) {\n\t\t\t\t\tcontinue outer;\n\t\t\t\t}\n\t\t\t}\n\t\t\tl.add(importedRule);\n\t\t}\n\t}\n}\nreturn org.eclipse.emf.common.util.ECollections.unmodifiableEList(l);",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "initialiseAnnotatedOperatorRules();\nreturn get_operatorRules();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
 			 "body", "if (is_operatorRulesInitialized()) {\n\treturn;\n}\nset_operatorRulesInitialized(true);\njava.util.List< org.emftext.sdk.concretesyntax.Rule> operatorRules = getOperatorRules();\njava.util.List< java.lang.String> operatorRuleSubsets = getOperatorRuleSubsets();\nfor ( org.emftext.sdk.concretesyntax.Rule rule : getAllRules()) {\n\torg.emftext.sdk.concretesyntax.Annotation operatorAnnotation = rule.getOperatorAnnotation();\n\tif (operatorAnnotation != null) {\n\t\tboolean added = false;\n\t\tfor ( java.util.ListIterator< org.emftext.sdk.concretesyntax.Rule> it = operatorRules.listIterator(); it.hasNext();) {\n\t\t\torg.emftext.sdk.concretesyntax.Rule expressionRule = it.next(); \n\t\t\tif (expressionRule.getOperatorWeight() > rule.getOperatorWeight()) {\n\t\t\t\toperatorRules.add(it.previousIndex(), rule);\n\t\t\t\tadded = true;\n\t\t\t\tbreak;\n\t\t\t}\t\t\t\n\t\t}\n\t\tif (!added) {\n\t\t\toperatorRules.add(rule);\n\t\t}\n\t\tjava.lang.String identifier = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.SUPERCLASS.toString());\n\t\tif (identifier != null) {\n\t\t\toperatorRuleSubsets.add(identifier);\n\t\t}\n\t}\n}",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
 			 "body", "initialiseAnnotatedOperatorRules();\nreturn get_operatorRuleSubsets();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(6), 
 		   source, 
 		   new String[] {
 			 "body", "if (get_genClassCache() == null) {\n\tset_genClassCache( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createGenClassCache());\n}\nreturn get_genClassCache();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(7), 
 		   source, 
 		   new String[] {
 			 "body", "return rule.getSyntax() != this;",
 			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(8), 
 		   source, 
 		   new String[] {
 			 "body", "if (get_eClassUtil() == null) {\n\tset_eClassUtil( org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createEClassUtil());\n}\nreturn get_eClassUtil();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(9), 
 		   source, 
 		   new String[] {
 			 "body", "java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\norg.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\n\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\n\t\tcontinue;\n\t}\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\n\tfoundGenClasses.add(subClassCand);\n}\nreturn foundGenClasses;",
 			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\norg.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\n\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\n\t\tsubClasses.add(subClassCand);\n\t}\n}\nreturn subClasses;",
 			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(11), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> allStyles = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.TokenStyle>();\nallStyles.addAll(getTokenStyles());\naddImportedTokenStyles(allStyles);\norg.emftext.sdk.concretesyntax.DefaultTokenStyleAdder adder = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createDefaultTokenStyleAdder();\nadder.addDefaultTokenStyles(this, allStyles);\nreturn allStyles;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(12), 
 		   source, 
 		   new String[] {
 			 "body", "for ( java.lang.String tokenName : newStyle.getTokenNames()) {\n\tboolean exists = containsTokenStyle(existingStyles, tokenName);\n\tif (!exists) {\n\t\torg.emftext.sdk.concretesyntax.TokenStyle newTokenStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\n\t\tnewTokenStyle.getTokenNames().add(tokenName);\n\t\tnewTokenStyle.setRgb(newStyle.getRgb());\n\t\tnewTokenStyle.getFontStyles().addAll(newStyle.getFontStyles());\n\t\texistingStyles.add(newTokenStyle);\n\t}\n}",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(13), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.emftext.sdk.concretesyntax.TokenStyle existingStyle : styles) {\n\tfor ( java.lang.String existingName : existingStyle.getTokenNames()) {\n\t\tif (existingName.equals(tokenName)) {\n\t\t\treturn true;\n\t\t}\n\t}\n}\nreturn false;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(14), 
 		   source, 
 		   new String[] {
 			 "body", "// add the imported token styles\norg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Import> imports = getImports();\nfor ( org.emftext.sdk.concretesyntax.Import importedElement : imports) {\n\torg.emftext.sdk.concretesyntax.ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();\n\tif (importedSyntax != null) {\n\t\torg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();\n\t\tfor ( org.emftext.sdk.concretesyntax.TokenStyle importedStyle : importedStyles) {\n\t\t\taddTokenStyle(allStyles, importedStyle);\n\t\t}\n\t}\n}",
 			 "documentation", "\r\n Reads all token styles from imported syntaxes and\r\n merges them with the styles defined in the current syntax. If a token\r\n style exists both in an imported and in the current syntax the one from\r\n the current syntax overrides the imported one.\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (getConcreteSyntax_SyntheticTokens(), 
 		   source, 
 		   new String[] {
 			 "documentation", "Contains all synthesized tokens. This includes the quoted tokens and the predefined tokens."
-		   });		
+		   });	
 		addAnnotation
 		  (getConcreteSyntax_Abstract(), 
 		   source, 
 		   new String[] {
 			 "documentation", "A flag that is used to tag syntax definitions as abstract."
-		   });		
+		   });	
 		addAnnotation
 		  (importEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Import statements allow to reuse existing metamodels and syntax definitions."
-		   });		
+		   });	
 		addAnnotation
 		  (getImport_Prefix(), 
 		   source, 
 		   new String[] {
 			 "documentation", "A short prefix that is used to reference the imported elements."
-		   });		
+		   });	
 		addAnnotation
 		  (getImport_CsLocationHint(), 
 		   source, 
 		   new String[] {
 			 "documentation", "A URI where the concrete syntax definition to import is located."
-		   });		
+		   });	
 		addAnnotation
 		  (syntaxElementEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.Rule rule = null;\norg.eclipse.emf.ecore.EObject o = this;\ndo {\n\tif (o instanceof org.emftext.sdk.concretesyntax.Rule) {\n\t\trule = ( org.emftext.sdk.concretesyntax.Rule) o;\n\t}\n\telse {\n\t\to = o.eContainer();\n\t}\n} while (rule == null && o != null);\nreturn rule;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (ruleEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Defines the concrete textual syntax for a metaclass."
-		   });		
+		   });	
 		addAnnotation
 		  (ruleEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\n\tif (annotation.getType() == org.emftext.sdk.concretesyntax.AnnotationType.OPERATOR) {\n\t\treturn annotation;\n\t}\n}\nreturn null;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (ruleEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.Annotation operatorAnnotation = this.getOperatorAnnotation();\nif (operatorAnnotation != null) {\n\tjava.lang.String ruleWeightString = operatorAnnotation.getValue( org.emftext.sdk.concretesyntax.OperatorAnnotationProperty.WEIGHT.toString());\n\tif (ruleWeightString != null) {\n\t\ttry {\n\t\t\treturn java.lang.Integer.parseInt(ruleWeightString);\t\t\t\n\t\t} catch ( java.lang.NumberFormatException e) {\n\t\t\t// ignore exception. invalid numbers are signaled by\n\t\t\t// returning MIN_VALUE\n\t\t}\n\t}\n}\nreturn java.lang.Integer.MIN_VALUE;",
 			 "documentation", "\r\n Returns the weight of this rule if it is an operator rule.\r\n If the rule is not an operator rule or the specified weight\r\n in the operator annotation is not a number, Integer.MIN_VALUE \r\n is returned.\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (ruleEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\n// there should be at most one child\nassert children == null || children.size() == 1;\n\nif (children.size() > 0) {\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\n\tif (firstChild instanceof org.emftext.sdk.concretesyntax.Choice) {\n\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\n\t} else {\n\t\t// there should be no element other than Choice\n\t\tassert false;\n\t\treturn null;\n\t}\n}\nreturn null;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (ruleEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.emftext.sdk.concretesyntax.Annotation annotation : getAnnotations()) {\n\tif (annotation.getType() == type) {\n\t\tif (key != null) {\n\t\t\tfor ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : annotation.getParameters()) {\n\t\t\t\tif (key.equals(parameter.getKey())\n\t\t\t\t\t\t&& parameter.getValue().equals(value)) {\n\t\t\t\t\treturn true;\n\t\t\t\t}\n\t\t\t}\n\t\t} else {\n\t\t\treturn true;\n\t\t}\n\t}\n}\nreturn false;",
 			 "documentation", "\r\n Checks whether this rule is annotated with the given AnnotationType.\r\n If a key and a value is given it is further checked whether the\r\n annotation specifies this key and value. \r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (ruleEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
 			 "body", "// TODO mseifert: use constant here\nreturn hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, \"remove\", \"true\");",
 			 "documentation", "\r\n Checks whether this rule is annotated with @Override(remove=\"true\").\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (ruleEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
 			 "body", "if (metaClass == null || getMetaclass() == metaClass) {\n\tif (hasAnnotation( org.emftext.sdk.concretesyntax.AnnotationType.OVERRIDE, null, null)) {\n\t\treturn true;\n\t}\n}\nreturn false;",
 			 "documentation", "\r\n Checks whether this rule is annotated with @Override.\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (choiceEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Defines alternative syntax for an element of parts of it."
-		   });		
+		   });	
 		addAnnotation
 		  (choiceEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Sequence> options = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Sequence>();\nfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {\n\tif (child instanceof org.emftext.sdk.concretesyntax.Sequence) {\n\t\toptions.add(( org.emftext.sdk.concretesyntax.Sequence) child);\n\t} else {\n\t\t// there should be no elements other than Sequence elements in the\n\t\t// list of children\n\t\tassert false;\n\t}\n}\nreturn options;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (sequenceEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.Definition> parts = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.Definition>();\nfor ( org.emftext.sdk.concretesyntax.SyntaxElement child : getChildren()) {\n\tif (child instanceof org.emftext.sdk.concretesyntax.Definition) {\n\t\tparts.add(( org.emftext.sdk.concretesyntax.Definition) child);\n\t} else {\n\t\t// there should be no elements other than Definition elements in the\n\t\t// list of children\n\t\tassert false;\n\t}\n}\nreturn parts;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (definitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "return true;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (definitionEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "return false;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (definitionEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.Cardinality cardinality = org.emftext.sdk.concretesyntax.Cardinality.NONE;\nif (this instanceof org.emftext.sdk.concretesyntax.CardinalityDefinition) {\n\tcardinality = (( org.emftext.sdk.concretesyntax.CardinalityDefinition) this).getCardinality();\n}\nif (cardinality == org.emftext.sdk.concretesyntax.Cardinality.NONE) {\n\treturn \"\";\n} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.PLUS) {\n\treturn \"+\";\n} else if (cardinality == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK) {\n\treturn \"?\";\n} else {\n\treturn \"*\";\n}",
 			 "documentation", "\r\n Returns a string representation of the cardinality of the\r\n\' or the\r\n empty string.\r\n \r\n @param definition\r\n @return\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (cardinalityDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "return getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.NONE || getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.PLUS;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (cardinalityDefinitionEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "return !\n\t(getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.QUESTIONMARK ||\n\t getCardinality() == org.emftext.sdk.concretesyntax.Cardinality.STAR);",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (csStringEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A keyword that is used to represent instances of a metaclass."
-		   });		
+		   });	
 		addAnnotation
 		  (cardinalityEEnum.getELiterals().get(1), 
 		   source, 
 		   new String[] {
 			 "documentation", "Allows to repeat the preceding syntax element multiple times."
-		   });		
+		   });	
 		addAnnotation
 		  (cardinalityEEnum.getELiterals().get(2), 
 		   source, 
 		   new String[] {
 			 "documentation", "Allows to repeat the preceding syntax element multiple times (including zero times)."
-		   });		
+		   });	
 		addAnnotation
 		  (cardinalityEEnum.getELiterals().get(3), 
 		   source, 
 		   new String[] {
 			 "documentation", "Tags the preceding syntax element as optional."
-		   });		
+		   });	
 		addAnnotation
 		  (compoundDefinitionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A group of syntax elements that must appear together."
-		   });		
+		   });	
 		addAnnotation
 		  (compoundDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.SyntaxElement> children = getChildren();\n// there should be at most one child\nassert children == null || children.size() == 1;\n\nif (children != null && children.size() > 0) {\n\torg.emftext.sdk.concretesyntax.SyntaxElement firstChild = children.get(0);\n\tif (firstChild instanceof org.emftext.sdk.concretesyntax.Choice) {\n\t\treturn ( org.emftext.sdk.concretesyntax.Choice) firstChild;\n\t} else {\n\t\t// there should be no element other than Choice\n\t\tassert false;\n\t\treturn null;\n\t}\n}\nreturn null;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (regexComposerEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "visitedTokens.add(token);\r\n\njava.lang.StringBuilder result = new java.lang.StringBuilder();\nif (token instanceof org.emftext.sdk.concretesyntax.RegexComposite) {\n\torg.emftext.sdk.concretesyntax.RegexComposite composite = ( org.emftext.sdk.concretesyntax.RegexComposite) token;\n\tfor ( org.emftext.sdk.concretesyntax.RegexPart part : composite.getRegexParts()) {\n\t\tif (part instanceof org.emftext.sdk.concretesyntax.AtomicRegex) {\n\t\t\tresult.append(part.getRegex());\n\t\t} else if (part instanceof org.emftext.sdk.concretesyntax.RegexReference) {\n\t\t\torg.emftext.sdk.concretesyntax.RegexReference reference = ( org.emftext.sdk.concretesyntax.RegexReference) part;\n\t\t\torg.emftext.sdk.concretesyntax.AbstractTokenDefinition target = reference.getTarget();\n\t\t\tif (target == null) {\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tif (target.eIsProxy()) {\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tif (visitedTokens.contains(target)) {\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\torg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition> subVisitedTokens = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>();\n\t\t\tsubVisitedTokens.addAll(visitedTokens);\n\t\t\tresult.append(getComposedRegex(target, subVisitedTokens));\n\t\t}\n\t}\n} else if (token instanceof org.emftext.sdk.concretesyntax.RegexOwner) {\n\torg.emftext.sdk.concretesyntax.RegexOwner owner = ( org.emftext.sdk.concretesyntax.RegexOwner) token;\n\tresult.append(owner.getRegex());\n}\nreturn result.toString();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (regexCompositeEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.StringBuilder result = new java.lang.StringBuilder();\nfor ( org.emftext.sdk.concretesyntax.RegexPart part : getRegexParts()) {\n\tresult.append(part.getRegex());\n}\nreturn result.toString();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (atomicRegexEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "return getAtomicExpression();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (regexReferenceEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.AbstractTokenDefinition target = getTarget();\nif (target == null || target.eIsProxy()) {\n\treturn \"\";\n} else {\n\tassert target instanceof org.emftext.sdk.concretesyntax.RegexOwner;\n\treturn (( org.emftext.sdk.concretesyntax.RegexOwner) target).getRegex();\n}",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (partialTokenDefinitionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A fragment of a token definition. Can be used in other token definitions to avoid duplication."
-		   });		
+		   });	
 		addAnnotation
 		  (partialTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();\nreturn composer.getComposedRegex(this, new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "boolean isReferenced = !getAttributeReferences().isEmpty();\nboolean isCollectInToken = getAttributeName() != null;\nreturn !isReferenced || isCollectInToken;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "boolean isReferenced = !getAttributeReferences().isEmpty();\nboolean isCollectInToken = getAttributeName() != null;\nreturn isReferenced || isCollectInToken;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "return !syntax.equals(getContainingSyntax(syntax));",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (completeTokenDefinitionEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.ecore.EObject container = this.eContainer();\nif (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {\n\treturn ( org.emftext.sdk.concretesyntax.ConcreteSyntax) container;\n}\nreturn syntax;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (normalTokenDefinitionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Defines a token with a name and a regular expression."
-		   });		
+		   });	
 		addAnnotation
 		  (normalTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();\nreturn composer.getComposedRegex(this, new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (tokenRedefinitionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Redefines the regular expression of an imported token. Also, a new name is assigned to the token."
-		   });		
+		   });	
 		addAnnotation
 		  (tokenRedefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.emftext.sdk.concretesyntax.RegexComposer composer = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRegexComposer();\nreturn composer.getComposedRegex(this, new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.AbstractTokenDefinition>());",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (quotedTokenDefinitionEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "return getSynthesizedRegex();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (tokenPriorityDirectiveEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Prioritizes a token over the subsequent tokens."
-		   });		
+		   });	
 		addAnnotation
 		  (containmentEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Calls the syntax rules of the type of the containment reference."
-		   });		
+		   });	
 		addAnnotation
 		  (containmentEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> types;\n// is there an explicit type defined?\nif (!getTypes().isEmpty()) {\n\ttypes = getTypes();\n} else {\n\ttypes = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\n\ttypes.add(getFeature().getTypeGenClass());\n}\nreturn types;",
 			 "documentation", "\r\n Returns all types that are allowed for the given containment.\r\n If type restrictions are specified in the syntax rule, this\r\n list contains the allowed types. If no restriction are present\r\n the type of the feature references by the containment is \r\n returned.\r\n \r\n @param containment\r\n @return\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.String prefix = getPrefix();\nif (prefix == null) return prefix;\nif (prefix.length() == 0) return null;\nreturn prefix;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.String suffix = getSuffix();\nif (suffix == null) return suffix;\nif (suffix.length() == 0) return null;\nreturn suffix;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.String escapeCharacter = getEscapeCharacter();\nif (escapeCharacter == null) return escapeCharacter;\nif (escapeCharacter.length() == 0) return null;\nreturn escapeCharacter;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (placeholderInQuotesEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "if (eIsProxy()) return super.toString();\r\n\njava.lang.StringBuffer result = new java.lang.StringBuffer();\norg.eclipse.emf.codegen.ecore.genmodel.GenFeature feature = getFeature();\nif (feature != null && feature.getEcoreFeature() != null) {\n\tresult.append(feature.getName());\n}\nresult.append(\"[\'\");\nresult.append(getPrefix());\nresult.append(\"\', \'\");\nresult.append(getSuffix());\nresult.append(\"\']\");\nreturn result.toString();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (booleanTerminalEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "return \"\".equals(getTrueLiteral()) || \"\".equals(getFalseLiteral());",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (enumTerminalEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "return !getEmptyLiterals().isEmpty();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (enumTerminalEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> nonEmptyLiterals = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\nfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\n\tjava.lang.String text = literal.getText();\n\tif (text != null && !\"\".equals(text)) {\n\t\tnonEmptyLiterals.add(literal);\n\t}\n}\nreturn nonEmptyLiterals;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (enumTerminalEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal> emptyLiterals = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.EnumLiteralTerminal>();\nfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : getLiterals()) {\n\tjava.lang.String text = literal.getText();\n\tif (\"\".equals(text)) {\n\t\temptyLiterals.add(literal);\n\t}\n}\nreturn emptyLiterals;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (optionEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "A configuration option that parameterizes the code generation process."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(0), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, EMFText generates a UI action that can be used to test parsing and printing of files containing textual syntax. The default value for this option is <code>false</code>. This is a non-standard option, which might be removed in future releases of EMFText."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(1), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, EMFText automatically generates the model code using the generator model referenced in the CS specification. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(2), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the plugin.xml file will be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(3), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the manifest of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(4), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Parser class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(5), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the token resolver classes will be overridden. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(6), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the reference resolver classes will be overridden. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(7), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the reference resolver switch will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(8), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the token resolver factory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(9), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the printer will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(10), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ANTLR-backtracking is deactivated for parser generation. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(11), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ANTLR-memoize is deactivated for parser generation. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(12), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, EMFText will try to fix rules that contain simple left recursion. The default value for this option is <code>false</code>. This is a non-standard option, which might be removed in future releases of EMFText."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(13), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, EMFText will generate a parser that does not expect an EOF signal at the end of the input stream. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(14), 
 		   source, 
 		   new String[] {
 			 "documentation", "This option can be used to specify the name of the token that is used when no token is given for attributes or non-containment references in syntax rules. Declarations like <code>featureX[]</code> in CS rules will automatically be expanded to <code>featureX[TOKEN_Y]</code> if the value of this option is <code>TOKEN_Y</code>. The default value for this option is <code>TEXT</code>, which makes the predefined token <code>TEXT</code> the default token."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(15), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, EMFText does not automatically provide predefined tokens (TEXT, WHITESPACE, LINEBREAK). The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(16), 
 		   source, 
 		   new String[] {
 			 "documentation", "The (numerical) value of this option defines how many whitespace should be printed between tokens if no whitespace information is given in CS rules. This option should only be used with the classic printer. The default value of this option is <code>1</code> if the classic printer is used (see option <code>useClassicPrinter</code>) and <code>automatic</code> otherwise."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(17), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, EMFText reloads the generator model before loading it. This is particular useful, when the meta model (i.e., the Ecore file) is changing a lot during language development. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(18), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the .classpath file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(19), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the .project file of the resource plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(20), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the text resource class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(21), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the resource factory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(22), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the new file wizard class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(23), 
 		   source, 
 		   new String[] {
 			 "documentation", "The name of the parser generator to use. The default value for this option is <code>antlr</code>, which is also the only valid value. This is a non-standard option, which might be removed in future releases of EMFText."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(24), 
 		   source, 
 		   new String[] {
 			 "documentation", "The name of the folder where EMFText shall store the customizable classes of the resource plug-in in. All classes for which the <code>override</code> option is set to <code>false</code> will be stored in this folder."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(25), 
 		   source, 
 		   new String[] {
 			 "documentation", "The name of the base package EMFText shall store the generated classes or the resource plug-in in. If this option is not set, the default value is determined by adding the suffix <code>resource.FILE_EXTENSION</code> to the base package of the generator model."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(26), 
 		   source, 
 		   new String[] {
 			 "documentation", "The ID of the generated resource plug-in. The resource plug-in is stored in a folder that is equal to this ID."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(27), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the build.properties file will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(28), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the MetaInformation class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(29), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the default resolver class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(30), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the problem class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(31), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Scanner class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(32), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(33), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(34), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DelegatingResolveResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(35), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DummyEObject class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(36), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ElementMapping class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(37), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the FuzzyResolveResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(38), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DefaultTokenResolver class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(39), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LocationMap class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(40), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(41), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TokenResolveResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(42), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the UriMapping class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(43), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the HoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(44), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ParseResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(45), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AntlrTokenHelper class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(46), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BracketSet class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(47), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BrowserInformationControl class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(48), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the CodeFoldingManager class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(49), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ColorManager class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(50), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the CompletionProcessor class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(51), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ParsingStrategy class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(52), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DocBrowserInformationControlInput class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(53), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EditorConfiguration class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(54), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Editor class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(55), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EObjectSelection class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(56), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Highlighting class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(57), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the HtmlPrinter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(58), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Hyperlink class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(59), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the HyperlinkDetector class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(60), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the MarkerHelper class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(61), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Occurrence class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(62), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(63), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageTreeViewer class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(64), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PluginActivator class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(65), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PositionCategory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(66), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PositionHelper class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(67), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PropertySheetPage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(68), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TextHover class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(69), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TokenScanner class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(70), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BracketPreferencePage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(71), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PreferenceConstants class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(72), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OccurrencePreferencePage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(73), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PixelConverter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(74), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PreferenceInitializer class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(75), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SyntaxColoringHelper class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(76), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SyntaxColoringPreferencePage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(77), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IInputStreamProcessorProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(78), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the InputStreamProcessor class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(79), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IOptionProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(80), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IOptions class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(81), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(82), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IResourcePostProcessorProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(83), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IBracketPair class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(84), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ICommand class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(85), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IConfigurable class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(86), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IContextDependentUriFragment class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(87), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IContextDependentUriFragmentFactory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(88), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IElementMapping class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(89), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IExpectedElement class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(90), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(91), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ILocationMap class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(92), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IParseResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(93), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IProblem class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(94), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IReferenceMapping class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(95), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IReferenceResolver class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(96), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IReferenceResolveResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(97), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IReferenceResolverSwitch class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(98), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITextDiagnostic class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(99), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITextParser class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(100), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITextPrinter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(101), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITextResource class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(102), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IMetaInformation class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(103), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITextResourcePluginPart class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(104), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITextScanner class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(105), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITextToken class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(106), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITokenResolver class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(107), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITokenResolveResult class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(108), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITokenResolverFactory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(109), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITokenStyle class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(110), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IUriMapping class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(111), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EProblemType class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(112), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the CodeCompletionHelper class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(113), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ExpectedCsString class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(114), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ExpectedStructuralFeature class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(115), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the CastUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(116), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the CopiedEList class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(117), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the CopiedEObjectInternalEList class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(118), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EClassUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(119), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EObjectUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(120), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ListUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(121), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the MapUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(122), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the MinimalModelHelper class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(123), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ResourceUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(124), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the StreamUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(125), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the StringUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(126), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TextResourceUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(127), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the UnicodeConverter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(128), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AbstractExpectedElement class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(129), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the NewFileWizardPage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(130), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IBackgroundParsingListener class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(131), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TerminateParsingException class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(132), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the UnexpectedContentTypeException class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(133), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TextToken class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(134), 
 		   source, 
 		   new String[] {
 			 "documentation", "The name of the folder where EMFText shall store the generated classes of the resource plug-in in. All classes for which the <code>override</code> option is set to <code>true</code> will be stored in this folder."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(135), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the extension point schema for default load options is not overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(136), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the extension point schema for additional parsers is not overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(137), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ResourceFactoryDelegator class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(138), 
 		   source, 
 		   new String[] {
 			 "documentation", "The plug-in containing the resource implementation for the DSL (if different from the generated resource plug-in). By default this option is not set, which means that the generated resource plug-in provides the resource implementation."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(139), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PreferencePage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(140), 
 		   source, 
 		   new String[] {
 			 "documentation", "Sets the ID for the generated common ANTLR runtime plug-in. The default value for this option is <code>org.emftext.commons.antlr3_4_0</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(141), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, no ANTLR common runtime plug-in is generated. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(142), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TokenStyleInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(143), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the FoldingInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(144), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BracketInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(145), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SyntaxCoverageInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(146), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the generated EMF resource will save only resource when their content (text) has actually changed. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(147), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the NewFileContentProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(148), 
 		   source, 
 		   new String[] {
 			 "documentation", "A URI pointing to a text file that contains a header which shall be added to all generated Java files. This option is useful to include copyright statements in the generated classes. If this option is not set, a default (empty) header is added to all generated Java classes."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(149), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ExpectedTerminal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(150), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the CompletionProposal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(151), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Builder class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(152), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BuilderAdapter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(153), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IBuilder class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(154), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Nature class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(155), 
 		   source, 
 		   new String[] {
 			 "documentation", "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource plug-in. The default value for this option is an empty list."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(156), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the builder that is generated and registered by default will not be registered anymore. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(157), 
 		   source, 
 		   new String[] {
 			 "documentation", "A list of comma separated packages, which will be added as exports to the manifest of the generated resource plug-in. The default value for this option is an empty list."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(158), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Pair class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(159), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AbstractInterpreter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(160), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the GrammarInformationProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(161), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AttributeValueProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(162), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the FollowSetProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(163), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SyntaxElement class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(164), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Keyword class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(165), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Placeholder class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(166), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Cardinality class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(167), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Printer2 class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(168), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Choice class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(169), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Compound class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(170), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Containment class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(171), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LineBreak class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(172), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Sequence class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(173), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the WhiteSpace class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(174), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SyntaxElementDecorator class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(175), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IReferenceCache class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(176), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DefaultHoverTextProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(177), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the FormattingElement class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(178), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Terminal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(179), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LayoutInformationAdapter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(180), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LayoutInformation class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(181), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the classic printer (i.e., the one used before EMFText 1.3.0) will be used. Otherwise the new printer implementation is used. In any case both printers are generated, but only one is used. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(182), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, constraint validation using registered EValidators will be enabled. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(183), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, constraint validation using the EMF Validation Framework is disabled. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(184), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the MetaInformation class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(185), 
 		   source, 
 		   new String[] {
 			 "documentation", "The ID of the generated resource UI plug-in. The resource UI plug-in is stored in a folder that is equal to this ID."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(186), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the plug-in activator class of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(187), 
 		   source, 
 		   new String[] {
 			 "documentation", "The package where to store all classes of the resource UI plug-in in. If this option is not set, the default value is determined by adding the suffix <code>resource.FILE_EXTENSION.ui</code> to the base package of the generator model."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(188), 
 		   source, 
 		   new String[] {
 			 "documentation", "A list of comma separated plug-in IDs, which will be added to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(189), 
 		   source, 
 		   new String[] {
 			 "documentation", "A list of comma separated packages, which will be added as exports to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(190), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the manifest of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(191), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the build.properties file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(192), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the .classpath file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(193), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the .project file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(194), 
 		   source, 
 		   new String[] {
 			 "documentation", "The name of the folder where EMFText shall store the customizable classes of the resource UI plug-in in. All classes for which the <code>override</code> option is set to <code>false</code> will be stored in this folder."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(195), 
 		   source, 
 		   new String[] {
 			 "documentation", "The name of the folder EMFText shall store the generated classes of the resource UI plug-in in. All classes for which the <code>override</code> option is set to <code>true</code> will be stored in this folder."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(196), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, EMFText will not generate the resource UI plug-in. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(197), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IBracketHandler class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(198), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the plugin.xml file of the resource UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(199), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ProposalPostProcessor class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(200), 
 		   source, 
 		   new String[] {
 			 "documentation", "Disables the automatic sorting of tokens. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(201), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IQuickFix class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(202), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the QuickFix class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(203), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AnnotationModel class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(204), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, AnnotationModelFactory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(205), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the MarkerAnnotation class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(206), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the MarkerResolutionGenerator class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(207), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the QuickAssistAssistant class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(208), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the QuickAssistProcessor class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(209), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ImageProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(210), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TokenStyle class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(211), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DynamicTokenStyler class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(212), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the generated resource class will not resolve references after parsing. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(213), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ExpectedBooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(214), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BooleanTerminal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(215), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(216), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ExpectedEnumerationTerminal class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(217), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ChangeReferenceQuickFix class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(218), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EProblemSeverity class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(219), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ResourcePostProcessor class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(220), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IResourceProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(221), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IBracketHandlerProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(222), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IAnnotationModelProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(223), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LaunchConfigurationDelegate class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(224), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LaunchConfigurationTabGroup class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(225), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LaunchConfigurationMainTab class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(226), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LaunchShortcurt class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(227), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the PropertyTester class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(228), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, code that is required to support launching of DSL models is not generated. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(229), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the Rule class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(230), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AbstractDebuggable class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(231), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EDebugMessage enumeration will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(232), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IDebugEventListener interface will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(233), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IInterpreterListener interface will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(234), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugCommunicationHandler class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(235), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugElement class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(236), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebuggableInterpreter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(237), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebuggerListener class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(238), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugMessage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(239), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugProcess class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(240), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugProxy class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(241), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugTarget class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(242), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugThread class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(243), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugValue class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(244), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugVariable class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(245), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LinebreakPoint class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(246), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SourceLocator class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(247), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SourceLookupParticipant class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(248), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SourcePathComputerDelegate class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(249), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the StackFrame class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(250), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, code that is required to support debugging of DSL models is not generated. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(251), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DebugModelPresentation class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(252), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LineBreakpointAdapter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(253), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AdapterFactory class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(254), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LaunchConfigurationHelper class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(255), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the NewProjectWizard class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(256), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the new NewProjectWizard is not registered. Use this option if there is already an existing wizard. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(257), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OptionProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(258), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the modern printer will not consider type restrictions for containment references that are defined in CS specifications. The classic printer does ignore these restrictions in any case. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(259), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the INameProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(260), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DefaultNameProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(261), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ReferenceCache class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(262), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageLexicalSortingAction class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(263), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageCollapseAllAction class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(264), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageGroupTypesAction class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(265), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AbstractOutlinePageAction class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(266), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageTreeViewerComparator class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(267), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageExpandAllAction class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(268), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageActionProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(269), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageLinkWithEditorAction class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(270), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the OutlinePageAutoExpandAction class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(271), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ContainedFeature class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(272), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ExpectationConstants class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(273), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EclipseProxy class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(274), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the RuntimeUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(275), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the generated resource plug-in will not contain any dependencies to Eclipse. The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(276), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IFunction1 interface will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(277), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the DevNullLocationMap class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(278), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IgnoredWordsFilter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(279), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TaskItemDetector class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(280), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TaskItemBuilder class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(281), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SourceViewerConfiguration class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(282), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the TaskItem class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(283), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the URIUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(284), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ANTLRTextToken class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(285), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the IDelegatingReferenceResolver interface will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(286), 
 		   source, 
 		   new String[] {
 			 "documentation", "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource plug-in. The default value for this option is an empty list."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(287), 
 		   source, 
 		   new String[] {
 			 "documentation", "A list of comma separated packages, which will be added as imported packages to the manifest of the generated resource UI plug-in. The default value for this option is an empty list."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(288), 
 		   source, 
 		   new String[] {
 			 "documentation", "A list of comma separated libraries, which will be added to the manifest file, the .classpath file and the build.properties file of the generated resource plug-in. The default value for this option is an empty list."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(289), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ContainmentTrace class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(290), 
 		   source, 
 		   new String[] {
 			 "documentation", "The default editor name can be changed with this option. Default name is \'EMFText <yourSyntaxExtension> Editor\'"
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(291), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LayoutUtil class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(292), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AntlrTokenHelper class in the UI plug-in will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(293), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the InterruptibleEcoreResolver class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(294), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ITokenScanner interface will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(295), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AutoEditStrategy class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(296), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the SyntaxErrorMessageConverter class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(297), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the LocalizedMessage class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(298), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the BracketPair class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(299), 
 		   source, 
 		   new String[] {
 			 "documentation", "Specify the category for the generated preference pages. Default ID is <code>org.eclipse.ui.preferencePages.GeneralTextEditor</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(300), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ToggleCommentHandler class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(301), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the EditingDomainProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(302), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the AdapterFactoryProvider class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(303), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the NewProjectWizardLogic class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(304), 
 		   source, 
 		   new String[] {
 			 "documentation", "Specify the category for the generated new file wizard. Default category ID is <code>org.emftext.runtime.ui.EMFTextFileCategory</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(305), 
 		   source, 
 		   new String[] {
 			 "documentation", "Specify the target version of EMF to generate code for (e.g., 2.7)."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(306), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the UIResourceBundle class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(307), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>false</code>, the ResourceBundle class will not be overridden. The default value for this option is <code>true</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(308), 
 		   source, 
 		   new String[] {
 			 "documentation", "Specify the name for the generated new file wizard."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(309), 
 		   source, 
 		   new String[] {
 			 "documentation", "Comma separated list of file extensions that should be supported by the editor in addition to the primary file extension."
-		   });		
+		   });	
 		addAnnotation
 		  (optionTypesEEnum.getELiterals().get(310), 
 		   source, 
 		   new String[] {
 			 "documentation", "If set to <code>true</code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is <code>false</code>."
-		   });		
+		   });	
 		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {
 			 "documentation", "Defines syntax highlighting for tokens or keywords."
-		   });		
+		   });	
 		addAnnotation
 		  (getTokenStyle_TokenNames(), 
 		   source, 
 		   new String[] {
 			 "documentation", "The names of the tokens or the keywords this style is applied to."
-		   });		
+		   });	
 		addAnnotation
 		  (getTokenStyle_Rgb(), 
 		   source, 
 		   new String[] {
 			 "documentation", "The color to show the tokens and keywords in."
-		   });		
+		   });	
 		addAnnotation
 		  (getTokenStyle_FontStyles(), 
 		   source, 
 		   new String[] {
 			 "documentation", "The font styles to use for the tokens and keywords."
-		   });		
+		   });	
 		addAnnotation
 		  (annotationEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {\n\tif (key.equals(parameter.getKey())){\n\t\tjava.lang.String value = parameter.getValue();\n\t\treturn value;\n\t}\n}\nreturn null;",
-			 "documentation", "Returns the annotation value for the given key."
-		   });		
+			 "documentation", "\r\n Returns the annotation value for the given key.\r\n"
+		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {\n\tjava.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();\n\tget_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);\n}\nreturn get_qualifiedInterfaceNameCache().get(genClass);",
-			 "documentation", "Return the qualified name of the interface for the given GenClass."
-		   });		
+			 "documentation", "\r\n Return the qualified name of the interface for the given GenClass.\r\n"
+		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.String interfaceName = getQualifiedInterfaceName(genClass);\njava.lang.String escapedName = interfaceName.replace(\"_\", \"_005f\");\nescapedName = escapedName.replace(\".\", \"_\");\nreturn escapedName;",
-			 "documentation", "Returns an escaped version of the qualified name of the interface for \r\n the given GenClass. Underscores and dots are replaced to be able to use \r\n the returned name, for example, as method name."
-		   });		
+			 "documentation", "\r\n Return an esacped version of the qualified name of the interface for \r\n the given GenClass. Underscores and dots are replaced to be able to use \r\n the returned name, for example, as method name.\r\n"
+		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());",
-			 "documentation", "Checks whether the given GenClass has a map type."
-		   });		
+			 "documentation", "\r\n Checks whether the given GenClass has a map type.\r\n"
+		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {\n\torg.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();\n\torg.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();\n\tif (entryClass.getName().equals(oClass.getName())\n\t\t\t&& entryClass.getEPackage().getNsURI().equals(\n\t\t\t\t\toClass.getEPackage().getNsURI())) {\n\t\treturn true;\n\t}\n}\nreturn false;",
-			 "documentation", "Checks whether the given list of GenClasses contains a GenClass\r\nwith the same name and namespace URI as the given GenClass."
-		   });		
+			 "documentation", "\r\n Checks whether the given list of GenClasses contains a GenClass\r\n with the same name and namespace URI as the given GenClass. \r\n"
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "if (subClassCandidate == null) {\n\treturn false;\n}\nif ( org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEObject().equals(superClass)) {\n\t// EObject is super type of all EClasses\n\treturn true;\n}\nfor ( org.eclipse.emf.ecore.EClass superClassCandidate : subClassCandidate.getEAllSuperTypes()) {\n\t// There seem to be multiple instances of meta classes when accessed\n\t// through the generator model. Therefore, we compare by name.\n\tif (namesAndPackageURIsAreEqual(superClassCandidate, superClass)) {\n\t\treturn true;\n\t}\n}\nreturn false;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.eclipse.emf.ecore.EClass> result = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.ecore.EClass>();\nfor ( org.eclipse.emf.ecore.EClass next : availableClasses) {\n\tif (isSubClass(next, superClass) &&\n\t\tisConcrete(next)) {\n\t\tresult.add(next);\n\t}\n}\nreturn result;",
 			 "documentation", "\r\n Returns all subclasses of \'superClass\' that are contained\r\n in \'availableClasses\'.\r\n \r\n @param superClass the superclass\r\n @param availableClasses the set of classes to search in\r\n @return a list of all subclasses of \'superClass\'\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "return namesAreEqual(classA, classB) && \n\tpackageURIsAreEqual(classA, classB);",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.String nsURI_A = classA.getEPackage().getNsURI();\njava.lang.String nsURI_B = classB.getEPackage().getNsURI();\nif (nsURI_A == null && nsURI_B == null) {\n\treturn true;\n}\nif (nsURI_A != null) {\n\treturn nsURI_A.equals(nsURI_B);\n} else {\n\t// nsURI_A is null, but nsURI_B is not\n\treturn false;\n}",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
 			 "body", "if (classA == null || classB == null) {\n\treturn false;\n}\njava.lang.String nameA = classA.getName();\njava.lang.String nameB = classB.getName();\nif (nameA == null) {\n\treturn nameB == null;\n}\nreturn nameA.equals(nameB);",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
 			 "body", "return !eClass.isAbstract() && !eClass.isInterface();",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(6), 
 		   source, 
 		   new String[] {
 			 "body", "return !isConcrete(eClass);",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(7), 
 		   source, 
 		   new String[] {
 			 "body", "boolean isEqual = namesAndPackageURIsAreEqual(subclassCandidate, superType);\nboolean isSubclass = isSubClass(subclassCandidate, superType);\nreturn isEqual || isSubclass;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "// add default styles\naddTokenStylesForKeywords(syntax, allStyles);\naddTokenStylesForQuotedTokens(syntax, allStyles);\naddTokenStylesForComments(syntax, allStyles);\naddTokenStyleForTaskItems(syntax, allStyles);",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "final java.util.regex.Pattern KEYWORD_PATTERN = java.util.regex.Pattern.compile(getKeywordRegex());\nfinal java.lang.String KEYWORD_COLOR = \"800055\";\nfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\n\torg.eclipse.emf.common.util.EList< java.lang.String> keywords = getAllKeywords(rule);\n\tfor ( java.lang.String keyword : keywords) {\n\t\tif (KEYWORD_PATTERN.matcher(keyword).matches()) {\n\t\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\n\t\t\tnewStyle.setRgb(KEYWORD_COLOR);\n\t\t\tnewStyle.getTokenNames().add(keyword);\n\t\t\tnewStyle.getFontStyles().add( org.emftext.sdk.concretesyntax.FontStyle.BOLD);\n\t\t\tsyntax.addTokenStyle(allStyles, newStyle);\n\t\t}\n\t}\n}",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.String QUOTED_TOKEN_COLOR = \"2A00FF\";\nfor ( org.emftext.sdk.concretesyntax.Rule rule : syntax.getAllRules()) {\n\torg.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> placeholders = getAllPlaceholdersInQuotes(rule);\n\tfor ( org.emftext.sdk.concretesyntax.PlaceholderInQuotes placeholder : placeholders) {\n\t\torg.emftext.sdk.concretesyntax.ReferencableTokenDefinition token = placeholder.getToken();\n\t\tif (token == null) {\n\t\t\tcontinue;\n\t\t}\n\t\tjava.lang.String tokenName = token.getName();\r\n\n\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\n\t\tnewStyle.setRgb(QUOTED_TOKEN_COLOR);\n\t\tnewStyle.getTokenNames().add(tokenName);\n\t\tsyntax.addTokenStyle(allStyles, newStyle);\n\t}\n}",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "final java.lang.String SL_COMMENT = \"\'//\'(~(\'\\n\'|\'\\r\'|\'\" + ((char) 0xffff) + \"\'))*\";\nfinal java.lang.String ML_COMMENT = \"\'/*\'.*\'*/\'\";\nreturn SL_COMMENT.equals(regex) || ML_COMMENT.equals(regex);",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(4), 
 		   source, 
 		   new String[] {
 			 "body", "final java.lang.String COMMENT_COLOR = \"3F805D\";\njava.util.Collection< org.emftext.sdk.concretesyntax.CompleteTokenDefinition> tokens = syntax.getActiveTokens();\nfor ( org.emftext.sdk.concretesyntax.CompleteTokenDefinition tokenDefinition : tokens) {\n\tjava.lang.String regex = tokenDefinition.getRegex();\n\tif (isCommentPattern(regex)) {\n\t\torg.emftext.sdk.concretesyntax.TokenStyle newStyle = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();\n\t\tnewStyle.setRgb(COMMENT_COLOR);\n\t\tnewStyle.getTokenNames().add(tokenDefinition.getName());\n\t\tsyntax.addTokenStyle(allStyles, newStyle);\n\t}\n}",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(5), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< java.lang.String> allKeywords = new org.eclipse.emf.common.util.BasicEList< java.lang.String>();\norg.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();\nwhile (iterator.hasNext()) {\n\torg.eclipse.emf.ecore.EObject next = iterator.next();\n\tif (next instanceof org.emftext.sdk.concretesyntax.CsString) {\n\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.CsString) next).getValue());\n\t} else if (next instanceof org.emftext.sdk.concretesyntax.BooleanTerminal) {\n\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getTrueLiteral());\n\t\tallKeywords.add((( org.emftext.sdk.concretesyntax.BooleanTerminal) next).getFalseLiteral());\n\t} else if (next instanceof org.emftext.sdk.concretesyntax.EnumTerminal) {\n\t\torg.emftext.sdk.concretesyntax.EnumTerminal enumTerminal = ( org.emftext.sdk.concretesyntax.EnumTerminal) next;\n\t\tfor ( org.emftext.sdk.concretesyntax.EnumLiteralTerminal literal : enumTerminal.getLiterals()) {\n\t\t\tallKeywords.add(literal.getText());\n\t\t}\n\t}\n}\nreturn allKeywords;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(6), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes> allPlaceholders = new org.eclipse.emf.common.util.BasicEList< org.emftext.sdk.concretesyntax.PlaceholderInQuotes>();\norg.eclipse.emf.common.util.TreeIterator< org.eclipse.emf.ecore.EObject> iterator = rule.eAllContents();\nwhile (iterator.hasNext()) {\n\torg.eclipse.emf.ecore.EObject next = iterator.next();\n\tif (next instanceof org.emftext.sdk.concretesyntax.PlaceholderInQuotes) {\n\t\tallPlaceholders.add(( org.emftext.sdk.concretesyntax.PlaceholderInQuotes) next);\n\t}\n}\nreturn allPlaceholders;",
 			 "documentation", ""
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(7), 
 		   source, 
 		   new String[] {
 			 "body", "final java.lang.String KEYWORD_REGEX = \"([a-z]|[A-Z])|(([a-z]|[A-Z]|[_])([a-z]|[A-Z]|[0-9]|[:]|[-]|[_]|\\\\s)+)\";\nreturn KEYWORD_REGEX;",
 			 "documentation", "\r\n All CsStrings that match the regular expression returned by this method will \r\n be recognized as keywords and a default token style (purple and bold face font) \r\n will be assigned.\r\n"
-		   });		
+		   });	
 		addAnnotation
 		  (defaultTokenStyleAdderEClass.getEOperations().get(8), 
 		   source, 

@@ -284,6 +284,8 @@ public class ResourcePluginContentCreator extends AbstractPluginCreator<Object> 
 	    add(creators, TextResourceArtifacts.EXPECTED_BOOLEAN_TERMINAL);
 	    add(creators, TextResourceArtifacts.EXPECTED_ENUMERATION_TERMINAL);
 	    add(creators, TextResourceArtifacts.ATTRIBUTE_VALUE_PROVIDER);
+	    add(creators, TextResourceArtifacts.FOLLOW_SET_GROUP);
+	    add(creators, TextResourceArtifacts.FOLLOW_SET_GROUP_LIST);
 
 	    add(creators, TextResourceArtifacts.CAST_UTIL);
 	    add(creators, TextResourceArtifacts.COPIED_E_LIST);

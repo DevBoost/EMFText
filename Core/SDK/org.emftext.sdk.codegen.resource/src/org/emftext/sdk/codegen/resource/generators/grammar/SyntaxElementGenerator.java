@@ -70,6 +70,20 @@ public class SyntaxElementGenerator extends JavaBaseGenerator<ArtifactParameter<
 		addGetChildrenMethod(sc);
 		addGetMetaClassMethod(sc);
 		addGetCardinalityMethod(sc);
+		addHasContainmentMethod(sc);
+	}
+
+	private void addHasContainmentMethod(JavaComposite sc) {
+		sc.add("public boolean hasContainment(" + E_CLASS(sc) + " metaclass) {");
+		sc.add(syntaxElementClassName + "[] children = getChildren();");
+		sc.add("for (" + syntaxElementClassName + " child : children) {");
+		sc.add("if (child.hasContainment(metaclass)) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetRuleMethod(JavaComposite sc) {

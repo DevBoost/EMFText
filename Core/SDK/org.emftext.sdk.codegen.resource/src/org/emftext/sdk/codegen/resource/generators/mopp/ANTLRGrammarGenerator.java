@@ -1638,11 +1638,43 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			}
 			sc.add("{");
 			sc.addComment("expected elements (follow set)");
+			if (isLast(definition, rule)) {
+				sc.addComment("We've found the last token for this rule. The constructed EObject is now complete.");
+				sc.add("completedElement(element, true);");
+			}
 			addExpectationsCode(sc, expectations);
 			sc.add("}");
 
 			sc.addLineBreak();
 		}
+	}
+
+	private boolean isLast(Definition definition, Rule rule) {
+		EObject current = definition;
+		while (current != rule && current != null) {
+			EObject parent = current.eContainer();
+			EReference containmentFeature = current.eContainmentFeature();
+			Object containmentList = parent.eGet(containmentFeature);
+			if (containmentList instanceof List<?>) {
+				List<?> list = (List<?>) containmentList;
+				for (int i = list.size() - 1; i >= 0; i--) {
+					Object next = list.get(i);
+					if (next instanceof LineBreak) {
+						continue;
+					}
+					if (next instanceof WhiteSpaces) {
+						continue;
+					}
+					if (next != current) {
+						return false;
+					}
+					break;
+				}
+			}
+			current = parent;
+		}
+		
+		return true;
 	}
 
 	private void addExpectationsCode(ANTLRGrammarComposite sc, Set<Expectation> expectations) {

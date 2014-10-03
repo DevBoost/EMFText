@@ -48,6 +48,15 @@ public class RuleGenerator extends JavaBaseGenerator<ArtifactParameter<Generatio
 	private void addMethods(JavaComposite sc) {
 		addGetMetaclassMethod(sc);
 		addGetDefinitionMethod(sc);
+		addToStringMethod(sc);
+	}
+
+	private void addToStringMethod(JavaComposite sc) {
+		sc.add("@" + sc.getClassName(Deprecated.class));
+		sc.add("public String toString() {");
+		sc.add("return metaclass == null ? \"null\" : metaclass.getName() + \" ::= \" + getDefinition().toString();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addConstructor(JavaComposite sc) {

@@ -47,6 +47,8 @@ import de.devboost.codecomposers.StringComposite;
 import de.devboost.codecomposers.java.JavaComposite;
 
 public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
+	
+	private final static boolean INCLUDE_DEBUG_CODE = false;
 
 	/**
 	 * This is a temporary flag which can be used to enable the generation of
@@ -59,6 +61,7 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	@Override
 	public void generateJavaContents(JavaComposite sc) {
+		sc.setIncludeDebugStatements(INCLUDE_DEBUG_CODE);
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -85,30 +88,35 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addMethods(JavaComposite sc) {
-		addComputeCompletionProposalsMethod(sc);
-		addParseToExpectedElementsMethod(sc);
-		addRemoveDuplicateEntriesMethod(sc);
-		addRemoveDuplicateEntriesFromBucketMethod(sc);
-		addRemoveInvalidEntriesAtEndMethod(sc);
-		addRemoveKeywordsEndingBeforeIndexMethod(sc);
-		addFindPrefixMethod(sc);
-		addDeriveProposalsMethod1(sc);
-		addDeriveProposalsMethod2(sc);
-		addHandleEnumAttributeMethod(sc);
-		addHandleNCReferenceMethod(sc);
-		addHandleAttributeMethod(sc);
-		addHandleKeywordMethod(sc);
-		addHandleBooleanTerminalMethod(sc);
-		addHandleEnumerationTerminalMethod(sc);
-		addHandleLiteralMethod(sc);
-		addSetPrefixesMethod(sc);
-		addGetExpectedElementsAtMethod(sc);
-		addGetEndMethod(sc);
-		addMatchesMethod(sc);
-		addGetImageMethod(sc);
-		addFindCorrectContainerMethod(sc);
-		addFindHookParentMethod(sc);
+	private void addMethods(JavaComposite jc) {
+		addComputeCompletionProposalsMethod(jc);
+		addParseToExpectedElementsMethod(jc);
+		addRemoveDuplicateEntriesMethod(jc);
+		addRemoveDuplicateEntriesFromBucketMethod(jc);
+		addRemoveInvalidEntriesAtEndMethod(jc);
+		addFitsAtCurrentPositionMethod(jc);
+		addPathToRootContainsMethod(jc);
+		if (INCLUDE_DEBUG_CODE) {
+			addPrintPathToRootMethod(jc);
+		}
+		addRemoveKeywordsEndingBeforeIndexMethod(jc);
+		addFindPrefixMethod(jc);
+		addDeriveProposalsMethod1(jc);
+		addDeriveProposalsMethod2(jc);
+		addHandleEnumAttributeMethod(jc);
+		addHandleNCReferenceMethod(jc);
+		addHandleAttributeMethod(jc);
+		addHandleKeywordMethod(jc);
+		addHandleBooleanTerminalMethod(jc);
+		addHandleEnumerationTerminalMethod(jc);
+		addHandleLiteralMethod(jc);
+		addSetPrefixesMethod(jc);
+		addGetExpectedElementsAtMethod(jc);
+		addGetEndMethod(jc);
+		addMatchesMethod(jc);
+		addGetImageMethod(jc);
+		addFindCorrectContainerMethod(jc);
+		addFindHookParentMethod(jc);
 	}
 
 	private void addRemoveKeywordsEndingBeforeIndexMethod(JavaComposite sc) {
@@ -547,51 +555,157 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		sc.addLineBreak();
 	}
 
-	private void addRemoveInvalidEntriesAtEndMethod(JavaComposite sc) {
-		sc.add("protected void removeInvalidEntriesAtEnd(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements) {");
-		// FIXME Remove this
-		sc.add("System.out.println(\"removeInvalidEntriesAtEnd()\");");
+	private void addRemoveInvalidEntriesAtEndMethod(JavaComposite jc) {
+		jc.add("protected void removeInvalidEntriesAtEnd(" + LIST(jc) + "<" + expectedTerminalClassName + "> expectedElements) {");
+
+		jc.add(followSetGroupListClassName + " followSetGroupList = new " + followSetGroupListClassName + "(expectedElements);");
+		jc.addDebugStatement("System.out.println(\"removeInvalidEntriesAtEnd()\");");
+		jc.add(LIST(jc) + "<" + followSetGroupClassName + "> followSetGroups = followSetGroupList.getFollowSetGroups();");
+		jc.add("int lastStartExcludingHiddenTokens = -1;");
+		jc.add("for (" + followSetGroupClassName + " followSetGroup : followSetGroups) {");
+			
+		jc.addDebugStatement("System.out.println(\"  ------------ FOLLOW SET GROUP \" + followSetGroup);");
 		
-		sc.add("for (int i = 0; i < expectedElements.size() - 1;) {");
-		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
-		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(i + 1);");
-		sc.addLineBreak();
-		sc.addComment(
-				"If the two expected elements have a different parent in the syntax definition, " +
-				"we must not discard the second element, because it probably stems from a parent rule."
+		// TODO Do not compute this twice
+		jc.add("boolean sameStartExcludingHiddenTokens = followSetGroup.hasSameStartExcludingHiddenTokens(lastStartExcludingHiddenTokens);");
+		jc.add("lastStartExcludingHiddenTokens = followSetGroup.getStartExcludingHiddenTokens();");
+			
+		jc.add(E_OBJECT(jc) + " container = followSetGroup.getContainer();");
+		jc.add(E_CLASS(jc) + " currentRule = null;");
+		jc.add("if (container != null) {");
+		jc.add("currentRule = container.eClass();");
+		jc.add("}");
+			
+		jc.add(LIST(jc) + "<" + expectedTerminalClassName + "> expectedTerminals = followSetGroup.getExpectedTerminals();");
+		jc.add("for (" + expectedTerminalClassName + " expectedTerminal : expectedTerminals) {");
+		
+		jc.addDebugStatement("System.out.println(\"    ------------ FOLLOWER \" + expectedTerminal);");
+		jc.add(iExpectedElementClassName + " terminalAtIndex = expectedTerminal.getTerminal();");
+		jc.add(E_CLASS(jc) + " ruleMetaclass = terminalAtIndex.getRuleMetaclass();");
+		jc.add("boolean differentRule = currentRule != ruleMetaclass;");
+		jc.addDebugStatement(syntaxElementClassName + " syntaxElement = terminalAtIndex.getSyntaxElement();");
+
+		if (INCLUDE_DEBUG_CODE) {
+			jc.addDebugStatement("System.out.println(\"    \" + syntaxElement + \" IN RULE \" + ruleMetaclass.getName());");
+			jc.add("printPathToRoot(container);");
+		}
+		
+		jc.addComment("If the two expected elements have a different parent in the syntax definition, " +
+				"we must not discard the second element, because it probably stems from a parent rule.");
+		jc.add(containmentTraceClassName + " containmentTrace = expectedTerminal.getContainmentTrace();");
+		
+		jc.addDebugStatement("System.out.println(\"    containment trace: \" + containmentTrace);");
+		
+		jc.add("boolean fitsAtCurrentPosition = fitsAtCurrentPosition(container, containmentTrace);");
+		jc.addDebugStatement("System.out.println(\"    fitsAtCurrentPosition: \" + fitsAtCurrentPosition);");
+				
+		jc.add("boolean inContainmentTrace = pathToRootContains(container, expectedTerminal.getTerminal().getRuleMetaclass());");
+		
+		jc.addDebugStatement("System.out.println(\"    inContainmentTrace: \" + inContainmentTrace);");
+				
+		jc.addDebugStatement("boolean differentFollowSet = true;");
+				
+		jc.add("boolean keepElement = true;");
+		// new rules
+		jc.add("if (differentRule && !inContainmentTrace) {");
+		jc.add("if (!fitsAtCurrentPosition) {");
+		jc.add("keepElement = false;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("if (sameStartExcludingHiddenTokens) {");
+		jc.add("keepElement = false;");
+		jc.add("}");
+		jc.addLineBreak();
+		
+		// FIXME Make this enable
+		jc.addDebugStatement("String message = \" because of: \";");
+		jc.addDebugStatement("if (sameStartExcludingHiddenTokens) {");
+		jc.addDebugStatement("message += \"same start, \";");
+		jc.addDebugStatement("} else {");
+		jc.addDebugStatement("message += \"different start, \";");
+		jc.addDebugStatement("}");
+		jc.addDebugStatement("if (differentFollowSet) {");
+		jc.addDebugStatement("message += \"different follow set, \";");
+		jc.addDebugStatement("} else {");
+		jc.addDebugStatement("message += \"same follow set, \";");
+		jc.addDebugStatement("}");
+		jc.addDebugStatement("if (differentRule) {");
+		jc.addDebugStatement("message += \"different rule, \";");
+		jc.addDebugStatement("} else {");
+		jc.addDebugStatement("message += \"same rule, \";");
+		jc.addDebugStatement("}");
+		jc.addDebugStatement("if (inContainmentTrace) {");
+		jc.addDebugStatement("message += \"in containment trace\";");
+		jc.addDebugStatement("} else {");
+		jc.addDebugStatement("message += \"not in containment trace\";");
+		jc.addDebugStatement("}");
+		
+		jc.add("if (keepElement) {");
+		jc.addDebugStatement("System.out.println(\"    Keeping:  \" + expectedTerminal + message);");
+		jc.add("} else {");
+		jc.addDebugStatement("System.out.println(\"    Removing: \" + expectedTerminal + message);");
+		jc.addComment("We must not call expectedElements.remove(expectedTerminal) because the hashCode() method of ExpectedTerminal does not consider the start positions and remove the wrong elements.");
+		jc.add("for (int i = 0; i < expectedElements.size(); i++) {");
+		jc.add(expectedTerminalClassName + " next = expectedElements.get(i);");
+		jc.add("if (next == expectedTerminal) {");
+		jc.add("expectedElements.remove(i);");
+		jc.add("break;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
+	}
+
+	private void addFitsAtCurrentPositionMethod(JavaComposite jc) {
+		jc.add("private boolean fitsAtCurrentPosition(" + E_OBJECT(jc) + " container, " + containmentTraceClassName + " containmentTrace) {");
+			
+		jc.add("if (container == null) {");
+		jc.addComment(
+			"If no container is available, there is no model yet because we're before the first token. " +
+			"In this case we assume that everything fits here."
 		);
-		sc.add(syntaxElementClassName + " symtaxElementOfThis = elementAtIndex.getTerminal().getSymtaxElement();");
-		sc.add(syntaxElementClassName + " symtaxElementOfNext = elementAtNext.getTerminal().getSymtaxElement();");
-		// FIXME Rename 'differentParent' to 'differentRule'
-		sc.add("boolean differentParent = symtaxElementOfNext.getRule() != symtaxElementOfThis.getRule();");
-		sc.addLineBreak();
-		sc.add("boolean sameStartExcludingHiddenTokens = elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens();");
-		sc.add("boolean differentFollowSet = elementAtIndex.getFollowSetID() != elementAtNext.getFollowSetID();");
-		sc.add("if (sameStartExcludingHiddenTokens && differentFollowSet && !differentParent) {");
-		// FIXME Remove this
-		sc.add("System.out.println(\"Removing: \" + elementAtNext + \" because of: same start, different follow set, same rule\");");
-		
-		sc.add("expectedElements.remove(i + 1);");
-		sc.add("} else {");
-		sc.add("String message = \" because of: \";");
-		sc.add("if (!sameStartExcludingHiddenTokens) {");
-		sc.add("message += \"different start, \";");
-		sc.add("}");
-		sc.add("if (!differentFollowSet) {");
-		sc.add("message += \"same follow set, \";");
-		sc.add("}");
-		sc.add("if (differentParent) {");
-		sc.add("message += \"different rule\";");
-		sc.add("}");
-		
-		// FIXME Remove this
-		sc.add("System.out.println(\"Keeping:  \" + elementAtNext + message);");
-		
-		sc.add("i++;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("return containmentTrace.getStartClass() == container.eClass();");
+		jc.add("}");
+		jc.addLineBreak();
+	}
+
+	private void addPathToRootContainsMethod(JavaComposite jc) {
+		jc.add("private boolean pathToRootContains(" + E_OBJECT(jc) + " leafObject, " + E_CLASS(jc) + " metaclass) {");
+		jc.add(E_OBJECT(jc) + " current = leafObject;");
+		jc.add("while (current != null) {");
+		jc.add("if (current.eClass() == metaclass) {");
+		jc.add("return true;");
+		jc.add("}");
+		jc.add("current = current.eContainer();");
+		jc.add("}");
+
+		jc.add("return false;");
+		jc.add("}");
+		jc.addLineBreak();
+	}
+
+	private void addPrintPathToRootMethod(JavaComposite jc) {
+		jc.add("private void printPathToRoot(" + E_OBJECT(jc) + " container) {");
+		jc.add("String path = \"\";");
+		jc.add("if (container == null) {");
+		jc.addDebugStatement("System.out.println(\"    printPathToRoot() Container is null. No path available.\");");
+		jc.add("return;");
+		jc.add("}");
+
+		jc.add(E_OBJECT(jc) + " current = container;");
+		jc.add("while (current != null) {");
+		jc.add("path += current.eClass().getName() + \" -> \";");
+		jc.add("current = current.eContainer();");
+		jc.add("}");
+
+		jc.addDebugStatement("System.out.println(\"    printPathToRoot() \" + path);");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 
 	private void addRemoveDuplicateEntriesFromBucketMethod(JavaComposite sc) {

@@ -112,7 +112,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator<Artifa
 
 	private void addGetSyntaxElementMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the expected placeholder.");
-		sc.add("public " + syntaxElementClassName +" getSymtaxElement() {");
+		sc.add("public " + syntaxElementClassName +" getSyntaxElement() {");
 		sc.add("return placeholder;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -79,6 +79,8 @@ import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedCsStr
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedEnumerationTerminalGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedStructuralFeatureGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.ExpectedTerminalGenerator;
+import org.emftext.sdk.codegen.resource.generators.code_completion.FollowSetGroupGenerator;
+import org.emftext.sdk.codegen.resource.generators.code_completion.FollowSetGroupListGenerator;
 import org.emftext.sdk.codegen.resource.generators.debug.AbstractDebuggableGenerator;
 import org.emftext.sdk.codegen.resource.generators.debug.DebugCommunicationHelperGenerator;
 import org.emftext.sdk.codegen.resource.generators.debug.DebugElementGenerator;
@@ -347,6 +349,8 @@ public class TextResourceArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_BOOLEAN_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedBooleanTerminal", ExpectedBooleanTerminalGenerator.class, OptionTypes.OVERRIDE_EXPECTED_BOOLEAN_TERMINAL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EXPECTED_ENUMERATION_TERMINAL = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "ExpectedEnumerationTerminal", ExpectedEnumerationTerminalGenerator.class, OptionTypes.OVERRIDE_EXPECTED_ENUMERATION_TERMINAL);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> ATTRIBUTE_VALUE_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "AttributeValueProvider", AttributeValueProviderGenerator.class, OptionTypes.OVERRIDE_ATTRIBUTE_VALUE_PROVIDER);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FOLLOW_SET_GROUP = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "FollowSetGroup", FollowSetGroupGenerator.class, OptionTypes.OVERRIDE_FOLLOW_SET_GROUP);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> FOLLOW_SET_GROUP_LIST = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(CC_PACKAGE, "", "FollowSetGroupList", FollowSetGroupListGenerator.class, OptionTypes.OVERRIDE_FOLLOW_SET_GROUP_LIST);
 
 	// the grammar package
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CARDINALITY = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(GRAMMAR_PACKAGE, "", "Cardinality", CardinalityGenerator.class, OptionTypes.OVERRIDE_CARDINALITY);

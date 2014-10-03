@@ -45,7 +45,7 @@ public class KeywordGenerator extends JavaBaseGenerator<ArtifactParameter<Genera
 
 	private void addToStringMethod(JavaComposite sc) {
 		sc.add("public String toString() {"); 
-		sc.add("return value;");
+		sc.add("return \"\\\"\" + value + \"\\\"\";");
 		sc.add("}"); 
 		sc.addLineBreak();
 	}

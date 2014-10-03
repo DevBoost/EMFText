@@ -2127,6 +2127,8 @@
         <details key="documentation" value="If set to &lt;code>true&lt;/code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is &lt;code>false&lt;/code>."/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="OVERRIDE_FOLLOW_SET_GROUP_LIST" value="314" literal="overrideFollowSetGroupList"/>
+    <eLiterals name="OVERRIDE_FOLLOW_SET_GROUP" value="315" literal="overrideFollowSetGroup"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
