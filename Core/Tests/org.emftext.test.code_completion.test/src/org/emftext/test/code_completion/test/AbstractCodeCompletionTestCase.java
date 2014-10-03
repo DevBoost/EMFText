@@ -65,6 +65,9 @@ import org.emftext.test.cct3.resource.cct3.ui.Cct3UIMetaInformation;
 import org.emftext.test.cct4.Cct4Package;
 import org.emftext.test.cct4.resource.cct4.mopp.Cct4MetaInformation;
 import org.emftext.test.cct4.resource.cct4.ui.Cct4UIMetaInformation;
+import org.emftext.test.cct5.Cct5Package;
+import org.emftext.test.cct5.resource.cct5.mopp.Cct5MetaInformation;
+import org.emftext.test.cct5.resource.cct5.ui.Cct5UIMetaInformation;
 import org.emftext.test.code_completion.test.access.ICodeCompletionHelper;
 import org.emftext.test.code_completion.test.access.ICompletionProposal;
 import org.emftext.test.code_completion.test.access.IContainedFeature;
@@ -100,6 +103,7 @@ public abstract class AbstractCodeCompletionTestCase {
 		EPackage.Registry.INSTANCE.put(Cct2Package.eNS_URI, Cct2Package.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(Cct3Package.eNS_URI, Cct3Package.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(Cct4Package.eNS_URI, Cct4Package.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(Cct5Package.eNS_URI, Cct5Package.eINSTANCE);
 		//TODO #1879: EPackage.Registry.INSTANCE.put(CustomerPackage.eNS_URI, CustomerPackage.eINSTANCE);
 	}
 
@@ -117,6 +121,7 @@ public abstract class AbstractCodeCompletionTestCase {
 		new Cct2MetaInformation().registerResourceFactory();
 		new Cct3MetaInformation().registerResourceFactory();
 		new Cct4MetaInformation().registerResourceFactory();
+		new Cct5MetaInformation().registerResourceFactory();
 		//TODO #1879: new CustomerMetaInformation().registerResourceFactory();
 	}
 
@@ -134,6 +139,8 @@ public abstract class AbstractCodeCompletionTestCase {
 		uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new Cct3UIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
 		csRegistry.add((IMetaInformation) EMFTextAccessProxy.get(new Cct4MetaInformation(), IMetaInformation.class, additionalAccessInterfaces));
 		uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new Cct4UIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
+		csRegistry.add((IMetaInformation) EMFTextAccessProxy.get(new Cct5MetaInformation(), IMetaInformation.class, additionalAccessInterfaces));
+		uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new Cct5UIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
 		//TODO #1879: csRegistry.add((IMetaInformation) EMFTextAccessProxy.get(new CustomerMetaInformation(), IMetaInformation.class, additionalAccessInterfaces));
 		//TODO #1879: uiPluginRegistry.add((IUIMetaInformation) EMFTextAccessProxy.get(new CustomerUIMetaInformation(), IUIMetaInformation.class, additionalAccessInterfaces));
 	}
@@ -427,7 +434,7 @@ public abstract class AbstractCodeCompletionTestCase {
 
 	private IResource createDummyResource(String fileExtension) {
 		Resource resource = new ResourceSetImpl().createResource(URI.createURI("temp." +  fileExtension));
-		assertTrue(resource != null);
+		assertTrue("Cannot create Dummy Resource.", resource != null);
 		IResource wrappedResource = (IResource) EMFTextAccessProxy.get(resource, IResource.class, additionalAccessInterfaces);
 		return wrappedResource;
 	}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cct5" nsURI="http://www.emftext.org/language/cct5" nsPrefix="cct5">
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Farmer" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Diet" lowerBound="1" eType="#//Diet"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Diet">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Type" lowerBound="1" eType="#//DietType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="FavoriteDish" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Animal" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="FeedingInstruction" lowerBound="1"
+        eType="#//Diet" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Farm">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Animal" upperBound="-1"
+        eType="#//Animal" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Farmer" lowerBound="1"
+        upperBound="-1" eType="#//Farmer" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DietType">
+    <eLiterals name="ALL"/>
+    <eLiterals name="VEGETARIAN" value="1"/>
+    <eLiterals name="VEGAN" value="2"/>
+  </eClassifiers>
+</ecore:EPackage>
