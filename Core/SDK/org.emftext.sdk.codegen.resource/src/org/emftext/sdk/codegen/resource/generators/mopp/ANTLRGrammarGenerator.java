@@ -397,14 +397,18 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("private void completedElement(Object object, boolean isContainment) {");
 		sc.add("if (isContainment && !this.incompleteObjects.isEmpty()) {");
 		//sc.add("System.out.println(" + stringUtilClassName + ".getRepeatingString(incompleteObjects.size(), ' ') + \"endofIncompleteElement(\" + object + \")\");");
-		sc.add("boolean exists = this.incompleteObjects.remove(object);");
-		sc.add("if (!exists) {");
+		sc.add("this.incompleteObjects.remove(object);");
+		//sc.add("boolean exists = this.incompleteObjects.remove(object);");
+		//sc.add("if (!exists) {");
 		//sc.add("System.out.println(\"ERROR: Inconsistent set of objects (Can't find \" + object + \")\");");
-		sc.add("}");
+		//sc.add("}");
 		sc.add("}");
 		sc.add("if (object instanceof " + E_OBJECT(sc) + ") {");
 		sc.add("this.tokenIndexOfLastCompleteElement = getTokenStream().index();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = expectedElements.size() - 1;");
+		//sc.addComment("Clear list of expected elements when EObject is completed.");
+		//sc.add("this.expectedElements.clear();");
+		//sc.add("this.expectedElementsIndexOfLastCompleteElement = 0;");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -701,8 +705,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("command.execute(dummyResource);");
 		sc.add("}");
 		sc.add("}");
-		sc.addComment("remove all expected elements that were added after the last complete element");
-		sc.add("expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);");
+		//sc.addComment("remove all expected elements that were added after the last complete element");
+		//sc.add("expectedElements = expectedElements.subList(0, expectedElementsIndexOfLastCompleteElement + 1);");
 		sc.add("int lastFollowSetID = expectedElements.get(expectedElementsIndexOfLastCompleteElement).getFollowSetID();");
 		sc.add(SET(sc) + "<" + expectedTerminalClassName + "> currentFollowSet = new " + LINKED_HASH_SET(sc) +"<" + expectedTerminalClassName + ">();");
 		sc.add(LIST(sc) + "<" + expectedTerminalClassName + "> newFollowSet = new " + ARRAY_LIST(sc) +"<" + expectedTerminalClassName + ">();");
@@ -879,6 +883,10 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		sc.add("int startIncludingHiddenTokens = expectedElement.getStartIncludingHiddenTokens();");
 		// TODO explain why this is required
+		// Removed this here as it is not clear what is the rationale behind
+		// this condition. Rather we clear the list of expected elements now
+		// when an element is completed (i.e., in completedElement()).
+		/*
 		sc.add("if (lastStartIncludingHidden >= 0 && " +
 			"lastStartIncludingHidden < startIncludingHiddenTokens && " +
 			"cursorOffset > startIncludingHiddenTokens) {");
@@ -886,6 +894,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.add("this.expectedElements.clear();");
 		sc.add("this.expectedElementsIndexOfLastCompleteElement = 0;");
 		sc.add("}");
+		*/
 		sc.add("lastStartIncludingHidden = startIncludingHiddenTokens;");
 		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
@@ -972,7 +981,11 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		}
 		sc.addComment("follow set for start rule(s)");
 		addExpectationsCode(sc, expectations);
-		sc.add("expectedElementsIndexOfLastCompleteElement = 0;");
+		// We do set the index of the last complete element to the end of the
+		// list even though no element was completed yet. However, this is
+		// required to get correct code proposals in case the cursor is at index
+		// 0.
+		sc.add("expectedElementsIndexOfLastCompleteElement = " + Math.max(0, expectations.size() - 1) + ";");
 		sc.add("}");
 		sc.add("(");
 		int count = 0;

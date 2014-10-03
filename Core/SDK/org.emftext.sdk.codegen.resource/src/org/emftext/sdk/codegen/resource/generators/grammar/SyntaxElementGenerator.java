@@ -66,9 +66,24 @@ public class SyntaxElementGenerator extends JavaBaseGenerator<ArtifactParameter<
 	private void addMethods(JavaComposite sc) {
 		addSetParentMethod(sc);
 		addGetParentMethod(sc);
+		addGetRuleMethod(sc);
 		addGetChildrenMethod(sc);
 		addGetMetaClassMethod(sc);
 		addGetCardinalityMethod(sc);
+	}
+
+	private void addGetRuleMethod(JavaComposite sc) {
+		sc.addJavadoc(
+				"Returns the rule of this syntax element. The rule " +
+				"is determined by the containment hierarchy in the CS model."
+		);
+		sc.add("public " + ruleClassName + " getRule() {");
+		sc.add("if (this instanceof " + ruleClassName + ") {");
+		sc.add("return (" + ruleClassName + ") this;");
+		sc.add("}");
+		sc.add("return parent.getRule();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetParentMethod(JavaComposite sc) {
