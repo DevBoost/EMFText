@@ -2,11 +2,9 @@ SYNTAXDEF cct5
 FOR <http://www.emftext.org/language/cct5>
 START Farm
 
-
 OPTIONS {
-	reloadGeneratorModel = "true";
+	licenceHeader = "../../org.dropsbox/licence.txt";
 }
-
 
 RULES {
 	
