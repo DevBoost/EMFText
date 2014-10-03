@@ -38,5 +38,10 @@ public class CsRule extends org.emftext.sdk.concretesyntax.resource.cs.grammar.C
 		return (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice) getChildren()[0];
 	}
 	
+	@Deprecated
+	public String toString() {
+		return metaclass == null ? "null" : metaclass.getName() + " ::= " + getDefinition().toString();
+	}
+	
 }
 

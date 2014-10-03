@@ -657,6 +657,21 @@ public class CsResource extends ResourceImpl implements org.emftext.sdk.concrete
 		return locationMap;
 	}
 	
+	/**
+	 * <p>
+	 * Sets the location map that contains information about the position of the
+	 * contents of this resource in the original textual representation.
+	 * </p>
+	 * <p>
+	 * Use this method carefully. If the location map is replaced with a map that
+	 * contains wrong location data, clients that obtain locations via {@link
+	 * #getLocationMap()} will behave unexpectedly.
+	 * </p>
+	 */
+	public void setLocationMap(org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap) {
+		this.locationMap = locationMap;
+	}
+	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, EObject element) {
 		ElementBasedTextDiagnostic diagnostic = new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element);
 		getDiagnostics(problem.getSeverity()).add(diagnostic);

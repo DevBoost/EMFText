@@ -38,7 +38,7 @@ public interface ICsExpectedElement {
 	/**
 	 * Returns the syntax element that is expected.
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement();
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSyntaxElement();
 	
 	/**
 	 * Adds an element that is a valid follower for this element.

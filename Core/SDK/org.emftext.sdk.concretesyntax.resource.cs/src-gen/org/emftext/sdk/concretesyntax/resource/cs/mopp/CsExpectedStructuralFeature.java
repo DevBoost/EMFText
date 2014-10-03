@@ -40,7 +40,7 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 	/**
 	 * Returns the expected placeholder.
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement() {
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSyntaxElement() {
 		return placeholder;
 	}
 	

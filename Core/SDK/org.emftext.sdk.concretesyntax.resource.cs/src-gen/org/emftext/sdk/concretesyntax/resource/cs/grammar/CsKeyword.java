@@ -34,7 +34,7 @@ public class CsKeyword extends org.emftext.sdk.concretesyntax.resource.cs.gramma
 	}
 	
 	public String toString() {
-		return value;
+		return "\"" + value + "\"";
 	}
 	
 }

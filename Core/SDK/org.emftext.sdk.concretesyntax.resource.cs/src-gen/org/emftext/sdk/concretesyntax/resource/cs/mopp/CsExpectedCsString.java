@@ -39,7 +39,7 @@ public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.
 	/**
 	 * Returns the expected keyword.
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement() {
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSyntaxElement() {
 		return keyword;
 	}
 	

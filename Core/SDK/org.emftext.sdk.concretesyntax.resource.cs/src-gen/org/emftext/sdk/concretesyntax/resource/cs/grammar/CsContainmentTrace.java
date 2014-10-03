@@ -62,7 +62,23 @@ public class CsContainmentTrace {
 	}
 	
 	public String toString() {
-		return (startClass == null ? "null" : startClass.getName()) + "->" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(path, "->");
+		return (startClass == null ? "null" : startClass.getName()) + "." + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.explode(path, "->");
+	}
+	
+	public boolean contains(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule rule) {
+		if (path == null) {
+			return false;
+		}
+		
+		EClass ruleMetaclass = rule.getMetaclass();
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsContainedFeature pathElement : path) {
+			EClass containerClass = pathElement.getContainerClass();
+			if (containerClass == ruleMetaclass) {
+				return true;
+			}
+		}
+		
+		return startClass == ruleMetaclass;
 	}
 	
 }

@@ -75,7 +75,10 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IStorageEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
@@ -246,6 +249,16 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 		document.addDocumentListener(new DocumentListener());
 	}
 	
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		super.init(site, input);
+		
+		// Show the 'presentation' action set with the 'Toggle Block SelectionMode' and
+		// 'Show Whitespace Characters' actions.
+		IWorkbenchPage page = site.getPage();
+		page.showActionSet("org.eclipse.ui.edit.text.actionSet.presentation");
+	}
+	
 	private void initializeResourceObject(IEditorInput editorInput) {
 		if (editorInput instanceof FileEditorInput) {
 			initializeResourceObjectFromFile((FileEditorInput) editorInput);
@@ -395,8 +408,8 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 	}
 	
 	/**
-	 * Return the outline page this is associated with this editor. If no outline page
-	 * exists, a new one is created.
+	 * Returns the outline page this is associated with this editor. If no outline
+	 * page exists, a new one is created.
 	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePage getOutlinePage() {
 		if (outlinePage == null) {

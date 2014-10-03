@@ -40,7 +40,7 @@ public class CsExpectedBooleanTerminal extends org.emftext.sdk.concretesyntax.re
 	/**
 	 * Returns the expected boolean terminal.
 	 */
-	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSymtaxElement() {
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement getSyntaxElement() {
 		return booleanTerminal;
 	}
 	
