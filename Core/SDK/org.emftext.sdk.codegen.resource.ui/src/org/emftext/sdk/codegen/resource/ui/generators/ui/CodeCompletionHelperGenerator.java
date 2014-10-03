@@ -549,6 +549,9 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 
 	private void addRemoveInvalidEntriesAtEndMethod(JavaComposite sc) {
 		sc.add("protected void removeInvalidEntriesAtEnd(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements) {");
+		// FIXME Remove this
+		sc.add("System.out.println(\"removeInvalidEntriesAtEnd()\");");
+		
 		sc.add("for (int i = 0; i < expectedElements.size() - 1;) {");
 		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
 		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(i + 1);");
@@ -559,13 +562,31 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		);
 		sc.add(syntaxElementClassName + " symtaxElementOfThis = elementAtIndex.getTerminal().getSymtaxElement();");
 		sc.add(syntaxElementClassName + " symtaxElementOfNext = elementAtNext.getTerminal().getSymtaxElement();");
-		sc.add("boolean differentParent = symtaxElementOfNext.getParent() != symtaxElementOfThis.getParent();");
+		// FIXME Rename 'differentParent' to 'differentRule'
+		sc.add("boolean differentParent = symtaxElementOfNext.getRule() != symtaxElementOfThis.getRule();");
 		sc.addLineBreak();
 		sc.add("boolean sameStartExcludingHiddenTokens = elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens();");
 		sc.add("boolean differentFollowSet = elementAtIndex.getFollowSetID() != elementAtNext.getFollowSetID();");
 		sc.add("if (sameStartExcludingHiddenTokens && differentFollowSet && !differentParent) {");
+		// FIXME Remove this
+		sc.add("System.out.println(\"Removing: \" + elementAtNext + \" because of: same start, different follow set, same rule\");");
+		
 		sc.add("expectedElements.remove(i + 1);");
 		sc.add("} else {");
+		sc.add("String message = \" because of: \";");
+		sc.add("if (!sameStartExcludingHiddenTokens) {");
+		sc.add("message += \"different start, \";");
+		sc.add("}");
+		sc.add("if (!differentFollowSet) {");
+		sc.add("message += \"same follow set, \";");
+		sc.add("}");
+		sc.add("if (differentParent) {");
+		sc.add("message += \"different rule\";");
+		sc.add("}");
+		
+		// FIXME Remove this
+		sc.add("System.out.println(\"Keeping:  \" + elementAtNext + message);");
+		
 		sc.add("i++;");
 		sc.add("}");
 		sc.add("}");
