@@ -367,9 +367,6 @@ public class Cct5Printer implements org.emftext.test.cct5.resource.cct5.ICct5Tex
 			}
 			printCountingMap.put("Type", count - 1);
 		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print("with");
-		out.print(" ");
 		// DEFINITION PART BEGINS (CompoundDefinition)
 		sWriter = new StringWriter();
 		out1 = new PrintWriter(sWriter);
@@ -387,6 +384,9 @@ public class Cct5Printer implements org.emftext.test.cct5.resource.cct5.ICct5Tex
 	
 	public void print_org_emftext_test_cct5_Diet_0(org.emftext.test.cct5.Diet element, String outertab, PrintWriter out, Map<String, Integer> printCountingMap) {
 		int count;
+		// DEFINITION PART BEGINS (CsString)
+		out.print("favored");
+		out.print(" ");
 		// DEFINITION PART BEGINS (PlaceholderInQuotes)
 		count = printCountingMap.get("FavoriteDish");
 		if (count > 0) {
@@ -399,9 +399,6 @@ public class Cct5Printer implements org.emftext.test.cct5.resource.cct5.ICct5Tex
 			}
 			printCountingMap.put("FavoriteDish", count - 1);
 		}
-		// DEFINITION PART BEGINS (CsString)
-		out.print("as favorite dish");
-		out.print(" ");
 	}
 	
 	

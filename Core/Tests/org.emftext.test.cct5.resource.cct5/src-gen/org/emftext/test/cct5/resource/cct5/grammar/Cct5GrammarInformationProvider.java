@@ -189,39 +189,34 @@ public class Cct5GrammarInformationProvider {
 		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Placeholder(org.emftext.test.cct5.Cct5Package.eINSTANCE.getDiet().getEStructuralFeature(org.emftext.test.cct5.Cct5Package.DIET__TYPE), "TEXT", org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, 0);
 	}
 	
-	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword CCT5_3_0_0_1 = INSTANCE.getCCT5_3_0_0_1();
-	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword getCCT5_3_0_0_1() {
-		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword("with", org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE);
+	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword CCT5_3_0_0_1_0_0_0 = INSTANCE.getCCT5_3_0_0_1_0_0_0();
+	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword getCCT5_3_0_0_1_0_0_0() {
+		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword("favored", org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE);
 	}
 	
-	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Placeholder CCT5_3_0_0_2_0_0_0 = INSTANCE.getCCT5_3_0_0_2_0_0_0();
-	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Placeholder getCCT5_3_0_0_2_0_0_0() {
+	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Placeholder CCT5_3_0_0_1_0_0_1 = INSTANCE.getCCT5_3_0_0_1_0_0_1();
+	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Placeholder getCCT5_3_0_0_1_0_0_1() {
 		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Placeholder(org.emftext.test.cct5.Cct5Package.eINSTANCE.getDiet().getEStructuralFeature(org.emftext.test.cct5.Cct5Package.DIET__FAVORITE_DISH), "QUOTED_34_34", org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, 0);
 	}
 	
-	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword CCT5_3_0_0_2_0_0_1 = INSTANCE.getCCT5_3_0_0_2_0_0_1();
-	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword getCCT5_3_0_0_2_0_0_1() {
-		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Keyword("as favorite dish", org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE);
+	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence CCT5_3_0_0_1_0_0 = INSTANCE.getCCT5_3_0_0_1_0_0();
+	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence getCCT5_3_0_0_1_0_0() {
+		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence(org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, CCT5_3_0_0_1_0_0_0, CCT5_3_0_0_1_0_0_1);
 	}
 	
-	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence CCT5_3_0_0_2_0_0 = INSTANCE.getCCT5_3_0_0_2_0_0();
-	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence getCCT5_3_0_0_2_0_0() {
-		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence(org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, CCT5_3_0_0_2_0_0_0, CCT5_3_0_0_2_0_0_1);
+	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice CCT5_3_0_0_1_0 = INSTANCE.getCCT5_3_0_0_1_0();
+	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice getCCT5_3_0_0_1_0() {
+		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice(org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, CCT5_3_0_0_1_0_0);
 	}
 	
-	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice CCT5_3_0_0_2_0 = INSTANCE.getCCT5_3_0_0_2_0();
-	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice getCCT5_3_0_0_2_0() {
-		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice(org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, CCT5_3_0_0_2_0_0);
-	}
-	
-	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Compound CCT5_3_0_0_2 = INSTANCE.getCCT5_3_0_0_2();
-	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Compound getCCT5_3_0_0_2() {
-		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Compound(CCT5_3_0_0_2_0, org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.QUESTIONMARK);
+	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Compound CCT5_3_0_0_1 = INSTANCE.getCCT5_3_0_0_1();
+	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Compound getCCT5_3_0_0_1() {
+		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Compound(CCT5_3_0_0_1_0, org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.QUESTIONMARK);
 	}
 	
 	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence CCT5_3_0_0 = INSTANCE.getCCT5_3_0_0();
 	private org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence getCCT5_3_0_0() {
-		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence(org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, CCT5_3_0_0_0, CCT5_3_0_0_1, CCT5_3_0_0_2);
+		return new org.emftext.test.cct5.resource.cct5.grammar.Cct5Sequence(org.emftext.test.cct5.resource.cct5.grammar.Cct5Cardinality.ONE, CCT5_3_0_0_0, CCT5_3_0_0_1);
 	}
 	
 	public final static org.emftext.test.cct5.resource.cct5.grammar.Cct5Choice CCT5_3_0 = INSTANCE.getCCT5_3_0();

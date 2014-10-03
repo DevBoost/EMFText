@@ -27,7 +27,6 @@ public class Cct5Lexer extends Lexer {
     public static final int T__16=16;
     public static final int T__17=17;
     public static final int T__18=18;
-    public static final int T__19=19;
     public static final int LINEBREAK=4;
     public static final int QUOTED_34_34=5;
     public static final int TEXT=6;
@@ -244,10 +243,10 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:28:7: ( 'as favorite dish' )
-            // Cct5.g:28:9: 'as favorite dish'
+            // Cct5.g:28:7: ( 'favored' )
+            // Cct5.g:28:9: 'favored'
             {
-            match("as favorite dish"); 
+            match("favored"); 
 
 
 
@@ -267,12 +266,10 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:29:7: ( 'with' )
-            // Cct5.g:29:9: 'with'
+            // Cct5.g:29:7: ( '{' )
+            // Cct5.g:29:9: '{'
             {
-            match("with"); 
-
-
+            match('{'); 
 
             }
 
@@ -290,29 +287,8 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:30:7: ( '{' )
-            // Cct5.g:30:9: '{'
-            {
-            match('{'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__18"
-
-    // $ANTLR start "T__19"
-    public final void mT__19() throws RecognitionException {
-        try {
-            int _type = T__19;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:31:7: ( '}' )
-            // Cct5.g:31:9: '}'
+            // Cct5.g:30:7: ( '}' )
+            // Cct5.g:30:9: '}'
             {
             match('}'); 
 
@@ -325,20 +301,20 @@ public class Cct5Lexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__19"
+    // $ANTLR end "T__18"
 
     // $ANTLR start "TEXT"
     public final void mTEXT() throws RecognitionException {
         try {
             int _type = TEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:998:5: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ ) )
-            // Cct5.g:999:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // Cct5.g:984:5: ( ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ ) )
+            // Cct5.g:985:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
             {
-            // Cct5.g:999:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // Cct5.g:999:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // Cct5.g:985:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // Cct5.g:985:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // Cct5.g:999:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // Cct5.g:985:3: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt1=0;
             loop1:
             do {
@@ -396,8 +372,8 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:1001:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
-            // Cct5.g:1002:2: ( ( ' ' | '\\t' | '\\f' ) )
+            // Cct5.g:987:11: ( ( ( ' ' | '\\t' | '\\f' ) ) )
+            // Cct5.g:988:2: ( ( ' ' | '\\t' | '\\f' ) )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -427,13 +403,13 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:1005:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
-            // Cct5.g:1006:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Cct5.g:991:10: ( ( ( '\\r\\n' | '\\r' | '\\n' ) ) )
+            // Cct5.g:992:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
             {
-            // Cct5.g:1006:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // Cct5.g:1006:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cct5.g:992:2: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // Cct5.g:992:3: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // Cct5.g:1006:3: ( '\\r\\n' | '\\r' | '\\n' )
+            // Cct5.g:992:3: ( '\\r\\n' | '\\r' | '\\n' )
             int alt2=3;
             int LA2_0 = input.LA(1);
 
@@ -459,7 +435,7 @@ public class Cct5Lexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // Cct5.g:1006:4: '\\r\\n'
+                    // Cct5.g:992:4: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -468,14 +444,14 @@ public class Cct5Lexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Cct5.g:1006:13: '\\r'
+                    // Cct5.g:992:13: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // Cct5.g:1006:20: '\\n'
+                    // Cct5.g:992:20: '\\n'
                     {
                     match('\n'); 
 
@@ -506,21 +482,21 @@ public class Cct5Lexer extends Lexer {
         try {
             int _type = QUOTED_34_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Cct5.g:1009:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
-            // Cct5.g:1010:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Cct5.g:995:13: ( ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) ) )
+            // Cct5.g:996:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
             {
-            // Cct5.g:1010:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
-            // Cct5.g:1010:3: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
+            // Cct5.g:996:2: ( ( '\"' ) (~ ( '\"' ) )* ( '\"' ) )
+            // Cct5.g:996:3: ( '\"' ) (~ ( '\"' ) )* ( '\"' )
             {
-            // Cct5.g:1010:3: ( '\"' )
-            // Cct5.g:1010:4: '\"'
+            // Cct5.g:996:3: ( '\"' )
+            // Cct5.g:996:4: '\"'
             {
             match('\"'); 
 
             }
 
 
-            // Cct5.g:1010:8: (~ ( '\"' ) )*
+            // Cct5.g:996:8: (~ ( '\"' ) )*
             loop3:
             do {
                 int alt3=2;
@@ -554,8 +530,8 @@ public class Cct5Lexer extends Lexer {
             } while (true);
 
 
-            // Cct5.g:1010:17: ( '\"' )
-            // Cct5.g:1010:18: '\"'
+            // Cct5.g:996:17: ( '\"' )
+            // Cct5.g:996:18: '\"'
             {
             match('\"'); 
 
@@ -577,8 +553,8 @@ public class Cct5Lexer extends Lexer {
     // $ANTLR end "QUOTED_34_34"
 
     public void mTokens() throws RecognitionException {
-        // Cct5.g:1:8: ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | TEXT | WHITESPACE | LINEBREAK | QUOTED_34_34 )
-        int alt4=16;
+        // Cct5.g:1:8: ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | TEXT | WHITESPACE | LINEBREAK | QUOTED_34_34 )
+        int alt4=15;
         alt4 = dfa4.predict(input);
         switch (alt4) {
             case 1 :
@@ -670,39 +646,31 @@ public class Cct5Lexer extends Lexer {
                 }
                 break;
             case 12 :
-                // Cct5.g:1:74: T__19
-                {
-                mT__19(); 
-
-
-                }
-                break;
-            case 13 :
-                // Cct5.g:1:80: TEXT
+                // Cct5.g:1:74: TEXT
                 {
                 mTEXT(); 
 
 
                 }
                 break;
-            case 14 :
-                // Cct5.g:1:85: WHITESPACE
+            case 13 :
+                // Cct5.g:1:79: WHITESPACE
                 {
                 mWHITESPACE(); 
 
 
                 }
                 break;
-            case 15 :
-                // Cct5.g:1:96: LINEBREAK
+            case 14 :
+                // Cct5.g:1:90: LINEBREAK
                 {
                 mLINEBREAK(); 
 
 
                 }
                 break;
-            case 16 :
-                // Cct5.g:1:106: QUOTED_34_34
+            case 15 :
+                // Cct5.g:1:100: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 
@@ -717,50 +685,51 @@ public class Cct5Lexer extends Lexer {
 
     protected DFA4 dfa4 = new DFA4(this);
     static final String DFA4_eotS =
-        "\2\uffff\6\12\6\uffff\14\12\1\uffff\2\12\1\43\1\12\1\46\1\12\1\50"+
-        "\1\12\1\uffff\2\12\1\uffff\1\12\1\uffff\25\12\1\103\1\104\3\12\2"+
-        "\uffff\1\12\1\111\1\112\1\12\2\uffff\5\12\1\121\1\uffff";
+        "\2\uffff\5\11\6\uffff\15\11\1\40\1\11\1\43\3\11\1\uffff\2\11\1\uffff"+
+        "\14\11\1\66\5\11\1\uffff\7\11\1\103\1\104\3\11\2\uffff\1\11\1\111"+
+        "\1\112\1\11\2\uffff\5\11\1\121\1\uffff";
     static final String DFA4_eofS =
         "\122\uffff";
     static final String DFA4_minS =
-        "\1\11\1\uffff\1\105\1\151\1\116\1\141\1\163\1\151\6\uffff\1\107"+
-        "\1\145\1\104\1\162\1\145\1\40\1\164\1\111\1\164\1\137\1\155\1\144"+
-        "\1\uffff\1\150\1\116\1\55\1\101\1\55\1\151\1\55\1\137\1\uffff\1"+
-        "\116\1\101\1\uffff\1\156\1\uffff\1\101\1\111\1\122\1\147\1\116\1"+
-        "\101\2\115\2\111\1\122\1\101\1\105\1\156\2\115\1\114\1\122\1\163"+
-        "\1\101\1\105\2\55\1\164\1\114\1\122\2\uffff\1\162\2\55\1\165\2\uffff"+
+        "\1\11\1\uffff\1\105\1\151\1\116\2\141\6\uffff\1\107\1\145\1\104"+
+        "\1\162\1\145\1\166\1\111\1\164\1\137\1\155\1\144\1\157\1\116\1\55"+
+        "\1\101\1\55\1\151\1\162\1\137\1\uffff\1\116\1\101\1\uffff\1\156"+
+        "\1\145\1\101\1\111\1\122\1\147\1\144\1\116\1\101\2\115\1\111\1\55"+
+        "\1\111\1\122\1\101\1\105\1\156\1\uffff\2\115\1\114\1\122\1\163\1"+
+        "\101\1\105\2\55\1\164\1\114\1\122\2\uffff\1\162\2\55\1\165\2\uffff"+
         "\1\143\1\164\1\151\1\157\1\156\1\55\1\uffff";
     static final String DFA4_maxS =
-        "\1\175\1\uffff\1\105\1\151\1\116\1\145\1\163\1\151\6\uffff\1\107"+
-        "\1\145\1\104\1\162\1\145\1\40\1\164\1\111\1\164\1\137\1\155\1\144"+
-        "\1\uffff\1\150\1\116\1\172\1\106\1\172\1\151\1\172\1\137\1\uffff"+
-        "\1\116\1\101\1\uffff\1\156\1\uffff\1\106\1\111\1\122\1\147\1\116"+
-        "\1\101\2\115\2\111\1\122\1\101\1\105\1\156\2\115\1\114\1\122\1\163"+
-        "\1\101\1\105\2\172\1\164\1\114\1\122\2\uffff\1\162\2\172\1\165\2"+
-        "\uffff\1\143\1\164\1\151\1\157\1\156\1\172\1\uffff";
+        "\1\175\1\uffff\1\105\1\151\1\116\1\145\1\141\6\uffff\1\107\1\145"+
+        "\1\104\1\162\1\145\1\166\1\111\1\164\1\137\1\155\1\144\1\157\1\116"+
+        "\1\172\1\106\1\172\1\151\1\162\1\137\1\uffff\1\116\1\101\1\uffff"+
+        "\1\156\1\145\1\106\1\111\1\122\1\147\1\144\1\116\1\101\2\115\1\111"+
+        "\1\172\1\111\1\122\1\101\1\105\1\156\1\uffff\2\115\1\114\1\122\1"+
+        "\163\1\101\1\105\2\172\1\164\1\114\1\122\2\uffff\1\162\2\172\1\165"+
+        "\2\uffff\1\143\1\164\1\151\1\157\1\156\1\172\1\uffff";
     static final String DFA4_acceptS =
-        "\1\uffff\1\1\6\uffff\1\13\1\14\1\15\1\16\1\17\1\20\14\uffff\1\11"+
-        "\10\uffff\1\4\2\uffff\1\7\1\uffff\1\12\32\uffff\1\5\1\6\4\uffff"+
-        "\1\2\1\3\6\uffff\1\10";
+        "\1\uffff\1\1\5\uffff\1\12\1\13\1\14\1\15\1\16\1\17\23\uffff\1\4"+
+        "\2\uffff\1\7\22\uffff\1\11\14\uffff\1\5\1\6\4\uffff\1\2\1\3\6\uffff"+
+        "\1\10";
     static final String DFA4_specialS =
         "\122\uffff}>";
     static final String[] DFA4_transitionS = {
-            "\1\13\1\14\1\uffff\1\13\1\14\22\uffff\1\13\1\uffff\1\15\12\uffff"+
-            "\1\12\2\uffff\12\12\1\1\6\uffff\1\12\1\2\1\12\1\3\1\4\1\5\24"+
-            "\12\4\uffff\1\12\1\uffff\1\6\25\12\1\7\3\12\1\10\1\uffff\1\11",
+            "\1\12\1\13\1\uffff\1\12\1\13\22\uffff\1\12\1\uffff\1\14\12\uffff"+
+            "\1\11\2\uffff\12\11\1\1\6\uffff\1\11\1\2\1\11\1\3\1\4\1\5\24"+
+            "\11\4\uffff\1\11\1\uffff\5\11\1\6\24\11\1\7\1\uffff\1\10",
             "",
+            "\1\15",
             "\1\16",
             "\1\17",
-            "\1\20",
-            "\1\21\3\uffff\1\22",
+            "\1\20\3\uffff\1\21",
+            "\1\22",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\23",
             "\1\24",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\25",
             "\1\26",
             "\1\27",
@@ -772,23 +741,21 @@ public class Cct5Lexer extends Lexer {
             "\1\35",
             "\1\36",
             "\1\37",
-            "\1\40",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
+            "\1\41\4\uffff\1\42",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
+            "\1\44",
+            "\1\45",
+            "\1\46",
             "",
-            "\1\41",
-            "\1\42",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
-            "\1\44\4\uffff\1\45",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
             "\1\47",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
+            "\1\50",
+            "",
             "\1\51",
-            "",
             "\1\52",
-            "\1\53",
-            "",
-            "\1\54",
-            "",
-            "\1\55\4\uffff\1\56",
+            "\1\53\4\uffff\1\54",
+            "\1\55",
+            "\1\56",
             "\1\57",
             "\1\60",
             "\1\61",
@@ -796,12 +763,13 @@ public class Cct5Lexer extends Lexer {
             "\1\63",
             "\1\64",
             "\1\65",
-            "\1\66",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
             "\1\67",
             "\1\70",
             "\1\71",
             "\1\72",
             "\1\73",
+            "",
             "\1\74",
             "\1\75",
             "\1\76",
@@ -809,16 +777,16 @@ public class Cct5Lexer extends Lexer {
             "\1\100",
             "\1\101",
             "\1\102",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
             "\1\105",
             "\1\106",
             "\1\107",
             "",
             "",
             "\1\110",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
             "\1\113",
             "",
             "",
@@ -827,7 +795,7 @@ public class Cct5Lexer extends Lexer {
             "\1\116",
             "\1\117",
             "\1\120",
-            "\1\12\2\uffff\12\12\7\uffff\32\12\4\uffff\1\12\1\uffff\32\12",
+            "\1\11\2\uffff\12\11\7\uffff\32\11\4\uffff\1\11\1\uffff\32\11",
             ""
     };
 
@@ -861,7 +829,7 @@ public class Cct5Lexer extends Lexer {
             this.transition = DFA4_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | TEXT | WHITESPACE | LINEBREAK | QUOTED_34_34 );";
+            return "1:1: Tokens : ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | TEXT | WHITESPACE | LINEBREAK | QUOTED_34_34 );";
         }
     }
  
