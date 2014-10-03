@@ -59,9 +59,7 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Return the qualified name of the interface for the given GenClass.
-	 * 
+	 * Return the qualified name of the interface for the given GenClass.
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {\n\tjava.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();\n\tget_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);\n}\nreturn get_qualifiedInterfaceNameCache().get(genClass);'"
 	 * @generated
@@ -73,7 +71,7 @@ public interface GenClassCache extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 *  Return an esacped version of the qualified name of the interface for 
+	 *  Returns an escaped version of the qualified name of the interface for 
 	 *  the given GenClass. Underscores and dots are replaced to be able to use 
 	 *  the returned name, for example, as method name.
 	 * 
@@ -87,9 +85,7 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Checks whether the given GenClass has a map type.
-	 * 
+	 * Checks whether the given GenClass has a map type.
 	 * <!-- end-model-doc -->
 	 * @model annotation="http://www.eclipse.org/emf/2002/GenModel body='return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());'"
 	 * @generated
@@ -100,10 +96,8 @@ public interface GenClassCache extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * 
-	 *  Checks whether the given list of GenClasses contains a GenClass
-	 *  with the same name and namespace URI as the given GenClass. 
-	 * 
+	 * Checks whether the given list of GenClasses contains a GenClass
+	 * with the same name and namespace URI as the given GenClass.
 	 * <!-- end-model-doc -->
 	 * @model listMany="true"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {\n\torg.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();\n\torg.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();\n\tif (entryClass.getName().equals(oClass.getName())\n\t\t\t&& entryClass.getEPackage().getNsURI().equals(\n\t\t\t\t\toClass.getEPackage().getNsURI())) {\n\t\treturn true;\n\t}\n}\nreturn false;'"

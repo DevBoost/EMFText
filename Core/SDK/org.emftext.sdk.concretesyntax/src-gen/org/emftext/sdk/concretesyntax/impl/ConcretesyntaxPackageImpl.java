@@ -2587,7 +2587,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "return rule.getSyntax() != this;",
-			 "documentation", "\r\n Returns true if the given rule was defined in the given syntax.\r\n If the rule is defined in an imported syntax, this method returns\r\n false.\r\n \r\n @param syntax the syntax that refers to the rule\r\n @param rule the rule to check\r\n @return true if the rule is contained, false if it is imported\r\n"
+			 "documentation", "Returns true if the given rule was defined in the given syntax.\r\nIf the rule is defined in an imported syntax, this method returns false.\r\n \r\n@param syntax the syntax that refers to the rule\r\n@param rule the rule to check\r\n@return true if the rule is contained, false if it is imported"
 		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(8), 
@@ -2601,14 +2601,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "java.util.Collection< org.emftext.sdk.concretesyntax.Rule> rules = getAllRules();\norg.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> foundGenClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\nfor ( org.emftext.sdk.concretesyntax.Rule rule : rules) {\n\tif (excludeOperatorRules && rule.getOperatorAnnotation() != null) {\n\t\tcontinue;\n\t}\n\torg.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand = rule.getMetaclass();\n\tfoundGenClasses.add(subClassCand);\n}\nreturn foundGenClasses;",
-			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
+			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
 		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(10), 
 		   source, 
 		   new String[] {
 			 "body", "org.eclipse.emf.common.util.EList< org.eclipse.emf.codegen.ecore.genmodel.GenClass> subClasses = new org.eclipse.emf.common.util.BasicEList< org.eclipse.emf.codegen.ecore.genmodel.GenClass>();\r\n\norg.eclipse.emf.ecore.EClass ecoreClass = superClass.getEcoreClass();\norg.emftext.sdk.concretesyntax.EClassUtil eClassUtil = getEClassUtil();\nfor ( org.eclipse.emf.codegen.ecore.genmodel.GenClass subClassCand : getClassesWithSyntax(excludeOperatorRules)) {\n\tif (eClassUtil.isSubClass(subClassCand.getEcoreClass(), ecoreClass)) {\n\t\tsubClasses.add(subClassCand);\n\t}\n}\nreturn subClasses;",
-			 "documentation", "\r\n Collects all the subclasses for which concrete syntax is defined.\r\n"
+			 "documentation", "Collects all the subclasses for which concrete syntax is defined."
 		   });	
 		addAnnotation
 		  (concreteSyntaxEClass.getEOperations().get(11), 
@@ -4865,6 +4865,18 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 			 "documentation", "If set to <code>true</code>, the parser will accept keywords in all possible combinations of upper and lower case letters. This may have severe impact on parsing performance! The default value for this option is <code>false</code>."
 		   });	
 		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(311), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the FollowSetGroupList class will not be overridden. The default value for this option is <code>true</code>."
+		   });	
+		addAnnotation
+		  (optionTypesEEnum.getELiterals().get(312), 
+		   source, 
+		   new String[] {
+			 "documentation", "If set to <code>false</code>, the FollowSetGroup class will not be overridden. The default value for this option is <code>true</code>."
+		   });	
+		addAnnotation
 		  (tokenStyleEClass, 
 		   source, 
 		   new String[] {
@@ -4893,35 +4905,35 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "body", "for ( org.emftext.sdk.concretesyntax.KeyValuePair parameter : getParameters()) {\n\tif (key.equals(parameter.getKey())){\n\t\tjava.lang.String value = parameter.getValue();\n\t\treturn value;\n\t}\n}\nreturn null;",
-			 "documentation", "\r\n Returns the annotation value for the given key.\r\n"
+			 "documentation", "Returns the annotation value for the given key."
 		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(0), 
 		   source, 
 		   new String[] {
 			 "body", "if (!get_qualifiedInterfaceNameCache().containsKey(genClass)) {\n\tjava.lang.String qualifiedInterfaceName = genClass.getQualifiedInterfaceName();\n\tget_qualifiedInterfaceNameCache().put(genClass, qualifiedInterfaceName);\n}\nreturn get_qualifiedInterfaceNameCache().get(genClass);",
-			 "documentation", "\r\n Return the qualified name of the interface for the given GenClass.\r\n"
+			 "documentation", "Return the qualified name of the interface for the given GenClass."
 		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(1), 
 		   source, 
 		   new String[] {
 			 "body", "java.lang.String interfaceName = getQualifiedInterfaceName(genClass);\njava.lang.String escapedName = interfaceName.replace(\"_\", \"_005f\");\nescapedName = escapedName.replace(\".\", \"_\");\nreturn escapedName;",
-			 "documentation", "\r\n Return an esacped version of the qualified name of the interface for \r\n the given GenClass. Underscores and dots are replaced to be able to use \r\n the returned name, for example, as method name.\r\n"
+			 "documentation", "\r\n Returns an escaped version of the qualified name of the interface for \r\n the given GenClass. Underscores and dots are replaced to be able to use \r\n the returned name, for example, as method name.\r\n"
 		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(2), 
 		   source, 
 		   new String[] {
 			 "body", "return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());",
-			 "documentation", "\r\n Checks whether the given GenClass has a map type.\r\n"
+			 "documentation", "Checks whether the given GenClass has a map type."
 		   });	
 		addAnnotation
 		  (genClassCacheEClass.getEOperations().get(3), 
 		   source, 
 		   new String[] {
 			 "body", "for ( org.eclipse.emf.codegen.ecore.genmodel.GenClass entry : list) {\n\torg.eclipse.emf.ecore.EClass entryClass = entry.getEcoreClass();\n\torg.eclipse.emf.ecore.EClass oClass = genClass.getEcoreClass();\n\tif (entryClass.getName().equals(oClass.getName())\n\t\t\t&& entryClass.getEPackage().getNsURI().equals(\n\t\t\t\t\toClass.getEPackage().getNsURI())) {\n\t\treturn true;\n\t}\n}\nreturn false;",
-			 "documentation", "\r\n Checks whether the given list of GenClasses contains a GenClass\r\n with the same name and namespace URI as the given GenClass. \r\n"
+			 "documentation", "Checks whether the given list of GenClasses contains a GenClass\r\nwith the same name and namespace URI as the given GenClass."
 		   });	
 		addAnnotation
 		  (eClassUtilEClass.getEOperations().get(0), 

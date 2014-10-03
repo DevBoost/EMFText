@@ -6589,6 +6589,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the FollowSetGroupList class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_FOLLOW_SET_GROUP_LIST
 	 * @model literal="overrideFollowSetGroupList"
 	 * @generated
@@ -6603,6 +6606,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the FollowSetGroup class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_FOLLOW_SET_GROUP
 	 * @model literal="overrideFollowSetGroup"
 	 * @generated
