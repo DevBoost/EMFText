@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.emftext.access.syntax.ui">
+		<metaInformationProvider class="org.emftext.test.cct5.resource.cct5.ui.Cct5UIMetaInformation" id="org.emftext.test.cct5.resource.cct5.ui.Cct5UIMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.test.cct5.resource.cct5.ui.Cct5Editor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cct5" icon="icons/editor_icon.gif" id="org.emftext.test.cct5.resource.cct5.ui.Cct5Editor" name="EMFText cct5 Editor">
+			<contentTypeBinding contentTypeId="org.emftext.test.cct5.resource.cct5">
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.test.cct5.resource.cct5.ui.Cct5PreferenceInitializer">
+		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Cct5 Text Editor" id="org.emftext.test.cct5.resource.cct5.ui.Cct5PreferencePage" class="org.emftext.test.cct5.resource.cct5.ui.Cct5PreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.test.cct5.resource.cct5.ui.Cct5SyntaxColoringPreferencePage" class="org.emftext.test.cct5.resource.cct5.ui.Cct5SyntaxColoringPreferencePage" category="org.emftext.test.cct5.resource.cct5.ui.Cct5PreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.test.cct5.resource.cct5.ui.Cct5BracketPreferencePage" class="org.emftext.test.cct5.resource.cct5.ui.Cct5BracketPreferencePage" category="org.emftext.test.cct5.resource.cct5.ui.Cct5PreferencePage">
+		</page>
+		<page name="Content Assist" id="org.emftext.test.cct5.resource.cct5.ui.Cct5ContentAssistPreferencePage" class="org.emftext.test.cct5.resource.cct5.ui.Cct5ContentAssistPreferencePage" category="org.emftext.test.cct5.resource.cct5.ui.Cct5PreferencePage">
+		</page>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct5.resource.cct5.ui.Cct5NewFileWizard" id="org.emftext.test.cct5.resource.cct5.ui.Cct5NewFileWizard" name="EMFText .cct5 file">
+		</wizard>
+		<category id="org.emftext.runtime.ui.EMFTextProjectCategory" name="EMFText Project">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextProjectCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct5.resource.cct5.ui.Cct5NewProjectWizard" id="org.emftext.test.cct5.resource.cct5.ui.Cct5NewProjectWizard" name="EMFText cct5 project" project="true">
+		</wizard>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+		<markerResolutionGenerator class="org.emftext.test.cct5.resource.cct5.ui.Cct5MarkerResolutionGenerator" markerType="org.emftext.test.cct5.resource.cct5.problem">
+		</markerResolutionGenerator>
+	</extension>
+	
+	<extension point="org.eclipse.core.filebuffers.annotationModelCreation">
+		<factory class="org.emftext.test.cct5.resource.cct5.ui.Cct5AnnotationModelFactory" extensions="cct5">
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.emftext.test.cct5.resource.cct5" name=".cct5 File" base-type="org.eclipse.core.runtime.text" file-extensions="cct5">
+		</content-type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.documentProviders">
+		<provider class="org.eclipse.ui.editors.text.TextFileDocumentProvider" extensions="cct5" id="org.emftext.test.cct5.resource.cct5.ui.provider">
+		</provider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.test.cct5.resource.cct5.ui.occurences">
+		</type>
+		<type name="org.emftext.test.cct5.resource.cct5.ui.occurences.declaration" super="org.emftext.test.cct5.resource.cct5.ui.occurences">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.test.cct5.resource.cct5.ui.occurences" label="Occurrences (in .cct5 files)" icon="/icons/occurrence_icon.gif" textPreferenceKey="cct5.occurrenceIndication" textPreferenceValue="false" highlightPreferenceKey="cct5.occurrenceHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="cct5.occurrenceIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cct5.occurrenceIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cct5.occurrenceIndicationColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="cct5.showOccurrenceInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="cct5.isOccurrenceGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="cct5.isOccurrenceGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="cct5.occurrenceTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+		<specification annotationType="org.emftext.test.cct5.resource.cct5.ui.occurences.declaration" label="Declarations (in .cct5 files)" textPreferenceKey="cct5.declarationIndication" textPreferenceValue="false" highlightPreferenceKey="cct5.declarationHighlighting" highlightPreferenceValue="true" overviewRulerPreferenceKey="cct5.declarationIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="cct5.declarationIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="cct5.declarationIndicationColor" colorPreferenceValue="240,216,168" presentationLayer="4" textStylePreferenceKey="cct5.declarationTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category description="All commands belonging to Cct5" id="org.emftext.test.cct5.resource.cct5.ui.command.category" name="Cct5">
+		</category>
+		<command categoryId="org.emftext.test.cct5.resource.cct5.ui.command.category" description="Toggle comment of the selected lines" id="org.emftext.test.cct5.resource.cct5.ui.command.togglecomment" name="Toggle Comment">
+		</command>
+	</extension>
+	
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="org.emftext.test.cct5.resource.cct5.ui.Cct5ToggleCommentHandler" commandId="org.emftext.test.cct5.resource.cct5.ui.command.togglecomment">
+		</handler>
+	</extension>
+	
+	<extension point="org.eclipse.ui.contexts">
+		<context name="Editing Cct5 Files" description="Editing Cct5 Files Context" parentId="org.eclipse.ui.textEditorScope" id="org.emftext.test.cct5.resource.cct5.EditorScope">
+		</context>
+	</extension>
+	
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="M1+7" commandId="org.emftext.test.cct5.resource.cct5.ui.command.togglecomment" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" contextId="org.emftext.test.cct5.resource.cct5.EditorScope">
+		</key>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage icon="/icons/launch_type_icon.gif" configTypeID="org.emftext.test.cct5.resource.cct5.ui.launchConfigurationType" id="org.emftext.test.cct5.launchImage">
+		</launchConfigurationTypeImage>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup type="org.emftext.test.cct5.resource.cct5.ui.launchConfigurationType" class="org.emftext.test.cct5.resource.cct5.ui.launch.Cct5LaunchConfigurationTabGroup" id="org.emftext.test.cct5.launchConfigurationTabGroup" helpContextId="org.emftext.test.cct5.launchConfigHelpContext">
+			<launchMode mode="debug" perspective="org.eclipse.debug.ui.DebugPerspective" description="Debug cct5 model.">
+			</launchMode>
+			<launchMode mode="run" description="Run cct5 model.">
+			</launchMode>
+		</launchConfigurationTabGroup>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+		<shortcut label="cct5 Application" icon="/icons/launch_shortcut_icon.gif" helpContextId="org.emftext.test.cct5.launch" modes="run,debug" class="org.emftext.test.cct5.resource.cct5.ui.launch.Cct5LaunchShortcut" description="Launch a cct5 model" id="org.emftext.test.cct5.launchShortcut">
+			<description description="Run cct5 model" mode="run">
+			</description>
+			<description description="Debug cct5 model" mode="debug">
+			</description>
+			<contextualLaunch>
+				<enablement>
+					<with variable="selection">
+						<count value="1">
+						</count>
+						<iterate>
+							<test property="org.emftext.test.cct5.isLaunchable">
+							</test>
+						</iterate>
+					</with>
+				</enablement>
+			</contextualLaunch>
+			<configurationType id="org.emftext.test.cct5.resource.cct5.ui.launchConfigurationType">
+			</configurationType>
+		</shortcut>
+	</extension>
+	
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester id="org.emftext.test.cct5.PropertyTester" type="java.lang.Object" namespace="org.emftext.test.cct5" properties="isLaunchable" class="org.emftext.test.cct5.resource.cct5.ui.Cct5PropertyTester">
+		</propertyTester>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+		<type name="org.emftext.test.cct5.resource.cct5.ui.debug.lineBreakpoint" markerType="org.emftext.test.cct5.resource.cct5.debug.lineBreakpoint.marker" super="org.eclipse.debug.core.breakpoint">
+		</type>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification annotationType="org.emftext.test.cct5.resource.cct5.ui.debug.lineBreakpoint" label="Breakpoints (in .cct5 files)" icon="/icons/breakpoint_icon.gif" textPreferenceKey="org.emftext.test.cct5.resource.cct5.ui.lineBreakpoint" textPreferenceValue="false" highlightPreferenceKey="org.emftext.test.cct5.resource.cct5.ui.lineBreakpointHighlighting" highlightPreferenceValue="true" contributesToHeader="false" overviewRulerPreferenceKey="org.emftext.test.cct5.resource.cct5.ui.lineBreakpointIndicationInOverviewRuler" overviewRulerPreferenceValue="true" verticalRulerPreferenceKey="org.emftext.test.cct5.resource.cct5.ui.lineBreakpointIndicationInVerticalRuler" verticalRulerPreferenceValue="false" colorPreferenceKey="org.emftext.test.cct5.resource.cct5.ui.lineBreakpointColor" colorPreferenceValue="212,212,212" presentationLayer="4" showInNextPrevDropdownToolbarActionKey="org.emftext.test.cct5.resource.cct5.ui.showLineBreakpointInNextPrevDropdownToolbarAction" showInNextPrevDropdownToolbarAction="true" isGoToNextNavigationTargetKey="org.emftext.test.cct5.resource.cct5.ui.isLineBreakpointGoToNextNavigationTarget" isGoToNextNavigationTarget="false" isGoToPreviousNavigationTargetKey="org.emftext.test.cct5.resource.cct5.ui.isLineBreakpointGoToPreviousNavigationTarget" isGoToPreviousNavigationTarget="false" textStylePreferenceKey="org.emftext.test.cct5.resource.cct5.ui.lineBreakpointTextStyle" textStylePreferenceValue="NONE">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+		<factory adaptableType="org.emftext.test.cct5.resource.cct5.ui.Cct5Editor" class="org.emftext.test.cct5.resource.cct5.ui.debug.Cct5AdapterFactory">
+			<adapter type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.test.cct5.resource.cct5.debug.Cct5DebugVariable" class="org.emftext.test.cct5.resource.cct5.ui.debug.Cct5AdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementLabelProvider">
+			</adapter>
+		</factory>
+		<factory adaptableType="org.emftext.test.cct5.resource.cct5.debug.Cct5DebugVariable" class="org.emftext.test.cct5.resource.cct5.ui.debug.Cct5AdapterFactory">
+			<adapter type="org.eclipse.debug.internal.ui.viewers.model.provisional.IElementContentProvider">
+			</adapter>
+		</factory>
+	</extension>
+	
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution id="org.emftext.test.cct5.resource.cct5.ui.RulerPopupActions" targetID="org.emftext.test.cct5.resource.cct5.EditorRuler">
+			<action id="org.emftext.test.cct5.resource.cct5.ui.toggleBreakpointAction" icon="icons/breakpoint_icon.gif" label="Toggle Breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" menubarPath="debug">
+			</action>
+		</viewerContribution>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editorActions">
+		<editorContribution targetID="org.emftext.test.cct5.resource.cct5.ui.Cct5Editor" id="org.emftext.test.cct5.resource.cct5.ui.BreakpointRulerActions">
+			<action id="org.emftext.test.cct5.resource.cct5.ui.debug.RulerToggleBreakpointAction" label="Add breakpoint" class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate" actionID="RulerDoubleClick">
+			</action>
+		</editorContribution>
+	</extension>
+	
+	<extension point="org.eclipse.debug.ui.debugModelPresentations">
+		<debugModelPresentation id="org.emftext.test.cct5.resource.cct5.debugModel" class="org.emftext.test.cct5.resource.cct5.ui.debug.Cct5DebugModelPresentation">
+		</debugModelPresentation>
+	</extension>
+	
+</plugin>

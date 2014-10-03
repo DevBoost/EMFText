@@ -1,0 +1,6 @@
+Farm {
+
+	BEGIN_FARMER Stefan
+		Diet : VEGETARIAN with "Falscher Hase" as favorite dish <CURSOR>
+
+}

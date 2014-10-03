@@ -1,0 +1,7 @@
+Farm {
+
+	BEGIN_FARMER Stefan
+		Diet : <CURSOR> 
+	END_FARMER
+
+}
