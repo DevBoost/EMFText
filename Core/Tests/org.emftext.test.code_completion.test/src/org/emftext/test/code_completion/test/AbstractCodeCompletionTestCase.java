@@ -361,20 +361,34 @@ public abstract class AbstractCodeCompletionTestCase {
 		String fileContent = getFileContent(file);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		final IExpectedTerminal[] actualElements = getExpectedElementsList(file, fileExtension, contentWithoutMarker);
+		int i = 0;
 		for (IExpectedTerminal actualElement : actualElements) {
-			System.out.println("ACTUAL ELEMENT: " + actualElement);
+			System.out.println(i + " ACTUAL ELEMENT: " + actualElement);
+			i++;
 		}
 		// compare lists
 		final int actualSize = actualElements.length;
 		final int expectedSize = expectedElementsList.size();
 		int maxSize = Math.min(actualSize, expectedSize);
-		for (int i = 0; i < maxSize; i++) {
+		for (i = 0; i < maxSize; i++) {
 			IExpectedTerminal actualElementAtIndex = actualElements[i];
 			IExpectedTerminal expectedElementAtIndex = expectedElementsList.get(i);
 			assertEquals(i + ": Types do not match.", expectedElementAtIndex, actualElementAtIndex);
 			assertEquals(i + ": Expected start (excluding hidden) does not match.", expectedElementAtIndex.getStartExcludingHiddenTokens(), actualElementAtIndex.getStartExcludingHiddenTokens());
 			assertEquals(i + ": Expected start (including hidden) does not match.", expectedElementAtIndex.getStartIncludingHiddenTokens(), actualElementAtIndex.getStartIncludingHiddenTokens());
 			//assertEquals("Expected end (excluding hidden) does not match.", expectedElementAtIndex.getEndExcludingHiddenTokens(), actualElementAtIndex.getEndExcludingHiddenTokens());
+		}
+		if (expectedSize > actualSize) {
+			for (i = actualSize; i < expectedSize; i++) {
+				IExpectedTerminal expectedElementAtIndex = expectedElementsList.get(i);
+				System.out.println("MISSING EXPECTED PROPOSAL: " + expectedElementAtIndex);
+			}
+		}
+		if (actualSize > expectedSize) {
+			for (i = expectedSize; i < actualSize; i++) {
+				IExpectedTerminal actualElementAtIndex = actualElements[i];
+				System.out.println("FOUND UNEXPECTED ADDTIONAL PROPOSAL: " + actualElementAtIndex);
+			}
 		}
 		assertEquals("List sizes must match.", expectedSize, actualSize);
 	}
@@ -393,15 +407,17 @@ public abstract class AbstractCodeCompletionTestCase {
 		if (actualElements == null) {
 			fail("Parser must return an expected elements list.");
 		}
-		for (IExpectedTerminal iExpectedTerminal : actualElements) {
-			IContainmentTrace containmentTrace = iExpectedTerminal.getContainmentTrace();
+		int i = 0;
+		for (IExpectedTerminal actualElement : actualElements) {
+			IContainmentTrace containmentTrace = actualElement.getContainmentTrace();
 			String trace = "";
 			IContainedFeature[] features = containmentTrace.getPath();
 			for (IContainedFeature feature : features) {
 				EStructuralFeature eStructuralFeature = feature.getFeature();
 				trace += "->" + eStructuralFeature.getEContainingClass().getName() + "." + eStructuralFeature.getName();
 			}
-			System.out.println("EXPECT " + iExpectedTerminal + " (FOLLOWSET ID=" + iExpectedTerminal.getFollowSetID() + ", TRACE=" + trace+ ") at " + iExpectedTerminal.getStartIncludingHiddenTokens() + "," + iExpectedTerminal.getStartExcludingHiddenTokens());
+			System.out.println(i + " FOUND ACTUAL EXPECTED ELEMENT " + actualElement + " (FOLLOWSET ID=" + actualElement.getFollowSetID() + ", TRACE=" + trace+ ") at " + actualElement.getStartIncludingHiddenTokens() + "," + actualElement.getStartExcludingHiddenTokens());
+			i++;
 		}
 		if (actualElements.length == 0) {
 			fail("Parser must return at least one expected element.");
