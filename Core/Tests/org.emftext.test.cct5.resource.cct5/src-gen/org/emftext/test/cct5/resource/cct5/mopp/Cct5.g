@@ -388,7 +388,7 @@ import org.eclipse.emf.ecore.EObject;
 				break;
 			}
 		}
-		int followSetID = 25;
+		int followSetID = 24;
 		int i;
 		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
 			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -914,26 +914,26 @@ parse_org_emftext_test_cct5_Diet returns [org.emftext.test.cct5.Diet element = n
 	{
 		// expected elements (follow set)
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[28]);
-	}
-	
-	a1 = 'with' {
-		if (element == null) {
-			element = org.emftext.test.cct5.Cct5Factory.eINSTANCE.createDiet();
-			startIncompleteElement(element);
-		}
-		collectHiddenTokens(element);
-		retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1, null, true);
-		copyLocalizationInfos((CommonToken)a1, element);
-	}
-	{
-		// expected elements (follow set)
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[29]);
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[30]);
-		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[31]);
 	}
 	
 	(
 		(
+			a1 = 'favored' {
+				if (element == null) {
+					element = org.emftext.test.cct5.Cct5Factory.eINSTANCE.createDiet();
+					startIncompleteElement(element);
+				}
+				collectHiddenTokens(element);
+				retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1_0_0_0, null, true);
+				copyLocalizationInfos((CommonToken)a1, element);
+			}
+			{
+				// expected elements (follow set)
+				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[31]);
+			}
+			
 			(
 				a2 = QUOTED_34_34				
 				{
@@ -960,7 +960,7 @@ parse_org_emftext_test_cct5_Diet returns [org.emftext.test.cct5.Diet element = n
 							completedElement(value, false);
 						}
 						collectHiddenTokens(element);
-						retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_2_0_0_0, resolved, true);
+						retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1_0_0_1, resolved, true);
 						copyLocalizationInfos((CommonToken) a2, element);
 					}
 				}
@@ -968,29 +968,15 @@ parse_org_emftext_test_cct5_Diet returns [org.emftext.test.cct5.Diet element = n
 			{
 				// expected elements (follow set)
 				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[32]);
-			}
-			
-			a3 = 'as favorite dish' {
-				if (element == null) {
-					element = org.emftext.test.cct5.Cct5Factory.eINSTANCE.createDiet();
-					startIncompleteElement(element);
-				}
-				collectHiddenTokens(element);
-				retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_2_0_0_1, null, true);
-				copyLocalizationInfos((CommonToken)a3, element);
-			}
-			{
-				// expected elements (follow set)
 				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[33]);
-				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[34]);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
+		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[34]);
 		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[35]);
-		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[36]);
 	}
 	
 ;

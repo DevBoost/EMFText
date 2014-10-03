@@ -1,7 +1,7 @@
 Farm {
 
 	BEGIN_FARMER Stefan
-		Diet : <CURSOR>VEGETARIAN with "Falscher Hase" as favorite dish 
+		Diet : <CURSOR>VEGETARIAN favored "Falscher Hase" 
 	END_FARMER
 
 }

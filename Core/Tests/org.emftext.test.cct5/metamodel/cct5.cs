@@ -23,5 +23,5 @@ RULES {
 		"FeedingInstruction" ":" FeedingInstruction
 	"END_ANIMAL";
 	
-	Diet ::= Type[TEXT] ("with" FavoriteDish['"', '"'] "as favorite dish")?;  
+	Diet ::= Type[TEXT] ("favored" FavoriteDish['"', '"'])?;  
 }

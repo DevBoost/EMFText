@@ -32,7 +32,7 @@ import java.util.HashMap;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class Cct5Parser extends Cct5ANTLRParserBase {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "LINEBREAK", "QUOTED_34_34", "TEXT", "WHITESPACE", "':'", "'BEGIN_ANIMAL'", "'BEGIN_FARMER'", "'Diet'", "'END_ANIMAL'", "'END_FARMER'", "'Farm'", "'FeedingInstruction'", "'as favorite dish'", "'with'", "'{'", "'}'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "LINEBREAK", "QUOTED_34_34", "TEXT", "WHITESPACE", "':'", "'BEGIN_ANIMAL'", "'BEGIN_FARMER'", "'Diet'", "'END_ANIMAL'", "'END_FARMER'", "'Farm'", "'FeedingInstruction'", "'favored'", "'{'", "'}'"
     };
 
     public static final int EOF=-1;
@@ -47,7 +47,6 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
     public static final int T__16=16;
     public static final int T__17=17;
     public static final int T__18=18;
-    public static final int T__19=19;
     public static final int LINEBREAK=4;
     public static final int QUOTED_34_34=5;
     public static final int TEXT=6;
@@ -415,7 +414,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
     				break;
     			}
     		}
-    		int followSetID = 25;
+    		int followSetID = 24;
     		int i;
     		for (i = tokenIndexOfLastCompleteElement; i < tokenStream.size(); i++) {
     			CommonToken nextToken = (CommonToken) tokenStream.get(i);
@@ -615,7 +614,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[1]);
             	}
 
-            a1=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_test_cct5_Farm129); if (state.failed) return element;
+            a1=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_test_cct5_Farm129); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -788,7 +787,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[12]);
             	}
 
-            a4=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_test_cct5_Farm255); if (state.failed) return element;
+            a4=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_test_cct5_Farm255); if (state.failed) return element;
 
             if ( state.backtracking==0 ) {
             		if (element == null) {
@@ -1205,7 +1204,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_test_cct5_Diet"
-    // Cct5.g:879:1: parse_org_emftext_test_cct5_Diet returns [org.emftext.test.cct5.Diet element = null] : (a0= TEXT ) a1= 'with' ( ( (a2= QUOTED_34_34 ) a3= 'as favorite dish' ) )? ;
+    // Cct5.g:879:1: parse_org_emftext_test_cct5_Diet returns [org.emftext.test.cct5.Diet element = null] : (a0= TEXT ) ( (a1= 'favored' (a2= QUOTED_34_34 ) ) )? ;
     public final org.emftext.test.cct5.Diet parse_org_emftext_test_cct5_Diet() throws RecognitionException {
         org.emftext.test.cct5.Diet element =  null;
 
@@ -1214,15 +1213,14 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
         Token a0=null;
         Token a1=null;
         Token a2=null;
-        Token a3=null;
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
 
-            // Cct5.g:882:2: ( (a0= TEXT ) a1= 'with' ( ( (a2= QUOTED_34_34 ) a3= 'as favorite dish' ) )? )
-            // Cct5.g:883:2: (a0= TEXT ) a1= 'with' ( ( (a2= QUOTED_34_34 ) a3= 'as favorite dish' ) )?
+            // Cct5.g:882:2: ( (a0= TEXT ) ( (a1= 'favored' (a2= QUOTED_34_34 ) ) )? )
+            // Cct5.g:883:2: (a0= TEXT ) ( (a1= 'favored' (a2= QUOTED_34_34 ) ) )?
             {
             // Cct5.g:883:2: (a0= TEXT )
             // Cct5.g:884:3: a0= TEXT
@@ -1264,45 +1262,45 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[28]);
-            	}
-
-            a1=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_test_cct5_Diet545); if (state.failed) return element;
-
-            if ( state.backtracking==0 ) {
-            		if (element == null) {
-            			element = org.emftext.test.cct5.Cct5Factory.eINSTANCE.createDiet();
-            			startIncompleteElement(element);
-            		}
-            		collectHiddenTokens(element);
-            		retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1, null, true);
-            		copyLocalizationInfos((CommonToken)a1, element);
-            	}
-
-            if ( state.backtracking==0 ) {
-            		// expected elements (follow set)
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[29]);
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[30]);
-            		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[31]);
             	}
 
-            // Cct5.g:935:2: ( ( (a2= QUOTED_34_34 ) a3= 'as favorite dish' ) )?
+            // Cct5.g:921:2: ( (a1= 'favored' (a2= QUOTED_34_34 ) ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
-            if ( (LA3_0==QUOTED_34_34) ) {
+            if ( (LA3_0==16) ) {
                 alt3=1;
             }
             switch (alt3) {
                 case 1 :
-                    // Cct5.g:936:3: ( (a2= QUOTED_34_34 ) a3= 'as favorite dish' )
+                    // Cct5.g:922:3: (a1= 'favored' (a2= QUOTED_34_34 ) )
                     {
-                    // Cct5.g:936:3: ( (a2= QUOTED_34_34 ) a3= 'as favorite dish' )
-                    // Cct5.g:937:4: (a2= QUOTED_34_34 ) a3= 'as favorite dish'
+                    // Cct5.g:922:3: (a1= 'favored' (a2= QUOTED_34_34 ) )
+                    // Cct5.g:923:4: a1= 'favored' (a2= QUOTED_34_34 )
                     {
+                    a1=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_test_cct5_Diet554); if (state.failed) return element;
+
+                    if ( state.backtracking==0 ) {
+                    				if (element == null) {
+                    					element = org.emftext.test.cct5.Cct5Factory.eINSTANCE.createDiet();
+                    					startIncompleteElement(element);
+                    				}
+                    				collectHiddenTokens(element);
+                    				retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1_0_0_0, null, true);
+                    				copyLocalizationInfos((CommonToken)a1, element);
+                    			}
+
+                    if ( state.backtracking==0 ) {
+                    				// expected elements (follow set)
+                    				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[31]);
+                    			}
+
                     // Cct5.g:937:4: (a2= QUOTED_34_34 )
                     // Cct5.g:938:5: a2= QUOTED_34_34
                     {
-                    a2=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_org_emftext_test_cct5_Diet574); if (state.failed) return element;
+                    a2=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_parse_org_emftext_test_cct5_Diet580); if (state.failed) return element;
 
                     if ( state.backtracking==0 ) {
                     					if (terminateParsing) {
@@ -1328,7 +1326,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
                     							completedElement(value, false);
                     						}
                     						collectHiddenTokens(element);
-                    						retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_2_0_0_0, resolved, true);
+                    						retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_1_0_0_1, resolved, true);
                     						copyLocalizationInfos((CommonToken) a2, element);
                     					}
                     				}
@@ -1339,24 +1337,7 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
                     				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[32]);
-                    			}
-
-                    a3=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_test_cct5_Diet607); if (state.failed) return element;
-
-                    if ( state.backtracking==0 ) {
-                    				if (element == null) {
-                    					element = org.emftext.test.cct5.Cct5Factory.eINSTANCE.createDiet();
-                    					startIncompleteElement(element);
-                    				}
-                    				collectHiddenTokens(element);
-                    				retrieveLayoutInformation(element, org.emftext.test.cct5.resource.cct5.grammar.Cct5GrammarInformationProvider.CCT5_3_0_0_2_0_0_1, null, true);
-                    				copyLocalizationInfos((CommonToken)a3, element);
-                    			}
-
-                    if ( state.backtracking==0 ) {
-                    				// expected elements (follow set)
                     				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[33]);
-                    				addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[34]);
                     			}
 
                     }
@@ -1370,8 +1351,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
+            		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[34]);
             		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[35]);
-            		addExpectedElement(null, org.emftext.test.cct5.resource.cct5.mopp.Cct5ExpectationConstants.EXPECTATIONS[36]);
             	}
 
             }
@@ -1398,11 +1379,11 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
 
     public static final BitSet FOLLOW_parse_org_emftext_test_cct5_Farm_in_start82 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_start89 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_parse_org_emftext_test_cct5_Farm115 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_parse_org_emftext_test_cct5_Farm129 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_parse_org_emftext_test_cct5_Farmer_in_parse_org_emftext_test_cct5_Farm158 = new BitSet(new long[]{0x0000000000080600L});
-    public static final BitSet FOLLOW_parse_org_emftext_test_cct5_Animal_in_parse_org_emftext_test_cct5_Farm214 = new BitSet(new long[]{0x0000000000080200L});
-    public static final BitSet FOLLOW_19_in_parse_org_emftext_test_cct5_Farm255 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_parse_org_emftext_test_cct5_Farm115 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_parse_org_emftext_test_cct5_Farm129 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_parse_org_emftext_test_cct5_Farmer_in_parse_org_emftext_test_cct5_Farm158 = new BitSet(new long[]{0x0000000000040600L});
+    public static final BitSet FOLLOW_parse_org_emftext_test_cct5_Animal_in_parse_org_emftext_test_cct5_Farm214 = new BitSet(new long[]{0x0000000000040200L});
+    public static final BitSet FOLLOW_18_in_parse_org_emftext_test_cct5_Farm255 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_10_in_parse_org_emftext_test_cct5_Farmer284 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_TEXT_in_parse_org_emftext_test_cct5_Farmer302 = new BitSet(new long[]{0x0000000000000800L});
     public static final BitSet FOLLOW_11_in_parse_org_emftext_test_cct5_Farmer323 = new BitSet(new long[]{0x0000000000000100L});
@@ -1415,9 +1396,8 @@ public class Cct5Parser extends Cct5ANTLRParserBase {
     public static final BitSet FOLLOW_8_in_parse_org_emftext_test_cct5_Animal455 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_parse_org_emftext_test_cct5_Diet_in_parse_org_emftext_test_cct5_Animal473 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_12_in_parse_org_emftext_test_cct5_Animal491 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_parse_org_emftext_test_cct5_Diet524 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_parse_org_emftext_test_cct5_Diet545 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_org_emftext_test_cct5_Diet574 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_parse_org_emftext_test_cct5_Diet607 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_parse_org_emftext_test_cct5_Diet524 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_16_in_parse_org_emftext_test_cct5_Diet554 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_QUOTED_34_34_in_parse_org_emftext_test_cct5_Diet580 = new BitSet(new long[]{0x0000000000000002L});
 
 }
