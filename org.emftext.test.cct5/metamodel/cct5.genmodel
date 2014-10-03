@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.test.cct5/src-gen" modelPluginID="org.emftext.test.cct5"
+    modelName="cct5" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false">
+  <foreignModel>cct5.ecore</foreignModel>
+  <genPackages prefix="Cct5" basePackage="org.emftext.test" disposableProviderFactory="true"
+      ecorePackage="cct5.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="cct5.ecore#//DietType">
+      <genEnumLiterals ecoreEnumLiteral="cct5.ecore#//DietType/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="cct5.ecore#//DietType/VEGETARIAN"/>
+      <genEnumLiterals ecoreEnumLiteral="cct5.ecore#//DietType/VEGAN"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="cct5.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cct5.ecore#//NamedElement/Name"/>
+    </genClasses>
+    <genClasses ecoreClass="cct5.ecore#//Farmer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Farmer/Diet"/>
+    </genClasses>
+    <genClasses ecoreClass="cct5.ecore#//Diet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cct5.ecore#//Diet/Type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cct5.ecore#//Diet/FavoriteDish"/>
+    </genClasses>
+    <genClasses ecoreClass="cct5.ecore#//Animal">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Animal/FeedingInstruction"/>
+    </genClasses>
+    <genClasses ecoreClass="cct5.ecore#//Farm">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Farm/Animal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Farm/Farmer"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
