@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,12 +15,13 @@
  ******************************************************************************/
 package org.emftext.test.codecompletion;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -32,18 +33,20 @@ import org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsPair;
 import org.emftext.test.ConcreteSyntaxTestHelper;
 import org.emftext.test.PluginTestHelper;
+import org.junit.Before;
+import org.junit.Test;
 
-public class CSCodeCompletionTest extends TestCase {
+public class CSCodeCompletionTest {
 	
 	private static final String CURSOR = "<CURSOR>";
 	
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		ConcreteSyntaxTestHelper.registerResourceFactories();
 		new CsMetaInformation().registerResourceFactory();
 	}
 
+	@Test
 	public void testCompletion1() {
 		// we have typed part of a feature name ('feature1')
 		String input = getTestDocument("Root ::= \"root\" fea" + CURSOR + ";");
@@ -52,6 +55,7 @@ public class CSCodeCompletionTest extends TestCase {
 		);
 	}
 	
+	@Test
 	public void testCompletion2() {
 		// we have typed part of a feature name ('feature1') and a space
 		String input = getTestDocument("Root ::= \"root\" fea " + CURSOR + ";");
@@ -74,6 +78,7 @@ public class CSCodeCompletionTest extends TestCase {
 		);
 	}
 	
+	@Test
 	public void testCompletion3() {
 		// we have not typed a feature name ('feature1') yet, but we could
 		String input = getTestDocument("Root ::= \"root\" " + CURSOR + ";");
