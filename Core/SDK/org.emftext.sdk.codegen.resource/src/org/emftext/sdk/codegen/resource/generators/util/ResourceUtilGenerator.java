@@ -284,7 +284,6 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 	}
 
 	private void addGetResourceContentMethod4(JavaComposite sc) {
-		String returnType = getRootElementType(sc);
 		String optionsClass = getContext().getQualifiedClassName(TextResourceArtifacts.I_OPTIONS);
 		sc.addJavadoc("Returns the root element after parsing the given text assuming the specified EClass as start rule.");
 		sc.add("public static " + E_OBJECT(sc) + " getResourceContent(String text, " + E_CLASS(sc) + " startEClass) {");
@@ -304,7 +303,7 @@ public class ResourceUtilGenerator extends JavaBaseGenerator<ArtifactParameter<G
 		sc.add("return null;");
 		sc.add("}");
 		sc.add(E_OBJECT(sc) + " root = contents.get(0);");
-		sc.add("return (" + returnType + ") root;");
+		sc.add("return root;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
