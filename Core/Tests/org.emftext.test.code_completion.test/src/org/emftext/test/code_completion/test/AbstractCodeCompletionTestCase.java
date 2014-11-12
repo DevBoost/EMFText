@@ -109,7 +109,7 @@ public abstract class AbstractCodeCompletionTestCase {
 
 	@SuppressWarnings("deprecation")
 	private static void registerGenModels() {
-		String pathToCsGenModel = ".." + File.separator + "org.emftext.sdk.concretesyntax" + File.separator + "metamodel" + File.separator + "concretesyntax.genmodel";
+		String pathToCsGenModel = ".." + File.separator + ".." + File.separator  + "SDK" + File.separator + "org.emftext.sdk.concretesyntax" + File.separator + "metamodel" + File.separator + "concretesyntax.genmodel";
 		String absolutePathToCsGenModel = new File(pathToCsGenModel).getAbsolutePath();
 		EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(ConcretesyntaxPackage.eNS_URI, URI.createFileURI(absolutePathToCsGenModel));
 	}

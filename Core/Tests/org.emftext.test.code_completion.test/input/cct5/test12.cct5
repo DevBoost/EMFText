@@ -1,0 +1,11 @@
+BEGIN_FARM
+
+	BEGIN_FARMER Stefan
+		Diet : Vegetarian 
+	END_FARMER
+
+	BEGIN_ANIMAL SickSeaLion
+		FeedingInstruction : ALL
+	END_ANIMAL
+
+	<CURSOR>

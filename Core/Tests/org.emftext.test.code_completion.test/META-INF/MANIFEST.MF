@@ -25,4 +25,5 @@ Require-Bundle: org.junit,
  org.emftext.test,
  org.emftext.test.cct5,
  org.emftext.test.cct5.resource.cct5,
- org.emftext.test.cct5.resource.cct5.ui
+ org.emftext.test.cct5.resource.cct5.ui,
+ org.emftext.sdk.codegen.resource

@@ -1,6 +1,6 @@
-Farm {
+BEGIN_FARM
 
 	BEGIN_FARMER Stefan
 		Diet : VEGETARIAN favored "Falscher Hase" <CURSOR>
 
-}
+END_FARM

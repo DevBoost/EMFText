@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.test.code_completion.test.util.TestFileFilter;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -39,7 +38,6 @@ public class ExpectedInsertStringsTest extends AbstractCodeCompletionTestCase {
 	}
 
 	@Test
-	//@Ignore("Must be ingored until test data has been adjusted")
 	public void checkInsertStrings() {
 		String filename = file.getName();
 		if (!accept(filename)) {
@@ -66,7 +64,7 @@ public class ExpectedInsertStringsTest extends AbstractCodeCompletionTestCase {
 		//
 		// TestFileFilter filter = new TestFileFilter(".cct1", ".cct3", ".cct4",
 		// ".cct5", ".cs", ".customer");
-		TestFileFilter filter = new TestFileFilter(".cct5");
+		TestFileFilter filter = new TestFileFilter(".cs", ".cct5");
 
 		for (File file : listFilesRecursivly(inputFolder, filter)) {
 			testData.add(new Object[] { file });
