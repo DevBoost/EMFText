@@ -62,9 +62,14 @@ public abstract class AbstractExpectationComputerTestCase extends TestCase {
 	}
 	
 	public void assertFollowSet(SyntaxElement syntaxElement, EObject... expectedFollow) {
+		Set<Expectation> actualFollowSet = computeFollowSet(syntaxElement);
+		printAndCompareSets("follow", syntaxElement, actualFollowSet, expectedFollow);
+	}
+
+	protected Set<Expectation> computeFollowSet(SyntaxElement syntaxElement) {
 		ConcreteSyntax syntax = syntaxElement.getContainingRule().getSyntax();
 		Set<Expectation> followSet = computer.computeFollowSet(syntax, syntaxElement);
-		printAndCompareSets("follow", syntaxElement, followSet, expectedFollow);
+		return followSet;
 	}
 
 	public void assertFirstSet(SyntaxElement syntaxElement, EObject... expectedFirst) {
