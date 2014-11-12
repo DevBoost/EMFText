@@ -708,29 +708,37 @@ public class CodeCompletionHelperGenerator extends UIJavaBaseGenerator<ArtifactP
 		jc.addLineBreak();
 	}
 
-	private void addRemoveDuplicateEntriesFromBucketMethod(JavaComposite sc) {
-		sc.addJavadoc(
+	private void addRemoveDuplicateEntriesFromBucketMethod(JavaComposite jc) {
+		jc.addJavadoc(
 			"Removes all expected elements that refer to the same terminal. " +
 			"Attention: This method assumes that the given list of expected " +
 			"terminals contains only elements that start at the same position."
 		);
-		sc.add("protected void removeDuplicateEntriesFromBucket(" + LIST(sc) + "<" + expectedTerminalClassName + "> expectedElements) {");
-		sc.add("int size = expectedElements.size();");
-		sc.add("for (int i = 0; i < size - 1; i++) {");
-		sc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
-		sc.add(iExpectedElementClassName + " terminal = elementAtIndex.getTerminal();");
-		sc.add("for (int j = i + 1; j < size;) {");
-		sc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(j);");
-		sc.add("if (terminal.equals(elementAtNext.getTerminal())) {");
-		sc.add("expectedElements.remove(j);");
-		sc.add("size--;");
-		sc.add("} else {");
-		sc.add("j++;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
+		jc.add("protected void removeDuplicateEntriesFromBucket(" + LIST(jc) + "<" + expectedTerminalClassName + "> expectedElements) {");
+		jc.add("int size = expectedElements.size();");
+		jc.add("for (int i = 0; i < size - 1; i++) {");
+		jc.add(expectedTerminalClassName + " elementAtIndex = expectedElements.get(i);");
+		jc.add(iExpectedElementClassName + " terminal = elementAtIndex.getTerminal();");
+		jc.add("for (int j = i + 1; j < size;) {");
+		jc.add(expectedTerminalClassName + " elementAtNext = expectedElements.get(j);");
+		jc.add(E_CLASS(jc) + " metaClass = elementAtIndex.getContainmentTrace().getStartClass();");
+		jc.add(E_CLASS(jc) + " nextMetaClass = elementAtNext.getContainmentTrace().getStartClass();");
+		jc.add(iExpectedElementClassName + " nextTerminal = elementAtNext.getTerminal();");
+		jc.addComment(
+			"Terminals that have a different root meta class in the containment trace must be kept because they can " +
+			"the decision whether an expected terminals is valid or not depends on the root of the containment trace."
+		);
+		jc.add("boolean differentMetaclass = metaClass != nextMetaClass;");
+		jc.add("if (terminal.equals(nextTerminal) && !differentMetaclass) {");
+		jc.add("expectedElements.remove(j);");
+		jc.add("size--;");
+		jc.add("} else {");
+		jc.add("j++;");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.add("}");
+		jc.addLineBreak();
 	}
 		
 	private void addRemoveDuplicateEntriesMethod(JavaComposite sc) {
