@@ -15,6 +15,14 @@
     <genClasses image="false" ecoreClass="cct5.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cct5.ecore#//NamedElement/Name"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="cct5.ecore#//Estate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Estate/InventoryItem"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Estate/Animal"/>
+    </genClasses>
+    <genClasses ecoreClass="cct5.ecore#//Farm">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Farm/Farmer"/>
+    </genClasses>
+    <genClasses ecoreClass="cct5.ecore#//Hospital"/>
     <genClasses ecoreClass="cct5.ecore#//Farmer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Farmer/Diet"/>
     </genClasses>
@@ -25,9 +33,6 @@
     <genClasses ecoreClass="cct5.ecore#//Animal">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Animal/FeedingInstruction"/>
     </genClasses>
-    <genClasses ecoreClass="cct5.ecore#//Farm">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Farm/Animal"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cct5.ecore#//Farm/Farmer"/>
-    </genClasses>
+    <genClasses ecoreClass="cct5.ecore#//InventoryItem"/>
   </genPackages>
 </genmodel:GenModel>
