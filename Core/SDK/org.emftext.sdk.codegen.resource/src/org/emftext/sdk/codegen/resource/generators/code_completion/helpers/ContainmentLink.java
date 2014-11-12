@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -19,13 +19,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 
 /**
- * A ContainmentLink represents a containment feature in the context of a 
- * metaclass.
+ * A ContainmentLink represents a containment feature in the context of a metaclass.
  */
 public class ContainmentLink {
 
-	private GenClass containerClass;
-	private GenFeature genFeature;
+	private final GenClass containerClass;
+	private final GenFeature genFeature;
 	
 	public ContainmentLink(GenClass containerClass, GenFeature genFeature) {
 		super();
