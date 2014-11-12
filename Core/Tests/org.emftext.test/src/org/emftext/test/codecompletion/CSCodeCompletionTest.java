@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -142,7 +141,7 @@ public class CSCodeCompletionTest {
 		String uri = testFile.getAbsolutePath();
 		ICsTextResource resource = (ICsTextResource) new ResourceSetImpl().createResource(URI.createFileURI(uri));
 		EcoreUtil.resolveAll(resource);
-		EList<Diagnostic> errors = resource.getErrors();
+		List<Diagnostic> errors = resource.getErrors();
 		for (Diagnostic diagnostic : errors) {
 			System.out.println("CSCodeCompletionTest.assertProposals() error in resource: " + diagnostic);
 		}
