@@ -28,6 +28,14 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+/**
+ * This class provides an implementation of the
+ * org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic interface.
+ * However, it is recommended to use the
+ * org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter2 instead, because it
+ * provides advanced printing features. There are even some features (e.g.,
+ * printing enumeration terminals) which are only supported by that class.
+ */
 public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter {
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolverFactory();
