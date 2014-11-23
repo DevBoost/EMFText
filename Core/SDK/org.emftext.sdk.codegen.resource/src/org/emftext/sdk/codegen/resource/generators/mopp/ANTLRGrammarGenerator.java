@@ -1738,7 +1738,7 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			if (!metaclassAccessor.equals(lastMetaclassAccessor)) {
 				// Close last expectation index interval and add it to a list
 				if (lastInterval != null) {
-					lastInterval.close(expectationCalls.size());
+					lastInterval.close(expectationCalls.size() - 1);
 					intervals.add(lastInterval);
 				}
 				// Open new expectation index interval
@@ -1748,6 +1748,8 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			}
 			expectationCalls.add(o);
 		}
+		
+		// Close last interval (if required)
 		if (lastInterval != null) {
 			lastInterval.close(expectationCalls.size() - 1);
 			intervals.add(lastInterval);
@@ -1755,7 +1757,13 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		// Generate code for collected expectation index intervals
 		for (ExpectationIndexInterval interval : intervals) {
-			sc.add("addExpectedElement(" + interval.getMetaclassAccessor() + ", " + interval.getStart() + ", " + interval.getEnd() + ");");
+			int start = interval.getStart();
+			int end = interval.getEnd();
+			if (start == end) {
+				sc.add("addExpectedElement(" + interval.getMetaclassAccessor() + ", " + start + ");");
+			} else {
+				sc.add("addExpectedElement(" + interval.getMetaclassAccessor() + ", " + start + ", " + end + ");");
+			}
 		}
 		
 		followSetID++;
