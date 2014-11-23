@@ -30,7 +30,7 @@ public class Bug1031Test {
 	}
 
 	@Test
-	public void testStackoverflow() {
+	public void testNoStackoverflow() {
 		String pluginRootPath = new PluginTestHelper().getPluginRootPath(getClass());
 		String path = pluginRootPath + packageDirectory + "left.cs";
 		CsResource resource = CsResourceUtil.getResource(new File(path).getAbsoluteFile());
