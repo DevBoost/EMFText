@@ -182,8 +182,6 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		sc.add("public final static " + iExpectedElementClassName + " TERMINALS[] = new " + iExpectedElementClassName + "[" + terminalCount + "];");
 		
 		for (EObject expectedElement : idMap.keySet()) {
-			int terminalID = idMap.get(expectedElement);
-			
 			if (expectedElement instanceof Placeholder) {
 				Placeholder placeholder = (Placeholder) expectedElement;
 				GenFeature genFeature = placeholder.getFeature();
