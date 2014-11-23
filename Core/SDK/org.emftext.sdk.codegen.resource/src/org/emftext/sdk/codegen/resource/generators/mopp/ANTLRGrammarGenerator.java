@@ -1757,12 +1757,14 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		
 		// Generate code for collected expectation index intervals
 		for (ExpectationIndexInterval interval : intervals) {
+			String metaclassAccessor = interval.getMetaclassAccessor();
+
 			int start = interval.getStart();
 			int end = interval.getEnd();
 			if (start == end) {
-				sc.add("addExpectedElement(" + interval.getMetaclassAccessor() + ", " + start + ");");
+				sc.add("addExpectedElement(" + metaclassAccessor + ", " + start + ");");
 			} else {
-				sc.add("addExpectedElement(" + interval.getMetaclassAccessor() + ", " + start + ", " + end + ");");
+				sc.add("addExpectedElement(" + metaclassAccessor + ", " + start + ", " + end + ");");
 			}
 		}
 		
