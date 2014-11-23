@@ -207,7 +207,7 @@ public class ANTLRPluginContentCreator {
 	    
 		for (IArtifactCreator<ANTLRGenerationContext> creator : creators) {
 			if (override) {
-				progress.setTaskName("creating " + creator.getArtifactTypeDescription() + "...");
+				progress.setTaskName("Creating " + creator.getArtifactTypeDescription() + "...");
 				creator.createArtifacts(antlrPlugin, context);
 			}
 			progress.worked(100 / creators.size());
