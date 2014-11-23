@@ -203,11 +203,9 @@ public class CsCodeCompletionHelper {
 	
 	protected void removeInvalidEntriesAtEnd(List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements) {
 		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroupList followSetGroupList = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroupList(expectedElements);
-		System.out.println("removeInvalidEntriesAtEnd()");
 		List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroup> followSetGroups = followSetGroupList.getFollowSetGroups();
 		int lastStartExcludingHiddenTokens = -1;
 		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroup followSetGroup : followSetGroups) {
-			System.out.println("  ------------ FOLLOW SET GROUP " + followSetGroup);
 			boolean sameStartExcludingHiddenTokens = followSetGroup.hasSameStartExcludingHiddenTokens(lastStartExcludingHiddenTokens);
 			lastStartExcludingHiddenTokens = followSetGroup.getStartExcludingHiddenTokens();
 			EObject container = followSetGroup.getContainer();
@@ -217,23 +215,15 @@ public class CsCodeCompletionHelper {
 			}
 			List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedTerminals = followSetGroup.getExpectedTerminals();
 			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal : expectedTerminals) {
-				System.out.println("    ------------ FOLLOWER " + expectedTerminal);
 				org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminalAtIndex = expectedTerminal.getTerminal();
 				EClass ruleMetaclass = terminalAtIndex.getRuleMetaclass();
 				boolean differentRule = currentRule != ruleMetaclass;
-				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement syntaxElement = terminalAtIndex.getSyntaxElement();
-				System.out.println("    " + syntaxElement + " IN RULE " + ruleMetaclass.getName());
-				printPathToRoot(container);
 				// If the two expected elements have a different parent in the syntax definition,
 				// we must not discard the second element, because it probably stems from a parent
 				// rule.
 				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace = expectedTerminal.getContainmentTrace();
-				System.out.println("    containment trace: " + containmentTrace);
 				boolean fitsAtCurrentPosition = fitsAtCurrentPosition(container, containmentTrace);
-				System.out.println("    fitsAtCurrentPosition: " + fitsAtCurrentPosition);
 				boolean inContainmentTrace = pathToRootContains(container, expectedTerminal.getTerminal().getRuleMetaclass());
-				System.out.println("    inContainmentTrace: " + inContainmentTrace);
-				boolean differentFollowSet = true;
 				boolean keepElement = true;
 				if (differentRule && !inContainmentTrace) {
 					if (!fitsAtCurrentPosition) {
@@ -244,31 +234,8 @@ public class CsCodeCompletionHelper {
 					keepElement = false;
 				}
 				
-				String message = " because of: ";
-				if (sameStartExcludingHiddenTokens) {
-					message += "same start, ";
-				} else {
-					message += "different start, ";
-				}
-				if (differentFollowSet) {
-					message += "different follow set, ";
-				} else {
-					message += "same follow set, ";
-				}
-				if (differentRule) {
-					message += "different rule, ";
-				} else {
-					message += "same rule, ";
-				}
-				if (inContainmentTrace) {
-					message += "in containment trace";
-				} else {
-					message += "not in containment trace";
-				}
 				if (keepElement) {
-					System.out.println("    Keeping:  " + expectedTerminal + message);
 				} else {
-					System.out.println("    Removing: " + expectedTerminal + message);
 					// We must not call expectedElements.remove(expectedTerminal) because the
 					// hashCode() method of ExpectedTerminal does not consider the start positions and
 					// remove the wrong elements.
@@ -302,20 +269,6 @@ public class CsCodeCompletionHelper {
 			current = current.eContainer();
 		}
 		return false;
-	}
-	
-	private void printPathToRoot(EObject container) {
-		String path = "";
-		if (container == null) {
-			System.out.println("    printPathToRoot() Container is null. No path available.");
-			return;
-		}
-		EObject current = container;
-		while (current != null) {
-			path += current.eClass().getName() + " -> ";
-			current = current.eContainer();
-		}
-		System.out.println("    printPathToRoot() " + path);
 	}
 	
 	/**

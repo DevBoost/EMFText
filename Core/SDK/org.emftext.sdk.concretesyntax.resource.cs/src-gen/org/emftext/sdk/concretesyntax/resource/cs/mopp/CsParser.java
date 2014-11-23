@@ -209,6 +209,16 @@ public class CsParser extends CsANTLRParserBase {
     		addErrorToResource(message.getMessage(), message.getColumn(), message.getLine(), message.getCharStart(), message.getCharEnd());
     	}
     	
+    	public void addExpectedElement(EClass eClass, int expectationStartIndex, int expectationEndIndex) {
+    		for (int expectationIndex = expectationStartIndex; expectationIndex <= expectationEndIndex; expectationIndex++) {
+    			addExpectedElement(eClass, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[expectationIndex]);
+    		}
+    	}
+    	
+    	public void addExpectedElement(EClass eClass, int expectationIndex) {
+    		addExpectedElement(eClass, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[expectationIndex]);
+    	}
+    	
     	public void addExpectedElement(EClass eClass, int[] ids) {
     		if (!this.rememberExpectedElements) {
     			return;
@@ -603,7 +613,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "start"
-    // Cs.g:547:1: start returns [ EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
+    // Cs.g:557:1: start returns [ EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
     public final EObject start() throws RecognitionException {
         EObject element =  null;
 
@@ -615,19 +625,18 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
 
-            // Cs.g:548:2: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
-            // Cs.g:549:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
+            // Cs.g:558:2: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
+            // Cs.g:559:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
             {
             if ( state.backtracking==0 ) {
             		// follow set for start rule(s)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[0]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[1]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[2]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 0);
+            		addExpectedElement(null, 1, 2);
             		expectedElementsIndexOfLastCompleteElement = 2;
             	}
 
-            // Cs.g:556:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
-            // Cs.g:557:3: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
+            // Cs.g:565:2: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
+            // Cs.g:566:3: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax_in_start82);
             c0=parse_org_emftext_sdk_concretesyntax_ConcreteSyntax();
@@ -666,7 +675,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_ConcreteSyntax"
-    // Cs.g:565:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' ;
+    // Cs.g:574:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' ;
     public final org.emftext.sdk.concretesyntax.ConcreteSyntax parse_org_emftext_sdk_concretesyntax_ConcreteSyntax() throws RecognitionException {
         org.emftext.sdk.concretesyntax.ConcreteSyntax element =  null;
 
@@ -717,10 +726,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return element; }
 
-            // Cs.g:568:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' )
-            // Cs.g:569:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}'
+            // Cs.g:577:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}' )
+            // Cs.g:578:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1= 'ABSTRACT' )? ) a4= 'SYNTAXDEF' (a5= QUALIFIED_NAME ) a6= 'FOR' (a7= QUOTED_60_62 ) ( ( (a8= QUOTED_60_62 ) ) )? ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )? ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )? ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )? ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )? ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )? a31= 'RULES' a32= '{' ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )* a34= '}'
             {
-            // Cs.g:569:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:578:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -733,13 +742,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt1) {
             	case 1 :
-            	    // Cs.g:570:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:579:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:570:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:571:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:579:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:580:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:571:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:572:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:580:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:581:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax130);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -777,9 +786,8 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[3]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[4]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[5]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 3);
+            	    				addExpectedElement(null, 4, 5);
             	    			}
 
             	    }
@@ -796,15 +804,14 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[6]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[7]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[8]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 6);
+            		addExpectedElement(null, 7, 8);
             	}
 
-            // Cs.g:613:2: ( (a1= 'ABSTRACT' )? )
-            // Cs.g:614:3: (a1= 'ABSTRACT' )?
+            // Cs.g:620:2: ( (a1= 'ABSTRACT' )? )
+            // Cs.g:621:3: (a1= 'ABSTRACT' )?
             {
-            // Cs.g:614:3: (a1= 'ABSTRACT' )?
+            // Cs.g:621:3: (a1= 'ABSTRACT' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -813,7 +820,7 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt2) {
                 case 1 :
-                    // Cs.g:615:4: a1= 'ABSTRACT'
+                    // Cs.g:622:4: a1= 'ABSTRACT'
                     {
                     a1=(Token)match(input,26,FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax180); if (state.failed) return element;
 
@@ -847,7 +854,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[9]);
+            		addExpectedElement(null, 9);
             	}
 
             a4=(Token)match(input,41,FOLLOW_41_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax201); if (state.failed) return element;
@@ -869,11 +876,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[10]);
+            		addExpectedElement(null, 10);
             	}
 
-            // Cs.g:658:2: (a5= QUALIFIED_NAME )
-            // Cs.g:659:3: a5= QUALIFIED_NAME
+            // Cs.g:665:2: (a5= QUALIFIED_NAME )
+            // Cs.g:666:3: a5= QUALIFIED_NAME
             {
             a5=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax219); if (state.failed) return element;
 
@@ -916,7 +923,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[11]);
+            		addExpectedElement(null, 11);
             	}
 
             a6=(Token)match(input,31,FOLLOW_31_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax240); if (state.failed) return element;
@@ -938,11 +945,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[12]);
+            		addExpectedElement(null, 12);
             	}
 
-            // Cs.g:718:2: (a7= QUOTED_60_62 )
-            // Cs.g:719:3: a7= QUOTED_60_62
+            // Cs.g:725:2: (a7= QUOTED_60_62 )
+            // Cs.g:726:3: a7= QUOTED_60_62
             {
             a7=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax258); if (state.failed) return element;
 
@@ -989,16 +996,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[13]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[14]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[15]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[16]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[17]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[18]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[19]);
+            		addExpectedElement(null, 13, 19);
             	}
 
-            // Cs.g:769:2: ( ( (a8= QUOTED_60_62 ) ) )?
+            // Cs.g:770:2: ( ( (a8= QUOTED_60_62 ) ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1007,13 +1008,13 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt3) {
                 case 1 :
-                    // Cs.g:770:3: ( (a8= QUOTED_60_62 ) )
+                    // Cs.g:771:3: ( (a8= QUOTED_60_62 ) )
                     {
-                    // Cs.g:770:3: ( (a8= QUOTED_60_62 ) )
-                    // Cs.g:771:4: (a8= QUOTED_60_62 )
+                    // Cs.g:771:3: ( (a8= QUOTED_60_62 ) )
+                    // Cs.g:772:4: (a8= QUOTED_60_62 )
                     {
-                    // Cs.g:771:4: (a8= QUOTED_60_62 )
-                    // Cs.g:772:5: a8= QUOTED_60_62
+                    // Cs.g:772:4: (a8= QUOTED_60_62 )
+                    // Cs.g:773:5: a8= QUOTED_60_62
                     {
                     a8=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax294); if (state.failed) return element;
 
@@ -1056,12 +1057,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[20]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[21]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[22]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[23]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[24]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[25]);
+                    				addExpectedElement(null, 20, 25);
                     			}
 
                     }
@@ -1075,15 +1071,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[26]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[27]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[28]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[29]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[30]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[31]);
+            		addExpectedElement(null, 26, 31);
             	}
 
-            // Cs.g:829:2: ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )?
+            // Cs.g:820:2: ( (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1092,10 +1083,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt5) {
                 case 1 :
-                    // Cs.g:830:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
+                    // Cs.g:821:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
                     {
-                    // Cs.g:830:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
-                    // Cs.g:831:4: a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
+                    // Cs.g:821:3: (a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )* )
+                    // Cs.g:822:4: a9= 'START' ( (a10= QUALIFIED_NAME ) ) ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
                     {
                     a9=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax349); if (state.failed) return element;
 
@@ -1116,14 +1107,14 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[32]);
+                    				addExpectedElement(null, 32);
                     			}
 
-                    // Cs.g:850:4: ( (a10= QUALIFIED_NAME ) )
-                    // Cs.g:851:5: (a10= QUALIFIED_NAME )
+                    // Cs.g:841:4: ( (a10= QUALIFIED_NAME ) )
+                    // Cs.g:842:5: (a10= QUALIFIED_NAME )
                     {
-                    // Cs.g:851:5: (a10= QUALIFIED_NAME )
-                    // Cs.g:852:6: a10= QUALIFIED_NAME
+                    // Cs.g:842:5: (a10= QUALIFIED_NAME )
+                    // Cs.g:843:6: a10= QUALIFIED_NAME
                     {
                     a10=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax382); if (state.failed) return element;
 
@@ -1170,12 +1161,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     					// expected elements (follow set)
-                    					addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[33]);
-                    					addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[34]);
-                    					addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[35]);
-                    					addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[36]);
-                    					addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[37]);
-                    					addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[38]);
+                    					addExpectedElement(null, 33, 38);
                     				}
 
                     }
@@ -1183,15 +1169,10 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[39]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[40]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[41]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[42]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[43]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[44]);
+                    				addExpectedElement(null, 39, 44);
                     			}
 
-                    // Cs.g:912:4: ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
+                    // Cs.g:893:4: ( (a11= ',' ( (a12= QUALIFIED_NAME ) ) ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -1204,10 +1185,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // Cs.g:913:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
+                    	    // Cs.g:894:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
                     	    {
-                    	    // Cs.g:913:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
-                    	    // Cs.g:914:6: a11= ',' ( (a12= QUALIFIED_NAME ) )
+                    	    // Cs.g:894:5: (a11= ',' ( (a12= QUALIFIED_NAME ) ) )
+                    	    // Cs.g:895:6: a11= ',' ( (a12= QUALIFIED_NAME ) )
                     	    {
                     	    a11=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax447); if (state.failed) return element;
 
@@ -1228,14 +1209,14 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[45]);
+                    	    						addExpectedElement(null, 45);
                     	    					}
 
-                    	    // Cs.g:933:6: ( (a12= QUALIFIED_NAME ) )
-                    	    // Cs.g:934:7: (a12= QUALIFIED_NAME )
+                    	    // Cs.g:914:6: ( (a12= QUALIFIED_NAME ) )
+                    	    // Cs.g:915:7: (a12= QUALIFIED_NAME )
                     	    {
-                    	    // Cs.g:934:7: (a12= QUALIFIED_NAME )
-                    	    // Cs.g:935:8: a12= QUALIFIED_NAME
+                    	    // Cs.g:915:7: (a12= QUALIFIED_NAME )
+                    	    // Cs.g:916:8: a12= QUALIFIED_NAME
                     	    {
                     	    a12=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax490); if (state.failed) return element;
 
@@ -1282,12 +1263,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    							// expected elements (follow set)
-                    	    							addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[46]);
-                    	    							addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[47]);
-                    	    							addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[48]);
-                    	    							addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[49]);
-                    	    							addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[50]);
-                    	    							addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[51]);
+                    	    							addExpectedElement(null, 46, 51);
                     	    						}
 
                     	    }
@@ -1295,12 +1271,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[52]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[53]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[54]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[55]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[56]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[57]);
+                    	    						addExpectedElement(null, 52, 57);
                     	    					}
 
                     	    }
@@ -1317,12 +1288,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[58]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[59]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[60]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[61]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[62]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[63]);
+                    				addExpectedElement(null, 58, 63);
                     			}
 
                     }
@@ -1336,14 +1302,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[64]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[65]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[66]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[67]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[68]);
+            		addExpectedElement(null, 64, 68);
             	}
 
-            // Cs.g:1018:2: ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )?
+            // Cs.g:980:2: ( (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1352,10 +1314,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt7) {
                 case 1 :
-                    // Cs.g:1019:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
+                    // Cs.g:981:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
                     {
-                    // Cs.g:1019:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
-                    // Cs.g:1020:4: a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}'
+                    // Cs.g:981:3: (a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}' )
+                    // Cs.g:982:4: a13= 'IMPORTS' a14= '{' ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a16= '}'
                     {
                     a13=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax605); if (state.failed) return element;
 
@@ -1376,7 +1338,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[69]);
+                    				addExpectedElement(null, 69);
                     			}
 
                     a14=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax625); if (state.failed) return element;
@@ -1398,14 +1360,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[70]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[71]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[72]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[73]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[74]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 70, 73);
+                    				addExpectedElement(null, 74);
                     			}
 
-                    // Cs.g:1062:4: ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
+                    // Cs.g:1021:4: ( ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
                     loop6:
                     do {
                         int alt6=2;
@@ -1418,13 +1377,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // Cs.g:1063:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // Cs.g:1022:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
                     	    {
-                    	    // Cs.g:1063:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
-                    	    // Cs.g:1064:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // Cs.g:1022:5: ( (a15_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // Cs.g:1023:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
                     	    {
-                    	    // Cs.g:1064:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
-                    	    // Cs.g:1065:7: a15_0= parse_org_emftext_sdk_concretesyntax_Import
+                    	    // Cs.g:1023:6: (a15_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // Cs.g:1024:7: a15_0= parse_org_emftext_sdk_concretesyntax_Import
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Import_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax666);
                     	    a15_0=parse_org_emftext_sdk_concretesyntax_Import();
@@ -1462,9 +1421,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[75]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[76]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[77]);
+                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 75, 76);
+                    	    						addExpectedElement(null, 77);
                     	    					}
 
                     	    }
@@ -1481,9 +1439,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[78]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[79]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[80]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 78, 79);
+                    				addExpectedElement(null, 80);
                     			}
 
                     a16=(Token)match(input,49,FOLLOW_49_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax727); if (state.failed) return element;
@@ -1505,10 +1462,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[81]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[82]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[83]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[84]);
+                    				addExpectedElement(null, 81, 84);
                     			}
 
                     }
@@ -1522,13 +1476,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[85]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[86]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[87]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[88]);
+            		addExpectedElement(null, 85, 88);
             	}
 
-            // Cs.g:1138:2: ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )?
+            // Cs.g:1089:2: ( (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' ) )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1537,10 +1488,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt9) {
                 case 1 :
-                    // Cs.g:1139:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
+                    // Cs.g:1090:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
                     {
-                    // Cs.g:1139:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
-                    // Cs.g:1140:4: a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}'
+                    // Cs.g:1090:3: (a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}' )
+                    // Cs.g:1091:4: a17= 'OPTIONS' a18= '{' ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )* a21= '}'
                     {
                     a17=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax769); if (state.failed) return element;
 
@@ -1561,7 +1512,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[89]);
+                    				addExpectedElement(null, 89);
                     			}
 
                     a18=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax789); if (state.failed) return element;
@@ -1583,12 +1534,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[90]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[91]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[92]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 90, 91);
+                    				addExpectedElement(null, 92);
                     			}
 
-                    // Cs.g:1180:4: ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )*
+                    // Cs.g:1130:4: ( ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' ) )*
                     loop8:
                     do {
                         int alt8=2;
@@ -1601,13 +1551,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // Cs.g:1181:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
+                    	    // Cs.g:1131:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
                     	    {
-                    	    // Cs.g:1181:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
-                    	    // Cs.g:1182:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';'
+                    	    // Cs.g:1131:5: ( (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';' )
+                    	    // Cs.g:1132:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option ) a20= ';'
                     	    {
-                    	    // Cs.g:1182:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option )
-                    	    // Cs.g:1183:7: a19_0= parse_org_emftext_sdk_concretesyntax_Option
+                    	    // Cs.g:1132:6: (a19_0= parse_org_emftext_sdk_concretesyntax_Option )
+                    	    // Cs.g:1133:7: a19_0= parse_org_emftext_sdk_concretesyntax_Option
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Option_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax830);
                     	    a19_0=parse_org_emftext_sdk_concretesyntax_Option();
@@ -1645,7 +1595,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[93]);
+                    	    						addExpectedElement(null, 93);
                     	    					}
 
                     	    a20=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax868); if (state.failed) return element;
@@ -1667,8 +1617,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[94]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[95]);
+                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 94);
+                    	    						addExpectedElement(null, 95);
                     	    					}
 
                     	    }
@@ -1685,8 +1635,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[96]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[97]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 96);
+                    				addExpectedElement(null, 97);
                     			}
 
                     a21=(Token)match(input,49,FOLLOW_49_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax917); if (state.failed) return element;
@@ -1708,9 +1658,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[98]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[99]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[100]);
+                    				addExpectedElement(null, 98, 100);
                     			}
 
                     }
@@ -1724,12 +1672,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[101]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[102]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[103]);
+            		addExpectedElement(null, 101, 103);
             	}
 
-            // Cs.g:1271:2: ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )?
+            // Cs.g:1217:2: ( (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1738,10 +1684,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt11) {
                 case 1 :
-                    // Cs.g:1272:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
+                    // Cs.g:1218:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
                     {
-                    // Cs.g:1272:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
-                    // Cs.g:1273:4: a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}'
+                    // Cs.g:1218:3: (a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}' )
+                    // Cs.g:1219:4: a22= 'TOKENS' a23= '{' ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )* a26= '}'
                     {
                     a22=(Token)match(input,42,FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax959); if (state.failed) return element;
 
@@ -1762,7 +1708,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[104]);
+                    				addExpectedElement(null, 104);
                     			}
 
                     a23=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax979); if (state.failed) return element;
@@ -1784,22 +1730,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[105]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[106]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[107]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[108]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[109]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[110]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[111]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[112]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[113]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[114]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[115]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[116]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[117]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 105, 116);
+                    				addExpectedElement(null, 117);
                     			}
 
-                    // Cs.g:1323:4: ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )*
+                    // Cs.g:1258:4: ( ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' ) )*
                     loop10:
                     do {
                         int alt10=2;
@@ -1812,13 +1747,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // Cs.g:1324:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
+                    	    // Cs.g:1259:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
                     	    {
-                    	    // Cs.g:1324:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
-                    	    // Cs.g:1325:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';'
+                    	    // Cs.g:1259:5: ( (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';' )
+                    	    // Cs.g:1260:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a25= ';'
                     	    {
-                    	    // Cs.g:1325:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
-                    	    // Cs.g:1326:7: a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
+                    	    // Cs.g:1260:6: (a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
+                    	    // Cs.g:1261:7: a24_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenDirective_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1020);
                     	    a24_0=parse_org_emftext_sdk_concretesyntax_TokenDirective();
@@ -1856,7 +1791,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[118]);
+                    	    						addExpectedElement(null, 118);
                     	    					}
 
                     	    a25=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1058); if (state.failed) return element;
@@ -1878,13 +1813,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[119]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[120]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[121]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[122]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[123]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[124]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[125]);
+                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 119, 124);
+                    	    						addExpectedElement(null, 125);
                     	    					}
 
                     	    }
@@ -1901,13 +1831,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[126]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[127]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[128]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[129]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[130]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[131]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[132]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 126, 131);
+                    				addExpectedElement(null, 132);
                     			}
 
                     a26=(Token)match(input,49,FOLLOW_49_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1107); if (state.failed) return element;
@@ -1929,8 +1854,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[133]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[134]);
+                    				addExpectedElement(null, 133, 134);
                     			}
 
                     }
@@ -1944,11 +1868,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[135]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[136]);
+            		addExpectedElement(null, 135, 136);
             	}
 
-            // Cs.g:1422:2: ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )?
+            // Cs.g:1345:2: ( (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' ) )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1957,10 +1880,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt13) {
                 case 1 :
-                    // Cs.g:1423:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
+                    // Cs.g:1346:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
                     {
-                    // Cs.g:1423:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
-                    // Cs.g:1424:4: a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}'
+                    // Cs.g:1346:3: (a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}' )
+                    // Cs.g:1347:4: a27= 'TOKENSTYLES' a28= '{' ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a30= '}'
                     {
                     a27=(Token)match(input,43,FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1149); if (state.failed) return element;
 
@@ -1981,7 +1904,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[137]);
+                    				addExpectedElement(null, 137);
                     			}
 
                     a28=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1169); if (state.failed) return element;
@@ -2003,12 +1926,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[138]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[139]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[140]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 138, 139);
+                    				addExpectedElement(null, 140);
                     			}
 
-                    // Cs.g:1464:4: ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
+                    // Cs.g:1386:4: ( ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
                     loop12:
                     do {
                         int alt12=2;
@@ -2021,13 +1943,13 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // Cs.g:1465:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // Cs.g:1387:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
                     	    {
-                    	    // Cs.g:1465:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
-                    	    // Cs.g:1466:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // Cs.g:1387:5: ( (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // Cs.g:1388:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
                     	    {
-                    	    // Cs.g:1466:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
-                    	    // Cs.g:1467:7: a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
+                    	    // Cs.g:1388:6: (a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // Cs.g:1389:7: a29_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenStyle_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1210);
                     	    a29_0=parse_org_emftext_sdk_concretesyntax_TokenStyle();
@@ -2065,8 +1987,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[141]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[142]);
+                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 141);
+                    	    						addExpectedElement(null, 142);
                     	    					}
 
                     	    }
@@ -2083,8 +2005,8 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[143]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[144]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 143);
+                    				addExpectedElement(null, 144);
                     			}
 
                     a30=(Token)match(input,49,FOLLOW_49_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1271); if (state.failed) return element;
@@ -2106,7 +2028,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[145]);
+                    				addExpectedElement(null, 145);
                     			}
 
                     }
@@ -2120,7 +2042,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[146]);
+            		addExpectedElement(null, 146);
             	}
 
             a31=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1304); if (state.failed) return element;
@@ -2142,7 +2064,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[147]);
+            		addExpectedElement(null, 147);
             	}
 
             a32=(Token)match(input,47,FOLLOW_47_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1318); if (state.failed) return element;
@@ -2164,14 +2086,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[148]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[149]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[150]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[151]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[152]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 148, 151);
+            		addExpectedElement(null, 152);
             	}
 
-            // Cs.g:1574:2: ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )*
+            // Cs.g:1493:2: ( ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) ) )*
             loop14:
             do {
                 int alt14=2;
@@ -2184,13 +2103,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt14) {
             	case 1 :
-            	    // Cs.g:1575:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
+            	    // Cs.g:1494:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
             	    {
-            	    // Cs.g:1575:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
-            	    // Cs.g:1576:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // Cs.g:1494:3: ( (a33_0= parse_org_emftext_sdk_concretesyntax_Rule ) )
+            	    // Cs.g:1495:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
             	    {
-            	    // Cs.g:1576:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
-            	    // Cs.g:1577:5: a33_0= parse_org_emftext_sdk_concretesyntax_Rule
+            	    // Cs.g:1495:4: (a33_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // Cs.g:1496:5: a33_0= parse_org_emftext_sdk_concretesyntax_Rule
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Rule_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1347);
             	    a33_0=parse_org_emftext_sdk_concretesyntax_Rule();
@@ -2228,9 +2147,8 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[153]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[154]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[155]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 153, 154);
+            	    				addExpectedElement(null, 155);
             	    			}
 
             	    }
@@ -2247,9 +2165,8 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[156]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[157]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[158]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 156, 157);
+            		addExpectedElement(null, 158);
             	}
 
             a34=(Token)match(input,49,FOLLOW_49_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1388); if (state.failed) return element;
@@ -2296,7 +2213,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Import"
-    // Cs.g:1641:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? ;
+    // Cs.g:1558:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? ;
     public final org.emftext.sdk.concretesyntax.Import parse_org_emftext_sdk_concretesyntax_Import() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Import element =  null;
 
@@ -2318,10 +2235,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
 
-            // Cs.g:1644:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? )
-            // Cs.g:1645:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
+            // Cs.g:1561:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )? )
+            // Cs.g:1562:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= ':' (a3= QUOTED_60_62 ) ( ( (a4= QUOTED_60_62 ) ) )? ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
             {
-            // Cs.g:1645:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:1562:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop15:
             do {
                 int alt15=2;
@@ -2334,13 +2251,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt15) {
             	case 1 :
-            	    // Cs.g:1646:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1563:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:1646:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:1647:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1563:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1564:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:1647:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:1648:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:1564:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1565:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Import1432);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -2373,8 +2290,8 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[159]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[160]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 159);
+            	    				addExpectedElement(null, 160);
             	    			}
 
             	    }
@@ -2391,12 +2308,12 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[161]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[162]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 161);
+            		addExpectedElement(null, 162);
             	}
 
-            // Cs.g:1682:2: (a1= QUALIFIED_NAME )
-            // Cs.g:1683:3: a1= QUALIFIED_NAME
+            // Cs.g:1599:2: (a1= QUALIFIED_NAME )
+            // Cs.g:1600:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1477); if (state.failed) return element;
 
@@ -2434,7 +2351,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[163]);
+            		addExpectedElement(null, 163);
             	}
 
             a2=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_Import1498); if (state.failed) return element;
@@ -2451,11 +2368,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[164]);
+            		addExpectedElement(null, 164);
             	}
 
-            // Cs.g:1732:2: (a3= QUOTED_60_62 )
-            // Cs.g:1733:3: a3= QUOTED_60_62
+            // Cs.g:1649:2: (a3= QUOTED_60_62 )
+            // Cs.g:1650:3: a3= QUOTED_60_62
             {
             a3=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1516); if (state.failed) return element;
 
@@ -2497,14 +2414,12 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[165]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[166]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[167]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[168]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[169]);
+            		addExpectedElement(null, 165, 166);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 167, 168);
+            		addExpectedElement(null, 169);
             	}
 
-            // Cs.g:1776:2: ( ( (a4= QUOTED_60_62 ) ) )?
+            // Cs.g:1691:2: ( ( (a4= QUOTED_60_62 ) ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2513,13 +2428,13 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt16) {
                 case 1 :
-                    // Cs.g:1777:3: ( (a4= QUOTED_60_62 ) )
+                    // Cs.g:1692:3: ( (a4= QUOTED_60_62 ) )
                     {
-                    // Cs.g:1777:3: ( (a4= QUOTED_60_62 ) )
-                    // Cs.g:1778:4: (a4= QUOTED_60_62 )
+                    // Cs.g:1692:3: ( (a4= QUOTED_60_62 ) )
+                    // Cs.g:1693:4: (a4= QUOTED_60_62 )
                     {
-                    // Cs.g:1778:4: (a4= QUOTED_60_62 )
-                    // Cs.g:1779:5: a4= QUOTED_60_62
+                    // Cs.g:1693:4: (a4= QUOTED_60_62 )
+                    // Cs.g:1694:5: a4= QUOTED_60_62
                     {
                     a4=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1552); if (state.failed) return element;
 
@@ -2557,10 +2472,9 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[170]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[171]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[172]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[173]);
+                    				addExpectedElement(null, 170);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 171, 172);
+                    				addExpectedElement(null, 173);
                     			}
 
                     }
@@ -2574,13 +2488,12 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[174]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[175]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[176]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[177]);
+            		addExpectedElement(null, 174);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 175, 176);
+            		addExpectedElement(null, 177);
             	}
 
-            // Cs.g:1827:2: ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
+            // Cs.g:1740:2: ( (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? ) )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2589,10 +2502,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt18) {
                 case 1 :
-                    // Cs.g:1828:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
+                    // Cs.g:1741:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
                     {
-                    // Cs.g:1828:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
-                    // Cs.g:1829:4: a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )?
+                    // Cs.g:1741:3: (a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )? )
+                    // Cs.g:1742:4: a5= 'WITH' a6= 'SYNTAX' (a7= QUALIFIED_NAME ) ( ( (a8= QUOTED_60_62 ) ) )?
                     {
                     a5=(Token)match(input,44,FOLLOW_44_in_parse_org_emftext_sdk_concretesyntax_Import1607); if (state.failed) return element;
 
@@ -2608,7 +2521,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[178]);
+                    				addExpectedElement(null, 178);
                     			}
 
                     a6=(Token)match(input,40,FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_Import1627); if (state.failed) return element;
@@ -2625,11 +2538,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[179]);
+                    				addExpectedElement(null, 179);
                     			}
 
-                    // Cs.g:1857:4: (a7= QUALIFIED_NAME )
-                    // Cs.g:1858:5: a7= QUALIFIED_NAME
+                    // Cs.g:1770:4: (a7= QUALIFIED_NAME )
+                    // Cs.g:1771:5: a7= QUALIFIED_NAME
                     {
                     a7=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1653); if (state.failed) return element;
 
@@ -2671,13 +2584,12 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[180]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[181]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[182]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[183]);
+                    				addExpectedElement(null, 180);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 181, 182);
+                    				addExpectedElement(null, 183);
                     			}
 
-                    // Cs.g:1900:4: ( ( (a8= QUOTED_60_62 ) ) )?
+                    // Cs.g:1812:4: ( ( (a8= QUOTED_60_62 ) ) )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -2686,13 +2598,13 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     switch (alt17) {
                         case 1 :
-                            // Cs.g:1901:5: ( (a8= QUOTED_60_62 ) )
+                            // Cs.g:1813:5: ( (a8= QUOTED_60_62 ) )
                             {
-                            // Cs.g:1901:5: ( (a8= QUOTED_60_62 ) )
-                            // Cs.g:1902:6: (a8= QUOTED_60_62 )
+                            // Cs.g:1813:5: ( (a8= QUOTED_60_62 ) )
+                            // Cs.g:1814:6: (a8= QUOTED_60_62 )
                             {
-                            // Cs.g:1902:6: (a8= QUOTED_60_62 )
-                            // Cs.g:1903:7: a8= QUOTED_60_62
+                            // Cs.g:1814:6: (a8= QUOTED_60_62 )
+                            // Cs.g:1815:7: a8= QUOTED_60_62
                             {
                             a8=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1707); if (state.failed) return element;
 
@@ -2733,9 +2645,8 @@ public class CsParser extends CsANTLRParserBase {
                             						// We've found the last token for this rule. The constructed EObject is now
                             						// complete.
                             						completedElement(element, true);
-                            						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[184]);
-                            						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[185]);
-                            						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[186]);
+                            						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 184, 185);
+                            						addExpectedElement(null, 186);
                             					}
 
                             }
@@ -2752,9 +2663,8 @@ public class CsParser extends CsANTLRParserBase {
                     				// We've found the last token for this rule. The constructed EObject is now
                     				// complete.
                     				completedElement(element, true);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[187]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[188]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[189]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 187, 188);
+                    				addExpectedElement(null, 189);
                     			}
 
                     }
@@ -2771,9 +2681,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[190]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[191]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[192]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 190, 191);
+            		addExpectedElement(null, 192);
             	}
 
             }
@@ -2796,7 +2705,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Option"
-    // Cs.g:1969:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) ;
+    // Cs.g:1878:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) ;
     public final org.emftext.sdk.concretesyntax.Option parse_org_emftext_sdk_concretesyntax_Option() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Option element =  null;
 
@@ -2811,11 +2720,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
 
-            // Cs.g:1972:2: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) )
-            // Cs.g:1973:2: (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING )
+            // Cs.g:1881:2: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING ) )
+            // Cs.g:1882:2: (a0= QUALIFIED_NAME ) a1= '=' (a2= STRING )
             {
-            // Cs.g:1973:2: (a0= QUALIFIED_NAME )
-            // Cs.g:1974:3: a0= QUALIFIED_NAME
+            // Cs.g:1882:2: (a0= QUALIFIED_NAME )
+            // Cs.g:1883:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Option1807); if (state.failed) return element;
 
@@ -2853,7 +2762,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[193]);
+            		addExpectedElement(null, 193);
             	}
 
             a1=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_Option1828); if (state.failed) return element;
@@ -2870,11 +2779,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[194]);
+            		addExpectedElement(null, 194);
             	}
 
-            // Cs.g:2023:2: (a2= STRING )
-            // Cs.g:2024:3: a2= STRING
+            // Cs.g:1932:2: (a2= STRING )
+            // Cs.g:1933:3: a2= STRING
             {
             a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_Option1846); if (state.failed) return element;
 
@@ -2915,7 +2824,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[195]);
+            		addExpectedElement(null, 195);
             	}
 
             }
@@ -2938,7 +2847,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Rule"
-    // Cs.g:2064:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
+    // Cs.g:1973:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
     public final org.emftext.sdk.concretesyntax.Rule parse_org_emftext_sdk_concretesyntax_Rule() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Rule element =  null;
 
@@ -2957,10 +2866,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
 
-            // Cs.g:2067:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
-            // Cs.g:2068:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
+            // Cs.g:1976:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
+            // Cs.g:1977:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
             {
-            // Cs.g:2068:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:1977:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop19:
             do {
                 int alt19=2;
@@ -2973,13 +2882,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt19) {
             	case 1 :
-            	    // Cs.g:2069:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1978:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:2069:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:2070:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1978:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:1979:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:2070:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:2071:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:1979:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:1980:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Rule1897);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -3012,8 +2921,8 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[196]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[197]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 196);
+            	    				addExpectedElement(null, 197);
             	    			}
 
             	    }
@@ -3030,12 +2939,12 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[198]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[199]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 198);
+            		addExpectedElement(null, 199);
             	}
 
-            // Cs.g:2105:2: (a1= QUALIFIED_NAME )
-            // Cs.g:2106:3: a1= QUALIFIED_NAME
+            // Cs.g:2014:2: (a1= QUALIFIED_NAME )
+            // Cs.g:2015:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Rule1942); if (state.failed) return element;
 
@@ -3077,7 +2986,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[200]);
+            		addExpectedElement(null, 200);
             	}
 
             a2=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_Rule1963); if (state.failed) return element;
@@ -3094,20 +3003,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[201]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[202]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[203]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[204]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[205]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[206]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[207]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[208]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[209]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[210]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 201, 210);
             	}
 
-            // Cs.g:2168:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // Cs.g:2169:3: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // Cs.g:2068:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // Cs.g:2069:3: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_Rule1981);
             a3_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -3140,7 +3040,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[211]);
+            		addExpectedElement(null, 211);
             	}
 
             a4=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_Rule1999); if (state.failed) return element;
@@ -3160,9 +3060,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[212]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[213]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[214]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 212, 213);
+            		addExpectedElement(null, 214);
             	}
 
             }
@@ -3185,7 +3084,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Sequence"
-    // Cs.g:2215:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* ;
+    // Cs.g:2114:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* ;
     public final org.emftext.sdk.concretesyntax.Sequence parse_org_emftext_sdk_concretesyntax_Sequence() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Sequence element =  null;
 
@@ -3201,11 +3100,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
 
-            // Cs.g:2218:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* )
-            // Cs.g:2219:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
+            // Cs.g:2117:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )* )
+            // Cs.g:2118:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
             {
-            // Cs.g:2219:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
-            // Cs.g:2220:3: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
+            // Cs.g:2118:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            // Cs.g:2119:3: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence2032);
             a0_0=parse_org_emftext_sdk_concretesyntax_Definition();
@@ -3238,32 +3137,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[215]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[216]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[217]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[218]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[219]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[220]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[221]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[222]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[223]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[224]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[225]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[226]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[227]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[228]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[229]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[230]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[231]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[232]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[233]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[234]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[235]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[236]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[237]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 215, 234);
+            		addExpectedElement(null, 235, 237);
             	}
 
-            // Cs.g:2267:2: ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
+            // Cs.g:2145:2: ( ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) ) )*
             loop20:
             do {
                 int alt20=2;
@@ -3276,13 +3154,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt20) {
             	case 1 :
-            	    // Cs.g:2268:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
+            	    // Cs.g:2146:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
             	    {
-            	    // Cs.g:2268:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
-            	    // Cs.g:2269:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // Cs.g:2146:3: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Definition ) )
+            	    // Cs.g:2147:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
             	    {
-            	    // Cs.g:2269:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
-            	    // Cs.g:2270:5: a1_0= parse_org_emftext_sdk_concretesyntax_Definition
+            	    // Cs.g:2147:4: (a1_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // Cs.g:2148:5: a1_0= parse_org_emftext_sdk_concretesyntax_Definition
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence2065);
             	    a1_0=parse_org_emftext_sdk_concretesyntax_Definition();
@@ -3318,19 +3196,8 @@ public class CsParser extends CsANTLRParserBase {
             	    				// We've found the last token for this rule. The constructed EObject is now
             	    				// complete.
             	    				completedElement(element, true);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[238]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[239]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[240]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[241]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[242]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[243]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[244]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[245]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[246]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[247]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[248]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[249]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[250]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 238, 247);
+            	    				addExpectedElement(null, 248, 250);
             	    			}
 
             	    }
@@ -3350,19 +3217,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[251]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[252]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[253]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[254]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[255]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[256]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[257]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[258]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[259]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[260]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[261]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[262]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[263]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 251, 260);
+            		addExpectedElement(null, 261, 263);
             	}
 
             }
@@ -3385,7 +3241,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Choice"
-    // Cs.g:2334:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
+    // Cs.g:2190:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
     public final org.emftext.sdk.concretesyntax.Choice parse_org_emftext_sdk_concretesyntax_Choice() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Choice element =  null;
 
@@ -3402,11 +3258,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
 
-            // Cs.g:2337:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
-            // Cs.g:2338:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // Cs.g:2193:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
+            // Cs.g:2194:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             {
-            // Cs.g:2338:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            // Cs.g:2339:3: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            // Cs.g:2194:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            // Cs.g:2195:3: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2125);
             a0_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -3439,12 +3295,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[264]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[265]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[266]);
+            		addExpectedElement(null, 264, 266);
             	}
 
-            // Cs.g:2366:2: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // Cs.g:2220:2: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             loop21:
             do {
                 int alt21=2;
@@ -3457,10 +3311,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt21) {
             	case 1 :
-            	    // Cs.g:2367:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // Cs.g:2221:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
             	    {
-            	    // Cs.g:2367:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
-            	    // Cs.g:2368:4: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // Cs.g:2221:3: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // Cs.g:2222:4: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
             	    {
             	    a1=(Token)match(input,48,FOLLOW_48_in_parse_org_emftext_sdk_concretesyntax_Choice2152); if (state.failed) return element;
 
@@ -3476,20 +3330,11 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[267]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[268]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[269]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[270]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[271]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[272]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[273]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[274]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[275]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[276]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), 267, 276);
             	    			}
 
-            	    // Cs.g:2391:4: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            	    // Cs.g:2392:5: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            	    // Cs.g:2236:4: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // Cs.g:2237:5: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice2178);
             	    a2_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -3525,9 +3370,7 @@ public class CsParser extends CsANTLRParserBase {
             	    				// We've found the last token for this rule. The constructed EObject is now
             	    				// complete.
             	    				completedElement(element, true);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[277]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[278]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[279]);
+            	    				addExpectedElement(null, 277, 279);
             	    			}
 
             	    }
@@ -3547,9 +3390,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[280]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[281]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[282]);
+            		addExpectedElement(null, 280, 282);
             	}
 
             }
@@ -3572,7 +3413,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CsString"
-    // Cs.g:2436:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= STRING ) ;
+    // Cs.g:2277:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= STRING ) ;
     public final org.emftext.sdk.concretesyntax.CsString parse_org_emftext_sdk_concretesyntax_CsString() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CsString element =  null;
 
@@ -3585,11 +3426,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
 
-            // Cs.g:2439:2: ( (a0= STRING ) )
-            // Cs.g:2440:2: (a0= STRING )
+            // Cs.g:2280:2: ( (a0= STRING ) )
+            // Cs.g:2281:2: (a0= STRING )
             {
-            // Cs.g:2440:2: (a0= STRING )
-            // Cs.g:2441:3: a0= STRING
+            // Cs.g:2281:2: (a0= STRING )
+            // Cs.g:2282:3: a0= STRING
             {
             a0=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_CsString2238); if (state.failed) return element;
 
@@ -3630,29 +3471,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[283]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[284]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[285]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[286]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[287]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[288]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[289]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[290]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[291]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[292]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[293]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[294]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[295]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[296]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[297]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[298]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[299]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[300]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[301]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[302]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[303]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[304]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[305]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 283, 302);
+            		addExpectedElement(null, 303, 305);
             	}
 
             }
@@ -3675,7 +3495,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken"
-    // Cs.g:2503:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) ;
+    // Cs.g:2323:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element =  null;
 
@@ -3694,11 +3514,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
 
-            // Cs.g:2506:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) )
-            // Cs.g:2507:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? )
+            // Cs.g:2326:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? ) )
+            // Cs.g:2327:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4= '+' |a5= '*' |a6= '?' )? )
             {
-            // Cs.g:2507:2: (a0= QUALIFIED_NAME )
-            // Cs.g:2508:3: a0= QUALIFIED_NAME
+            // Cs.g:2327:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2328:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2278); if (state.failed) return element;
 
@@ -3743,7 +3563,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[306]);
+            		addExpectedElement(null, 306);
             	}
 
             a1=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2299); if (state.failed) return element;
@@ -3763,11 +3583,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[307]);
+            		addExpectedElement(null, 307);
             	}
 
-            // Cs.g:2567:2: (a2= QUALIFIED_NAME )
-            // Cs.g:2568:3: a2= QUALIFIED_NAME
+            // Cs.g:2387:2: (a2= QUALIFIED_NAME )
+            // Cs.g:2388:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2317); if (state.failed) return element;
 
@@ -3812,7 +3632,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[308]);
+            		addExpectedElement(null, 308);
             	}
 
             a3=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2338); if (state.failed) return element;
@@ -3832,36 +3652,15 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[309]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[310]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[311]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[312]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[313]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[314]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[315]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[316]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[317]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[318]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[319]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[320]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[321]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[322]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[323]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[324]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[325]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[326]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[327]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[328]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[329]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[330]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[331]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[332]);
+            		addExpectedElement(null, 309);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 310, 329);
+            		addExpectedElement(null, 330, 332);
             	}
 
-            // Cs.g:2650:2: ( (a4= '+' |a5= '*' |a6= '?' )? )
-            // Cs.g:2651:3: (a4= '+' |a5= '*' |a6= '?' )?
+            // Cs.g:2449:2: ( (a4= '+' |a5= '*' |a6= '?' )? )
+            // Cs.g:2450:3: (a4= '+' |a5= '*' |a6= '?' )?
             {
-            // Cs.g:2651:3: (a4= '+' |a5= '*' |a6= '?' )?
+            // Cs.g:2450:3: (a4= '+' |a5= '*' |a6= '?' )?
             int alt22=4;
             switch ( input.LA(1) ) {
                 case 18:
@@ -3883,7 +3682,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt22) {
                 case 1 :
-                    // Cs.g:2652:4: a4= '+'
+                    // Cs.g:2451:4: a4= '+'
                     {
                     a4=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2361); if (state.failed) return element;
 
@@ -3907,7 +3706,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:2668:8: a5= '*'
+                    // Cs.g:2467:8: a5= '*'
                     {
                     a5=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2376); if (state.failed) return element;
 
@@ -3931,7 +3730,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:2684:8: a6= '?'
+                    // Cs.g:2483:8: a6= '?'
                     {
                     a6=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken2391); if (state.failed) return element;
 
@@ -3966,29 +3765,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[333]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[334]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[335]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[336]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[337]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[338]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[339]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[340]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[341]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[342]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[343]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[344]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[345]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[346]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[347]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[348]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[349]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[350]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[351]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[352]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[353]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[354]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[355]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 333, 352);
+            		addExpectedElement(null, 353, 355);
             	}
 
             }
@@ -4011,7 +3789,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken"
-    // Cs.g:2733:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
+    // Cs.g:2511:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element =  null;
 
@@ -4029,11 +3807,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
 
-            // Cs.g:2736:2: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
-            // Cs.g:2737:2: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:2514:2: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
+            // Cs.g:2515:2: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3= '+' |a4= '*' |a5= '?' )? )
             {
-            // Cs.g:2737:2: (a0= QUALIFIED_NAME )
-            // Cs.g:2738:3: a0= QUALIFIED_NAME
+            // Cs.g:2515:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2516:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2431); if (state.failed) return element;
 
@@ -4078,7 +3856,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[356]);
+            		addExpectedElement(null, 356);
             	}
 
             a1=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2452); if (state.failed) return element;
@@ -4098,7 +3876,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[357]);
+            		addExpectedElement(null, 357);
             	}
 
             a2=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2466); if (state.failed) return element;
@@ -4118,36 +3896,15 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[358]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[359]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[360]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[361]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[362]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[363]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[364]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[365]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[366]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[367]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[368]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[369]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[370]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[371]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[372]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[373]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[374]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[375]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[376]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[377]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[378]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[379]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[380]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[381]);
+            		addExpectedElement(null, 358);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 359, 378);
+            		addExpectedElement(null, 379, 381);
             	}
 
-            // Cs.g:2837:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
-            // Cs.g:2838:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:2594:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:2595:3: (a3= '+' |a4= '*' |a5= '?' )?
             {
-            // Cs.g:2838:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:2595:3: (a3= '+' |a4= '*' |a5= '?' )?
             int alt23=4;
             switch ( input.LA(1) ) {
                 case 18:
@@ -4169,7 +3926,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt23) {
                 case 1 :
-                    // Cs.g:2839:4: a3= '+'
+                    // Cs.g:2596:4: a3= '+'
                     {
                     a3=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2489); if (state.failed) return element;
 
@@ -4193,7 +3950,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:2855:8: a4= '*'
+                    // Cs.g:2612:8: a4= '*'
                     {
                     a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2504); if (state.failed) return element;
 
@@ -4217,7 +3974,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:2871:8: a5= '?'
+                    // Cs.g:2628:8: a5= '?'
                     {
                     a5=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2519); if (state.failed) return element;
 
@@ -4252,29 +4009,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[382]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[383]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[384]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[385]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[386]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[387]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[388]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[389]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[390]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[391]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[392]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[393]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[394]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[395]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[396]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[397]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[398]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[399]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[400]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[401]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[402]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[403]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[404]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 382, 401);
+            		addExpectedElement(null, 402, 404);
             	}
 
             }
@@ -4297,7 +4033,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes"
-    // Cs.g:2920:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) ;
+    // Cs.g:2656:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.PlaceholderInQuotes parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderInQuotes element =  null;
 
@@ -4320,11 +4056,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
 
-            // Cs.g:2923:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) )
-            // Cs.g:2924:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? )
+            // Cs.g:2659:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? ) )
+            // Cs.g:2660:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8= '+' |a9= '*' |a10= '?' )? )
             {
-            // Cs.g:2924:2: (a0= QUALIFIED_NAME )
-            // Cs.g:2925:3: a0= QUALIFIED_NAME
+            // Cs.g:2660:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2661:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2559); if (state.failed) return element;
 
@@ -4369,7 +4105,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[405]);
+            		addExpectedElement(null, 405);
             	}
 
             a1=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2580); if (state.failed) return element;
@@ -4389,11 +4125,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[406]);
+            		addExpectedElement(null, 406);
             	}
 
-            // Cs.g:2984:2: (a2= QUOTED_39_39_92 )
-            // Cs.g:2985:3: a2= QUOTED_39_39_92
+            // Cs.g:2720:2: (a2= QUOTED_39_39_92 )
+            // Cs.g:2721:3: a2= QUOTED_39_39_92
             {
             a2=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2598); if (state.failed) return element;
 
@@ -4434,7 +4170,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[407]);
+            		addExpectedElement(null, 407);
             	}
 
             a3=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2619); if (state.failed) return element;
@@ -4454,11 +4190,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[408]);
+            		addExpectedElement(null, 408);
             	}
 
-            // Cs.g:3040:2: (a4= QUOTED_39_39_92 )
-            // Cs.g:3041:3: a4= QUOTED_39_39_92
+            // Cs.g:2776:2: (a4= QUOTED_39_39_92 )
+            // Cs.g:2777:3: a4= QUOTED_39_39_92
             {
             a4=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2637); if (state.failed) return element;
 
@@ -4499,11 +4235,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[409]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[410]);
+            		addExpectedElement(null, 409, 410);
             	}
 
-            // Cs.g:3080:2: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
+            // Cs.g:2815:2: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -4512,10 +4247,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt24) {
                 case 1 :
-                    // Cs.g:3081:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // Cs.g:2816:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
                     {
-                    // Cs.g:3081:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
-                    // Cs.g:3082:4: a5= ',' (a6= QUOTED_39_39_92 )
+                    // Cs.g:2816:3: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // Cs.g:2817:4: a5= ',' (a6= QUOTED_39_39_92 )
                     {
                     a5=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2667); if (state.failed) return element;
 
@@ -4534,11 +4269,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[411]);
+                    				addExpectedElement(null, 411);
                     			}
 
-                    // Cs.g:3099:4: (a6= QUOTED_39_39_92 )
-                    // Cs.g:3100:5: a6= QUOTED_39_39_92
+                    // Cs.g:2834:4: (a6= QUOTED_39_39_92 )
+                    // Cs.g:2835:5: a6= QUOTED_39_39_92
                     {
                     a6=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2693); if (state.failed) return element;
 
@@ -4579,7 +4314,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[412]);
+                    				addExpectedElement(null, 412);
                     			}
 
                     }
@@ -4593,7 +4328,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[413]);
+            		addExpectedElement(null, 413);
             	}
 
             a7=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2739); if (state.failed) return element;
@@ -4613,36 +4348,15 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[414]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[415]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[416]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[417]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[418]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[419]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[420]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[421]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[422]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[423]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[424]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[425]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[426]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[427]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[428]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[429]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[430]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[431]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[432]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[433]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[434]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[435]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[436]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[437]);
+            		addExpectedElement(null, 414);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 415, 434);
+            		addExpectedElement(null, 435, 437);
             	}
 
-            // Cs.g:3185:2: ( (a8= '+' |a9= '*' |a10= '?' )? )
-            // Cs.g:3186:3: (a8= '+' |a9= '*' |a10= '?' )?
+            // Cs.g:2899:2: ( (a8= '+' |a9= '*' |a10= '?' )? )
+            // Cs.g:2900:3: (a8= '+' |a9= '*' |a10= '?' )?
             {
-            // Cs.g:3186:3: (a8= '+' |a9= '*' |a10= '?' )?
+            // Cs.g:2900:3: (a8= '+' |a9= '*' |a10= '?' )?
             int alt25=4;
             switch ( input.LA(1) ) {
                 case 18:
@@ -4664,7 +4378,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt25) {
                 case 1 :
-                    // Cs.g:3187:4: a8= '+'
+                    // Cs.g:2901:4: a8= '+'
                     {
                     a8=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2762); if (state.failed) return element;
 
@@ -4688,7 +4402,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:3203:8: a9= '*'
+                    // Cs.g:2917:8: a9= '*'
                     {
                     a9=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2777); if (state.failed) return element;
 
@@ -4712,7 +4426,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:3219:8: a10= '?'
+                    // Cs.g:2933:8: a10= '?'
                     {
                     a10=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2792); if (state.failed) return element;
 
@@ -4747,29 +4461,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[438]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[439]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[440]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[441]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[442]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[443]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[444]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[445]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[446]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[447]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[448]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[449]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[450]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[451]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[452]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[453]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[454]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[455]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[456]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[457]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[458]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[459]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[460]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 438, 457);
+            		addExpectedElement(null, 458, 460);
             	}
 
             }
@@ -4792,7 +4485,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_BooleanTerminal"
-    // Cs.g:3268:1: parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.concretesyntax.BooleanTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
+    // Cs.g:2961:1: parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.concretesyntax.BooleanTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.BooleanTerminal parse_org_emftext_sdk_concretesyntax_BooleanTerminal() throws RecognitionException {
         org.emftext.sdk.concretesyntax.BooleanTerminal element =  null;
 
@@ -4813,11 +4506,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
 
-            // Cs.g:3271:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
-            // Cs.g:3272:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:2964:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
+            // Cs.g:2965:2: (a0= QUALIFIED_NAME ) a1= '[' (a2= STRING ) a3= ':' (a4= STRING ) a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
             {
-            // Cs.g:3272:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3273:3: a0= QUALIFIED_NAME
+            // Cs.g:2965:2: (a0= QUALIFIED_NAME )
+            // Cs.g:2966:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2832); if (state.failed) return element;
 
@@ -4862,7 +4555,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[461]);
+            		addExpectedElement(null, 461);
             	}
 
             a1=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2853); if (state.failed) return element;
@@ -4882,11 +4575,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[462]);
+            		addExpectedElement(null, 462);
             	}
 
-            // Cs.g:3332:2: (a2= STRING )
-            // Cs.g:3333:3: a2= STRING
+            // Cs.g:3025:2: (a2= STRING )
+            // Cs.g:3026:3: a2= STRING
             {
             a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2871); if (state.failed) return element;
 
@@ -4927,7 +4620,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[463]);
+            		addExpectedElement(null, 463);
             	}
 
             a3=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2892); if (state.failed) return element;
@@ -4947,11 +4640,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[464]);
+            		addExpectedElement(null, 464);
             	}
 
-            // Cs.g:3388:2: (a4= STRING )
-            // Cs.g:3389:3: a4= STRING
+            // Cs.g:3081:2: (a4= STRING )
+            // Cs.g:3082:3: a4= STRING
             {
             a4=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2910); if (state.failed) return element;
 
@@ -4992,7 +4685,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[465]);
+            		addExpectedElement(null, 465);
             	}
 
             a5=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2931); if (state.failed) return element;
@@ -5012,36 +4705,15 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[466]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[467]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[468]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[469]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[470]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[471]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[472]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[473]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[474]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[475]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[476]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[477]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[478]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[479]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[480]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[481]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[482]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[483]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[484]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[485]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[486]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[487]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[488]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[489]);
+            		addExpectedElement(null, 466);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 467, 486);
+            		addExpectedElement(null, 487, 489);
             	}
 
-            // Cs.g:3467:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
-            // Cs.g:3468:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3139:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:3140:3: (a6= '+' |a7= '*' |a8= '?' )?
             {
-            // Cs.g:3468:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3140:3: (a6= '+' |a7= '*' |a8= '?' )?
             int alt26=4;
             switch ( input.LA(1) ) {
                 case 18:
@@ -5063,7 +4735,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt26) {
                 case 1 :
-                    // Cs.g:3469:4: a6= '+'
+                    // Cs.g:3141:4: a6= '+'
                     {
                     a6=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2954); if (state.failed) return element;
 
@@ -5087,7 +4759,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:3485:8: a7= '*'
+                    // Cs.g:3157:8: a7= '*'
                     {
                     a7=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2969); if (state.failed) return element;
 
@@ -5111,7 +4783,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:3501:8: a8= '?'
+                    // Cs.g:3173:8: a8= '?'
                     {
                     a8=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_BooleanTerminal2984); if (state.failed) return element;
 
@@ -5146,29 +4818,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[490]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[491]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[492]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[493]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[494]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[495]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[496]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[497]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[498]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[499]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[500]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[501]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[502]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[503]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[504]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[505]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[506]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[507]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[508]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[509]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[510]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[511]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[512]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 490, 509);
+            		addExpectedElement(null, 510, 512);
             	}
 
             }
@@ -5191,7 +4842,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_EnumTerminal"
-    // Cs.g:3550:1: parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concretesyntax.EnumTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
+    // Cs.g:3201:1: parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concretesyntax.EnumTerminal element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.EnumTerminal parse_org_emftext_sdk_concretesyntax_EnumTerminal() throws RecognitionException {
         org.emftext.sdk.concretesyntax.EnumTerminal element =  null;
 
@@ -5214,11 +4865,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return element; }
 
-            // Cs.g:3553:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
-            // Cs.g:3554:2: (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:3204:2: ( (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? ) )
+            // Cs.g:3205:2: (a0= QUALIFIED_NAME ) a1= '[' (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )* a5= ']' ( (a6= '+' |a7= '*' |a8= '?' )? )
             {
-            // Cs.g:3554:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3555:3: a0= QUALIFIED_NAME
+            // Cs.g:3205:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3206:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3024); if (state.failed) return element;
 
@@ -5263,7 +4914,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[513]);
+            		addExpectedElement(null, 513);
             	}
 
             a1=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3045); if (state.failed) return element;
@@ -5283,11 +4934,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[514]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), 514);
             	}
 
-            // Cs.g:3614:2: (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
-            // Cs.g:3615:3: a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
+            // Cs.g:3265:2: (a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
+            // Cs.g:3266:3: a2_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3063);
             a2_0=parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal();
@@ -5323,11 +4974,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[515]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[516]);
+            		addExpectedElement(null, 515, 516);
             	}
 
-            // Cs.g:3644:2: ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )*
+            // Cs.g:3294:2: ( (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) ) )*
             loop27:
             do {
                 int alt27=2;
@@ -5340,10 +4990,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt27) {
             	case 1 :
-            	    // Cs.g:3645:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
+            	    // Cs.g:3295:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
             	    {
-            	    // Cs.g:3645:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
-            	    // Cs.g:3646:4: a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
+            	    // Cs.g:3295:3: (a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal ) )
+            	    // Cs.g:3296:4: a3= ',' (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
             	    {
             	    a3=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3090); if (state.failed) return element;
 
@@ -5362,11 +5012,11 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[517]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), 517);
             	    			}
 
-            	    // Cs.g:3663:4: (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
-            	    // Cs.g:3664:5: a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
+            	    // Cs.g:3313:4: (a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal )
+            	    // Cs.g:3314:5: a4_0= parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3116);
             	    a4_0=parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal();
@@ -5402,8 +5052,7 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[518]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[519]);
+            	    				addExpectedElement(null, 518, 519);
             	    			}
 
             	    }
@@ -5420,8 +5069,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[520]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[521]);
+            		addExpectedElement(null, 520, 521);
             	}
 
             a5=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3157); if (state.failed) return element;
@@ -5441,36 +5089,15 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[522]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[523]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[524]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[525]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[526]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[527]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[528]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[529]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[530]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[531]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[532]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[533]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[534]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[535]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[536]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[537]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[538]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[539]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[540]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[541]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[542]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[543]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[544]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[545]);
+            		addExpectedElement(null, 522);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 523, 542);
+            		addExpectedElement(null, 543, 545);
             	}
 
-            // Cs.g:3741:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
-            // Cs.g:3742:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3368:2: ( (a6= '+' |a7= '*' |a8= '?' )? )
+            // Cs.g:3369:3: (a6= '+' |a7= '*' |a8= '?' )?
             {
-            // Cs.g:3742:3: (a6= '+' |a7= '*' |a8= '?' )?
+            // Cs.g:3369:3: (a6= '+' |a7= '*' |a8= '?' )?
             int alt28=4;
             switch ( input.LA(1) ) {
                 case 18:
@@ -5492,7 +5119,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt28) {
                 case 1 :
-                    // Cs.g:3743:4: a6= '+'
+                    // Cs.g:3370:4: a6= '+'
                     {
                     a6=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3180); if (state.failed) return element;
 
@@ -5516,7 +5143,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:3759:8: a7= '*'
+                    // Cs.g:3386:8: a7= '*'
                     {
                     a7=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3195); if (state.failed) return element;
 
@@ -5540,7 +5167,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:3775:8: a8= '?'
+                    // Cs.g:3402:8: a8= '?'
                     {
                     a8=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_EnumTerminal3210); if (state.failed) return element;
 
@@ -5575,29 +5202,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[546]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[547]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[548]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[549]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[550]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[551]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[552]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[553]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[554]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[555]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[556]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[557]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[558]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[559]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[560]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[561]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[562]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[563]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[564]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[565]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[566]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[567]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[568]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 546, 565);
+            		addExpectedElement(null, 566, 568);
             	}
 
             }
@@ -5620,7 +5226,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal"
-    // Cs.g:3824:1: parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sdk.concretesyntax.EnumLiteralTerminal element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) ;
+    // Cs.g:3430:1: parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sdk.concretesyntax.EnumLiteralTerminal element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) ;
     public final org.emftext.sdk.concretesyntax.EnumLiteralTerminal parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal() throws RecognitionException {
         org.emftext.sdk.concretesyntax.EnumLiteralTerminal element =  null;
 
@@ -5635,11 +5241,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return element; }
 
-            // Cs.g:3827:2: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) )
-            // Cs.g:3828:2: (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING )
+            // Cs.g:3433:2: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING ) )
+            // Cs.g:3434:2: (a0= QUALIFIED_NAME ) a1= ':' (a2= STRING )
             {
-            // Cs.g:3828:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3829:3: a0= QUALIFIED_NAME
+            // Cs.g:3434:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3435:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal3250); if (state.failed) return element;
 
@@ -5681,7 +5287,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[569]);
+            		addExpectedElement(null, 569);
             	}
 
             a1=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal3271); if (state.failed) return element;
@@ -5698,11 +5304,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[570]);
+            		addExpectedElement(null, 570);
             	}
 
-            // Cs.g:3882:2: (a2= STRING )
-            // Cs.g:3883:3: a2= STRING
+            // Cs.g:3488:2: (a2= STRING )
+            // Cs.g:3489:3: a2= STRING
             {
             a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal3289); if (state.failed) return element;
 
@@ -5743,8 +5349,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[571]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[572]);
+            		addExpectedElement(null, 571, 572);
             	}
 
             }
@@ -5767,7 +5372,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Containment"
-    // Cs.g:3924:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) ;
+    // Cs.g:3529:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.Containment parse_org_emftext_sdk_concretesyntax_Containment() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Containment element =  null;
 
@@ -5787,11 +5392,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return element; }
 
-            // Cs.g:3927:2: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) )
-            // Cs.g:3928:2: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? )
+            // Cs.g:3532:2: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? ) )
+            // Cs.g:3533:2: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5= '+' |a6= '*' |a7= '?' )? )
             {
-            // Cs.g:3928:2: (a0= QUALIFIED_NAME )
-            // Cs.g:3929:3: a0= QUALIFIED_NAME
+            // Cs.g:3533:2: (a0= QUALIFIED_NAME )
+            // Cs.g:3534:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment3329); if (state.failed) return element;
 
@@ -5836,34 +5441,12 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[573]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[574]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[575]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[576]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[577]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[578]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[579]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[580]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[581]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[582]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[583]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[584]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[585]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[586]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[587]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[588]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[589]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[590]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[591]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[592]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[593]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[594]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[595]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[596]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[597]);
+            		addExpectedElement(null, 573, 574);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 575, 594);
+            		addExpectedElement(null, 595, 597);
             	}
 
-            // Cs.g:3995:2: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
+            // Cs.g:3578:2: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -5872,10 +5455,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt30) {
                 case 1 :
-                    // Cs.g:3996:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // Cs.g:3579:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
                     {
-                    // Cs.g:3996:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
-                    // Cs.g:3997:4: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // Cs.g:3579:3: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // Cs.g:3580:4: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     {
                     a1=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_Containment3359); if (state.failed) return element;
 
@@ -5894,11 +5477,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[598]);
+                    				addExpectedElement(null, 598);
                     			}
 
-                    // Cs.g:4014:4: (a2= QUALIFIED_NAME )
-                    // Cs.g:4015:5: a2= QUALIFIED_NAME
+                    // Cs.g:3597:4: (a2= QUALIFIED_NAME )
+                    // Cs.g:3598:5: a2= QUALIFIED_NAME
                     {
                     a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment3385); if (state.failed) return element;
 
@@ -5943,34 +5526,12 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[599]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[600]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[601]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[602]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[603]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[604]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[605]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[606]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[607]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[608]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[609]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[610]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[611]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[612]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[613]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[614]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[615]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[616]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[617]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[618]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[619]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[620]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[621]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[622]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[623]);
+                    				addExpectedElement(null, 599, 600);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 601, 620);
+                    				addExpectedElement(null, 621, 623);
                     			}
 
-                    // Cs.g:4081:4: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // Cs.g:3642:4: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     loop29:
                     do {
                         int alt29=2;
@@ -5983,10 +5544,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // Cs.g:4082:5: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // Cs.g:3643:5: (a3= ',' (a4= QUALIFIED_NAME ) )
                     	    {
-                    	    // Cs.g:4082:5: (a3= ',' (a4= QUALIFIED_NAME ) )
-                    	    // Cs.g:4083:6: a3= ',' (a4= QUALIFIED_NAME )
+                    	    // Cs.g:3643:5: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // Cs.g:3644:6: a3= ',' (a4= QUALIFIED_NAME )
                     	    {
                     	    a3=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_Containment3431); if (state.failed) return element;
 
@@ -6005,11 +5566,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[624]);
+                    	    						addExpectedElement(null, 624);
                     	    					}
 
-                    	    // Cs.g:4100:6: (a4= QUALIFIED_NAME )
-                    	    // Cs.g:4101:7: a4= QUALIFIED_NAME
+                    	    // Cs.g:3661:6: (a4= QUALIFIED_NAME )
+                    	    // Cs.g:3662:7: a4= QUALIFIED_NAME
                     	    {
                     	    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment3465); if (state.failed) return element;
 
@@ -6054,31 +5615,9 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[625]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[626]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[627]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[628]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[629]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[630]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[631]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[632]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[633]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[634]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[635]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[636]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[637]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[638]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[639]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[640]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[641]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[642]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[643]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[644]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[645]);
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[646]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[647]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[648]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[649]);
+                    	    						addExpectedElement(null, 625, 626);
+                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 627, 646);
+                    	    						addExpectedElement(null, 647, 649);
                     	    					}
 
                     	    }
@@ -6095,31 +5634,9 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[650]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[651]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[652]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[653]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[654]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[655]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[656]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[657]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[658]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[659]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[660]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[661]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[662]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[663]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[664]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[665]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[666]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[667]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[668]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[669]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[670]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[671]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[672]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[673]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[674]);
+                    				addExpectedElement(null, 650, 651);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 652, 671);
+                    				addExpectedElement(null, 672, 674);
                     			}
 
                     }
@@ -6133,36 +5650,15 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[675]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[676]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[677]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[678]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[679]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[680]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[681]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[682]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[683]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[684]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[685]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[686]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[687]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[688]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[689]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[690]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[691]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[692]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[693]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[694]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[695]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[696]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[697]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[698]);
+            		addExpectedElement(null, 675);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 676, 695);
+            		addExpectedElement(null, 696, 698);
             	}
 
-            // Cs.g:4228:2: ( (a5= '+' |a6= '*' |a7= '?' )? )
-            // Cs.g:4229:3: (a5= '+' |a6= '*' |a7= '?' )?
+            // Cs.g:3724:2: ( (a5= '+' |a6= '*' |a7= '?' )? )
+            // Cs.g:3725:3: (a5= '+' |a6= '*' |a7= '?' )?
             {
-            // Cs.g:4229:3: (a5= '+' |a6= '*' |a7= '?' )?
+            // Cs.g:3725:3: (a5= '+' |a6= '*' |a7= '?' )?
             int alt31=4;
             switch ( input.LA(1) ) {
                 case 18:
@@ -6184,7 +5680,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt31) {
                 case 1 :
-                    // Cs.g:4230:4: a5= '+'
+                    // Cs.g:3726:4: a5= '+'
                     {
                     a5=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_Containment3555); if (state.failed) return element;
 
@@ -6208,7 +5704,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:4246:8: a6= '*'
+                    // Cs.g:3742:8: a6= '*'
                     {
                     a6=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Containment3570); if (state.failed) return element;
 
@@ -6232,7 +5728,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:4262:8: a7= '?'
+                    // Cs.g:3758:8: a7= '?'
                     {
                     a7=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_Containment3585); if (state.failed) return element;
 
@@ -6267,29 +5763,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[699]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[700]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[701]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[702]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[703]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[704]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[705]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[706]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[707]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[708]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[709]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[710]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[711]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[712]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[713]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[714]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[715]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[716]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[717]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[718]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[719]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[720]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[721]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 699, 718);
+            		addExpectedElement(null, 719, 721);
             	}
 
             }
@@ -6312,7 +5787,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CompoundDefinition"
-    // Cs.g:4311:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
+    // Cs.g:3786:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) ;
     public final org.emftext.sdk.concretesyntax.CompoundDefinition parse_org_emftext_sdk_concretesyntax_CompoundDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CompoundDefinition element =  null;
 
@@ -6331,8 +5806,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return element; }
 
-            // Cs.g:4314:2: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
-            // Cs.g:4315:2: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:3789:2: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? ) )
+            // Cs.g:3790:2: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3= '+' |a4= '*' |a5= '?' )? )
             {
             a0=(Token)match(input,15,FOLLOW_15_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3621); if (state.failed) return element;
 
@@ -6351,20 +5826,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[722]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[723]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[724]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[725]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[726]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[727]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[728]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[729]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[730]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[731]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), 722, 731);
             	}
 
-            // Cs.g:4341:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // Cs.g:4342:3: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // Cs.g:3807:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // Cs.g:3808:3: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3639);
             a1_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -6400,7 +5866,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[732]);
+            		addExpectedElement(null, 732);
             	}
 
             a2=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3657); if (state.failed) return element;
@@ -6420,36 +5886,15 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[733]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[734]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[735]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[736]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[737]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[738]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[739]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[740]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[741]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[742]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[743]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[744]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[745]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[746]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[747]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[748]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[749]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[750]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[751]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[752]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[753]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[754]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[755]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[756]);
+            		addExpectedElement(null, 733);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 734, 753);
+            		addExpectedElement(null, 754, 756);
             	}
 
-            // Cs.g:4410:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
-            // Cs.g:4411:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:3855:2: ( (a3= '+' |a4= '*' |a5= '?' )? )
+            // Cs.g:3856:3: (a3= '+' |a4= '*' |a5= '?' )?
             {
-            // Cs.g:4411:3: (a3= '+' |a4= '*' |a5= '?' )?
+            // Cs.g:3856:3: (a3= '+' |a4= '*' |a5= '?' )?
             int alt32=4;
             switch ( input.LA(1) ) {
                 case 18:
@@ -6471,7 +5916,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt32) {
                 case 1 :
-                    // Cs.g:4412:4: a3= '+'
+                    // Cs.g:3857:4: a3= '+'
                     {
                     a3=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3680); if (state.failed) return element;
 
@@ -6495,7 +5940,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:4428:8: a4= '*'
+                    // Cs.g:3873:8: a4= '*'
                     {
                     a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3695); if (state.failed) return element;
 
@@ -6519,7 +5964,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:4444:8: a5= '?'
+                    // Cs.g:3889:8: a5= '?'
                     {
                     a5=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition3710); if (state.failed) return element;
 
@@ -6554,29 +5999,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[757]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[758]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[759]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[760]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[761]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[762]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[763]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[764]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[765]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[766]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[767]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[768]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[769]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[770]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[771]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[772]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[773]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[774]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[775]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[776]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[777]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[778]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[779]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 757, 776);
+            		addExpectedElement(null, 777, 779);
             	}
 
             }
@@ -6599,7 +6023,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_WhiteSpaces"
-    // Cs.g:4493:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
+    // Cs.g:3917:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
     public final org.emftext.sdk.concretesyntax.WhiteSpaces parse_org_emftext_sdk_concretesyntax_WhiteSpaces() throws RecognitionException {
         org.emftext.sdk.concretesyntax.WhiteSpaces element =  null;
 
@@ -6612,11 +6036,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return element; }
 
-            // Cs.g:4496:2: ( (a0= HEXNUMBER ) )
-            // Cs.g:4497:2: (a0= HEXNUMBER )
+            // Cs.g:3920:2: ( (a0= HEXNUMBER ) )
+            // Cs.g:3921:2: (a0= HEXNUMBER )
             {
-            // Cs.g:4497:2: (a0= HEXNUMBER )
-            // Cs.g:4498:3: a0= HEXNUMBER
+            // Cs.g:3921:2: (a0= HEXNUMBER )
+            // Cs.g:3922:3: a0= HEXNUMBER
             {
             a0=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_WhiteSpaces3750); if (state.failed) return element;
 
@@ -6657,29 +6081,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[780]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[781]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[782]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[783]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[784]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[785]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[786]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[787]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[788]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[789]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[790]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[791]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[792]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[793]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[794]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[795]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[796]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[797]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[798]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[799]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[800]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[801]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[802]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 780, 799);
+            		addExpectedElement(null, 800, 802);
             	}
 
             }
@@ -6702,7 +6105,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_LineBreak"
-    // Cs.g:4560:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : (a0= TABNUMBER ) ;
+    // Cs.g:3963:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : (a0= TABNUMBER ) ;
     public final org.emftext.sdk.concretesyntax.LineBreak parse_org_emftext_sdk_concretesyntax_LineBreak() throws RecognitionException {
         org.emftext.sdk.concretesyntax.LineBreak element =  null;
 
@@ -6715,11 +6118,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return element; }
 
-            // Cs.g:4563:2: ( (a0= TABNUMBER ) )
-            // Cs.g:4564:2: (a0= TABNUMBER )
+            // Cs.g:3966:2: ( (a0= TABNUMBER ) )
+            // Cs.g:3967:2: (a0= TABNUMBER )
             {
-            // Cs.g:4564:2: (a0= TABNUMBER )
-            // Cs.g:4565:3: a0= TABNUMBER
+            // Cs.g:3967:2: (a0= TABNUMBER )
+            // Cs.g:3968:3: a0= TABNUMBER
             {
             a0=(Token)match(input,TABNUMBER,FOLLOW_TABNUMBER_in_parse_org_emftext_sdk_concretesyntax_LineBreak3790); if (state.failed) return element;
 
@@ -6760,29 +6163,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[803]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[804]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[805]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[806]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[807]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[808]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[809]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[810]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[811]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[812]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[813]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[814]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[815]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[816]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[817]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[818]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[819]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[820]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[821]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[822]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[823]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[824]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[825]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 803, 822);
+            		addExpectedElement(null, 823, 825);
             	}
 
             }
@@ -6805,7 +6187,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenRedefinition"
-    // Cs.g:4627:1: parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.concretesyntax.TokenRedefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
+    // Cs.g:4009:1: parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.concretesyntax.TokenRedefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
     public final org.emftext.sdk.concretesyntax.TokenRedefinition parse_org_emftext_sdk_concretesyntax_TokenRedefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenRedefinition element =  null;
 
@@ -6828,10 +6210,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return element; }
 
-            // Cs.g:4630:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
-            // Cs.g:4631:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4012:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
+            // Cs.g:4013:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'REDEFINE' (a2= QUALIFIED_NAME ) a3= 'AS' (a4= QUALIFIED_NAME ) (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             {
-            // Cs.g:4631:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:4013:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop33:
             do {
                 int alt33=2;
@@ -6844,13 +6226,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt33) {
             	case 1 :
-            	    // Cs.g:4632:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4014:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:4632:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:4633:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4014:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4015:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:4633:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:4634:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:4015:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4016:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3841);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -6883,8 +6265,8 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[826]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[827]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 826);
+            	    				addExpectedElement(null, 827);
             	    			}
 
             	    }
@@ -6901,8 +6283,8 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[828]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[829]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 828);
+            		addExpectedElement(null, 829);
             	}
 
             a1=(Token)match(input,37,FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3882); if (state.failed) return element;
@@ -6919,11 +6301,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[830]);
+            		addExpectedElement(null, 830);
             	}
 
-            // Cs.g:4682:2: (a2= QUALIFIED_NAME )
-            // Cs.g:4683:3: a2= QUALIFIED_NAME
+            // Cs.g:4064:2: (a2= QUALIFIED_NAME )
+            // Cs.g:4065:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3900); if (state.failed) return element;
 
@@ -6965,7 +6347,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[831]);
+            		addExpectedElement(null, 831);
             	}
 
             a3=(Token)match(input,27,FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3921); if (state.failed) return element;
@@ -6982,11 +6364,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[832]);
+            		addExpectedElement(null, 832);
             	}
 
-            // Cs.g:4736:2: (a4= QUALIFIED_NAME )
-            // Cs.g:4737:3: a4= QUALIFIED_NAME
+            // Cs.g:4118:2: (a4= QUALIFIED_NAME )
+            // Cs.g:4119:3: a4= QUALIFIED_NAME
             {
             a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3939); if (state.failed) return element;
 
@@ -7024,12 +6406,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[833]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[834]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 833, 834);
             	}
 
-            // Cs.g:4773:2: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // Cs.g:4774:3: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:4154:2: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:4155:3: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3964);
             a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7062,11 +6443,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[835]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[836]);
+            		addExpectedElement(null, 835, 836);
             	}
 
-            // Cs.g:4800:2: ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4180:2: ( (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop34:
             do {
                 int alt34=2;
@@ -7079,10 +6459,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt34) {
             	case 1 :
-            	    // Cs.g:4801:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4181:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // Cs.g:4801:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // Cs.g:4802:4: a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4181:3: (a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4182:4: a6= '+' (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a6=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition3991); if (state.failed) return element;
 
@@ -7098,12 +6478,11 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[837]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[838]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 837, 838);
             	    			}
 
-            	    // Cs.g:4817:4: (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // Cs.g:4818:5: a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:4196:4: (a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4197:5: a7_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_TokenRedefinition4017);
             	    a7_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7139,8 +6518,7 @@ public class CsParser extends CsANTLRParserBase {
             	    				// We've found the last token for this rule. The constructed EObject is now
             	    				// complete.
             	    				completedElement(element, true);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[839]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[840]);
+            	    				addExpectedElement(null, 839, 840);
             	    			}
 
             	    }
@@ -7160,8 +6538,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[841]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[842]);
+            		addExpectedElement(null, 841, 842);
             	}
 
             }
@@ -7184,7 +6561,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition"
-    // Cs.g:4860:1: parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.sdk.concretesyntax.NormalTokenDefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? ;
+    // Cs.g:4237:1: parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.sdk.concretesyntax.NormalTokenDefinition element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? ;
     public final org.emftext.sdk.concretesyntax.NormalTokenDefinition parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.NormalTokenDefinition element =  null;
 
@@ -7208,10 +6585,10 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return element; }
 
-            // Cs.g:4863:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? )
-            // Cs.g:4864:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
+            // Cs.g:4240:2: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )? )
+            // Cs.g:4241:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
             {
-            // Cs.g:4864:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // Cs.g:4241:2: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop35:
             do {
                 int alt35=2;
@@ -7224,13 +6601,13 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt35) {
             	case 1 :
-            	    // Cs.g:4865:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4242:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
-            	    // Cs.g:4865:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // Cs.g:4866:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4242:3: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // Cs.g:4243:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
-            	    // Cs.g:4866:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // Cs.g:4867:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // Cs.g:4243:4: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // Cs.g:4244:5: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4088);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -7263,8 +6640,8 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[843]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[844]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 843);
+            	    				addExpectedElement(null, 844);
             	    			}
 
             	    }
@@ -7281,8 +6658,8 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[845]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[846]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 845);
+            		addExpectedElement(null, 846);
             	}
 
             a1=(Token)match(input,30,FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4129); if (state.failed) return element;
@@ -7299,11 +6676,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[847]);
+            		addExpectedElement(null, 847);
             	}
 
-            // Cs.g:4915:2: (a2= QUALIFIED_NAME )
-            // Cs.g:4916:3: a2= QUALIFIED_NAME
+            // Cs.g:4292:2: (a2= QUALIFIED_NAME )
+            // Cs.g:4293:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4147); if (state.failed) return element;
 
@@ -7341,12 +6718,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[848]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[849]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 848, 849);
             	}
 
-            // Cs.g:4952:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // Cs.g:4953:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:4328:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:4329:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4172);
             a3_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7379,12 +6755,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[850]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[851]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[852]);
+            		addExpectedElement(null, 850, 852);
             	}
 
-            // Cs.g:4980:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4354:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop36:
             do {
                 int alt36=2;
@@ -7397,10 +6771,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt36) {
             	case 1 :
-            	    // Cs.g:4981:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4355:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // Cs.g:4981:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // Cs.g:4982:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4355:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4356:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a4=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4199); if (state.failed) return element;
 
@@ -7416,12 +6790,11 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[853]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[854]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 853, 854);
             	    			}
 
-            	    // Cs.g:4997:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // Cs.g:4998:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:4370:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4371:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4225);
             	    a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7454,9 +6827,7 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[855]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[856]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[857]);
+            	    				addExpectedElement(null, 855, 857);
             	    			}
 
             	    }
@@ -7473,12 +6844,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[858]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[859]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[860]);
+            		addExpectedElement(null, 858, 860);
             	}
 
-            // Cs.g:5034:2: ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
+            // Cs.g:4403:2: ( (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) ) )?
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -7487,10 +6856,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt37) {
                 case 1 :
-                    // Cs.g:5035:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
+                    // Cs.g:4404:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
                     {
-                    // Cs.g:5035:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
-                    // Cs.g:5036:4: a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME )
+                    // Cs.g:4404:3: (a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME ) )
+                    // Cs.g:4405:4: a6= 'COLLECT' a7= 'IN' (a8= QUALIFIED_NAME )
                     {
                     a6=(Token)match(input,28,FOLLOW_28_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4275); if (state.failed) return element;
 
@@ -7506,7 +6875,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[861]);
+                    				addExpectedElement(null, 861);
                     			}
 
                     a7=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4295); if (state.failed) return element;
@@ -7523,11 +6892,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[862]);
+                    				addExpectedElement(null, 862);
                     			}
 
-                    // Cs.g:5064:4: (a8= QUALIFIED_NAME )
-                    // Cs.g:5065:5: a8= QUALIFIED_NAME
+                    // Cs.g:4433:4: (a8= QUALIFIED_NAME )
+                    // Cs.g:4434:5: a8= QUALIFIED_NAME
                     {
                     a8=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition4321); if (state.failed) return element;
 
@@ -7568,7 +6937,7 @@ public class CsParser extends CsANTLRParserBase {
                     				// We've found the last token for this rule. The constructed EObject is now
                     				// complete.
                     				completedElement(element, true);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[863]);
+                    				addExpectedElement(null, 863);
                     			}
 
                     }
@@ -7585,7 +6954,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[864]);
+            		addExpectedElement(null, 864);
             	}
 
             }
@@ -7608,7 +6977,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition"
-    // Cs.g:5115:1: parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext.sdk.concretesyntax.PartialTokenDefinition element = null] : a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
+    // Cs.g:4484:1: parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext.sdk.concretesyntax.PartialTokenDefinition element = null] : a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* ;
     public final org.emftext.sdk.concretesyntax.PartialTokenDefinition parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PartialTokenDefinition element =  null;
 
@@ -7628,8 +6997,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return element; }
 
-            // Cs.g:5118:2: (a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
-            // Cs.g:5119:2: a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4487:2: (a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )* )
+            // Cs.g:4488:2: a0= 'DEFINE' a1= 'FRAGMENT' (a2= QUALIFIED_NAME ) (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             {
             a0=(Token)match(input,30,FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4382); if (state.failed) return element;
 
@@ -7645,7 +7014,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[865]);
+            		addExpectedElement(null, 865);
             	}
 
             a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4396); if (state.failed) return element;
@@ -7662,11 +7031,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[866]);
+            		addExpectedElement(null, 866);
             	}
 
-            // Cs.g:5147:2: (a2= QUALIFIED_NAME )
-            // Cs.g:5148:3: a2= QUALIFIED_NAME
+            // Cs.g:4516:2: (a2= QUALIFIED_NAME )
+            // Cs.g:4517:3: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4414); if (state.failed) return element;
 
@@ -7704,12 +7073,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[867]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[868]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), 867, 868);
             	}
 
-            // Cs.g:5184:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            // Cs.g:5185:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            // Cs.g:4552:2: (a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            // Cs.g:4553:3: a3_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4439);
             a3_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7742,11 +7110,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[869]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[870]);
+            		addExpectedElement(null, 869, 870);
             	}
 
-            // Cs.g:5211:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
+            // Cs.g:4578:2: ( (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) ) )*
             loop38:
             do {
                 int alt38=2;
@@ -7759,10 +7126,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt38) {
             	case 1 :
-            	    // Cs.g:5212:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4579:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
             	    {
-            	    // Cs.g:5212:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
-            	    // Cs.g:5213:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4579:3: (a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart ) )
+            	    // Cs.g:4580:4: a4= '+' (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
             	    {
             	    a4=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4466); if (state.failed) return element;
 
@@ -7778,12 +7145,11 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[871]);
-            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[872]);
+            	    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), 871, 872);
             	    			}
 
-            	    // Cs.g:5228:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
-            	    // Cs.g:5229:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
+            	    // Cs.g:4594:4: (a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart )
+            	    // Cs.g:4595:5: a5_0= parse_org_emftext_sdk_concretesyntax_RegexPart
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexPart_in_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition4492);
             	    a5_0=parse_org_emftext_sdk_concretesyntax_RegexPart();
@@ -7819,8 +7185,7 @@ public class CsParser extends CsANTLRParserBase {
             	    				// We've found the last token for this rule. The constructed EObject is now
             	    				// complete.
             	    				completedElement(element, true);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[873]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[874]);
+            	    				addExpectedElement(null, 873, 874);
             	    			}
 
             	    }
@@ -7840,8 +7205,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[875]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[876]);
+            		addExpectedElement(null, 875, 876);
             	}
 
             }
@@ -7864,7 +7228,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective"
-    // Cs.g:5271:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
+    // Cs.g:4635:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
     public final org.emftext.sdk.concretesyntax.TokenPriorityDirective parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenPriorityDirective element =  null;
 
@@ -7878,8 +7242,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return element; }
 
-            // Cs.g:5274:2: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
-            // Cs.g:5275:2: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
+            // Cs.g:4638:2: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
+            // Cs.g:4639:2: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
             {
             a0=(Token)match(input,36,FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective4548); if (state.failed) return element;
 
@@ -7895,11 +7259,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[877]);
+            		addExpectedElement(null, 877);
             	}
 
-            // Cs.g:5289:2: (a1= QUALIFIED_NAME )
-            // Cs.g:5290:3: a1= QUALIFIED_NAME
+            // Cs.g:4653:2: (a1= QUALIFIED_NAME )
+            // Cs.g:4654:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective4566); if (state.failed) return element;
 
@@ -7944,7 +7308,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[878]);
+            		addExpectedElement(null, 878);
             	}
 
             }
@@ -7967,7 +7331,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_AtomicRegex"
-    // Cs.g:5334:1: parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concretesyntax.AtomicRegex element = null] : (a0= QUOTED_36_36 ) ;
+    // Cs.g:4698:1: parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concretesyntax.AtomicRegex element = null] : (a0= QUOTED_36_36 ) ;
     public final org.emftext.sdk.concretesyntax.AtomicRegex parse_org_emftext_sdk_concretesyntax_AtomicRegex() throws RecognitionException {
         org.emftext.sdk.concretesyntax.AtomicRegex element =  null;
 
@@ -7980,11 +7344,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return element; }
 
-            // Cs.g:5337:2: ( (a0= QUOTED_36_36 ) )
-            // Cs.g:5338:2: (a0= QUOTED_36_36 )
+            // Cs.g:4701:2: ( (a0= QUOTED_36_36 ) )
+            // Cs.g:4702:2: (a0= QUOTED_36_36 )
             {
-            // Cs.g:5338:2: (a0= QUOTED_36_36 )
-            // Cs.g:5339:3: a0= QUOTED_36_36
+            // Cs.g:4702:2: (a0= QUOTED_36_36 )
+            // Cs.g:4703:3: a0= QUOTED_36_36
             {
             a0=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_parse_org_emftext_sdk_concretesyntax_AtomicRegex4606); if (state.failed) return element;
 
@@ -8025,11 +7389,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[879]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[880]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[881]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[882]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[883]);
+            		addExpectedElement(null, 879, 883);
             	}
 
             }
@@ -8052,7 +7412,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_RegexReference"
-    // Cs.g:5383:1: parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.concretesyntax.RegexReference element = null] : (a0= QUALIFIED_NAME ) ;
+    // Cs.g:4743:1: parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.concretesyntax.RegexReference element = null] : (a0= QUALIFIED_NAME ) ;
     public final org.emftext.sdk.concretesyntax.RegexReference parse_org_emftext_sdk_concretesyntax_RegexReference() throws RecognitionException {
         org.emftext.sdk.concretesyntax.RegexReference element =  null;
 
@@ -8065,11 +7425,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return element; }
 
-            // Cs.g:5386:2: ( (a0= QUALIFIED_NAME ) )
-            // Cs.g:5387:2: (a0= QUALIFIED_NAME )
+            // Cs.g:4746:2: ( (a0= QUALIFIED_NAME ) )
+            // Cs.g:4747:2: (a0= QUALIFIED_NAME )
             {
-            // Cs.g:5387:2: (a0= QUALIFIED_NAME )
-            // Cs.g:5388:3: a0= QUALIFIED_NAME
+            // Cs.g:4747:2: (a0= QUALIFIED_NAME )
+            // Cs.g:4748:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_RegexReference4646); if (state.failed) return element;
 
@@ -8114,11 +7474,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[884]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[885]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[886]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[887]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[888]);
+            		addExpectedElement(null, 884, 888);
             	}
 
             }
@@ -8141,7 +7497,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenStyle"
-    // Cs.g:5436:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' ;
+    // Cs.g:4792:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' ;
     public final org.emftext.sdk.concretesyntax.TokenStyle parse_org_emftext_sdk_concretesyntax_TokenStyle() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenStyle element =  null;
 
@@ -8161,11 +7517,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return element; }
 
-            // Cs.g:5439:2: ( (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' )
-            // Cs.g:5440:2: (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';'
+            // Cs.g:4795:2: ( (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';' )
+            // Cs.g:4796:2: (a0= STRING ) ( (a1= ',' (a2= STRING ) ) )* a3= 'COLOR' (a4= HEXNUMBER ) ( (a5= ',' (a6= QUALIFIED_NAME ) ) )* a7= ';'
             {
-            // Cs.g:5440:2: (a0= STRING )
-            // Cs.g:5441:3: a0= STRING
+            // Cs.g:4796:2: (a0= STRING )
+            // Cs.g:4797:3: a0= STRING
             {
             a0=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4686); if (state.failed) return element;
 
@@ -8203,11 +7559,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[889]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[890]);
+            		addExpectedElement(null, 889, 890);
             	}
 
-            // Cs.g:5477:2: ( (a1= ',' (a2= STRING ) ) )*
+            // Cs.g:4832:2: ( (a1= ',' (a2= STRING ) ) )*
             loop39:
             do {
                 int alt39=2;
@@ -8220,10 +7575,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt39) {
             	case 1 :
-            	    // Cs.g:5478:3: (a1= ',' (a2= STRING ) )
+            	    // Cs.g:4833:3: (a1= ',' (a2= STRING ) )
             	    {
-            	    // Cs.g:5478:3: (a1= ',' (a2= STRING ) )
-            	    // Cs.g:5479:4: a1= ',' (a2= STRING )
+            	    // Cs.g:4833:3: (a1= ',' (a2= STRING ) )
+            	    // Cs.g:4834:4: a1= ',' (a2= STRING )
             	    {
             	    a1=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4716); if (state.failed) return element;
 
@@ -8239,11 +7594,11 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[891]);
+            	    				addExpectedElement(null, 891);
             	    			}
 
-            	    // Cs.g:5493:4: (a2= STRING )
-            	    // Cs.g:5494:5: a2= STRING
+            	    // Cs.g:4848:4: (a2= STRING )
+            	    // Cs.g:4849:5: a2= STRING
             	    {
             	    a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4742); if (state.failed) return element;
 
@@ -8281,8 +7636,7 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[892]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[893]);
+            	    				addExpectedElement(null, 892, 893);
             	    			}
 
             	    }
@@ -8299,8 +7653,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[894]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[895]);
+            		addExpectedElement(null, 894, 895);
             	}
 
             a3=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4788); if (state.failed) return element;
@@ -8317,11 +7670,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[896]);
+            		addExpectedElement(null, 896);
             	}
 
-            // Cs.g:5552:2: (a4= HEXNUMBER )
-            // Cs.g:5553:3: a4= HEXNUMBER
+            // Cs.g:4905:2: (a4= HEXNUMBER )
+            // Cs.g:4906:3: a4= HEXNUMBER
             {
             a4=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4806); if (state.failed) return element;
 
@@ -8359,11 +7712,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[897]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[898]);
+            		addExpectedElement(null, 897, 898);
             	}
 
-            // Cs.g:5589:2: ( (a5= ',' (a6= QUALIFIED_NAME ) ) )*
+            // Cs.g:4941:2: ( (a5= ',' (a6= QUALIFIED_NAME ) ) )*
             loop40:
             do {
                 int alt40=2;
@@ -8376,10 +7728,10 @@ public class CsParser extends CsANTLRParserBase {
 
                 switch (alt40) {
             	case 1 :
-            	    // Cs.g:5590:3: (a5= ',' (a6= QUALIFIED_NAME ) )
+            	    // Cs.g:4942:3: (a5= ',' (a6= QUALIFIED_NAME ) )
             	    {
-            	    // Cs.g:5590:3: (a5= ',' (a6= QUALIFIED_NAME ) )
-            	    // Cs.g:5591:4: a5= ',' (a6= QUALIFIED_NAME )
+            	    // Cs.g:4942:3: (a5= ',' (a6= QUALIFIED_NAME ) )
+            	    // Cs.g:4943:4: a5= ',' (a6= QUALIFIED_NAME )
             	    {
             	    a5=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4836); if (state.failed) return element;
 
@@ -8395,11 +7747,11 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[899]);
+            	    				addExpectedElement(null, 899);
             	    			}
 
-            	    // Cs.g:5605:4: (a6= QUALIFIED_NAME )
-            	    // Cs.g:5606:5: a6= QUALIFIED_NAME
+            	    // Cs.g:4957:4: (a6= QUALIFIED_NAME )
+            	    // Cs.g:4958:5: a6= QUALIFIED_NAME
             	    {
             	    a6=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4862); if (state.failed) return element;
 
@@ -8437,8 +7789,7 @@ public class CsParser extends CsANTLRParserBase {
 
             	    if ( state.backtracking==0 ) {
             	    				// expected elements (follow set)
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[900]);
-            	    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[901]);
+            	    				addExpectedElement(null, 900, 901);
             	    			}
 
             	    }
@@ -8455,8 +7806,7 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[902]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[903]);
+            		addExpectedElement(null, 902, 903);
             	}
 
             a7=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_TokenStyle4908); if (state.failed) return element;
@@ -8476,8 +7826,8 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[904]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[905]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 904);
+            		addExpectedElement(null, 905);
             	}
 
             }
@@ -8500,7 +7850,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Annotation"
-    // Cs.g:5670:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
+    // Cs.g:5020:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
     public final org.emftext.sdk.concretesyntax.Annotation parse_org_emftext_sdk_concretesyntax_Annotation() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Annotation element =  null;
 
@@ -8521,8 +7871,8 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return element; }
 
-            // Cs.g:5673:2: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
-            // Cs.g:5674:2: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // Cs.g:5023:2: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
+            // Cs.g:5024:2: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             {
             a0=(Token)match(input,25,FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_Annotation4937); if (state.failed) return element;
 
@@ -8538,11 +7888,11 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[906]);
+            		addExpectedElement(null, 906);
             	}
 
-            // Cs.g:5688:2: (a1= QUALIFIED_NAME )
-            // Cs.g:5689:3: a1= QUALIFIED_NAME
+            // Cs.g:5038:2: (a1= QUALIFIED_NAME )
+            // Cs.g:5039:3: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Annotation4955); if (state.failed) return element;
 
@@ -8580,21 +7930,20 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[907]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[908]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[909]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[910]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[911]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[912]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[913]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[914]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[915]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[916]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[917]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[918]);
+            		addExpectedElement(null, 907);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 908);
+            		addExpectedElement(null, 909, 910);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 911);
+            		addExpectedElement(null, 912);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 913);
+            		addExpectedElement(null, 914);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 915);
+            		addExpectedElement(null, 916);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 917);
+            		addExpectedElement(null, 918);
             	}
 
-            // Cs.g:5735:2: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // Cs.g:5084:2: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             int alt42=2;
             int LA42_0 = input.LA(1);
 
@@ -8603,10 +7952,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt42) {
                 case 1 :
-                    // Cs.g:5736:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // Cs.g:5085:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
                     {
-                    // Cs.g:5736:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
-                    // Cs.g:5737:4: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
+                    // Cs.g:5085:3: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // Cs.g:5086:4: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
                     {
                     a2=(Token)match(input,15,FOLLOW_15_in_parse_org_emftext_sdk_concretesyntax_Annotation4985); if (state.failed) return element;
 
@@ -8622,11 +7971,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[919]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), 919);
                     			}
 
-                    // Cs.g:5751:4: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    // Cs.g:5752:5: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    // Cs.g:5100:4: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    // Cs.g:5101:5: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation5011);
                     a3_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -8659,11 +8008,10 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[920]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[921]);
+                    				addExpectedElement(null, 920, 921);
                     			}
 
-                    // Cs.g:5778:4: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
+                    // Cs.g:5126:4: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
                     loop41:
                     do {
                         int alt41=2;
@@ -8676,10 +8024,10 @@ public class CsParser extends CsANTLRParserBase {
 
                         switch (alt41) {
                     	case 1 :
-                    	    // Cs.g:5779:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // Cs.g:5127:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
                     	    {
-                    	    // Cs.g:5779:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
-                    	    // Cs.g:5780:6: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // Cs.g:5127:5: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // Cs.g:5128:6: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
                     	    {
                     	    a4=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_Annotation5052); if (state.failed) return element;
 
@@ -8695,11 +8043,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[922]);
+                    	    						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), 922);
                     	    					}
 
-                    	    // Cs.g:5794:6: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    	    // Cs.g:5795:7: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    	    // Cs.g:5142:6: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // Cs.g:5143:7: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation5086);
                     	    a5_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -8732,8 +8080,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     	    if ( state.backtracking==0 ) {
                     	    						// expected elements (follow set)
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[923]);
-                    	    						addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[924]);
+                    	    						addExpectedElement(null, 923, 924);
                     	    					}
 
                     	    }
@@ -8750,8 +8097,7 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[925]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[926]);
+                    				addExpectedElement(null, 925, 926);
                     			}
 
                     a6=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_Annotation5147); if (state.failed) return element;
@@ -8771,17 +8117,16 @@ public class CsParser extends CsANTLRParserBase {
                     				// We've found the last token for this rule. The constructed EObject is now
                     				// complete.
                     				completedElement(element, true);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[927]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[928]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[929]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[930]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[931]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[932]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[933]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[934]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[935]);
-                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[936]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[937]);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 927);
+                    				addExpectedElement(null, 928, 929);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 930);
+                    				addExpectedElement(null, 931);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 932);
+                    				addExpectedElement(null, 933);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 934);
+                    				addExpectedElement(null, 935);
+                    				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 936);
+                    				addExpectedElement(null, 937);
                     			}
 
                     }
@@ -8798,17 +8143,16 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[938]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[939]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[940]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[941]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[942]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[943]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[944]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[945]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[946]);
-            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[947]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[948]);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 938);
+            		addExpectedElement(null, 939, 940);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 941);
+            		addExpectedElement(null, 942);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 943);
+            		addExpectedElement(null, 944);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 945);
+            		addExpectedElement(null, 946);
+            		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 947);
+            		addExpectedElement(null, 948);
             	}
 
             }
@@ -8831,7 +8175,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_KeyValuePair"
-    // Cs.g:5878:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? ;
+    // Cs.g:5222:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? ;
     public final org.emftext.sdk.concretesyntax.KeyValuePair parse_org_emftext_sdk_concretesyntax_KeyValuePair() throws RecognitionException {
         org.emftext.sdk.concretesyntax.KeyValuePair element =  null;
 
@@ -8846,11 +8190,11 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return element; }
 
-            // Cs.g:5881:2: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? )
-            // Cs.g:5882:2: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )?
+            // Cs.g:5225:2: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )? )
+            // Cs.g:5226:2: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= STRING ) ) )?
             {
-            // Cs.g:5882:2: (a0= QUALIFIED_NAME )
-            // Cs.g:5883:3: a0= QUALIFIED_NAME
+            // Cs.g:5226:2: (a0= QUALIFIED_NAME )
+            // Cs.g:5227:3: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair5199); if (state.failed) return element;
 
@@ -8888,12 +8232,10 @@ public class CsParser extends CsANTLRParserBase {
 
             if ( state.backtracking==0 ) {
             		// expected elements (follow set)
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[949]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[950]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[951]);
+            		addExpectedElement(null, 949, 951);
             	}
 
-            // Cs.g:5920:2: ( (a1= '=' (a2= STRING ) ) )?
+            // Cs.g:5262:2: ( (a1= '=' (a2= STRING ) ) )?
             int alt43=2;
             int LA43_0 = input.LA(1);
 
@@ -8902,10 +8244,10 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt43) {
                 case 1 :
-                    // Cs.g:5921:3: (a1= '=' (a2= STRING ) )
+                    // Cs.g:5263:3: (a1= '=' (a2= STRING ) )
                     {
-                    // Cs.g:5921:3: (a1= '=' (a2= STRING ) )
-                    // Cs.g:5922:4: a1= '=' (a2= STRING )
+                    // Cs.g:5263:3: (a1= '=' (a2= STRING ) )
+                    // Cs.g:5264:4: a1= '=' (a2= STRING )
                     {
                     a1=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair5229); if (state.failed) return element;
 
@@ -8921,11 +8263,11 @@ public class CsParser extends CsANTLRParserBase {
 
                     if ( state.backtracking==0 ) {
                     				// expected elements (follow set)
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[952]);
+                    				addExpectedElement(null, 952);
                     			}
 
-                    // Cs.g:5936:4: (a2= STRING )
-                    // Cs.g:5937:5: a2= STRING
+                    // Cs.g:5278:4: (a2= STRING )
+                    // Cs.g:5279:5: a2= STRING
                     {
                     a2=(Token)match(input,STRING,FOLLOW_STRING_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair5255); if (state.failed) return element;
 
@@ -8966,8 +8308,7 @@ public class CsParser extends CsANTLRParserBase {
                     				// We've found the last token for this rule. The constructed EObject is now
                     				// complete.
                     				completedElement(element, true);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[953]);
-                    				addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[954]);
+                    				addExpectedElement(null, 953, 954);
                     			}
 
                     }
@@ -8984,8 +8325,7 @@ public class CsParser extends CsANTLRParserBase {
             		// We've found the last token for this rule. The constructed EObject is now
             		// complete.
             		completedElement(element, true);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[955]);
-            		addExpectedElement(null, org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectationConstants.EXPECTATIONS[956]);
+            		addExpectedElement(null, 955, 956);
             	}
 
             }
@@ -9008,7 +8348,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenDirective"
-    // Cs.g:5989:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
+    // Cs.g:5329:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
     public final org.emftext.sdk.concretesyntax.TokenDirective parse_org_emftext_sdk_concretesyntax_TokenDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenDirective element =  null;
 
@@ -9026,12 +8366,12 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 28) ) { return element; }
 
-            // Cs.g:5990:2: (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
+            // Cs.g:5330:2: (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
             int alt44=4;
             alt44 = dfa44.predict(input);
             switch (alt44) {
                 case 1 :
-                    // Cs.g:5991:2: c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition
+                    // Cs.g:5331:2: c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenRedefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5312);
                     c0=parse_org_emftext_sdk_concretesyntax_TokenRedefinition();
@@ -9044,7 +8384,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:5992:4: c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition
+                    // Cs.g:5332:4: c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5322);
                     c1=parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition();
@@ -9057,7 +8397,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:5993:4: c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition
+                    // Cs.g:5333:4: c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5332);
                     c2=parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition();
@@ -9070,7 +8410,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 4 :
-                    // Cs.g:5994:4: c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
+                    // Cs.g:5334:4: c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective_in_parse_org_emftext_sdk_concretesyntax_TokenDirective5342);
                     c3=parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective();
@@ -9102,7 +8442,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Definition"
-    // Cs.g:5998:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak );
+    // Cs.g:5338:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak );
     public final org.emftext.sdk.concretesyntax.Definition parse_org_emftext_sdk_concretesyntax_Definition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Definition element =  null;
 
@@ -9132,7 +8472,7 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 29) ) { return element; }
 
-            // Cs.g:5999:2: (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak )
+            // Cs.g:5339:2: (c0= parse_org_emftext_sdk_concretesyntax_CsString |c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken |c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken |c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes |c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal |c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal |c6= parse_org_emftext_sdk_concretesyntax_Containment |c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition |c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces |c9= parse_org_emftext_sdk_concretesyntax_LineBreak )
             int alt45=10;
             switch ( input.LA(1) ) {
             case STRING:
@@ -9230,7 +8570,7 @@ public class CsParser extends CsANTLRParserBase {
 
             switch (alt45) {
                 case 1 :
-                    // Cs.g:6000:2: c0= parse_org_emftext_sdk_concretesyntax_CsString
+                    // Cs.g:5340:2: c0= parse_org_emftext_sdk_concretesyntax_CsString
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CsString_in_parse_org_emftext_sdk_concretesyntax_Definition5363);
                     c0=parse_org_emftext_sdk_concretesyntax_CsString();
@@ -9243,7 +8583,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:6001:4: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
+                    // Cs.g:5341:4: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken_in_parse_org_emftext_sdk_concretesyntax_Definition5373);
                     c1=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken();
@@ -9256,7 +8596,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 3 :
-                    // Cs.g:6002:4: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
+                    // Cs.g:5342:4: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken_in_parse_org_emftext_sdk_concretesyntax_Definition5383);
                     c2=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken();
@@ -9269,7 +8609,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 4 :
-                    // Cs.g:6003:4: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
+                    // Cs.g:5343:4: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes_in_parse_org_emftext_sdk_concretesyntax_Definition5393);
                     c3=parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes();
@@ -9282,7 +8622,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 5 :
-                    // Cs.g:6004:4: c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal
+                    // Cs.g:5344:4: c4= parse_org_emftext_sdk_concretesyntax_BooleanTerminal
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_BooleanTerminal_in_parse_org_emftext_sdk_concretesyntax_Definition5403);
                     c4=parse_org_emftext_sdk_concretesyntax_BooleanTerminal();
@@ -9295,7 +8635,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 6 :
-                    // Cs.g:6005:4: c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal
+                    // Cs.g:5345:4: c5= parse_org_emftext_sdk_concretesyntax_EnumTerminal
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_EnumTerminal_in_parse_org_emftext_sdk_concretesyntax_Definition5413);
                     c5=parse_org_emftext_sdk_concretesyntax_EnumTerminal();
@@ -9308,7 +8648,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 7 :
-                    // Cs.g:6006:4: c6= parse_org_emftext_sdk_concretesyntax_Containment
+                    // Cs.g:5346:4: c6= parse_org_emftext_sdk_concretesyntax_Containment
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Containment_in_parse_org_emftext_sdk_concretesyntax_Definition5423);
                     c6=parse_org_emftext_sdk_concretesyntax_Containment();
@@ -9321,7 +8661,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 8 :
-                    // Cs.g:6007:4: c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
+                    // Cs.g:5347:4: c7= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CompoundDefinition_in_parse_org_emftext_sdk_concretesyntax_Definition5433);
                     c7=parse_org_emftext_sdk_concretesyntax_CompoundDefinition();
@@ -9334,7 +8674,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 9 :
-                    // Cs.g:6008:4: c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
+                    // Cs.g:5348:4: c8= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_WhiteSpaces_in_parse_org_emftext_sdk_concretesyntax_Definition5443);
                     c8=parse_org_emftext_sdk_concretesyntax_WhiteSpaces();
@@ -9347,7 +8687,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 10 :
-                    // Cs.g:6009:4: c9= parse_org_emftext_sdk_concretesyntax_LineBreak
+                    // Cs.g:5349:4: c9= parse_org_emftext_sdk_concretesyntax_LineBreak
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_LineBreak_in_parse_org_emftext_sdk_concretesyntax_Definition5453);
                     c9=parse_org_emftext_sdk_concretesyntax_LineBreak();
@@ -9379,7 +8719,7 @@ public class CsParser extends CsANTLRParserBase {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_RegexPart"
-    // Cs.g:6013:1: parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concretesyntax.RegexPart element = null] : (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference );
+    // Cs.g:5353:1: parse_org_emftext_sdk_concretesyntax_RegexPart returns [org.emftext.sdk.concretesyntax.RegexPart element = null] : (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference );
     public final org.emftext.sdk.concretesyntax.RegexPart parse_org_emftext_sdk_concretesyntax_RegexPart() throws RecognitionException {
         org.emftext.sdk.concretesyntax.RegexPart element =  null;
 
@@ -9393,7 +8733,7 @@ public class CsParser extends CsANTLRParserBase {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 30) ) { return element; }
 
-            // Cs.g:6014:2: (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference )
+            // Cs.g:5354:2: (c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex |c1= parse_org_emftext_sdk_concretesyntax_RegexReference )
             int alt46=2;
             int LA46_0 = input.LA(1);
 
@@ -9413,7 +8753,7 @@ public class CsParser extends CsANTLRParserBase {
             }
             switch (alt46) {
                 case 1 :
-                    // Cs.g:6015:2: c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex
+                    // Cs.g:5355:2: c0= parse_org_emftext_sdk_concretesyntax_AtomicRegex
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_AtomicRegex_in_parse_org_emftext_sdk_concretesyntax_RegexPart5474);
                     c0=parse_org_emftext_sdk_concretesyntax_AtomicRegex();
@@ -9426,7 +8766,7 @@ public class CsParser extends CsANTLRParserBase {
                     }
                     break;
                 case 2 :
-                    // Cs.g:6016:4: c1= parse_org_emftext_sdk_concretesyntax_RegexReference
+                    // Cs.g:5356:4: c1= parse_org_emftext_sdk_concretesyntax_RegexReference
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_RegexReference_in_parse_org_emftext_sdk_concretesyntax_RegexPart5484);
                     c1=parse_org_emftext_sdk_concretesyntax_RegexReference();
@@ -9523,7 +8863,7 @@ public class CsParser extends CsANTLRParserBase {
             this.transition = DFA44_transition;
         }
         public String getDescription() {
-            return "5989:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );";
+            return "5329:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_TokenRedefinition |c1= parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition |c2= parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition |c3= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );";
         }
     }
  

@@ -234,7 +234,7 @@ public class CsResourceUtil {
 			return null;
 		}
 		EObject root = contents.get(0);
-		return (org.emftext.sdk.concretesyntax.ConcreteSyntax) root;
+		return root;
 	}
 	
 	public static void saveResource(File file, Resource resource) throws IOException {
