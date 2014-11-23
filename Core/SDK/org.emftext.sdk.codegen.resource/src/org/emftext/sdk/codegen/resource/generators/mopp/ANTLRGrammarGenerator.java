@@ -77,6 +77,7 @@ import org.emftext.sdk.codegen.resource.generators.ResourceBaseGenerator;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ContainmentLink;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.Expectation;
 import org.emftext.sdk.codegen.resource.generators.code_completion.helpers.ExpectationComputer;
+import org.emftext.sdk.codegen.resource.generators.util.ExpectationIndexInterval;
 import org.emftext.sdk.codegen.util.Counter;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.Annotation;
@@ -295,7 +296,9 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		addReportErrorMethod(sc);
 		generatorUtil.addAddErrorToResourceMethod(sc, context);
 		addAddErrorToResourceMethod(sc);
-		addAddExpectedElementMethod(sc);
+		addAddExpectedElementMethod1(sc);
+		addAddExpectedElementMethod2(sc);
+		addAddExpectedElementMethod3(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
 		addCopyLocalizationInfosMethod1(sc);
 		addCopyLocalizationInfosMethod2(sc);
@@ -853,7 +856,23 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		sc.addLineBreak();
 	}
 
-	private void addAddExpectedElementMethod(ANTLRGrammarComposite sc) {
+	private void addAddExpectedElementMethod1(ANTLRGrammarComposite sc) {
+		sc.add("public void addExpectedElement(" + E_CLASS(sc) + " eClass, int expectationStartIndex, int expectationEndIndex) {");
+		sc.add("for (int expectationIndex = expectationStartIndex; expectationIndex <= expectationEndIndex; expectationIndex++) {");
+		sc.add("addExpectedElement(eClass, " + expectationConstantsClassName + ".EXPECTATIONS[expectationIndex]);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddExpectedElementMethod2(ANTLRGrammarComposite sc) {
+		sc.add("public void addExpectedElement(" + E_CLASS(sc) + " eClass, int expectationIndex) {");
+		sc.add("addExpectedElement(eClass, " + expectationConstantsClassName + ".EXPECTATIONS[expectationIndex]);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddExpectedElementMethod3(ANTLRGrammarComposite sc) {
 		// potential memory consumption improvement:
 		//
 		// we can throw away expected elements that are not important
@@ -1677,11 +1696,26 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 		return true;
 	}
 
+	/**
+	 * Adds method calls to addExpectedElement() to collect the elements which are expected at this position in a list
+	 * at runtime. Since the number of expected elements can be quite long and each element is represented by an array
+	 * index, this methods computes intervals for array indices that are adjacent. This allows to call
+	 * addExpectedElement() only once (with a begin and and end index) instead of calling it individually for each
+	 * index. This measure does also reduce the size of the generated code for the parser.
+	 * 
+	 * @param expectations
+	 *            the expected elements at this position in the grammar
+	 */
 	private void addExpectationsCode(ANTLRGrammarComposite sc, Set<Expectation> expectations) {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
 		List<Integer[]> expectationCalls = constantsPool.getExpectationCalls();
 		
+		// The expectation intervals need to be grouped be the metaclass the expected element stems from. Thus, we need
+		// to remember the last metaclass and start a new interval when the metaclass changes.
+		String lastMetaclassAccessor = null;
+		ExpectationIndexInterval lastInterval = null;
+		List<ExpectationIndexInterval> intervals = new ArrayList<ExpectationIndexInterval>();
 		for (Expectation expectation : expectations) {
 			EObject expectedElement = expectation.getExpectedElement();
 			int terminalID = constantsPool.getTerminalID(expectedElement);
@@ -1701,17 +1735,29 @@ public class ANTLRGrammarGenerator extends ResourceBaseGenerator<ArtifactParamet
 			if (metaClass != null) {
 				metaclassAccessor = genClassUtil.getAccessor(metaClass);
 			}
-			/*
-			sc.addComment(expectation.getExpectedElement().toString() + ", " + StringUtil.explode(containmentTrace, ",", new ToStringConverter<ContainmentLink>() {
-
-				public String toString(ContainmentLink link) {
-					return link.toString();
+			if (!metaclassAccessor.equals(lastMetaclassAccessor)) {
+				// Close last expectation index interval and add it to a list
+				if (lastInterval != null) {
+					lastInterval.close(expectationCalls.size());
+					intervals.add(lastInterval);
 				}
-			}));
-			*/
-			sc.add("addExpectedElement(" + metaclassAccessor + ", " + expectationConstantsClassName + ".EXPECTATIONS["+ expectationCalls.size() + "]);");
+				// Open new expectation index interval
+				lastInterval = new ExpectationIndexInterval(metaclassAccessor, expectationCalls.size());
+				
+				lastMetaclassAccessor = metaclassAccessor;
+			}
 			expectationCalls.add(o);
 		}
+		if (lastInterval != null) {
+			lastInterval.close(expectationCalls.size() - 1);
+			intervals.add(lastInterval);
+		}
+		
+		// Generate code for collected expectation index intervals
+		for (ExpectationIndexInterval interval : intervals) {
+			sc.add("addExpectedElement(" + interval.getMetaclassAccessor() + ", " + interval.getStart() + ", " + interval.getEnd() + ");");
+		}
+		
 		followSetID++;
 	}
 	
