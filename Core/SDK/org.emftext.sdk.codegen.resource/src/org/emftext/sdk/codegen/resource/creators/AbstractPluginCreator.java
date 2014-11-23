@@ -49,7 +49,7 @@ public abstract class AbstractPluginCreator<ParameterType> implements IPluginCre
 	
 	    for (IArtifactCreator<GenerationContext> creator : creators) {
 			String description = creator.getArtifactTypeDescription();
-			progress.setTaskName("creating " + description + "...");
+			progress.setTaskName("Creating " + description + "...");
 			creator.createArtifacts(plugin, context);
 		    progress.worked(100 / creators.size());
 	    }
