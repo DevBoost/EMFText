@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -15,11 +15,12 @@
  ******************************************************************************/
 package org.emftext.test.bug1676;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
+import java.util.List;
 
-import junit.framework.TestCase;
-
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
@@ -27,8 +28,9 @@ import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 import org.emftext.test.ConcreteSyntaxTestHelper;
 import org.emftext.test.PluginTestHelper;
 import org.junit.Ignore;
+import org.junit.Test;
 
-public class Bug1676Test extends TestCase {
+public class Bug1676Test {
 
 	private final String packageDirectory = File.separator + "src" + File.separator + Bug1676Test.class.getPackage().getName().replace(".", File.separator) + File.separator;
 
@@ -38,6 +40,7 @@ public class Bug1676Test extends TestCase {
 		ConcreteSyntaxTestHelper.registerEcoreGenModel();
 	}
 
+	@Test
 	@Ignore("Temporarily ignored")
 	public void testBug1676() {
 		String pluginRootPath = new PluginTestHelper().getPluginRootPath(getClass());
@@ -45,10 +48,11 @@ public class Bug1676Test extends TestCase {
 		CsResource resource = CsResourceUtil.getResource(new File(path).getAbsoluteFile());
 		assertNotNull(resource);
 		CsResourceUtil.resolveAll(resource);
-		EList<Diagnostic> errors = resource.getErrors();
+		List<Diagnostic> errors = resource.getErrors();
 		for (Diagnostic error : errors) {
 			System.out.println("Error: " + error);
 		}
+		
 		assertFalse("Resource must not contain errors.", CsResourceUtil.containsErrors(resource));
 	}
 }
