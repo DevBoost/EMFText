@@ -27,6 +27,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 import org.emftext.test.ConcreteSyntaxTestHelper;
 import org.emftext.test.PluginTestHelper;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -34,6 +35,7 @@ public class Bug1676Test {
 
 	private final String packageDirectory = File.separator + "src" + File.separator + Bug1676Test.class.getPackage().getName().replace(".", File.separator) + File.separator;
 
+	@Before
 	public void setUp() {
 		new CsMetaInformation().registerResourceFactory();
 		ConcreteSyntaxTestHelper.registerResourceFactories();
