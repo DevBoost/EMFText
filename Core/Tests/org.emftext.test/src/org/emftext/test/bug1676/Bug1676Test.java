@@ -26,6 +26,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 import org.emftext.test.ConcreteSyntaxTestHelper;
 import org.emftext.test.PluginTestHelper;
+import org.junit.Ignore;
 
 public class Bug1676Test extends TestCase {
 
@@ -37,6 +38,7 @@ public class Bug1676Test extends TestCase {
 		ConcreteSyntaxTestHelper.registerEcoreGenModel();
 	}
 
+	@Ignore("Temporarily ignored")
 	public void testBug1676() {
 		String pluginRootPath = new PluginTestHelper().getPluginRootPath(getClass());
 		String path = pluginRootPath + packageDirectory + "EcoreImporting.cs";
