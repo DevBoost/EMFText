@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -27,7 +27,6 @@ public class ContainmentLink {
 	private final GenFeature genFeature;
 	
 	public ContainmentLink(GenClass containerClass, GenFeature genFeature) {
-		super();
 		this.containerClass = containerClass;
 		this.genFeature = genFeature;
 	}
@@ -40,6 +39,46 @@ public class ContainmentLink {
 		return genFeature;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((containerClass == null) ? 0 : containerClass.hashCode());
+		result = prime * result + ((genFeature == null) ? 0 : genFeature.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		ContainmentLink other = (ContainmentLink) obj;
+		if (containerClass == null) {
+			if (other.containerClass != null) {
+				return false;
+			}
+		} else if (!containerClass.equals(other.containerClass)) {
+			return false;
+		}
+		if (genFeature == null) {
+			if (other.genFeature != null) {
+				return false;
+			}
+		} else if (!genFeature.equals(other.genFeature)) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return genFeature.getName() + "->" + containerClass.getName();
 	}
