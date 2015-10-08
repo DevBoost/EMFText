@@ -7,19 +7,19 @@
 
    <description url="http://www.emftext.org">EMFText: a grammar-based text syntax definition tool for Ecore metamodels.</description>
 
-   <copyright>Copyright (c) 2006-2014 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.</copyright>
+   <copyright>Copyright (c) 2006-2014 Software Technology Group, Dresden University of Technology, Germany; DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001.</copyright>
 
    <license>Eclipse Public License v1.0
 
 Copyright (c) 2006-2014
 Software Technology Group, Dresden University of Technology
-DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026.
+DevBoost GmbH, Berlin, Amtsgericht Dresden, HRB 140026.
 
 All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
 
 Contributors:
   Software Technology Group - TU Dresden, Germany;
-  DevBoost GmbH - Berlin, Germany
+  DevBoost GmbH - Dresden, Germany
      - initial API and implementation
  
 ANTLR3 (www.antlr.org) and STRINGTEMPLATE 4 (www.stringtemplate.org) 
