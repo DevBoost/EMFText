@@ -223,7 +223,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 				// getstatic TERMINALS
 				// sipush INDEX or iconst_INDEX
 				// aaload
-				bytesUsed += 7;
+				bytesUsed += 12;
 				// the method call takes 5 bytes
 				// INVOKEINTERFACE
 				bytesUsed += 5;
