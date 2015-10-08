@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -120,8 +120,7 @@ public class ExpectationComputerTest extends AbstractExpectationComputerTestCase
 		assertFollowSet(
 				findContainments(cct3Syntax).get(3), // m11
 				findKeyword(cct3Syntax, "v"),
-				findKeyword(cct3Syntax, "u"),
-				findKeyword(cct3Syntax, "v")
+				findKeyword(cct3Syntax, "u")
 			);
 	}
 
@@ -176,7 +175,6 @@ public class ExpectationComputerTest extends AbstractExpectationComputerTestCase
 				findKeyword(cct3Syntax, "l"),
 				findKeyword(cct3Syntax, "m"),
 				findKeyword(cct3Syntax, "l"),
-				findKeyword(cct3Syntax, "l"),
 				findKeyword(cct3Syntax, "n")
 			);
 		assertFollowSet(
@@ -191,16 +189,12 @@ public class ExpectationComputerTest extends AbstractExpectationComputerTestCase
 		assertFollowSet(
 				findKeyword(cct3Syntax, "u"),
 				findKeyword(cct3Syntax, "v"),
-				findKeyword(cct3Syntax, "v"),
-				findKeyword(cct3Syntax, "u"),
-				findKeyword(cct3Syntax, "v")
+				findKeyword(cct3Syntax, "u")
 			);
 		assertFollowSet(
 				findKeyword(cct3Syntax, "v"),
 				findKeyword(cct3Syntax, "u"),
-				findKeyword(cct3Syntax, "u"),
-				findKeyword(cct3Syntax, "v"),
-				findKeyword(cct3Syntax, "u")
+				findKeyword(cct3Syntax, "v")
 			);
 		assertFollowSet(
 				findKeyword(cct3Syntax, "h"),
