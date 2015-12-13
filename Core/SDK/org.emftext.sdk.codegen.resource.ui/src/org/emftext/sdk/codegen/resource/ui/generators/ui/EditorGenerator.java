@@ -772,7 +772,8 @@ public class EditorGenerator extends UIJavaBaseGenerator<ArtifactParameter<Gener
 		jc.add("}");
 		jc.add("int deltaKind = delta.getKind();");
 		jc.add("if (deltaKind == " + I_RESOURCE_DELTA(jc) + ".CHANGED && delta.getFlags() != " + I_RESOURCE_DELTA(jc) + ".MARKERS) {");
-		jc.add(RESOURCE(jc) + " changedResource = resourceSet.getResource(" + URI(jc) + ".createURI(delta.getFullPath().toString()), false);");
+		jc.add(URI(jc) + " platformURI = " + URI(jc) + ".createPlatformResourceURI(delta.getFullPath().toString(), true);");
+		jc.add(RESOURCE(jc) + " changedResource = resourceSet.getResource(platformURI, false);");
 		jc.add("if (changedResource != null) {");
 		jc.add("changedResource.unload();");
 		jc.add(iTextResourceClassName + " currentResource = getResource();");
