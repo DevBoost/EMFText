@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -178,7 +178,8 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 						}
 						int deltaKind = delta.getKind();
 						if (deltaKind == IResourceDelta.CHANGED && delta.getFlags() != IResourceDelta.MARKERS) {
-							Resource changedResource = resourceSet.getResource(URI.createURI(delta.getFullPath().toString()), false);
+							URI platformURI = URI.createPlatformResourceURI(delta.getFullPath().toString(), true);
+							Resource changedResource = resourceSet.getResource(platformURI, false);
 							if (changedResource != null) {
 								changedResource.unload();
 								org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = getResource();

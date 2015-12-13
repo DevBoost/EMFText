@@ -1014,8 +1014,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 70, 73);
-				addExpectedElement(null, 74);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 70, 71);
+				addExpectedElement(null, 72);
 			}
 			
 			(
@@ -1048,16 +1048,16 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 75, 76);
-						addExpectedElement(null, 77);
+						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 73, 74);
+						addExpectedElement(null, 75);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 78, 79);
-				addExpectedElement(null, 80);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 76, 77);
+				addExpectedElement(null, 78);
 			}
 			
 			a16 = '}' {
@@ -1076,14 +1076,14 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 81, 84);
+				addExpectedElement(null, 79, 82);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 85, 88);
+		addExpectedElement(null, 83, 86);
 	}
 	
 	(
@@ -1104,7 +1104,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 89);
+				addExpectedElement(null, 87);
 			}
 			
 			a18 = '{' {
@@ -1123,8 +1123,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 90, 91);
-				addExpectedElement(null, 92);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 88);
+				addExpectedElement(null, 89);
 			}
 			
 			(
@@ -1157,7 +1157,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 93);
+						addExpectedElement(null, 90);
 					}
 					
 					a20 = ';' {
@@ -1176,16 +1176,16 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 94);
-						addExpectedElement(null, 95);
+						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 91);
+						addExpectedElement(null, 92);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 96);
-				addExpectedElement(null, 97);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 93);
+				addExpectedElement(null, 94);
 			}
 			
 			a21 = '}' {
@@ -1204,14 +1204,14 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 98, 100);
+				addExpectedElement(null, 95, 97);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 101, 103);
+		addExpectedElement(null, 98, 100);
 	}
 	
 	(
@@ -1232,7 +1232,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 104);
+				addExpectedElement(null, 101);
 			}
 			
 			a23 = '{' {
@@ -1251,8 +1251,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 105, 116);
-				addExpectedElement(null, 117);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 102, 107);
+				addExpectedElement(null, 108);
 			}
 			
 			(
@@ -1285,7 +1285,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 118);
+						addExpectedElement(null, 109);
 					}
 					
 					a25 = ';' {
@@ -1304,16 +1304,16 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 119, 124);
-						addExpectedElement(null, 125);
+						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 110, 115);
+						addExpectedElement(null, 116);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 126, 131);
-				addExpectedElement(null, 132);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 117, 122);
+				addExpectedElement(null, 123);
 			}
 			
 			a26 = '}' {
@@ -1332,14 +1332,14 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 133, 134);
+				addExpectedElement(null, 124, 125);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 135, 136);
+		addExpectedElement(null, 126, 127);
 	}
 	
 	(
@@ -1360,7 +1360,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 137);
+				addExpectedElement(null, 128);
 			}
 			
 			a28 = '{' {
@@ -1379,8 +1379,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 138, 139);
-				addExpectedElement(null, 140);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 129);
+				addExpectedElement(null, 130);
 			}
 			
 			(
@@ -1413,16 +1413,16 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 141);
-						addExpectedElement(null, 142);
+						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 131);
+						addExpectedElement(null, 132);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 143);
-				addExpectedElement(null, 144);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 133);
+				addExpectedElement(null, 134);
 			}
 			
 			a30 = '}' {
@@ -1441,14 +1441,14 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 145);
+				addExpectedElement(null, 135);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 146);
+		addExpectedElement(null, 136);
 	}
 	
 	a31 = 'RULES' {
@@ -1467,7 +1467,7 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 147);
+		addExpectedElement(null, 137);
 	}
 	
 	a32 = '{' {
@@ -1486,8 +1486,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 148, 151);
-		addExpectedElement(null, 152);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 138, 139);
+		addExpectedElement(null, 140);
 	}
 	
 	(
@@ -1520,16 +1520,16 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 153, 154);
-				addExpectedElement(null, 155);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 141, 142);
+				addExpectedElement(null, 143);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 156, 157);
-		addExpectedElement(null, 158);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 144, 145);
+		addExpectedElement(null, 146);
 	}
 	
 	a34 = '}' {
@@ -1584,16 +1584,16 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 159);
-				addExpectedElement(null, 160);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 147);
+				addExpectedElement(null, 148);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 161);
-		addExpectedElement(null, 162);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 149);
+		addExpectedElement(null, 150);
 	}
 	
 	(
@@ -1629,7 +1629,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 163);
+		addExpectedElement(null, 151);
 	}
 	
 	a2 = ':' {
@@ -1643,7 +1643,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 164);
+		addExpectedElement(null, 152);
 	}
 	
 	(
@@ -1683,9 +1683,9 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 165, 166);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 167, 168);
-		addExpectedElement(null, 169);
+		addExpectedElement(null, 153, 154);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 155, 156);
+		addExpectedElement(null, 157);
 	}
 	
 	(
@@ -1723,18 +1723,18 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 170);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 171, 172);
-				addExpectedElement(null, 173);
+				addExpectedElement(null, 158);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 159, 160);
+				addExpectedElement(null, 161);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 174);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 175, 176);
-		addExpectedElement(null, 177);
+		addExpectedElement(null, 162);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 163, 164);
+		addExpectedElement(null, 165);
 	}
 	
 	(
@@ -1750,7 +1750,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 178);
+				addExpectedElement(null, 166);
 			}
 			
 			a6 = 'SYNTAX' {
@@ -1764,7 +1764,7 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 179);
+				addExpectedElement(null, 167);
 			}
 			
 			(
@@ -1804,9 +1804,9 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 180);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 181, 182);
-				addExpectedElement(null, 183);
+				addExpectedElement(null, 168);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 169, 170);
+				addExpectedElement(null, 171);
 			}
 			
 			(
@@ -1847,8 +1847,8 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 						// We've found the last token for this rule. The constructed EObject is now
 						// complete.
 						completedElement(element, true);
-						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 184, 185);
-						addExpectedElement(null, 186);
+						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 172, 173);
+						addExpectedElement(null, 174);
 					}
 					
 				)
@@ -1858,8 +1858,8 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 187, 188);
-				addExpectedElement(null, 189);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 175, 176);
+				addExpectedElement(null, 177);
 			}
 			
 		)
@@ -1869,8 +1869,8 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 190, 191);
-		addExpectedElement(null, 192);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 178, 179);
+		addExpectedElement(null, 180);
 	}
 	
 ;
@@ -1912,7 +1912,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 193);
+		addExpectedElement(null, 181);
 	}
 	
 	a1 = '=' {
@@ -1926,7 +1926,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 194);
+		addExpectedElement(null, 182);
 	}
 	
 	(
@@ -1965,7 +1965,7 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 195);
+		addExpectedElement(null, 183);
 	}
 	
 ;
@@ -1999,16 +1999,16 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 196);
-				addExpectedElement(null, 197);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 184);
+				addExpectedElement(null, 185);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 198);
-		addExpectedElement(null, 199);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 186);
+		addExpectedElement(null, 187);
 	}
 	
 	(
@@ -2048,7 +2048,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 200);
+		addExpectedElement(null, 188);
 	}
 	
 	a2 = '::=' {
@@ -2062,7 +2062,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 201, 210);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 189, 198);
 	}
 	
 	(
@@ -2088,7 +2088,7 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 211);
+		addExpectedElement(null, 199);
 	}
 	
 	a4 = ';' {
@@ -2105,8 +2105,8 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 212, 213);
-		addExpectedElement(null, 214);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 200, 201);
+		addExpectedElement(null, 202);
 	}
 	
 ;
@@ -2138,8 +2138,8 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 215, 234);
-		addExpectedElement(null, 235, 237);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 203, 212);
+		addExpectedElement(null, 213, 215);
 	}
 	
 	(
@@ -2170,8 +2170,8 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 238, 247);
-				addExpectedElement(null, 248, 250);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 216, 225);
+				addExpectedElement(null, 226, 228);
 			}
 			
 		)
@@ -2181,8 +2181,8 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 251, 260);
-		addExpectedElement(null, 261, 263);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 229, 238);
+		addExpectedElement(null, 239, 241);
 	}
 	
 ;
@@ -2214,7 +2214,7 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 264, 266);
+		addExpectedElement(null, 242, 244);
 	}
 	
 	(
@@ -2230,7 +2230,7 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), 267, 276);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), 245, 254);
 			}
 			
 			(
@@ -2259,7 +2259,7 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(null, 277, 279);
+				addExpectedElement(null, 255, 257);
 			}
 			
 		)
@@ -2269,7 +2269,7 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 280, 282);
+		addExpectedElement(null, 258, 260);
 	}
 	
 ;
@@ -2314,8 +2314,8 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 283, 302);
-		addExpectedElement(null, 303, 305);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 261, 270);
+		addExpectedElement(null, 271, 273);
 	}
 	
 ;
@@ -2364,7 +2364,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 306);
+		addExpectedElement(null, 274);
 	}
 	
 	a1 = '[' {
@@ -2381,7 +2381,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 307);
+		addExpectedElement(null, 275);
 	}
 	
 	(
@@ -2424,7 +2424,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 308);
+		addExpectedElement(null, 276);
 	}
 	
 	a3 = ']' {
@@ -2441,9 +2441,9 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 309);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 310, 329);
-		addExpectedElement(null, 330, 332);
+		addExpectedElement(null, 277);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 278, 287);
+		addExpectedElement(null, 288, 290);
 	}
 	
 	(
@@ -2502,8 +2502,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 333, 352);
-		addExpectedElement(null, 353, 355);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 291, 300);
+		addExpectedElement(null, 301, 303);
 	}
 	
 ;
@@ -2552,7 +2552,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 356);
+		addExpectedElement(null, 304);
 	}
 	
 	a1 = '[' {
@@ -2569,7 +2569,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 357);
+		addExpectedElement(null, 305);
 	}
 	
 	a2 = ']' {
@@ -2586,9 +2586,9 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 358);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 359, 378);
-		addExpectedElement(null, 379, 381);
+		addExpectedElement(null, 306);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 307, 316);
+		addExpectedElement(null, 317, 319);
 	}
 	
 	(
@@ -2647,8 +2647,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 382, 401);
-		addExpectedElement(null, 402, 404);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 320, 329);
+		addExpectedElement(null, 330, 332);
 	}
 	
 ;
@@ -2697,7 +2697,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 405);
+		addExpectedElement(null, 333);
 	}
 	
 	a1 = '[' {
@@ -2714,7 +2714,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 406);
+		addExpectedElement(null, 334);
 	}
 	
 	(
@@ -2753,7 +2753,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 407);
+		addExpectedElement(null, 335);
 	}
 	
 	a3 = ',' {
@@ -2770,7 +2770,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 408);
+		addExpectedElement(null, 336);
 	}
 	
 	(
@@ -2809,7 +2809,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 409, 410);
+		addExpectedElement(null, 337, 338);
 	}
 	
 	(
@@ -2828,7 +2828,7 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 411);
+				addExpectedElement(null, 339);
 			}
 			
 			(
@@ -2867,14 +2867,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 412);
+				addExpectedElement(null, 340);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 413);
+		addExpectedElement(null, 341);
 	}
 	
 	a7 = ']' {
@@ -2891,9 +2891,9 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 414);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 415, 434);
-		addExpectedElement(null, 435, 437);
+		addExpectedElement(null, 342);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 343, 352);
+		addExpectedElement(null, 353, 355);
 	}
 	
 	(
@@ -2952,8 +2952,8 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 438, 457);
-		addExpectedElement(null, 458, 460);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 356, 365);
+		addExpectedElement(null, 366, 368);
 	}
 	
 ;
@@ -3002,7 +3002,7 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 461);
+		addExpectedElement(null, 369);
 	}
 	
 	a1 = '[' {
@@ -3019,7 +3019,7 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 462);
+		addExpectedElement(null, 370);
 	}
 	
 	(
@@ -3058,7 +3058,7 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 463);
+		addExpectedElement(null, 371);
 	}
 	
 	a3 = ':' {
@@ -3075,7 +3075,7 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 464);
+		addExpectedElement(null, 372);
 	}
 	
 	(
@@ -3114,7 +3114,7 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 465);
+		addExpectedElement(null, 373);
 	}
 	
 	a5 = ']' {
@@ -3131,9 +3131,9 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 466);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 467, 486);
-		addExpectedElement(null, 487, 489);
+		addExpectedElement(null, 374);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 375, 384);
+		addExpectedElement(null, 385, 387);
 	}
 	
 	(
@@ -3192,8 +3192,8 @@ parse_org_emftext_sdk_concretesyntax_BooleanTerminal returns [org.emftext.sdk.co
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 490, 509);
-		addExpectedElement(null, 510, 512);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 388, 397);
+		addExpectedElement(null, 398, 400);
 	}
 	
 ;
@@ -3242,7 +3242,7 @@ parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concr
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 513);
+		addExpectedElement(null, 401);
 	}
 	
 	a1 = '[' {
@@ -3259,7 +3259,7 @@ parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concr
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), 514);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), 402);
 	}
 	
 	(
@@ -3288,7 +3288,7 @@ parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concr
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 515, 516);
+		addExpectedElement(null, 403, 404);
 	}
 	
 	(
@@ -3307,7 +3307,7 @@ parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concr
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), 517);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), 405);
 			}
 			
 			(
@@ -3336,14 +3336,14 @@ parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concr
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 518, 519);
+				addExpectedElement(null, 406, 407);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(null, 520, 521);
+		addExpectedElement(null, 408, 409);
 	}
 	
 	a5 = ']' {
@@ -3360,9 +3360,9 @@ parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concr
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 522);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 523, 542);
-		addExpectedElement(null, 543, 545);
+		addExpectedElement(null, 410);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 411, 420);
+		addExpectedElement(null, 421, 423);
 	}
 	
 	(
@@ -3421,8 +3421,8 @@ parse_org_emftext_sdk_concretesyntax_EnumTerminal returns [org.emftext.sdk.concr
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 546, 565);
-		addExpectedElement(null, 566, 568);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 424, 433);
+		addExpectedElement(null, 434, 436);
 	}
 	
 ;
@@ -3468,7 +3468,7 @@ parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sd
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 569);
+		addExpectedElement(null, 437);
 	}
 	
 	a1 = ':' {
@@ -3482,7 +3482,7 @@ parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sd
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 570);
+		addExpectedElement(null, 438);
 	}
 	
 	(
@@ -3521,7 +3521,7 @@ parse_org_emftext_sdk_concretesyntax_EnumLiteralTerminal returns [org.emftext.sd
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 571, 572);
+		addExpectedElement(null, 439, 440);
 	}
 	
 ;
@@ -3570,9 +3570,9 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 573, 574);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 575, 594);
-		addExpectedElement(null, 595, 597);
+		addExpectedElement(null, 441, 442);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 443, 452);
+		addExpectedElement(null, 453, 455);
 	}
 	
 	(
@@ -3591,7 +3591,7 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 598);
+				addExpectedElement(null, 456);
 			}
 			
 			(
@@ -3634,9 +3634,9 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 599, 600);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 601, 620);
-				addExpectedElement(null, 621, 623);
+				addExpectedElement(null, 457, 458);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 459, 468);
+				addExpectedElement(null, 469, 471);
 			}
 			
 			(
@@ -3655,7 +3655,7 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 624);
+						addExpectedElement(null, 472);
 					}
 					
 					(
@@ -3698,27 +3698,27 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 625, 626);
-						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 627, 646);
-						addExpectedElement(null, 647, 649);
+						addExpectedElement(null, 473, 474);
+						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 475, 484);
+						addExpectedElement(null, 485, 487);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(null, 650, 651);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 652, 671);
-				addExpectedElement(null, 672, 674);
+				addExpectedElement(null, 488, 489);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 490, 499);
+				addExpectedElement(null, 500, 502);
 			}
 			
 		)
 		
 	)?	{
 		// expected elements (follow set)
-		addExpectedElement(null, 675);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 676, 695);
-		addExpectedElement(null, 696, 698);
+		addExpectedElement(null, 503);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 504, 513);
+		addExpectedElement(null, 514, 516);
 	}
 	
 	(
@@ -3777,8 +3777,8 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 699, 718);
-		addExpectedElement(null, 719, 721);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 517, 526);
+		addExpectedElement(null, 527, 529);
 	}
 	
 ;
@@ -3801,7 +3801,7 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), 722, 731);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), 530, 539);
 	}
 	
 	(
@@ -3830,7 +3830,7 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 732);
+		addExpectedElement(null, 540);
 	}
 	
 	a2 = ')' {
@@ -3847,9 +3847,9 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 733);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 734, 753);
-		addExpectedElement(null, 754, 756);
+		addExpectedElement(null, 541);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 542, 551);
+		addExpectedElement(null, 552, 554);
 	}
 	
 	(
@@ -3908,8 +3908,8 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 757, 776);
-		addExpectedElement(null, 777, 779);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 555, 564);
+		addExpectedElement(null, 565, 567);
 	}
 	
 ;
@@ -3954,8 +3954,8 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 780, 799);
-		addExpectedElement(null, 800, 802);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 568, 577);
+		addExpectedElement(null, 578, 580);
 	}
 	
 ;
@@ -4000,8 +4000,8 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 803, 822);
-		addExpectedElement(null, 823, 825);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), 581, 590);
+		addExpectedElement(null, 591, 593);
 	}
 	
 ;
@@ -4035,16 +4035,16 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 826);
-				addExpectedElement(null, 827);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 594);
+				addExpectedElement(null, 595);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 828);
-		addExpectedElement(null, 829);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 596);
+		addExpectedElement(null, 597);
 	}
 	
 	a1 = 'REDEFINE' {
@@ -4058,7 +4058,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 830);
+		addExpectedElement(null, 598);
 	}
 	
 	(
@@ -4098,7 +4098,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 831);
+		addExpectedElement(null, 599);
 	}
 	
 	a3 = 'AS' {
@@ -4112,7 +4112,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 832);
+		addExpectedElement(null, 600);
 	}
 	
 	(
@@ -4148,7 +4148,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 833, 834);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 601, 602);
 	}
 	
 	(
@@ -4174,7 +4174,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 835, 836);
+		addExpectedElement(null, 603, 604);
 	}
 	
 	(
@@ -4190,7 +4190,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 837, 838);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 605, 606);
 			}
 			
 			(
@@ -4219,7 +4219,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(null, 839, 840);
+				addExpectedElement(null, 607, 608);
 			}
 			
 		)
@@ -4229,7 +4229,7 @@ parse_org_emftext_sdk_concretesyntax_TokenRedefinition returns [org.emftext.sdk.
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 841, 842);
+		addExpectedElement(null, 609, 610);
 	}
 	
 ;
@@ -4263,16 +4263,16 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 843);
-				addExpectedElement(null, 844);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 611);
+				addExpectedElement(null, 612);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 845);
-		addExpectedElement(null, 846);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 613);
+		addExpectedElement(null, 614);
 	}
 	
 	a1 = 'DEFINE' {
@@ -4286,7 +4286,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 847);
+		addExpectedElement(null, 615);
 	}
 	
 	(
@@ -4322,7 +4322,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 848, 849);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 616, 617);
 	}
 	
 	(
@@ -4348,7 +4348,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 850, 852);
+		addExpectedElement(null, 618, 620);
 	}
 	
 	(
@@ -4364,7 +4364,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 853, 854);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 621, 622);
 			}
 			
 			(
@@ -4390,14 +4390,14 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 855, 857);
+				addExpectedElement(null, 623, 625);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(null, 858, 860);
+		addExpectedElement(null, 626, 628);
 	}
 	
 	(
@@ -4413,7 +4413,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 861);
+				addExpectedElement(null, 629);
 			}
 			
 			a7 = 'IN' {
@@ -4427,7 +4427,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 862);
+				addExpectedElement(null, 630);
 			}
 			
 			(
@@ -4466,7 +4466,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(null, 863);
+				addExpectedElement(null, 631);
 			}
 			
 		)
@@ -4476,7 +4476,7 @@ parse_org_emftext_sdk_concretesyntax_NormalTokenDefinition returns [org.emftext.
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 864);
+		addExpectedElement(null, 632);
 	}
 	
 ;
@@ -4496,7 +4496,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 865);
+		addExpectedElement(null, 633);
 	}
 	
 	a1 = 'FRAGMENT' {
@@ -4510,7 +4510,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 866);
+		addExpectedElement(null, 634);
 	}
 	
 	(
@@ -4546,7 +4546,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), 867, 868);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), 635, 636);
 	}
 	
 	(
@@ -4572,7 +4572,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 869, 870);
+		addExpectedElement(null, 637, 638);
 	}
 	
 	(
@@ -4588,7 +4588,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), 871, 872);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), 639, 640);
 			}
 			
 			(
@@ -4617,7 +4617,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(null, 873, 874);
+				addExpectedElement(null, 641, 642);
 			}
 			
 		)
@@ -4627,7 +4627,7 @@ parse_org_emftext_sdk_concretesyntax_PartialTokenDefinition returns [org.emftext
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 875, 876);
+		addExpectedElement(null, 643, 644);
 	}
 	
 ;
@@ -4647,7 +4647,7 @@ parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 877);
+		addExpectedElement(null, 645);
 	}
 	
 	(
@@ -4690,7 +4690,7 @@ parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 878);
+		addExpectedElement(null, 646);
 	}
 	
 ;
@@ -4735,7 +4735,7 @@ parse_org_emftext_sdk_concretesyntax_AtomicRegex returns [org.emftext.sdk.concre
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 879, 883);
+		addExpectedElement(null, 647, 651);
 	}
 	
 ;
@@ -4784,7 +4784,7 @@ parse_org_emftext_sdk_concretesyntax_RegexReference returns [org.emftext.sdk.con
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 884, 888);
+		addExpectedElement(null, 652, 656);
 	}
 	
 ;
@@ -4826,7 +4826,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 889, 890);
+		addExpectedElement(null, 657, 658);
 	}
 	
 	(
@@ -4842,7 +4842,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 891);
+				addExpectedElement(null, 659);
 			}
 			
 			(
@@ -4878,14 +4878,14 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 892, 893);
+				addExpectedElement(null, 660, 661);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(null, 894, 895);
+		addExpectedElement(null, 662, 663);
 	}
 	
 	a3 = 'COLOR' {
@@ -4899,7 +4899,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 896);
+		addExpectedElement(null, 664);
 	}
 	
 	(
@@ -4935,7 +4935,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 897, 898);
+		addExpectedElement(null, 665, 666);
 	}
 	
 	(
@@ -4951,7 +4951,7 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 899);
+				addExpectedElement(null, 667);
 			}
 			
 			(
@@ -4987,14 +4987,14 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 900, 901);
+				addExpectedElement(null, 668, 669);
 			}
 			
 		)
 		
 	)*	{
 		// expected elements (follow set)
-		addExpectedElement(null, 902, 903);
+		addExpectedElement(null, 670, 671);
 	}
 	
 	a7 = ';' {
@@ -5011,8 +5011,8 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 904);
-		addExpectedElement(null, 905);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 672);
+		addExpectedElement(null, 673);
 	}
 	
 ;
@@ -5032,7 +5032,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 	}
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 906);
+		addExpectedElement(null, 674);
 	}
 	
 	(
@@ -5068,17 +5068,17 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 907);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 908);
-		addExpectedElement(null, 909, 910);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 911);
-		addExpectedElement(null, 912);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 913);
-		addExpectedElement(null, 914);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 915);
-		addExpectedElement(null, 916);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 917);
-		addExpectedElement(null, 918);
+		addExpectedElement(null, 675);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 676);
+		addExpectedElement(null, 677, 678);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 679);
+		addExpectedElement(null, 680);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 681);
+		addExpectedElement(null, 682);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 683);
+		addExpectedElement(null, 684);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 685);
+		addExpectedElement(null, 686);
 	}
 	
 	(
@@ -5094,7 +5094,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), 919);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), 687);
 			}
 			
 			(
@@ -5120,7 +5120,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			)
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 920, 921);
+				addExpectedElement(null, 688, 689);
 			}
 			
 			(
@@ -5136,7 +5136,7 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 					}
 					{
 						// expected elements (follow set)
-						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), 922);
+						addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), 690);
 					}
 					
 					(
@@ -5162,14 +5162,14 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 					)
 					{
 						// expected elements (follow set)
-						addExpectedElement(null, 923, 924);
+						addExpectedElement(null, 691, 692);
 					}
 					
 				)
 				
 			)*			{
 				// expected elements (follow set)
-				addExpectedElement(null, 925, 926);
+				addExpectedElement(null, 693, 694);
 			}
 			
 			a6 = ')' {
@@ -5186,16 +5186,16 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 927);
-				addExpectedElement(null, 928, 929);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 930);
-				addExpectedElement(null, 931);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 932);
-				addExpectedElement(null, 933);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 934);
-				addExpectedElement(null, 935);
-				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 936);
-				addExpectedElement(null, 937);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 695);
+				addExpectedElement(null, 696, 697);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 698);
+				addExpectedElement(null, 699);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 700);
+				addExpectedElement(null, 701);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 702);
+				addExpectedElement(null, 703);
+				addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 704);
+				addExpectedElement(null, 705);
 			}
 			
 		)
@@ -5205,16 +5205,16 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 938);
-		addExpectedElement(null, 939, 940);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 941);
-		addExpectedElement(null, 942);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 943);
-		addExpectedElement(null, 944);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 945);
-		addExpectedElement(null, 946);
-		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 947);
-		addExpectedElement(null, 948);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), 706);
+		addExpectedElement(null, 707, 708);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), 709);
+		addExpectedElement(null, 710);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), 711);
+		addExpectedElement(null, 712);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), 713);
+		addExpectedElement(null, 714);
+		addExpectedElement(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), 715);
+		addExpectedElement(null, 716);
 	}
 	
 ;
@@ -5256,7 +5256,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 	)
 	{
 		// expected elements (follow set)
-		addExpectedElement(null, 949, 951);
+		addExpectedElement(null, 717, 719);
 	}
 	
 	(
@@ -5272,7 +5272,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 			}
 			{
 				// expected elements (follow set)
-				addExpectedElement(null, 952);
+				addExpectedElement(null, 720);
 			}
 			
 			(
@@ -5311,7 +5311,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 				// We've found the last token for this rule. The constructed EObject is now
 				// complete.
 				completedElement(element, true);
-				addExpectedElement(null, 953, 954);
+				addExpectedElement(null, 721, 722);
 			}
 			
 		)
@@ -5321,7 +5321,7 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 		// We've found the last token for this rule. The constructed EObject is now
 		// complete.
 		completedElement(element, true);
-		addExpectedElement(null, 955, 956);
+		addExpectedElement(null, 723, 724);
 	}
 	
 ;
