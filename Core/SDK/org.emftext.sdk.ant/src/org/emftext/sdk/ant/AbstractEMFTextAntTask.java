@@ -20,7 +20,8 @@ import org.apache.tools.ant.Task;
 
 public abstract class AbstractEMFTextAntTask extends Task {
 
-	private final static Object taskloaderLock = new Object();
+	private final static Object TASK_LOADER_LOCK = new Object();
+	
 	private static int threadCount = 0;
 	
 	protected AntClassLoader setClassLoader() {
@@ -31,7 +32,7 @@ public abstract class AbstractEMFTextAntTask extends Task {
 			taskloader = (AntClassLoader) loader;
 		}
 		// Shove it into the Thread, replacing the thread's ClassLoader:
-		synchronized (taskloaderLock) {
+		synchronized (TASK_LOADER_LOCK) {
 			if (taskloader != null && threadCount == 0) {
 				taskloader.setThreadContextLoader();
 			}
@@ -41,7 +42,7 @@ public abstract class AbstractEMFTextAntTask extends Task {
 	}
 
 	protected void resetClassLoader(AntClassLoader taskloader) {
-		synchronized (taskloaderLock) {
+		synchronized (TASK_LOADER_LOCK) {
 			threadCount--;
 			// Reset the Thread's original ClassLoader.
 			if (taskloader != null && threadCount == 0) {

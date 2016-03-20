@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -18,13 +18,13 @@ package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 
 /**
+ * <p>
  * A CsLayoutInformationAdapter is used to store layout information that is found
  * while parsing text files. Layout information does include all unused tokens.
  * Usually, these are whitespace characters, line breaks and comments, but
@@ -32,10 +32,13 @@ import org.eclipse.emf.ecore.EObject;
  * CsLayoutInformationAdapters are attached to EObjects and aggregate multiple
  * LayoutInformation objects. Each of these objects contains the layout that was
  * found before a keyword, attribute or reference.
+ * </p>
  * 
+ * <p>
  * Since layout information is stored in EAdapters, models can be transformed and
  * modified, while still keeping the formatting of the original text document from
  * which the model was originally created.
+ * </p>
  */
 public class CsLayoutInformationAdapter implements Adapter {
 	

@@ -22,4 +22,8 @@ Require-Bundle: org.junit,
  org.emftext.test.cct4.resource.cct4,
  org.emftext.test.cct4.resource.cct4.ui,
  org.eclipse.emf.ecore.xmi,
- org.emftext.test
+ org.emftext.test,
+ org.emftext.test.cct5,
+ org.emftext.test.cct5.resource.cct5,
+ org.emftext.test.cct5.resource.cct5.ui,
+ org.emftext.sdk.codegen.resource

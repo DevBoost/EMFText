@@ -17,5 +17,6 @@
     <genClasses image="false" ecoreClass="cct2.ecore#//AbstractContainmentType"/>
     <genClasses ecoreClass="cct2.ecore#//ContainmentA"/>
     <genClasses ecoreClass="cct2.ecore#//ContainmentB"/>
+    <genClasses ecoreClass="cct2.ecore#//GroupedSequence"/>
   </genPackages>
 </genmodel:GenModel>

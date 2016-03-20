@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ContextInformation;
@@ -45,8 +45,12 @@ public class CsCompletionProcessor implements IContentAssistProcessor {
 			return new ICompletionProposal[0];
 		}
 		String content = viewer.getDocument().get();
+		return computeCompletionProposals(textResource, content, offset);
+	}
+	
+	public ICompletionProposal[] computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, String text, int offset) {
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper helper = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsCodeCompletionHelper();
-		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);
+		org.emftext.sdk.concretesyntax.resource.cs.ui.CsCompletionProposal[] computedProposals = helper.computeCompletionProposals(textResource, text, offset);
 		
 		// call completion proposal post processor to allow for customizing the proposals
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor proposalPostProcessor = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsProposalPostProcessor();
@@ -82,6 +86,16 @@ public class CsCompletionProcessor implements IContentAssistProcessor {
 	}
 	
 	public char[] getCompletionProposalAutoActivationCharacters() {
+		IPreferenceStore preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.ui.CsUIPlugin.getDefault().getPreferenceStore();
+		boolean enabled = preferenceStore.getBoolean(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_ENABLED);
+		String triggerString = preferenceStore.getString(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_CONTENT_ASSIST_TRIGGERS);
+		if(enabled && triggerString != null && triggerString.length() > 0){
+			char[] triggers = new char[triggerString.length()];
+			for (int i = 0; i < triggerString.length(); i++) {
+				triggers[i] = triggerString.charAt(i);
+			}
+			return triggers;
+		}
 		return null;
 	}
 	

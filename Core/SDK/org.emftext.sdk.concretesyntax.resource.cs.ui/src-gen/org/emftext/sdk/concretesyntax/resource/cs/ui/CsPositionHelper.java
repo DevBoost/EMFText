@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -28,7 +28,9 @@ import org.eclipse.jface.text.Position;
 public class CsPositionHelper {
 	
 	/**
+	 * <p>
 	 * Adds a position with the given offset and length into a document.
+	 * </p>
 	 * 
 	 * @param document the document to add a position into
 	 * @param category the category of this position
@@ -50,7 +52,9 @@ public class CsPositionHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the positions of a specific category of the given document.
+	 * </p>
 	 * 
 	 * @param document the document to get the positions from
 	 * @param category the position's category
@@ -67,7 +71,9 @@ public class CsPositionHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the first position of a specific category of the given document.
+	 * </p>
 	 * 
 	 * @param document the document to get the positions from
 	 * @param category the category of the position
@@ -86,8 +92,10 @@ public class CsPositionHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Deletes the position category from the document. All positions in this category
 	 * are thus deleted as well.
+	 * </p>
 	 * 
 	 * @param document the document contains the category
 	 * @param category the category to be removed

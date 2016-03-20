@@ -1,6 +1,6 @@
 site/snapshot = false
 
 site/vendor = DevBoost GmbH
-site/uploadPath = lars.inf.tu-dresden.de:/srv/www_emftext.org/update_trunk
-site/usernameProperty = DROPSBOX_UPLOAD_USER
-site/passwordProperty = DROPSBOX_UPLOAD_PASS
+site/uploadPath = update.emftext.org:/home/jenkins/emftext/trunk
+site/usernameProperty = DEVBOOST_UPLOAD_USER
+site/passwordProperty = DEVBOOST_UPLOAD_PASS

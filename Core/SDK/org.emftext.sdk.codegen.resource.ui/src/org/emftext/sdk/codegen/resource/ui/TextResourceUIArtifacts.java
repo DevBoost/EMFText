@@ -47,6 +47,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.CodeFoldingManagerGener
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ColorManagerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.CompletionProcessorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.CompletionProposalGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.ContentAssistPreferencePageGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DefaultHoverTextProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DocBrowserInformationControlInputGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EObjectSelectionGenerator;
@@ -170,6 +171,7 @@ public class TextResourceUIArtifacts {
 	// preference pages
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PreferencePage", PreferencePageGenerator.class, OptionTypes.OVERRIDE_PREFERENCE_PAGE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> BRACKET_PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "BracketPreferencePage", BracketPreferencePageGenerator.class, OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> CONTENT_ASSIST_PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "ContentAssistPreferencePage", ContentAssistPreferencePageGenerator.class, null);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PREFERENCE_CONSTANTS = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PreferenceConstants", PreferenceConstantsGenerator.class, OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OCCURRENCE_PREFERENCE_PAGE = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "OccurrencePreferencePage", OccurrencePreferencePageGenerator.class, OptionTypes.OVERRIDE_OCCURRENCE_PREFERENCE_PAGE);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> PIXEL_CONVERTER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "PixelConverter", PixelConverterGenerator.class, OptionTypes.OVERRIDE_PIXEL_CONVERTER);

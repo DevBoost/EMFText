@@ -52,8 +52,8 @@ public class ResourceUtil {
 				unresolveProxies.add(nextElement);
 			}
 			for (EObject crElement : nextElement.eCrossReferences()) {
-				crElement = EcoreUtil.resolve(crElement, resource);
-				if (crElement.eIsProxy()) {
+				EObject resolvedElement = EcoreUtil.resolve(crElement, resource);
+				if (resolvedElement.eIsProxy()) {
 					unresolveProxies.add(nextElement);
 				}
 			}

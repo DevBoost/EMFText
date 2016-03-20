@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,14 +10,13 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.net.URL;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -37,10 +36,14 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.osgi.framework.Bundle;
 
 /**
+ * <p>
  * This class is based on:
  * <i>org.eclipse.gef.examples.ui.pde.internal.wizards.ProjectUnzipperNewWizard</i>
  * .
+ * </p>
+ * <p>
  * It is responsible for offering an example project via the new dialog of Eclipse.
+ * </p>
  */
 public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutableExtension {
 	
@@ -116,8 +119,10 @@ public class CsNewProjectWizard extends Wizard implements INewWizard, IExecutabl
 	}
 	
 	/**
+	 * <p>
 	 * Creates the sole wizard page contributed by this base implementation; the
 	 * standard Eclipse WizardNewProjectCreationPage.
+	 * </p>
 	 * 
 	 * @see WizardNewProjectCreationPage#WizardNewProjectCreationPage(String)
 	 */

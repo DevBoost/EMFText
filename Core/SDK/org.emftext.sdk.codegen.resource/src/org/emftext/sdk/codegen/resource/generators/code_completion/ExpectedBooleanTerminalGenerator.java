@@ -106,7 +106,7 @@ public class ExpectedBooleanTerminalGenerator extends JavaBaseGenerator<Artifact
 
 	private void addGetSyntaxElementMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the expected boolean terminal.");
-		sc.add("public " + syntaxElementClassName +" getSymtaxElement() {");
+		sc.add("public " + syntaxElementClassName +" getSyntaxElement() {");
 		sc.add("return booleanTerminal;");
 		sc.add("}");
 		sc.addLineBreak();

@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -21,7 +21,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -87,11 +86,21 @@ public class CsImageProvider {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the image for the given key. Possible keys are:
+	 * </p>
+	 * <p>
 	 * <ul>
+	 * </p>
+	 * <p>
 	 * <li>platform:/plugin/your.plugin/icons/yourIcon.png</li>
+	 * </p>
+	 * <p>
 	 * <li>bundleentry://557.fwk3560063/icons/yourIcon.png</li>
+	 * </p>
+	 * <p>
 	 * </ul>
+	 * </p>
 	 */
 	public ImageDescriptor getImageDescriptor(String key) {
 		IPath path = new Path(key);

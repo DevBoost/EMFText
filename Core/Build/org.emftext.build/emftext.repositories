@@ -20,7 +20,7 @@ get:http://devboost.de/eclipse-mirror/modeling/emf/validation/downloads/drops/1.
 // Testing (JUnit Stage)
 git:https://github.com/DevBoost/BuildBoost.git!Extensions/JUnit/
 
-//EMFText (required to generate test languages)
+// EMFText (required to generate test languages)
 git:https://github.com/DevBoost/BuildBoost.git!Extensions/EMFText/
 
 // EMF Compare (required for tests)

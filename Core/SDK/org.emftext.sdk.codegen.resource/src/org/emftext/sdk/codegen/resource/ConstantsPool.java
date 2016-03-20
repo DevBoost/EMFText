@@ -102,15 +102,23 @@ public class ConstantsPool {
 
 	public String getFeatureConstantFieldName(GenFeature genFeature) {
 		if (!eFeatureToConstantNameMap.keySet().contains(genFeature)) {
-			String featureConstantName = "FEATURES[" + featureCounter + "]";
+			String featureConstantName = getFeatureConstantFieldName(Integer.toString(featureCounter));
 			featureCounter++;
 			eFeatureToConstantNameMap.put(genFeature, featureConstantName);
 		}
 		return eFeatureToConstantNameMap.get(genFeature);
 	}
 
+	public String getFeatureConstantFieldName(String arrayIndex) {
+		return "FEATURES[" + arrayIndex + "]";
+	}
+
 	public String getContainmentLinkConstantName(ContainmentLink link) {
 		return "LINKS[" + getContainmentLinkID(link) + "]";
+	}
+	
+	public String getContainmentLinkConstantName(String linkIndexVariable) {
+		return "LINKS[" + linkIndexVariable + "]";
 	}
 	
 	public int getContainmentLinkID(ContainmentLink link) {

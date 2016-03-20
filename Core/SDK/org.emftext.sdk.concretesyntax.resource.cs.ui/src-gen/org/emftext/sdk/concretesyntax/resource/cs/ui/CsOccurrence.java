@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -75,7 +74,9 @@ public class CsOccurrence {
 	private Region tokenRegion;
 	
 	/**
+	 * <p>
 	 * Creates a CsOccurrence object to find positions to highlight.
+	 * </p>
 	 * 
 	 * @param textResource the text resource for location
 	 * @param projectionViewer the viewer for the text
@@ -93,7 +94,9 @@ public class CsOccurrence {
 	}
 	
 	/**
+	 * <p>
 	 * Tries to resolve the first proxy object in the given list.
+	 * </p>
 	 * 
 	 * @param objects the <code>EObject</code>s located at the caret position
 	 * 
@@ -142,8 +145,10 @@ public class CsOccurrence {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the text of the token that was found at the caret position at the time
 	 * occurrence we computed last.
+	 * </p>
 	 * 
 	 * @return the token text
 	 */

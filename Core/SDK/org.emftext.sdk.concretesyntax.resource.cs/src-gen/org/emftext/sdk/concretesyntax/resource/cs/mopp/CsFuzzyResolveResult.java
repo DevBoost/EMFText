@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,22 +10,23 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 import java.util.Collection;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 /**
+ * <p>
  * A FuzzyResolveResult is an implementation of the ICsReferenceResolveResult
  * interface that delegates all method calls to a given ICsReferenceResolveResult
  * with ReferenceType EObject. It is used by reference resolver switches to
  * collect results from different reference resolvers in a type safe manner.
+ * </p>
  * 
  * @param <ReferenceType> the type of the reference that is resolved
  */

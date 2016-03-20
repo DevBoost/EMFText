@@ -55,9 +55,23 @@ public class ContainmentGenerator extends JavaBaseGenerator<ArtifactParameter<Ge
 
 	private void addMethods(JavaComposite sc) {
 		addGetAllowedTypesMethod(sc);
+		addHasContainmentMethod(sc);
 		addToStringMethod(sc);
 	}
 	
+	private void addHasContainmentMethod(JavaComposite sc) {
+		sc.add("@Override"); 
+		sc.add("public boolean hasContainment(" + E_CLASS(sc) + " metaclass) {"); 
+		sc.add("for (" + E_CLASS(sc) + " allowedType : allowedTypes) {"); 
+		sc.add("if (allowedType == metaclass) {"); 
+		sc.add("return true;"); 
+		sc.add("}"); 
+		sc.add("}");
+		sc.add("return false;"); 
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addGetAllowedTypesMethod(JavaComposite sc) {
 		sc.add("public " + E_CLASS(sc) + "[] getAllowedTypes() {"); 
 		sc.add("return allowedTypes;"); 

@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.grammar;
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -595,6 +594,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_0_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * ConcreteSyntax
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_0 = INSTANCE.getCS_0();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_0() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), CS_0_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -745,6 +748,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_1_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class Import
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_1 = INSTANCE.getCS_1();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_1() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), CS_1_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -785,6 +791,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_2_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class Option
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_2 = INSTANCE.getCS_2();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_2() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption(), CS_2_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -855,6 +864,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_3_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class Rule
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_3 = INSTANCE.getCS_3();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_3() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), CS_3_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -900,6 +912,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_4_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class Sequence
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_4 = INSTANCE.getCS_4();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_4() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(), CS_4_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -955,6 +970,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_5_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class Choice
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_5 = INSTANCE.getCS_5();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_5() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(), CS_5_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -975,6 +993,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_6_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class CsString
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_6 = INSTANCE.getCS_6();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_6() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString(), CS_6_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1015,6 +1036,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_7_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * PlaceholderUsingSpecifiedToken
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_7 = INSTANCE.getCS_7();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_7() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken(), CS_7_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1050,6 +1075,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_8_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * PlaceholderUsingDefaultToken
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_8 = INSTANCE.getCS_8();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_8() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken(), CS_8_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1125,6 +1154,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_9_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * PlaceholderInQuotes
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_9 = INSTANCE.getCS_9();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_9() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes(), CS_9_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1185,6 +1218,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_10_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * BooleanTerminal
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_10 = INSTANCE.getCS_10();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_10() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getBooleanTerminal(), CS_10_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1255,6 +1292,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_11_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class EnumTerminal
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_11 = INSTANCE.getCS_11();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_11() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumTerminal(), CS_11_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1285,6 +1325,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_12_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * EnumLiteralTerminal
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_12 = INSTANCE.getCS_12();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_12() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getEnumLiteralTerminal(), CS_12_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1360,6 +1404,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_13_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class Containment
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_13 = INSTANCE.getCS_13();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_13() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment(), CS_13_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1395,6 +1442,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_14_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * CompoundDefinition
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_14 = INSTANCE.getCS_14();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_14() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(), CS_14_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1415,6 +1466,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_15_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class WhiteSpaces
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_15 = INSTANCE.getCS_15();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_15() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces(), CS_15_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1435,6 +1489,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_16_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class LineBreak
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_16 = INSTANCE.getCS_16();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_16() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak(), CS_16_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1545,6 +1602,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_17_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * TokenRedefinition
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_17 = INSTANCE.getCS_17();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_17() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenRedefinition(), CS_17_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1690,6 +1751,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_18_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * NormalTokenDefinition
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_18 = INSTANCE.getCS_18();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_18() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalTokenDefinition(), CS_18_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1775,6 +1840,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_19_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * PartialTokenDefinition
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_19 = INSTANCE.getCS_19();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_19() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPartialTokenDefinition(), CS_19_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1805,6 +1874,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_20_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * TokenPriorityDirective
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_20 = INSTANCE.getCS_20();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_20() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective(), CS_20_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1825,6 +1898,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_21_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class AtomicRegex
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_21 = INSTANCE.getCS_21();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_21() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAtomicRegex(), CS_21_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1845,6 +1921,10 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_22_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class
+	 * RegexReference
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_22 = INSTANCE.getCS_22();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_22() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRegexReference(), CS_22_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -1950,6 +2030,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_23_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class TokenStyle
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_23 = INSTANCE.getCS_23();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_23() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle(), CS_23_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -2030,6 +2113,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_24_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class Annotation
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_24 = INSTANCE.getCS_24();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_24() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(), CS_24_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);
@@ -2075,6 +2161,9 @@ public class CsGrammarInformationProvider {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsChoice(org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE, CS_25_0_0);
 	}
 	
+	/**
+	 * This constant refers to the definition of the syntax for meta class KeyValuePair
+	 */
 	public final static org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule CS_25 = INSTANCE.getCS_25();
 	private org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getCS_25() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(), CS_25_0, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality.ONE);

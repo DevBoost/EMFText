@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,14 +10,13 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.ArrayList;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -195,8 +194,10 @@ public class CsBracketSet {
 	}
 	
 	/**
+	 * <p>
 	 * Returns a list of bracket pairs. This call is for the list in the preference
 	 * page.
+	 * </p>
 	 * 
 	 * @return a list of bracket pairs in the form
 	 * <code>String[]{"{BRACKET_SEPARATOR}","(BRACKET_SEPARATOR)"}</code>
@@ -212,8 +213,10 @@ public class CsBracketSet {
 	}
 	
 	/**
+	 * <p>
 	 * Returns this bracket set as <code>String</code>. This is useful to store the
 	 * set in the <code>IPreferenceStore</code>.
+	 * </p>
 	 * 
 	 * @see IPreferenceStore
 	 */

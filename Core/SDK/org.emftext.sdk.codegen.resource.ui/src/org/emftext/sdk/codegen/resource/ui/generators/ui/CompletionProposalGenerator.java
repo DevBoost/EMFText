@@ -32,7 +32,9 @@ public class CompletionProposalGenerator extends JavaBaseGenerator<ArtifactParam
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		
 		sc.addJavadoc("A proposal for completing an incomplete document.");

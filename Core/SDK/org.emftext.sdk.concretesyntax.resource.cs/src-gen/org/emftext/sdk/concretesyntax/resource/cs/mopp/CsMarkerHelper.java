@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -118,10 +117,12 @@ public class CsMarkerHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Creates a marker from the given diagnostics object and attaches the marker to
 	 * the resource. Markers are created and removed asynchronously. Thus, they may
 	 * not appear when calls to this method return. But, the order of marker additions
 	 * and removals is preserved.
+	 * </p>
 	 * 
 	 * @param resource The resource that is the file to mark.
 	 * @param diagnostic The diagnostic with information for the marker.
@@ -185,10 +186,12 @@ public class CsMarkerHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Removes all markers from the given resource regardless of their type. Markers
 	 * are created and removed asynchronously. Thus, they may not appear when calls to
 	 * this method return. But, the order of marker additions and removals is
 	 * preserved.
+	 * </p>
 	 * 
 	 * @param resource The resource where to delete markers from
 	 */
@@ -199,10 +202,12 @@ public class CsMarkerHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Removes all markers of the given type from the given resource. Markers are
 	 * created and removed asynchronously. Thus, they may not appear when calls to
 	 * this method return. But, the order of marker additions and removals is
 	 * preserved.
+	 * </p>
 	 * 
 	 * @param resource The resource where to delete markers from
 	 * @param problemType The type of problem to remove
@@ -226,10 +231,12 @@ public class CsMarkerHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Removes all markers that were caused by the given object from the resource.
 	 * Markers are created and removed asynchronously. Thus, they may not appear when
 	 * calls to this method return. But, the order of marker additions and removals is
 	 * preserved.
+	 * </p>
 	 * 
 	 * @param resource The resource where to delete markers from
 	 * @param causingObject The cause of the problems to remove
@@ -319,10 +326,12 @@ public class CsMarkerHelper {
 	}
 	
 	/**
+	 * <p>
 	 * Removes all markers of the given type from the given resource. Markers are
 	 * created and removed asynchronously. Thus, they may not appear when calls to
 	 * this method return. But, the order of marker additions and removals is
 	 * preserved.
+	 * </p>
 	 * 
 	 * @param resource The resource where to delete markers from
 	 * @param markerId The id of the marker type to remove

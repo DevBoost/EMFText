@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -107,6 +106,9 @@ public class CsMinimalModelHelper {
 				}
 			} else if (feature instanceof EAttribute) {
 				EAttribute attribute = (EAttribute) feature;
+				if (!attribute.isChangeable()) {
+					continue;
+				}
 				if ("EString".equals(attribute.getEType().getName())) {
 					String initialValue;
 					if (attribute.getName().equals("name") && name != null) {

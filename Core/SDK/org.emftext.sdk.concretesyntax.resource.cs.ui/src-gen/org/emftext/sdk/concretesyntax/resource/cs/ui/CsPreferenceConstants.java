@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -34,5 +34,14 @@ public interface CsPreferenceConstants {
 	public static final String EDITOR_MATCHING_BRACKETS_COLOR = "_matchingBracketsColor";
 	public static final String EDITOR_MATCHING_BRACKETS_CHECKBOX = "_matchingBracketsCheckbox";
 	public static final String EDITOR_BRACKETS_SUFFIX = "_brackets";
+	
+	// Constants for content assists
+	public static final String EDITOR_CONTENT_ASSIST_ENABLED 	= "_activationEnabled";
+	public static final String EDITOR_CONTENT_ASSIST_DELAY 		= "_activationDelay";
+	public static final String EDITOR_CONTENT_ASSIST_TRIGGERS 	= "_activationTriggers";
+	// and their defaults
+	public static final boolean EDITOR_CONTENT_ASSIST_ENABLED_DEFAULT	= true;
+	public static final int EDITOR_CONTENT_ASSIST_DELAY_DEFAULT			= 200;
+	public static final String EDITOR_CONTENT_ASSIST_TRIGGERS_DEFAULT 	= ":=|+@";
 	
 }

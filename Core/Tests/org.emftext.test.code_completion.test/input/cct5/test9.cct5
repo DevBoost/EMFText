@@ -1,0 +1,7 @@
+BEGIN_FARM
+
+	BEGIN_FARMER Stefan
+		Diet : Vegetarian 
+	END_FARMER
+
+	<CURSOR>

@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -39,11 +38,15 @@ public interface ICsTextResource extends Resource, org.emftext.sdk.concretesynta
 	public EList<EObject> getContentsInternal();
 	
 	/**
+	 * <p>
 	 * Try to load the content of this resource from the given stream. If loading
 	 * fails, the state of this resource is kept. If loading is successful, the
 	 * content of this resource is replaced with the new content.
+	 * </p>
+	 * <p>
 	 * This method can be used to try loading erroneous files, as e.g., needed during
 	 * background parsing in the editor.
+	 * </p>
 	 * 
 	 * @param stream the stream to read from
 	 * @param options the load options to use
@@ -53,8 +56,10 @@ public interface ICsTextResource extends Resource, org.emftext.sdk.concretesynta
 	public void reload(InputStream stream, Map<?,?> options) throws IOException;
 	
 	/**
+	 * <p>
 	 * Returns a map containing information about the location of model elements in
 	 * the text.
+	 * </p>
 	 * 
 	 * @return the model element to text location mapping
 	 */
@@ -71,8 +76,10 @@ public interface ICsTextResource extends Resource, org.emftext.sdk.concretesynta
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, int column, int line, int charStart, int charEnd);
 	
 	/**
+	 * <p>
 	 * Internal method used by the parser to register a context dependent proxy object
 	 * for later resolution.
+	 * </p>
 	 * 
 	 * @param container
 	 * @param reference

@@ -21,6 +21,7 @@ import java.util.List;
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
 import org.emftext.sdk.codegen.resource.generators.JavaBaseGenerator;
+import org.emftext.sdk.codegen.resource.generators.util.BinaryIntegerSplitter;
 
 import de.devboost.codecomposers.java.JavaComposite;
 import de.devboost.codecomposers.util.Pair;
@@ -40,26 +41,47 @@ public class ExpectationsConstantsGenerator extends JavaBaseGenerator<ArtifactPa
 		List<Integer[]> expectationCalls = getContext().getConstantsPool().getExpectationCalls();
 		sc.add("public final static int EXPECTATIONS[][] = new int[" + expectationCalls.size() + "][];");
 		sc.addLineBreak();
+		sc.add("public static int index;");
+		sc.addLineBreak();
 		
 		List<Pair<String,Integer>> statements = new ArrayList<Pair<String,Integer>>();
-		int index = 0;
+		statements.add(new Pair<String,Integer>(
+			"index = 0;", 20 // this is just a rough estimation
+		));
 		for (Integer[] expectationCall : expectationCalls) {
 			statements.add(new Pair<String,Integer>(
-				"EXPECTATIONS[" + index +  "] = new int[" + expectationCall.length + "];",20 // this is just a rough estimation
+				"EXPECTATIONS[index] = new int[" + expectationCall.length + "];",20 // this is just a rough estimation
 			));
 			int index2 = 0;
 			for (Integer integer : expectationCall) {
+				BinaryIntegerSplitter splitter = new BinaryIntegerSplitter(integer.intValue());
+				String binaryCode = splitter.getComputationCode();
+				int byteCodeSize = 20 + splitter.getOperations() * 5; // this is just a rough estimation
 				statements.add(new Pair<String,Integer>(
-					"EXPECTATIONS[" + index +  "][" + index2 +  "] = " + integer.toString() + ";",20 // this is just a rough estimation
+					"EXPECTATIONS[index][" + index2 +  "] = getValue(" + binaryCode + ");", byteCodeSize
 				));
 				index2++;
 			}
-			index++;
+			statements.add(new Pair<String,Integer>(
+				"index++;", 20 // this is just a rough estimation
+			));
+			//index++;
 		}
 		sc.addLargeMethod("initialize", statements);
 		
 		sc.add("static {");
 		sc.add("initialize();");
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.add("private static int getValue(int... bits) {");
+		sc.add("int value = 0;");
+		sc.add("int multiplier = 1;");
+		sc.add("for (int i = 0; i < bits.length; i++) {");
+		sc.add("value = value + bits[i] * multiplier;");
+		sc.add("multiplier = multiplier * 2;");
+		sc.add("}");
+		sc.add("return value;");
 		sc.add("}");
 		sc.addLineBreak();
 		

@@ -2520,7 +2520,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CASE_INSENSITIVE_KEYWORDS(313, "CASE_INSENSITIVE_KEYWORDS", "caseInsensitiveKeywords");
+	CASE_INSENSITIVE_KEYWORDS(313, "CASE_INSENSITIVE_KEYWORDS", "caseInsensitiveKeywords"), /**
+	 * The '<em><b>OVERRIDE FOLLOW SET GROUP LIST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FOLLOW_SET_GROUP_LIST_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_FOLLOW_SET_GROUP_LIST(314, "OVERRIDE_FOLLOW_SET_GROUP_LIST", "overrideFollowSetGroupList"), /**
+	 * The '<em><b>OVERRIDE FOLLOW SET GROUP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FOLLOW_SET_GROUP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_FOLLOW_SET_GROUP(315, "OVERRIDE_FOLLOW_SET_GROUP", "overrideFollowSetGroup");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6566,6 +6582,40 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int CASE_INSENSITIVE_KEYWORDS_VALUE = 313;
 /**
+	 * The '<em><b>OVERRIDE FOLLOW SET GROUP LIST</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE FOLLOW SET GROUP LIST</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the FollowSetGroupList class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_FOLLOW_SET_GROUP_LIST
+	 * @model literal="overrideFollowSetGroupList"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_FOLLOW_SET_GROUP_LIST_VALUE = 314;
+/**
+	 * The '<em><b>OVERRIDE FOLLOW SET GROUP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE FOLLOW SET GROUP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the FollowSetGroup class will not be overridden. The default value for this option is <code>true</code>.
+	 * <!-- end-model-doc -->
+	 * @see #OVERRIDE_FOLLOW_SET_GROUP
+	 * @model literal="overrideFollowSetGroup"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_FOLLOW_SET_GROUP_VALUE = 315;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6884,6 +6934,8 @@ public enum OptionTypes implements Enumerator {
 			NEW_FILE_WIZARD_NAME,
 			ADDITIONAL_FILE_EXTENSIONS,
 			CASE_INSENSITIVE_KEYWORDS,
+			OVERRIDE_FOLLOW_SET_GROUP_LIST,
+			OVERRIDE_FOLLOW_SET_GROUP,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -7242,6 +7294,8 @@ public enum OptionTypes implements Enumerator {
 			case NEW_FILE_WIZARD_NAME_VALUE: return NEW_FILE_WIZARD_NAME;
 			case ADDITIONAL_FILE_EXTENSIONS_VALUE: return ADDITIONAL_FILE_EXTENSIONS;
 			case CASE_INSENSITIVE_KEYWORDS_VALUE: return CASE_INSENSITIVE_KEYWORDS;
+			case OVERRIDE_FOLLOW_SET_GROUP_LIST_VALUE: return OVERRIDE_FOLLOW_SET_GROUP_LIST;
+			case OVERRIDE_FOLLOW_SET_GROUP_VALUE: return OVERRIDE_FOLLOW_SET_GROUP;
 		}
 		return null;
 	}

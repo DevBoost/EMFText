@@ -62,13 +62,15 @@ import org.emftext.sdk.util.GenClassUtil;
 
 public abstract class AbstractSyntaxGenerator {
 
+	private static final String COMMENT_TOKEN_NAME = "COMMENT";
+
 	private static final String FLOAT_TOKEN_NAME = "FLOAT";
 
 	private static final String INTEGER_TOKEN_NAME = "INTEGER";
 
 	private static final String KEYWORD_VIOLETT = "7F0055";
 
-	private static final GenClassUtil genClassUtil = new GenClassUtil();
+	private static final GenClassUtil GEN_CLASS_UTIL = new GenClassUtil();
 
 	public static final ConcretesyntaxFactory CS_FACTORY = ConcretesyntaxFactory.eINSTANCE;
 
@@ -149,7 +151,7 @@ public abstract class AbstractSyntaxGenerator {
 		
 		// determine start symbols
 		for (GenClass genClass : genClasses) {
-			if (genClassUtil.isConcrete(genClass) && 
+			if (GEN_CLASS_UTIL.isConcrete(genClass) && 
 				!containsSelfOfSuper(containedClasses, genClass.getEcoreClass()) ) {
 				cSyntax.getStartSymbols().add(genClass);
 			}
@@ -168,7 +170,7 @@ public abstract class AbstractSyntaxGenerator {
 	}
 
 	private void generateRule(ConcreteSyntax cSyntax, GenClass genClass) {
-		if (genClassUtil.isNotConcrete(genClass)) {
+		if (GEN_CLASS_UTIL.isNotConcrete(genClass)) {
 			return;
 		}
 		Rule newRule = CS_FACTORY.createRule();
@@ -245,11 +247,12 @@ public abstract class AbstractSyntaxGenerator {
 		List<TokenDirective> existing = tokens;
 		for (TokenDirective tokenDirective : existing) {
 			if (tokenDirective instanceof CompleteTokenDefinition) {
-				CompleteTokenDefinition def = (CompleteTokenDefinition) tokenDirective;
-				if (def.getName().equals(INTEGER_TOKEN_NAME) ||
-						def.getName().equals(FLOAT_TOKEN_NAME) ||
-						def.getName().equals("COMMENT")) {
-					toRemove.add(def);
+				CompleteTokenDefinition definition = (CompleteTokenDefinition) tokenDirective;
+				String name = definition.getName();
+				if (name.equals(INTEGER_TOKEN_NAME) ||
+						name.equals(FLOAT_TOKEN_NAME) ||
+						name.equals(COMMENT_TOKEN_NAME)) {
+					toRemove.add(definition);
 				}
 			}
 		}
@@ -259,7 +262,7 @@ public abstract class AbstractSyntaxGenerator {
 		NormalTokenDefinition floatToken = createToken(FLOAT_TOKEN_NAME, "('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
 		
 		if (addCommentToken) {
-			NormalTokenDefinition comment = createToken("COMMENT", "'//'(~('\\n'|'\\r'|'\\uffff'))*");
+			NormalTokenDefinition comment = createToken(COMMENT_TOKEN_NAME, "'//'(~('\\n'|'\\r'|'\\uffff'))*");
 			tokens.add(comment);
 		}
 		tokens.add(intToken);
@@ -299,15 +302,15 @@ public abstract class AbstractSyntaxGenerator {
 			else if (typeName == null) {
 				content = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
 			}
-			else if (typeName.equals("String")) {
+			else if ("String".equals(typeName)) {
 				content = createStringAttributeSyntax();
 			}
-			else if (typeName.equals("int") || typeName.equals("long") || typeName.equals("short")) {
+			else if ("int".equals(typeName) || "long".equals(typeName) || "short".equals(typeName)) {
 				PlaceholderUsingSpecifiedToken placeholder = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
 				placeholder.setToken(getTokenByName(syntax, INTEGER_TOKEN_NAME));
 				content = placeholder;
 			}
-			else if (typeName.equals("float") || typeName.equals("double")) {
+			else if ("float".equals(typeName) || "double".equals(typeName)) {
 				PlaceholderUsingSpecifiedToken placeholder = CS_FACTORY.createPlaceholderUsingSpecifiedToken();
 				placeholder.setToken(getTokenByName(syntax, FLOAT_TOKEN_NAME));
 				content = placeholder;

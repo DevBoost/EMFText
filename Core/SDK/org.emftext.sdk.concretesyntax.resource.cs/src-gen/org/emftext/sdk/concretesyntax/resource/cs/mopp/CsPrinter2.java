@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -28,7 +28,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EAttribute;
@@ -928,13 +927,18 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	}
 	
 	/**
+	 * <p>
 	 * Prints the current tokenOutputStream to the given writer.
+	 * </p>
 	 * 
+	 * <p>
 	 * This methods implements smart whitespace printing. It does so by writing output
 	 * to a token stream instead of printing the raw token text to a PrintWriter.
 	 * Tokens in this stream hold both the text and the type of the token (i.e., its
 	 * name).
+	 * </p>
 	 * 
+	 * <p>
 	 * To decide where whitespace is needed, sequences of successive tokens are
 	 * searched that can be printed without separating whitespace. To determine such
 	 * groups we start with two successive non-whitespace tokens, concatenate their
@@ -943,6 +947,7 @@ public class CsPrinter2 implements org.emftext.sdk.concretesyntax.resource.cs.IC
 	 * to be printed, no whitespace is needed. The tokens in the sequence are checked
 	 * both regarding their type and their text. If two tokens successfully form a
 	 * group a third one is added and so on.
+	 * </p>
 	 */
 	public void printSmart(PrintWriter writer) throws IOException {
 		// stores the text of the current group of tokens. this text is given to the lexer

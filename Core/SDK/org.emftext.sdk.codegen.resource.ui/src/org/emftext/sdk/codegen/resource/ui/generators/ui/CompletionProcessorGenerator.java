@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTENT
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_CONTEXT_INFORMATION_VALIDATOR;
 import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_TEXT_VIEWER;
+import static org.emftext.sdk.codegen.resource.ui.UIClassNameConstants.I_PREFERENCE_STORE;
 
 import org.emftext.sdk.codegen.parameters.ArtifactParameter;
 import org.emftext.sdk.codegen.resource.GenerationContext;
@@ -39,7 +40,9 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 
 	public void generateJavaContents(JavaComposite sc) {
 		
-		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.addImportsPlaceholder();
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_CONTENT_ASSIST_PROCESSOR(sc) + " {");
 		sc.addLineBreak();
@@ -65,7 +68,8 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 	}
 
 	private void addMethods(JavaComposite sc) {
-		addComputeCompletionProposalsMethod(sc);
+		addComputeCompletionProposalsMethod1(sc);
+		addComputeCompletionProposalsMethod2(sc);
 		addComputeContextInformationMethod(sc);
 		addGetCompletionProposalAutoActivationCharactersMethod(sc);
 		addGetContextInformationAutoActivationCharactersMethod(sc);
@@ -93,8 +97,19 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 	}
 
-	private void addGetCompletionProposalAutoActivationCharactersMethod(StringComposite sc) {
+	private void addGetCompletionProposalAutoActivationCharactersMethod(JavaComposite sc) {
 		sc.add("public char[] getCompletionProposalAutoActivationCharacters() {");
+		getContext();
+		sc.add(I_PREFERENCE_STORE(sc) + " preferenceStore = " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add("boolean enabled = preferenceStore.getBoolean(" + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_ENABLED);");
+		sc.add("String triggerString = preferenceStore.getString(" + preferenceConstantsClassName + ".EDITOR_CONTENT_ASSIST_TRIGGERS);");
+		sc.add("if(enabled && triggerString != null && triggerString.length() > 0){");
+		sc.add("char[] triggers = new char[triggerString.length()];");
+		sc.add("for (int i = 0; i < triggerString.length(); i++) {");
+		sc.add("triggers[i] = triggerString.charAt(i);");
+		sc.add("}");
+		sc.add("return triggers;");
+		sc.add("}");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -107,15 +122,22 @@ public class CompletionProcessorGenerator extends UIJavaBaseGenerator<ArtifactPa
 		sc.addLineBreak();
 	}
 
-	private void addComputeCompletionProposalsMethod(JavaComposite sc) {
+	private void addComputeCompletionProposalsMethod1(JavaComposite sc) {
 		sc.add("public " + I_COMPLETION_PROPOSAL(sc) + "[] computeCompletionProposals(" + I_TEXT_VIEWER(sc) + " viewer, int offset) {");
 		sc.add(iTextResourceClassName + " textResource = resourceProvider.getResource();");
 		sc.add("if (textResource == null) {");
 		sc.add("return new " + I_COMPLETION_PROPOSAL(sc) + "[0];");
 		sc.add("}");
 		sc.add("String content = viewer.getDocument().get();");
+		sc.add("return computeCompletionProposals(textResource, content, offset);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addComputeCompletionProposalsMethod2(JavaComposite sc) {
+		sc.add("public " + I_COMPLETION_PROPOSAL(sc) + "[] computeCompletionProposals(" + iTextResourceClassName + " textResource, String text, int offset) {");
 		sc.add(codeCompletionHelperClassName + " helper = new " + codeCompletionHelperClassName + "();");
-		sc.add(completionProposalClassName + "[] computedProposals = helper.computeCompletionProposals(textResource, content, offset);");
+		sc.add(completionProposalClassName + "[] computedProposals = helper.computeCompletionProposals(textResource, text, offset);");
 		sc.addLineBreak();
 		sc.addComment("call completion proposal post processor to allow for customizing the proposals");
 		sc.add(proposalPostProcessorClassName + " proposalPostProcessor = new " + proposalPostProcessorClassName + "();");

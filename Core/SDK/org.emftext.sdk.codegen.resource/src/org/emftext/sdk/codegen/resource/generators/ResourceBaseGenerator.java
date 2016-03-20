@@ -93,6 +93,8 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 	protected String expectedStructuralFeatureClassName;
 	protected String expectedTerminalClassName;
 	protected String foldingInformationProviderClassName;
+	protected String followSetGroupClassName;
+	protected String followSetGroupListClassName;
 	protected String followSetProviderClassName;
 	protected String formattingElementClassName;
 	protected String fuzzyResolveResultClassName;
@@ -278,6 +280,8 @@ public abstract class ResourceBaseGenerator<ParameterType extends IArtifactParam
 		expectedStructuralFeatureClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_STRUCTURAL_FEATURE);
 		expectedTerminalClassName = context.getQualifiedClassName(TextResourceArtifacts.EXPECTED_TERMINAL);
 		foldingInformationProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.FOLDING_INFORMATION_PROVIDER);
+		followSetGroupClassName = context.getQualifiedClassName(TextResourceArtifacts.FOLLOW_SET_GROUP);
+		followSetGroupListClassName = context.getQualifiedClassName(TextResourceArtifacts.FOLLOW_SET_GROUP_LIST);
 		followSetProviderClassName = context.getQualifiedClassName(TextResourceArtifacts.FOLLOW_SET_PROVIDER);
 		formattingElementClassName = context.getQualifiedClassName(TextResourceArtifacts.FORMATTING_ELEMENT);
 		fuzzyResolveResultClassName = context.getQualifiedClassName(TextResourceArtifacts.FUZZY_RESOLVE_RESULT);

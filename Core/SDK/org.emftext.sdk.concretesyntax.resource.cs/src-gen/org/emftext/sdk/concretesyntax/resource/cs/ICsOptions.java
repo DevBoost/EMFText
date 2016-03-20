@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -87,9 +87,11 @@ public interface ICsOptions {
 	public final String DISABLE_EMF_VALIDATION = "DISABLE_EMF_VALIDATION";
 	
 	/**
+	 * <p>
 	 * The key for the option to set the encoding to use when loading or saving
 	 * resources. This is equivalent to the same option specified in class
 	 * <code>org.eclipse.emf.ecore.xmi.XMLResource</code>.
+	 * </p>
 	 * 
 	 * @see org.eclipse.emf.ecore.xmi.XMLResource
 	 */

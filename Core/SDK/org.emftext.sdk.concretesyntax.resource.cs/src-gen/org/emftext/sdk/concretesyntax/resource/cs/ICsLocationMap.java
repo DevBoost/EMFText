@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,14 +10,13 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 import java.util.List;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -69,10 +68,12 @@ public interface ICsLocationMap {
 	public int getCharEnd(EObject element);
 	
 	/**
+	 * <p>
 	 * Returns all EObjects that are located at the given offset in the text document.
 	 * This method can return multiple elements, because containers include their
 	 * children in the textual representation. The child elements are returned at the
 	 * head of the result list.
+	 * </p>
 	 * 
 	 * @param documentOffset
 	 *  the offset where to search for elements
@@ -82,10 +83,12 @@ public interface ICsLocationMap {
 	public List<EObject> getElementsAt(int documentOffset);
 	
 	/**
+	 * <p>
 	 * Returns all EObjects that are located between the given offsets in the text
 	 * document. The method can return multiple elements. This no guarantee about the
 	 * order of the elements returned by this method. Even parsing the same document
 	 * twice may yield a different order of elements.
+	 * </p>
 	 * 
 	 * @param startOffset
 	 * @param endOffset

@@ -98,7 +98,7 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addGetSyntaxElementMethod(JavaComposite sc) {
 		sc.addJavadoc("Returns the expected keyword.");
-		sc.add("public " + syntaxElementClassName +" getSymtaxElement() {");
+		sc.add("public " + syntaxElementClassName +" getSyntaxElement() {");
 		sc.add("return keyword;");
 		sc.add("}");
 		sc.addLineBreak();

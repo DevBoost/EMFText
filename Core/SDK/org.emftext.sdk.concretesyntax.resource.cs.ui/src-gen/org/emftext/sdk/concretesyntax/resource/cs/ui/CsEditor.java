@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -76,7 +75,10 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IStorageEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
@@ -89,16 +91,30 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 /**
+ * <p>
  * A text editor for 'cs' models.
+ * </p>
+ * <p>
+ * <p>
+ * </p>
  * <p>
  * This editor has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor</code>
+ * </p>
+ * <p>
  * The editor's context menu has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorContext</code>.
+ * </p>
+ * <p>
  * The editor's ruler context menu has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorRuler</code>.
+ * </p>
+ * <p>
  * The editor's editing context has id
  * <code>org.emftext.sdk.concretesyntax.resource.cs.EditorScope</code>.
+ * </p>
+ * <p>
+ * </p>
  * </p>
  */
 public class CsEditor extends TextEditor implements IEditingDomainProvider, ISelectionProvider, ISelectionChangedListener, IViewerProvider, org.emftext.sdk.concretesyntax.resource.cs.ICsResourceProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsBracketHandlerProvider, org.emftext.sdk.concretesyntax.resource.cs.ui.ICsAnnotationModelProvider {
@@ -139,11 +155,15 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 	}
 	
 	/**
+	 * <p>
 	 * Reacts to changes of the text resource displayed in the editor and resources
 	 * cross-referenced by it. Cross-referenced resources are unloaded, the displayed
 	 * resource is reloaded. An attempt to resolve all proxies in the displayed
 	 * resource is made after each change.
+	 * </p>
+	 * <p>
 	 * The code pretty much corresponds to what EMF generates for a tree editor.
+	 * </p>
 	 */
 	private class ModelResourceChangeListener implements IResourceChangeListener {
 		public void resourceChanged(IResourceChangeEvent event) {
@@ -158,7 +178,8 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 						}
 						int deltaKind = delta.getKind();
 						if (deltaKind == IResourceDelta.CHANGED && delta.getFlags() != IResourceDelta.MARKERS) {
-							Resource changedResource = resourceSet.getResource(URI.createURI(delta.getFullPath().toString()), false);
+							URI platformURI = URI.createPlatformResourceURI(delta.getFullPath().toString(), true);
+							Resource changedResource = resourceSet.getResource(platformURI, false);
 							if (changedResource != null) {
 								changedResource.unload();
 								org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = getResource();
@@ -227,6 +248,16 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 		initializeResourceObject(editorInput);
 		IDocument document = getDocumentProvider().getDocument(getEditorInput());
 		document.addDocumentListener(new DocumentListener());
+	}
+	
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		super.init(site, input);
+		
+		// Show the 'presentation' action set with the 'Toggle Block SelectionMode' and
+		// 'Show Whitespace Characters' actions.
+		IWorkbenchPage page = site.getPage();
+		page.showActionSet("org.eclipse.ui.edit.text.actionSet.presentation");
 	}
 	
 	private void initializeResourceObject(IEditorInput editorInput) {
@@ -378,8 +409,8 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 	}
 	
 	/**
-	 * Return the outline page this is associated with this editor. If no outline page
-	 * exists, a new one is created.
+	 * Returns the outline page this is associated with this editor. If no outline
+	 * page exists, a new one is created.
 	 */
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePage getOutlinePage() {
 		if (outlinePage == null) {
@@ -423,7 +454,9 @@ public class CsEditor extends TextEditor implements IEditingDomainProvider, ISel
 	}
 	
 	/**
+	 * <p>
 	 * Sets the caret to the offset of the given element.
+	 * </p>
 	 * 
 	 * @param element has to be contained in the resource of this editor.
 	 */

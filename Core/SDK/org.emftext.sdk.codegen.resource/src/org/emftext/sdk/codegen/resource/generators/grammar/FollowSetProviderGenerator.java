@@ -72,9 +72,9 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		
 		sc.add("public final static " + containedFeatureClassName + "[] EMPTY_LINK_ARRAY = new " + containedFeatureClassName + "[0];");
 		sc.addLineBreak();
-		addLargeMethod(sc, "initializeTerminals", initializeTerminalConstantsCode,22);
-		addLargeMethod(sc, "initializeFeatures", initializeFeatureConstantsCode,31);
-		addLargeMethod(sc, "initializeLinks", initializeLinkConstantsCode,37);
+		addLargeMethod(sc, "initializeTerminals", initializeTerminalConstantsCode, 22);
+		addLargeMethod(sc, "initializeFeatures", initializeFeatureConstantsCode, 31);
+		addLargeMethod(sc, "initializeLinks", initializeLinkConstantsCode, 37);
 		addWireTerminalsCode(sc);
 
 		sc.add("static {");
@@ -106,7 +106,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	private void touchAllFieldsAndLinks() {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
-		Map<String,Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
 		
 		for (String firstID : followSetMap.keySet()) {
 			for (Expectation expectation : followSetMap.get(firstID)) {
@@ -130,11 +130,13 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		Map<ContainmentLink,Integer> containmentLinkToIdMap = constantsPool.getContainmentLinkToConstantIdMap();
 
 		int linkCount = containmentLinkToIdMap.keySet().size();
+		sc.add("public static int linkIndex;");
 		sc.add("public final static " + containedFeatureClassName + "[] LINKS = new " + containedFeatureClassName + "[" + linkCount + "];");
 		
+		initializationCode.add("linkIndex = 0;");
 		// generate fields for all containment links
 		for (ContainmentLink link : containmentLinkToIdMap.keySet()) {
-			String fieldName = constantsPool.getContainmentLinkConstantName(link);
+			String fieldName = constantsPool.getContainmentLinkConstantName("linkIndex++");
 			String classConstant = generatorUtil.getClassifierAccessor(link.getContainerClass());
 			String featureConstant = constantsPool.getFeatureConstantFieldName(link.getFeature());
 			//sc.add("public static " + containedFeatureClassName + " " + fieldName + ";");
@@ -153,11 +155,13 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		Map<GenFeature,String> eFeatureToConstantNameMap = constantsPool.getFeatureToConstantNameMap();
 
 		int featureCount = eFeatureToConstantNameMap.keySet().size();
+		sc.add("public static int featureIndex;");
 		sc.add("public final static " + E_STRUCTURAL_FEATURE(sc) + "[] FEATURES = new " + E_STRUCTURAL_FEATURE(sc) + "[" + featureCount + "];");
 		
 		// generate fields for all used features
+		initializationCode.add("featureIndex = 0;");
 		for (GenFeature genFeature : eFeatureToConstantNameMap.keySet()) {
-			String fieldName = constantsPool.getFeatureConstantFieldName(genFeature);
+			String fieldName = constantsPool.getFeatureConstantFieldName("featureIndex++");
 			
 			String featureAccessor = generatorUtil.getFeatureAccessor(genFeature.getGenClass(), genFeature);
 			initializationCode.add(fieldName + " = " + featureAccessor + ";");
@@ -174,11 +178,10 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 		Map<EObject,Integer> idMap = constantsPool.getTerminalIdMap();
 		
 		int terminalCount = idMap.keySet().size();
+		sc.add("public static int terminalsIndex;");
 		sc.add("public final static " + iExpectedElementClassName + " TERMINALS[] = new " + iExpectedElementClassName + "[" + terminalCount + "];");
 		
 		for (EObject expectedElement : idMap.keySet()) {
-			int terminalID = idMap.get(expectedElement);
-			
 			if (expectedElement instanceof Placeholder) {
 				Placeholder placeholder = (Placeholder) expectedElement;
 				GenFeature genFeature = placeholder.getFeature();
@@ -187,13 +190,13 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 					continue;
 				}
 
-				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, placeholder, expectedStructuralFeatureClassName));
+				createTerminalObjectsCode.add(addTerminalConstant(sc, placeholder, expectedStructuralFeatureClassName));
 			} else if (expectedElement instanceof CsString) {
-				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, (CsString) expectedElement, expectedCsStringClassName));
+				createTerminalObjectsCode.add(addTerminalConstant(sc, (CsString) expectedElement, expectedCsStringClassName));
 			} else if (expectedElement instanceof BooleanTerminal) {
-				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, (BooleanTerminal) expectedElement, expectedBooleanTerminalClassName));
+				createTerminalObjectsCode.add(addTerminalConstant(sc, (BooleanTerminal) expectedElement, expectedBooleanTerminalClassName));
 			} else if (expectedElement instanceof EnumTerminal) {
-				createTerminalObjectsCode.add(addTerminalConstant(sc, terminalID, (EnumTerminal) expectedElement, expectedEnumerationTerminalClassName));
+				createTerminalObjectsCode.add(addTerminalConstant(sc, (EnumTerminal) expectedElement, expectedEnumerationTerminalClassName));
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}
@@ -205,7 +208,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 	private void addWireTerminalsCode(JavaComposite sc) {
 		GenerationContext context = getContext();
 		ConstantsPool constantsPool = context.getConstantsPool();
-		Map<String,Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
+		Map<String, Set<Expectation>> followSetMap = constantsPool.getFollowSetMap();
 
 		// TODO figure out whether 'tempCount' is actually required here
 		int tempCount = 0;
@@ -220,7 +223,7 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 				// getstatic TERMINALS
 				// sipush INDEX or iconst_INDEX
 				// aaload
-				bytesUsed += 7;
+				bytesUsed += 12;
 				// the method call takes 5 bytes
 				// INVOKEINTERFACE
 				bytesUsed += 5;
@@ -282,10 +285,9 @@ public class FollowSetProviderGenerator extends JavaBaseGenerator<ArtifactParame
 
 	private String addTerminalConstant(
 			JavaComposite sc, 
-			int terminalID,
 			SyntaxElement syntaxElement,
 			String className) {
-		return "TERMINALS[" + terminalID + "] = new " + className + 
+		return "TERMINALS[terminalsIndex++] = new " + className + 
 				"(" + grammarInformationProviderClassName + "." + nameUtil.getFieldName(syntaxElement) + ");";
 	}
 }

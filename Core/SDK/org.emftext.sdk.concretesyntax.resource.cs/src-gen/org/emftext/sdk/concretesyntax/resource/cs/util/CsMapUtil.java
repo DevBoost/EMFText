@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -22,15 +22,16 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.emf.common.util.EMap;
 
 public class CsMapUtil {
 	
 	/**
+	 * <p>
 	 * This method encapsulate an unchecked cast from Object to Map<Object, Object>.
 	 * This case can not be performed type safe, because type parameters are not
 	 * available for reflective access to Ecore models.
+	 * </p>
 	 * 
 	 * @param value the object to cast
 	 * 
@@ -42,9 +43,11 @@ public class CsMapUtil {
 	}
 	
 	/**
+	 * <p>
 	 * This method encapsulate an unchecked cast from Object to EMap<Object, Object>.
 	 * This case can not be performed type safe, because type parameters are not
 	 * available for reflective access to Ecore models.
+	 * </p>
 	 * 
 	 * @return the same object casted to a map
 	 */

@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -55,6 +55,17 @@ public abstract class CsSyntaxElement {
 		return parent;
 	}
 	
+	/**
+	 * Returns the rule of this syntax element. The rule is determined by the
+	 * containment hierarchy in the CS model.
+	 */
+	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule getRule() {
+		if (this instanceof org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule) {
+			return (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsRule) this;
+		}
+		return parent.getRule();
+	}
+	
 	public CsSyntaxElement[] getChildren() {
 		if (children == null) {
 			return new CsSyntaxElement[0];
@@ -68,6 +79,16 @@ public abstract class CsSyntaxElement {
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.grammar.CsCardinality getCardinality() {
 		return cardinality;
+	}
+	
+	public boolean hasContainment(EClass metaclass) {
+		org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement[] children = getChildren();
+		for (org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement child : children) {
+			if (child.hasContainment(metaclass)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

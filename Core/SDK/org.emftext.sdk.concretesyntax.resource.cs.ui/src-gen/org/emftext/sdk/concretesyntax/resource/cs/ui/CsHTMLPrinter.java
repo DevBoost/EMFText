@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -24,7 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.eclipse.jface.text.TextPresentation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -36,10 +35,14 @@ import org.eclipse.swt.graphics.FontData;
 public class CsHTMLPrinter {
 	
 	/**
+	 * <p>
 	 * Reads the text contents from a reader of HTML contents and translates the tags
 	 * or cut them out.
+	 * </p>
+	 * <p>
 	 * <p>Moved into HTMLPrinter as inner class from
 	 * <code>org.eclipse.jface.internal.text.html</code>.</p>
+	 * </p>
 	 */
 	private static final class HTML2TextReader extends Reader {
 		
@@ -72,7 +75,9 @@ public class CsHTMLPrinter {
 		private int fIndex;
 		
 		/**
+		 * <p>
 		 * Transforms the HTML text from the reader to formatted text.
+		 * </p>
 		 * 
 		 * @param reader the reader
 		 * @param presentation If not <code>null</code>, formattings will be applied to
@@ -403,7 +408,9 @@ public class CsHTMLPrinter {
 		}
 		
 		/**
+		 * <p>
 		 * Returns the internal reader.
+		 * </p>
 		 * 
 		 * @return the internal reader
 		 */
@@ -412,7 +419,9 @@ public class CsHTMLPrinter {
 		}
 		
 		/**
+		 * <p>
 		 * Returns the next character.
+		 * </p>
 		 * 
 		 * @return the next character
 		 * 
@@ -472,7 +481,9 @@ public class CsHTMLPrinter {
 		}
 		
 		/**
+		 * <p>
 		 * Returns the readable content as string.
+		 * </p>
 		 * 
 		 * @return the readable content as string
 		 * 

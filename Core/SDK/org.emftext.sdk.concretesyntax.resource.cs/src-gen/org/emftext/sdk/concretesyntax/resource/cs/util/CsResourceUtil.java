@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -27,7 +27,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -44,7 +43,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 public class CsResourceUtil {
 	
 	/**
+	 * <p>
 	 * Searches for all unresolved proxy objects in the given resource set.
+	 * </p>
 	 * 
 	 * @param resourceSet
 	 * 
@@ -55,7 +56,9 @@ public class CsResourceUtil {
 	}
 	
 	/**
+	 * <p>
 	 * Searches for all unresolved proxy objects in the given resource.
+	 * </p>
 	 * 
 	 * @param resource
 	 * 
@@ -66,9 +69,11 @@ public class CsResourceUtil {
 	}
 	
 	/**
+	 * <p>
 	 * Tries to resolve all unresolved proxy objects in the given resource. If all
 	 * proxies were resolved true is returned. If some could not be resolved, false is
 	 * returned.
+	 * </p>
 	 * 
 	 * @param resource the resource containing the proxy object
 	 * 
@@ -229,7 +234,7 @@ public class CsResourceUtil {
 			return null;
 		}
 		EObject root = contents.get(0);
-		return (org.emftext.sdk.concretesyntax.ConcreteSyntax) root;
+		return root;
 	}
 	
 	public static void saveResource(File file, Resource resource) throws IOException {

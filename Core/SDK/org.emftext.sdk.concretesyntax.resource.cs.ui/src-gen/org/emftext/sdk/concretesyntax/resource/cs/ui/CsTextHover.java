@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -19,7 +19,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
@@ -124,7 +123,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 		private final org.emftext.sdk.concretesyntax.resource.cs.ui.CsBrowserInformationControl infoControl;
 		
 		/**
+		 * <p>
 		 * Creates the action to jump to the declaration.
+		 * </p>
 		 * 
 		 * @param infoControl the info control holds the hover information and the target
 		 * element
@@ -301,7 +302,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 	}
 	
 	/**
+	 * <p>
 	 * Computes the hover info.
+	 * </p>
 	 * 
 	 * @param elements the resolved elements
 	 * @param constantValue a constant value iff result contains exactly 1 constant
@@ -343,7 +346,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 	}
 	
 	/**
+	 * <p>
 	 * Sets the style sheet font.
+	 * </p>
 	 * 
 	 * @return the hover style sheet
 	 */
@@ -361,7 +366,9 @@ public class CsTextHover implements ITextHover, ITextHoverExtension, ITextHoverE
 	}
 	
 	/**
+	 * <p>
 	 * Loads and returns the hover style sheet.
+	 * </p>
 	 * 
 	 * @return the style sheet, or <code>null</code> if unable to load
 	 */

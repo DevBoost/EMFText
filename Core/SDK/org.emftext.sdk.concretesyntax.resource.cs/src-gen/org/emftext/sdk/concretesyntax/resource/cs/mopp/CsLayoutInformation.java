@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -20,13 +20,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 /**
+ * <p>
  * CsLayoutInformation objects are used to store layout information that is found
  * while parsing text files. Layout information does include all unused tokens.
  * Usually, these are whitespace characters, line breaks and comments, but
  * depending on the concrete syntax definition it can also include other tokens.
+ * </p>
+ * <p>
  * CsLayoutInformations are aggregated in LayoutInformationAdapters. One
  * CsLayoutInformation contains the layout that was found before a keyword,
  * attribute or reference.
+ * </p>
  */
 public class CsLayoutInformation {
 	

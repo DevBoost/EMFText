@@ -1,0 +1,7 @@
+BEGIN_FARM
+
+	BEGIN_FARMER Stefan
+		Diet : <CURSOR> 
+	END_FARMER
+
+END_FARM

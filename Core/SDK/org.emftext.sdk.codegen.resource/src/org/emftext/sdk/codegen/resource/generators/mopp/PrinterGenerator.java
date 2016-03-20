@@ -187,6 +187,12 @@ public class PrinterGenerator extends AbstractPrinterGenerator {
 		sc.addLineBreak();
 		sc.addImportsPlaceholder();
 		sc.addLineBreak();
+		sc.addJavadoc(
+			"This class provides an implementation of the " + iTextDiagnosticClassName + " interface. " +
+			"However, it is recommended to use the " + printer2ClassName + " instead, because it provides " +
+			"advanced printing features. There are even some features (e.g., printing enumeration terminals) " +
+			"which are only supported by that class."
+		);
 		sc.add("public class " + getResourceClassName() + " implements " + iTextPrinterClassName + " {");
 		sc.addLineBreak();
 		addFields(sc);

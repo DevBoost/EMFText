@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -25,7 +25,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -57,9 +56,11 @@ public class CsCodeCompletionHelper {
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	
 	/**
+	 * <p>
 	 * Computes a set of proposals for the given document assuming the cursor is at
 	 * 'cursorOffset'. The proposals are derived using the meta information, i.e., the
 	 * generated language plug-in.
+	 * </p>
 	 * 
 	 * @param originalResource the resource to compute completions for
 	 * @param content the documents content
@@ -183,7 +184,14 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminal = elementAtIndex.getTerminal();
 			for (int j = i + 1; j < size;) {
 				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtNext = expectedElements.get(j);
-				if (terminal.equals(elementAtNext.getTerminal())) {
+				EClass metaClass = elementAtIndex.getContainmentTrace().getStartClass();
+				EClass nextMetaClass = elementAtNext.getContainmentTrace().getStartClass();
+				org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement nextTerminal = elementAtNext.getTerminal();
+				// Terminals that have a different root meta class in the containment trace must
+				// be kept because they can the decision whether an expected terminals is valid or
+				// not depends on the root of the containment trace.
+				boolean differentMetaclass = metaClass != nextMetaClass;
+				if (terminal.equals(nextTerminal) && !differentMetaclass) {
 					expectedElements.remove(j);
 					size--;
 				} else {
@@ -194,25 +202,73 @@ public class CsCodeCompletionHelper {
 	}
 	
 	protected void removeInvalidEntriesAtEnd(List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedElements) {
-		for (int i = 0; i < expectedElements.size() - 1;) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtIndex = expectedElements.get(i);
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal elementAtNext = expectedElements.get(i + 1);
-			
-			// If the two expected elements have a different parent in the syntax definition,
-			// we must not discard the second element, because is probably stems from a parent
-			// rule.
-			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement symtaxElementOfThis = elementAtIndex.getTerminal().getSymtaxElement();
-			org.emftext.sdk.concretesyntax.resource.cs.grammar.CsSyntaxElement symtaxElementOfNext = elementAtNext.getTerminal().getSymtaxElement();
-			boolean differentParent = symtaxElementOfNext.getParent() != symtaxElementOfThis.getParent();
-			
-			boolean sameStartExcludingHiddenTokens = elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens();
-			boolean differentFollowSet = elementAtIndex.getFollowSetID() != elementAtNext.getFollowSetID();
-			if (sameStartExcludingHiddenTokens && differentFollowSet && !differentParent) {
-				expectedElements.remove(i + 1);
-			} else {
-				i++;
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroupList followSetGroupList = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroupList(expectedElements);
+		List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroup> followSetGroups = followSetGroupList.getFollowSetGroups();
+		int lastStartExcludingHiddenTokens = -1;
+		for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsFollowSetGroup followSetGroup : followSetGroups) {
+			boolean sameStartExcludingHiddenTokens = followSetGroup.hasSameStartExcludingHiddenTokens(lastStartExcludingHiddenTokens);
+			lastStartExcludingHiddenTokens = followSetGroup.getStartExcludingHiddenTokens();
+			EObject container = followSetGroup.getContainer();
+			EClass currentRule = null;
+			if (container != null) {
+				currentRule = container.eClass();
+			}
+			List<org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal> expectedTerminals = followSetGroup.getExpectedTerminals();
+			for (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal expectedTerminal : expectedTerminals) {
+				org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement terminalAtIndex = expectedTerminal.getTerminal();
+				EClass ruleMetaclass = terminalAtIndex.getRuleMetaclass();
+				boolean differentRule = currentRule != ruleMetaclass;
+				// If the two expected elements have a different parent in the syntax definition,
+				// we must not discard the second element, because it probably stems from a parent
+				// rule.
+				org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace = expectedTerminal.getContainmentTrace();
+				boolean fitsAtCurrentPosition = fitsAtCurrentPosition(container, containmentTrace);
+				boolean inContainmentTrace = pathToRootContains(container, expectedTerminal.getTerminal().getRuleMetaclass());
+				boolean keepElement = true;
+				if (differentRule && !inContainmentTrace) {
+					if (!fitsAtCurrentPosition) {
+						keepElement = false;
+					}
+				}
+				if (sameStartExcludingHiddenTokens) {
+					keepElement = false;
+				}
+				
+				if (keepElement) {
+				} else {
+					// We must not call expectedElements.remove(expectedTerminal) because the
+					// hashCode() method of ExpectedTerminal does not consider the start positions and
+					// remove the wrong elements.
+					for (int i = 0; i < expectedElements.size(); i++) {
+						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedTerminal next = expectedElements.get(i);
+						if (next == expectedTerminal) {
+							expectedElements.remove(i);
+							break;
+						}
+					}
+				}
 			}
 		}
+	}
+	
+	private boolean fitsAtCurrentPosition(EObject container, org.emftext.sdk.concretesyntax.resource.cs.grammar.CsContainmentTrace containmentTrace) {
+		if (container == null) {
+			// If no container is available, there is no model yet because we're before the
+			// first token. In this case we assume that everything fits here.
+			return true;
+		}
+		return containmentTrace.getStartClass() == container.eClass();
+	}
+	
+	private boolean pathToRootContains(EObject leafObject, EClass metaclass) {
+		EObject current = leafObject;
+		while (current != null) {
+			if (current.eClass() == metaclass) {
+				return true;
+			}
+			current = current.eContainer();
+		}
+		return false;
 	}
 	
 	/**

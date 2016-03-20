@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -18,7 +18,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -136,7 +135,9 @@ public class CsHighlighting implements ISelectionProvider, ISelectionChangedList
 	}
 	
 	/**
+	 * <p>
 	 * Creates the highlighting manager class.
+	 * </p>
 	 * 
 	 * @param textResource the text resource to be provided to other classes
 	 * @param sourceviewer the source viewer converts offset between master and slave

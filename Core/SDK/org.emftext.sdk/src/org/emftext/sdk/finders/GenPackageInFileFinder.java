@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2012
+ * Copyright (c) 2006-2014
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -50,19 +50,24 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * An abstract super class for all finders that search for generator 
- * packages in files. Concrete sub classes basically determine the
- * URI of the file to look in and the remaining functionality (loading
- * generator models, updating them) is performed in this class.
+ * An abstract super class for all finders that search for generator packages in
+ * files. Concrete sub classes basically determine the URI of the file to look
+ * in and the remaining functionality (loading generator models, updating them)
+ * is performed in this class.
  */
 public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 
-	protected GenPackageResolveResult findGenPackages(ConcreteSyntax syntax, String nsURI, final ResourceSet rs, URI genModelURI, boolean resolveFuzzy) {
+	protected GenPackageResolveResult findGenPackages(ConcreteSyntax syntax,
+			String nsURI, final ResourceSet resourceSet, URI genModelURI,
+			boolean resolveFuzzy) {
+		
 		Resource genModelResource = null;
 		
 		try {
-			genModelResource = rs.getResource(genModelURI, true);
-		} catch (Exception e) {}
+			genModelResource = resourceSet.getResource(genModelURI, true);
+		} catch (Exception e) {
+			// Ignore this
+		}
 		
 		EList<EObject> contents = null; 
 		if (genModelResource != null) {
@@ -88,7 +93,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 						EObject ecorePackage = (EObject) genPackage.eGet(GenModelPackage.Literals.GEN_PACKAGE__ECORE_PACKAGE, false);
 						if (ecorePackage.eIsProxy()) {
 							// new ecore model version -> reconcile genModel				
-							genModel = reloadGeneratorModel(genModel, rs);
+							genModel = reloadGeneratorModel(genModel, resourceSet);
 							break;
 						}
 
@@ -115,7 +120,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 					if (ecoreURI == null) {
 						continue;
 					}
-					if(genModelURI.isPlatform()) {
+					if (genModelURI.isPlatform()) {
 						IResource ecoreMember = ResourcesPlugin.getWorkspace().getRoot().findMember(ecoreURI.toPlatformString(true));
 						if (ecoreMember != null) {
 							ecoreFile = ecoreMember.getLocation().toFile();
@@ -152,7 +157,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			final URI genModelURI = genModel.eResource().getURI();
 			//only reload when we are working on the platform
-			if(genModelURI.isPlatform()) {
+			if (genModelURI.isPlatform()) {
 				IResource member = workspace.getRoot().findMember(genModelURI.toPlatformString(true));
 				if (member instanceof IFile) {
 					IFile file = (IFile) member;
@@ -189,7 +194,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
         	throw new DiagnosticException(diag);
         }
         
-        new Job("saving genmodel after reconciling") {
+        new Job("Saving genmodel after reconciling") {
         	
         	@Override
         	protected IStatus run(IProgressMonitor monitor) {

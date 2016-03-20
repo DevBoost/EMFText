@@ -75,6 +75,26 @@ public class ContainmentTraceGenerator extends JavaBaseGenerator<ArtifactParamet
 		addGetContainerClassMethod(sc);
 		addGetFeatureMethod(sc);
 		addToStringMethod(sc);
+		addContainsMethod(sc);
+	}
+
+	private void addContainsMethod(JavaComposite sc) {
+		sc.add("public boolean contains(" + ruleClassName + " rule) {");
+		sc.add("if (path == null) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add(E_CLASS(sc) + " ruleMetaclass = rule.getMetaclass();");
+		sc.add("for (" + containedFeatureClassName + " pathElement : path) {");
+		sc.add(E_CLASS(sc) + " containerClass = pathElement.getContainerClass();");
+		sc.add("if (containerClass == ruleMetaclass) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("return startClass == ruleMetaclass;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetContainerClassMethod(JavaComposite sc) {
@@ -93,7 +113,7 @@ public class ContainmentTraceGenerator extends JavaBaseGenerator<ArtifactParamet
 
 	private void addToStringMethod(JavaComposite sc) {
 		sc.add("public String toString() {");
-		sc.add("return (startClass == null ? \"null\" : startClass.getName()) + \"->\" + " + stringUtilClassName + ".explode(path, \"->\");");
+		sc.add("return (startClass == null ? \"null\" : startClass.getName()) + \".\" + " + stringUtilClassName + ".explode(path, \"->\");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -1,0 +1,7 @@
+BEGIN_HOSPITAL
+
+	BEGIN_ANIMAL SickSeaLion
+		FeedingInstruction : ALL
+	END_ANIMAL
+
+	<CURSOR>

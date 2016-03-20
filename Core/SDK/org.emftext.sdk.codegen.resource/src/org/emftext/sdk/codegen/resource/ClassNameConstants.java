@@ -695,6 +695,10 @@ public class ClassNameConstants {
 	public static String NULL_POINTER_EXCEPTION(JavaComposite jc) {
 		return jc.getClassName(NullPointerException.class);
 	}
+	
+	public static String NUMBER_FORMAT_EXCEPTION(JavaComposite jc) {
+		return jc.getClassName(NumberFormatException.class);
+	}
 
 	public static String OUTPUT_STREAM(JavaComposite jc) {
 		return getClassName(jc, "java.io.OutputStream");

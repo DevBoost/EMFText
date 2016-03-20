@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -34,7 +34,9 @@ public class CsDocBrowserInformationControlInput {
 	private final Resource resource;
 	
 	/**
+	 * <p>
 	 * Creates a new browser information control input.
+	 * </p>
 	 * 
 	 * @param previous previous input, or <code>null</code> if none available
 	 * @param element the element, or <code>null</code> if none available
@@ -53,7 +55,9 @@ public class CsDocBrowserInformationControlInput {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the previous input or <code>null</code> if this is the first.
+	 * </p>
 	 * 
 	 * @return the previous input or <code>null</code>
 	 */
@@ -62,7 +66,9 @@ public class CsDocBrowserInformationControlInput {
 	}
 	
 	/**
+	 * <p>
 	 * Returns the next input or <code>null</code> if this is the last.
+	 * </p>
 	 * 
 	 * @return the next input or <code>null</code>
 	 */

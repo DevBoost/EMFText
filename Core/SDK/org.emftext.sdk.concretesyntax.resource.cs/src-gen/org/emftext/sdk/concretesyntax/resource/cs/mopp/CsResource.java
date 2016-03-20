@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2015
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  *
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 
@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEList;
@@ -656,6 +655,21 @@ public class CsResource extends ResourceImpl implements org.emftext.sdk.concrete
 	 */
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap getLocationMap() {
 		return locationMap;
+	}
+	
+	/**
+	 * <p>
+	 * Sets the location map that contains information about the position of the
+	 * contents of this resource in the original textual representation.
+	 * </p>
+	 * <p>
+	 * Use this method carefully. If the location map is replaced with a map that
+	 * contains wrong location data, clients that obtain locations via {@link
+	 * #getLocationMap()} will behave unexpectedly.
+	 * </p>
+	 */
+	public void setLocationMap(org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap) {
+		this.locationMap = locationMap;
 	}
 	
 	public void addProblem(org.emftext.sdk.concretesyntax.resource.cs.ICsProblem problem, EObject element) {

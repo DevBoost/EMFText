@@ -262,8 +262,10 @@ public class GrammarInformationProviderGenerator extends JavaBaseGenerator<Artif
 		} else if (next instanceof Rule) {
 			Rule nextAsRule = (Rule) next;
 			String definitionFieldName = nameUtil.getFieldName(nextAsRule.getDefinition());
-			String metaClassAccessor = generatorUtil.getClassifierAccessor(nextAsRule.getMetaclass());
+			GenClass metaclass = nextAsRule.getMetaclass();
+			String metaClassAccessor = generatorUtil.getClassifierAccessor(metaclass);
 			String fieldName = nameUtil.getFieldName(nextAsRule);
+			sc.addJavadoc("This constant refers to the definition of the syntax for meta class " + metaclass.getName());
 			sc.add("public final static " + ruleClassName + " " + fieldName + " = INSTANCE.get" + fieldName + "();");
 			sc.add("private " + ruleClassName + " get" + fieldName + "() {");
 			sc.add("return new " + ruleClassName + "(" + metaClassAccessor + ", " + definitionFieldName + ", " + getCardinality(next) + ");");
