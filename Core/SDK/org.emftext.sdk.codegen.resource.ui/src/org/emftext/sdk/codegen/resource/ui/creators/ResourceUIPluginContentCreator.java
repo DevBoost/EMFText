@@ -734,8 +734,34 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 		count.setAttribute("value", "1");
 
 		XMLElement iterate = with.createChild("iterate");
-		XMLElement test = iterate.createChild("test");
-		test.setAttribute("property", baseId + ".isLaunchable");
+		
+		//Only enable the launch configuration shortcut if at least one file with a supported
+		//file extension is selected.
+		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		List<String> fileExtensions = new ArrayList<String>();
+		fileExtensions.add(concreteSyntax.getName());
+		
+		Collection<String> additionalFileExtensions = OptionManager.INSTANCE.getStringOptionValueAsCollection(syntax, OptionTypes.ADDITIONAL_FILE_EXTENSIONS);
+		
+		if (additionalFileExtensions != null && !additionalFileExtensions.isEmpty()) {
+			fileExtensions.addAll(additionalFileExtensions);
+		}
+		
+		XMLElement adapt = iterate.createChild("adapt");
+		adapt.setAttribute("type", "org.eclipse.core.resources.IResource");
+		
+		boolean multipleFileExtensions = fileExtensions.size() > 1;
+		
+		XMLElement parentOfFileExtensionTest = multipleFileExtensions ? adapt.createChild("or") : adapt;
+		
+		for (String fileExtension : fileExtensions) {
+			XMLElement fileExtensionTest = parentOfFileExtensionTest.createChild("test");
+			fileExtensionTest.setAttribute("property", "org.eclipse.core.resources.extension");
+			fileExtensionTest.setAttribute("value", fileExtension);
+		}
+		
+//		XMLElement test = iterate.createChild("test");
+//		test.setAttribute("property", baseId + ".isLaunchable");
 
 		XMLElement configurationType = shortCut.createChild("configurationType");
 		configurationType.setAttribute("id", context.getLaunchConfigurationTypeID());
