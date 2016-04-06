@@ -76,7 +76,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 			"@param resource The resource to scan",
 			"@param colorManager A manager to obtain color objects");
 		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " resource, " + colorManagerClassName + " colorManager) {");
-		sc.add("this(resource, colorManager, " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
+		sc.add("this(resource, colorManager, (" + uiPluginActivatorClassName + ".getDefault() == null ? null : " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore()));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
