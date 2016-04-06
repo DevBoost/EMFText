@@ -52,6 +52,7 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 		
 		addFields(sc);
 		addConstructor(sc);
+		addConstructorWithPrefernceStore(sc);
 		addMethods(sc);
 		
 		sc.add("}");
@@ -71,18 +72,27 @@ public class TokenScannerGenerator extends UIJavaBaseGenerator<ArtifactParameter
 	
 	private void addConstructor(JavaComposite sc) {
 		sc.addJavadoc(
-			"Creates a new " + getResourceClassName() + ".",
+			"Creates a new " + getResourceClassName() + ". Uses the preference store belonging to the corresponding " + uiPluginActivatorClassName + ".",
 			"@param resource The resource to scan",
 			"@param colorManager A manager to obtain color objects");
 		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " resource, " + colorManagerClassName + " colorManager) {");
+		sc.add("this(resource, colorManager, " + uiPluginActivatorClassName + ".getDefault().getPreferenceStore());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addConstructorWithPrefernceStore(JavaComposite sc) {
+		sc.addJavadoc(
+			"Creates a new " + getResourceClassName() + ".",
+			"@param resource The resource to scan",
+			"@param colorManager A manager to obtain color objects",
+			"@param preferenceStore The preference store to retrieve the defined token colors");
+		sc.add("public " + getResourceClassName() + "(" + iTextResourceClassName + " resource, " + colorManagerClassName + " colorManager, " + I_PREFERENCE_STORE(sc) + " preferenceStore) {");
 		sc.add("this.resource = resource;");
 		sc.add("this.colorManager = colorManager;");
 		sc.add("this.lexer = new " + metaInformationClassName + "().createLexer();");
 		sc.add("this.languageId = new " + metaInformationClassName + "().getSyntaxName();");
-		sc.add(uiPluginActivatorClassName + " plugin = " + uiPluginActivatorClassName + ".getDefault();");
-		sc.add("if (plugin != null) {");
-		sc.add("this.store = plugin.getPreferenceStore();");
-		sc.add("}");
+		sc.add("this.store = preferenceStore;");
 		sc.add("this.nextTokens = new " + ARRAY_LIST(sc) + "<" + iTextTokenClassName + ">();");
 		sc.add("}");
 		sc.addLineBreak();
