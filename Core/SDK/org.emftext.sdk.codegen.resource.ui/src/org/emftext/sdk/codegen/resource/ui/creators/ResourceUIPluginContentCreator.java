@@ -159,6 +159,7 @@ public class ResourceUIPluginContentCreator extends AbstractPluginCreator<Object
 	    add(creators, TextResourceUIArtifacts.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	    add(creators, TextResourceUIArtifacts.EDITOR_CONFIGURATION);
 	    add(creators, TextResourceUIArtifacts.SOURCE_VIEWER_CONFIGURATION);
+	    add(creators, TextResourceUIArtifacts.DAMAGER_REPAIRER);
 	    add(creators, TextResourceUIArtifacts.EDITING_DOMAIN_PROVIDER);
 	    add(creators, TextResourceUIArtifacts.EDITOR);
 	    add(creators, TextResourceUIArtifacts.E_OBJECT_SELECTION);

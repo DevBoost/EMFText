@@ -98,7 +98,9 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 	protected String adapterFactoryClassName;
 	protected String outlinePageAutoExpandActionClassName;
 	protected String sourceViewerConfigurationClassName;
+	protected String damagerRepairerClassName;
 	protected String uiAntlrTokenHelperClassName;
+
 
 	@Override
 	protected void initilizeClassNames() {
@@ -183,5 +185,6 @@ public abstract class UIResourceBaseGenerator<ParameterType extends IArtifactPar
 		adapterFactoryClassName = context.getQualifiedClassName(TextResourceUIArtifacts.ADAPTER_FACTORY);
 		
 		sourceViewerConfigurationClassName = context.getQualifiedClassName(TextResourceUIArtifacts.SOURCE_VIEWER_CONFIGURATION);
+		damagerRepairerClassName = context.getQualifiedClassName(TextResourceUIArtifacts.DAMAGER_REPAIRER);
 	}
 }

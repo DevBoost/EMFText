@@ -48,6 +48,7 @@ import org.emftext.sdk.codegen.resource.ui.generators.ui.ColorManagerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.CompletionProcessorGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.CompletionProposalGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.ContentAssistPreferencePageGenerator;
+import org.emftext.sdk.codegen.resource.ui.generators.ui.DamagerRepairerGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DefaultHoverTextProviderGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.DocBrowserInformationControlInputGenerator;
 import org.emftext.sdk.codegen.resource.ui.generators.ui.EObjectSelectionGenerator;
@@ -160,6 +161,7 @@ public class TextResourceUIArtifacts {
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OUTLINE_PAGE_ACTION_PROVIDER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "OutlinePageActionProvider", OutlinePageActionProviderGenerator.class, OptionTypes.OVERRIDE_OUTLINE_PAGE_ACTION_PROVIDER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> OUTLINE_PAGE_TREE_VIEWER_COMPARATOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "OutlinePageTreeViewerComparator", OutlinePageTreeViewerComparatorGenerator.class, OptionTypes.OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_COMPARATOR);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> SOURCE_VIEWER_CONFIGURATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "SourceViewerConfiguration", SourceViewerConfigurationGenerator.class, OptionTypes.OVERRIDE_SOURCE_VIEWER_CONFIGURATION);
+	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DAMAGER_REPAIRER = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DamagerRepairer", DamagerRepairerGenerator.class, OptionTypes.OVERRIDE_DAMAGER_REPAIRER);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> EDITOR_CONFIGURATION = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "EditorConfiguration", EditorConfigurationGenerator.class, OptionTypes.OVERRIDE_EDITOR_CONFIGURATION);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> DOC_BROWSER_INFORMATION_CONTROL_INPUT = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "DocBrowserInformationControlInput", DocBrowserInformationControlInputGenerator.class, OptionTypes.OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	public final static ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>> COMPLETION_PROCESSOR = new ArtifactDescriptor<GenerationContext, ArtifactParameter<GenerationContext>>(UI_PACKAGE, "", "CompletionProcessor", CompletionProcessorGenerator.class, OptionTypes.OVERRIDE_COMPLETION_PROCESSOR);
