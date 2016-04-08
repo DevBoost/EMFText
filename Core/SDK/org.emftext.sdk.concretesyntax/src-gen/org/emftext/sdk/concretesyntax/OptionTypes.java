@@ -2536,7 +2536,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_FOLLOW_SET_GROUP(315, "OVERRIDE_FOLLOW_SET_GROUP", "overrideFollowSetGroup");
+	OVERRIDE_FOLLOW_SET_GROUP(315, "OVERRIDE_FOLLOW_SET_GROUP", "overrideFollowSetGroup"), /**
+	 * The '<em><b>OVERRIDE DAMAGER REPAIRER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DAMAGER_REPAIRER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DAMAGER_REPAIRER(316, "OVERRIDE_DAMAGER_REPAIRER", "overrideDamagerRepairer");
 
 /**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -6616,6 +6624,20 @@ public enum OptionTypes implements Enumerator {
 	 */
 	public static final int OVERRIDE_FOLLOW_SET_GROUP_VALUE = 315;
 /**
+	 * The '<em><b>OVERRIDE DAMAGER REPAIRER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DAMAGER REPAIRER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DAMAGER_REPAIRER
+	 * @model literal="overrideDamagerRepairer"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DAMAGER_REPAIRER_VALUE = 316;
+/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6936,6 +6958,7 @@ public enum OptionTypes implements Enumerator {
 			CASE_INSENSITIVE_KEYWORDS,
 			OVERRIDE_FOLLOW_SET_GROUP_LIST,
 			OVERRIDE_FOLLOW_SET_GROUP,
+			OVERRIDE_DAMAGER_REPAIRER,
 		};
 /**
 	 * A public read-only list of all the '<em><b>Option Types</b></em>' enumerators.
@@ -6949,6 +6972,8 @@ public enum OptionTypes implements Enumerator {
 	 * Returns the '<em><b>Option Types</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static OptionTypes get(String literal) {
@@ -6965,6 +6990,8 @@ public enum OptionTypes implements Enumerator {
 	 * Returns the '<em><b>Option Types</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static OptionTypes getByName(String name) {
@@ -6981,6 +7008,8 @@ public enum OptionTypes implements Enumerator {
 	 * Returns the '<em><b>Option Types</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static OptionTypes get(int value) {
@@ -7296,6 +7325,7 @@ public enum OptionTypes implements Enumerator {
 			case CASE_INSENSITIVE_KEYWORDS_VALUE: return CASE_INSENSITIVE_KEYWORDS;
 			case OVERRIDE_FOLLOW_SET_GROUP_LIST_VALUE: return OVERRIDE_FOLLOW_SET_GROUP_LIST;
 			case OVERRIDE_FOLLOW_SET_GROUP_VALUE: return OVERRIDE_FOLLOW_SET_GROUP;
+			case OVERRIDE_DAMAGER_REPAIRER_VALUE: return OVERRIDE_DAMAGER_REPAIRER;
 		}
 		return null;
 	}

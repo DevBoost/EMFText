@@ -328,6 +328,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/CASE_INSENSITIVE_KEYWORDS"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_FOLLOW_SET_GROUP_LIST"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_FOLLOW_SET_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_DAMAGER_REPAIRER"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>

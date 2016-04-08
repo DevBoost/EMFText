@@ -710,6 +710,8 @@ OptionTypes.OVERRIDE_FOLLOW_SET_GROUP : "If set to <code>false</code>, the Follo
 
 OptionTypes.OVERRIDE_FOLLOW_SET_GROUP_LIST : "If set to <code>false</code>, the FollowSetGroupList class will not be overridden. The default value for this option is <code>true</code>."
 
+OptionTypes.OVERRIDE_DAMAGER_REPAIRER : "If set to <code>false</code>, the DamagerRepairer class will not be overridden. It can be customized when syntax coloring is intended to be optimized. The default is <code>true</code>."
+
 Annotation.getValue : "Returns the annotation value for the given key."
 
 GenClassCache.getQualifiedInterfaceName : "Return the qualified name of the interface for the given GenClass."
