@@ -6631,6 +6631,9 @@ public enum OptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If set to <code>false</code>, the DamagerRepairer class will not be overridden. It can be customized when syntax coloring is intended to be optimized. The default is <code>true</code>.
+	 * <!-- end-model-doc -->
 	 * @see #OVERRIDE_DAMAGER_REPAIRER
 	 * @model literal="overrideDamagerRepairer"
 	 * @generated
