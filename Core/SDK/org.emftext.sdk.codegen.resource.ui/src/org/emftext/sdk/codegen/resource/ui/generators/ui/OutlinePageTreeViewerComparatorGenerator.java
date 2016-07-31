@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006-2014
+ * Copyright (c) 2006-2016
  * Software Technology Group, Dresden University of Technology
  * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
  * 
@@ -33,6 +33,7 @@ import de.devboost.codecomposers.java.JavaComposite;
 
 public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerator<ArtifactParameter<GenerationContext>> {
 
+	@Override
 	public void generateJavaContents(JavaComposite sc) {
 		
 		sc.add("package " + getResourcePackageName() + ";");sc.addLineBreak();sc.addImportsPlaceholder();
@@ -119,7 +120,7 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 	}
 
 	private void addGetComparatorMethod(JavaComposite sc) {
-		sc.add("public " + COMPARATOR(sc) + "<?> getComparator() {");
+		sc.add("public " + COMPARATOR(sc) + "<? super String> getComparator() {");
 		sc.add("return this.comparator;");
 		sc.add("}");
 		sc.addLineBreak();
