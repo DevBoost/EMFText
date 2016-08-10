@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyright (c) 2006-2016
  * Software Technology Group, Dresden University of Technology
- * DevBoost GmbH, Berlin, Amtsgericht Charlottenburg, HRB 140026
+ * DevBoost GmbH, Dresden, Amtsgericht Dresden, HRB 34001
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
