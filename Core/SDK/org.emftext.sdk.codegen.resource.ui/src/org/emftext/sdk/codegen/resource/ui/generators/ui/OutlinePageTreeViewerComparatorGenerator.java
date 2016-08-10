@@ -10,7 +10,7 @@
  * 
  * Contributors:
  *   Software Technology Group - TU Dresden, Germany;
- *   DevBoost GmbH - Berlin, Germany
+ *   DevBoost GmbH - Dresden, Germany
  *      - initial API and implementation
  ******************************************************************************/
 package org.emftext.sdk.codegen.resource.ui.generators.ui;
@@ -41,6 +41,12 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 		
 		sc.add("public class " + getResourceClassName() + " extends " + VIEWER_COMPARATOR(sc) + " {");
 		sc.addLineBreak();
+		addFields(sc);
+		addMethods(sc);
+		sc.add("}");
+	}
+
+	private void addFields(JavaComposite sc) {
 		sc.add("private static " + MAP(sc) + "<" + E_PACKAGE(sc) + ", Integer> ePackageMap = new " + LINKED_HASH_MAP(sc) + "<" + E_PACKAGE(sc) + ", Integer>();");
 		sc.add("private static int nextPackageID;");
 		sc.addLineBreak();
@@ -61,8 +67,6 @@ public class OutlinePageTreeViewerComparatorGenerator extends UIJavaBaseGenerato
 		sc.add("private boolean groupTypes;");
 		sc.add("private boolean sortLexically;");
 		sc.addLineBreak();
-		addMethods(sc);
-		sc.add("}");
 	}
 
 	private void addMethods(JavaComposite sc) {
