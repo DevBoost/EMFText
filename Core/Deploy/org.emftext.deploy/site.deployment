@@ -1,6 +1,6 @@
 site/snapshot = false
 
 site/vendor = DevBoost GmbH
-site/uploadPath = update.emftext.org:/home/jenkins/emftext/trunk
+site/uploadPath = update.emftext.org:/home/jenkins/public/emftext/trunk
 site/usernameProperty = DEVBOOST_UPLOAD_USER
 site/passwordProperty = DEVBOOST_UPLOAD_PASS
